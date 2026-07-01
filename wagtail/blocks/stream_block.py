@@ -164,7 +164,13 @@ class BaseStreamBlock(Block):
     def defer_required_validation(self):
         super().defer_required_validation()
         for child_block in self.child_blocks.values():
-            child_block.defer_required_validation()
+            # A block may be reachable via multiple paths in the tree (e.g.
+            # a StructBlock subclass declares child blocks at class level
+            # and is used as more than one StreamBlock child type). Skip
+            # blocks that are already deferred to avoid clobbering the
+            # state captured on the first visit.
+            if not child_block.is_deferred_validation:
+                child_block.defer_required_validation()
 
     def clean(self, value):
         required = self.required and not self.is_deferred_validation
@@ -240,7 +246,8 @@ class BaseStreamBlock(Block):
 
     def restore_deferred_validation(self):
         for child_block in self.child_blocks.values():
-            child_block.restore_deferred_validation()
+            if child_block.is_deferred_validation:
+                child_block.restore_deferred_validation()
         super().restore_deferred_validation()
 
     def to_python(self, value):
@@ -392,7 +399,7 @@ class BaseStreamBlock(Block):
     def render_basic(self, value, context=None):
         return format_html_join(
             "\n",
-            '<div class="block-{1}">{0}</div>',
+            '<div class="w-block-{1} block-{1}">{0}</div>',
             [(child.render(context=context), child.block_type) for child in value],
         )
 

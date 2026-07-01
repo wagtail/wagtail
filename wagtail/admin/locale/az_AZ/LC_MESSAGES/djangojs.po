@@ -1,4 +1,3 @@
-#
 # Translators:
 # Mirza Iskandarov <mirza.iskandarov@gmail.com>, 2026
 #

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,36 +35,36 @@ msgstr ""
 msgid "Resubmit to %(task_name)s"
 msgstr ""
 
-#: action_menu.py:135
+#: action_menu.py:138
 #, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr ""
 
-#: action_menu.py:166
+#: action_menu.py:169
 msgid "Restart workflow "
 msgstr ""
 
-#: action_menu.py:188
+#: action_menu.py:191
 msgid "Cancel workflow "
 msgstr ""
 
-#: action_menu.py:202
+#: action_menu.py:205
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html:11
-#: views/generic/models.py:1506 views/pages/bulk_actions/unpublish.py:8
-#: wagtail_hooks.py:326
+#: views/generic/models.py:1539 views/pages/bulk_actions/unpublish.py:8
+#: wagtail_hooks.py:332
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:217
+#: action_menu.py:220
 msgid "Save Draft"
 msgstr ""
 
-#: action_menu.py:228
+#: action_menu.py:231
 #: templates/wagtailadmin/pages/action_menu/page_locked.html:4
 msgid "Page locked"
 msgstr ""
 
-#: action_menu.py:300
+#: action_menu.py:303
 #, python-format
 msgid "%(label)s and Publish"
 msgstr ""
@@ -205,8 +205,8 @@ msgstr ""
 msgid "Search term"
 msgstr ""
 
-#: forms/choosers.py:75 templatetags/wagtailadmin_tags.py:1364
-#: views/generic/chooser.py:388 views/pages/search.py:57 viewsets/chooser.py:80
+#: forms/choosers.py:75 templatetags/wagtailadmin_tags.py:1369
+#: views/generic/chooser.py:388 views/pages/search.py:58 viewsets/chooser.py:80
 msgid "Search"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 
-#: forms/collections.py:371 views/generic/models.py:428
+#: forms/collections.py:371 views/generic/models.py:444
 msgid "Add"
 msgstr ""
 
@@ -247,13 +247,13 @@ msgstr ""
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:36
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:81
 #: views/generic/history.py:139 views/generic/history.py:273
-#: views/generic/history.py:354 views/generic/models.py:361
-#: views/generic/models.py:606 views/generic/models.py:1035
-#: views/generic/models.py:1279 views/generic/models.py:1369
-#: views/generic/models.py:1547 views/generic/models.py:1659
+#: views/generic/history.py:355 views/generic/models.py:377
+#: views/generic/models.py:628 views/generic/models.py:1058
+#: views/generic/models.py:1312 views/generic/models.py:1402
+#: views/generic/models.py:1580 views/generic/models.py:1692
 #: views/generic/usage.py:88 views/pages/copy.py:84 views/pages/create.py:210
-#: views/pages/edit.py:303 views/pages/move.py:130 views/workflows.py:252
-#: views/workflows.py:379 viewsets/chooser.py:30 wagtail_hooks.py:243
+#: views/pages/edit.py:304 views/pages/move.py:135 views/workflows.py:252
+#: views/workflows.py:379 viewsets/chooser.py:30 wagtail_hooks.py:249
 msgid "Edit"
 msgstr ""
 
@@ -268,9 +268,9 @@ msgstr ""
 #: templates/wagtailadmin/panels/inline_panel_child.html:12
 #: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:16
 #: templates/wagtailadmin/workflows/includes/workflow_pages_form.html:8
-#: views/generic/models.py:388 views/generic/models.py:783
-#: views/generic/models.py:1120 views/generic/models.py:1283
-#: views/pages/bulk_actions/delete.py:12 wagtail_hooks.py:298
+#: views/generic/models.py:404 views/generic/models.py:806
+#: views/generic/models.py:1153 views/generic/models.py:1316
+#: views/pages/bulk_actions/delete.py:12 wagtail_hooks.py:304
 msgid "Delete"
 msgstr ""
 
@@ -282,11 +282,11 @@ msgstr ""
 msgid "You cannot edit another user's comment."
 msgstr ""
 
-#: forms/models.py:232
+#: forms/models.py:249
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: forms/models.py:240
+#: forms/models.py:257
 msgid "Expiry date/time must be in the future."
 msgstr ""
 
@@ -444,111 +444,111 @@ msgstr ""
 msgid "task"
 msgstr ""
 
-#: localization.py:70
+#: localization.py:66
 msgid "1 page selected"
 msgstr ""
 
-#: localization.py:71
+#: localization.py:67
 #, python-format
 msgid "%(objects)s pages selected"
 msgstr ""
 
-#: localization.py:72
+#: localization.py:68
 #, python-format
 msgid "All %(objects)s pages on this screen selected"
 msgstr ""
 
-#: localization.py:73
+#: localization.py:69
 msgid "All pages in listing selected"
 msgstr ""
 
-#: localization.py:76
+#: localization.py:72
 msgid "1 document selected"
 msgstr ""
 
-#: localization.py:77
+#: localization.py:73
 #, python-format
 msgid "%(objects)s documents selected"
 msgstr ""
 
-#: localization.py:78
+#: localization.py:74
 #, python-format
 msgid "All %(objects)s documents on this screen selected"
 msgstr ""
 
-#: localization.py:79
+#: localization.py:75
 msgid "All documents in listing selected"
 msgstr ""
 
-#: localization.py:82
+#: localization.py:78
 msgid "1 image selected"
 msgstr ""
 
-#: localization.py:83
+#: localization.py:79
 #, python-format
 msgid "%(objects)s images selected"
 msgstr ""
 
-#: localization.py:84
+#: localization.py:80
 #, python-format
 msgid "All %(objects)s images on this screen selected"
 msgstr ""
 
-#: localization.py:85
+#: localization.py:81
 msgid "All images in listing selected"
 msgstr ""
 
-#: localization.py:88
+#: localization.py:84
 msgid "1 user selected"
 msgstr ""
 
-#: localization.py:89
+#: localization.py:85
 #, python-format
 msgid "%(objects)s users selected"
 msgstr ""
 
-#: localization.py:90
+#: localization.py:86
 #, python-format
 msgid "All %(objects)s users on this screen selected"
 msgstr ""
 
-#: localization.py:91
+#: localization.py:87
 msgid "All users in listing selected"
 msgstr ""
 
-#: localization.py:94
+#: localization.py:90
 msgid "1 snippet selected"
 msgstr ""
 
-#: localization.py:95
+#: localization.py:91
 #, python-format
 msgid "%(objects)s snippets selected"
 msgstr ""
 
-#: localization.py:96
+#: localization.py:92
 #, python-format
 msgid "All %(objects)s snippets on this screen selected"
 msgstr ""
 
-#: localization.py:97
+#: localization.py:93
 msgid "All snippets in listing selected"
 msgstr ""
 
-#: localization.py:100
+#: localization.py:96
 msgid "1 item selected"
 msgstr ""
 
-#: localization.py:101
+#: localization.py:97
 #, python-format
 msgid "%(objects)s items selected"
 msgstr ""
 
-#: localization.py:102
+#: localization.py:98
 #, python-format
 msgid "All %(objects)s items on this screen selected"
 msgstr ""
 
-#: localization.py:103
+#: localization.py:99
 msgid "All items in listing selected"
 msgstr ""
 
@@ -572,7 +572,7 @@ msgstr ""
 msgid "Promote"
 msgstr ""
 
-#: panels/page_utils.py:30 wagtail_hooks.py:126
+#: panels/page_utils.py:30 wagtail_hooks.py:132
 msgid "Settings"
 msgstr ""
 
@@ -583,7 +583,7 @@ msgstr ""
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:14
 #: templates/wagtailadmin/reports/aging_pages_results.html:9
 #: templates/wagtailadmin/reports/listing/_list_page_report.html:12
-#: views/chooser.py:185 views/chooser.py:413 views/generic/base.py:192
+#: views/chooser.py:185 views/chooser.py:413 views/generic/base.py:200
 #: views/generic/chooser.py:229 views/generic/chooser.py:236
 #: views/pages/listing.py:139
 msgid "Title"
@@ -905,7 +905,7 @@ msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr ""
 
 #: templates/wagtailadmin/generic/chooser/results.html:31
-#: views/generic/base.py:443
+#: views/generic/base.py:452
 msgid "There are no results."
 msgstr ""
 
@@ -965,24 +965,26 @@ msgstr ""
 
 #: templates/wagtailadmin/generic/confirm_workflow_cancellation.html:30
 #: templates/wagtailadmin/pages/confirm_workflow_cancellation.html:19
-#: templates/wagtailadmin/shared/editing_sessions/module.html:6
 msgid "Cancel"
 msgstr ""
 
-#. Translators: Shortcuts for admin actions that can be taken while working on core models
 #: templates/wagtailadmin/generic/form.html:67
+msgid "Actions (footer)"
+msgstr ""
+
+#: templates/wagtailadmin/generic/history/action_cell.html:15
+msgid "Comment"
+msgstr ""
+
+#. Translators: Shortcuts for admin actions that can be taken while working on core models
 #: templates/wagtailadmin/generic/history/action_cell.html:20
 #: templates/wagtailadmin/home/locked_pages.html:47
 #: templates/wagtailadmin/home/recent_edits.html:50
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:76
 #: templates/wagtailadmin/pages/listing/_page_header_buttons.html:3
 #: templates/wagtailadmin/widgets/chooser.html:20
-#: templatetags/wagtailadmin_tags.py:1370 views/generic/base.py:85
+#: templatetags/wagtailadmin_tags.py:1375 views/generic/base.py:86
 msgid "Actions"
-msgstr ""
-
-#: templates/wagtailadmin/generic/history/action_cell.html:15
-msgid "Comment"
 msgstr ""
 
 #: templates/wagtailadmin/generic/index_results.html:14
@@ -1040,7 +1042,7 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailadmin/home/account_summary.html:9
-#: templatetags/wagtailadmin_tags.py:888 views/account.py:232
+#: templatetags/wagtailadmin_tags.py:893 views/account.py:232
 msgid "Account"
 msgstr ""
 
@@ -1094,7 +1096,7 @@ msgstr ""
 
 #: templates/wagtailadmin/home/locked_pages.html:55
 #: templates/wagtailadmin/reports/listing/_list_unlock.html:42
-#: views/generic/mixins.py:741 views/pages/edit.py:439
+#: views/generic/mixins.py:741 views/pages/edit.py:440
 msgid "Unlock"
 msgstr ""
 
@@ -1110,7 +1112,7 @@ msgstr ""
 #: templates/wagtailadmin/shared/page_status_tag_new.html:14
 #: templates/wagtailadmin/shared/side_panels/includes/status/workflow.html:18
 #: templates/wagtailadmin/shared/side_panels/includes/status/workflow.html:88
-#: views/generic/models.py:1439
+#: views/generic/models.py:1472
 msgid "Live"
 msgstr ""
 
@@ -1211,14 +1213,14 @@ msgstr ""
 
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:84
 #: templates/wagtailadmin/shared/side_panels/preview.html:94
-#: templatetags/wagtailadmin_tags.py:1372 ui/side_panels.py:359
+#: templatetags/wagtailadmin_tags.py:1377 ui/side_panels.py:359
 #: views/generic/history.py:133
 msgid "Preview"
 msgstr ""
 
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:87
 #: templates/wagtailadmin/workflows/workflow_status.html:67
-#: views/pages/edit.py:321
+#: views/pages/edit.py:322
 msgid "Compare with live version"
 msgstr ""
 
@@ -1612,7 +1614,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/action_menu/save_draft.html:9
 #: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:28
 #: templates/wagtailadmin/shared/autosave/indicator.html:21
-#: views/generic/models.py:787
+#: views/generic/models.py:810
 msgid "Saving…"
 msgstr ""
 
@@ -1641,7 +1643,7 @@ msgstr ""
 msgid "Sorry, you cannot create a page at this location."
 msgstr ""
 
-#: templates/wagtailadmin/pages/add_subpage.html:33
+#: templates/wagtailadmin/pages/add_subpage.html:37
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr ""
@@ -1680,7 +1682,7 @@ msgstr[1] ""
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_move.html:11
 #: templates/wagtailadmin/pages/confirm_move.html:5
 #: templates/wagtailadmin/pages/move_choose_destination.html:5
-#: views/pages/bulk_actions/move.py:31 wagtail_hooks.py:280
+#: views/pages/bulk_actions/move.py:31 wagtail_hooks.py:286
 msgid "Move"
 msgstr ""
 
@@ -2012,8 +2014,8 @@ msgid "Copy %(title)s"
 msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:5
-#: templatetags/wagtailadmin_tags.py:1379 views/generic/models.py:370
-#: views/generic/models.py:902 wagtail_hooks.py:289
+#: templatetags/wagtailadmin_tags.py:1384 views/generic/models.py:386
+#: views/generic/models.py:925 wagtail_hooks.py:295
 msgid "Copy"
 msgstr ""
 
@@ -2095,7 +2097,9 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_page_title_column_header.html:7
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_page_title_column_header.html:11
@@ -2110,8 +2114,8 @@ msgstr ""
 #: templates/wagtailadmin/pages/listing/_page_title_column_header.html:20
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_page_title_column_header.html:24
@@ -2125,7 +2129,7 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_page_title_column_header.html:32
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:8
@@ -2158,11 +2162,6 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/move_choose_destination.html:15
 msgid "Confirm"
-msgstr ""
-
-#: templates/wagtailadmin/pages/page_listing_header.html:12
-#: wagtail_hooks.py:271
-msgid "Add child page"
 msgstr ""
 
 #: templates/wagtailadmin/pages/search_results.html:10
@@ -2260,7 +2259,7 @@ msgstr ""
 #: views/pages/listing.py:152 views/reports/aging_pages.py:22
 #: views/reports/aging_pages.py:42 views/reports/audit_logging.py:56
 #: views/reports/audit_logging.py:86 views/reports/base.py:44
-#: views/workflows.py:558 views/workflows.py:589
+#: views/workflows.py:559 views/workflows.py:590
 msgid "Type"
 msgstr ""
 
@@ -2283,7 +2282,7 @@ msgid "App"
 msgstr ""
 
 #: templates/wagtailadmin/reports/listing/_list_page_types_usage.html:19
-#: wagtail_hooks.py:103 wagtail_hooks.py:144
+#: wagtail_hooks.py:109 wagtail_hooks.py:150
 msgid "Pages"
 msgstr ""
 
@@ -2328,10 +2327,10 @@ msgstr ""
 
 #: templates/wagtailadmin/reports/site_history_results.html:9
 #: templates/wagtailadmin/workflows/task_chooser/includes/results.html:21
-#: views/account.py:152 views/collections.py:27 views/generic/models.py:220
+#: views/account.py:152 views/collections.py:27 views/generic/models.py:222
 #: views/generic/usage.py:103 views/reports/audit_logging.py:54
 #: views/reports/audit_logging.py:85 views/workflows.py:130
-#: views/workflows.py:585
+#: views/workflows.py:586
 msgid "Name"
 msgstr ""
 
@@ -2446,41 +2445,45 @@ msgstr ""
 msgid "Close dialog"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:20
+#: templates/wagtailadmin/shared/editing_sessions/list.html:21
 #: templates/wagtailadmin/shared/editing_sessions/list.html:110
 msgid "You saved a new version in another window"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:24
-#: templates/wagtailadmin/shared/editing_sessions/list.html:54
-#: templates/wagtailadmin/shared/editing_sessions/list.html:71
+#: templates/wagtailadmin/shared/editing_sessions/list.html:25
+#: templates/wagtailadmin/shared/editing_sessions/list.html:48
+#: templates/wagtailadmin/shared/editing_sessions/list.html:65
 #: templates/wagtailadmin/shared/editing_sessions/list.html:98
 #: templates/wagtailadmin/shared/editing_sessions/list.html:114
 #: templates/wagtailadmin/shared/editing_sessions/list.html:127
 msgid "System"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:24
+#: templates/wagtailadmin/shared/editing_sessions/list.html:25
 #: templates/wagtailadmin/shared/editing_sessions/list.html:114
 #, python-format
 msgid "%(user_name)s saved a new version"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:44
-#: templates/wagtailadmin/shared/side_panels/preview.html:58
-msgid "Refresh"
+#: templates/wagtailadmin/shared/editing_sessions/list.html:38
+#: templates/wagtailadmin/shared/editing_sessions/module.html:18
+msgid "View latest version"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:50
+#: templates/wagtailadmin/shared/editing_sessions/list.html:44
 msgid "You have unsaved changes in another window"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:54
+#: templates/wagtailadmin/shared/editing_sessions/list.html:48
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:73
+#: templates/wagtailadmin/shared/editing_sessions/list.html:69
+msgid "Currently idle"
+msgstr ""
+
+#: templates/wagtailadmin/shared/editing_sessions/list.html:71
 msgid "Currently viewing"
 msgstr ""
 
@@ -2492,34 +2495,30 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:123
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
+msgid "Proceeding will overwrite the changes you made in that window."
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:127
 #, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr ""
+
+#: templates/wagtailadmin/shared/editing_sessions/list.html:133
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr ""
+
+#: templates/wagtailadmin/shared/editing_sessions/module.html:8
+msgid "A network error occurred"
+msgstr ""
+
+#: templates/wagtailadmin/shared/editing_sessions/module.html:11
 msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-
-#: templates/wagtailadmin/shared/editing_sessions/module.html:3
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-
-#: templates/wagtailadmin/shared/editing_sessions/module.html:5
-msgid "Refresh page"
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/module.html:17
 msgid "Continue"
-msgstr ""
-
-#: templates/wagtailadmin/shared/editing_sessions/module.html:18
-msgid "Refresh the page"
 msgstr ""
 
 #: templates/wagtailadmin/shared/export_buttons.html:11 views/mixins.py:320
@@ -2557,7 +2556,7 @@ msgstr ""
 #: templates/wagtailadmin/shared/headers/_history_icon_link.html:5
 #: templates/wagtailadmin/shared/headers/_history_icon_link.html:7
 #: views/generic/history.py:201 views/generic/history.py:263
-#: views/generic/models.py:1370 wagtail_hooks.py:335
+#: views/generic/models.py:1403 wagtail_hooks.py:341
 msgid "History"
 msgstr ""
 
@@ -2642,7 +2641,7 @@ msgid "Other searches"
 msgstr ""
 
 #: templates/wagtailadmin/shared/set_privacy.html:14
-#: views/generic/models.py:786
+#: views/generic/models.py:809
 msgid "Save"
 msgstr ""
 
@@ -2663,7 +2662,8 @@ msgid "Side panel width"
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:14
-#: templates/wagtailadmin/userbar/item_accessibility.html:27
+#: templates/wagtailadmin/userbar/base.html:54
+#: templates/wagtailadmin/userbar/item_content_checker.html:27
 msgid "Show issue"
 msgstr ""
 
@@ -2721,8 +2721,8 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:75
-#: templates/wagtailadmin/userbar/item_accessibility.html:6
-#: templates/wagtailadmin/userbar/item_accessibility.html:12
+#: templates/wagtailadmin/userbar/item_content_checker.html:6
+#: templates/wagtailadmin/userbar/item_content_checker.html:12
 msgid "Issues found"
 msgstr ""
 
@@ -2873,6 +2873,10 @@ msgstr ""
 msgid "Refreshing…"
 msgstr ""
 
+#: templates/wagtailadmin/shared/side_panels/preview.html:58
+msgid "Refresh"
+msgstr ""
+
 #: templates/wagtailadmin/shared/side_panels/preview.html:69
 msgid "Preview is out of date"
 msgstr ""
@@ -3019,16 +3023,16 @@ msgstr ""
 msgid "Enable custom ordering"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/base.html:33
+#: templates/wagtailadmin/userbar/base.html:36
 msgid "View Wagtail quick actions"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/item_accessibility.html:7
+#: templates/wagtailadmin/userbar/item_content_checker.html:7
 #: ui/side_panels.py:331
 msgid "Checks"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/item_accessibility.html:10
+#: templates/wagtailadmin/userbar/item_content_checker.html:10
 msgid "Warnings"
 msgstr ""
 
@@ -3051,7 +3055,7 @@ msgstr ""
 #: templates/wagtailadmin/workflows/confirm_delete.html:14
 #: templates/wagtailadmin/workflows/confirm_disable.html:12
 #: templates/wagtailadmin/workflows/confirm_disable_task.html:12
-#: views/pages/listing.py:108 views/workflows.py:88
+#: views/pages/listing.py:110 views/workflows.py:88
 #: widgets/boolean_radio_select.py:16
 msgid "No"
 msgstr ""
@@ -3175,7 +3179,7 @@ msgid "Choose a task"
 msgstr ""
 
 #: templates/wagtailadmin/workflows/task_chooser/chooser.html:8
-#: views/generic/models.py:491 views/pages/create.py:79
+#: views/generic/models.py:513 views/pages/create.py:79
 msgid "New"
 msgstr ""
 
@@ -3188,12 +3192,12 @@ msgid "Choose a different task type"
 msgstr ""
 
 #: templates/wagtailadmin/workflows/task_chooser/includes/create_form.html:27
-#: views/generic/models.py:498
+#: views/generic/models.py:520
 msgid "Creating…"
 msgstr ""
 
 #: templates/wagtailadmin/workflows/task_chooser/includes/create_form.html:30
-#: views/generic/chooser.py:319 views/generic/models.py:497
+#: views/generic/chooser.py:319 views/generic/models.py:519
 #: viewsets/chooser.py:82
 msgid "Create"
 msgstr ""
@@ -3203,7 +3207,7 @@ msgid "Task type"
 msgstr ""
 
 #: templates/wagtailadmin/workflows/task_chooser/includes/results.html:31
-#: views/workflows.py:591
+#: views/workflows.py:592
 msgid "Used on"
 msgstr ""
 
@@ -3265,154 +3269,154 @@ msgstr ""
 msgid "See full history"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:527
+#: templatetags/wagtailadmin_tags.py:532
 msgid "More"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:528
+#: templatetags/wagtailadmin_tags.py:533
 msgid "More bulk actions"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:777
+#: templatetags/wagtailadmin_tags.py:782
 msgid "0 minutes"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:778
+#: templatetags/wagtailadmin_tags.py:783
 msgid "just now"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:779 templatetags/wagtailadmin_tags.py:842
+#: templatetags/wagtailadmin_tags.py:784 templatetags/wagtailadmin_tags.py:847
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:816
+#: templatetags/wagtailadmin_tags.py:821
 #, python-format
 msgid "at %(time)s by %(user_display_name)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:821
+#: templatetags/wagtailadmin_tags.py:826
 #, python-format
 msgid "at %(time)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:824
+#: templatetags/wagtailadmin_tags.py:829
 #, python-format
 msgid "%(time)s by %(user_display_name)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:837
+#: templatetags/wagtailadmin_tags.py:842
 #, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:891
+#: templatetags/wagtailadmin_tags.py:896
 msgid "Log out"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1325
+#: templatetags/wagtailadmin_tags.py:1330
 #, python-format
 msgid "Changes requested %(finished_at)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1328
+#: templatetags/wagtailadmin_tags.py:1333
 #, python-format
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1330
+#: templatetags/wagtailadmin_tags.py:1335
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr ""
 
 #. Translators: Shortcuts for admin common shortcuts that are available across the admin
-#: templatetags/wagtailadmin_tags.py:1362
+#: templatetags/wagtailadmin_tags.py:1367
 msgid "Application"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1363
+#: templatetags/wagtailadmin_tags.py:1368
 msgid "Show keyboard shortcuts"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1365
+#: templatetags/wagtailadmin_tags.py:1370
 msgid "Toggle sidebar"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1366
+#: templatetags/wagtailadmin_tags.py:1371
 msgid "Toggle minimap"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1367
+#: templatetags/wagtailadmin_tags.py:1372
 msgid "Close modal dialogs (like this one)"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1371
+#: templatetags/wagtailadmin_tags.py:1376
 msgid "Save changes"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1373
+#: templatetags/wagtailadmin_tags.py:1378
 msgid "Add or show comments"
 msgstr ""
 
 #. Translators: Shortcuts for common text editing features available in all fields (even if not a rich text field)
-#: templatetags/wagtailadmin_tags.py:1378
+#: templatetags/wagtailadmin_tags.py:1383
 msgid "Text editing"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1380
+#: templatetags/wagtailadmin_tags.py:1385
 msgid "Cut"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1381
+#: templatetags/wagtailadmin_tags.py:1386
 msgid "Paste"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1383
+#: templatetags/wagtailadmin_tags.py:1388
 msgid "Paste and match style"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1385
+#: templatetags/wagtailadmin_tags.py:1390
 msgid "Paste without formatting"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1388
+#: templatetags/wagtailadmin_tags.py:1393
 msgid "Undo"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1390
+#: templatetags/wagtailadmin_tags.py:1395
 msgid "Redo"
 msgstr ""
 
 #. Translators: Shortcuts for formatting & editing features available in rich text fields
-#: templatetags/wagtailadmin_tags.py:1395
+#: templatetags/wagtailadmin_tags.py:1400
 msgid "Text formatting"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1396
+#: templatetags/wagtailadmin_tags.py:1401
 msgid "Insert or edit a link"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1397 wagtail_hooks.py:666
+#: templatetags/wagtailadmin_tags.py:1402 wagtail_hooks.py:672
 msgid "Bold"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1398 wagtail_hooks.py:688
+#: templatetags/wagtailadmin_tags.py:1403 wagtail_hooks.py:694
 msgid "Italic"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1399
+#: templatetags/wagtailadmin_tags.py:1404
 msgid "Monospace (code)"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1400
+#: templatetags/wagtailadmin_tags.py:1405
 msgid "Strike-through"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1401 wagtail_hooks.py:758
+#: templatetags/wagtailadmin_tags.py:1406 wagtail_hooks.py:764
 msgid "Superscript"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1402 wagtail_hooks.py:779
+#: templatetags/wagtailadmin_tags.py:1407 wagtail_hooks.py:785
 msgid "Subscript"
 msgstr ""
 
@@ -3468,74 +3472,82 @@ msgid ""
 "press enter to submit the change."
 msgstr ""
 
-#: ui/tables/pages.py:128
+#: ui/tables/pages.py:133
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "ascending order."
 msgstr ""
 
-#: ui/tables/pages.py:132
+#: ui/tables/pages.py:137
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "descending order."
 msgstr ""
 
-#: userbar.py:105
+#: userbar.py:119
 msgid "Button text is empty"
 msgstr ""
 
-#: userbar.py:106 userbar.py:110 userbar.py:114 userbar.py:126 userbar.py:130
+#: userbar.py:120 userbar.py:124 userbar.py:128 userbar.py:140 userbar.py:144
 msgid "Use meaningful text for screen reader users"
 msgstr ""
 
-#: userbar.py:109
+#: userbar.py:123
 msgid "Empty heading found"
 msgstr ""
 
-#: userbar.py:113
+#: userbar.py:127
 msgid "Table header text is empty"
 msgstr ""
 
-#: userbar.py:117
+#: userbar.py:131
 msgid "Empty frame title found"
 msgstr ""
 
-#: userbar.py:118
+#: userbar.py:132
 msgid "Use a meaningful title for screen reader users"
 msgstr ""
 
-#: userbar.py:121
+#: userbar.py:135
 msgid "Incorrect heading hierarchy"
 msgstr ""
 
-#: userbar.py:122
+#: userbar.py:136
 msgid "Avoid skipping levels"
 msgstr ""
 
-#: userbar.py:125
+#: userbar.py:139
 msgid "Input button text is empty"
 msgstr ""
 
-#: userbar.py:129
+#: userbar.py:143
 msgid "Link text is empty"
 msgstr ""
 
-#: userbar.py:133
+#: userbar.py:147
 msgid "Misusing paragraphs as headings"
 msgstr ""
 
-#: userbar.py:134
+#: userbar.py:148
 msgid "Use proper heading tags"
 msgstr ""
 
-#: userbar.py:137
+#: userbar.py:151
 msgid "Image alt text has inappropriate pattern"
 msgstr ""
 
-#: userbar.py:138
+#: userbar.py:152
 msgid "Use meaningful text"
+msgstr ""
+
+#: userbar.py:155
+msgid "Meta description is empty"
+msgstr ""
+
+#: userbar.py:156
+msgid "Add a concise description for search engines"
 msgstr ""
 
 #: utils.py:43
@@ -3575,7 +3587,7 @@ msgstr ""
 msgid "You have been successfully logged out."
 msgstr ""
 
-#: views/collections.py:21 wagtail_hooks.py:175
+#: views/collections.py:21 wagtail_hooks.py:181
 msgid "Collections"
 msgstr ""
 
@@ -3618,12 +3630,12 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: views/generic/base.py:446
+#: views/generic/base.py:455
 #, python-format
 msgid "No %(model_name)s match your query."
 msgstr ""
 
-#: views/generic/base.py:450
+#: views/generic/base.py:459
 #, python-format
 msgid "There are no %(model_name)s to display."
 msgstr ""
@@ -3645,19 +3657,19 @@ msgid "Compare with current version"
 msgstr ""
 
 #: views/generic/history.py:173 views/generic/mixins.py:752
-#: views/pages/edit.py:453
+#: views/pages/edit.py:454
 msgid "Cancel scheduled publish"
 msgstr ""
 
-#: views/generic/history.py:336 views/generic/history.py:456
+#: views/generic/history.py:337 views/generic/history.py:457
 msgid "Workflow history"
 msgstr ""
 
-#: views/generic/history.py:415
+#: views/generic/history.py:416
 msgid "Workflow progress"
 msgstr ""
 
-#: views/generic/history.py:477
+#: views/generic/history.py:478
 msgid "Edit / Review"
 msgstr ""
 
@@ -3666,12 +3678,12 @@ msgstr ""
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr ""
 
-#: views/generic/mixins.py:458 views/generic/models.py:784
+#: views/generic/mixins.py:458 views/generic/models.py:807
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr ""
 
-#: views/generic/mixins.py:460 views/generic/models.py:493
+#: views/generic/mixins.py:460 views/generic/models.py:515
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr ""
@@ -3723,132 +3735,132 @@ msgstr ""
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr ""
 
-#: views/generic/mixins.py:860 views/pages/edit.py:543
+#: views/generic/mixins.py:865 views/pages/edit.py:544
 msgid "Saving will overwrite a newer version."
 msgstr ""
 
-#: views/generic/mixins.py:867
+#: views/generic/mixins.py:872
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr ""
 
-#: views/generic/mixins.py:906
+#: views/generic/mixins.py:911
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
 "<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 
-#: views/generic/mixins.py:940
+#: views/generic/mixins.py:945
 #, python-format
 msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
 msgstr ""
 
-#: views/generic/mixins.py:944
+#: views/generic/mixins.py:949
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
 msgstr ""
 
-#: views/generic/mixins.py:949
+#: views/generic/mixins.py:954
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
 "for publishing."
 msgstr ""
 
-#: views/generic/models.py:250
+#: views/generic/models.py:252
 #, python-format
 msgid "%(related_model_name)s %(field_label)s"
 msgstr ""
 
-#: views/generic/models.py:349
+#: views/generic/models.py:367
 msgid "Sort item order"
 msgstr ""
 
-#: views/generic/models.py:379 views/generic/models.py:920
-#: views/generic/models.py:1231
+#: views/generic/models.py:395 views/generic/models.py:943
+#: views/generic/models.py:1264
 msgid "Inspect"
 msgstr ""
 
-#: views/generic/models.py:415 wagtail_hooks.py:235
+#: views/generic/models.py:431 wagtail_hooks.py:241
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/generic/models.py:426
+#: views/generic/models.py:442
 #, python-format
 msgid "Add %(model_name)s"
 msgstr ""
 
-#: views/generic/models.py:495
+#: views/generic/models.py:517
 #, python-format
 msgid "The %(model_name)s could not be created due to errors."
 msgstr ""
 
-#: views/generic/models.py:560 views/workflows.py:706
+#: views/generic/models.py:582 views/workflows.py:707
 #, python-format
 msgid "New: %(model_name)s"
 msgstr ""
 
-#: views/generic/models.py:615 views/generic/models.py:1044
-#: views/pages/create.py:426 views/pages/edit.py:971
+#: views/generic/models.py:637 views/generic/models.py:1067
+#: views/pages/create.py:427 views/pages/edit.py:972
 msgid "There are validation errors, click save to highlight them."
 msgstr ""
 
-#: views/generic/models.py:778
+#: views/generic/models.py:801
 msgid "Editing"
 msgstr ""
 
-#: views/generic/models.py:785
+#: views/generic/models.py:808
 #, python-format
 msgid "The %(model_name)s could not be saved due to errors."
 msgstr ""
 
-#: views/generic/models.py:1121
+#: views/generic/models.py:1154
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
 
-#: views/generic/models.py:1186
+#: views/generic/models.py:1219
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr ""
 
-#: views/generic/models.py:1371
+#: views/generic/models.py:1404
 msgid "Compare"
 msgstr ""
 
-#: views/generic/models.py:1444
+#: views/generic/models.py:1477
 msgid "Earliest"
 msgstr ""
 
-#: views/generic/models.py:1447
+#: views/generic/models.py:1480
 msgid "Latest"
 msgstr ""
 
-#: views/generic/models.py:1507
+#: views/generic/models.py:1540
 #, python-format
 msgid "'%(object)s' unpublished."
 msgstr ""
 
-#: views/generic/models.py:1616
+#: views/generic/models.py:1649
 #, python-format
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr ""
 
-#: views/generic/models.py:1619
+#: views/generic/models.py:1652
 msgid "Unschedule"
 msgstr ""
 
-#: views/generic/models.py:1677
+#: views/generic/models.py:1710
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr ""
 
-#: views/generic/preview.py:200
+#: views/generic/preview.py:204
 #, python-format
 msgid "Preview for %(block_label)s (%(block_type)s)"
 msgstr ""
@@ -4005,11 +4017,11 @@ msgstr ""
 msgid "Request to create %(model_name)s was blocked by hook."
 msgstr ""
 
-#: views/pages/create.py:218 views/pages/edit.py:308 wagtail_hooks.py:252
+#: views/pages/create.py:218 views/pages/edit.py:309 wagtail_hooks.py:258
 msgid "View draft"
 msgstr ""
 
-#: views/pages/create.py:223 views/pages/edit.py:313 wagtail_hooks.py:262
+#: views/pages/create.py:223 views/pages/edit.py:314 wagtail_hooks.py:268
 msgid "View live"
 msgstr ""
 
@@ -4018,22 +4030,22 @@ msgstr ""
 msgid "Page '%(page_title)s' created."
 msgstr ""
 
-#: views/pages/create.py:344
+#: views/pages/create.py:345
 #, python-format
 msgid "Page '%(page_title)s' created and scheduled for publishing."
 msgstr ""
 
-#: views/pages/create.py:355
+#: views/pages/create.py:356
 #, python-format
 msgid "Page '%(page_title)s' created and published."
 msgstr ""
 
-#: views/pages/create.py:396
+#: views/pages/create.py:397
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 
-#: views/pages/create.py:431
+#: views/pages/create.py:432
 msgid "The page could not be created due to validation errors."
 msgstr ""
 
@@ -4042,77 +4054,77 @@ msgstr ""
 msgid "Page '%(page_title)s' deleted."
 msgstr ""
 
-#: views/pages/edit.py:57
+#: views/pages/edit.py:58
 #, python-format
 msgid "Editing %(page_type)s"
 msgstr ""
 
-#: views/pages/edit.py:75
+#: views/pages/edit.py:76
 #, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
 msgstr ""
 
-#: views/pages/edit.py:84
+#: views/pages/edit.py:85
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr ""
 
-#: views/pages/edit.py:385
+#: views/pages/edit.py:386
 #, python-format
 msgid "Request to edit %(model_name)s was blocked by hook."
 msgstr ""
 
-#: views/pages/edit.py:474
+#: views/pages/edit.py:475
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr ""
 
-#: views/pages/edit.py:726
+#: views/pages/edit.py:727
 #, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
 msgstr ""
 
-#: views/pages/edit.py:737
+#: views/pages/edit.py:738
 #, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
 msgstr ""
 
-#: views/pages/edit.py:742
+#: views/pages/edit.py:743
 #, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages/edit.py:754
+#: views/pages/edit.py:755
 #, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr ""
 
-#: views/pages/edit.py:760
+#: views/pages/edit.py:761
 #, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr ""
 
-#: views/pages/edit.py:804
+#: views/pages/edit.py:805
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr ""
 
-#: views/pages/edit.py:846
+#: views/pages/edit.py:847
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr ""
 
-#: views/pages/edit.py:961 views/pages/edit.py:965
+#: views/pages/edit.py:962 views/pages/edit.py:966
 msgid "The page could not be saved as it is locked."
 msgstr ""
 
-#: views/pages/edit.py:976
+#: views/pages/edit.py:977
 msgid "The page could not be saved due to validation errors."
 msgstr ""
 
@@ -4120,41 +4132,45 @@ msgstr ""
 msgid "Is commenting action"
 msgstr ""
 
-#: views/pages/listing.py:72
+#: views/pages/listing.py:74
 msgid "Date updated"
 msgstr ""
 
-#: views/pages/listing.py:76
+#: views/pages/listing.py:78
 msgid "Owner"
 msgstr ""
 
-#: views/pages/listing.py:87
+#: views/pages/listing.py:89
 msgid "Edited by"
 msgstr ""
 
-#: views/pages/listing.py:99 views/reports/page_types_usage.py:75
+#: views/pages/listing.py:101 views/reports/page_types_usage.py:75
 msgid "Site"
 msgstr ""
 
-#: views/pages/listing.py:104
+#: views/pages/listing.py:106
 msgid "Has child pages"
 msgstr ""
 
-#: views/pages/listing.py:105
+#: views/pages/listing.py:107
 msgid "Any"
 msgstr ""
 
-#: views/pages/listing.py:107 views/workflows.py:88
+#: views/pages/listing.py:109 views/workflows.py:88
 #: widgets/boolean_radio_select.py:15
 msgid "Yes"
 msgstr ""
 
-#: views/pages/listing.py:120
+#: views/pages/listing.py:122
 msgid "Page type"
 msgstr ""
 
-#: views/pages/listing.py:310
+#: views/pages/listing.py:324
 msgid "Exploring"
+msgstr ""
+
+#: views/pages/listing.py:325 wagtail_hooks.py:277
+msgid "Add child page"
 msgstr ""
 
 #: views/pages/lock.py:36
@@ -4162,19 +4178,19 @@ msgstr ""
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr ""
 
-#: views/pages/move.py:73
+#: views/pages/move.py:74
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
 "sure the slug is unique and try again."
 msgstr ""
 
-#: views/pages/move.py:125
+#: views/pages/move.py:130
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr ""
 
-#: views/pages/preview.py:52
+#: views/pages/preview.py:54
 msgid "Placeholder title"
 msgstr ""
 
@@ -4190,12 +4206,12 @@ msgstr ""
 msgid "Page '%(page_title)s' unpublished."
 msgstr ""
 
-#: views/pages/usage.py:35
+#: views/pages/usage.py:19
 msgid "Pages using"
 msgstr ""
 
-#: views/pages/usage.py:102 views/reports/page_types_usage.py:100
-#: wagtail_hooks.py:930
+#: views/pages/usage.py:75 views/reports/page_types_usage.py:100
+#: wagtail_hooks.py:936
 msgid "Page types usage"
 msgstr ""
 
@@ -4215,7 +4231,7 @@ msgstr ""
 msgid "Last published before"
 msgstr ""
 
-#: views/reports/aging_pages.py:33 wagtail_hooks.py:919
+#: views/reports/aging_pages.py:33 wagtail_hooks.py:925
 msgid "Aging pages"
 msgstr ""
 
@@ -4223,7 +4239,7 @@ msgstr ""
 msgid "Last published at"
 msgstr ""
 
-#: views/reports/audit_logging.py:77 wagtail_hooks.py:908
+#: views/reports/audit_logging.py:77 wagtail_hooks.py:914
 msgid "Site history"
 msgstr ""
 
@@ -4239,7 +4255,7 @@ msgstr ""
 msgid "Date/Time"
 msgstr ""
 
-#: views/reports/locked_pages.py:37 wagtail_hooks.py:875
+#: views/reports/locked_pages.py:37 wagtail_hooks.py:881
 msgid "Locked pages"
 msgstr ""
 
@@ -4251,8 +4267,8 @@ msgstr ""
 msgid "Awaiting my review"
 msgstr ""
 
-#: views/reports/workflows.py:142 views/workflows.py:124 views/workflows.py:652
-#: wagtail_hooks.py:206 wagtail_hooks.py:886
+#: views/reports/workflows.py:142 views/workflows.py:124 views/workflows.py:653
+#: wagtail_hooks.py:212 wagtail_hooks.py:892
 msgid "Workflows"
 msgstr ""
 
@@ -4272,8 +4288,8 @@ msgstr ""
 msgid "By task"
 msgstr ""
 
-#: views/reports/workflows.py:221 views/workflows.py:579 wagtail_hooks.py:217
-#: wagtail_hooks.py:897
+#: views/reports/workflows.py:221 views/workflows.py:580 wagtail_hooks.py:223
+#: wagtail_hooks.py:903
 msgid "Workflow tasks"
 msgstr ""
 
@@ -4315,11 +4331,11 @@ msgstr ""
 msgid "Workflow '%(object)s' updated."
 msgstr ""
 
-#: views/workflows.py:268 views/workflows.py:721
+#: views/workflows.py:268 views/workflows.py:722
 msgid "Disable"
 msgstr ""
 
-#: views/workflows.py:270 views/workflows.py:722
+#: views/workflows.py:270 views/workflows.py:723
 msgid "Enable"
 msgstr ""
 
@@ -4343,45 +4359,45 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/workflows.py:496
+#: views/workflows.py:497
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr ""
 
-#: views/workflows.py:527
+#: views/workflows.py:528
 #, python-format
 msgid "Workflow removed from Page '%(page_title)s'."
 msgstr ""
 
-#: views/workflows.py:580 views/workflows.py:659
+#: views/workflows.py:581 views/workflows.py:660
 msgid "New workflow task"
 msgstr ""
 
-#: views/workflows.py:661
+#: views/workflows.py:662
 #, python-format
 msgid "Task '%(object)s' created."
 msgstr ""
 
-#: views/workflows.py:716
+#: views/workflows.py:717
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr ""
 
-#: views/workflows.py:733
+#: views/workflows.py:734
 #, python-format
 msgid "Editing %(task_type)s"
 msgstr ""
 
-#: views/workflows.py:780
+#: views/workflows.py:781
 msgid "Disable task"
 msgstr ""
 
-#: views/workflows.py:782
+#: views/workflows.py:783
 #, python-format
 msgid "Task '%(object)s' disabled."
 msgstr ""
 
-#: views/workflows.py:796
+#: views/workflows.py:797
 #, python-format
 msgid ""
 "This task is in progress on %(states_in_progress)d page/snippet. Disabling "
@@ -4394,7 +4410,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/workflows.py:826
+#: views/workflows.py:827
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr ""
@@ -4403,76 +4419,76 @@ msgstr ""
 msgid "Choose another"
 msgstr ""
 
-#: wagtail_hooks.py:344
+#: wagtail_hooks.py:350
 msgid "Sort menu order"
 msgstr ""
 
-#: wagtail_hooks.py:470
+#: wagtail_hooks.py:476
 msgid "Heading 1"
 msgstr ""
 
-#: wagtail_hooks.py:491
+#: wagtail_hooks.py:497
 msgid "Heading 2"
 msgstr ""
 
-#: wagtail_hooks.py:512
+#: wagtail_hooks.py:518
 msgid "Heading 3"
 msgstr ""
 
-#: wagtail_hooks.py:533
+#: wagtail_hooks.py:539
 msgid "Heading 4"
 msgstr ""
 
-#: wagtail_hooks.py:554
+#: wagtail_hooks.py:560
 msgid "Heading 5"
 msgstr ""
 
-#: wagtail_hooks.py:575
+#: wagtail_hooks.py:581
 msgid "Heading 6"
 msgstr ""
 
-#: wagtail_hooks.py:596
+#: wagtail_hooks.py:602
 msgid "Bulleted list"
 msgstr ""
 
-#: wagtail_hooks.py:620
+#: wagtail_hooks.py:626
 msgid "Numbered list"
 msgstr ""
 
-#: wagtail_hooks.py:644
+#: wagtail_hooks.py:650
 msgid "Blockquote"
 msgstr ""
 
-#: wagtail_hooks.py:711
+#: wagtail_hooks.py:717
 msgid "Link"
 msgstr ""
 
-#: wagtail_hooks.py:800
+#: wagtail_hooks.py:806
 msgid "Strikethrough"
 msgstr ""
 
-#: wagtail_hooks.py:821
+#: wagtail_hooks.py:827
 msgid "Code"
 msgstr ""
 
-#: wagtail_hooks.py:941
+#: wagtail_hooks.py:947
 msgid "Reports"
 msgstr ""
 
-#: wagtail_hooks.py:953
+#: wagtail_hooks.py:959
 #, python-format
 msgid "What's new in Wagtail %(version)s"
 msgstr ""
 
-#: wagtail_hooks.py:965
+#: wagtail_hooks.py:971
 msgid "Editor Guide"
 msgstr ""
 
-#: wagtail_hooks.py:982
+#: wagtail_hooks.py:988
 msgid "Shortcuts"
 msgstr ""
 
-#: wagtail_hooks.py:1000
+#: wagtail_hooks.py:1006
 msgid "Help"
 msgstr ""
 

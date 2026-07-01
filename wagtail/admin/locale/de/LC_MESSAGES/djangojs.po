@@ -1,4 +1,3 @@
-#
 # Translators:
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
 # Norman Uekermann <nue@melexis.com>, 2022

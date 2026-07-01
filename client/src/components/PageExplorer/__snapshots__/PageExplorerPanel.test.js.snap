@@ -7,7 +7,7 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
   focusTrapOptions={
     {
       "allowOutsideClick": true,
-      "clickOutsideDeactivates": false,
+      "clickOutsideDeactivates": true,
       "onDeactivate": [MockFunction],
     }
   }
@@ -82,7 +82,7 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
   focusTrapOptions={
     {
       "allowOutsideClick": true,
-      "clickOutsideDeactivates": false,
+      "clickOutsideDeactivates": true,
       "onDeactivate": [MockFunction],
     }
   }
@@ -138,7 +138,7 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
   focusTrapOptions={
     {
       "allowOutsideClick": true,
-      "clickOutsideDeactivates": false,
+      "clickOutsideDeactivates": true,
       "onDeactivate": [MockFunction],
     }
   }
@@ -222,7 +222,7 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
   focusTrapOptions={
     {
       "allowOutsideClick": true,
-      "clickOutsideDeactivates": false,
+      "clickOutsideDeactivates": true,
       "onDeactivate": [MockFunction],
     }
   }
@@ -275,7 +275,7 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
   focusTrapOptions={
     {
       "allowOutsideClick": true,
-      "clickOutsideDeactivates": false,
+      "clickOutsideDeactivates": true,
       "onDeactivate": [MockFunction],
     }
   }

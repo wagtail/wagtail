@@ -1,4 +1,3 @@
-#
 # Translators:
 # Orangle Liu <orangleliu@gmail.com>, 2026
 # shengsheng gz <gzshengsheng@139.com>, 2026

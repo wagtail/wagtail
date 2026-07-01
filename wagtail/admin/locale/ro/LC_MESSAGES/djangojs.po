@@ -1,4 +1,3 @@
-#
 # Translators:
 # Julian C <jcuotpc@gmail.com>, 2022
 # Alex Morega, 2023

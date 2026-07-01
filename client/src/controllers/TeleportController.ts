@@ -56,11 +56,6 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
   /** If true, keep the original DOM element intact, otherwise remove it when cloned. */
   declare keepValue: boolean;
   /**
-   * If true, empty the target element's contents before appending the cloned element.
-   * @deprecated RemovedInWagtail80Warning Use `modeValue` with `innerHTML` or `outerHTML` instead.
-   */
-  declare resetValue: boolean;
-  /**
    * The mode to use when inserting the cloned element into the target.
    * @see TeleportMode for available modes.
    * Defaults to `beforeend` to preserve legacy behavior.
@@ -79,7 +74,6 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
 
     const complete = () => {
       if (completed) return;
-      if (this.resetValue) target.innerHTML = '';
 
       // Using string-based operations like innerHTML, outerHTML, or
       // insertAdjacentHTML will not run scripts. And we cannot rely on the

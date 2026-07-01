@@ -1,4 +1,3 @@
-#
 # Translators:
 # Azat, 2024
 # Abduqadir Abliz <sahranbay@gmail.com>, 2026
@@ -35,6 +34,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s پىكسېل"
 msgstr[1] "%(num)s پىكسېل"
 
+msgid "A network error occurred."
+msgstr "تور خاتالىقى كۆرۈلدى."
+
+msgid "A server error occurred."
+msgstr "مۇلازىمېتىر خاتالىقى كۆرۈلدى."
+
 msgid "Actions"
 msgstr "مەشغۇلات"
 
@@ -50,6 +55,9 @@ msgstr "ئالماشتۇرىدىغان تېكىست"
 msgid "Are you sure?"
 msgstr "راستمۇ؟"
 
+msgid "Autosave in progress…"
+msgstr "ئۆزلۈكىدىن ساقلاش داۋاملىشىۋاتىدۇ…"
+
 msgid "Blocks"
 msgstr "بۆلەك"
 
@@ -58,6 +66,9 @@ msgstr "ئۈزۈلگەن ئۇلانما"
 
 msgid "Cancel"
 msgstr "ۋاز كەچ"
+
+msgid "Changes have been autosaved."
+msgstr "ئۆزگىرىش ئۆزلۈكىدىن ساقلانغان."
 
 msgid "Character count:"
 msgstr "ھەرپ سانى:"
@@ -70,6 +81,10 @@ msgstr "ھەممىنى يىغ"
 
 msgid "Comment"
 msgstr "ئىنكاس"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "مۇرەككەپ"
 
 msgid "Dashboard"
 msgstr "باشقۇرۇش تاختىسى"
@@ -110,8 +125,15 @@ msgstr "ئالدىن كۆزىتىش سانلىق مەلۇماتىنى يوللا
 msgid "Expand all"
 msgstr "ھەممىنى ياي"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "ئادىل"
+
 msgid "Focus comment"
 msgstr "ئىنكاسقا مەركەزلىشىش"
+
+msgid "Good"
+msgstr "ياخشى"
 
 msgid "Horizontal line"
 msgstr "توغرا سىزىق"

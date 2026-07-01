@@ -10,8 +10,10 @@ from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.views.generic.models import (
-    RevisionsCompareView,
-    RevisionsUnscheduleView,
+    RevisionsCompareView as GenericRevisionsCompareView,
+)
+from wagtail.admin.views.generic.models import (
+    RevisionsUnscheduleView as GenericRevisionsUnscheduleView,
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.pages.edit import EditView
@@ -96,7 +98,7 @@ class RevisionsView(PreviewRevision):
         return page
 
 
-class RevisionsCompare(GenericPageBreadcrumbsMixin, RevisionsCompareView):
+class RevisionsCompareView(GenericPageBreadcrumbsMixin, GenericRevisionsCompareView):
     history_url_name = "wagtailadmin_pages:history"
     edit_url_name = "wagtailadmin_pages:edit"
     header_icon = "doc-empty-inverse"
@@ -107,7 +109,13 @@ class RevisionsCompare(GenericPageBreadcrumbsMixin, RevisionsCompareView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Page, id=self.pk).specific
+        page = get_object_or_404(Page, id=self.pk).specific
+
+        perms = page.permissions_for_user(self.request.user)
+        if not (perms.can_publish() or perms.can_edit()):
+            raise PermissionDenied
+
+        return page
 
     def get_edit_handler(self):
         return self.object.get_edit_handler()
@@ -116,7 +124,7 @@ class RevisionsCompare(GenericPageBreadcrumbsMixin, RevisionsCompareView):
         return self.object.get_admin_display_title()
 
 
-class RevisionsUnschedule(RevisionsUnscheduleView):
+class RevisionsUnscheduleView(GenericRevisionsUnscheduleView):
     model = Page
     edit_url_name = "wagtailadmin_pages:edit"
     history_url_name = "wagtailadmin_pages:history"

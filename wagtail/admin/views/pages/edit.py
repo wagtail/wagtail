@@ -24,6 +24,7 @@ from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
     CommentsSidePanel,
@@ -562,10 +563,12 @@ class EditView(
             return self.form_invalid(self.form)
 
     def workflow_action_is_valid(self):
-        self.workflow_action = self.request.POST["workflow-action-name"]
-        available_actions = self.page.current_workflow_task.get_actions(
-            self.page, self.request.user
-        )
+        # The workflow might have been cancelled/ended after the page was loaded
+        workflow_task = self.page.current_workflow_task
+        if not workflow_task:
+            return False
+        self.workflow_action = self.request.POST.get("workflow-action-name")
+        available_actions = workflow_task.get_actions(self.page, self.request.user)
         available_action_names = [
             name for name, verbose_name, modal in available_actions
         ]
@@ -1057,6 +1060,18 @@ class EditView(
             lock=self.lock,
             locked_for_user=self.locked_for_user,
         )
+
+    @cached_property
+    def header_more_buttons(self):
+        next_url = self.request.path
+        buttons = get_page_header_buttons(
+            page=self.page,
+            user=self.request.user,
+            next_url=next_url,
+            view_name="edit",
+        )
+        buttons.extend(super().header_more_buttons)
+        return buttons
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

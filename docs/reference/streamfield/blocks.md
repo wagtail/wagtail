@@ -532,9 +532,6 @@ All block definitions have the following methods and properties that can be over
 
     .. automethod:: get_form_layout
 
-    .. versionadded:: 7.3
-        The ``form_layout`` option and the ``get_form_layout`` method were added.
-
 
 .. autoclass:: wagtail.blocks.ListBlock
     :show-inheritance:
@@ -656,10 +653,6 @@ All block definitions have the following methods and properties that can be over
 ## Supporting components
 
 ### `BlockGroup`
-
-```{versionadded} 7.3
-The `BlockGroup` class was added.
-```
 
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.BlockGroup

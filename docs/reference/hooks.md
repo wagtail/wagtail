@@ -139,7 +139,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a `request` object and a list of panel objects and should modify this list in place as required. Panel objects are [](template_components) with an additional `order` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between `100` and `300`.
 
 ```python
-from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from wagtail.admin.ui.components import Component
 from wagtail import hooks
@@ -148,9 +148,9 @@ class WelcomePanel(Component):
     order = 50
 
     def render_html(self, parent_context):
-        return format_html(
+        return mark_safe(
             """
-            <section class="panel summary nice-padding">
+            <section class="w-panel summary nice-padding">
               <h3>No, but seriously -- welcome to the admin homepage.</h3>
             </section>
             """
@@ -460,10 +460,6 @@ def user_listing_external_profile(user, request_user):
             f"/goes/to/another/url/{user.pk}",
             priority=10,
         )
-```
-
-```{versionchanged} 7.0
-The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
 ```
 
 (filter_form_submissions_for_user)=
@@ -901,7 +897,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The items support the [](template_components) pattern, but for backwards compatibility objects with a `render(request)` method are also accepted. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The items support the [](template_components) pattern, but for backwards compatibility objects with a `render(request)` method are also accepted. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.ContentCheckerItem` class for the content checker item in particular.
 
 ```python
 from wagtail import hooks
@@ -1092,10 +1088,6 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
-
-```{versionchanged} 7.0
-The `PageListingButton` class is deprecated in favor of `ListingButton`.
-```
 
 (register_page_listing_more_buttons)=
 
@@ -1427,10 +1419,6 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
-
-```{versionchanged} 7.0
-The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
-```
 
 (construct_snippet_listing_buttons)=
 

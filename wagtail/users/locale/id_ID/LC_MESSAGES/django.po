@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Imanu Wardi, 2025\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -169,6 +169,14 @@ msgstr "Akun"
 msgid "Roles"
 msgstr "Role"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Tidak ada pengguna yang terkonfigurasi. Mengapa <a "
+"href=\"%(wagtailusers_add_url)s\">tidak menambahnya</a>?"
+
 msgid "Active"
 msgstr "Aktif"
 
@@ -216,6 +224,10 @@ msgstr "Username"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Pengguna '%(object)s' dibuat."
 
 msgid "Add user"
 msgstr "Tambah pengguna"

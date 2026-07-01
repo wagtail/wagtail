@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -280,7 +280,7 @@ msgid "Select a new parent for this page."
 msgstr "Elixe outra nai para esta páxina."
 
 msgid "Parent page"
-msgstr "Páxina pai"
+msgstr "Páxina nai"
 
 msgid "The new page will be a child of this given parent page."
 msgstr "Esta nova páxina será a filla desta páxina nai."
@@ -308,13 +308,13 @@ msgid "Visibility"
 msgstr "Visibilidade"
 
 msgid "This field is required."
-msgstr "Este campo é requirido."
+msgstr "Este campo é obrigatorio."
 
 msgid "Please select at least one group."
 msgstr "Por favor selecciona polo menos un grupo."
 
 msgid "All types"
-msgstr "Todos os tipos"
+msgstr "Tódolos tipos"
 
 #, python-format
 msgid "This page already has workflow '%(workflow_name)s' assigned."
@@ -476,17 +476,17 @@ msgid "Set your new password"
 msgstr "Establece o teu novo contrasinal"
 
 msgid "Invalid password reset link"
-msgstr "Enlace inválido de cambio de contrasinal"
+msgstr "Enlace inválido de reestablecemento de contrasinal"
 
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
 msgstr ""
-"O enlace para o cambio de contrasinal era inválido, posiblemente porque xa "
-"se usara."
+"O enlace para reestablecer o contrasinal era inválido, posiblemente porque "
+"xa se usara."
 
 msgid "Request a new password reset"
-msgstr "Solicitar un novo cambio de contrasinal"
+msgstr "Solicitar un novo reestablecemento de contrasinal"
 
 msgid "Check your email"
 msgstr "Revisa o teu correo electrónico"
@@ -495,11 +495,11 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"Mandóuseche un correo co enlace para cambiar o contrasinal si existe unha "
-"conta con esta dirección."
+"Mandóuseche un correo co enlace para restablecer o contrasinal si existe "
+"unha conta con esta dirección."
 
 msgid "Please follow the link below to reset your password:"
-msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
+msgstr "Por favor, segue a ligazón de abaixo para restablecer o contrasinal:"
 
 msgid "Your username (in case you've forgotten):"
 msgstr "O teu nome de usuario (no caso de que che esqueceses):"
@@ -517,7 +517,7 @@ msgid "Default avatar"
 msgstr "Avatar por defecto"
 
 msgid "Upload a profile picture:"
-msgstr "Sube unha foto do perfil:"
+msgstr "Sube unha foto de perfil:"
 
 msgid "Sidebar"
 msgstr "Barra lateral"
@@ -529,7 +529,7 @@ msgid "Go back"
 msgstr "Ir atrás"
 
 msgid "Bulk actions"
-msgstr "Accións en masa"
+msgstr "Accións en grupo"
 
 msgid "Select"
 msgstr "Seleccionar"
@@ -737,13 +737,16 @@ msgstr "Aínda quererías publicar este %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Actions (footer)"
+msgstr "Accións (pe de páxina)"
+
+msgid "Comment"
+msgstr "Comentario"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Accións"
-
-msgid "Comment"
-msgstr "Comentario"
 
 #, python-format
 msgid ""
@@ -1671,8 +1674,12 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Engadir páxina filla a '%(title)s'"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)sde %(items_count)s en todo o sitio."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s de %(items_count)s %(model_name)s en todo o "
+"sitio."
 
 msgid "No results across entire site."
 msgstr "Non hai resultados en todo o sitio."
@@ -1683,11 +1690,11 @@ msgstr "Busca en '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s de %(items_count)s en '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s de %(items_count)s%(model_name)s en '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -1697,8 +1704,8 @@ msgid "Search the whole site"
 msgstr "Buscar no sitio completo"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s de %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)s de %(items_count)s %(model_name)s"
 
 msgid "Sites menu"
 msgstr "Menú de sitios"
@@ -1721,9 +1728,6 @@ msgstr "Esta páxina está protexida da vista pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Engadir páxina filla"
 
 msgid "Page types"
 msgstr "Tipos de páxina"
@@ -1929,8 +1933,8 @@ msgstr "Sistema"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s gardóu unha nova versión"
 
-msgid "Refresh"
-msgstr "Actualizar"
+msgid "View latest version"
+msgstr "Ver a última versión"
 
 msgid "You have unsaved changes in another window"
 msgstr "Tes cambios sen gardar noutra ventana"
@@ -1938,6 +1942,9 @@ msgstr "Tes cambios sen gardar noutra ventana"
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s ten cambios sen gardar"
+
+msgid "Currently idle"
+msgstr "Agora mesmo inactivo"
 
 msgid "Currently viewing"
 msgstr "Vendo agora mesmo"
@@ -1948,36 +1955,28 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Outro usuario vendo agora mesmo"
 msgstr[1] "Outros %(num_user)s usuarios están vendo agora mesmo"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Proceder vai sobreescribir os cambios que fixeches nesa ventana. Actualizar "
-"a páxina mostrarache os novos cambios, pero perderás tódolos cambios sen "
-"gardar da ventana actual."
+msgid "Proceeding will overwrite the changes you made in that window."
+msgstr "Seguir adiante sobreescribirá os cambios que fixeras nesa fiestra."
 
 #, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr "Seguir adiante sobreescribirá os cambios feitos por %(user_name)s."
+
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "Como outra opción podes ver a última versión nunha nova pestaña."
+
+msgid "A network error occurred"
+msgstr "Houbo un erro de rede"
+
 msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
 msgstr ""
-"Proceder vai sobreescribir os cambios feitos por %(user_name)s. Actualizar a "
-"páxina mostrarache os novos cambios, pero perderás tódolos teus cambios sen "
-"gardar."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Actualizar a páxina implica que perderás tódolos cambios sen gardar."
-
-msgid "Refresh page"
-msgstr "Actualizar páxina"
+"Arranxa a túa conexión co sitio antes de seguir. Abre o editos en unha "
+"pestaña distinta para ver a última versión gardada."
 
 msgid "Continue"
 msgstr "Continuar"
-
-msgid "Refresh the page"
-msgstr "Actualizar a páxina"
 
 msgid "Download XLSX"
 msgstr "Descargar XLSX"
@@ -2018,7 +2017,7 @@ msgid ""
 "enable them."
 msgstr ""
 "Os atallos de teclado están deshabilitados; axusta a túa %(account_link)s "
-"pasa habilitalos."
+"para habilitalos."
 
 msgid "All keyboard shortcuts"
 msgstr "Tódolos atallos de teclado"
@@ -2034,7 +2033,7 @@ msgid ""
 "Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
 "disable them."
 msgstr ""
-"Os atallos de teclado están habilitados; axusta a túa %(account_link)s pasa "
+"Os atallos de teclado están habilitados; axusta a túa %(account_link)s para "
 "deshabilitalos."
 
 msgid "Current page status:"
@@ -2185,11 +2184,11 @@ msgid "Not visible to the public"
 msgstr "Non visible polo público"
 
 msgid "Choose who can view the live version of this page"
-msgstr "Elixe qué pode ver a versión en vivo desta páxina"
+msgstr "Elixe quén pode ver a versión en vivo desta páxina"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
-"Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
+"Os cambios de privacidade aplícanse tamén a todas as fillas desta páxina."
 
 msgid "Usage"
 msgstr "Uso"
@@ -2249,6 +2248,9 @@ msgstr "Cargando"
 
 msgid "Refreshing…"
 msgstr "Actualizando..."
+
+msgid "Refresh"
+msgstr "Actualizar"
 
 msgid "Preview is out of date"
 msgstr "A previsualización caducóu"
@@ -2784,6 +2786,12 @@ msgstr "O texto alternativo da imaxe ten un patrón inapropiado"
 msgid "Use meaningful text"
 msgstr "Usa un texto con sentido"
 
+msgid "Meta description is empty"
+msgstr "A meta descripción está baleira"
+
+msgid "Add a concise description for search engines"
+msgstr "Engade unha descripción concisa para os motores de busca"
+
 #, python-format
 msgid "%(classname)s object (%(id)s)"
 msgstr "Obxeto %(classname)s (%(id)s)"
@@ -3288,6 +3296,9 @@ msgstr "Tipo de páxina"
 
 msgid "Exploring"
 msgstr "Explorando"
+
+msgid "Add child page"
+msgstr "Engadir páxina filla"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

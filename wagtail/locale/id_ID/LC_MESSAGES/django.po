@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -31,6 +31,10 @@ msgstr "Jumlah isi minimum adalah %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Jumlah isi maksimum adalah %(max_num)d"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Tidak ada pilihan untuk blok ini."
 
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."

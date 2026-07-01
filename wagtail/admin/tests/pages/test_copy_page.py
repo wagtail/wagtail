@@ -51,6 +51,17 @@ class TestPageCopy(WagtailTestUtils, TestCase):
             )
         )
 
+        # Create a sibling page
+        self.sibling_page = self.root_page.add_child(
+            instance=SimplePage(
+                title="Sibling page",
+                slug="sibling-page",
+                content="hello",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
         # Login
         self.user = self.login()
 
@@ -70,6 +81,12 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.assertContains(response, "Copy subpages")
         self.assertContains(response, "Publish copies")
         self.assertContains(response, "Alias")
+
+    def test_page_copy_bad_id(self):
+        response = self.client.get(reverse("wagtailadmin_pages:copy", args=(99999,)))
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
 
     def test_page_copy_bad_permissions(self):
         # Remove privileges from user
@@ -100,10 +117,12 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # should receive a form validation error
         publishers = Group.objects.create(name="Publishers")
         GroupPagePermission.objects.create(
+            group=publishers, page=self.test_page, permission_type="change"
+        )
+        GroupPagePermission.objects.create(
             group=publishers, page=self.root_page, permission_type="publish"
         )
         self.user.groups.add(publishers)
-        self.user.save()
 
         # Get copy page
         post_data = {
@@ -441,7 +460,10 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.assertIsNotNone(page_copy)
         self.assertEqual(page_copy.slug, post_data["new_slug"])
 
-    def test_page_copy_no_publish_permission(self):
+    def test_page_copy_no_publish_permission_get(self):
+        """
+        A user with no publish permission anywhere should not see the "publish copies" and "alias" options
+        """
         # Turn user into an editor who can add pages but not publish them
         self.user.is_superuser = False
         self.user.groups.add(
@@ -458,17 +480,49 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/copy.html")
 
-        # Make sure the "publish copies" field is hidden
+        # Make sure the "publish copies" and "alias" checkboxes are omitted
         self.assertNotContains(response, "Publish copies")
+        self.assertNotContains(response, "Alias")
 
-    def test_page_copy_no_publish_permission_post_copy_subpages_publish_copies(self):
+    def test_page_copy_with_publish_permission_get(self):
+        """
+        A user with publish permission somewhere in the tree should see the "publish copies" and "alias" options
+        """
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+
+        self.user.is_superuser = False
+        self.user.groups.add(editors)
+        self.user.save()
+
+        # Get copy page
+        response = self.client.get(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,))
+        )
+
+        # The user should have access to the copy page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/copy.html")
+
+        # The "publish copies" and "alias" checkboxes should be shown
+        self.assertContains(response, "Publish copies")
+        self.assertContains(response, "Alias")
+
+    def test_page_copy_no_publish_permission_post(self):
         # This tests that unprivileged users cannot publish copied pages even if they hack their browser
 
-        # Turn user into an editor who can add pages but not publish them
-        self.user.is_superuser = False
-        self.user.groups.add(
-            Group.objects.get(name="Editors"),
+        # Grant publish permission on a page we are not copying to. This ensures that we are specifically
+        # checking permission at the destination, not just checking that the user has publish permission
+        # somewhere.
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
         )
+
+        self.user.is_superuser = False
+        self.user.groups.add(editors)
         self.user.save()
 
         # Post
@@ -479,6 +533,89 @@ class TestPageCopy(WagtailTestUtils, TestCase):
             "copy_subpages": True,
             "publish_copies": True,
             "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the form is reshown with an validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "new_parent_page",
+            f'You do not have permission to publish pages at "{self.root_page.title}"',
+        )
+
+        # The copy should not have been created
+        self.assertFalse(
+            self.root_page.get_children().filter(slug="hello-world-2").exists()
+        )
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_page_create_alias_no_publish_permission_post(self):
+        # Users without publish permission cannot create aliases
+
+        # Grant publish permission on a page we are not copying to. This ensures that we are specifically
+        # checking permission at the destination, not just checking that the user has publish permission
+        # somewhere.
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+
+        self.user.is_superuser = False
+        self.user.groups.add(editors)
+        self.user.save()
+
+        # Post
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": True,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the form is reshown with an validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "new_parent_page",
+            f'You do not have permission to publish pages at "{self.root_page.title}"',
+        )
+
+        # The copy should not have been created
+        self.assertFalse(
+            self.root_page.get_children().filter(slug="hello-world-2").exists()
+        )
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_page_copy_as_editor_without_publishing(self):
+        """
+        A user without publish permission should be able to copy pages without publishing them
+        """
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        self.user.groups.add(editors)
+        self.user.save()
+
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": True,
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
@@ -497,24 +634,179 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
+        self.assertTrue(page_copy.has_unpublished_changes)
 
         # Check that the owner of the page is set correctly
         self.assertEqual(page_copy.owner, self.user)
 
         # Check that the children were copied
-        self.assertEqual(page_copy.get_children().count(), 2)
+        children = page_copy.get_children()
+        self.assertEqual(children.count(), 2)
 
-        # Check the child pages
-        # Neither of them should be live
-        child_copy = page_copy.get_children().filter(slug="child-page").first()
-        self.assertIsNotNone(child_copy)
-        self.assertFalse(child_copy.live)
+        # Check that the children are not live
+        for child in children:
+            self.assertFalse(child.live)
+            self.assertTrue(child.has_unpublished_changes)
 
-        unpublished_child_copy = (
-            page_copy.get_children().filter(slug="unpublished-child-page").first()
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
-        self.assertIsNotNone(unpublished_child_copy)
-        self.assertFalse(unpublished_child_copy.live)
+
+    def test_page_copy_as_editor_with_publishing_permission_at_destination(self):
+        """
+        A user with publish permission for a specific page should be able to copy pages under that page and publish them
+        """
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.sibling_page.id),
+            "copy_subpages": True,
+            "publish_copies": True,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.sibling_page.id,))
+        )
+
+        self.sibling_page.refresh_from_db()  # Refresh to ensure we have the latest child count
+
+        # Get copy
+        page_copy = (
+            self.sibling_page.get_children().filter(slug="hello-world-2").first()
+        )
+
+        # Check that the copy exists
+        self.assertIsNotNone(page_copy)
+
+        # Check that the copy is live
+        self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were copied and preserved their published status
+        child_page_copy = page_copy.get_children().get(slug="child-page")
+        self.assertTrue(child_page_copy.live)
+        self.assertTrue(child_page_copy.has_unpublished_changes)
+        unpublished_child_page_copy = page_copy.get_children().get(
+            slug="unpublished-child-page"
+        )
+        self.assertFalse(unpublished_child_page_copy.live)
+        self.assertTrue(unpublished_child_page_copy.has_unpublished_changes)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_create_alias_as_editor_with_publishing_permission_at_destination(self):
+        """
+        A user with publish permission for a specific page should be able to create an alias under that page and publish it
+        """
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.sibling_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": True,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.sibling_page.id,))
+        )
+
+        self.sibling_page.refresh_from_db()  # Refresh to ensure we have the latest child count
+
+        # Get copy
+        page_copy = (
+            self.sibling_page.get_children().filter(slug="hello-world-2").first()
+        )
+
+        # Check that the copy exists
+        self.assertIsNotNone(page_copy)
+
+        # Check that the copy is live and is an alias
+        self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
+        self.assertEqual(page_copy.alias_of_id, self.test_page.id)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_page_copy_as_editor_without_edit_permission_at_source(self):
+        """
+        A user without edit permission for the source page should not be able to copy it,
+        even if they have publish permission at the destination
+        """
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        # Grant edit and publish permission only on sibling page
+        GroupPagePermission.objects.filter(group=editors).delete()
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="change"
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,))
+        )
+        # The user should not have access to the copy page
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.sibling_page.id),
+            "copy_subpages": True,
+            "publish_copies": True,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # The copy should not have been created
+        self.assertFalse(
+            self.sibling_page.get_children().filter(slug="hello-world-2").exists()
+        )
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(

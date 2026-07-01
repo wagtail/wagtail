@@ -1,13 +1,14 @@
 from io import StringIO
 
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.core import management
 from django.test import TransactionTestCase, tag
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import Page
+from wagtail.models import GroupPagePermission, Page
 from wagtail.test.testapp.models import EventIndex, SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
@@ -153,6 +154,91 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         )
         self.user.save()
         self.assertRedirects(self.get(), "/admin/")
+
+    def test_search_filter_by_permissions(self):
+        # Create one page that a user has permission to view,
+        # and one that they don't have permission to view,
+        # and confirm that only the former appears in search results
+        root_page = Page.objects.get(id=2)
+        visible_page = root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Cauldron Lake",
+                slug="bright-falls",
+                content="It's not a lake, it's an ocean",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+        root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Twin Peaks",
+                slug="twin-peaks",
+                content="It's not a town, it's a state of mind",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        # add user to a Cauldron Lake group with permission to view the visible page
+        cauldron_lake_group = Group.objects.create(name="Cauldron Lake")
+        cauldron_lake_group.user_set.add(self.user)
+        GroupPagePermission.objects.create(
+            page=visible_page, permission_type="change", group=cauldron_lake_group
+        )
+
+        response = self.get({"q": "Hello"})
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertCountEqual(page_ids, [visible_page.id])
+
+    @override_settings(WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS=False)
+    def test_search_disable_filter_by_permissions(self):
+        # Create one page that a user has permission to view,
+        # and one that they don't have permission to view,
+        # and confirm that only the former appears in search results
+        root_page = Page.objects.get(id=2)
+        visible_page = root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Cauldron Lake",
+                slug="bright-falls",
+                content="It's not a lake, it's an ocean",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+        invisible_page = root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Twin Peaks",
+                slug="twin-peaks",
+                content="It's not a town, it's a state of mind",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        # add user to a Cauldron Lake group with permission to view the visible page
+        cauldron_lake_group = Group.objects.create(name="Cauldron Lake")
+        cauldron_lake_group.user_set.add(self.user)
+        GroupPagePermission.objects.create(
+            page=visible_page, permission_type="change", group=cauldron_lake_group
+        )
+
+        response = self.get({"q": "Hello"})
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertCountEqual(page_ids, [visible_page.id, invisible_page.id])
 
     def test_search_order_by_title(self):
         root_page = Page.objects.get(id=2)

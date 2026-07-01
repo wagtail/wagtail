@@ -500,7 +500,7 @@ spotify = {
 
 
 ted = {
-    "endpoint": "https://www.ted.com/talks/oembed.{format}",
+    "endpoint": "https://www.ted.com/services/v1/oembed.{format}",
     "urls": [
         r"^https?://(?:www\.)?ted\.com/talks/.+$",
         r"^https?://(?:www\.)?ted\.com/talks/lang/[^#?/]+/.+$",

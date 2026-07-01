@@ -52,6 +52,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
+from wagtail.admin.viewsets.pages import base_page_viewset
 from wagtail.admin.widgets import ButtonWithDropdownFromHook
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permissions import (
@@ -66,6 +67,11 @@ from wagtail.templatetags.wagtailcore_tags import (
 )
 from wagtail.utils.version import get_main_version
 from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
+
+
+@hooks.register("register_admin_viewset", order=-1)
+def register_base_page_viewset():
+    return base_page_viewset
 
 
 class ExplorerMenuItem(MenuItem):

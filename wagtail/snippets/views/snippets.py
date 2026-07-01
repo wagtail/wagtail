@@ -898,8 +898,9 @@ class SnippetViewSet(ModelViewSet):
 
         **Deprecated** - the preferred way to customise this is to define a ``menu_order`` property.
         """
-        # By default, put it at the last item before Reports, whose order is 9000.
-        return 8999
+        # Returning None defers to the default ordering applied by
+        # get_menu_item_order (just before Reports, whose order is 9000).
+        return None
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered

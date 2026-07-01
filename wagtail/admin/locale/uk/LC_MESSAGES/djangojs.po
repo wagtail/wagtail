@@ -1,4 +1,3 @@
-#
 # Translators:
 # Mykola Zamkovoi <nickzam@gmail.com>, 2022
 # Loic Teixeira, 2024

@@ -1,6 +1,8 @@
 import datetime
 import json
 import urllib
+import warnings
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.conf import settings
@@ -23,6 +25,7 @@ from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from PIL import Image as PILImage
 from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
@@ -592,6 +595,9 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(link)
         self.assertEqual(link.text.strip(), "Used 0 times")
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_order_by_usage_count(self):
         with self.captureOnCommitCallbacks(execute=True):
             VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
@@ -610,7 +616,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                 )
                 with (
                     self.subTest(layout=layout, ordering=ordering),
-                    self.assertNumQueries(22),
+                    self.assertNumQueries(12),
                 ):
                     response = self.client.get(
                         reverse("wagtailimages:index"),
@@ -1206,6 +1212,48 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "file",
             "This file has too many pixels (307200). Maximum pixels 1.",
         )
+
+    def test_add_pillow_too_many_pixels(self):
+        cases = [
+            # WAGTAILIMAGES_MAX_IMAGE_PIXELS, PILImage.MAX_IMAGE_PIXELS,
+            # image size, warnings filter action, expected error threshold
+            (None, 20, (5, 10), "default", 40),  # Two times the Pillow soft limit
+            (None, 20, (2, 11), "error", 20),  # Pillow soft limit becomes hard limit
+            (10, 4, (3, 3), "default", 8),  # Pillow hard limit < pixels < Wagtail limit
+        ]
+        for wagtail_limit, pillow_limit, image_size, warning_action, expected in cases:
+            with (
+                self.subTest(
+                    wagtail_limit=wagtail_limit,
+                    pillow_limit=pillow_limit,
+                    image_size=image_size,
+                    warning_action=warning_action,
+                ),
+                override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=wagtail_limit),
+                patch.object(PILImage, "MAX_IMAGE_PIXELS", pillow_limit),
+                warnings.catch_warnings(),
+            ):
+                warnings.simplefilter(warning_action, PILImage.DecompressionBombWarning)
+
+                file_content = get_test_image_file(size=image_size).file.getvalue()
+                response = self.post(
+                    {
+                        "title": "Test image",
+                        "file": SimpleUploadedFile("test.png", file_content),
+                    }
+                )
+
+                # Shouldn't redirect anywhere
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, "wagtailimages/images/add.html")
+
+                # The form should have an error
+                self.assertFormError(
+                    response.context["form"],
+                    "file",
+                    "This file has too many pixels (unknown number). "
+                    f"Maximum pixels {expected}.",
+                )
 
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -2244,6 +2292,9 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_list_mode(self):
         image = Image.objects.create(
             title="Test image",
@@ -2254,7 +2305,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             VariousOnDeleteModel.objects.create(protected_image=image)
 
         response = self.get({"layout": "list"})
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(11):
             response = self.get({"layout": "list"})
 
         self.assertEqual(response.status_code, 200)
@@ -2337,24 +2388,55 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.context["results"][0], image)
 
 
-class TestImageChooserChosenView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+class TestImageChooserChosenMixin:
+    @classmethod
+    def setUpTestData(cls):
+        cls.superuser = cls.create_test_user()
 
-        # Create an image to edit
-        self.image = Image.objects.create(
+        limited_group = Group.objects.create(name="Limited access")
+        limited_group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # Create the "limited" Collection and grant "choose" permission to the limited access group.
+        root = Collection.objects.get(id=get_root_collection_id())
+        cls.limited_collection = root.add_child(
+            instance=Collection(name="Limited collection")
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=cls.limited_collection,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtailimages", codename="choose_image"
+            ),
+        )
+
+        cls.limited_user = cls.create_user(username="limited_user", password="password")
+        cls.limited_user.groups.add(limited_group)
+
+
+class TestImageChooserChosenView(
+    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
             description="Test description",
         )
 
-    def get(self, params=None):
+    def get(self, image_id, params=None):
         return self.client.get(
-            reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
+            reverse("wagtailimages_chooser:chosen", args=(image_id,)), params
         )
 
     def test_simple(self):
-        response = self.get()
+        self.client.force_login(self.superuser)
+        response = self.get(self.image.pk)
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
@@ -2368,8 +2450,9 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         )
 
     def test_with_multiple_flag(self):
+        self.client.force_login(self.superuser)
         # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
-        response = self.get(params={"multiple": 1})
+        response = self.get(self.image.pk, params={"multiple": 1})
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
@@ -2384,42 +2467,61 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
             response_json["result"][0]["default_alt_text"], "Test description"
         )
 
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        accessible_image = Image.objects.create(
+            title="Accessible image",
+            file=get_test_image_file(),
+            description="Test description",
+            collection=self.limited_collection,
+        )
 
-class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+        # should not have access to images outside their allowed collection
+        response = self.get(self.image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
-        # Create an image to edit
-        self.image1 = Image.objects.create(
+        response = self.get(accessible_image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, accessible_image.title)
+
+
+class TestImageChooserChosenMultipleView(
+    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.image1 = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
             description="Test description",
         )
-        self.image2 = Image.objects.create(
+        cls.image2 = Image.objects.create(
             title="Another test image",
             file=get_test_image_file(),
             description="Another test description",
+            collection=cls.limited_collection,
         )
 
-        self.image3 = Image.objects.create(
+        cls.image3 = Image.objects.create(
             title="Unchosen test image",
             file=get_test_image_file(),
             description="Unchosen test description",
         )
 
-    def get(self, params=None):
-        return self.client.get(
-            "%s?id=%d&id=%d"
-            % (
-                reverse("wagtailimages_chooser:chosen_multiple"),
-                self.image1.pk,
-                self.image2.pk,
-            )
-        )
+        cls.chosen_url = reverse("wagtailimages_chooser:chosen_multiple")
 
     def test_get(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
+        self.client.force_login(self.superuser)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.image1.pk}&id={self.image2.pk}"
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "chosen")
@@ -2428,6 +2530,21 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(titles, {"Test image", "Another test image"})
         alt_texts = {item["default_alt_text"] for item in response_json["result"]}
         self.assertEqual(alt_texts, {"Test description", "Another test description"})
+
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.image1.pk}&id={self.image2.pk}"
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 1)
+        item = response_json["result"][0]
+        self.assertEqual(item["title"], "Another test image")
+        self.assertEqual(item["default_alt_text"], "Another test description")
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
@@ -4246,7 +4363,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
     def test_get_bad_filter_spec(self):
         """
-        This tests that the view gives a 400 response if the user attempts to use it with an invalid filter spec
+        This tests that the view gives a 400 plain text response if the user attempts to use it with an invalid filter spec
         """
         # Get
         response = self.client.get(
@@ -4254,14 +4371,15 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
                 "wagtailimages:url_generator_output",
                 args=(self.image.id,),
             )
-            + "?filter_method=bad-filter-spec"
+            + "?filter_method=<img src=x onerror=alert(1)>"
         )
 
         # Check response
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "text/plain")
         self.assertEqual(
             response.content.decode(),
-            "Invalid filter spec: `bad-filter-spec`. Unrecognised operation: bad.",
+            "Invalid filter spec: `<img src=x onerror=alert(1)>`. Unrecognised operation: <img src=x onerror=alert(1)>.",
         )
 
     def test_get_with_default_filter_spec(self):
@@ -4499,15 +4617,41 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
 
 class TestPreviewView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        # Create an image for running tests on
-        self.image = Image.objects.create(
+    @classmethod
+    def setUpTestData(cls):
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
         )
 
-        # Login
-        self.user = self.login()
+        cls.superuser = cls.create_test_user()
+
+        change_image_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        limited_group = Group.objects.create(name="Limited users")
+        limited_group.permissions.add(admin_permission)
+
+        cls.limited_collection = Collection.get_first_root_node().add_child(
+            name="Limited"
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=cls.limited_collection,
+            permission=change_image_permission,
+        )
+
+        cls.limited_user = cls.create_user(
+            username="limited", email="limited@example.com", password="password"
+        )
+        cls.limited_user.groups.add(limited_group)
+
+    def setUp(self):
+        self.client.force_login(self.superuser)
 
     def test_get(self):
         """
@@ -4560,13 +4704,60 @@ class TestPreviewView(WagtailTestUtils, TestCase):
         done with Wagtails built in URL generator. We should test it
         anyway though.
         """
-        # Get the image
         response = self.client.get(
             reverse("wagtailimages:preview", args=(self.image.id, "bad-filter-spec"))
         )
-
-        # Check response
         self.assertEqual(response.status_code, 400)
+
+    def test_get_allowed_filter_specs(self):
+        """
+        Test that the view only returns results for allowed filter specs.
+
+        This is based on the URLGeneratorForm filter choices.
+        """
+
+        specs = [
+            ("original", 200),
+            ("width-100", 200),
+            ("height-100", 200),
+            ("min-100x100", 200),
+            ("max-100x100", 200),
+            ("fill-100x100", 200),
+            ("scale-200", 400),
+        ]
+
+        for spec, expected_http_code in specs:
+            with self.subTest(
+                f"Testing preview with {spec}, expecting HTTP {expected_http_code}"
+            ):
+                response = self.client.get(
+                    reverse("wagtailimages:preview", args=(self.image.id, spec))
+                )
+
+                self.assertEqual(response.status_code, expected_http_code)
+
+    def test_get_limited_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attempts to access it
+        """
+        self.client.force_login(self.limited_user)
+        # Get
+        preview_url = reverse("wagtailimages:preview", args=(self.image.id, "original"))
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # now add the image to the collection where the limited user can change images
+        self.image.collection = self.limited_collection
+        self.image.save()
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 200)
 
 
 class TestEditOnlyPermissions(WagtailTestUtils, TestCase):

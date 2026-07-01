@@ -1,4 +1,3 @@
-#
 # Translators:
 # Rodrigo Yanez, 2026
 #

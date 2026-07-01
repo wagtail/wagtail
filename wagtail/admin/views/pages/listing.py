@@ -4,7 +4,7 @@ from django.db.models import F
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.functional import cached_property, classproperty
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django_filters.filters import (
     ChoiceFilter,
@@ -20,6 +20,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
@@ -34,6 +35,7 @@ from wagtail.admin.ui.tables.pages import (
     ParentPageColumn,
 )
 from wagtail.admin.views import generic
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
 from wagtail.permissions import page_permission_policy
 
@@ -127,12 +129,10 @@ class PageListingMixin:
     template_name = "wagtailadmin/pages/listing.html"
     context_object_name = "pages"
     table_class = PageTable
-    filterset_class = GenericPageFilterSet
-    default_ordering = "-latest_revision_created_at"
     model = Page
     is_searchable = True
 
-    columns = [
+    base_columns = [
         BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
@@ -280,18 +280,32 @@ class IndexView(PageListingMixin, generic.IndexView):
     results_template_name = "wagtailadmin/pages/index_results.html"
     paginate_by = 50
     table_classname = "listing full-width"
-    filterset_class = PageFilterSet
+    base_filterset_class = PageFilterSet
+    default_ordering = "-latest_revision_created_at"
+    base_columns = [col for col in PageListingMixin.base_columns if col.name != "type"]
 
-    @classproperty
-    def columns(cls):
-        return [col for col in PageListingMixin.columns if col.name != "type"]
+    @cached_property
+    def columns(self):
+        if self.list_display:
+            return super().columns
+        return self.base_columns
+
+    @cached_property
+    def filterset_class(self):
+        if self.list_filter:
+            return super().filterset_class
+        return self.base_filterset_class
 
     def get_base_queryset(self):
-        pages = self.model.objects.filter(depth__gt=1).filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        pages = self.model.objects.filter(depth__gt=1)
+        if (not self.is_searching) or getattr(
+            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
+        ):
+            pages = pages.filter(
+                pk__in=page_permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
         pages = self.annotate_queryset(pages)
         return pages
 
@@ -308,16 +322,29 @@ class ExplorableIndexView(IndexView):
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
-    filterset_class = GenericPageFilterSet
+    add_item_label = _("Add child page")
+    add_url_name = "wagtailadmin_pages:add_subpage"
     # This is not a real field on the model, but it allows reuse of ordering
     # logic from generic IndexView
     sort_order_field = "ord"
+    # Reordering button is added via a register_page_header_buttons hook
+    reorder_button = None
+    default_ordering = None
+    base_filterset_class = GenericPageFilterSet
+    base_columns = PageListingMixin.base_columns.copy()
 
-    @classproperty
-    def columns(cls):
-        columns = [col for col in PageListingMixin.columns if col.name != "parent"]
+    @cached_property
+    def explorable_columns(self):
+        columns = [col for col in self.columns if col.name != "parent"]
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
+
+    def get_table(self, object_list):
+        return self.table_class(
+            self.explorable_columns,
+            object_list,
+            **self.get_table_kwargs(),
+        )
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
@@ -340,6 +367,7 @@ class ExplorableIndexView(IndexView):
 
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
+        self.permissions = self.parent_page.permissions_for_user(self.request.user)
 
         if self.i18n_enabled and not self.parent_page.is_root():
             self.locale = self.parent_page.locale
@@ -360,20 +388,47 @@ class ExplorableIndexView(IndexView):
     def show_locale_labels(self):
         return self.i18n_enabled and self.parent_page.is_root()
 
+    @cached_property
+    def add_button(self):
+        if self.add_url:
+            return HeaderButton(
+                self.add_item_label,
+                url=self.add_url,
+                icon_name="plus",
+                icon_only=True,  # Only so much space in the header
+            )
+
+    @cached_property
+    def header_more_buttons(self):
+        next_url = self.request.path
+        # Get header buttons from hooks
+        buttons = get_page_header_buttons(
+            page=self.parent_page,
+            user=self.request.user,
+            next_url=next_url,
+            view_name="index",
+        )
+        # Include any buttons from the superclass, e.g. export buttons
+        buttons.extend(super().header_more_buttons)
+        return buttons
+
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
-                pages = Page.objects.all()
+                pages = self.model._default_manager.all()
             else:
-                pages = self.parent_page.get_descendants()
+                pages = self.model._default_manager.descendant_of(self.parent_page)
         else:
-            pages = self.parent_page.get_children()
+            pages = self.model._default_manager.child_of(self.parent_page)
 
-        pages = pages.filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        if (not self.is_searching) or getattr(
+            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
+        ):
+            pages = pages.filter(
+                pk__in=page_permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
         pages = self.annotate_queryset(pages)
         return pages
 
@@ -391,9 +446,12 @@ class ExplorableIndexView(IndexView):
     def get_index_results_url(self):
         return reverse(self.index_results_url_name, args=[self.parent_page.id])
 
+    def get_add_url(self):
+        if self.permissions.can_add_subpage():
+            return reverse(self.add_url_name, args=[self.parent_page.id])
+
     def get_history_url(self):
-        permissions = self.parent_page.permissions_for_user(self.request.user)
-        if permissions.can_view_revisions():
+        if self.permissions.can_view_revisions():
             return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
 
     def get_reorder_url(self):
@@ -409,7 +467,9 @@ class ExplorableIndexView(IndexView):
             # default to ordering by relevance
             default_ordering = None
         else:
-            default_ordering = self.parent_page.get_admin_default_ordering()
+            default_ordering = (
+                self.default_ordering or self.parent_page.get_admin_default_ordering()
+            )
 
         ordering = self.request.GET.get("ordering", default_ordering)
         if ordering not in self.get_valid_orderings():

@@ -2,11 +2,13 @@ import axe, { AxeResults, Spec } from 'axe-core';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
+  checkEmptyMetaDescription,
   checkImageAltText,
-  getA11yReport,
+  getCheckerReport,
+  getViolationMessage,
   registerCustomCheck,
   sortAxeViolations,
-} from './a11y-result';
+} from './contentChecker';
 
 const mockDocument = `
 <div id="a"></div>
@@ -60,6 +62,52 @@ describe('sortAxeViolations', () => {
       mockViolations.db,
       mockViolations.third,
     ]);
+  });
+});
+
+describe('getViolationMessage', () => {
+  const violation = {
+    id: 'heading-order',
+    help: 'Headings should not skip levels',
+    description: 'Ensure the order of headings is semantically correct',
+  };
+
+  it('uses Wagtail custom messages when available', () => {
+    const messages = {
+      'heading-order': {
+        error_name: 'Incorrect heading hierarchy',
+        help_text: 'Avoid skipping levels',
+      },
+    };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Incorrect heading hierarchy');
+    expect(result.helpText).toBe('Avoid skipping levels');
+  });
+
+  it('falls back to axe defaults when no custom messages exist', () => {
+    const result = getViolationMessage(violation, {});
+    expect(result.name).toBe('Headings should not skip levels');
+    expect(result.helpText).toBe(
+      'Ensure the order of headings is semantically correct',
+    );
+  });
+
+  it('handles string-type messages', () => {
+    const messages = { 'heading-order': 'Bad headings' };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Bad headings');
+    expect(result.helpText).toBe(
+      'Ensure the order of headings is semantically correct',
+    );
+  });
+
+  it('falls back to axe help when error_name is empty', () => {
+    const messages = {
+      'heading-order': { error_name: '', help_text: 'Custom help' },
+    };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Headings should not skip levels');
+    expect(result.helpText).toBe('Custom help');
   });
 });
 
@@ -136,11 +184,32 @@ describe('checkImageAltText edge cases', () => {
   });
 });
 
+describe.each`
+  content        | result
+  ${'A summary'} | ${true}
+  ${'  x  '}     | ${true}
+  ${''}          | ${false}
+  ${'   '}       | ${false}
+  ${null}        | ${true}
+`('checkEmptyMetaDescription', ({ content, result }) => {
+  const expectation = result ? 'passes' : 'fails';
+  test(`content ${JSON.stringify(content)} ${expectation}`, () => {
+    const meta = document.createElement('meta');
+    meta.setAttribute('name', 'description');
+    if (content !== null) {
+      meta.setAttribute('content', content);
+    }
+    document.body.innerHTML = '';
+    document.body.appendChild(meta);
+    expect(checkEmptyMetaDescription()).toBe(result);
+  });
+});
+
 jest.mock('axe-core', () => ({
   run: jest.fn(),
 }));
 
-describe('getA11yReport', () => {
+describe('getCheckerReport', () => {
   let consoleError: jest.SpyInstance;
 
   beforeEach(() => {
@@ -169,14 +238,14 @@ describe('getA11yReport', () => {
         checks: [{ id: 'check-image-alt-text', evaluate: '' }],
       },
     };
-    const report = await getA11yReport(config);
+    const report = await getCheckerReport(config);
     expect(consoleError).toHaveBeenCalledWith(
       'axe.run results',
       mockResults.violations,
     );
     expect(axe.run).toHaveBeenCalledWith(config.context, config.options);
     expect(report.results).toEqual(mockResults);
-    expect(report.a11yErrorsNumber).toBe(3);
+    expect(report.issueCount).toBe(3);
   });
 
   it('should return an accessibility report with zero errors if there are no violations', async () => {
@@ -192,8 +261,8 @@ describe('getA11yReport', () => {
         checks: [{ id: 'check-image-alt-text', evaluate: '' }],
       },
     };
-    const report = await getA11yReport(config);
-    expect(report.a11yErrorsNumber).toBe(0);
+    const report = await getCheckerReport(config);
+    expect(report.issueCount).toBe(0);
     expect(consoleError).not.toHaveBeenCalled();
   });
 });

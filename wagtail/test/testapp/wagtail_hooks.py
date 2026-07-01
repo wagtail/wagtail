@@ -42,10 +42,13 @@ from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
+    SubmenuHookGreetingsViewSet,
     ToyViewSetGroup,
     advert_chooser_viewset,
     animated_advert_chooser_viewset,
+    custom_page_viewset,
     event_page_listing_viewset,
+    event_page_viewset,
     opera_viewset,
 )
 
@@ -254,9 +257,19 @@ def add_broken_links_summary_item(request, items):
 def register_viewsets():
     return [
         MiscellaneousViewSetGroup(),
+        # Registered on its own, but collected into MiscellaneousViewSetGroup's
+        # submenu via its `menu_hook` matching the group's `submenu_hook`.
+        SubmenuHookGreetingsViewSet(),
         JSONModelViewSetGroup(),
         SearchTestModelViewSet(name="searchtest"),
     ]
+
+
+@hooks.register("register_submenu_greetings")
+def register_submenu_greetings_menu_item():
+    # An arbitrary MenuItem (not a ViewSet) collected into the
+    # MiscellaneousViewSetGroup submenu via its `submenu_hook`.
+    return MenuItem("Submenu Hook Planner", "/admin/planner/", icon_name="edit")
 
 
 @hooks.register("register_admin_viewset")
@@ -411,6 +424,7 @@ class SnippetChooserModelViewSet(SnippetViewSet):
     list_display = [
         "__str__",
         "full_featured__text",
+        "full_featured__country_code",
         "full_featured__latest_revision__created_at",
     ]
     exclude_form_fields = []
@@ -442,6 +456,16 @@ def register_animated_advert_chooser_viewset():
 @hooks.register("register_admin_viewset")
 def register_event_page_listing_viewset():
     return event_page_listing_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_event_page_viewset():
+    return event_page_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_custom_page_viewset():
+    return custom_page_viewset
 
 
 @hooks.register("register_admin_viewset")

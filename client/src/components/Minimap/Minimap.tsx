@@ -120,7 +120,15 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
     [expanded, setExpanded],
   );
   // Collapse all yes/no state.
-  const [panelsExpanded, setPanelsExpanded] = useState<boolean>(true);
+  const [panelsExpandedByTab, setPanelsExpandedByTab] = useState<
+    Record<string, boolean>
+  >({});
+  const containerId = anchorsContainer?.id ?? '';
+  const panelsExpanded = panelsExpandedByTab[containerId] ?? true;
+  const setPanelsExpanded = (value: boolean) => {
+    setPanelsExpandedByTab((prev) => ({ ...prev, [containerId]: value }));
+  };
+
   const [intersections, setIntersections] = useState<LinkIntersections>({});
   const observer = useRef<IntersectionObserver | null>(null);
   const lastIntersections = useRef({});
@@ -194,12 +202,6 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       obs.disconnect();
     };
   }, [links, container]);
-
-  useEffect(() => {
-    // Reset the "collapse all" when switching tabs.
-    setPanelsExpanded(true);
-  }, [anchorsContainer, setPanelsExpanded]);
-
   return (
     <div>
       <CollapseAll

@@ -2014,11 +2014,12 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -2366,11 +2367,12 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -3152,6 +3154,34 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         self.assertEqual(
             getattr(self.object.get_latest_revision_as_object(), self.title_field),
             "This title was edited while approving",
+        )
+
+    def test_workflow_action_valid_with_cancelled_workflow(self):
+        """
+        https://github.com/wagtail/wagtail/issues/13856
+
+        Approving a workflow that has been cancelled after the page was loaded
+        should result in a normal save instead of an error or a publish action.
+        """
+        workflow_state = self.object.current_workflow_state
+        workflow_state.cancel(user=self.superuser)
+        self.object.refresh_from_db()
+
+        response = self.post(
+            "workflow-action",
+            {
+                self.title_field: "Edited Title",
+                "workflow-action-name": "approve",
+                "action-workflow-action": "True",
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+        self.assertEqual(
+            getattr(self.object.get_latest_revision_as_object(), self.title_field),
+            "Edited Title",
         )
 
 
@@ -4517,19 +4547,68 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
 
         response = self.client.get(self.get_url("edit"))
         html = response.content.decode("utf-8")
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=1,  # the "submitted" item
+            html=True,
+        )
+
         self.assertIn(
-            "In progress\n        </span>\n                        {}".format(
-                self.task_1.name
-            ),
+            f"In progress\n        </span>\n                        \n                        {self.task_1.name}",
             html,
         )
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+
         self.assertIn(
-            "Not started\n        </span>\n                        {}".format(
-                self.task_2.name
-            ),
+            f"Not started\n        </span>\n                        \n                        {self.task_2.name}",
             html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=2,
+            html=True,
         )
         self.assertIn(self.get_url("history"), html)
+
+        # now approve
+        response = self.workflow_action("approve")
+        html = response.content.decode("utf-8")
+        self.assertIn(
+            f"Approved\n        </span>\n                        \n                        {self.task_1.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=2,  # the "submitted" item, and task 1
+            html=True,
+        )
+
+        self.assertIn(
+            f"In progress\n        </span>\n                        \n                        {self.task_2.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=1,
+            html=True,
+        )
 
     def test_status_through_workflow_cycle(self):
         self.login(self.superuser)

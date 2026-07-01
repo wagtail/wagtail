@@ -18,6 +18,7 @@ from taggit.models import Tag
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import EditingSession
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published
 from wagtail.snippets.action_menu import (
@@ -221,7 +222,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should include header buttons as they were not rendered in the create view
-        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNotNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # Should render the history link button as it wasn't rendered in the create view
         history_link = soup.find(
@@ -848,7 +849,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should include header buttons as they were not rendered in the create view
-        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNotNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # Should render the history link button as it wasn't rendered in the create view
         history_link = soup.find(
@@ -1411,7 +1412,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should include header buttons as they were not rendered in the create view
-        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNotNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # Should render the history link button as it wasn't rendered in the create view
         history_link = soup.find(
@@ -2374,6 +2375,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             Revision.objects.for_instance(self.test_snippet)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
+        )
+        log_entry = (
+            log_registry.get_logs_for_instance(self.test_snippet)
+            .filter(action="wagtail.publish.schedule")
+            .first()
+        )
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(
+            log_entry.message,
+            f"Draft state custom primary key model scheduled for publishing "
+            f"at {render_timestamp(go_live_at)}",
         )
 
         # The object SHOULD have the "has_unpublished_changes" flag set,

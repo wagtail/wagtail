@@ -54,7 +54,7 @@ class TestPageReorder(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 405)
 
         # Ensure page order does not change:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)

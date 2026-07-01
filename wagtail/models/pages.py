@@ -4,6 +4,7 @@ import functools
 import logging
 import posixpath
 import uuid
+import warnings
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -35,7 +36,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
 )
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
@@ -63,6 +64,7 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -139,7 +141,7 @@ def get_streamfield_names(model_class):
     )
 
 
-class BasePageManager(models.Manager):
+class BasePageManager(MP_NodeManager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
 
@@ -1317,13 +1319,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def _get_site_root_paths(self, request=None):
+    def _get_site_root_paths(self, cache_object=None, **kwargs):
         """
         Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        cache_object if available.
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
-        cache_object = request if request else self
+        if "request" in kwargs:
+            warnings.warn(
+                "The `request` kwarg in `Page._get_site_root_paths()` is now `cache_object`.",
+                category=RemovedInWagtail90Warning,
+            )
+            cache_object = cache_object or kwargs["request"]
+        # if we have a cache_object, use that to cache site_root_paths; otherwise, use self
+        cache_object = cache_object if cache_object else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
@@ -2381,7 +2389,7 @@ class PagePermissionTester:
         return self.can_delete(ignore_bulk=True)
 
     def can_copy(self):
-        return not self.page_is_root
+        return self.can_edit()
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
@@ -2428,6 +2436,9 @@ class PagePermissionTester:
             return True
 
     def can_copy_to(self, destination, recursive=False):
+        if not self.can_copy():
+            return False
+
         # reject the logically impossible cases first
         # recursive can't copy to the same tree otherwise it will be on infinite loop
         if recursive and (
@@ -2450,14 +2461,7 @@ class PagePermissionTester:
         # Inspect permissions on the destination
         destination_perms = destination.permissions_for_user(self.user)
 
-        if not destination.specific_class.creatable_subpage_models():
-            return False
-
-        # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
-            return False
-
-        return True
+        return destination_perms.can_add_subpage()
 
     def can_view_revisions(self):
         return not self.page_is_root
@@ -2641,9 +2645,13 @@ class PageLogEntry(BaseLogEntry):
         return "PageLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.page_id,
         )
+
+    @cached_property
+    def object_verbose_name(self):
+        return Page._meta.verbose_name
 
     @cached_property
     def object_id(self):

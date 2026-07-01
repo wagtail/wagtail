@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,17 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "مستندات وگتیل"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"این فایل بیش از حد بزرگ است (%(file_size)s). حداکثر ظرفیت ممکن "
+"%(max_filesize)s است."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "این فایل بیش از حد بزرگ است. حداکثر اندازه %(max_filesize)s."
 
 msgid "Collection"
 msgstr "مجموعه"
@@ -86,6 +97,10 @@ msgstr "نه، حذف نکن"
 
 msgid "Latest documents"
 msgstr "آخرین اسناد"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "متاسفانه سندی حاوی «<em>%(search_query)s</em>» پیدا نشد."
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "شما هیچ سندی در این مجموعه بارگذاری نکرده اید."

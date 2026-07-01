@@ -255,10 +255,11 @@ class BaseStructBlock(Block):
         # Reorder child_blocks to match form_layout, appending any missing
         # blocks to the end
         sorted_block_names = self.meta.form_layout.get_sorted_block_names()
-        missing_block_names = self.child_blocks.keys() - set(sorted_block_names)
+        sorted_set = set(sorted_block_names)
+        missing_block_names = [k for k in self.child_blocks if k not in sorted_set]
         self.child_blocks = collections.OrderedDict(
             (name, self.child_blocks[name])
-            for name in (sorted_block_names + list(missing_block_names))
+            for name in (sorted_block_names + missing_block_names)
         )
 
     @classmethod
@@ -304,7 +305,8 @@ class BaseStructBlock(Block):
     def defer_required_validation(self):
         super().defer_required_validation()
         for block in self.child_blocks.values():
-            block.defer_required_validation()
+            if not block.is_deferred_validation:
+                block.defer_required_validation()
 
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
@@ -322,7 +324,8 @@ class BaseStructBlock(Block):
 
     def restore_deferred_validation(self):
         for block in self.child_blocks.values():
-            block.restore_deferred_validation()
+            if block.is_deferred_validation:
+                block.restore_deferred_validation()
         super().restore_deferred_validation()
 
     def to_python(self, value):

@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -682,13 +682,13 @@ msgstr "Você gostaria de publicar esse %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Comment"
+msgstr "Comentário"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Ações"
-
-msgid "Comment"
-msgstr "Comentário"
 
 #, python-format
 msgid ""
@@ -1380,10 +1380,6 @@ msgstr ""
 msgid "Search the whole site"
 msgstr "Pesquise em todo o site"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s de %(items_count)s"
-
 msgid "Sites menu"
 msgstr "Menu de sites"
 
@@ -1405,9 +1401,6 @@ msgstr "Esta página está protegida da visualização pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Adicionar subpágina"
 
 msgid "Page types"
 msgstr "Tipos de página"
@@ -1577,9 +1570,6 @@ msgstr "Fechar caixa de diálogo"
 msgid "System"
 msgstr "Sistema"
 
-msgid "Refresh"
-msgstr "Atualizar"
-
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s tem alterações não salvas"
@@ -1594,14 +1584,8 @@ msgstr[0] "Um outro usuário está visualizando no momento"
 msgstr[1] "%(num_user)s outros usuários estão visualizando no momento"
 msgstr[2] "%(num_user)s outros usuários estão visualizando no momento"
 
-msgid "Refresh page"
-msgstr "Atualizar página"
-
 msgid "Continue"
 msgstr "Continuar"
-
-msgid "Refresh the page"
-msgstr "Atualizar a página"
 
 msgid "Download XLSX"
 msgstr "Baixar XLSX"
@@ -1807,6 +1791,9 @@ msgstr "Carregando"
 
 msgid "Refreshing…"
 msgstr "Atualizando..."
+
+msgid "Refresh"
+msgstr "Atualizar"
 
 msgid "Preview is out of date"
 msgstr "A pré-visualização está desatualizada"
@@ -2671,6 +2658,9 @@ msgstr "Tipo de página"
 
 msgid "Exploring"
 msgstr "Explorando"
+
+msgid "Add child page"
+msgstr "Adicionar subpágina"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

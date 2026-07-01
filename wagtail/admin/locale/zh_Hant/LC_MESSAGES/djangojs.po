@@ -1,4 +1,3 @@
-#
 # Translators:
 # Yu Hsun Lee <andylee0914.tw@gmail.com>, 2022
 # Brian Xu, 2022

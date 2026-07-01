@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2026

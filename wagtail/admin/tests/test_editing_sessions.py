@@ -1719,6 +1719,30 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
         self.assertEqual(module.get("data-w-session-interval-value"), "30000")
         self.assertRevisionInput(module)
 
+        actions = set(module.get("data-action").split())
+        self.assertLessEqual(
+            {
+                # Disable when leaving the page to prevent false positive conflict
+                # alert when the user manually click Save and a ping is triggered
+                # before the new page is loaded (but after the revision has been
+                # created, which has a different ID and we have no way of knowing).
+                # Must use beforeunload, as pagehide is only fired when the browser
+                # has received the response for the new page, which is too late for
+                # our use case.
+                "beforeunload@window->w-session#pause",
+                # Release the session at the very last moment.
+                "pagehide@window->w-action#sendBeacon",
+                # Pause during autosaves to avoid race condition when a ping happens
+                # in between the autosave updating the revision and the client
+                # receiving the response.
+                "w-autosave:save@document->w-session#pause",
+                # Resume once autosave completes, regardless of result
+                "w-autosave:success@document->w-session#resume",
+                "w-autosave:error@document->w-session#resume",
+            },
+            actions,
+        )
+
 
 class TestModuleInEditViewWithRevisableSnippet(TestModuleInEditView):
     model = FullFeaturedSnippet

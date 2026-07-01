@@ -14,6 +14,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
    .. autoattribute:: UNDEFINED
+      :no-value:
    .. autoattribute:: name
    .. autoattribute:: url_prefix
    .. autoattribute:: url_namespace
@@ -55,6 +56,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: menu_order
    .. autoattribute:: menu_item_class
    .. autoattribute:: add_to_admin_menu
+   .. autoattribute:: submenu_hook
    .. automethod:: get_menu_item
 ```
 
@@ -90,9 +92,16 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: pk_path_converter
    .. autoattribute:: ordering
    .. autoattribute:: sort_order_field
-      :annotation: = UNDEFINED
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
+   
+        This list will be passed to the ``list_display`` attribute of the index
+        view. If left unset, the ``list_display`` attribute of the index view
+        will be used instead, which by default is defined as a list containing
+        ``"__str__"``, :class:`LocaleColumn() <wagtail.admin.ui.tables.LocaleColumn>`,
+        and :class:`UpdatedAtColumn() <wagtail.admin.ui.tables.UpdatedAtColumn>`.
+    
+        Note that the ``LocaleColumn`` is only included if the model is translatable.
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
@@ -217,6 +226,20 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_chooser_admin_base_path
 ```
 
+## SnippetChooserViewSet
+
+```{eval-rst}
+.. autoclass:: wagtail.snippets.views.chooser.SnippetChooserViewSet
+
+   .. autoattribute:: choose_view_class
+   .. autoattribute:: choose_results_view_class
+   .. autoattribute:: chosen_view_class
+   .. autoattribute:: chosen_multiple_view_class
+   .. autoattribute:: create_view_class
+   .. autoattribute:: base_widget_class
+   .. autoattribute:: widget_class
+```
+
 ## SnippetViewSetGroup
 
 ```{eval-rst}
@@ -226,12 +249,108 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
 ## PageListingViewSet
 
+```{versionadded} 7.4
+Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `export_headings` and `export_filename` was added to `PageListingViewSet`.
+```
+
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.pages.PageListingViewSet
 
    .. autoattribute:: model
    .. autoattribute:: index_view_class
    .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: list_display
    .. autoattribute:: columns
+   .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+```
+
+## PageViewSet
+
+```{versionadded} 7.4
+The `PageViewSet` class was added.
+```
+
+```{versionadded} 8.0
+Endpoints for the following views were added to the viewset:
+`add_subpage_view_class`,
+`add_view_class`,
+`collect_workflow_action_data_view_class`,
+`confirm_workflow_cancellation_view_class`,
+`convert_alias_view_class`,
+`copy_view_class`,
+`edit_view_class`,
+`delete_view_class`,
+`history_view_class`,
+`lock_view_class`,
+`move_view_class`,
+`move_confirm_view_class`,
+`unlock_view_class`,
+`preview_on_add_view_class`,
+`preview_on_edit_view_class`,
+`revisions_view_class`,
+`revisions_compare_view_class`,
+`revisions_revert_view_class`,
+`revisions_unschedule_view_class`,
+`search_view_class`,
+`set_page_position_view_class`,
+`set_privacy_view_class`,
+`unpublish_view_class`,
+`usage_view_class`,
+`view_draft_view_class`,
+`workflow_action_view_class`,
+`workflow_history_view_class`,
+`workflow_history_detail_view_class`,
+`workflow_preview_view_class`.
+```
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.pages.PageViewSet
+
+   .. autoattribute:: model
+   .. autoattribute:: parent_models
+   .. autoattribute:: list_display
+   .. autoattribute:: columns
+   .. autoattribute:: list_filter
+   .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+   .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: content_type_use_view_class
+   .. autoattribute:: add_subpage_view_class
+   .. autoattribute:: add_view_class
+   .. autoattribute:: collect_workflow_action_data_view_class
+   .. autoattribute:: confirm_workflow_cancellation_view_class
+   .. autoattribute:: convert_alias_view_class
+   .. autoattribute:: copy_view_class
+   .. autoattribute:: edit_view_class
+   .. autoattribute:: delete_view_class
+   .. autoattribute:: history_view_class
+   .. autoattribute:: index_view_class
+   .. autoattribute:: lock_view_class
+   .. autoattribute:: move_view_class
+   .. autoattribute:: move_confirm_view_class
+   .. autoattribute:: unlock_view_class
+   .. autoattribute:: preview_on_add_view_class
+   .. autoattribute:: preview_on_edit_view_class
+   .. autoattribute:: revisions_view_class
+   .. autoattribute:: revisions_compare_view_class
+   .. autoattribute:: revisions_revert_view_class
+   .. autoattribute:: revisions_unschedule_view_class
+   .. autoattribute:: search_view_class
+   .. autoattribute:: set_page_position_view_class
+   .. autoattribute:: set_privacy_view_class
+   .. autoattribute:: unpublish_view_class
+   .. autoattribute:: usage_view_class
+   .. autoattribute:: view_draft_view_class
+   .. autoattribute:: workflow_action_view_class
+   .. autoattribute:: workflow_history_view_class
+   .. autoattribute:: workflow_history_detail_view_class
+   .. autoattribute:: workflow_preview_view_class
 ```

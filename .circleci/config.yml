@@ -1,29 +1,24 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@5.4.3
+  codecov: codecov/codecov@6.0.0
 
 jobs:
   backend:
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.14
     steps:
       - checkout
       - run: python --version > .python_version
+      - run: pip install uv
       - restore_cache:
-          key: &venv-cache venv-v1-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
-      # Only install if .venv wasn’t cached.
-      - run: |
-          if [[ ! -e ".venv" ]]; then
-              python -m venv .venv
-              source .venv/bin/activate
-              python -m pip install -e .[testing,docs]
-          fi
-          echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
+          key: &uv-cache uv-cache-v1-{{ checksum "uv.lock" }}-{{ checksum ".python_version" }}
+      - run: uv sync --locked --extra testing --extra docs
       - save_cache:
-          key: *venv-cache
+          key: *uv-cache
           paths:
-            - .venv
+            - ~/.cache/uv
+      - run: echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
       - run: ruff check .
       - run: ruff format --check .
       - run: semgrep --config .semgrep.yml --error .
@@ -38,7 +33,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:24.13
+      - image: cimg/node:24.16.0
     steps:
       - checkout
       - restore_cache:
@@ -64,7 +59,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.12-browsers
+      - image: cimg/python:3.14-browsers
     environment:
       DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
       DJANGO_DEBUG: 'true'
@@ -73,20 +68,15 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run: python --version > .python_version
+      - run: pip install uv
       - restore_cache:
-          key: &ui_tests-venv-cache ui_tests-venv-v1-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
-      # Only install if .venv wasn’t cached.
-      - run: |
-          if [[ ! -e ".venv" ]]; then
-              python -m venv .venv
-              source .venv/bin/activate
-              python -m pip install -e .[testing]
-          fi
-          echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
+          key: *uv-cache
+      - run: uv sync --locked --extra testing --extra docs
       - save_cache:
-          key: *ui_tests-venv-cache
+          key: *uv-cache
           paths:
-            - .venv
+            - ~/.cache/uv
+      - run: echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
       - restore_cache:
           key: &ui_tests-npm-cache ui_tests-npm_integration-v3-{{ checksum "client/tests/integration/package-lock.json" }}
       # Only install if node_modules wasn’t cached.
@@ -129,7 +119,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.12-node
+      - image: cimg/python:3.14-node
     steps:
       - checkout
       - run: pip install --user build boto3

@@ -251,7 +251,7 @@ class WorkflowState(models.Model):
                 and "approve"
                 in [
                     action[0]
-                    for action in self.current_task_state.task.get_actions(
+                    for action in self.current_task_state.task.specific.get_actions(
                         self.content_object, user
                     )
                 ]

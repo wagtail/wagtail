@@ -966,9 +966,7 @@ class TestRichTextBlock(TestCase):
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
-        from django.db.models.fields import BLANK_CHOICE_DASH
-
-        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+        self.blank_choice_dash_label = "- Select an option -"
 
     def test_adapt_choice_block(self):
         block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
@@ -980,7 +978,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
         self.assertEqual(
             js_args[2],
@@ -1016,7 +1014,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
 
     def test_validate_required_choice_block(self):
@@ -1120,7 +1118,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 (
                     "Alcoholic",
                     [
@@ -1269,7 +1267,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
@@ -1400,7 +1398,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
@@ -2783,6 +2781,37 @@ class TestStructBlock(SimpleTestCase):
         )
         self.assertIsInstance(block.child_blocks["description"], blocks.TextBlock)
 
+    def test_with_multiple_missing_blocks_in_form_layout(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/14242:
+        # when more than one block is missing from form_layout, those blocks
+        # (including any added via local_blocks) must be appended to
+        # child_blocks in a stable order to avoid spurious migrations
+        # across runs. To reproduce the failure against the un-fixed code,
+        # run this test with a certain seed, e.g. PYTHONHASHSEED=1.
+        class ArticleBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+            author = blocks.CharBlock()
+            published_date = blocks.DateBlock()
+
+            class Meta:
+                form_layout = BlockGroup(children=["link"])
+
+        block = ArticleBlock(local_blocks=[("extra", blocks.CharBlock())])
+
+        self.assertEqual(
+            list(block.child_blocks.keys()),
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+        self.assertIsInstance(block.child_blocks["extra"], blocks.CharBlock)
+
+        _, args, _ = block.deconstruct()
+        self.assertEqual(
+            [name for name, _block in args[0]],
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+
     def test_adapt_with_get_form_layout(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -3026,6 +3055,33 @@ class TestStructBlock(SimpleTestCase):
 
         value = block.to_python({"title": "", "link": "https://example.com"})
         with self.assertRaises(ValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # children of OuterBlock therefore reference the same CharBlock,
+        # making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class OuterBlock(blocks.StructBlock):
+            a = HeroBlock()
+            b = HeroBlock()
+
+        block = OuterBlock()
+        shared_title = block.child_blocks["a"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["b"].child_blocks["title"],
+        )
+
+        value = block.to_python({"a": {"title": ""}, "b": {"title": ""}})
+        block.clean_deferred(value)
+
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(StructBlockValidationError):
             block.clean(value)
 
     def test_non_block_validation_error(self):
@@ -4305,11 +4361,15 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
 
-        self.assertIn('<div class="block-heading">My title</div>', html)
+        self.assertIn('<div class="w-block-heading block-heading">My title</div>', html)
         self.assertIn(
-            '<div class="block-paragraph">My <i>first</i> paragraph</div>', html
+            '<div class="w-block-paragraph block-paragraph">My <i>first</i> paragraph</div>',
+            html,
         )
-        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My second paragraph</div>',
+            html,
+        )
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -4327,7 +4387,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertNotIn("foo", html)
         self.assertNotIn("Hello", html)
-        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My first paragraph</div>',
+            html,
+        )
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -4345,12 +4408,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         value = block.to_python([{"type": "heading", "value": "Hello"}])
         html = block.render(value)
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
         # calling render_as_block() on value (a StreamValue instance)
         # should be equivalent to block.render(value)
         html = value.render_as_block()
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
     def test_render_passes_context_to_children(self):
         block = blocks.StreamBlock(
@@ -4370,7 +4437,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
         # calling render_as_block(context=foo) on value (a StreamValue instance)
@@ -4381,7 +4449,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
     def test_render_on_stream_child_uses_child_template(self):
@@ -4515,6 +4584,91 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             catcher.exception.as_json_data(),
             {"blockErrors": {0: {"messages": ["This field is required."]}}},
         )
+
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # child types in this StreamBlock therefore reference the same
+        # CharBlock, making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class MyStream(blocks.StreamBlock):
+            hero = HeroBlock()
+            featured = HeroBlock()
+
+        block = MyStream()
+
+        # Sanity check: both HeroBlock instances reference the same
+        # class-level CharBlock instance.
+        shared_title = block.child_blocks["hero"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["featured"].child_blocks["title"],
+        )
+        self.assertTrue(shared_title.required)
+
+        value = block.to_python([{"type": "hero", "value": {"title": ""}}])
+        block.clean_deferred(value)
+
+        # After clean_deferred, the shared CharBlock must be restored to
+        # required=True, and a subsequent non-deferred clean must reject
+        # empty values.
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {
+                "blockErrors": {
+                    0: {
+                        "blockErrors": {
+                            "title": {"messages": ["This field is required."]},
+                        }
+                    }
+                }
+            },
+        )
+
+    def test_clean_deferred_with_field_block_aliased_to_multiple_children(self):
+        # The same FieldBlock instance is used as more than one direct
+        # StreamBlock child type, making it reachable via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock([("a", shared), ("b", shared)])
+        self.assertIs(block.child_blocks["a"], block.child_blocks["b"])
+
+        value = block.to_python([{"type": "a", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_with_field_block_shared_with_list_block_child(self):
+        # The same FieldBlock is used both as a direct StreamBlock child
+        # and as the child_block of a sibling ListBlock, making it reachable
+        # via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock(
+            [
+                ("direct", shared),
+                ("inside_list", blocks.ListBlock(shared)),
+            ]
+        )
+        self.assertIs(
+            block.child_blocks["direct"],
+            block.child_blocks["inside_list"].child_block,
+        )
+
+        value = block.to_python([{"type": "direct", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
 
     def test_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):

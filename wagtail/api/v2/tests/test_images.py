@@ -7,6 +7,8 @@ from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.images import get_image_model
+from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
 class TestImageListing(TestCase):
@@ -61,6 +63,26 @@ class TestImageListing(TestCase):
                 image["meta"]["detail_url"],
                 "http://localhost/api/main/images/%d/" % image["id"],
             )
+
+    def test_excludes_restricted_image(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_image.collection = restricted_collection
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_image.id, self.get_image_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_image_model().objects.count() - 1
+        )
 
     #  FIELDS
 

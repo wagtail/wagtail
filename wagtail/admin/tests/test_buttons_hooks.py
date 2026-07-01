@@ -10,7 +10,6 @@ from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimpleChildPage, SimplePage, SimpleParentPage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestButtonsHooks(WagtailTestUtils, TestCase):
@@ -28,37 +27,6 @@ class TestButtonsHooks(WagtailTestUtils, TestCase):
 
 
 class TestPageListingButtonsHooks(TestButtonsHooks):
-    def test_register_page_listing_buttons_deprecated_class(self):
-        def page_listing_buttons_deprecated_class(page, user, next_url=None):
-            yield wagtailadmin_widgets.PageListingButton(
-                "Another useless page listing button", "/custom-url", priority=10
-            )
-
-        with (
-            hooks.register_temporarily(
-                "register_page_listing_buttons", page_listing_buttons_deprecated_class
-            ),
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`PageListingButton` is deprecated. "
-                "Use `wagtail.admin.widgets.button.ListingButton` instead.",
-            ),
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/shared/button_with_dropdown.html"
-        )
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
-        self.assertContains(response, "Another useless page listing button")
-
     def test_register_page_listing_buttons_new_signature(self):
         def page_listing_buttons_new_signature(page, user, next_url=None):
             if not isinstance(user, AbstractBaseUser):
@@ -290,8 +258,9 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/headers/_actions.html")
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_page_header_buttons.html"
+            response, "wagtailadmin/shared/button_with_dropdown.html"
         )
 
         self.assertContains(response, "Another useless header button")
@@ -389,6 +358,63 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
             button for button in buttons if button.label == "Add child page"
         )
         self.assertFalse(add_subpage_button.is_shown(user=self.user))
+
+
+class TestButtonRendering(WagtailTestUtils, SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.link_button = Button(
+            "Go to URL",
+            "/url",
+            classname="class1 class2",
+            icon_name="globe",
+            attrs={"data-test": "value"},
+        )
+        cls.action_button = Button(
+            "Perform action",
+            classname="class3 class4",
+            icon_name="cog",
+            attrs={"data-action": "perform"},
+        )
+        cls.submit_button = Button(
+            "Submit form",
+            classname="class3 class4",
+            icon_name="cog",
+            attrs={"type": "submit", "data-action": "perform"},
+        )
+
+    def test_link_button_renders_as_anchor_tag(self):
+        html = self.link_button.render_html({})
+        soup = self.get_soup(html)
+        link = soup.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.get("href"), "/url")
+        self.assertEqual(set(link.get("class")), {"class1", "class2"})
+        self.assertEqual(link.get("data-test"), "value")
+        icon = link.select_one("svg use[href='#icon-globe']")
+        self.assertIsNotNone(icon)
+
+    def test_action_button_renders_as_button_tag(self):
+        html = self.action_button.render_html({})
+        soup = self.get_soup(html)
+        button = soup.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(button.get("type"), "button")
+        self.assertEqual(set(button.get("class")), {"class3", "class4"})
+        self.assertEqual(button.get("data-action"), "perform")
+        icon = button.select_one("svg use[href='#icon-cog']")
+        self.assertIsNotNone(icon)
+
+    def test_button_allows_submit_type(self):
+        html = self.submit_button.render_html({})
+        soup = self.get_soup(html)
+        button = soup.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(button.get("type"), "submit")
+        self.assertEqual(set(button.get("class")), {"class3", "class4"})
+        self.assertEqual(button.get("data-action"), "perform")
+        icon = button.select_one("svg use[href='#icon-cog']")
+        self.assertIsNotNone(icon)
 
 
 class ButtonComparisonTestCase(SimpleTestCase):

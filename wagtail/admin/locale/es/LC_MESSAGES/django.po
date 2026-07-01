@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024-2025\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -660,13 +660,13 @@ msgstr "¿Aún te gustaría publicar este %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Comment"
+msgstr "Comentario"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Acciones"
-
-msgid "Comment"
-msgstr "Comentario"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -1517,9 +1517,6 @@ msgstr "Esta página esta protegida para ser accedida públicamente"
 msgid "Confirm"
 msgstr "Confirmar"
 
-msgid "Add child page"
-msgstr "Añadir página hija"
-
 msgid "Page types"
 msgstr "Tipos de página"
 
@@ -2325,6 +2322,14 @@ msgid "Inspect"
 msgstr "Inspeccionar"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "Añadir %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "El %(model_name)s no puede ser creado debido a errores."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nuevo: %(model_name)s"
 
@@ -2332,8 +2337,16 @@ msgid "Editing"
 msgstr "Editando"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "El %(model_name)s no puede ser guardado debido a errores."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' eliminado."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "¿Seguro que quieres eliminar este %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Primeros"
@@ -2495,6 +2508,9 @@ msgstr "Sitio"
 
 msgid "Yes"
 msgstr "Sí"
+
+msgid "Add child page"
+msgstr "Añadir página hija"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

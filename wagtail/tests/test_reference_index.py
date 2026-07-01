@@ -1,11 +1,12 @@
 from io import StringIO
+from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.test import TestCase
-from django.utils.functional import SimpleLazyObject
+from django.utils.functional import SimpleLazyObject, lazystr
 
 from wagtail.blocks import StreamValue, StructValue
 from wagtail.documents import get_document_model
@@ -530,6 +531,21 @@ class TestDescribeOnDelete(TestCase):
                 reference.describe_on_delete(),
                 "the advert placement will also be deleted",
             )
+
+    @mock.patch(
+        "wagtail.test.testapp.models.AdvertPlacement._meta.verbose_name",
+        lazystr("lazy advert placement"),
+    )
+    def test_describe_source_field_parental_key_with_lazy_verbose_name(self):
+        # Validate that lazy string verbose names (e.g. gettext_lazy) on the
+        # related model are correctly resolved in the reference index.
+        advert = Advert.objects.first()
+        usage = ReferenceIndex.get_references_to(advert).group_by_source_object()
+        reference = usage[0][1][0]
+        self.assertEqual(
+            reference.describe_source_field(),
+            "Lazy advert placement → Advert",
+        )
 
     def test_parental_key_with_related_query_name(self):
         # EventPageSpeaker has a ParentalKey to EventPage with a

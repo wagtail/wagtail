@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # Matt Westcott <matthew@torchbox.com>, 2024
-# Roger Pons <rogerpons@gmail.com>, 2017,2022-2025
+# Roger Pons <rogerpons@gmail.com>, 2017,2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2025\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,21 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documents de Wagtail"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "Mida màxima de fitxer: %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Aquest fitxer és massa gran (%(file_size)s). Mida màxima de fitxer "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Aquest fitxer és massa gran. Mida màxima de fitxer %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Col·lecció"

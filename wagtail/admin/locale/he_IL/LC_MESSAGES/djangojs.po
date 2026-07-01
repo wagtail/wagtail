@@ -1,4 +1,3 @@
-#
 # Translators:
 # Adi Ron <adi@bnop.co>, 2022
 # Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2026
