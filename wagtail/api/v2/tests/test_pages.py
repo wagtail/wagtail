@@ -1,5 +1,6 @@
 import collections
 import json
+import unittest
 from io import StringIO
 from unittest import mock
 
@@ -613,6 +614,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [12])
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus="false")
         content = json.loads(response.content.decode("UTF-8"))
@@ -680,6 +685,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
             "field filter error. 'abc' is not a valid value for feed_image",
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus="abc")
         content = json.loads(response.content.decode("UTF-8"))

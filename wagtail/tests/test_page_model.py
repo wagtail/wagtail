@@ -3815,6 +3815,10 @@ class TestMakePreviewRequest(TestCase):
             self.assertTrue(event_index.is_previewable())
 
 
+@unittest.skipIf(
+    swapper.is_swapped("wagtailcore", "Page"),
+    "show_in_menus is not available on custom base page models",
+)
 class TestShowInMenusDefaultOption(TestCase):
     """
     This tests that a page model can define the default for 'show_in_menus'
