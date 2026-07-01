@@ -1,4 +1,4 @@
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
@@ -76,9 +76,8 @@ class EditAction(BaseAction):
 
     def _clean_instance(self):
         if self.form:
-            # Use is_valid() instead of full_clean() to avoid re-validating the
-            # form if it has already been validated.
-            self.form.is_valid()
+            if not self.form.is_valid():
+                raise ValidationError(self.form.errors.get_json_data())
         else:
             self.instance.full_clean()
 
