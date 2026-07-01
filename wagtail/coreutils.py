@@ -425,7 +425,7 @@ def safe_md5(data=b"", usedforsecurity=True):
     to use the digest for secure purposes and to please just go ahead and
     allow it to happen.
     """
-    return md5(data, usedforsecurity=usedforsecurity)
+    return md5(data, usedforsecurity=usedforsecurity)  # noqa: S324 -  several places in Wagtail require MD5
 
 
 class BatchProcessor:

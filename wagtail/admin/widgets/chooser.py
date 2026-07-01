@@ -167,7 +167,7 @@ class BaseChooser(widgets.Input):
 
         js = self.render_js_init(id_, name, value_data)
         out = f"{widget_html}<script>{js}</script>"
-        return mark_safe(out)
+        return mark_safe(out)  # noqa: S308 - TODO: investigate if susceptible to XSS
 
     @property
     def base_js_init_options(self):

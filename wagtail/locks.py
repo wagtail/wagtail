@@ -180,14 +180,14 @@ class WorkflowLock(BaseLock):
                 )
                 # Make sure message is correctly capitalised even if it
                 # starts with model_name.
-                workflow_info = mark_safe(capfirst(workflow_info))
+                workflow_info = mark_safe(capfirst(workflow_info))  # noqa: S308 - TODO: investigate if susceptible to XSS
 
             reviewers_info = capfirst(
                 _("Only reviewers for this task can edit the %(model_name)s.")
                 % {"model_name": self.model_name}
             )
 
-            return mark_safe(workflow_info + " " + reviewers_info)
+            return mark_safe(workflow_info + " " + reviewers_info)  # noqa: S308 - TODO: investigate if susceptible to XSS
 
     def get_icon(self, user, can_lock=False):
         if can_lock:
@@ -254,7 +254,7 @@ class ScheduledForPublishLock(BaseLock):
             title=scheduled_revision.object_str,
             datetime=render_timestamp(scheduled_revision.approved_go_live_at),
         )
-        return mark_safe(capfirst(message))
+        return mark_safe(capfirst(message))  # noqa: S308 - message is properly escaped
 
     def get_locked_by(self, user):
         return _("Locked by schedule")
