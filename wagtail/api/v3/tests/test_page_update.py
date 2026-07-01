@@ -552,7 +552,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             group=editor_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                content_type__app_label="wagtailcore", codename="change_page"
+                codename=Page.CHANGE_PERMISSION_CODENAME,
             ),
         )
         self.login(username="editor", password="password")
