@@ -41,6 +41,9 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
 class TestGenericCreateView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
+    def setUp(self):
+        self.user = self.login()
+
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_create"), params)
 
