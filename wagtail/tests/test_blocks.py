@@ -17,9 +17,12 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
-from wagtail.admin.telepath import registry
+from wagtail.admin.telepath import JSContext, registry
 from wagtail.blocks.base import get_error_json_data
-from wagtail.blocks.definition_lookup import BlockDefinitionLookup
+from wagtail.blocks.definition_lookup import (
+    BlockDefinitionLookup,
+    BlockDefinitionLookupBuilder,
+)
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
@@ -7238,3 +7241,379 @@ class TestBlockDefinitionLookup(TestCase):
         self.assertIsInstance(list_block, blocks.ListBlock)
         list_item_block = list_block.child_block
         self.assertIsInstance(list_item_block, blocks.CharBlock)
+
+    # Serialising and reconstructing block definitions that contain a cycle.
+
+    def test_self_referential_lookup_round_trip(self):
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock()
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(CommentBlock())
+        rebuilt = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+
+        self.assertIsInstance(rebuilt, blocks.StructBlock)
+        self.assertEqual(rebuilt.check(), [])
+        child = rebuilt.child_blocks["replies"].child_block
+        self.assertIsInstance(child, blocks.BlockReference)
+        self.assertEqual(set(child.child_blocks), {"text", "replies"})
+
+    def test_mutual_reference_lookup_round_trip(self):
+        class AuthorBlock(blocks.StructBlock):
+            posts = blocks.ListBlock(blocks.BlockReference(lambda: PostBlock))
+
+        class PostBlock(blocks.StructBlock):
+            authors = blocks.ListBlock(blocks.BlockReference(lambda: AuthorBlock))
+
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(AuthorBlock())
+        rebuilt = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+
+        self.assertEqual(rebuilt.check(), [])
+        # The cycle closes one level deeper: the post is built directly, its author is a ref.
+        post = rebuilt.child_blocks["posts"].child_block
+        self.assertIsInstance(post, blocks.StructBlock)
+        self.assertEqual(set(post.child_blocks), {"authors"})
+        author = post.child_blocks["authors"].child_block
+        self.assertIsInstance(author, blocks.BlockReference)
+        self.assertEqual(set(author.child_blocks), {"posts"})
+
+    def test_reference_does_not_appear_in_lookup_table(self):
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock()
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+        builder = BlockDefinitionLookupBuilder()
+        builder.add_block(CommentBlock())
+        paths = [entry[0] for entry in builder.get_lookup_as_dict().values()]
+
+        self.assertNotIn("wagtail.blocks.BlockReference", paths)
+        self.assertCountEqual(
+            paths,
+            [
+                "wagtail.blocks.CharBlock",
+                "wagtail.blocks.ListBlock",
+                "wagtail.blocks.StructBlock",
+            ],
+        )
+
+    def test_multiple_references_to_one_block_deduplicated(self):
+        class Section(blocks.StructBlock):
+            items = blocks.ListBlock(blocks.BlockReference(lambda: Item))
+            related = blocks.ListBlock(blocks.BlockReference(lambda: Item))
+
+        class Item(blocks.StructBlock):
+            title = blocks.CharBlock()
+            children = blocks.ListBlock(blocks.BlockReference(lambda: Section))
+
+        builder = BlockDefinitionLookupBuilder()
+        builder.add_block(Section())
+        struct_entries = [
+            entry
+            for entry in builder.get_lookup_as_dict().values()
+            if entry and entry[0] == "wagtail.blocks.StructBlock"
+        ]
+        self.assertEqual(len(struct_entries), 2)  # one Section + one Item, not three
+
+    def test_round_trip_through_reserialization(self):
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock()
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(CommentBlock())
+        restored = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+
+        builder2 = BlockDefinitionLookupBuilder()
+        index2 = builder2.add_block(restored)
+        rebuilt = BlockDefinitionLookup(builder2.get_lookup_as_dict()).get_block(index2)
+
+        self.assertEqual(rebuilt.check(), [])
+        child = rebuilt.child_blocks["replies"].child_block
+        self.assertEqual(set(child.child_blocks), {"text", "replies"})
+
+    def test_reconstruct_cycle_entered_through_its_own_list_block(self):
+        # When the same cyclic block appears more than once in a lookup, reconstruction can
+        # reach the cycle through its own ListBlock, whose child resolves to a fully built
+        # struct holding a back-edge to the still-constructing ListBlock. Building that
+        # ListBlock must not eagerly resolve the back-edge, and get_default() must build a
+        # fresh, terminating subtree afterwards.
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock()
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+        stream = blocks.StreamBlock(
+            [("a", CommentBlock()), ("b", CommentBlock(group="X"))]
+        )
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(stream)
+        rebuilt = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+
+        self.assertEqual(rebuilt.check(), [])
+        rebuilt.get_default()  # must not raise
+
+
+class TestBlockReference(SimpleTestCase):
+    def setUp(self):
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock(required=True)
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+        self.CommentBlock = CommentBlock
+
+    def test_reference_presents_as_its_target_class(self):
+        # isinstance() follows the resolved target, while type() stays BlockReference.
+        ref = blocks.BlockReference(lambda: blocks.CharBlock)
+        self.assertIsInstance(ref, blocks.CharBlock)
+        self.assertIsInstance(ref, blocks.Block)
+        self.assertIs(type(ref), blocks.BlockReference)
+
+        struct_ref = self.CommentBlock().child_blocks["replies"].child_block
+        self.assertIsInstance(struct_ref, blocks.StructBlock)
+        self.assertNotIsInstance(struct_ref, blocks.ListBlock)
+
+    def test_invalid_target_raises(self):
+        with self.assertRaises(TypeError):
+            blocks.BlockReference(42).resolve()
+
+    def test_dotted_path_target_resolves(self):
+        block = blocks.StructBlock(
+            [("text", blocks.BlockReference("wagtail.blocks.CharBlock"))]
+        )
+        child = block.child_blocks["text"]
+        self.assertIsInstance(child, blocks.BlockReference)
+        self.assertIsInstance(child, blocks.CharBlock)
+
+    def test_callable_target_can_return_a_configured_block(self):
+        # A callable returning a constructed instance keeps its arguments; returning the
+        # class (like the bare class and dotted-path forms) constructs it with no arguments.
+        optional = blocks.BlockReference(
+            lambda: blocks.CharBlock(required=False, max_length=5)
+        )
+        self.assertFalse(optional.required)
+        self.assertEqual(optional.field.max_length, 5)
+
+        default = blocks.BlockReference(lambda: blocks.CharBlock)
+        self.assertTrue(default.required)
+        self.assertIsNone(default.field.max_length)
+
+    def test_target_is_resolved_once_and_memoised(self):
+        ref = blocks.BlockReference(lambda: blocks.CharBlock)
+        self.assertIs(ref.resolve(), ref.resolve())
+
+    def test_set_name_propagates_through_resolution(self):
+        # A name set before resolution is remembered and applied to the target.
+        ref = blocks.BlockReference(lambda: blocks.CharBlock)
+        ref.set_name("foo")
+        self.assertEqual(ref.resolve().name, "foo")
+
+    def test_deepcopy_preserves_unresolved_reference(self):
+        # Copying must not force resolution; the copy is still an unresolved
+        # reference that resolves correctly afterwards.
+        ref = blocks.BlockReference(lambda: blocks.CharBlock)
+        copied = copy.deepcopy(ref)
+        self.assertIs(type(copied), blocks.BlockReference)
+        self.assertIsInstance(copied.resolve(), blocks.CharBlock)
+
+    def test_forward_reference(self):
+        class AccordionBlock(blocks.StructBlock):
+            heading = blocks.CharBlock()
+
+        class ContentBlock(blocks.StreamBlock):
+            accordion = AccordionBlock()
+            paragraph = blocks.RichTextBlock()
+
+        accordion = AccordionBlock(
+            [("content", blocks.BlockReference(lambda: ContentBlock))]
+        )
+        content = accordion.child_blocks["content"]
+        self.assertIsInstance(content, blocks.StreamBlock)
+        self.assertIn("accordion", content.child_blocks)
+
+    def test_self_referential_block_supports_core_operations(self):
+        block = self.CommentBlock()
+
+        self.assertEqual(block.check(), [])
+
+        default = block.get_default()
+        self.assertIn("text", default)
+        self.assertEqual(list(default["replies"]), [])
+
+        value = block.to_python(
+            {
+                "text": "L0",
+                "replies": [{"text": "L1", "replies": [{"text": "L2", "replies": []}]}],
+            }
+        )
+        self.assertEqual(value["replies"][0]["replies"][0]["text"], "L2")
+
+        prepped = block.get_prep_value(value)
+        self.assertEqual(
+            prepped["replies"][0]["value"]["replies"][0]["value"]["text"], "L2"
+        )
+
+    def test_mutual_reference_terminates(self):
+        class AuthorBlock(blocks.StructBlock):
+            name = blocks.CharBlock()
+            posts = blocks.ListBlock(blocks.BlockReference(lambda: PostBlock))
+
+        class PostBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            authors = blocks.ListBlock(blocks.BlockReference(lambda: AuthorBlock))
+
+        self.assertEqual(AuthorBlock().check(), [])
+        self.assertEqual(list(AuthorBlock().get_default()["posts"]), [])
+
+    def test_value_from_datadict_terminates_on_cyclic_block(self):
+        block = self.CommentBlock()
+        data = {
+            "comment-text": "hello",
+            "comment-replies-count": "1",
+            "comment-replies-0-deleted": "",
+            "comment-replies-0-order": "0",
+            "comment-replies-0-id": "reply-1",
+            "comment-replies-0-value-text": "a reply",
+            # the nested reply has no replies of its own, ending the recursion
+            "comment-replies-0-value-replies-count": "0",
+        }
+        value = block.value_from_datadict(data, {}, "comment")
+        self.assertEqual(value["text"], "hello")
+        reply = list(value["replies"])[0]
+        self.assertEqual(reply["text"], "a reply")
+        self.assertEqual(list(reply["replies"]), [])
+
+    def test_deferred_validation_terminates_through_cycle(self):
+        # Empty required text passes while deferred, then fails once validation is restored.
+        block = self.CommentBlock()
+        value = block.to_python(
+            {"text": "ok", "replies": [{"text": "", "replies": []}]}
+        )
+        block.clean_deferred(value)
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+
+        # The same across a mutual reference.
+        class AuthorBlock(blocks.StructBlock):
+            name = blocks.CharBlock(required=True)
+            posts = blocks.ListBlock(blocks.BlockReference(lambda: PostBlock))
+
+        class PostBlock(blocks.StructBlock):
+            authors = blocks.ListBlock(blocks.BlockReference(lambda: AuthorBlock))
+
+        author = AuthorBlock()
+        author_value = author.to_python({"name": "", "posts": []})
+        author.clean_deferred(author_value)
+        with self.assertRaises(ValidationError):
+            author.clean(author_value)
+
+    def test_deferred_validation_reaches_forward_referenced_block(self):
+        class PageBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            author = blocks.BlockReference(lambda: AuthorBlock)
+
+        class AuthorBlock(blocks.StructBlock):
+            name = blocks.CharBlock(required=True)
+
+        block = PageBlock()
+        value = block.to_python({"title": "hi", "author": {"name": ""}})
+
+        block.clean_deferred(value)  # must not raise: the author's required is deferred
+
+        with self.assertRaises(ValidationError):
+            block.clean(value)  # restored: required is enforced again
+
+    def test_overridden_defer_restore_reached_through_reference(self):
+        # A target that overrides the deferred-validation hooks is still driven
+        # correctly when reached through a reference.
+        calls = []
+
+        class CustomBlock(blocks.StructBlock):
+            name = blocks.CharBlock(required=True)
+
+            def defer_required_validation(self):
+                calls.append("defer")
+                super().defer_required_validation()
+
+            def restore_deferred_validation(self):
+                calls.append("restore")
+                super().restore_deferred_validation()
+
+        class PageBlock(blocks.StructBlock):
+            custom = blocks.BlockReference(lambda: CustomBlock)
+
+        ref = PageBlock().child_blocks["custom"]
+        ref.defer_required_validation()
+        ref.restore_deferred_validation()
+        self.assertEqual(calls, ["defer", "restore"])
+
+    def test_streamblock_self_reference_terminates(self):
+        class SectionStream(blocks.StreamBlock):
+            text = blocks.CharBlock()
+            nested = blocks.BlockReference(lambda: SectionStream)
+
+        self.assertEqual(SectionStream().check(), [])
+        self.assertEqual(list(SectionStream().get_default()), [])
+
+    def test_extract_references_through_cycle(self):
+        class Node(blocks.StructBlock):
+            body = blocks.RichTextBlock()
+            children = blocks.ListBlock(blocks.BlockReference(lambda: Node))
+
+        block = Node()
+        value = block.to_python(
+            {
+                "body": '<a linktype="page" id="5">x</a>',
+                "children": [
+                    {"body": '<a linktype="page" id="9">y</a>', "children": []}
+                ],
+            }
+        )
+        found = {
+            (model, object_id, model_path)
+            for model, object_id, model_path, _ in block.extract_references(value)
+        }
+        self.assertEqual(
+            found,
+            {(Page, "5", "body"), (Page, "9", "children.item.body")},
+        )
+
+    def test_cyclic_block_equality(self):
+        class OtherBlock(blocks.StructBlock):
+            heading = blocks.CharBlock()
+            children = blocks.ListBlock(blocks.BlockReference(lambda: OtherBlock))
+
+        self.assertEqual(self.CommentBlock(), self.CommentBlock())
+        self.assertNotEqual(self.CommentBlock(), OtherBlock())
+
+        # Equal to the same definition rebuilt from a lookup, despite fresh references.
+        original = self.CommentBlock()
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(original)
+        rebuilt = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+        self.assertEqual(rebuilt, original)
+
+    def test_editor_pack_terminates_through_cycle(self):
+        class AuthorBlock(blocks.StructBlock):
+            posts = blocks.ListBlock(blocks.BlockReference(lambda: PostBlock))
+
+        class PostBlock(blocks.StructBlock):
+            authors = blocks.ListBlock(blocks.BlockReference(lambda: AuthorBlock))
+
+        # Packing must terminate; the cycle is broken by an _ref in the output.
+        self.assertTrue(
+            JSContext().pack(blocks.StreamBlock([("comment", self.CommentBlock())]))
+        )
+        self.assertTrue(
+            JSContext().pack(blocks.StreamBlock([("author", AuthorBlock())]))
+        )
+
+    def test_inherited_reference_resolves(self):
+        class BaseBlock(blocks.StructBlock):
+            children = blocks.ListBlock(blocks.BlockReference(lambda: BaseBlock))
+
+        class SubBlock(BaseBlock):
+            extra = blocks.CharBlock()
+
+        self.assertEqual(SubBlock().check(), [])
+        self.assertEqual(set(SubBlock().child_blocks), {"children", "extra"})

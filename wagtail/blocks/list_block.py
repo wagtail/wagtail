@@ -13,6 +13,7 @@ from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
+    BlockReference,
     BoundBlock,
     get_error_json_data,
     get_error_list_json_data,
@@ -149,8 +150,17 @@ class ListBlock(Block):
 
         self._has_default = hasattr(self.meta, "default")
         if not self._has_default:
-            # Default to a list consisting of one empty (i.e. default-valued) child item
-            self.meta.default = [self.child_block.get_default()]
+            if isinstance(self.child_block, BlockReference):
+                # A reference has no finite per-item default (it stands in for a cyclic
+                # target), so the list defaults to empty; being a sequence is what gives the
+                # cycle a finite default.
+                self.meta.default = []
+            else:
+                # Default to a list of one default-valued child item, but as a callable so
+                # it is evaluated lazily: a child that participates in a cycle can only
+                # produce a default once the surrounding block graph is fully built, which is
+                # not the case while it is being rebuilt from a definition lookup.
+                self.meta.default = lambda: [self.child_block.get_default()]
 
     # If a subclass of ListBlock overrides __init__, we cannot assume that the first argument is
     # the child block, and thus we cannot rely on the conversion applied in construct_from_lookup /
@@ -316,7 +326,14 @@ class ListBlock(Block):
                 else:
                     raw_values.append(list_child)
 
-        converted_values = self.child_block.bulk_to_python(raw_values)
+        if raw_values:
+            converted_values = self.child_block.bulk_to_python(raw_values)
+        else:
+            # With no values there is nothing to convert, so don't resolve the child block.
+            # For a BlockReference child this also prevents infinite recursion: resolving it
+            # to convert an empty list would build a fresh block whose own empty list would
+            # resolve again, and so on.
+            converted_values = []
 
         # split converted_values back into sub-lists of the original lengths
         result = []
