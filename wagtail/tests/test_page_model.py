@@ -3,6 +3,7 @@ import json
 import unittest
 from unittest.mock import Mock
 
+import swapper
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -3758,6 +3759,10 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
             self.assertTrue(event_index.is_previewable())
 
 
+@unittest.skipIf(
+    swapper.is_swapped("wagtailcore", "Page"),
+    "show_in_menus is not available on custom base page models",
+)
 class TestShowInMenusDefaultOption(PageFixturesMixin, TestCase):
     """
     This tests that a page model can define the default for 'show_in_menus'
