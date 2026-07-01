@@ -17,7 +17,7 @@ Page = swapper.load_model("wagtailcore", "Page")
 def get_users_for_filter():
     User = get_user_model()
     return (
-        User.objects.filter(locked_pages__isnull=False)
+        User.objects.filter(**{f"locked_{Page._meta.model_name}s__isnull": False})
         .order_by(User.USERNAME_FIELD)
         .distinct()
     )
