@@ -3535,6 +3535,43 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
         self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
 
+    def test_list_child_render_exposes_id_in_context(self):
+        """
+        Rendering a ListChild should make its block id available to the child
+        block's template via the `id` context variable.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template="tests/blocks/heading_block.html")
+        )
+        value = block.to_python(
+            [
+                {"type": "item", "value": "Hello world!", "id": "abc123"},
+                {"type": "item", "value": "Goodbye world!", "id": "def456"},
+            ]
+        )
+
+        html = value.bound_blocks[0].render()
+        self.assertEqual('<h1 id="abc123">Hello world!</h1>', html)
+
+        # the same functionality should be available through the alias `render_as_block`
+        html = value.bound_blocks[1].render_as_block()
+        self.assertEqual('<h1 id="def456">Goodbye world!</h1>', html)
+
+    def test_list_child_render_does_not_overwrite_existing_id_in_context(self):
+        """
+        An explicit `id` already present in the render context should take
+        precedence over the ListChild's own id.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template="tests/blocks/heading_block.html")
+        )
+        value = block.to_python(
+            [{"type": "item", "value": "Hello world!", "id": "abc123"}]
+        )
+
+        html = value.bound_blocks[0].render(context={"id": "from-context"})
+        self.assertEqual('<h1 id="from-context">Hello world!</h1>', html)
+
     def test_get_api_representation_calls_same_method_on_children_with_context(self):
         """
         The get_api_representation method of a ListBlock should invoke
@@ -4496,6 +4533,51 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         # the same functionality should be available through the alias `render_as_block`
         html = value[0].render_as_block(context={"language": "fr"})
         self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
+
+    def test_stream_child_render_exposes_id_in_context(self):
+        """
+        Rendering a StreamChild should make its block id available to the child
+        block's template via the `id` context variable.
+        """
+        block = blocks.StreamBlock(
+            [
+                (
+                    "heading",
+                    blocks.CharBlock(template="tests/blocks/heading_block.html"),
+                ),
+                ("paragraph", blocks.CharBlock()),
+            ]
+        )
+        value = block.to_python([{"type": "heading", "value": "Hello", "id": "abc123"}])
+
+        html = value[0].render()
+        self.assertEqual('<h1 id="abc123">Hello</h1>', html)
+
+        # the same functionality should be available through the alias `render_as_block`
+        html = value[0].render_as_block()
+        self.assertEqual('<h1 id="abc123">Hello</h1>', html)
+
+        # rendering the whole stream should also expose each child's id
+        html = block.render(value)
+        self.assertIn('<h1 id="abc123">Hello</h1>', html)
+
+    def test_stream_child_render_does_not_overwrite_existing_id_in_context(self):
+        """
+        An explicit `id` already present in the render context should take
+        precedence over the StreamChild's own id.
+        """
+        block = blocks.StreamBlock(
+            [
+                (
+                    "heading",
+                    blocks.CharBlock(template="tests/blocks/heading_block.html"),
+                ),
+            ]
+        )
+        value = block.to_python([{"type": "heading", "value": "Hello", "id": "abc123"}])
+
+        html = value[0].render(context={"id": "from-context"})
+        self.assertEqual('<h1 id="from-context">Hello</h1>', html)
 
     def test_adapt(self):
         class ArticleBlock(blocks.StreamBlock):
