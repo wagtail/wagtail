@@ -287,8 +287,8 @@ class PagePermissionsForm(forms.Form):
     )
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.filter(
-            content_type__app_label="wagtailcore",
-            content_type__model="page",
+            content_type__app_label=Page._meta.app_label,
+            content_type__model=Page._meta.model_name,
             codename__in=Page.permission_codenames,
         )
         .select_related("content_type")
