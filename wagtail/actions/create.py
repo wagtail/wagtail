@@ -82,6 +82,14 @@ class CreateAction(BaseAction):
             self.user, self.permission_policy_action
         )
 
+    def _clean_instance(self):
+        if self.form:
+            # Use is_valid() instead of full_clean() to avoid re-validating the
+            # form if it has already been validated.
+            self.form.is_valid()
+        else:
+            self.instance.full_clean()
+
     def _save_instance(self):
         # If DraftStateMixin is applied, make sure the object is not live when
         # first created. Making it live is done by publishing a revision below.
@@ -95,6 +103,9 @@ class CreateAction(BaseAction):
 
     def _create(self, skip_permission_checks=False):
         from wagtail.models.orderable import set_max_order
+
+        if self.clean:
+            self._clean_instance()
 
         self._save_instance()
 
