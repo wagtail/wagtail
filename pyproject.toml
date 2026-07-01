@@ -78,6 +78,7 @@ testing = [
   "doc8==2.0.0",
   "ruff==0.15.17",
   "ty==0.0.51",
+  "django-stubs==6.0.6",
   # For enforcing string formatting mechanism in source files
   "semgrep==1.166.0",
   # For templates linting

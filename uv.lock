@@ -736,6 +736,23 @@ wheels = [
 ]
 
 [[package]]
+name = "django-stubs"
+version = "6.0.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django", version = "5.2.15", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "django", version = "6.0.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "django-stubs-ext" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
+    { name = "types-pyyaml" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/91/de/1b8ccb0909970fb4a8b48426f67132164110304875abdb4e4912c55480f4/django_stubs-6.0.6.tar.gz", hash = "sha256:dfc01e052e33c7f8f0c30c3ff8eda0903ee29ac710d1e46d9effd773744a69b0", size = 281381, upload-time = "2026-06-23T08:22:54.098Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d0/b0/b73855fb9cf381fa1d754ea33c25f14f5b11c297f48dc3a4e0359dc3adc2/django_stubs-6.0.6-py3-none-any.whl", hash = "sha256:c488fea05a9eac40ddbdc69887f63a5c0922cb13df285291ee99c9bbc89bc4f1", size = 546491, upload-time = "2026-06-23T08:22:52.466Z" },
+]
+
+[[package]]
 name = "django-stubs-ext"
 version = "6.0.5"
 source = { registry = "https://pypi.org/simple" }
@@ -3053,6 +3070,15 @@ wheels = [
 ]
 
 [[package]]
+name = "types-pyyaml"
+version = "6.0.12.20260518"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b8/83/4a1afc3fbfcf5b8d46fc390cd95ed6b0dc9010a265f4e9f46314efffa37a/types_pyyaml-6.0.12.20260518.tar.gz", hash = "sha256:d917f83fb38462550338c1297faedd860b3ec83912b96b1e3d73255f7473e466", size = 17850, upload-time = "2026-05-18T06:01:58.675Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl", hash = "sha256:d2150f75a231c9fe9c7463bd29487d93e60bac90400287351384bc2284eba7cd", size = 20312, upload-time = "2026-05-18T06:01:57.368Z" },
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.15.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3155,6 +3181,7 @@ testing = [
     { name = "coverage" },
     { name = "curlylint" },
     { name = "django-pattern-library" },
+    { name = "django-stubs" },
     { name = "djhtml" },
     { name = "doc8" },
     { name = "factory-boy" },
@@ -3183,6 +3210,7 @@ requires-dist = [
     { name = "django-ninja", specifier = ">=1.4,<2.0" },
     { name = "django-pattern-library", marker = "extra == 'testing'", specifier = ">=0.7" },
     { name = "django-permissionedforms", specifier = ">=0.1,<1.0" },
+    { name = "django-stubs", marker = "extra == 'testing'", specifier = "==6.0.6" },
     { name = "django-taggit", specifier = ">=5.0,<7" },
     { name = "django-tasks", specifier = ">=0.9,<0.13" },
     { name = "django-treebeard", specifier = ">=4.8,<6.0" },
