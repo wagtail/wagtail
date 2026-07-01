@@ -1,6 +1,8 @@
+import unittest
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -44,6 +46,10 @@ class TestPageQuerySet(PageFixturesMixin, TestCase):
         event = Page.objects.get(url_path="/home/events/someone-elses-event/")
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus is not available on custom base page models",
+    )
     def test_in_menu(self):
         pages = Page.objects.in_menu()
 
@@ -55,6 +61,10 @@ class TestPageQuerySet(PageFixturesMixin, TestCase):
         events_index = Page.objects.get(url_path="/home/events/")
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus is not available on custom base page models",
+    )
     def test_not_in_menu(self):
         pages = Page.objects.not_in_menu()
 
