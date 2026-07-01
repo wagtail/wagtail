@@ -149,7 +149,7 @@ class BulkAction(ABC, FormView):
             )
             if before_hook_result is not None:
                 return before_hook_result
-            num_parent_objects, num_child_objects = self.execute_action(
+            num_parent_objects, num_child_objects, *_ = self.execute_action(
                 objects, **self.get_execution_context()
             )
             after_hook_result = self.__run_after_hooks(
@@ -158,7 +158,7 @@ class BulkAction(ABC, FormView):
             if after_hook_result is not None:
                 return after_hook_result
             success_message = self.get_success_message(
-                num_parent_objects, num_child_objects
+                num_parent_objects, num_child_objects, *_
             )
             if success_message is not None:
                 messages.success(request, success_message)
