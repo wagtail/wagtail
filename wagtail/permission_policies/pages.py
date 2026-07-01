@@ -1,7 +1,8 @@
+import swapper
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models import Q
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.permission_policies.base import OwnershipPermissionPolicy
 
 
@@ -9,7 +10,9 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
     permission_cache_name = "_page_permission_cache"
     _explorable_root_instance_cache_name = "_explorable_root_page_cache"
 
-    def __init__(self, model=Page):
+    def __init__(self, model=None):
+        if model is None:
+            model = swapper.load_model("wagtailcore", "Page")
         super().__init__(model=model)
 
     def get_all_permissions_for_user(self, user):
@@ -163,7 +166,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         # Get all pages that the user has direct add/change/publish/lock permission on
         if user.is_superuser:
             # superuser has implicit permission on the root node
-            return Page.objects.filter(depth=1)
+            return self.model.base_page_model.objects.filter(depth=1)
         else:
             codenames = self._get_permission_codenames(
                 {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
@@ -181,10 +184,10 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             return getattr(user, self._explorable_root_instance_cache_name)
         pages = self.instances_with_direct_explore_permission(user)
         try:
-            root_page = Page.objects.first_common_ancestor_of(
+            root_page = self.model.base_page_model.objects.first_common_ancestor_of(
                 pages, include_self=True, strict=True
             )
-        except Page.DoesNotExist:
+        except self.model.base_page_model.DoesNotExist:
             root_page = None
         setattr(user, self._explorable_root_instance_cache_name, root_page)
         return root_page
@@ -210,6 +213,8 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             explorable_pages |= page.get_ancestors()
 
         # Remove unnecessary top-level ancestors that the user has no access to
-        fca_page = Page.objects.first_common_ancestor_of(page_permissions)
+        fca_page = self.model.base_page_model.objects.first_common_ancestor_of(
+            page_permissions
+        )
         explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
         return explorable_pages

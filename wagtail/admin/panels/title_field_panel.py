@@ -1,7 +1,7 @@
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy
 
-from wagtail.models import Page
+from wagtail.models import AbstractPage
 
 from .field_panel import FieldPanel
 
@@ -103,7 +103,7 @@ class TitleFieldPanel(FieldPanel):
             if placeholder is True:
                 title = gettext_lazy("Title")
 
-                if issubclass(self.panel.model, Page):
+                if issubclass(self.panel.model, AbstractPage):
                     title = gettext_lazy("Page title")
 
                 return format_lazy("{title}*", title=title)

@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.editing_sessions import EditingSessionsList
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page, Revision, RevisionMixin, WorkflowMixin
+from wagtail.models import AbstractPage, Revision, RevisionMixin, WorkflowMixin
 
 
 @require_POST
@@ -28,7 +28,7 @@ def ping(request, app_label, model_name, object_id, session_id):
     content_type = ContentType.objects.get_for_model(model)
 
     obj = get_object_or_404(model, pk=unquoted_object_id)
-    if isinstance(obj, Page):
+    if isinstance(obj, AbstractPage):
         can_edit = obj.permissions_for_user(request.user).can_edit()
     else:
         try:

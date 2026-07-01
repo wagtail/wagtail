@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -18,8 +19,9 @@ from wagtail.admin.views.generic.models import (
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.utils import GenericPageBreadcrumbsMixin
-from wagtail.models import Page
 from wagtail.utils.timestamps import render_timestamp
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def revisions_index(request, page_id):

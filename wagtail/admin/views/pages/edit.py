@@ -1,6 +1,7 @@
 import json
 from urllib.parse import quote
 
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
@@ -40,13 +41,14 @@ from wagtail.models import (
     COMMENTS_RELATION_NAME,
     Comment,
     CommentReply,
-    Page,
     PageSubscription,
     Revision,
     WorkflowState,
     get_default_page_content_type,
 )
 from wagtail.utils.timestamps import render_timestamp
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class EditView(
@@ -1041,7 +1043,12 @@ class EditView(
             session,
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.pk, session.id),
+                args=(
+                    Page._meta.app_label,
+                    Page._meta.model_name,
+                    self.page.pk,
+                    session.id,
+                ),
             ),
             reverse(
                 "wagtailadmin_editing_sessions:release",

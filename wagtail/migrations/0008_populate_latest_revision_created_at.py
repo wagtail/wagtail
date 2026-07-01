@@ -1,8 +1,9 @@
+import swapper
 from django.db import migrations
 
 
 def populate_latest_revision_created_at(apps, schema_editor):
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
 
     for page in Page.objects.all():
         latest_revision = page.revisions.order_by("-created_at").first()
