@@ -281,15 +281,23 @@ class PageBase(models.base.ModelBase):
                     )
                 )
 
+            model_name = name.lower()
+
             if not hasattr(meta, "permissions"):
                 # Make sure that we auto-create Permission objects that are defined in
                 # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
-                model_name = name.lower()
                 meta.permissions = [
                     (f"{codename}_{model_name}", name)
                     for codename, _, name in PAGE_PERMISSION_TYPES
                     if codename not in {"add", "change", "delete", "view"}
                 ]
+
+            dct["ADD_PERMISSION_CODENAME"] = f"add_{model_name}"
+            dct["CHANGE_PERMISSION_CODENAME"] = f"change_{model_name}"
+            dct["DELETE_PERMISSION_CODENAME"] = f"delete_{model_name}"
+            dct["PUBLISH_PERMISSION_CODENAME"] = f"publish_{model_name}"
+            dct["LOCK_PERMISSION_CODENAME"] = f"lock_{model_name}"
+            dct["UNLOCK_PERMISSION_CODENAME"] = f"unlock_{model_name}"
 
         return super().__new__(cls, name, bases, dct, **kwargs)
 
