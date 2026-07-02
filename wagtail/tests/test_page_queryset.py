@@ -865,7 +865,8 @@ class TestSpecificQuery(PageFixturesMixin, WagtailTestUtils, TestCase):
             qs = Page.objects.live().order_by("-url_path")[:3].specific()
 
         with self.assertNumQueries(3):
-            # Metadata, EventIndex and EventPage
+            # Metadata, EventIndex and EventPage. We do not need a query on SimplePage because
+            # there are no instances of that in the slice we have taken.
             pages = list(qs)
 
         self.assertEqual(len(pages), 3)
@@ -884,21 +885,21 @@ class TestSpecificQuery(PageFixturesMixin, WagtailTestUtils, TestCase):
         # 'someone-elses-event' and the tentative event are unpublished.
 
         with self.assertNumQueries(0):
-            qs = Page.objects.specific().live().in_menu().order_by("-url_path")[:4]
+            qs = Page.objects.specific().live().order_by("-url_path")[:3]
 
-        with self.assertNumQueries(4):
-            # Metadata, EventIndex, EventPage, SimplePage.
+        with self.assertNumQueries(3):
+            # Metadata, EventIndex, EventPage. We do not need a query on SimplePage because
+            # there are no instances of that in the slice we have taken.
             pages = list(qs)
 
-        self.assertEqual(len(pages), 4)
+        self.assertEqual(len(pages), 3)
 
         self.assertEqual(
             pages,
             [
+                Page.objects.get(url_path="/home/other/special-event/").specific,
                 Page.objects.get(url_path="/home/other/").specific,
                 Page.objects.get(url_path="/home/events/christmas/").specific,
-                Page.objects.get(url_path="/home/events/").specific,
-                Page.objects.get(url_path="/home/about-us/").specific,
             ],
         )
 
@@ -1258,19 +1259,22 @@ class TestSpecificQuerySearch(PageFixturesMixin, WagtailTestUtils, TransactionTe
         pages = list(
             Page.objects.specific()
             .live()
-            .in_menu()
+            .filter(depth__gt=2)
             .search(MATCH_ALL, backend="wagtail.search.backends.database")
         )
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here
-        self.assertEqual(len(pages), 4)
-        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
-        self.assertIn(
-            Page.objects.get(url_path="/home/events/christmas/").specific, pages
+        self.assertCountEqual(
+            pages,
+            [
+                Page.objects.get(url_path="/home/other/special-event/").specific,
+                Page.objects.get(url_path="/home/other/").specific,
+                Page.objects.get(url_path="/home/events/christmas/").specific,
+                Page.objects.get(url_path="/home/events/").specific,
+                Page.objects.get(url_path="/home/about-us/").specific,
+            ],
         )
-        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
-        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
 
 
 class TestFirstCommonAncestor(PageFixturesMixin, TestCase):
