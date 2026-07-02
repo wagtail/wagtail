@@ -2,6 +2,7 @@ from datetime import timedelta
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
@@ -882,8 +883,13 @@ class TestCreateLogEntriesFromRevisionsCommand(PageFixturesMixin, TestCase):
         )
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
+        method_path = (
+            "wagtail.test.basepage.models.BasePage.specific_class"
+            if swapper.is_swapped("wagtailcore", "Page")
+            else "wagtail.models.Page.specific_class"
+        )
         with mock.patch(
-            "wagtail.models.Page.specific_class",
+            method_path,
             return_value=None,
             new_callable=mock.PropertyMock,
         ):
