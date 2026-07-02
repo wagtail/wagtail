@@ -441,7 +441,7 @@ class AbstractPage(
     # This means the page is kept in sync with the live version
     # of the linked pages and is not editable by users.
     alias_of = models.ForeignKey(
-        "self",
+        swapper.get_model_name("wagtailcore", "Page"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
