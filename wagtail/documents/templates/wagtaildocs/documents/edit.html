@@ -15,17 +15,18 @@
                 {% endif %}
             {% endfor %}
         </div>
+        {% block document_stats %}
+            <dl>
+                {% if document.file %}
+                    <dt>{% trans "Filesize" %}</dt>
+                    <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found"%}{% endif %}</dd>
+                {% endif %}
 
-        <dl>
-            {% if document.file %}
-                <dt>{% trans "Filesize" %}</dt>
-                <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
-            {% endif %}
-
-            <dt>{% trans "Usage" %}</dt>
-            <dd>
-                <a href="{{ document.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-            </dd>
-        </dl>
+                <dt>{% trans "Usage" %}</dt>
+                <dd>
+                    <a href="{{ document.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </dd>
+            </dl>
+        {% endblock %}
     </div>
 {% endblock %}
