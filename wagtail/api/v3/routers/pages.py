@@ -5,19 +5,7 @@ from ninja.pagination import paginate
 
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
-from wagtail.api.v3.schemas import PageListingSchema, serialize_page_listing
-
-
-class PageListingPagination(WagtailLimitOffsetPagination):
-    """Serialize pages after Ninja slices. Skip rows that are not in the response."""
-
-    def paginate_queryset(self, queryset, pagination, request, **params):
-        result = super().paginate_queryset(queryset, pagination, request, **params)
-        result["items"] = [
-            serialize_page_listing(page, request) for page in result["items"]
-        ]
-        return result
-
+from wagtail.api.v3.schemas import PageListingSchema
 
 router = Router(tags=["pages"])
 
@@ -34,7 +22,7 @@ def _public_pages_queryset(request: HttpRequest):
     summary="List pages",
     operation_id="pages_list",
 )
-@paginate(PageListingPagination)
+@paginate(WagtailLimitOffsetPagination)
 def list_pages(request: HttpRequest):
     return _public_pages_queryset(request)
 
@@ -48,4 +36,4 @@ def list_pages(request: HttpRequest):
 )
 def get_page(request: HttpRequest, page_id: int):
     page = get_object_or_404(_public_pages_queryset(request), pk=page_id)
-    return serialize_page_listing(page.specific, request)
+    return page.specific
