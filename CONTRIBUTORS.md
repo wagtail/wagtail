@@ -1002,6 +1002,7 @@
 * Roshan Ramani
 * Jawad Khan
 * Taras Panasiuk
+* Neda Gilanian
 
 ## Translators
 

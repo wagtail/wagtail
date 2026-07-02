@@ -189,6 +189,8 @@ class MiscellaneousViewSetGroup(ViewSetGroup):
     items = (CalendarViewSet, GreetingsViewSet)
     menu_label = "Miscellaneous"
     submenu_hook = "register_submenu_greetings"
+    add_to_admin_menu = False
+    add_to_settings_menu = True
 
 
 class SubmenuHookGreetingsViewSet(ViewSet):
