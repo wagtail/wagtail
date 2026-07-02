@@ -989,6 +989,7 @@
 * Jack Whitworth
 * Thomas Herman
 * Joey Jurjens
+* Preeti Singh
 
 ## Translators
 
