@@ -213,7 +213,10 @@ class CreatePageAliasAction:
             'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
         )
 
-        from wagtail.models import Page, PageViewRestriction
+        from wagtail.models import Page
+        from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+        PageViewRestriction = get_page_view_restriction_model()
 
         # Copy child pages
         if recursive:

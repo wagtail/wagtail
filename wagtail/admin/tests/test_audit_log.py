@@ -11,11 +11,14 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.log_actions import LogContext, log
-from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
+from wagtail.models import GroupPagePermission, Page, PageLogEntry
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.utils.timestamps import render_timestamp
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

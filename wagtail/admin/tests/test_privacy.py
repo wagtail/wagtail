@@ -3,9 +3,12 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import Page
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestSetPrivacyView(WagtailTestUtils, TestCase):

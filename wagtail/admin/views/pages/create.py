@@ -32,9 +32,11 @@ from wagtail.models import (
     Locale,
     Page,
     PageSubscription,
-    PageViewRestriction,
 )
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.signals import init_new_page
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class AddSubpageView(TemplateView):
@@ -256,9 +258,19 @@ class CreateView(
             # add groups to the page view restriction
             groups_page_restriction.groups.set(default_privacy_setting["groups"])
         else:
-            raise ValueError(
-                f"Invalid privacy setting {default_privacy_setting.get('type')!r}"
-            )
+            # handle custom view restrictions
+            privacy_setting = default_privacy_setting.get("type")
+            if privacy_setting in [
+                choice[0] for choice in PageViewRestriction.RESTRICTION_CHOICES
+            ]:
+                PageViewRestriction.objects.create(
+                    page=self.page,
+                    restriction_type=privacy_setting,
+                )
+            else:
+                raise ValueError(
+                    f"Invalid privacy setting {default_privacy_setting.get('type')!r}"
+                )
 
     def save_action(self):
         self.page = self.form.save(commit=False)

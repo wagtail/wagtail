@@ -26,13 +26,13 @@ from wagtail.models import (
     Page,
     PageLogEntry,
     PageManager,
-    PageViewRestriction,
     Site,
     Workflow,
     WorkflowTask,
     get_page_models,
     get_translatable_models,
 )
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     AbstractPage,
@@ -74,6 +74,8 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 def get_ct(model):

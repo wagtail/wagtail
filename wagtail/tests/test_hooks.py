@@ -5,10 +5,13 @@ from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 
 from wagtail import hooks
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import Page
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve, serve_chain
 from wagtail.wagtail_hooks import check_view_restrictions
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 def test_hook():

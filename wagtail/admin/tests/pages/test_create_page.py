@@ -13,9 +13,9 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     Page,
-    PageViewRestriction,
     Revision,
 )
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.signals import init_new_page, page_published
 from wagtail.test.testapp.models import (
     Advert,
@@ -35,6 +35,8 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestPageCreation(WagtailTestUtils, TestCase):

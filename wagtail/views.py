@@ -6,7 +6,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import Page
 
 
 def serve_chain(page, request, args, kwargs):
@@ -37,6 +37,9 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     Handle a submission of PasswordViewRestrictionForm to grant view access over a
     subtree that is protected by a PageViewRestriction
     """
+    from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+    PageViewRestriction = get_page_view_restriction_model()
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
 

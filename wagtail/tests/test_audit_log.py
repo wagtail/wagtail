@@ -15,14 +15,16 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     Page,
     PageLogEntry,
-    PageViewRestriction,
     Task,
     Workflow,
     WorkflowTask,
 )
 from wagtail.models.audit_log import ModelLogEntry
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestAuditLogManager(WagtailTestUtils, TestCase):

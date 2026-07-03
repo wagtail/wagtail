@@ -7,7 +7,8 @@ from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase, TransactionTestCase, tag
 
-from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
+from wagtail.models import Locale, Page, Site, Workflow
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
@@ -17,6 +18,8 @@ from wagtail.test.testapp.models import (
     StreamPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestPageQuerySet(TestCase):

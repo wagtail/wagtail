@@ -33,7 +33,6 @@
       "slug": "root"
     }
   },
-
   {
     "pk": 2,
     "model": "wagtailcore.page",
@@ -77,7 +76,6 @@
       "intro": "Look at our lovely events."
     }
   },
-
   {
     "pk": 4,
     "model": "wagtailcore.page",
@@ -108,7 +106,6 @@
       "feed_image": 1
     }
   },
-
   {
     "pk": 13,
     "model": "wagtailcore.page",
@@ -145,7 +142,6 @@
       "excerpt": "A little tiny excerpt for Saint Patrick."
     }
   },
-
   {
     "pk": 1,
     "model": "tests.eventpagespeaker",
@@ -157,7 +153,6 @@
       "sort_order": 0
     }
   },
-
   {
     "pk": 5,
     "model": "wagtailcore.page",
@@ -187,7 +182,6 @@
       "cost": "Free"
     }
   },
-
   {
     "pk": 6,
     "model": "wagtailcore.page",
@@ -217,7 +211,6 @@
       "cost": "Free (but not for you)"
     }
   },
-
   {
     "pk": 7,
     "model": "wagtailcore.page",
@@ -244,7 +237,6 @@
       "content": "<p>We are really good.</p>"
     }
   },
-
   {
     "pk": 8,
     "model": "wagtailcore.page",
@@ -271,7 +263,6 @@
       "subject": "The subject"
     }
   },
-
   {
     "pk": 9,
     "model": "wagtailcore.page",
@@ -301,7 +292,6 @@
       "cost": "Free"
     }
   },
-
   {
     "pk": 1,
     "model": "tests.formfield",
@@ -347,7 +337,6 @@
       "page": 8
     }
   },
-
   {
     "pk": 10,
     "model": "wagtailcore.page",
@@ -372,7 +361,6 @@
       "content": "<p>Test with old style route method</p>"
     }
   },
-
   {
     "pk": 11,
     "model": "wagtailcore.page",
@@ -397,7 +385,6 @@
       "content": "<p>muahahahaha</p>"
     }
   },
-
   {
     "pk": 12,
     "model": "wagtailcore.page",
@@ -467,7 +454,6 @@
     "model": "tests.businessindex",
     "fields": {}
   },
-
   {
     "pk": 16,
     "model": "wagtailcore.page",
@@ -491,7 +477,6 @@
     "model": "tests.businesssubindex",
     "fields": {}
   },
-
   {
     "pk": 17,
     "model": "wagtailcore.page",
@@ -689,7 +674,6 @@
       "is_default_site": true
     }
   },
-
   {
     "pk": 3,
     "model": "auth.group",
@@ -831,7 +815,6 @@
       "permission": ["unlock_page", "wagtailcore", "page"]
     }
   },
-
   {
     "pk": 1,
     "model": "wagtailforms.formsubmission",
