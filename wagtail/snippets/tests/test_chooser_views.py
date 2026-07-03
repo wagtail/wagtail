@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.admin.utils import quote
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 
@@ -185,6 +185,7 @@ class TestSnippetChooseStatus(WagtailTestUtils, TestCase):
         )
 
 
+@tag("transaction")
 class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
@@ -242,6 +243,7 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCa
         self.assertIn(self.snippet_c, items)
 
 
+@tag("transaction")
 class TestSnippetChooseWithNonAutocompleteSearchableSnippet(
     WagtailTestUtils, TransactionTestCase
 ):

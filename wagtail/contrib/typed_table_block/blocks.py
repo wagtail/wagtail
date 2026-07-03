@@ -361,6 +361,18 @@ class BaseTypedTableBlock(Block):
                     )
                     yield model, object_id, model_path, content_path
 
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        for child_block in self.child_blocks.values():
+            if not child_block.is_deferred_validation:
+                child_block.defer_required_validation()
+
+    def restore_deferred_validation(self):
+        for child_block in self.child_blocks.values():
+            if child_block.is_deferred_validation:
+                child_block.restore_deferred_validation()
+        super().restore_deferred_validation()
+
     class Meta:
         default = None
         icon = "table"

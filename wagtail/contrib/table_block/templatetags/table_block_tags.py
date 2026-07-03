@@ -1,5 +1,5 @@
 from django import template
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 register = template.Library()
 
@@ -13,7 +13,7 @@ def cell_classname(context, row_index, col_index, table_header=None):
         index = (row_index, col_index)
         cell_class = classnames.get(index)
         if cell_class:
-            return mark_safe(f'class="{cell_class}"')
+            return format_html('class="{}"', cell_class)
     return ""
 
 
@@ -37,10 +37,9 @@ def cell_span(context, row_index, col_index, table_header=None):
         index = (row_index, col_index)
         cell_span = spans.get(index)
         if cell_span:
-            return mark_safe(
-                'rowspan="{}" colspan="{}"'.format(
-                    cell_span["rowspan"],
-                    cell_span["colspan"],
-                )
+            return format_html(
+                'rowspan="{}" colspan="{}"',
+                cell_span["rowspan"],
+                cell_span["colspan"],
             )
     return ""

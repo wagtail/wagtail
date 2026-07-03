@@ -2,7 +2,7 @@ import json
 from urllib.parse import parse_qs, urlsplit
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, TransactionTestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
 from django.utils.html import escape
 from django.utils.http import urlencode
@@ -384,6 +384,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+@tag("transaction")
 class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 

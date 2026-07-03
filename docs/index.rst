@@ -46,6 +46,7 @@ Index
    extending/index
    reference/index
    deployment/index
+   packages/index
    support
    editor_manual/index
    contributing/index

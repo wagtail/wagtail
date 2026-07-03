@@ -314,6 +314,54 @@ def register_viewset():
 
 This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
 
+### Collecting submenu items via hooks in a `ViewSetGroup`
+
+In addition to explicitly listing `ViewSet`s in a {class}`~wagtail.admin.viewsets.base.ViewSetGroup`’s `items`, you can also configure a group to collect submenu items via hooks by setting the `submenu_hook` name. This allows you to combine arbitrary menu items and viewsets into the same menu group.
+
+For example, using the same `AgendaViewSetGroup` above, add the following `submenu_hook`:
+
+```{code-block} python
+:emphasize-lines: 4
+
+class AgendaViewSetGroup(ViewSetGroup):
+    ...
+    # Hook name for collecting submenu items
+    submenu_hook = "register_agenda_submenu"
+```
+
+You can then register arbitrary menu items or viewsets from a different module to be part of the group's menu using the specified hook name:
+
+```{code-block} python
+:emphasize-lines: 8, 19-22
+
+# other_app/views.py
+class TimelineViewSet(ViewSet):
+    menu_label = "Timeline"
+    icon = "calendar-alt"
+    name = "timeline"
+    # Add the viewset's menu item inside the "Agenda" group's menu.
+    # This takes precedence over add_to_admin_menu and add_to_settings_menu.
+    menu_hook = "register_agenda_submenu"
+    ...
+
+
+# other_app/wagtail_hooks.py
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    # The viewset needs to be registered on its own, as it is not part of
+    # AgendaViewSetGroup.items. However, it will be added to the Agenda menu group.
+    return TimelineViewSet()
+
+@hooks.register("register_agenda_submenu")
+def register_calendar_menu_item():
+    # Register an arbitrary menu item to the Agenda menu group.
+    return MenuItem("Planner", reverse("planner"), icon_name="edit")
+```
+
+With this setup, the `AgendaViewSetGroup` will appear as a top-level menu item "Agenda", which contains "Calendar" and "Events" from `AgendaViewSetGroup.items`, as well as "Timeline" and "Planner" from the `register_agenda_submenu` hooks.
+
+This approach is useful when the items you want in the group are registered from a different module, such as a pluggable app that cannot modify the group's `items` directly, or when you want to include arbitrary menu items rather than only viewsets.
+
 For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
 
 ## Adding links in admin views

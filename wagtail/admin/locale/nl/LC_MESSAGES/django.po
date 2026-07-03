@@ -15,7 +15,7 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022-2023
 # Huib Keemink <huib@creativedutchmen.com>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2023
+# Maarten Kling <kling.maarten@gmail.com>, 2023,2026
 # mahulst, 2014
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2022,2025
@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -302,7 +302,7 @@ msgstr ""
 msgid "The slug '%(page_slug)s' is already in use within the parent page."
 msgstr ""
 "De slug '%(page_slug)s' is al in gebruik door een andere pagina op dit "
-"niveau in in de paginaboom."
+"niveau in de paginaboom."
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
@@ -640,9 +640,10 @@ msgid ""
 "automatically update if the underlying page changes its URL. Would you like "
 "to do this?"
 msgstr ""
-"Door het omzetten naar een interne link naar %(page)s wordt de link "
-"automatisch aangepast als de URL van de onderliggende pagina wijzigt. Wil je "
-"deze link omzetten?"
+"Door het omzetten naar een interne link die verwijst naar %(page)s wordt de "
+"link automatisch aangepast als de URL van deze pagina wijzigt. Zo voorkom je "
+"niet-werkende links omdat de gelinkte pagina (bijvoorbeeld) verplaatst "
+"wordt. Wil je deze link omzetten (aanbevolen)?"
 
 msgid "Use external link"
 msgstr "Gebruik externe link"
@@ -768,13 +769,16 @@ msgstr "Wil je %(model_name)s nog steeds publiceren?"
 msgid "Cancel"
 msgstr "Annuleren"
 
+msgid "Actions (footer)"
+msgstr "Acties (footer)"
+
+msgid "Comment"
+msgstr "Opmerking"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Acties"
-
-msgid "Comment"
-msgstr "Opmerking"
 
 #, python-format
 msgid ""
@@ -1712,8 +1716,12 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s van %(items_count)s over de hele site."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s van %(items_count)s %(model_name)s over de "
+"gehele website."
 
 msgid "No results across entire site."
 msgstr "Geen resultaten in site"
@@ -1724,11 +1732,11 @@ msgstr "Zoeken in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s van %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s%(end_index)s- van %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -1739,8 +1747,8 @@ msgid "Search the whole site"
 msgstr "Zoek door de hele site"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s van %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)svan %(items_count)s%(model_name)s"
 
 msgid "Sites menu"
 msgstr "Sites menu"
@@ -1763,9 +1771,6 @@ msgstr "Deze pagina is beveiligd voor het publiek"
 
 msgid "Confirm"
 msgstr "Bevestig"
-
-msgid "Add child page"
-msgstr "Voeg onderliggende pagina toe"
 
 msgid "Page types"
 msgstr "Pagina types"
@@ -1972,8 +1977,8 @@ msgstr "Systeem"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s heeft een nieuwere versie opgeslagen"
 
-msgid "Refresh"
-msgstr "Herladen"
+msgid "View latest version"
+msgstr "Bekijk laatste versie"
 
 msgid "You have unsaved changes in another window"
 msgstr "Je heb niet-opgeslagen wijzigingen in een ander venster"
@@ -1981,6 +1986,9 @@ msgstr "Je heb niet-opgeslagen wijzigingen in een ander venster"
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s heeft niet-opgeslagen wijzigingen"
+
+msgid "Currently idle"
+msgstr "Momenteel niet actief"
 
 msgid "Currently viewing"
 msgstr "Momenteel actief"
@@ -1991,38 +1999,32 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Een andere gebruiker is nu actief"
 msgstr[1] "%(num_user)s andere gebruikers zijn nu actief"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
+msgid "Proceeding will overwrite the changes you made in that window."
 msgstr ""
-"Je hebt wijzigingen opgeslagen in een ander venster. Als je verder gaat in "
-"dit venster worden deze wijzigingen overschreven. Je kunt de pagina herladen "
-"om nieuwe wijzigingen op te halen maar daarmee gaan wijzigingen die je hier "
-"gemaakt hebt verloren."
+"Als je doorgaat, worden de wijzigingen die je in dat venster hebt "
+"aangebracht overschreven."
 
 #, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
 msgstr ""
-"%(user_name)s heeft wijzigingen opgeslagen. Deze wijzigingen worden "
-"overschreven als je verder gaat. Je kunt de pagina herladen om nieuwe "
-"wijzigingen op te halen maar daarmee gaan wijzigingen die je hier gemaakt "
-"hebt verloren."
+"Als je doorgaat, worden de wijzigingen die zijn aangebracht door "
+"%(user_name)s overschreven."
 
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Als je de pagina herlaadt, gaan niet-opgeslagen wijzigingen verloren"
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "Je kunt de nieuwste versie ook in een nieuw tabblad bekijken."
 
-msgid "Refresh page"
-msgstr "Herlaad pagina"
+msgid "A network error occurred"
+msgstr "Er is een netwerkfout opgetreden"
+
+msgid ""
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
+msgstr ""
+"Controleer of je internetverbinding goed werkt voordat je verdergaat. Open "
+"de editor in een apart tabblad om de laatst opgeslagen versie te bekijken."
 
 msgid "Continue"
 msgstr "Verder"
-
-msgid "Refresh the page"
-msgstr "Herlaad de pagina"
 
 msgid "Download XLSX"
 msgstr "Download XLSX"
@@ -2296,6 +2298,9 @@ msgstr "Laden"
 
 msgid "Refreshing…"
 msgstr "Herladen..."
+
+msgid "Refresh"
+msgstr "Herladen"
 
 msgid "Preview is out of date"
 msgstr "Voorvertoning is verouderd"
@@ -2830,6 +2835,12 @@ msgstr "Afbeelding alt tekst bevat een verdacht patroon"
 msgid "Use meaningful text"
 msgstr "Gebruik betekenisvolle tekst"
 
+msgid "Meta description is empty"
+msgstr "Meta beschrijving is leeg"
+
+msgid "Add a concise description for search engines"
+msgstr "Voeg een korte beschrijving toe voor zoekmachines"
+
 #, python-format
 msgid "%(classname)s object (%(id)s)"
 msgstr "%(classname)s object (%(id)s)"
@@ -3339,6 +3350,9 @@ msgstr "Pagina type"
 
 msgid "Exploring"
 msgstr "Verkennen"
+
+msgid "Add child page"
+msgstr "Voeg onderliggende pagina toe"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

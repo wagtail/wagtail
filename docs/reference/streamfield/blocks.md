@@ -69,7 +69,9 @@ All block definitions have the following methods and properties that can be over
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. automethod:: wagtail.blocks.Block.clean
     .. autoattribute:: wagtail.blocks.Block.is_previewable
+    .. autoattribute:: wagtail.blocks.Block.is_deferred_validation
 ```
 
 (field_block_types)=
@@ -81,6 +83,10 @@ All block definitions have the following methods and properties that can be over
     :show-inheritance:
 
     The parent class of all StreamField field block types.
+
+    In addition to the standard optional keyword arguments or ``Meta`` class attributes, field blocks also accept:
+    
+    :param required_on_save: Whether required constraints should be enforced on this field when saving as draft, similar to :attr:`FieldPanel.required_on_save <wagtail.admin.panels.FieldPanel.required_on_save>`. Defaults to ``False``.
 
 
 .. autoclass:: wagtail.blocks.CharBlock
@@ -526,9 +532,6 @@ All block definitions have the following methods and properties that can be over
 
     .. automethod:: get_form_layout
 
-    .. versionadded:: 7.3
-        The ``form_layout`` option and the ``get_form_layout`` method were added.
-
 
 .. autoclass:: wagtail.blocks.ListBlock
     :show-inheritance:
@@ -650,10 +653,6 @@ All block definitions have the following methods and properties that can be over
 ## Supporting components
 
 ### `BlockGroup`
-
-```{versionadded} 7.3
-The `BlockGroup` class was added.
-```
 
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.BlockGroup

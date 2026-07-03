@@ -170,8 +170,14 @@ class WagtailMenuRegisterable:
     menu_name = ""
 
     #: An integer determining the order of the menu item, 0 being the first place.
-    #: By default, it will be the last item before Reports, whose order is 9000.
-    menu_order = 8999
+    #: If left unset, the order defaults to this item's position within its
+    #: containing group (such as a :class:`~wagtail.admin.viewsets.base.ViewSetGroup`),
+    #: if any. Otherwise, it is set to 8999, placing it as the last item before
+    #: Reports, whose order is 9000.
+    #:
+    #: .. versionchanged:: 8.0
+    #:    The value is now respected when the menu item is registered as part of a group.
+    menu_order = None
 
     #: The URL to be used for the menu item.
     menu_url = None
@@ -197,17 +203,25 @@ class WagtailMenuRegisterable:
         Returns a ``wagtail.admin.menu.MenuItem`` instance to be registered
         with the Wagtail admin.
 
-        The ``order`` parameter allows the method to be called from the outside
-        (e.g. a ``ViewSetGroup``) to create a sub menu item with
-        the correct order.
+        The ``order`` parameter allows specifying the order of the menu item when
+        creating the menu item if the :attr:`menu_order` attribute is not set.
         """
         return self.menu_item_class(
             label=self.menu_label,
             url=self.menu_url,
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order if order is not None else self.menu_order,
+            order=self.get_menu_item_order(order),
         )
+
+    def get_menu_item_order(self, order=None):
+        """
+        Determines the order of the menu item, with the following precedence:
+        1. The ``menu_order`` attribute on this class or instance
+        2. The ``order`` argument passed to this method
+        3. The default value of 8999 if neither of the above are set
+        """
+        return next(o for o in [self.menu_order, order, 8999] if o is not None)
 
     @cached_property
     def menu_hook(self):
@@ -240,6 +254,12 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
     menu_icon = "folder-open-inverse"
     add_to_admin_menu = True
 
+    #: The hook name for adding submenu items to this group.
+    #: Other registerables (e.g. ``ViewSet``) with a matching :attr:`.menu_hook`
+    #: or a ``MenuItem`` instance returned by a Wagtail hook of the same name
+    #: will be added to this group's menu.
+    submenu_hook = None
+
     def __init__(self):
         """
         When initialising, instantiate the classes (or use the instances)
@@ -261,10 +281,13 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
     def get_menu_item(self, order=None):
         return SubmenuMenuItem(
             label=self.menu_label,
-            menu=Menu(items=self.get_submenu_items()),
+            menu=Menu(
+                register_hook_name=self.submenu_hook,
+                items=self.get_submenu_items(),
+            ),
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order if order is not None else self.menu_order,
+            order=self.get_menu_item_order(order),
         )
 
 

@@ -245,6 +245,50 @@ class TestTableBlock(TestCase):
         # table-cell-0-1 is actually cell 1 of row 1 due to the swapped row order in the data
         self.assertTrue(exc_info.exception.cell_errors[1][1])
 
+    def test_clean_deferred_propagates_to_child_blocks(self):
+        form_data = {
+            **self.form_data,
+            "table-cell-0-0": "",
+            "table-cell-0-1": "",
+            "table-cell-1-0": "",
+            "table-cell-1-1": "",
+            "table-cell-2-0": "",
+            "table-cell-2-1": "",
+        }
+        blank_table = self.block.value_from_datadict(form_data, {}, "table")
+        # With clean_deferred, the CharBlock and CountryChoiceBlock become optional
+        cleaned_block = self.block.clean_deferred(blank_table)
+        self.assertIsInstance(cleaned_block, TypedTable)
+
+        invalid_form_data = {**form_data, "table-cell-0-0": "id"}
+        invalid_table = self.block.value_from_datadict(invalid_form_data, {}, "table")
+
+        # Other validation errors e.g. invalid choice should still be raised
+        with self.assertRaises(TypedTableBlockValidationError) as exc_info:
+            self.block.clean_deferred(invalid_table)
+
+        self.assertEqual(exc_info.exception.cell_errors[1][0].code, "invalid_choice")
+
+        # The required validation should be restored after clean_deferred,
+        # so should be raised if we try to clean the same table again
+        with self.assertRaises(TypedTableBlockValidationError) as exc_info:
+            self.block.clean(blank_table)
+        self.assertEqual(exc_info.exception.cell_errors[1][0].code, "required")
+
+    def test_defer_restores_required_for_shared_column_block(self):
+        # The same FieldBlock is used as more than one TypedTableBlock column,
+        # making it reachable via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = TypedTableBlock([("a", shared), ("b", shared)])
+        self.assertIs(block.child_blocks["a"], block.child_blocks["b"])
+
+        block.defer_required_validation()
+        self.assertFalse(shared.field.required)
+
+        block.restore_deferred_validation()
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+
     def test_render(self):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
         html = self.block.render(table)

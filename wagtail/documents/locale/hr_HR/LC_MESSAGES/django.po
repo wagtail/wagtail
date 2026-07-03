@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -22,6 +22,17 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenti"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Datoteka je prevelika (%(file_size)s). Najveća dopuštena veličina: "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Datoteka je prevelika. Najveća dopuštena veličina: %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Zbirka"

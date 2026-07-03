@@ -7,11 +7,12 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.utils import get_admin_base_url
-from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail90Warning,
+)
 
 
 class BaseItem(Component):
@@ -28,16 +29,16 @@ class AdminItem(BaseItem):
     template_name = "wagtailadmin/userbar/item_admin.html"
 
 
-class AccessibilityItem(BaseItem):
-    """A userbar item that runs the accessibility checker."""
+class ContentCheckerItem(BaseItem):
+    """A userbar item that runs the content checker."""
 
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
-        """Whether the accessibility checker is being run in the page editor."""
+        """Whether the content checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
-    template_name = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_content_checker.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -48,7 +49,9 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
+    _axe_default_exclude = [
+        {"fromShadowDom": ["wagtail-userbar", "wagtail-inline-userbar"]}
+    ]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -64,6 +67,7 @@ class AccessibilityItem(BaseItem):
         "link-name",
         "p-as-heading",
         "alt-text-quality",
+        "empty-meta-description",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -74,6 +78,7 @@ class AccessibilityItem(BaseItem):
 
     #: A list to add custom Axe rules or override their properties,
     #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    # Always set `enabled`. If omitted, defaults to True and overrides configs in `axe_run_only`.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
         {
@@ -82,7 +87,16 @@ class AccessibilityItem(BaseItem):
             "selector": "img[alt]",
             "tags": ["best-practice"],
             "any": ["check-image-alt-text"],
-            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+        {
+            "id": "empty-meta-description",
+            "impact": "moderate",
+            # Axe does not support directly targeting invisible elements.
+            # h1 will help users understand it’s a page-level problem.
+            "selector": "h1",
+            "tags": ["seo"],
+            "any": ["check-empty-meta-description"],
             "enabled": True,
         },
     ]
@@ -94,6 +108,9 @@ class AccessibilityItem(BaseItem):
         {
             "id": "check-image-alt-text",
             "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+        {
+            "id": "check-empty-meta-description",
         },
     ]
 
@@ -136,6 +153,10 @@ class AccessibilityItem(BaseItem):
         "alt-text-quality": {
             "error_name": _("Image alt text has inappropriate pattern"),
             "help_text": _("Use meaningful text"),
+        },
+        "empty-meta-description": {
+            "error_name": _("Meta description is empty"),
+            "help_text": _("Add a concise description for search engines"),
         },
     }
 
@@ -220,6 +241,16 @@ class AccessibilityItem(BaseItem):
         return context
 
 
+class AccessibilityItem(ContentCheckerItem):
+    def __init_subclass__(cls, **kwargs):
+        warn(
+            "The userbar item 'AccessibilityItem' is deprecated. "
+            "Please use 'ContentCheckerItem' instead.",
+            RemovedInWagtail90Warning,
+        )
+        super().__init_subclass__(**kwargs)
+
+
 class AddPageItem(BaseItem):
     template_name = "wagtailadmin/userbar/item_page_add.html"
 
@@ -295,15 +326,7 @@ class EditPageItem(BaseItem):
 
 def apply_userbar_hooks(request, items, page):
     for fn in hooks.get_hooks("construct_wagtail_userbar"):
-        if accepts_kwarg(fn, "page"):
-            fn(request, items, page)
-        else:
-            warn(
-                "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
-                f" {fn.__module__}.{fn.__name__} needs to be updated",
-                category=RemovedInWagtail80Warning,
-            )
-            fn(request, items)
+        fn(request, items, page)
 
 
 class Userbar(Component):
@@ -366,17 +389,7 @@ class Userbar(Component):
             rendered_items = []
             media = Media()
             for item in items:
-                # Backwards compatibility for legacy items with a render method.
-                if hasattr(item, "render"):
-                    warn(
-                        "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` -"
-                        f" view the `construct_wagtail_userbar` docs to update {item.__class__.__name__}",
-                        RemovedInWagtail80Warning,
-                    )
-
-                    content = item.render(request)
-                else:
-                    content = item.render_html(parent_context)
+                content = item.render_html(parent_context)
                 if content:
                     rendered_items.append(content)
 
@@ -385,7 +398,7 @@ class Userbar(Component):
                     media += item.media
 
             if request:
-                origin = f"{request.scheme}://{request.get_host()}"
+                origin = f"//{request.get_host()}"
             else:
                 origin = get_admin_base_url() or ""
 

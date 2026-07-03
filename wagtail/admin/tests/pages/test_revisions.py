@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -6,7 +8,7 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import Page
+from wagtail.models import GroupPagePermission, Page
 from wagtail.test.testapp.models import (
     DefaultStreamPage,
     EventPage,
@@ -328,6 +330,51 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response,
             '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>',
             html=True,
+        )
+
+    def test_compare_revisions_requires_edit_permission_for_access(self):
+        # let's create a user with permission for just the one page
+        reviewer = self.create_user(
+            username="the_reviewer",
+            email="the_reviewer@example.com",
+            password="password",
+        )
+        reviewers = Group.objects.create(name="Reviewers")
+        reviewers.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        reviewer.groups.add(reviewers)
+
+        GroupPagePermission.objects.create(
+            group=reviewers, page=self.christmas_event, permission_type="change"
+        )
+
+        self.login(user=reviewer)
+
+        compare_url = reverse(
+            "wagtailadmin_pages:revisions_compare",
+            args=(self.christmas_event.id, self.last_christmas_revision.id, "live"),
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        # now test with inaccessible event
+        inaccessible_event = EventPage.objects.get(
+            url_path="/home/events/someone-elses-event/"
+        )
+        inaccessible_revision = inaccessible_event.save_revision()
+
+        compare_url = reverse(
+            "wagtailadmin_pages:revisions_compare",
+            args=(inaccessible_event.id, inaccessible_revision.id, "live"),
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
         )
 
 

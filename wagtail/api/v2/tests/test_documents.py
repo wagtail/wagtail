@@ -1,12 +1,14 @@
 import json
 from unittest import mock
 
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.documents import get_document_model
+from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
 class TestDocumentListing(TestCase):
@@ -68,6 +70,26 @@ class TestDocumentListing(TestCase):
                     "http://localhost/documents/%d/" % document["id"]
                 )
             )
+
+    def test_excludes_restricted_document(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_document.collection = restricted_collection
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_document.id, self.get_document_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_document_model().objects.count() - 1
+        )
 
     # FIELDS
 
@@ -360,6 +382,7 @@ class TestDocumentListing(TestCase):
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
 
+@tag("transaction")
 class TestDocumentListingSearch(TransactionTestCase):
     fixtures = ["demosite.json"]
 

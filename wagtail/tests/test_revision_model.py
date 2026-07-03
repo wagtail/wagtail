@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from freezegun import freeze_time
 
-from wagtail.models import Page, Revision, get_default_page_content_type
+from wagtail.models import ModelLogEntry, Page, Revision, get_default_page_content_type
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     RevisableChildModel,
@@ -250,6 +250,34 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         self.assertEqual(revision1.id, revision2.id)
         revision1.refresh_from_db()
         self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_overwrite_revision_reuses_log_action_uuid(self):
+        user = self.create_test_user()
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user, log_action=True)
+        self.assertEqual(self.instance.revisions.count(), 1)
+
+        logs = ModelLogEntry.objects.filter(revision=revision1)
+        self.assertEqual(logs.count(), 1)
+        first_entry = logs.first()
+        self.assertEqual(first_entry.action, "wagtail.edit")
+
+        self.instance.text = "Updated revision"
+        revision2 = self.instance.save_revision(
+            overwrite_revision=revision1,
+            user=user,
+            log_action=True,
+        )
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+        # Should create a new log entry but with the same uuid to allow grouping
+        self.assertEqual(logs.count(), 2)
+        second_entry = logs.exclude(id=first_entry.id).first()
+        self.assertEqual(second_entry.uuid, first_entry.uuid)
+        self.assertEqual(second_entry.action, "wagtail.edit")
 
     def test_cannot_overwrite_revision_that_is_not_latest(self):
         self.instance.text = "Existing revision"

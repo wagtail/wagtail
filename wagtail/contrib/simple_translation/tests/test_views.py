@@ -1,4 +1,7 @@
+from http import HTTPStatus
+
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -15,7 +18,8 @@ from wagtail.contrib.simple_translation.views import (
     SubmitSnippetTranslationView,
     SubmitTranslationView,
 )
-from wagtail.models import Locale, Page
+from wagtail.coreutils import get_dummy_request
+from wagtail.models import GroupPagePermission, Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import FullFeaturedSnippet
@@ -87,25 +91,24 @@ class TestSubmitTranslationView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, f"/admin/login/?next={url}")
 
-    def test_dispatch_as_moderator(self):
+    def test_dispatch_as_user_without_perm(self):
         url = reverse(
             "simple_translation:submit_page_translation", args=(self.en_homepage.id,)
         )
-        user = self.login()
-        group = Group.objects.get(name="Moderators")
+        group = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=group, page=self.en_homepage, permission_type="change"
+        )
+        user = self.create_user("editor")
         user.groups.add(group)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
 
-    def test_dispatch_as_user_with_perm(self):
-        url = reverse(
-            "simple_translation:submit_page_translation", args=(self.en_homepage.id,)
-        )
-        user = self.login()
-        permission = Permission.objects.get(codename="submit_translation")
-        user.user_permissions.add(permission)
+        self.client.force_login(user)
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
 
 @override_settings(
@@ -122,12 +125,23 @@ class TestSubmitTranslationView(WagtailTestUtils, TestCase):
     WAGTAIL_I18N_ENABLED=True,
 )
 class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.en_homepage = Page.objects.get(depth=2)
+
+        cls.perm_submit_translation = Permission.objects.get(
+            codename="submit_translation"
+        )
+
+        cls.submit_url = reverse(
+            "simple_translation:submit_page_translation", args=(cls.en_homepage.id,)
+        )
+
     def setUp(self):
         self.en_locale = Locale.objects.first()
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.de_locale = Locale.objects.create(language_code="de")
 
-        self.en_homepage = Page.objects.get(depth=2)
         self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
         self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
 
@@ -179,8 +193,24 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         )
 
         self.assertIn(
-            "The page 'Blog' was successfully created in German",
-            [msg.message for msg in response.context["messages"]],
+            "The page &#x27;Blog&#x27; was successfully created in German",
+            [msg.message.strip() for msg in response.context["messages"]],
+        )
+
+    def test_submit_page_translation_view_escapes_title_in_confirmation_message(self):
+        self.en_blog_index.title = "<img src=x onerror=alert(4242)>"
+        self.en_blog_index.draft_title = self.en_blog_index.title
+        self.en_blog_index.save()
+        url = reverse(
+            "simple_translation:submit_page_translation", args=(self.en_blog_index.id,)
+        )
+        de = Locale.objects.get(language_code="de").id
+        data = {"locales": [de], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data, follow=True)
+        self.assertContains(
+            response,
+            "The page &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27; was successfully created in German",
         )
 
     def test_submit_page_translation_view_test_post_multiple_locales(self):
@@ -208,9 +238,60 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         assert response.url == f"/admin/pages/{self.en_blog_index.get_parent().id}/"
 
         response = self.client.get(response.url)  # follow the redirect
-        assert [msg.message for msg in response.context["messages"]] == [
-            "The page 'Blog' was successfully created in 2 locales"
+        assert [msg.message.strip() for msg in response.context["messages"]] == [
+            "The page &#x27;Blog&#x27; was successfully created in 2 locales"
         ]
+
+    def test_submit_page_translation_view_multiple_locales_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_blog_index.title = "<img src=x onerror=alert(4242)>"
+        self.en_blog_index.draft_title = self.en_blog_index.title
+        self.en_blog_index.save()
+
+        url = reverse(
+            "simple_translation:submit_page_translation", args=(self.en_blog_index.id,)
+        )
+        de = Locale.objects.get(language_code="de").id
+        fr = Locale.objects.get(language_code="fr").id
+        data = {"locales": [de, fr], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data, follow=True)
+        self.assertContains(
+            response,
+            "The page &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27; was successfully created in 2 locales",
+        )
+
+    def test_as_user_with_perm(self):
+        # create an editor user, with the submit translation permission
+        user = self.create_user("editor")
+        group = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=group, page=self.en_homepage, permission_type="change"
+        )
+        user.groups.add(group)
+
+        user.user_permissions.add(self.perm_submit_translation)
+
+        self.client.force_login(user)
+        response = self.client.get(self.submit_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_as_user_with_perm_to_submit_translation_but_not_edit_page(self):
+        # create a user that has the submit translation permission, but not page edit
+        user = self.create_user("simple_translator")
+        user.user_permissions.add(
+            Permission.objects.get(codename="access_admin"),
+            self.perm_submit_translation,
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(self.submit_url)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
 
 @override_settings(
@@ -227,11 +308,29 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
     WAGTAIL_I18N_ENABLED=True,
 )
 class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.superuser = cls.create_test_user()
+        cls.translator = cls.create_user("simple_translator")
+        cls.translator.user_permissions.add(
+            Permission.objects.get(codename="access_admin"),
+            Permission.objects.get(codename="submit_translation"),
+        )
+
     def setUp(self):
         self.en_locale = Locale.objects.first()
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.en_snippet = TranslatableSnippet(text="Hello world", locale=self.en_locale)
         self.en_snippet.save()
+
+        self.submit_url = reverse(
+            "simple_translation:submit_snippet_translation",
+            args=(
+                self.en_snippet._meta.app_label,
+                self.en_snippet._meta.model_name,
+                self.en_snippet.id,
+            ),
+        )
 
     def test_get_title(self):
         view = SubmitSnippetTranslationView()
@@ -239,8 +338,11 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         self.assertEqual(view.get_title(), "Translate translatable snippet")
 
     def test_get_object(self):
+        request = get_dummy_request()
+        request.user = self.superuser
         view = SubmitSnippetTranslationView()
         view.object = self.en_snippet
+        view.request = request
         view.kwargs = {
             "app_label": "some_app",
             "model_name": "some_model",
@@ -293,6 +395,26 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         self.assertEqual(
             view.get_success_message(self.fr_locale),
             f"Successfully created French for translatable snippet 'TranslatableSnippet object ({self.en_snippet.id})'",
+        )
+
+    def test_as_user_with_perm(self):
+        perm_codename = get_permission_codename("change", self.en_snippet._meta)
+        self.translator.user_permissions.add(
+            Permission.objects.get(codename=perm_codename)
+        )
+        self.client.force_login(self.translator)
+
+        response = self.client.get(self.submit_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_as_user_with_perm_to_submit_translation_but_not_edit_snippet(self):
+        self.client.force_login(self.translator)
+
+        response = self.client.get(self.submit_url)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
         )
 
 
@@ -359,7 +481,7 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
         translated_snippet = self.en_snippet.get_translation(self.de_locale.id)
         self.assertRedirects(response, self.get_snippet_url("edit", translated_snippet))
 
-        self.assertContains(response, "It's edited", count=1)
+        self.assertContains(response, "It&#x27;s edited")
         self.assertContains(response, '<h3 id="status-sidebar-german"', count=1)
         self.assertContains(
             response,
@@ -372,8 +494,24 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(
-            [msg.message for msg in response.context["messages"]],
-            ["Successfully created German for full-featured snippet 'It's edited'"],
+            [msg.message.strip() for msg in response.context["messages"]],
+            [
+                "Successfully created German for full-featured snippet &#x27;It&#x27;s edited&#x27;"
+            ],
+        )
+
+    def test_submit_snippet_translation_view_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_snippet.text = "<img src=x onerror=alert(4242)>"
+        self.en_snippet.save_revision()
+
+        data = {"locales": [self.de_locale.id], "include_subtree": True}
+        response = self.client.post(self.get_submit_url(), data, follow=True)
+
+        self.assertContains(
+            response,
+            "Successfully created German for full-featured snippet &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27;",
         )
 
     def test_submit_snippet_translation_view_test_post_multiple_locales(self):
@@ -387,8 +525,25 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
 
         response = self.client.get(response.url)  # follow the redirect
         self.assertEqual(
-            [msg.message for msg in response.context["messages"]],
-            ["Successfully created 2 locales for full-featured snippet 'It's edited'"],
+            [msg.message.strip() for msg in response.context["messages"]],
+            [
+                "Successfully created 2 locales for full-featured snippet &#x27;It&#x27;s edited&#x27;"
+            ],
+        )
+
+    def test_submit_snippet_translation_view_multiple_locales_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_snippet.text = "<img src=x onerror=alert(4242)>"
+        self.en_snippet.save_revision()
+
+        url = self.get_submit_url()
+        data = {"locales": [self.de_locale.id, self.fr_locale.id]}
+        response = self.client.post(url, data, follow=True)
+
+        self.assertContains(
+            response,
+            "Successfully created 2 locales for full-featured snippet &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27;",
         )
 
 
@@ -476,7 +631,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
     def test_translate_button_displayed(self):
         url = reverse("wagtailadmin_explore", args=(self.en_homepage.pk,))
         response = self.client.get(url)
-        with self.assertNumQueries(41):
+        with self.assertNumQueries(43):
             response = self.client.get(url)
 
         soup = self.get_soup(response.content)

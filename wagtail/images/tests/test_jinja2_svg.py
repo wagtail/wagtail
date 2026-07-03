@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
@@ -50,8 +51,8 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         )
 
     def test_image_with_svg_without_preserve(self):
-        """Test that without preserve-svg, SVGs get all operations (which would fail in production)."""
-        with self.assertRaises(AttributeError):
+        """Test that without preserve-svg, applying unsupported operations to SVG raises an error."""
+        with self.assertRaises(InvalidFilterSpecError):
             self.render(
                 '{{ image(img, "width-200|format-webp") }}', {"img": self.svg_image}
             )

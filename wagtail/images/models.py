@@ -363,6 +363,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
         index.FilterField("title"),
+        index.SearchField("description"),
+        index.AutocompleteField("description"),
         index.RelatedFields(
             "tags",
             [
@@ -1098,6 +1100,12 @@ class Filter:
                     original_format, original_format
                 )
 
+            # Prevent raster-only format conversions for SVG images
+            if original_format == "svg" and output_format != "svg":
+                raise InvalidFilterSpecError(
+                    "format-* operations are not supported for SVG images. To skip this conversion for SVG images, use 'preserve-svg'."
+                )
+
             if output_format == "jpeg":
                 # Allow changing of JPEG compression quality
                 if "jpeg-quality" in env:
@@ -1291,7 +1299,6 @@ class Picture(ResponsiveImage):
 
         attrs = self.attrs or {}
 
-        sizes = f'sizes="{attrs["sizes"]}" ' if "sizes" in attrs else ""
         fallback_format = self.get_fallback_format()
         fallback_renditions = self.formats[fallback_format]
 
@@ -1299,9 +1306,12 @@ class Picture(ResponsiveImage):
 
         for fmt in self.source_format_order:
             if fmt.name != fallback_format and fmt.name in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt.name])
-                mime = fmt.mime_type
-                sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
+                source_attrs = {
+                    "srcset": self.get_width_srcset(self.formats[fmt.name]),
+                    "sizes": attrs.get("sizes"),
+                    "type": fmt.mime_type,
+                }
+                sources.append(f"<source{flatatt(source_attrs)}>")
 
         if len(fallback_renditions) > 1:
             attrs["srcset"] = self.get_width_srcset(fallback_renditions)

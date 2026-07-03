@@ -1,4 +1,3 @@
-#
 # Translators:
 # Karl Hobley <karl@torchbox.com>, 2026
 # Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2026

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tomáš Podivínský, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -281,6 +281,10 @@ msgstr "Uživatelské jméno"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Uživatel '%(object)s' byl vytvořen."
 
 msgid "Add user"
 msgstr "Přidat uživatele"

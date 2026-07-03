@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.forms.models import modelform_factory
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.collections import (
@@ -10,6 +11,7 @@ from wagtail.admin.forms.collections import (
 )
 from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
+from wagtail.documents.fields import WagtailDocumentField
 from wagtail.documents.models import Document
 from wagtail.documents.permissions import (
     permission_policy as documents_permission_policy,
@@ -18,9 +20,11 @@ from wagtail.models import Collection
 from wagtail.search import index as search_index
 
 
-# Callback to allow us to override the default form field for the collection field
+# Callback to allow us to override the default form field for the document file field and collection field.
 def formfield_for_dbfield(db_field, **kwargs):
-    if db_field.name == "collection":
+    if db_field.name == "file":
+        return WagtailDocumentField(label=capfirst(db_field.verbose_name), **kwargs)
+    elif db_field.name == "collection":
         return CollectionChoiceField(
             label=_("Collection"),
             queryset=Collection.objects.all(),

@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -11,6 +10,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
+from wagtail.admin import messages
 from wagtail.models import DraftStateMixin, Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
@@ -91,6 +91,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             raise PermissionDenied
 
         self.object = self.get_object()
+
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -106,6 +107,9 @@ class SubmitPageTranslationView(SubmitTranslationView):
         # Can't translate the root page
         if page.is_root():
             raise Http404
+
+        if not page.permissions_for_user(self.request.user).can_edit():
+            raise PermissionDenied
 
         return page
 
@@ -140,6 +144,11 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         object = get_object_or_404(model, pk=unquote(str(self.kwargs["pk"])))
         if isinstance(object, DraftStateMixin):
             object = object.get_latest_revision_as_object()
+
+        if not model.snippet_viewset.permission_policy.user_has_permission_for_instance(
+            self.request.user, "change", object
+        ):
+            raise PermissionDenied
 
         return object
 

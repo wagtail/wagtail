@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Venezuela) (http://app.transifex.com/torchbox/"
@@ -57,5 +57,13 @@ msgstr "Guardando..."
 msgid "Save"
 msgstr "Guardar"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Editando %(page_type)s"
+
 msgid "Site"
 msgstr "Página"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Editando %(task_type)s"

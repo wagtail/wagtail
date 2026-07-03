@@ -412,7 +412,7 @@ from myproject.home.models import HomePage
 
 @register_setting
 class GenericSocialMediaSettings(PreviewableMixin, BaseGenericSetting):
-    def get_preview_template(self, preview_mode):
+    def get_preview_template(self, request, mode_name):
         # Custom template specifically for this setting's preview
         return "settings/generic/social_media.html"
 

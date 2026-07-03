@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -221,6 +221,14 @@ msgstr "Дүрүүд"
 msgid "Select all users in listing"
 msgstr "Жагсаалтын бүх хэрэглэгчийг сонгох"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Хэрэглэгч тохируулаагүй байна. <a href=\"%(wagtailusers_add_url)s\">Шинийг "
+"нэмж</a> яагаад болохгүй гэж?"
+
 msgid "Assign role to selected users"
 msgstr "Сонгосон хэрэгчидэд эрх олгох"
 
@@ -280,6 +288,10 @@ msgstr "Хэрэглэгчийн нэр"
 
 msgid "Admin"
 msgstr "Админ"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "'%(object)s' хэрэглэгч үүслээ."
 
 msgid "Add user"
 msgstr "Хэрэглэгч нэмэх"

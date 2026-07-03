@@ -50,7 +50,6 @@ export default function exports(env, argv) {
       'task-chooser-modal',
       'task-chooser',
       'telepath/blocks',
-      'telepath/telepath',
       'telepath/widgets',
       'userbar',
       'wagtailadmin',

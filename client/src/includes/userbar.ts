@@ -6,7 +6,7 @@
 
 import { Application } from '@hotwired/stimulus';
 import A11yDialog from 'a11y-dialog';
-import axe, { Check } from 'axe-core';
+import axe, { AxeResults, Check } from 'axe-core';
 
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
@@ -14,12 +14,13 @@ import { WagtailMessage, getWagtailMessage } from '../utils/message';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
-  getA11yReport,
   getAxeConfiguration,
+  getCheckerReport,
   registerCustomCheck,
-  renderA11yResults,
-} from './a11y-result';
+  renderCheckerResults,
+} from './contentChecker';
 import { contentExtractorPluginInstance } from './contentMetrics';
+import { InlineUserbar } from './inlineUserbar';
 import { wagtailPreviewPlugin } from './previewPlugin';
 
 /**
@@ -36,6 +37,7 @@ export class Userbar extends HTMLElement {
   /** Target origin for cross-domain `window.postMessage` calls. */
   declare origin: string;
   declare axeConfig: WagtailAxeConfiguration | null;
+  private annotations: InlineUserbar[] = [];
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -63,17 +65,19 @@ export class Userbar extends HTMLElement {
       return;
     }
 
-    const inCrossOriginIframe = this.inCrossOriginIframe;
-
     // Get the origin from the data attribute only if we are in a cross-origin
     // iframe, as it's only needed in that case. Using the data attribute in a
     // same-origin iframe will cause issues if it is not set to the correct
     // value, which can happen in page previews if the page's site root host is
     // different from the host where the admin is accessed.
-    this.origin =
-      (inCrossOriginIframe &&
+    const origin =
+      (this.inCrossOriginIframe &&
         userbar.getAttribute('data-wagtail-userbar-origin')) ||
-      window.location.origin;
+      '';
+    // Use URL() and the current origin as a base, to allow both absolute and
+    // relative origins to be used in the data attribute, while ensuring that
+    // the final value is an absolute origin.
+    this.origin = new URL(origin, window.location.origin).origin;
 
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';
@@ -326,11 +330,9 @@ export class Userbar extends HTMLElement {
     this.handleMessage = this.handleMessage.bind(this);
     this.onWindowLoad = this.onWindowLoad.bind(this);
 
-    // If we are in a cross-origin iframe, request the parent to restore the
-    // scroll position of the preview panel's previous iframe to this one.
-    if (inCrossOriginIframe) {
-      window.addEventListener('message', this.handleMessage);
-    }
+    // Listen for messages from the parent window (e.g. preview scale).
+    // Also handles scroll position restoration in cross-origin iframes.
+    window.addEventListener('message', this.handleMessage);
 
     // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
     // In this case, we need to call the initialisation function immediately.
@@ -371,9 +373,7 @@ export class Userbar extends HTMLElement {
   }
 
   /**
-   * Initialize Axe
-   * Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
-   * Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+   * Initialize Axe to scan the loaded page for issues.
    * @see https://github.com/dequelabs/axe-core/tree/develop/doc
    */
   async initializeAxe() {
@@ -411,9 +411,7 @@ export class Userbar extends HTMLElement {
     this.dialog = dialog;
     this.dialogBody = body;
 
-    const accessibilityTrigger = this.shadowRoot.getElementById(
-      'accessibility-trigger',
-    );
+    const checkerTrigger = this.shadowRoot.getElementById('checker-trigger');
 
     const toggleAxeResults = () => {
       if (!this.dialog.shown) {
@@ -423,7 +421,7 @@ export class Userbar extends HTMLElement {
       }
     };
 
-    accessibilityTrigger?.addEventListener('click', toggleAxeResults);
+    checkerTrigger?.addEventListener('click', toggleAxeResults);
 
     await this.runAxe();
   }
@@ -431,120 +429,54 @@ export class Userbar extends HTMLElement {
   async runAxe() {
     if (!this.shadowRoot) return;
 
-    const accessibilityResultsBox = this.shadowRoot.querySelector(
-      '#accessibility-results',
+    const checkerResultsBox = this.shadowRoot.querySelector('#checker-results');
+
+    const rowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-row-template',
     );
 
-    const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
-      '#w-a11y-result-row-template',
-    );
-    const a11yOutlineTemplate =
-      this.shadowRoot.querySelector<HTMLTemplateElement>(
-        '#w-a11y-result-outline-template',
-      );
-
-    if (
-      !this.axeConfig ||
-      !accessibilityResultsBox ||
-      !a11yRowTemplate ||
-      !a11yOutlineTemplate
-    ) {
+    if (!this.axeConfig || !checkerResultsBox || !rowTemplate) {
       return;
     }
 
     // Collect content data from the live preview via Axe plugin for content metrics calculation
-    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig);
+    const { results, issueCount } = await getCheckerReport(this.axeConfig);
 
     this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
     if (results.violations.length) {
-      const a11yErrorBadge = document.createElement('span');
-      a11yErrorBadge.textContent = String(a11yErrorsNumber);
-      a11yErrorBadge.classList.add('w-userbar-axe-count');
-      a11yErrorBadge.setAttribute(
-        'data-w-userbar-axe-count',
-        String(a11yErrorsNumber),
-      );
-      this.trigger.appendChild(a11yErrorBadge);
+      const errorBadge = document.createElement('span');
+      errorBadge.textContent = String(issueCount);
+      errorBadge.classList.add('w-userbar-axe-count');
+      errorBadge.setAttribute('data-w-userbar-axe-count', String(issueCount));
+      this.trigger.appendChild(errorBadge);
     }
 
     const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
-      '[data-a11y-result-count]',
+      '[data-content-checker-count]',
     );
     innerErrorBadges.forEach((badge) => {
-      badge.textContent = String(a11yErrorsNumber) || '0';
+      badge.textContent = String(issueCount) || '0';
       badge.classList.toggle('has-errors', results.violations.length > 0);
     });
 
     const onClickSelector = (selectorName: string) => {
-      const inaccessibleElement =
-        document.querySelector<HTMLElement>(selectorName);
-      const a11yOutlineContainer = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-a11y-result-outline-container]',
+      const annotation = this.annotations.find(
+        (el) => el.dataset.selector === selectorName,
       );
-      if (a11yOutlineContainer?.firstElementChild) {
-        a11yOutlineContainer.removeChild(
-          a11yOutlineContainer.firstElementChild,
-        );
+      if (annotation) {
+        annotation.focusTarget();
       }
-      a11yOutlineContainer?.appendChild(
-        a11yOutlineTemplate.content.cloneNode(true),
-      );
-      const currentA11yOutline = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-a11y-result-outline]',
-      );
-      if (
-        !this.shadowRoot ||
-        !inaccessibleElement ||
-        !currentA11yOutline ||
-        !a11yOutlineContainer
-      )
-        return;
-
-      const styleA11yOutline = () => {
-        const rect = inaccessibleElement.getBoundingClientRect();
-        currentA11yOutline.style.cssText = `
-        top: ${
-          rect.height < 5
-            ? `${rect.top + window.scrollY - 2.5}px`
-            : `${rect.top + window.scrollY}px`
-        };
-        left: ${
-          rect.width < 5
-            ? `${rect.left + window.scrollX - 2.5}px`
-            : `${rect.left + window.scrollX}px`
-        };
-        width: ${Math.max(rect.width, 5)}px;
-        height: ${Math.max(rect.height, 5)}px;
-        position: absolute;
-        z-index: 129;
-        outline: 1px solid #CD4444;
-        box-shadow: 0px 0px 12px 1px #FF0000;
-        pointer-events: none;
-        `;
-      };
-
-      styleA11yOutline();
-
-      window.addEventListener('resize', styleA11yOutline);
-
-      inaccessibleElement.style.scrollMargin = '6.25rem';
-      inaccessibleElement.scrollIntoView();
-      inaccessibleElement.focus();
-
-      accessibilityResultsBox.addEventListener('hide', () => {
-        currentA11yOutline.style.cssText = '';
-
-        window.removeEventListener('resize', styleA11yOutline);
-      });
     };
 
-    renderA11yResults(
+    renderCheckerResults(
       this.dialogBody,
       results,
       this.axeConfig,
-      a11yRowTemplate,
+      rowTemplate,
       onClickSelector,
     );
+
+    this.createAnnotations(results, this.axeConfig);
 
     // Notify the parent window when the userbar (and thus Axe) has been
     // initialized and is ready, so that it can re-run Axe against this window.
@@ -555,6 +487,21 @@ export class Userbar extends HTMLElement {
     // This also allows custom code in the frontend to trigger a re-run of the
     // checks both in the frontend and in the editor by calling this method.
     this.postAxeReady();
+  }
+
+  private createAnnotations(
+    results: AxeResults,
+    config: WagtailAxeConfiguration,
+  ) {
+    InlineUserbar.clearAnnotations(this.annotations);
+    this.annotations = [];
+
+    if (!results.violations.length) return;
+
+    this.annotations = InlineUserbar.createAnnotations(
+      results.violations,
+      config.messages,
+    );
   }
 
   get inCrossOriginIframe() {
@@ -601,14 +548,20 @@ export class Userbar extends HTMLElement {
         window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
         break;
 
+      case 'w-preview:set-scale':
+        for (const annotation of this.annotations) {
+          annotation.setScale(data.scale);
+        }
+        break;
+
       default:
         break;
     }
   }
 
   disconnectedCallback() {
-    if (this.inCrossOriginIframe) {
-      window.removeEventListener('message', this.handleMessage);
-    }
+    InlineUserbar.clearAnnotations(this.annotations);
+    this.annotations = [];
+    window.removeEventListener('message', this.handleMessage);
   }
 }

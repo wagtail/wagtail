@@ -1,4 +1,3 @@
-#
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2022
 # Loic Teixeira, 2024

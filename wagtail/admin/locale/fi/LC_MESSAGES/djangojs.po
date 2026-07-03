@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Valter Maasalo <vmaasalo@gmail.com>, 2025

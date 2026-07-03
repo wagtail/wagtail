@@ -280,6 +280,20 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean("bar")
 
+    def test_clean_deferred(self):
+        block = blocks.CharBlock()
+        self.assertEqual(block.clean_deferred(""), "")
+        # Required validation should be restored after clean_deferred
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
+    def test_required_on_save(self):
+        block = blocks.CharBlock(required_on_save=True)
+        with self.assertRaises(ValidationError):
+            block.clean_deferred("")
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
     def test_charfield_with_callable_default(self):
         def callable_default():
             return "Hello world!"
@@ -444,6 +458,10 @@ class TestIntegerBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean("")
 
+    def test_clean_deferred(self):
+        block = blocks.IntegerBlock()
+        self.assertIsNone(block.clean_deferred(""))
+
     def test_render_max_value_validation(self):
         block = blocks.IntegerBlock(max_value=20)
 
@@ -480,6 +498,10 @@ class TestEmailBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean("")
 
+    def test_clean_deferred(self):
+        block = blocks.EmailBlock()
+        self.assertEqual(block.clean_deferred(""), "")
+
     def test_format_validation(self):
         block = blocks.EmailBlock()
 
@@ -504,6 +526,12 @@ class TestBooleanBlock(unittest.TestCase):
         self.assertIs(form_state, True)
         form_state = block.get_form_state(False)
         self.assertIs(form_state, False)
+
+    def test_clean_deferred(self):
+        block = blocks.BooleanBlock()
+        with self.assertRaises(ValidationError):
+            block.clean("")
+        self.assertEqual(block.clean_deferred(""), False)
 
 
 class TestBlockQuoteBlock(unittest.TestCase):
@@ -541,6 +569,10 @@ class TestFloatBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("")
+
+    def test_clean_deferred(self):
+        block = blocks.FloatBlock()
+        self.assertIsNone(block.clean_deferred(""))
 
     def test_raises_max_value_validation_error(self):
         block = blocks.FloatBlock(max_value=20)
@@ -596,6 +628,10 @@ class TestDecimalBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean("")
 
+    def test_clean_deferred(self):
+        block = blocks.DecimalBlock()
+        self.assertIsNone(block.clean_deferred(""))
+
     def test_raises_max_value_validation_error(self):
         block = blocks.DecimalBlock(max_value=20)
 
@@ -644,6 +680,10 @@ class TestRegexBlock(TestCase):
             block.clean("")
 
         self.assertIn("This field is required.", context.exception.messages)
+
+    def test_clean_deferred(self):
+        block = blocks.RegexBlock(regex=r"^[0-9]{3}$")
+        self.assertEqual(block.clean_deferred(""), "")
 
     def test_raises_custom_required_error(self):
         test_message = "Oops, you missed a bit."
@@ -825,6 +865,10 @@ class TestRichTextBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(RichText(""))
 
+    def test_clean_deferred(self):
+        block = blocks.RichTextBlock()
+        self.assertEqual(block.clean_deferred(RichText("")), RichText(""))
+
     def test_validate_non_required_richtext_block(self):
         block = blocks.RichTextBlock(required=False)
         result = block.clean(RichText(""))
@@ -922,9 +966,7 @@ class TestRichTextBlock(TestCase):
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
-        from django.db.models.fields import BLANK_CHOICE_DASH
-
-        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+        self.blank_choice_dash_label = "- Select an option -"
 
     def test_adapt_choice_block(self):
         block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
@@ -936,7 +978,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
         self.assertEqual(
             js_args[2],
@@ -972,7 +1014,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
 
     def test_validate_required_choice_block(self):
@@ -987,6 +1029,16 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             block.clean(None)
+
+    def test_clean_deferred(self):
+        block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
+
+        # Should still raise a ValidationError for invalid choices
+        with self.assertRaises(ValidationError):
+            block.clean_deferred("cendol")
+
+        self.assertEqual(block.clean_deferred(""), "")
+        self.assertEqual(block.clean_deferred(None), "")
 
     def test_adapt_non_required_choice_block(self):
         block = blocks.ChoiceBlock(
@@ -1066,7 +1118,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 (
                     "Alcoholic",
                     [
@@ -1083,6 +1135,75 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ),
             ],
         )
+
+    def test_to_python_with_optgroups_preserves_type(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                (
+                    "Alcoholic",
+                    [
+                        (1, "Gin"),
+                        (2, "Whisky"),
+                    ],
+                ),
+                (
+                    "Non-alcoholic",
+                    [
+                        (3, "Tea"),
+                        (4, "Coffee"),
+                    ],
+                ),
+            ],
+        )
+
+        value_from_json = "1"
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, 1)
+        self.assertIsInstance(result, int)
+
+    def test_multiple_choice_block_preserves_types(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                (1, "One"),
+                (2, "Two"),
+                (3, "Three"),
+            ],
+        )
+
+        value_from_json = ["1", "3"]
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, [1, 3])
+        for item in result:
+            self.assertIsInstance(item, int)
+
+    def test_multiple_choice_block_with_optgroups_preserves_types(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                (
+                    "Alcoholic",
+                    [
+                        (1, "Gin"),
+                        (2, "Whisky"),
+                    ],
+                ),
+                (
+                    "Non-alcoholic",
+                    [
+                        (3, "Tea"),
+                        (4, "Coffee"),
+                    ],
+                ),
+            ],
+        )
+
+        value_from_json = ["2", "4"]
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, [2, 4])
+        for item in result:
+            self.assertIsInstance(item, int)
 
     def test_named_groups_with_blank_option(self):
         block = blocks.ChoiceBlock(
@@ -1146,7 +1267,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
@@ -1277,7 +1398,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
@@ -1322,6 +1443,18 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         form_state = block.get_form_state("tea")
         self.assertEqual(form_state, ["tea"])
+
+    def test_choiceblock_preserves_integer_type(self):
+        block = blocks.ChoiceBlock(choices=[(1, "One"), (2, "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, 1)
+        self.assertIsInstance(value, int)
+
+    def test_choiceblock_does_not_coerce_string_choices(self):
+        block = blocks.ChoiceBlock(choices=[("1", "One"), ("2", "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, "1")
+        self.assertIsInstance(value, str)
 
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -1393,6 +1526,19 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             block.clean(None)
+
+    def test_clean_deferred(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")]
+        )
+
+        # Should still raise a ValidationError for invalid choices
+        with self.assertRaises(ValidationError):
+            block.clean_deferred(["cendol"])
+
+        self.assertEqual(block.clean_deferred([]), [])
+        self.assertEqual(block.clean_deferred(""), [])
+        self.assertEqual(block.clean_deferred(None), [])
 
     def test_adapt_non_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(
@@ -1833,6 +1979,11 @@ class TestRawHTMLBlock(unittest.TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean(mark_safe(""))
+
+    def test_clean_deferred(self):
+        block = blocks.RawHTMLBlock()
+        self.assertEqual(block.clean_deferred(""), "")
+        self.assertEqual(block.clean_deferred(mark_safe("")), "")
 
     def test_clean_nonrequired_field(self):
         block = blocks.RawHTMLBlock(required=False)
@@ -2630,6 +2781,37 @@ class TestStructBlock(SimpleTestCase):
         )
         self.assertIsInstance(block.child_blocks["description"], blocks.TextBlock)
 
+    def test_with_multiple_missing_blocks_in_form_layout(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/14242:
+        # when more than one block is missing from form_layout, those blocks
+        # (including any added via local_blocks) must be appended to
+        # child_blocks in a stable order to avoid spurious migrations
+        # across runs. To reproduce the failure against the un-fixed code,
+        # run this test with a certain seed, e.g. PYTHONHASHSEED=1.
+        class ArticleBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+            author = blocks.CharBlock()
+            published_date = blocks.DateBlock()
+
+            class Meta:
+                form_layout = BlockGroup(children=["link"])
+
+        block = ArticleBlock(local_blocks=[("extra", blocks.CharBlock())])
+
+        self.assertEqual(
+            list(block.child_blocks.keys()),
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+        self.assertIsInstance(block.child_blocks["extra"], blocks.CharBlock)
+
+        _, args, _ = block.deconstruct()
+        self.assertEqual(
+            [name for name, _block in args[0]],
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+
     def test_adapt_with_get_form_layout(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -2848,6 +3030,60 @@ class TestStructBlock(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(value)
 
+        value = block.to_python({"title": "", "link": ""})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_propagates_to_child_blocks(self):
+        block = blocks.StructBlock(
+            [
+                ("title", blocks.CharBlock()),
+                ("link", blocks.URLBlock()),
+            ]
+        )
+
+        value = block.to_python({"title": "", "link": ""})
+        clean_value = block.clean_deferred(value)
+        self.assertIsInstance(clean_value, blocks.StructValue)
+        self.assertEqual(clean_value["title"], "")
+        self.assertEqual(clean_value["link"], "")
+
+        # Required validation should be restored after clean_deferred
+        value = block.to_python({"title": "Torchbox", "link": "not a url"})
+        with self.assertRaises(ValidationError):
+            block.clean_deferred(value)
+
+        value = block.to_python({"title": "", "link": "https://example.com"})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # children of OuterBlock therefore reference the same CharBlock,
+        # making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class OuterBlock(blocks.StructBlock):
+            a = HeroBlock()
+            b = HeroBlock()
+
+        block = OuterBlock()
+        shared_title = block.child_blocks["a"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["b"].child_blocks["title"],
+        )
+
+        value = block.to_python({"a": {"title": ""}, "b": {"title": ""}})
+        block.clean_deferred(value)
+
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(StructBlockValidationError):
+            block.clean(value)
+
     def test_non_block_validation_error(self):
         class LinkBlock(blocks.StructBlock):
             page = blocks.PageChooserBlock(required=False)
@@ -2855,6 +3091,9 @@ class TestStructBlock(SimpleTestCase):
 
             def clean(self, value):
                 result = super().clean(value)
+                # Allow both blocks to be empty when saving drafts
+                if self.is_deferred_validation:
+                    return result
                 if not (result["page"] or result["url"]):
                     raise StructBlockValidationError(
                         non_block_errors=ErrorList(
@@ -2868,8 +3107,14 @@ class TestStructBlock(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(bad_data)
 
+        # When using clean_deferred, both blocks allowed to be empty
+        bad_data_deferred = block.clean_deferred(bad_data)
+        self.assertIsNone(bad_data_deferred["page"])
+        self.assertEqual(bad_data_deferred["url"], "")
+
         good_data = {"page": None, "url": "https://wagtail.org/"}
         self.assertEqual(block.clean(good_data), good_data)
+        self.assertEqual(block.clean_deferred(good_data), good_data)
 
     def test_bound_blocks_are_available_on_template(self):
         """
@@ -3028,6 +3273,16 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         value = block.to_python({"title": "Torchbox", "link": "not a url"})
         with self.assertRaises(ValidationError):
             block.clean(value)
+        with self.assertRaises(ValidationError):
+            block.clean_deferred(value)
+
+        value = block.to_python({"title": "", "link": ""})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+        clean_value = block.clean_deferred(value)
+        self.assertIsInstance(clean_value, CustomStructValue)
+        self.assertEqual(clean_value["title"], "")
+        self.assertEqual(clean_value["link"], "")
 
     def test_initialisation_from_subclass(self):
         class LinkStructValue(blocks.StructValue):
@@ -3608,6 +3863,10 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             cleaned_block_val.bound_blocks[0].id, "11111111-1111-1111-1111-111111111111"
         )
+        cleaned_block_val = block.clean_deferred(block_val)
+        self.assertEqual(
+            cleaned_block_val.bound_blocks[0].id, "11111111-1111-1111-1111-111111111111"
+        )
 
     def test_min_num_validation_errors(self):
         block = blocks.ListBlock(blocks.CharBlock(), min_num=2)
@@ -3621,10 +3880,15 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "messages": ["The minimum number of items is 2"],
             },
         )
+        # When using clean_deferred, min_num is not enforced
+        cleaned_block_val = block.clean_deferred(block_val)
+        self.assertEqual(len(cleaned_block_val), 1)
+        self.assertEqual(cleaned_block_val.bound_blocks[0].value, "foo")
 
         # a value with >= 2 blocks should pass validation
         block_val = block.to_python(["foo", "bar"])
         self.assertTrue(block.clean(block_val))
+        self.assertTrue(block.clean_deferred(block_val))
 
     def test_max_num_validation_errors(self):
         block = blocks.ListBlock(blocks.CharBlock(), max_num=2)
@@ -3639,9 +3903,37 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+        # When using clean_deferred, max_num is still enforced
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean_deferred(block_val)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {
+                "messages": ["The maximum number of items is 2"],
+            },
+        )
+
         # a value with <= 2 blocks should pass validation
         block_val = block.to_python(["foo", "bar"])
         self.assertTrue(block.clean(block_val))
+        self.assertTrue(block.clean_deferred(block_val))
+
+    def test_clean_deferred_propagates_to_child_blocks(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        block_val = block.to_python([""])
+
+        # When using clean_deferred, blocks with empty values are allowed
+        cleaned_block_val = block.clean_deferred(block_val)
+        self.assertEqual(len(cleaned_block_val), 1)
+        self.assertEqual(cleaned_block_val.bound_blocks[0].value, "")
+
+        # Required validation should be restored after clean_deferred
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(block_val)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {"blockErrors": {0: {"messages": ["This field is required."]}}},
+        )
 
     def test_unpack_old_database_format(self):
         block = blocks.ListBlock(blocks.CharBlock())
@@ -3968,11 +4260,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(blocks.StreamBlockValidationError):
             block.clean(value)
 
+        # When using clean_deferred, the block can be empty
+        cleaned_block = block.clean_deferred(value)
+        self.assertEqual(cleaned_block, value)
+
     def test_required_does_not_raise_an_exception_if_not_empty(self):
         block = blocks.StreamBlock([("paragraph", blocks.CharBlock())], required=True)
         value = block.to_python([{"type": "paragraph", "value": "Hello"}])
         try:
             block.clean(value)
+            block.clean_deferred(value)
         except blocks.StreamBlockValidationError as e:
             raise self.failureException(
                 "%s was raised" % blocks.StreamBlockValidationError
@@ -3984,6 +4281,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         try:
             block.clean(value)
+            block.clean_deferred(value)
         except blocks.StreamBlockValidationError as e:
             raise self.failureException(
                 "%s was raised" % blocks.StreamBlockValidationError
@@ -3995,6 +4293,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(blocks.StreamBlockValidationError):
             block.clean(value)
+
+        # When using clean_deferred, the block can be empty
+        cleaned_block = block.clean_deferred(value)
+        self.assertEqual(cleaned_block, value)
 
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
@@ -4059,11 +4361,15 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
 
-        self.assertIn('<div class="block-heading">My title</div>', html)
+        self.assertIn('<div class="w-block-heading block-heading">My title</div>', html)
         self.assertIn(
-            '<div class="block-paragraph">My <i>first</i> paragraph</div>', html
+            '<div class="w-block-paragraph block-paragraph">My <i>first</i> paragraph</div>',
+            html,
         )
-        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My second paragraph</div>',
+            html,
+        )
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -4081,7 +4387,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertNotIn("foo", html)
         self.assertNotIn("Hello", html)
-        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My first paragraph</div>',
+            html,
+        )
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -4099,12 +4408,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         value = block.to_python([{"type": "heading", "value": "Hello"}])
         html = block.render(value)
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
         # calling render_as_block() on value (a StreamValue instance)
         # should be equivalent to block.render(value)
         html = value.render_as_block()
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
     def test_render_passes_context_to_children(self):
         block = blocks.StreamBlock(
@@ -4124,7 +4437,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
         # calling render_as_block(context=foo) on value (a StreamValue instance)
@@ -4135,7 +4449,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
     def test_render_on_stream_child_uses_child_template(self):
@@ -4254,6 +4569,107 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             block.value_omitted_from_data({"nothing-here": "nope"}, {}, "mystream")
         )
 
+    def test_clean_deferred_propagates_to_child_blocks(self):
+        block = blocks.StreamBlock([("paragraph", blocks.CharBlock())])
+        value = block.to_python([{"type": "paragraph", "value": ""}])
+
+        # When using clean_deferred, blocks with empty values are allowed
+        cleaned_block = block.clean_deferred(value)
+        self.assertEqual(cleaned_block, value)
+
+        # Required validation should be restored after clean_deferred
+        with self.assertRaises(blocks.StreamBlockValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {"blockErrors": {0: {"messages": ["This field is required."]}}},
+        )
+
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # child types in this StreamBlock therefore reference the same
+        # CharBlock, making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class MyStream(blocks.StreamBlock):
+            hero = HeroBlock()
+            featured = HeroBlock()
+
+        block = MyStream()
+
+        # Sanity check: both HeroBlock instances reference the same
+        # class-level CharBlock instance.
+        shared_title = block.child_blocks["hero"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["featured"].child_blocks["title"],
+        )
+        self.assertTrue(shared_title.required)
+
+        value = block.to_python([{"type": "hero", "value": {"title": ""}}])
+        block.clean_deferred(value)
+
+        # After clean_deferred, the shared CharBlock must be restored to
+        # required=True, and a subsequent non-deferred clean must reject
+        # empty values.
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {
+                "blockErrors": {
+                    0: {
+                        "blockErrors": {
+                            "title": {"messages": ["This field is required."]},
+                        }
+                    }
+                }
+            },
+        )
+
+    def test_clean_deferred_with_field_block_aliased_to_multiple_children(self):
+        # The same FieldBlock instance is used as more than one direct
+        # StreamBlock child type, making it reachable via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock([("a", shared), ("b", shared)])
+        self.assertIs(block.child_blocks["a"], block.child_blocks["b"])
+
+        value = block.to_python([{"type": "a", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_with_field_block_shared_with_list_block_child(self):
+        # The same FieldBlock is used both as a direct StreamBlock child
+        # and as the child_block of a sibling ListBlock, making it reachable
+        # via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock(
+            [
+                ("direct", shared),
+                ("inside_list", blocks.ListBlock(shared)),
+            ]
+        )
+        self.assertIs(
+            block.child_blocks["direct"],
+            block.child_blocks["inside_list"].child_block,
+        )
+
+        value = block.to_python([{"type": "direct", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
     def test_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
             char = blocks.CharBlock()
@@ -4283,6 +4699,19 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+        # When using clean_deferred, required validation is not enforced,
+        # but other validation (e.g. URL validation) is still enforced
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean_deferred(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {
+                "blockErrors": {
+                    3: {"messages": ["Enter a valid URL."]},
+                }
+            },
+        )
+
     def test_min_num_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
             char = blocks.CharBlock()
@@ -4298,6 +4727,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             catcher.exception.as_json_data(),
             {"messages": ["The minimum number of items is 1"]},
         )
+
+        # When using clean_deferred, min_num is not enforced
+        cleaned_block = block.clean_deferred(value)
+        self.assertEqual(cleaned_block, value)
 
         # a value with >= 1 blocks should pass validation
         value = blocks.StreamValue(block, [("char", "foo")])
@@ -4327,9 +4760,18 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {"messages": ["The maximum number of items is 1"]},
         )
 
+        # When using clean_deferred, max_num is still enforced
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean_deferred(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {"messages": ["The maximum number of items is 1"]},
+        )
+
         # a value with 1 block should pass validation
         value = blocks.StreamValue(block, [("char", "foo")])
         self.assertTrue(block.clean(value))
+        self.assertTrue(block.clean_deferred(value))
 
     def test_block_counts_min_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
@@ -4353,6 +4795,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {"messages": ["Char: The minimum number of items is 1"]},
         )
 
+        # When using clean_deferred, min_num from block_counts is not enforced
+        cleaned_block = block.clean_deferred(value)
+        self.assertEqual(cleaned_block, value)
+
         # a value with 1 char block should pass validation
         value = blocks.StreamValue(
             block,
@@ -4363,6 +4809,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
         self.assertTrue(block.clean(value))
+        self.assertTrue(block.clean_deferred(value))
 
     def test_block_counts_max_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
@@ -4388,6 +4835,14 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {"messages": ["Char: The maximum number of items is 1"]},
         )
 
+        # When using clean_deferred, max_num from block_counts is still enforced
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean_deferred(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {"messages": ["Char: The maximum number of items is 1"]},
+        )
+
         # a value with 1 char block should pass validation
         value = blocks.StreamValue(
             block,
@@ -4398,6 +4853,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
         self.assertTrue(block.clean(value))
+        self.assertTrue(block.clean_deferred(value))
 
     def test_ordering_in_form_submission_uses_order_field(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -4603,6 +5059,33 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         blockdefs_dict = dict(js_args[1])
         self.assertEqual(blockdefs_dict.keys(), {"", "group1", "group2"})
+
+    def test_adapt_preserves_group_order_by_declaration_order(self):
+        block = blocks.StreamBlock(
+            [
+                ("content_1", blocks.CharBlock(group="content")),
+                ("media_1", blocks.CharBlock(group="media")),
+                ("content_2", blocks.CharBlock(group="content")),
+                ("cards_1", blocks.CharBlock(group="cards")),
+                ("no_group", blocks.CharBlock()),
+            ]
+        )
+
+        block.set_name("test_streamblock")
+        grouped_blocks = [
+            (group_name, [child.name for child in group_blocks])
+            for group_name, group_blocks in StreamBlockAdapter().js_args(block)[1]
+        ]
+
+        self.assertEqual(
+            grouped_blocks,
+            [
+                ("content", ["content_1", "content_2"]),
+                ("media", ["media_1"]),
+                ("cards", ["cards_1"]),
+                ("", ["no_group"]),
+            ],
+        )
 
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -5508,6 +5991,20 @@ class TestPageChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
         self.assertIsNone(nonrequired_block.clean(None))
+
+    def test_clean_deferred(self):
+        required_block = blocks.PageChooserBlock()
+        nonrequired_block = blocks.PageChooserBlock(required=False)
+        christmas_page = Page.objects.get(slug="christmas")
+
+        self.assertEqual(required_block.clean_deferred(christmas_page), christmas_page)
+        self.assertIsNone(required_block.clean_deferred(None))
+
+        self.assertEqual(
+            nonrequired_block.clean_deferred(christmas_page),
+            christmas_page,
+        )
+        self.assertIsNone(nonrequired_block.clean_deferred(None))
 
     def test_target_model_default(self):
         block = blocks.PageChooserBlock()

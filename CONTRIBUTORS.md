@@ -8,6 +8,7 @@
 * Emily Topp-Mugglestone (Torchbox)
 * Jake Howard (Torchbox)
 * Kalob Taulien
+* Lasse Schmieding
 * LB Johnston
 * Matthew Westcott (Torchbox)
 * Meagen Voss (Torchbox)
@@ -908,7 +909,6 @@
 * Tosinibikunle
 * Lynwee
 * Andrew Selzer
-* Lasse Schmieding
 * Shivam Kumar
 * Pravin Kamble
 * Martin Fitzpatrick
@@ -951,6 +951,41 @@
 * Divyansh Mishra
 * Gaurav Takhi
 * Ashutosh
+* Garrett Coakley
+* Collins Kubu
+* Advik Sharma
+* Oluwagbeminiyi Agbedejobi
+* Baptiste Darthenay
+* K Adithya
+* Devarshi Mani Tripathi
+* Om Harsh
+* Nirmal Kumar
+* Darshan Kerkar
+* James Biggs
+* Aditya Kammati
+* Kunal Hemnani
+* Aviral Sapra
+* Raghad Dahi
+* Divyansh Mishra
+* mikko2577
+* Kalash Kumari Thakur
+* Aniket Singh
+* Seoyoung Kang
+* Vishal Shukla
+* Sanjok Karki
+* Amrinder Singh
+* Kailesh
+* Nayeli De Jesus
+* Sahil Kumar
+* Rob Brackett
+* Jack Morgan
+* MariyaOT
+* Harsh Akshit
+* 0x1saac
+* Devansh Bordia
+* alanturing881
+* Marquis Nobles
+* Eesh Saxena
 * Jack Whitworth
 
 ## Translators

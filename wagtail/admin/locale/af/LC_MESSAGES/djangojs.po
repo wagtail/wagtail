@@ -1,4 +1,3 @@
-#
 # Translators:
 # Jaco du Plessis <jaco@jacoduplessis.co.za>, 2022
 # JaredOzzy <jaredozzy@gmail.com>, 2026

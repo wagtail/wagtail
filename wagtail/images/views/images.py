@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import (
     FileResponse,
-    HttpResponse,
+    Http404,
     HttpResponseBadRequest,
     HttpResponseForbidden,
 )
@@ -344,6 +344,11 @@ class URLGeneratorView(generic.InspectView):
         return super().get_template_names()
 
     def get(self, request, image_id, *args, **kwargs):
+        try:
+            reverse("wagtailimages_serve", args=("foo", "1", "bar"))
+        except NoReverseMatch as exc:
+            raise Http404 from exc
+
         self.object = get_object_or_404(self.model, id=image_id)
 
         if not permission_policy.user_has_permission_for_instance(
@@ -371,7 +376,8 @@ class URLGeneratorView(generic.InspectView):
         except InvalidFilterSpecError as e:
             if self.output_only:
                 return HttpResponseBadRequest(
-                    f"Invalid filter spec: `{self.filter_spec}`. {str(e)}."
+                    f"Invalid filter spec: `{self.filter_spec}`. {str(e)}.",
+                    content_type="text/plain",
                 )
             messages.error(request, self.invalid_filter_error)
 
@@ -430,18 +436,33 @@ class URLGeneratorView(generic.InspectView):
 def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
+        raise PermissionDenied
+
     try:
-        # Temporary image needs to be an instance that Willow can run optimizers on
-        temp_image = SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE)
-        image = Filter(spec=filter_spec).run(image, temp_image)
-        temp_image.seek(0)
-        response = FileResponse(temp_image)
-        response["Content-Type"] = "image/" + image.format_name
-        return response
+        image_filter = Filter(spec=filter_spec)
+        allowed_operations = URLGeneratorForm.FilterChoices.values
+        if any(
+            operation.method not in allowed_operations
+            for operation in image_filter.operations
+        ):
+            return HttpResponseBadRequest(
+                "Invalid filter spec: " + filter_spec, content_type="text/plain"
+            )
     except InvalidFilterSpecError:
-        return HttpResponse(
-            "Invalid filter spec: " + filter_spec, content_type="text/plain", status=400
+        return HttpResponseBadRequest(
+            "Invalid filter spec: " + filter_spec, content_type="text/plain"
         )
+
+    # Temporary image needs to be an instance that Willow can run optimizers on
+    temp_image = SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE)
+    image = image_filter.run(image, temp_image)
+    temp_image.seek(0)
+    response = FileResponse(temp_image)
+    response["Content-Type"] = "image/" + image.format_name
+    return response
 
 
 class DeleteView(generic.DeleteView):

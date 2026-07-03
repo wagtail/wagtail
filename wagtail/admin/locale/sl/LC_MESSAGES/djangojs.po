@@ -1,4 +1,3 @@
-#
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Loic Teixeira, 2024

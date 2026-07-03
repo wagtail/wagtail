@@ -1,3 +1,5 @@
+(security_reporting)=
+
 # Reporting security issues
 
 ```{warning}
@@ -14,8 +16,6 @@ Instead, if you believe you've found something in Wagtail which has security imp
 Mail sent to that address reaches a subset of the core team, who can forward security issues to other core team members for broader discussion if needed.
 
 Once you've submitted an issue via email, you should receive an acknowledgment from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
-
-If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0xbed227b4daf93ff9`, and this public key is available from most commonly-used keyservers.
 
 This information can also be found in our [security.txt](https://wagtail.org/.well-known/security.txt).
 
@@ -94,3 +94,9 @@ When Wagtail serves these files itself (ie the content is returned in the respon
 Because the considerations needed for remote storage are already documented, we do not consider misconfiguration of storage, particularly when served directly from the media source, as a security vulnerability in Wagtail. This includes when using Django's built-in media serving capabilities via `MEDIA_URL`. Vulnerabilities in Wagtail's built-in serve views are still considered.
 
 Wagtail does not take any measures to block the execution of JavaScript within PDF documents. To the extent that browsers allow this, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
+
+### CVEs in third-party dependencies
+
+Many of the reports we receive originate from automated dependency scanners flagging a CVE in a library Wagtail depends on, transitively includes, or vendors. Wagtail's security policy covers vulnerabilities in our runtime / production dependencies in Python, and any third-party JavaScript libraries loaded into the Wagtail admin. We focus on scenarios where the vulnerability is reachable from a code path that is actually used in Wagtail.
+
+Reports about development dependencies and other tooling required only to build or test Wagtail are out of scope, as none of these are shipped to Wagtail users.

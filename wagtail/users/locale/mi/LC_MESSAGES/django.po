@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -150,6 +150,10 @@ msgstr "Rongorua"
 msgid "Roles"
 msgstr "Ngā whakatau"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Kai whakamahi %(id)s (mukuhia)"
+
 msgid "Active"
 msgstr "hohe"
 
@@ -179,6 +183,10 @@ msgstr "Ingoa kai-whakamahi"
 
 msgid "Admin"
 msgstr "Kaiwhakahaere"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Kai whakamahi '%(object)s' e hanga."
 
 msgid "Add user"
 msgstr "Tāpiri he kai-whakamahi"

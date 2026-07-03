@@ -100,7 +100,7 @@ class CopyPageAction:
                 )
 
             if self.keep_live:
-                destination_perms = self.to.permissions_for_user(self.user)
+                destination_perms = to.permissions_for_user(self.user)
 
                 if not destination_perms.can_publish_subpage():
                     raise CopyPagePermissionError(

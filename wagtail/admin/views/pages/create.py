@@ -5,12 +5,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
+from django.views.generic import TemplateView
 from django.views.generic.base import View
 
 from wagtail.admin import messages
@@ -37,39 +37,46 @@ from wagtail.models import (
 from wagtail.signals import init_new_page
 
 
-def add_subpage(request, parent_page_id):
-    parent_page = get_object_or_404(Page, id=parent_page_id).specific
-    if not parent_page.permissions_for_user(request.user).can_add_subpage():
-        raise PermissionDenied
+class AddSubpageView(TemplateView):
+    template_name = "wagtailadmin/pages/add_subpage.html"
 
-    page_types = [
-        (
-            model.get_verbose_name(),
-            model._meta.app_label,
-            model._meta.model_name,
-            model.get_page_description(),
+    def dispatch(self, request, parent_page_id, *args, **kwargs):
+        self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        if not self.parent_page.permissions_for_user(request.user).can_add_subpage():
+            raise PermissionDenied
+
+        self.page_types = [
+            (
+                model.get_verbose_name(),
+                model._meta.app_label,
+                model._meta.model_name,
+                model.get_page_description(),
+            )
+            for model in type(self.parent_page).creatable_subpage_models()
+            if model.can_create_at(self.parent_page)
+        ]
+        # sort by lower-cased version of verbose name
+        self.page_types.sort(key=lambda page_type: page_type[0].lower())
+
+        if len(self.page_types) == 1:
+            # Only one page type is available - redirect straight to the create form rather than
+            # making the user choose
+            verbose_name, app_label, model_name, description = self.page_types[0]
+            return redirect(
+                "wagtailadmin_pages:add", app_label, model_name, self.parent_page.id
+            )
+        return super().dispatch(request, parent_page_id, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "parent_page": self.parent_page,
+                "page_types": self.page_types,
+                "next": get_valid_next_url_from_request(self.request),
+            }
         )
-        for model in type(parent_page).creatable_subpage_models()
-        if model.can_create_at(parent_page)
-    ]
-    # sort by lower-cased version of verbose name
-    page_types.sort(key=lambda page_type: page_type[0].lower())
-
-    if len(page_types) == 1:
-        # Only one page type is available - redirect straight to the create form rather than
-        # making the user choose
-        verbose_name, app_label, model_name, description = page_types[0]
-        return redirect("wagtailadmin_pages:add", app_label, model_name, parent_page.id)
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/pages/add_subpage.html",
-        {
-            "parent_page": parent_page,
-            "page_types": page_types,
-            "next": get_valid_next_url_from_request(request),
-        },
-    )
+        return context
 
 
 class CreateView(

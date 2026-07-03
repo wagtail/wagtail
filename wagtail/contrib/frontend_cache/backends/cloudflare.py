@@ -64,7 +64,7 @@ class CloudflareBackend(BaseBackend):
 
             data = {"files": urls}
 
-            response = requests.delete(
+            response = requests.post(
                 purge_url,
                 json=data,
                 headers=headers,

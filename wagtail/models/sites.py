@@ -64,7 +64,17 @@ def get_site_for_hostname(hostname, port):
 
 class SiteManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().order_by(Lower("hostname"))
+        return (
+            super()
+            .get_queryset()
+            .order_by(
+                Case(
+                    When(site_name="", then=Lower("hostname")),
+                    default=Lower("site_name"),
+                ),
+                Lower("hostname"),
+            )
+        )
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)

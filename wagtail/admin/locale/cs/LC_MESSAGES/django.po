@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -513,13 +513,13 @@ msgstr "Ne, nerušit publikaci"
 msgid "Cancel"
 msgstr "Storno"
 
+msgid "Comment"
+msgstr "Komentář"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Akce"
-
-msgid "Comment"
-msgstr "Komentář"
 
 msgid "Update"
 msgstr "Uložit"
@@ -921,6 +921,10 @@ msgstr "Seznam webů"
 msgid "Pagination"
 msgstr "Stránkování"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Stránka %(page_number)s z %(num_pages)s."
+
 msgid "Previous"
 msgstr "Předchozí"
 
@@ -932,9 +936,6 @@ msgstr "Tato stránka není veřejně viditelná"
 
 msgid "Confirm"
 msgstr "Potvrdit"
-
-msgid "Add child page"
-msgstr "Přidat podstránku"
 
 msgid "Page types"
 msgstr "Typy stránky"
@@ -1105,6 +1106,10 @@ msgstr[0] "Použito %(usage_count)s -krát"
 msgstr[1] "Použito %(usage_count)s -krát"
 msgstr[2] "Použito %(usage_count)s -krát"
 msgstr[3] "Použito %(usage_count)s -krát"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "uživatelem %(user)s"
 
 msgid "View history"
 msgstr "Zobrazit historii"
@@ -1448,12 +1453,28 @@ msgstr "%(model_name)s '%(object)s' vytvořeno."
 msgid "Inspect"
 msgstr "Prozkoumat"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Přidat %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr " %(model_name)s nemohlo být vytvořeno kvůli chybám."
+
 msgid "Editing"
 msgstr "Úprava"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s nemohlo být uloženo kvůli chybám."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' zrušeno."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Určitě chcete smazat následující %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Nejstarší"
@@ -1461,8 +1482,16 @@ msgstr "Nejstarší"
 msgid "Latest"
 msgstr "Nejnovější"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Verze %(revision_id)s dokumentu \"%(object)s\" není naplánována."
+
 msgid "Unschedule"
 msgstr "Zrušit naplánované publikování"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "verze %(revision_id)s \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1570,6 +1599,9 @@ msgstr "Web"
 
 msgid "Yes"
 msgstr "Ano"
+
+msgid "Add child page"
+msgstr "Přidat podstránku"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

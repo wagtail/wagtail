@@ -1,0 +1,97 @@
+name: Test against latest dependencies
+
+# Resolves Wagtail's dependencies with the upper bounds stripped via
+# .github/latest-deps-overrides.txt, then runs the test suite and builds
+# the docs. This acts as an early warning when a future major version of
+# a capped dependency breaks Wagtail. Failures here are informational,
+# not release-blocking — they mean someone should investigate whether to
+# lift a cap, add compatibility code, or pin tighter.
+
+# Pre-releases are enabled so we catch breakage in release candidates before
+# they ship as stable.
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC
+    - cron: '39 5 * * 1,3'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Latest dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.14'
+          allow-prereleases: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+
+      - name: Install Wagtail with overrides applied
+        run: |
+          uv pip install --system \
+            --overrides .github/latest-deps-overrides.txt \
+            --prerelease=allow \
+            --upgrade \
+            -e '.[testing,docs]'
+
+      - name: Summarize installed versions
+        run: |
+          # `packaging` is used by the summary script to parse pyproject.toml
+          # constraints. It's transitively available already, but installing
+          # explicitly keeps the dependency visible.
+          uv pip install --system packaging
+
+          # Full list to workflow logs for debugging.
+          uv pip list --system
+
+          # Markdown summary for the GitHub Actions UI. Packages that
+          # resolved past their cap in pyproject.toml are shown first;
+          # the rest go into a collapsed details block.
+          python3 scripts/latest-deps-summary.py >> "$GITHUB_STEP_SUMMARY"
+
+          # Full installed package list, collapsed.
+          {
+            echo ''
+            echo '<details><summary>Full installed package list</summary>'
+            echo ''
+            echo '```'
+            uv pip list --system
+            echo '```'
+            echo ''
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run Django system checks
+        run: |
+          DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
+
+      - name: Run tests
+        run: |
+          python runtests.py --parallel
+
+      - name: Build docs
+        run: |
+          make -C docs html
+
+      - name: Notify Slack on failure
+        if: ${{ failure() && env.SLACK_WEBHOOK_URL != '' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPENDENCY_DASHBOARD_WEBHOOK_URL }}
+        uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
+        with:
+          webhook: ${{ env.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "Tests with latest versions of all dependencies failed.\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

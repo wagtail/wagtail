@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -428,6 +428,10 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "עמוד %(page_number)s מתוך %(num_pages)s."
+
 msgid "Previous"
 msgstr "קודם"
 
@@ -436,9 +440,6 @@ msgstr "הבא"
 
 msgid "This page is protected from public view"
 msgstr "עמוד זה מוגן מתצוגה פומבית"
-
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
 
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
@@ -499,6 +500,10 @@ msgstr "בלתי נעול"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
+#, python-format
+msgid "by %(user)s"
+msgstr "מאת %(user)s"
+
 msgid "Edited"
 msgstr "ערוך"
 
@@ -519,6 +524,10 @@ msgstr "סיסמא"
 
 msgid "Home"
 msgstr "לעמוד הבית "
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "הוסף %(model_name)s "
 
 msgid "Editing"
 msgstr "עריכה"
@@ -560,11 +569,18 @@ msgstr "עמוד %(page_title)s נוצר והוזן לעריכה"
 msgid "Page '%(page_title)s' deleted."
 msgstr "עמוד %(page_title)s נמחק"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "עריכת %(page_type)s"
+
 msgid "Owner"
 msgstr "בעלים"
 
 msgid "Site"
 msgstr "אתר"
+
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -584,6 +600,10 @@ msgstr "עמודים משמשים"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "העמוד %(page_title)s אינו ממתין לעריכה כרגע "
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "עריכת %(task_type)s"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

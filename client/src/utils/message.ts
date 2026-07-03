@@ -50,11 +50,22 @@ export interface SetScrollPosition extends MessageWithOrigin {
   y: number;
 }
 
+/**
+ * Sent by the CMS to the preview iframe with the inverse of the current
+ * preview scale ratio, so inline annotations can apply it directly as a
+ * counter-scale transform to remain legible at any simulated device size.
+ */
+export interface SetScale {
+  type: 'w-preview:set-scale';
+  scale: number;
+}
+
 export type WagtailMessage =
   | AxeReady
   | RequestScroll
   | GetScrollPosition
-  | SetScrollPosition;
+  | SetScrollPosition
+  | SetScale;
 
 /**
  * Parses a message event that may contain a Wagtail message.

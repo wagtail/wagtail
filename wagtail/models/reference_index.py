@@ -7,6 +7,7 @@ from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
 from django.db.models import CharField, Count, OuterRef, Subquery
 from django.db.models.functions import Cast, Coalesce
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -683,10 +684,10 @@ class ReferenceIndex(models.Model):
         they are found on for each given object.
 
         Args:
-            object: An iterable of model instances to fetch ReferenceIndex records for
+            objects: An iterable of model instances to fetch ReferenceIndex records for
 
         Returns:
-            An dict that maps a model instance to a ReferenceGroups object
+            A dict that maps a model instance to a ReferenceGroups object
         """
         references = cls.get_references_to_in_bulk(objects)
         grouped_references = references.group_by_source_object_in_bulk()
@@ -836,7 +837,7 @@ class ReferenceIndex(models.Model):
                 idx += 2
                 child_field = related_model_opts.get_field(model_path_components[idx])
             labels.append(capfirst(child_field.verbose_name))
-            return " → ".join(labels)
+            return " → ".join(force_str(label) for label in labels)
         elif isinstance(field, StreamField):
             label = f"{capfirst(field.verbose_name)}"
             block = field.stream_block

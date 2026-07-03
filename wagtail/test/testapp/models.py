@@ -439,6 +439,7 @@ class EventPage(Page):
         index.SearchField("location"),
         index.SearchField("body"),
         index.FilterField("url_path"),
+        index.FilterField("audience"),
     ]
 
     password_required_template = "tests/event_page_password_required.html"
@@ -824,11 +825,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return form_submission
 
     def serve(self, request, *args, **kwargs):
-        if (
-            self.get_submission_class()
-            .objects.filter(page=self, user__pk=request.user.pk)
-            .exists()
-        ):
+        if self.get_submissions().filter(user__pk=request.user.pk).exists():
             return TemplateResponse(request, self.template, self.get_context(request))
 
         return super().serve(request, *args, **kwargs)
@@ -1322,9 +1319,9 @@ class FullFeaturedSnippet(
     ClusterableModel,
 ):
     class CountryCode(models.TextChoices):
-        INDONESIA = "ID"
-        PHILIPPINES = "PH"
-        UNITED_KINGDOM = "UK"
+        INDONESIA = "ID", "Indonesia"
+        PHILIPPINES = "PH", "Philippines"
+        UNITED_KINGDOM = "UK", "United Kingdom"
 
     text = models.TextField()
     country_code = models.CharField(

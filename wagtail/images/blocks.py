@@ -187,8 +187,12 @@ class ImageBlock(StructBlock):
             raise StructBlockValidationError(
                 block_errors={"image": e},
             ) from e
-
-        if value and not value.contextual_alt_text and not value.decorative:
+        if (
+            not self.is_deferred_validation
+            and value
+            and not value.contextual_alt_text
+            and not value.decorative
+        ):
             raise StructBlockValidationError(
                 block_errors={
                     "alt_text": ValidationError(

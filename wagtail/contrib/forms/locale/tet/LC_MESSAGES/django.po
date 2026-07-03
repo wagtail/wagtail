@@ -4,13 +4,14 @@
 #
 # Translators:
 # Joanico Barros <joanico@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +154,9 @@ msgstr "Submisaun foun"
 msgid "Submissions of %(form_title)s"
 msgstr "Submisaun husi%(form_title)s"
 
+msgid "Page type"
+msgstr "Tipu pájina"
+
 msgid "Forms"
 msgstr "Formulariu"
 
@@ -163,7 +167,7 @@ msgid "Origin"
 msgstr "Orijen"
 
 msgid "Pages"
-msgstr "Pajina sira"
+msgstr "Pájina sira"
 
 #, python-format
 msgid "One submission has been deleted."

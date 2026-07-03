@@ -1,4 +1,3 @@
-#
 # Translators:
 # Yiannis Inglessis <negtheone@gmail.com>, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2022

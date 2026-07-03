@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import PermissionDenied
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +11,7 @@ from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenMultipleViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -118,9 +120,32 @@ class DocumentChooseResultsView(
 
 
 class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
+    def get_object(self, pk):
+        item = super().get_object(pk)
+
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", item
+        ):
+            raise PermissionDenied
+
+        return item
+
     def get(self, request, *args, pk, **kwargs):
         self.model = get_document_model()
         return super().get(request, *args, pk, **kwargs)
+
+
+class DocumentChosenMultipleView(
+    ChosenMultipleViewMixin, DocumentChosenResponseMixin, View
+):
+    def get_objects(self, pks):
+        return permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        ).filter(pk__in=pks)
+
+    def get(self, request, *args, **kwargs):
+        self.model = get_document_model()
+        return super().get(request, *args, **kwargs)
 
 
 class DocumentChooserUploadView(
@@ -175,6 +200,7 @@ class DocumentChooserViewSet(ChooserViewSet):
     choose_view_class = DocumentChooseView
     choose_results_view_class = DocumentChooseResultsView
     chosen_view_class = DocumentChosenView
+    chosen_multiple_view_class = DocumentChosenMultipleView
     create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
     widget_telepath_adapter_class = DocumentChooserAdapter

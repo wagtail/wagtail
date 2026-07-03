@@ -73,6 +73,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 def get_ct(model):
@@ -362,6 +363,19 @@ class TestSiteRouting(TestCase):
         request.META["HTTP_HOST"] = "disallowed:80"
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_get_site_root_paths_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "The `request` kwarg in `Page._get_site_root_paths()` "
+            "is now `cache_object`.",
+        ):
+            self.assertEqual(
+                self.events_site.root_page._get_site_root_paths(
+                    request=get_dummy_request()
+                ),
+                Site.get_site_root_paths(),
+            )
 
 
 class TestRouting(TestCase):
@@ -985,7 +999,7 @@ class TestPrevNextSiblings(TestCase):
         )
 
 
-class TestSaveRevision(TestCase):
+class TestSaveRevision(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_raises_error_if_non_specific_page_used(self):
@@ -1024,6 +1038,35 @@ class TestSaveRevision(TestCase):
         self.assertEqual(revision1.id, revision2.id)
         revision1.refresh_from_db()
         self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_overwrite_revision_reuses_log_action_uuid(self):
+        user = self.create_test_user()
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=user, log_action=True)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        logs = PageLogEntry.objects.filter(revision=revision1)
+        self.assertEqual(logs.count(), 1)
+        first_entry = logs.first()
+        self.assertEqual(first_entry.action, "wagtail.edit")
+
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            overwrite_revision=revision1,
+            user=user,
+            log_action=True,
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+        # Should create a new log entry but with the same uuid to allow grouping
+        self.assertEqual(logs.count(), 2)
+        second_entry = logs.exclude(id=first_entry.id).first()
+        self.assertEqual(second_entry.uuid, first_entry.uuid)
+        self.assertEqual(second_entry.action, "wagtail.edit")
 
     def test_cannot_overwrite_revision_that_is_not_latest(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")

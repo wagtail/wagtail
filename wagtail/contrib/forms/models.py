@@ -94,6 +94,8 @@ class AbstractFormField(Orderable):
         verbose_name=_("field type"), max_length=16, choices=FORM_FIELD_CHOICES
     )
     # field_type must be populated for previews to build the form field.
+    # Set required_on_save=True on the model field in case the FieldPanel has
+    # been overridden.
     field_type.required_on_save = True
     required = models.BooleanField(verbose_name=_("required"), default=True)
     choices = models.TextField(
@@ -118,7 +120,10 @@ class AbstractFormField(Orderable):
         FieldPanel("label"),
         FieldPanel("help_text"),
         FieldPanel("required"),
-        FieldPanel("field_type", classname="formbuilder-type"),
+        # field_type must be populated for previews to build the form field.
+        # Set required_on_save=True on the field panel in case the model field
+        # has been overridden.
+        FieldPanel("field_type", classname="formbuilder-type", required_on_save=True),
         FieldPanel("choices", classname="formbuilder-choices"),
         FieldPanel("default_value", classname="formbuilder-default"),
     ]
@@ -228,6 +233,9 @@ class FormMixin:
         """
 
         return FormSubmission
+
+    def get_submissions(self):
+        return self.get_submission_class()._default_manager.filter(page=self)
 
     def get_submissions_list_view_class(self):
         from .views import SubmissionsListView

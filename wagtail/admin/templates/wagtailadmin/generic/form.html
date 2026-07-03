@@ -64,7 +64,7 @@
 
         {% block footer %}
             <footer class="footer w-grid md:w-grid-flow-col">
-                <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions (footer)' %}">
                     {% block actions %}
                         {% fragment as main_action %}
                             {% block main_action %}
@@ -112,7 +112,7 @@
     {{ block.super }}
     {{ media.js }}
     {% if edit_handler_data %}{{ edit_handler_data|json_script:"w-edit-handler-data" }}{% endif %}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {% hook_output 'insert_editor_js' %}
 {% endblock %}
 
 {% block extra_css %}

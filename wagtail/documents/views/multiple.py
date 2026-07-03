@@ -71,6 +71,10 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
         context.update(
             {
                 "max_title_length": self.form.fields["title"].max_length,
+                "max_filesize": self.form.fields["file"].max_upload_size,
+                "error_max_file_size": self.form.fields["file"].error_messages[
+                    "file_too_large_unknown_size"
+                ],
             }
         )
 

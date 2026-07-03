@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -733,13 +733,13 @@ msgstr "Bu %(model_name)s'yi yayımlamak istiyor musunuz?"
 msgid "Cancel"
 msgstr "İptal"
 
+msgid "Comment"
+msgstr "Yorum"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Eylemler"
-
-msgid "Comment"
-msgstr "Yorum"
 
 #, python-format
 msgid ""
@@ -1394,10 +1394,6 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
-
 msgid "No results across entire site."
 msgstr "Tüm sitede sonuç yok."
 
@@ -1406,29 +1402,21 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Arama '<span class=\"w-title-ellipsis\">%(title)s</span>' içinde"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s / %(items_count)s '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>' içinde."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Tüm sitede ara"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
-
 msgid "Sites menu"
 msgstr "Siteler menüsü"
 
 msgid "Pagination"
 msgstr "Sayfalama"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sayfa %(page_number)s / %(num_pages)s."
 
 msgid "Previous"
 msgstr "Önceki"
@@ -1441,9 +1429,6 @@ msgstr "Bu sayfa genel görünüme karşı korumalıdır"
 
 msgid "Confirm"
 msgstr "Onayla"
-
-msgid "Add child page"
-msgstr "Alt sayfa ekle"
 
 msgid "Page types"
 msgstr "Sayfa türleri"
@@ -1593,9 +1578,6 @@ msgstr "Sistem"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s yeni bir sürüm kaydetti"
 
-msgid "Refresh"
-msgstr "Yenile"
-
 msgid "You have unsaved changes in another window"
 msgstr "Başka bir pencerede kaydedilmemiş değişiklikleriniz var."
 
@@ -1609,35 +1591,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Başka bir kullanıcı şu anda görüntülüyor"
 msgstr[1] "%(num_user)s başka kullanıcı şu anda görüntülüyor"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Devam etmek, o pencerede yaptığınız değişiklikleri geçersiz kılacaktır. "
-"Sayfayı yenilediğinizdeyeni değişiklikleri görebilirsiniz, ancak mevcut "
-"pencerede kaydettiğiniz değişiklikleri kaybedersiniz."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Devam etmek, %(user_name)s tarafından yapılan değişiklikleri geçersiz "
-"kılacaktır. Sayfayı yenilediğinizdeyeni değişiklikleri görebilirsiniz, ancak "
-"kaydetmediğiniz değişiklikler kaybolacaktır."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-"Sayfayı yenilemek, kaydedilmemiş değişikliklerinizi kaybedeceğiniz anlamına "
-"gelir."
-
 msgid "Continue"
 msgstr "Devam et"
-
-msgid "Refresh the page"
-msgstr "Sayfayı yenile"
 
 msgid "Download XLSX"
 msgstr "XLSX İndir"
@@ -1779,6 +1734,10 @@ msgstr "Son Kullanma Tarihi:"
 msgid "In Moderation"
 msgstr "Moderasyonda"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "%(user)s tarafından"
+
 msgid "View history"
 msgstr "Geçmişi görüntüle"
 
@@ -1790,6 +1749,9 @@ msgstr "Yayınlama planı ayarlanmamış"
 
 msgid "Preview in new tab"
 msgstr "Yeni sekmede önizle"
+
+msgid "Refresh"
+msgstr "Yenile"
 
 msgid "Preview is out of date"
 msgstr "Önizleme güncel değil"
@@ -2290,6 +2252,14 @@ msgid "More options for '%(title)s'"
 msgstr " '%(title)s' için daha fazla seçenek"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s ekle"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Hata nedeniyle %(model_name)s oluşturulamadı."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Yeni: %(model_name)s"
 
@@ -2297,8 +2267,16 @@ msgid "Editing"
 msgstr "Düzenleniyor"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Hata nedeniyle %(model_name)s kaydedilemedi."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "%(model_name)s kod bloğunu silmek istediğinizden emin misiniz?"
 
 msgid "Compare"
 msgstr "Karşılaştır"
@@ -2407,6 +2385,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s düzenleniyor"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Sayfa '%(page_title)s' güncellendi."
 
@@ -2439,6 +2421,9 @@ msgstr "Evet"
 
 msgid "Page type"
 msgstr "Sayfa türü"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2535,6 +2520,10 @@ msgstr[1] ""
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "İş akışı '%(workflow_name)s' etkinleştirildi."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s düzenleniyor"
 
 msgid "Disable task"
 msgstr "Görevi devre dışı bırak"

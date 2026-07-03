@@ -172,6 +172,14 @@ flickr = {
     ],
 }
 
+flourish = {
+    "endpoint": "https://app.flourish.studio/api/v1/oembed",
+    "urls": [
+        r"^https?://public\.flourish\.studio/visualisation/.+$",
+        r"^https?://public\.flourish\.studio/story/.+$",
+    ],
+}
+
 funny_or_die = {
     "endpoint": "https://www.funnyordie.com/oembed.{format}",
     "urls": [
@@ -213,6 +221,13 @@ gmep = {
     "urls": [
         r"^https?://(?:www\.)?gmep\.org/.+$",
         r"^https?://gmep\.imeducate\.com/.+$",
+    ],
+}
+
+heyzine = {
+    "endpoint": "https://heyzine.com/api1/oembed",
+    "urls": [
+        r"^https?://(?:[-\w]+\.)?heyzine\.com/flip-book/.+$",
     ],
 }
 
@@ -485,7 +500,7 @@ spotify = {
 
 
 ted = {
-    "endpoint": "https://www.ted.com/talks/oembed.{format}",
+    "endpoint": "https://www.ted.com/services/v1/oembed.{format}",
     "urls": [
         r"^https?://(?:www\.)?ted\.com/talks/.+$",
         r"^https?://(?:www\.)?ted\.com/talks/lang/[^#?/]+/.+$",
@@ -646,8 +661,8 @@ all_providers = [
     clikthrough,
     collegehumor,
     coub,
-    crowdsignal,
     crowd_ranking,
+    crowdsignal,
     dailymile,
     dailymotion,
     datastudio,
@@ -659,11 +674,13 @@ all_providers = [
     five_hundred_px,
     five_min,
     flickr,
+    flourish,
     funny_or_die,
     geograph_gg,
     geograph_uk,
     github_gist,
     gmep,
+    heyzine,
     hlipp,
     huffduffer,
     hulu,

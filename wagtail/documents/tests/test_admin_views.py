@@ -4,11 +4,15 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, TransactionTestCase
+from django.template.defaultfilters import filesizeformat
+from django.template.loader import render_to_string
+from django.test import RequestFactory, TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.html import escape
+from django.utils.encoding import force_str
+from django.utils.html import escape, escapejs
 from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -414,6 +418,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             self.assertNotIn("next=", action["href"])
 
 
+@tag("transaction")
 class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
@@ -543,6 +548,7 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertIsNone(usage_count_th.select_one("a"))
 
 
+@tag("transaction")
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
@@ -738,6 +744,29 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # error message should be output on the page as a non-field error
         self.assertContains(
             response, "Custom document with this Title and Collection already exists."
+        )
+
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1)
+    def test_add_too_large_file(self):
+        file_content = b"Simple text document"
+
+        response = self.client.post(
+            reverse("wagtaildocs:add"),
+            {
+                "title": "Test document",
+                "file": SimpleUploadedFile("test.txt", file_content),
+            },
+        )
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
+
+        # The form should have an error
+        self.assertFormError(
+            response.context["form"],
+            "file",
+            f"This file is too big ({filesizeformat(len(file_content))}). Maximum filesize {filesizeformat(1)}.",
         )
 
 
@@ -1314,6 +1343,40 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertEqual(response.status_code, 200)
         # collection chooser should have selected collection passed with parameter
         self.assertContains(response, f'<option value="{collection.pk}" selected>')
+
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1000)
+    def test_add_max_file_size_context_variables(self):
+        response = self.client.get(reverse("wagtaildocs:add_multiple"))
+
+        self.assertEqual(response.context["max_filesize"], 1000)
+        self.assertEqual(
+            response.context["error_max_file_size"],
+            "This file is too big. Maximum filesize 1000\xa0bytes.",
+        )
+
+    def test_add_error_max_file_size_escaped(self):
+        url = reverse("wagtaildocs:add_multiple")
+        template_name = "wagtaildocs/multiple/add.html"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Too big. <br/><br/><a href='/admin/documents/add/'>Try this.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context["error_max_file_size"] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
 
     def test_add_post(self):
         """
@@ -2080,6 +2143,7 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Root</td>", html=True)
 
 
+@tag("transaction")
 class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 

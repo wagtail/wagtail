@@ -4,6 +4,7 @@ import functools
 import logging
 import posixpath
 import uuid
+import warnings
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -35,7 +36,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
 )
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
@@ -54,6 +55,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
@@ -62,6 +64,7 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -138,7 +141,7 @@ def get_streamfield_names(model_class):
     )
 
 
-class BasePageManager(models.Manager):
+class BasePageManager(MP_NodeManager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
 
@@ -1037,14 +1040,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
         if log_action:
             if not previous_revision:
+                action = log_action if isinstance(log_action, str) else "wagtail.edit"
+                uuid = None
+                if overwrite_revision:
+                    # When overwriting a revision, use the same uuid for all
+                    # edit log entries, so we can group them as one entry and
+                    # avoid the history view becoming too noisy.
+                    logs = log_registry.get_logs_for_instance(self)
+                    uuid = logs.latest_uuid_for_user_revision_action(
+                        user, overwrite_revision, action
+                    )
+
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=action,
                     user=user,
                     revision=revision,
                     content_changed=changed,
+                    uuid=uuid,
                 )
             else:
                 log(
@@ -1306,13 +1319,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def _get_site_root_paths(self, request=None):
+    def _get_site_root_paths(self, cache_object=None, **kwargs):
         """
         Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        cache_object if available.
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
-        cache_object = request if request else self
+        if "request" in kwargs:
+            warnings.warn(
+                "The `request` kwarg in `Page._get_site_root_paths()` is now `cache_object`.",
+                category=RemovedInWagtail90Warning,
+            )
+            cache_object = cache_object or kwargs["request"]
+        # if we have a cache_object, use that to cache site_root_paths; otherwise, use self
+        cache_object = cache_object if cache_object else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
@@ -1638,7 +1657,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not parent_is_root and parent.locale_id != self.locale_id:
             return False
 
-        return self.can_exist_under(parent)
+        # Must be able to exist under parent
+        if not self.can_exist_under(parent):
+            return False
+
+        # If the page has a max_count_per_parent, check for a page of this type under the destination
+        if self.max_count_per_parent is not None:
+            return (
+                parent.get_children().type(self.specific_class).not_page(self).count()
+                < self.max_count_per_parent
+            )
+
+        return True
 
     @classmethod
     def get_verbose_name(cls):
@@ -2359,7 +2389,7 @@ class PagePermissionTester:
         return self.can_delete(ignore_bulk=True)
 
     def can_copy(self):
-        return not self.page_is_root
+        return self.can_edit()
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
@@ -2406,6 +2436,9 @@ class PagePermissionTester:
             return True
 
     def can_copy_to(self, destination, recursive=False):
+        if not self.can_copy():
+            return False
+
         # reject the logically impossible cases first
         # recursive can't copy to the same tree otherwise it will be on infinite loop
         if recursive and (
@@ -2428,14 +2461,7 @@ class PagePermissionTester:
         # Inspect permissions on the destination
         destination_perms = destination.permissions_for_user(self.user)
 
-        if not destination.specific_class.creatable_subpage_models():
-            return False
-
-        # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
-            return False
-
-        return True
+        return destination_perms.can_add_subpage()
 
     def can_view_revisions(self):
         return not self.page_is_root
@@ -2610,7 +2636,7 @@ class PageLogEntry(BaseLogEntry):
 
     objects = PageLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("page log entry")
         verbose_name_plural = _("page log entries")
@@ -2619,9 +2645,13 @@ class PageLogEntry(BaseLogEntry):
         return "PageLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.page_id,
         )
+
+    @cached_property
+    def object_verbose_name(self):
+        return Page._meta.verbose_name
 
     @cached_property
     def object_id(self):

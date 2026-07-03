@@ -25,7 +25,7 @@
                                 {% else %}
                                     {% icon name=level_tag classname="messages-icon" %}
                                 {% endif %}
-                                {{ message|safe }}
+                                {{ message }}
                                 {% if level_tag == "error" %}
                                     {# Show a button to focus the first field/response error if available. #}
                                     <button

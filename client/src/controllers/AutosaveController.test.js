@@ -11,6 +11,9 @@ jest.useFakeTimers();
 
 describe('AutosaveController', () => {
   let application;
+  // rAF doesn't work with jest fake timers
+  // https://github.com/jestjs/jest/issues/5147
+  const mockRAF = jest.fn((callback) => callback());
 
   const setup = async (inner = '') => {
     document.body.innerHTML = /* html */ `
@@ -43,6 +46,7 @@ describe('AutosaveController', () => {
   beforeEach(() => {
     fetch.mockReset();
     jest.spyOn(window.history, 'replaceState');
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF);
   });
 
   afterEach(() => {
@@ -51,6 +55,8 @@ describe('AutosaveController', () => {
     document.body.innerHTML = '';
     fetch.mockReset();
     window.history.replaceState.mockRestore();
+    window.requestAnimationFrame.mockRestore();
+    jest.clearAllTimers();
   });
 
   describe('basic behavior', () => {
@@ -72,12 +78,6 @@ describe('AutosaveController', () => {
       });
 
       const unsavedEvent = await dispatchUnsaved(form);
-      // rAF doesn't work with jest fake timers
-      // https://github.com/jestjs/jest/issues/5147
-      const mockRAF = jest.fn((callback) => callback());
-      jest
-        .spyOn(window, 'requestAnimationFrame')
-        .mockImplementationOnce(mockRAF);
       await jest.advanceTimersByTimeAsync(500);
 
       expect(fetch).toHaveBeenCalledTimes(1);
@@ -119,6 +119,102 @@ describe('AutosaveController', () => {
 
       expect(blockSave).toHaveBeenCalledTimes(1);
       expect(fetch).not.toHaveBeenCalled();
+    });
+
+    it('does not submit when the first autosave has not completed', async () => {
+      const form = await setup();
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBeNull();
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      // Mock a second response in case the controller (incorrectly) makes a
+      // second fetch before the first one resolves.
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+
+      // Use sync advanceTimersByTime and avoid `await` between the two events
+      // so that microtasks don't flush — this keeps the first fetch's
+      // response pending while we trigger the second autosave.
+      dispatchUnsaved(form);
+      jest.advanceTimersByTime(500);
+      dispatchUnsaved(form);
+      jest.advanceTimersByTime(500);
+
+      // No second fetch should have been issued because the first response
+      // (and its revision_id) hasn't been processed yet.
+      expect(fetch).toHaveBeenCalledTimes(1);
+
+      // Now flush microtasks so the first fetch resolves and the controller
+      // processes its response.
+      await jest.advanceTimersByTimeAsync(0);
+
+      const [, init] = fetch.mock.calls[0];
+      const payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).not.toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBe(
+        '456',
+      );
+    });
+
+    it('does not submit when an existing (non-first) request has not completed', async () => {
+      const form = await setup();
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBeNull();
+
+      // Set up the first autosave and let it complete so we have a revision_id
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const [, init] = fetch.mock.calls[0];
+      const payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).not.toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBe(
+        '456',
+      );
+
+      fetch.mockReset();
+      const saveHandler = jest.fn();
+      form.addEventListener('w-autosave:save', saveHandler);
+
+      const events = [...Array(5).keys()].map(() => {
+        // Mock a response in case the controller (incorrectly) makes a  fetch
+        // before the existing one resolves.
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+        );
+        // Use sync advanceTimersByTime and avoid `await` between events so that
+        // microtasks don't flush — this keeps the existing fetch's response
+        // pending while we trigger the next autosave.
+        const event = dispatchUnsaved(form);
+        jest.advanceTimersByTime(500);
+        return event;
+      });
+
+      // Wait for the final debounce
+      await jest.advanceTimersByTimeAsync(500);
+      form.removeEventListener('w-autosave:save', saveHandler);
+
+      // Only two requests from the loop should be fired: the first one and the
+      // last one (the intermediate ones are ignored).
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(saveHandler).toHaveBeenCalledTimes(2);
+      expect(saveHandler.mock.calls[0][0].detail.trigger).toBe(await events[0]);
+      expect(saveHandler.mock.calls[1][0].detail.trigger).toBe(await events[4]);
     });
 
     it('allows changing the interval value for the debounce', async () => {
@@ -308,6 +404,29 @@ describe('AutosaveController', () => {
     });
 
     describe('error handling for hydration requests', () => {
+      it('gracefully ignores hydration if partials target is unavailable', async () => {
+        partialsTarget.remove();
+        fetch.mockResponseSuccessText('A bottle of water');
+
+        jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementationOnce((callback) => callback());
+        const successListener = jest.fn();
+        form.addEventListener('w-autosave:success', successListener, {
+          once: true,
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+        expect(document.body.innerHTML).not.toContain('A bottle of water');
+        expect(successListener).toHaveBeenCalledTimes(1);
+      });
+
       it('dispatches an error event when the fetch fails', async () => {
         expect(partialsTarget.innerHTML).toBe('');
 
@@ -452,36 +571,47 @@ describe('AutosaveController', () => {
 
       fetch.mockResponseBadRequest(JSON.stringify(serverResponse));
 
-      const deactivatedEvent = new Promise((resolve) => {
-        form.addEventListener(
-          'w-autosave:deactivated',
-          (event) => resolve(event),
-          {
-            once: true,
-          },
-        );
-      });
       const errorEvent = new Promise((resolve) => {
         form.addEventListener('w-autosave:error', (event) => resolve(event), {
           once: true,
         });
+      });
+      const finishError = Promise.withResolvers();
+      const deactivatedHandler = jest.fn();
+      const deactivatedEvent = new Promise((resolve) => {
+        form.addEventListener(
+          'w-autosave:deactivated',
+          async (event) => {
+            // Ensure deactivated event is dispatched after error event
+            await finishError.promise;
+            deactivatedHandler();
+            resolve(event);
+          },
+          {
+            once: true,
+          },
+        );
       });
 
       const unsavedEvent1 = await dispatchUnsaved(form);
       await jest.advanceTimersByTimeAsync(500);
       expect(fetch).toHaveBeenCalledTimes(1);
 
-      const { detail: deactivatedEventDetail } = await deactivatedEvent;
-      expect(deactivatedEventDetail.response).toEqual(serverResponse);
-      expect(deactivatedEventDetail.error).toBeInstanceOf(Error);
-      expect(deactivatedEventDetail.error.message).toBe('Invalid revision');
-      expect(deactivatedEventDetail.trigger).toBe(unsavedEvent1);
-
       const { detail: errorEventDetail } = await errorEvent;
       expect(errorEventDetail.response).toEqual(serverResponse);
       expect(errorEventDetail.error).toBeInstanceOf(Error);
       expect(errorEventDetail.error.message).toBe('Invalid revision');
       expect(errorEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).not.toHaveBeenCalled();
+
+      finishError.resolve();
+
+      const { detail: deactivatedEventDetail } = await deactivatedEvent;
+      expect(deactivatedEventDetail.response).toEqual(serverResponse);
+      expect(deactivatedEventDetail.error).toBeInstanceOf(Error);
+      expect(deactivatedEventDetail.error.message).toBe('Invalid revision');
+      expect(deactivatedEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).toHaveBeenCalledTimes(1);
 
       // Should have deactivated autosave
       expect(form.getAttribute('data-w-autosave-active-value')).toBe('false');
@@ -566,6 +696,133 @@ describe('AutosaveController', () => {
       expect(response).toBeNull();
       expect(error).toEqual({ status: 500, statusText: 'Internal Error' });
       expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('retries with exponential backoff on network errors', async () => {
+      const form = await setup();
+      const networkError = new TypeError('Failed to fetch');
+
+      const errorListener = jest.fn();
+      form.addEventListener('w-autosave:error', errorListener);
+
+      let unsavedEvent = await dispatchUnsaved(form);
+
+      const expectSaveAttempt = async (n) => {
+        // Fetch not fired until the 500ms debounce
+        expect(fetch).toHaveBeenCalledTimes(n - 1);
+        fetch.mockImplementationOnce(() => Promise.reject(networkError));
+        await jest.advanceTimersByTimeAsync(500);
+        expect(fetch).toHaveBeenCalledTimes(n);
+        expect(errorListener).toHaveBeenCalledTimes(n);
+        const errorEventDetail = errorListener.mock.calls[n - 1][0].detail;
+        const { response, error, trigger } = errorEventDetail;
+        expect(response).toBeNull();
+        expect(error).toEqual(networkError);
+        expect(trigger).toBe(unsavedEvent);
+      };
+
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate the user making another change in between retries
+      // (but before the 'unsaved' event is dispatched)
+      const input = form.querySelector('input[name="title"]');
+      input.value = 'Updated title';
+
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      // The retry should use the latest data in the payload
+      expect(fetch.mock.calls[3][1].body.get('title')).toBe('Updated title');
+
+      const saveHandler = jest.fn();
+      form.addEventListener('w-autosave:save', saveHandler, { once: true });
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      expect(saveHandler).toHaveBeenCalledTimes(1);
+
+      await jest.advanceTimersByTimeAsync(32500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      // Should trigger a new save immediately,
+      // and any errors should trigger a new retry sequence
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // If another save attempt is made in between retries, and it also fails,
+      // keep the existing retry schedule and don't start a new one
+      input.value = 'Yet another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(7000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(1000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      // If the error is a server error instead of a network error, do not retry
+      fetch.mockResponseFailure();
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+      await jest.advanceTimersByTimeAsync(32500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      // Trigger a new save attempt to ensure retries are cleared after a server error
+      input.value = 'Try again';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate another trigger (not from retry) in between retries and it's successful
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+      input.value = 'Now it succeeds';
+      unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(8500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(4);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Max retries';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(16000);
+      await expectSaveAttempt(5);
+      await jest.advanceTimersByTimeAsync(32000);
+      await expectSaveAttempt(6);
+      await jest.advanceTimersByTimeAsync(64500);
+      // 1 initial attempt, 5 retries max
+      expect(fetch).toHaveBeenCalledTimes(6);
+
+      form.removeEventListener('w-autosave:error', errorListener);
     });
   });
 

@@ -208,7 +208,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             # test that workflow actions are shown
             self.assertContains(
                 response,
-                '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
+                '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">',
             )
 
             self.assertEqual(handler.call_count, 1)
@@ -225,7 +225,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'value="Submit for moderation"')
+        self.assertNotContains(response, 'value="Submit to Moderators approval"')
 
     def test_create_multipart(self):
         """
@@ -953,12 +953,100 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(len(page.body), 0)
         self.assertFalse(page.live)
 
+    def test_create_streampage_post_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="stream-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(len(page.body), 7)
+        self.assertFalse(page.live)
+
     def test_cannot_publish_streampage_with_blank_body(self):
         post_data = nested_form_data(
             {
                 "title": "Stream page",
                 "slug": "stream-page",
                 "body": streamfield([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised. The actual message as rendered
+        # ("This field is required.") is passed to the StreamBlock as part of
+        # StreamBlockValidationError.non_block_errors, whereas assertFormError
+        # only considers the message attribute (which is a generic error).
+        self.assertFormError(
+            response.context["form"], "body", "Validation error in StreamBlock"
+        )
+        self.assertContains(response, "This field is required.")
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="stream-page"
+            ).exists()
+        )
+
+    def test_cannot_publish_streampage_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
                 "action-publish": "Publish",
             }
         )
@@ -2209,7 +2297,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
     def test_display_moderation_button_by_default(self):
         """
-        Tests that by default the "Submit for Moderation" button is shown in the action menu.
+        Tests that by default the "Submit to Moderators approval" button is shown in the action menu.
         """
         response = self.client.get(
             reverse(
@@ -2219,15 +2307,15 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
             '<svg class="icon icon-resubmit icon" aria-hidden="true"><use href="#icon-resubmit"></use></svg>'
-            "Submit for moderation</button>",
+            "Submit to Moderators approval</button>",
         )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_hide_moderation_button(self):
         """
-        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit to Moderators approval" button is not shown.
         """
         response = self.client.get(
             reverse(
@@ -2237,7 +2325,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(
             response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>',
+            '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">Submit to Moderators approval</button>',
         )
 
     def test_create_sets_locale_to_parent_locale(self):

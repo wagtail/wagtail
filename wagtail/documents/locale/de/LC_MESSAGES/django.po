@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022,2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -43,6 +43,20 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail Dokumente"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "Maximale Dateigröße: %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Die Datei ist zu groß (%(file_size)s). Maximale Dateigröße %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Die Datei ist zu groß. Maximale Dateigröße %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Sammlung"

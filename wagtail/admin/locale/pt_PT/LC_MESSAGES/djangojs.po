@@ -1,4 +1,3 @@
-#
 # Translators:
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
 # Loic Teixeira, 2024

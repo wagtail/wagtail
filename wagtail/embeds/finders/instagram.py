@@ -4,6 +4,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
+from django.utils.html import format_html
+
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .oembed import OEmbedFinder
@@ -69,7 +71,7 @@ class InstagramOEmbedFinder(OEmbedFinder):
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="{}" alt="">'.format(oembed["url"])
+            html = format_html('<img src="{}" alt="">', oembed["url"])
         else:
             html = oembed.get("html")
 
