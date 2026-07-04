@@ -712,6 +712,15 @@ class TestRect(TestCase):
             repr(rect), "Rect(left: 100, top: 150, right: 200, bottom: 250)"
         )
 
+    def test_repr_float_coords(self):
+        rect = Rect(0, 0, 10, 10)
+        rect.size = Vector(7, 7)
+        self.assertIn("1.5", repr(rect))
+
+    def test_vector_repr(self):
+        self.assertEqual(repr(Vector(100, 200)), "Vector(x: 100, y: 200)")
+        self.assertEqual(repr(Vector(1.7, 3.9)), "Vector(x: 1.7, y: 3.9)")
+
     def test_from_point(self):
         rect = Rect.from_point(100, 200, 50, 20)
         self.assertEqual(rect, Rect(75, 190, 125, 210))
