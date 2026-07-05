@@ -30,17 +30,18 @@ Wagtail is an open source content management system built on Django, with a stro
 
 ### 🔥 Features
 
--   A fast, attractive interface for authors
--   Complete control over front-end design and structure
--   Scales to millions of pages and thousands of editors
--   Fast out of the box, cache-friendly when you need it
--   Content API for 'headless' sites with decoupled front-end
--   Runs on a Raspberry Pi or a multi-datacenter cloud platform
--   StreamField encourages flexible content without compromising structure
--   Powerful, integrated search, using Elasticsearch or PostgreSQL
--   Excellent support for images and embedded content
--   Multi-site and multi-language ready
--   Embraces and extends Django
+* **Beautiful, intuitive authoring experience** with a fast, modern interface.
+* **Complete control over the front-end**, giving you total freedom over your site's design and architecture.
+* **Built to scale**, supporting millions of pages and thousands of content editors.
+* **High-performance by default**, with cache-friendly architecture for demanding workloads.
+* **Headless-ready Content API** for decoupled front ends and omnichannel content delivery.
+* **Deploy anywhere**, from a Raspberry Pi to a multi-datacenter cloud infrastructure.
+* **Flexible content modeling** with StreamField, combining creative freedom with structured data.
+* **Powerful built-in search**, powered by Elasticsearch or PostgreSQL.
+* **Rich media management**, with excellent support for images, documents, and embedded content.
+* **Multi-site and multilingual support** for managing global digital experiences.
+* **Built on Django**, extending its capabilities while embracing its proven architecture and ecosystem.
+
 
 Find out more at [wagtail.org](https://wagtail.org/).
 
