@@ -1,4 +1,5 @@
 from django import forms
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action import BulkAction
@@ -22,7 +23,7 @@ class PageBulkAction(BulkAction):
             q = self.request.GET.get("q", "")
 
         if parent_id is not None:
-            listing_objects = listing_objects.get(id=parent_id)
+            listing_objects = get_object_or_404(self.model, id=parent_id)
             # If we're searching, include the descendants as well.
             # Otherwise, just include the direct children.
             if q:

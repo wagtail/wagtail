@@ -104,6 +104,16 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
 
+    def test_publish_view_invalid_child_of(self):
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "publish"),
+            )
+            + "?id=all&childOf=99999"
+        )
+        self.assertEqual(response.status_code, 404)
+
     def test_publish_view_bad_permissions(self):
         """
         This tests that the publish view doesn't allow users without publish permissions
