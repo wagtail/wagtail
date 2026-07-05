@@ -736,6 +736,14 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             row.find(id="id_pages-0-DELETE").attrs["data-w-formset-target"],
         )
 
+    def test_get_with_invalid_page_number(self):
+        response = self.get({"p": "abc"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_out_of_range_page_number(self):
+        response = self.get({"p": "99999"})
+        self.assertEqual(response.status_code, 200)
+
     def test_post(self):
         response = self.post(
             {
