@@ -39,6 +39,7 @@ from wagtail.models import (
     Collection,
     GroupCollectionPermission,
     Page,
+    Site,
     UploadedFile,
     get_root_collection_id,
 )
@@ -4253,6 +4254,23 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertIn(
             "The filter options you have selected are not valid.", messages[0]
+        )
+
+    def test_get_with_no_sites(self):
+        """
+        This tests that the view does not crash with an AttributeError when no
+        sites exist. The result_url should be a relative path (no domain prefix).
+        """
+        Site.objects.all().delete()
+
+        response = self.client.get(
+            reverse("wagtailimages:url_generator", args=(self.image.id,))
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context["result_url"].startswith("http"))
+        self.assertTrue(
+            response.context["result_url"].endswith(f"/{self.image.id}/original/")
         )
 
 

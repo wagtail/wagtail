@@ -399,7 +399,8 @@ class URLGeneratorView(generic.InspectView):
         try:
             site_root_url = Site.objects.get(is_default_site=True).root_url
         except Site.DoesNotExist:
-            site_root_url = Site.objects.first().root_url
+            first_site = Site.objects.first()
+            site_root_url = first_site.root_url if first_site else ""
 
         # Generate preview url
         preview_url = reverse("wagtailimages:preview", args=(image_id, filter_spec))
