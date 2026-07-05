@@ -2,7 +2,7 @@ import django_filters
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Count, Prefetch
 from django.db.models.functions import Lower
@@ -300,8 +300,11 @@ class Edit(EditView):
         # Get the (paginated) list of Pages to which this Workflow is assigned.
         pages = Page.objects.filter(workflowpage__workflow=self.get_object())
         pages.paginator = Paginator(pages, self.MAX_PAGES)
-        page_number = int(self.request.GET.get("p", 1))
-        paginated_pages = pages.paginator.page(page_number)
+        try:
+            page_number = int(self.request.GET.get("p", 1))
+            paginated_pages = pages.paginator.page(page_number)
+        except (ValueError, InvalidPage):
+            paginated_pages = pages.paginator.page(1)
         return paginated_pages
 
     def get_context_data(self, **kwargs):
