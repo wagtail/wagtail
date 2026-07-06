@@ -44,6 +44,17 @@
             ],
             "title": "Embed URL"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "image": {
             "anyOf": [
               {
@@ -64,6 +75,17 @@
       },
       "BlogEntryPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -145,6 +167,17 @@
       },
       "BlogIndexPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -351,6 +384,17 @@
       },
       "EventIndexPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -427,6 +471,17 @@
             ],
             "title": "Embed URL"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "image": {
             "anyOf": [
               {
@@ -447,6 +502,17 @@
       },
       "EventPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -615,6 +681,17 @@
             ],
             "title": "Name"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "image": {
             "anyOf": [
               {
@@ -699,6 +776,17 @@
             ],
             "title": "Help Text"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "label": {
             "description": "The label of the form field",
             "maxLength": 255,
@@ -766,6 +854,17 @@
             ],
             "title": "Embed URL"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "image": {
             "anyOf": [
               {
@@ -786,6 +885,17 @@
       },
       "HomePageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -919,6 +1029,31 @@
         "title": "PageMetaSchema",
         "type": "object"
       },
+      "PageSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title", "meta"],
+        "title": "PageSchema",
+        "type": "object"
+      },
       "PagedBasePageSchema": {
         "properties": {
           "count": {
@@ -975,6 +1110,17 @@
       },
       "PersonPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -1388,6 +1534,17 @@
       },
       "StandardIndexPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -1475,6 +1632,17 @@
             ],
             "title": "Embed URL"
           },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "image": {
             "anyOf": [
               {
@@ -1495,6 +1663,17 @@
       },
       "StandardPageRelatedLinkSchema": {
         "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
           "link": {
             "title": "Link"
           },
@@ -1672,6 +1851,9 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
                     },

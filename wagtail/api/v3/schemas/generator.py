@@ -143,7 +143,11 @@ class SchemaGenerator:
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
-        real_names = []
+        real_names = [
+            field.name
+            for field in model._meta.pk_fields
+            if not (field.remote_field and field.remote_field.parent_link)
+        ]
         extra_fields: dict[str, FieldSchema] = {}
 
         for field in self._normalize_api_fields(model):
