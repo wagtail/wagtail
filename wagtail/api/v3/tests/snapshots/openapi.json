@@ -127,19 +127,12 @@
             "type": "array"
           },
           "tags": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "A comma-separated list of tags.",
-            "title": "Tags"
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
           },
           "title": {
             "title": "Title",

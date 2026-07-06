@@ -8,6 +8,7 @@ from django.db.models.fields.reverse_related import ForeignObjectRel
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
+from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
 from wagtail.fields import StreamField
@@ -231,6 +232,16 @@ def streamfield_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     return list[Any], [], staticmethod(resolve)
 
 
+def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
+    field_name = field.name
+
+    def resolve(obj: Model) -> Any:
+        return getattr(obj, field_name).values_list("name", flat=True)
+
+    return list[str], [], staticmethod(resolve)
+
+
 generator = SchemaGenerator()
 generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 generator.register_field_schema(StreamField, streamfield_schema)
+generator.register_field_schema(TaggableManager, tags_schema)

@@ -128,11 +128,10 @@ class TestGeneratePageSchema(TestCase):
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
         self.assertIsNone(instance.feed_image_thumbnail)
 
-    def test_foreign_key_and_tag_fields(self):
+    def test_foreign_key_field(self):
         """
-        BlogEntryPage.api_fields also includes a real ForeignKey
-        ("feed_image") and a taggit ManyToManyField-like manager ("tags"),
-        both of which create_schema can introspect on its own.
+        BlogEntryPage.api_fields includes a real ForeignKey ("feed_image"),
+        introspected directly by create_schema.
         """
         image = Image.objects.create(title="Test image", file=get_test_image_file())
         blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test")
@@ -145,11 +144,50 @@ class TestGeneratePageSchema(TestCase):
             feed_image=image,
         )
         blog_index.add_child(instance=entry)
-        entry.tags.add("wagtail", "python")
 
         schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
 
         self.assertEqual(instance.feed_image, image.pk)
-        self.assertEqual(sorted(instance.tags), sorted(t.pk for t in entry.tags.all()))
         json.loads(instance.model_dump_json())
+
+    def test_tag_field_resolves_to_tag_names(self):
+        """
+        BlogEntryPage.api_fields includes a taggit-backed manager ("tags").
+        """
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-tags")
+        self.root_page.add_child(instance=blog_index)
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-tags",
+            body="<p>body</p>",
+            date="2020-01-01",
+        )
+        blog_index.add_child(instance=entry)
+        entry.tags.add("wagtail", "python")
+
+        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        self.assertEqual(schema.model_fields["tags"].annotation, list[str])
+
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertEqual(sorted(instance.tags), ["python", "wagtail"])
+        json.loads(instance.model_dump_json())
+
+    def test_tag_field_is_empty_list_when_untagged(self):
+        """
+        A page with no tags should resolve to an empty list rather than
+        None or a lookup error.
+        """
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-no-tags")
+        self.root_page.add_child(instance=blog_index)
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-no-tags",
+            body="<p>body</p>",
+            date="2020-01-01",
+        )
+        blog_index.add_child(instance=entry)
+
+        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertEqual(instance.tags, [])
