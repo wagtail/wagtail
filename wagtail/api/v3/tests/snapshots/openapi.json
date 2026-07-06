@@ -108,6 +108,9 @@
             ],
             "title": "Feed Image"
           },
+          "feed_image_thumbnail": {
+            "title": "Feed Image Thumbnail"
+          },
           "id": {
             "title": "Id",
             "type": "integer"

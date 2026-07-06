@@ -1,3 +1,4 @@
+import copy
 from typing import Any, Callable, cast
 
 from django.core.exceptions import FieldDoesNotExist
@@ -44,6 +45,36 @@ class SchemaGenerator:
             field if isinstance(field, APIField) else APIField(field)
             for field in getattr(model, "api_fields", ())
         ]
+
+    @staticmethod
+    def _custom_serializer_schema(api_field: APIField) -> FieldSchema:
+        """Temporary API v2 compat shim for an ``APIField(serializer=...)``.
+
+        Binds a private copy of the DRF serializer field - a deep copy, since
+        DRF fields carry bind state (``field_name``, ``source_attrs``, ...) and
+        the original instance is a single object shared from the model's
+        ``api_fields`` tuple, still bound and used by API v2 at runtime - then
+        defers to its own ``to_representation()``. This lets existing custom
+        serializers (e.g. ``ImageRenditionField``) keep working as-is, rather
+        than having to reimplement each one for v3.
+        """
+
+        from rest_framework.fields import SkipField
+        from rest_framework.serializers import Serializer
+
+        serializer = cast(Serializer, copy.deepcopy(api_field.serializer))
+        serializer.bind(field_name=api_field.name, parent=None)
+
+        def resolve(obj: Model, context: dict) -> Any:
+            try:
+                value = serializer.get_attribute(obj)
+            except SkipField:
+                return None
+            if value is None:
+                return None
+            return serializer.to_representation(value)
+
+        return Any, None, staticmethod(resolve)
 
     def register_field_schema(
         self,
@@ -115,8 +146,9 @@ class SchemaGenerator:
         extra_fields: dict[str, FieldSchema] = {}
 
         for field in self._normalize_api_fields(model):
-            # Legacy APIv2 APIField instance
+            # Legacy APIv2 APIField instance with a custom serializer.
             if field.serializer is not None:
+                extra_fields[field.name] = self._custom_serializer_schema(field)
                 continue
 
             try:

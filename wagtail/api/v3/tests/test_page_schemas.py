@@ -69,6 +69,7 @@ class TestGeneratePageSchema(TestCase):
             slug="stream-schema-test",
             body=json.dumps([{"type": "text", "value": "hello"}]),
         )
+        stream_page = cast(Any, stream_page)
         self.root_page.add_child(instance=stream_page)
 
         schema = generator.generate_schema(StreamPage, base_class=BasePageSchema)
@@ -79,15 +80,53 @@ class TestGeneratePageSchema(TestCase):
         self.assertEqual(instance.body[0]["value"], "hello")
         json.loads(instance.model_dump_json())
 
-    def test_custom_serializer_field_is_omitted(self):
+    def test_custom_serializer_field_uses_compat_shim(self):
         """
         BlogEntryPage.api_fields includes an APIField with a custom
-        ImageRenditionField serializer ("feed_image_thumbnail"). Inspecting
-        arbitrary serializers is out of scope, so it should be left out of
-        the generated schema entirely rather than surfacing a broken value.
+        ImageRenditionField serializer ("feed_image_thumbnail", source
+        "feed_image"). This is resolved via a temporary compat shim that
+        binds a private copy of the DRF serializer field and defers to its
+        own to_representation(), rather than v3 reimplementing it.
         """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-2")
+        self.root_page.add_child(instance=blog_index)
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-2",
+            body="<p>body</p>",
+            date="2020-01-01",
+            feed_image=image,
+        )
+        blog_index.add_child(instance=entry)
+
         schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
-        self.assertNotIn("feed_image_thumbnail", schema.model_fields)
+        self.assertIn("feed_image_thumbnail", schema.model_fields)
+
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertEqual(
+            instance.feed_image_thumbnail["width"],
+            image.get_rendition("fill-300x300").width,
+        )
+        json.loads(instance.model_dump_json())
+
+    def test_custom_serializer_field_is_none_when_source_is_none(self):
+        """
+        DRF skips to_representation() entirely when the source attribute is
+        None (mirroring API v2's own Serializer.to_representation), rather
+        than calling a serializer with no value to work with.
+        """
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-3",
+            body="<p>body</p>",
+            date="2020-01-01",
+        )
+        self.root_page.add_child(instance=entry)
+
+        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertIsNone(instance.feed_image_thumbnail)
 
     def test_foreign_key_and_tag_fields(self):
         """
