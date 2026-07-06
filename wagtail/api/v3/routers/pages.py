@@ -5,9 +5,15 @@ from ninja.pagination import paginate
 
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
-from wagtail.api.v3.schemas import BasePageSchema
+from wagtail.api.v3.schemas import BasePageSchema, build_page_schema_union
+from wagtail.models import get_page_models
 
 router = Router(tags=["pages"])
+
+#: A discriminated union of every concrete page model's generated schema,
+#: so the detail endpoint's response accurately reflects whichever specific
+#: page type was requested, instead of only the fields BasePageSchema has.
+PageDetailSchema = build_page_schema_union(get_page_models())
 
 
 def _public_pages_queryset(request: HttpRequest):
@@ -29,7 +35,7 @@ def list_pages(request: HttpRequest):
 
 @router.get(
     "/{page_id}/",
-    response=BasePageSchema,
+    response=PageDetailSchema,
     url_name="detail_page",
     summary="Page detail",
     operation_id="pages_detail",

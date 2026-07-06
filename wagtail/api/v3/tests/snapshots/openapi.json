@@ -19,6 +19,311 @@
         "title": "BasePageSchema",
         "type": "object"
       },
+      "BlogEntryPageCarouselItemSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link": {
+            "title": "Link"
+          }
+        },
+        "title": "BlogEntryPageCarouselItemSchema",
+        "type": "object"
+      },
+      "BlogEntryPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "BlogEntryPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "BlogEntryPageSchema": {
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "carousel_items": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/BlogEntryPageCarouselItemSchema"
+            },
+            "title": "Carousel Items",
+            "type": "array"
+          },
+          "date": {
+            "format": "date",
+            "title": "Post date",
+            "type": "string"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/BlogEntryPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "A comma-separated list of tags.",
+            "title": "Tags"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta", "body", "date"],
+        "title": "BlogEntryPageSchema",
+        "type": "object"
+      },
+      "BlogIndexPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "BlogIndexPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "BlogIndexPageSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "intro": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/BlogIndexPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "BlogIndexPageSchema",
+        "type": "object"
+      },
+      "ContactPageSchema": {
+        "properties": {
+          "address_1": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address 1"
+          },
+          "address_2": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address 2"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "maxLength": 254,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "post_code": {
+            "anyOf": [
+              {
+                "maxLength": 10,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Code"
+          },
+          "telephone": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telephone"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "ContactPageSchema",
+        "type": "object"
+      },
       "ContentTypeListSchema": {
         "properties": {
           "types": {
@@ -46,6 +351,502 @@
         },
         "required": ["name", "label"],
         "title": "ContentTypeSummarySchema",
+        "type": "object"
+      },
+      "EventIndexPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "EventIndexPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "EventIndexPageSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "intro": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventIndexPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "EventIndexPageSchema",
+        "type": "object"
+      },
+      "EventPageCarouselItemSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link": {
+            "title": "Link"
+          }
+        },
+        "title": "EventPageCarouselItemSchema",
+        "type": "object"
+      },
+      "EventPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "EventPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "EventPageSchema": {
+        "properties": {
+          "audience": {
+            "maxLength": 255,
+            "title": "Audience",
+            "type": "string"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "carousel_items": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageCarouselItemSchema"
+            },
+            "title": "Carousel Items",
+            "type": "array"
+          },
+          "cost": {
+            "maxLength": 255,
+            "title": "Cost",
+            "type": "string"
+          },
+          "date_from": {
+            "format": "date",
+            "title": "Start date",
+            "type": "string"
+          },
+          "date_to": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Not required if event is on a single day",
+            "title": "End date"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "location": {
+            "maxLength": 255,
+            "title": "Location",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "signup_link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signup Link"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerSchema"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
+          "time_from": {
+            "anyOf": [
+              {
+                "format": "time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start time"
+          },
+          "time_to": {
+            "anyOf": [
+              {
+                "format": "time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End time"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "meta",
+          "date_from",
+          "audience",
+          "location",
+          "cost"
+        ],
+        "title": "EventPageSchema",
+        "type": "object"
+      },
+      "EventPageSpeakerSchema": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          }
+        },
+        "title": "EventPageSpeakerSchema",
+        "type": "object"
+      },
+      "FormFieldSchema": {
+        "properties": {
+          "choices": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Comma or new line separated list of choices. Only applicable in checkboxes, radio and dropdown.",
+            "title": "Choices"
+          },
+          "clean_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "description": "Safe name of the form field, the label converted to ascii_snake_case",
+            "title": "Name"
+          },
+          "default_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Default value. Comma or new line separated values supported for checkboxes.",
+            "title": "Default Value"
+          },
+          "field_type": {
+            "maxLength": 16,
+            "title": "Field Type",
+            "type": "string"
+          },
+          "help_text": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Help Text"
+          },
+          "label": {
+            "description": "The label of the form field",
+            "maxLength": 255,
+            "title": "Label",
+            "type": "string"
+          },
+          "required": {
+            "default": true,
+            "title": "Required",
+            "type": "boolean"
+          }
+        },
+        "required": ["label", "field_type"],
+        "title": "FormFieldSchema",
+        "type": "object"
+      },
+      "FormPageSchema": {
+        "properties": {
+          "form_fields": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/FormFieldSchema"
+            },
+            "title": "Form Fields",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "FormPageSchema",
+        "type": "object"
+      },
+      "HomePageCarouselItemSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link": {
+            "title": "Link"
+          }
+        },
+        "title": "HomePageCarouselItemSchema",
+        "type": "object"
+      },
+      "HomePageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "HomePageRelatedLinkSchema",
+        "type": "object"
+      },
+      "HomePageSchema": {
+        "properties": {
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "carousel_items": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HomePageCarouselItemSchema"
+            },
+            "title": "Carousel Items",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HomePageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "HomePageSchema",
         "type": "object"
       },
       "Input": {
@@ -174,6 +975,186 @@
         },
         "required": ["items", "count"],
         "title": "PagedSiteSchema",
+        "type": "object"
+      },
+      "PersonPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "PersonPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "PersonPageSchema": {
+        "properties": {
+          "address_1": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address 1"
+          },
+          "address_2": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address 2"
+          },
+          "biography": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Biography"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "maxLength": 254,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "first_name": {
+            "maxLength": 255,
+            "title": "First Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "intro": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro"
+          },
+          "last_name": {
+            "maxLength": 255,
+            "title": "Last Name",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "post_code": {
+            "anyOf": [
+              {
+                "maxLength": 10,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Code"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/PersonPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "telephone": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telephone"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta", "first_name", "last_name"],
+        "title": "PersonPageSchema",
         "type": "object"
       },
       "RedirectInputSchema": {
@@ -408,6 +1389,220 @@
         ],
         "title": "SiteSchema",
         "type": "object"
+      },
+      "StandardIndexPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "StandardIndexPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "StandardIndexPageSchema": {
+        "properties": {
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "intro": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/StandardIndexPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "StandardIndexPageSchema",
+        "type": "object"
+      },
+      "StandardPageCarouselItemSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link": {
+            "title": "Link"
+          }
+        },
+        "title": "StandardPageCarouselItemSchema",
+        "type": "object"
+      },
+      "StandardPageRelatedLinkSchema": {
+        "properties": {
+          "link": {
+            "title": "Link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "StandardPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "StandardPageSchema": {
+        "properties": {
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "carousel_items": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/StandardPageCarouselItemSchema"
+            },
+            "title": "Carousel Items",
+            "type": "array"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "intro": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/StandardPageRelatedLinkSchema"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "StandardPageSchema",
+        "type": "object"
+      },
+      "StreamPageSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "StreamPageSchema",
+        "type": "object"
       }
     }
   },
@@ -480,7 +1675,45 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BasePageSchema"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/BasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PersonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageSchema"
+                    }
+                  ],
+                  "title": "Response"
                 }
               }
             },
