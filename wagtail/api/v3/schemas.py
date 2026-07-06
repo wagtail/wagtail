@@ -16,7 +16,7 @@ class PageMetaSchema(Schema):
     first_published_at: datetime | None = None
 
 
-class PageListingSchema(Schema):
+class BasePageSchema(Schema):
     id: int
     title: str
     meta: PageMetaSchema

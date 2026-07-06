@@ -5,7 +5,7 @@ from ninja.pagination import paginate
 
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
-from wagtail.api.v3.schemas import PageListingSchema
+from wagtail.api.v3.schemas import BasePageSchema
 
 router = Router(tags=["pages"])
 
@@ -17,7 +17,7 @@ def _public_pages_queryset(request: HttpRequest):
 
 @router.get(
     "/",
-    response=list[PageListingSchema],
+    response=list[BasePageSchema],
     url_name="list_pages",
     summary="List pages",
     operation_id="pages_list",
@@ -29,7 +29,7 @@ def list_pages(request: HttpRequest):
 
 @router.get(
     "/{page_id}/",
-    response=PageListingSchema,
+    response=BasePageSchema,
     url_name="detail_page",
     summary="Page detail",
     operation_id="pages_detail",
