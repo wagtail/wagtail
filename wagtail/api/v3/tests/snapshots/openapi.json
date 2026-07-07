@@ -75,13 +75,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "link": {
             "title": "Link"
@@ -146,13 +145,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "feed_image_thumbnail": {
             "title": "Feed Image Thumbnail"
@@ -332,13 +330,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "id": {
             "title": "Id",
@@ -515,13 +512,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "link": {
             "title": "Link"
@@ -616,13 +612,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "id": {
             "title": "Id",
@@ -732,13 +727,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "last_name": {
             "anyOf": [
@@ -912,13 +906,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "link": {
             "title": "Link"
@@ -1004,6 +997,27 @@
         },
         "required": ["id", "title", "meta"],
         "title": "HomePageSchema",
+        "type": "object"
+      },
+      "ImageForeignKeySchemaBase": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "ImageForeignKeySchemaBase",
         "type": "object"
       },
       "Input": {
@@ -1265,13 +1279,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "first_name": {
             "maxLength": 255,
@@ -1285,13 +1298,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "intro": {
             "anyOf": [
@@ -1621,13 +1633,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "id": {
             "title": "Id",
@@ -1703,13 +1714,12 @@
           "image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Image"
+            ]
           },
           "link": {
             "title": "Link"
@@ -1776,13 +1786,12 @@
           "feed_image": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ImageForeignKeySchemaBase"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Feed Image"
+            ]
           },
           "id": {
             "title": "Id",

@@ -2,7 +2,7 @@ import copy
 from typing import Any, Callable, cast
 
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import Model
+from django.db.models import ForeignKey, Model
 from django.db.models.fields import Field
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from ninja import Schema
@@ -41,11 +41,30 @@ class SchemaGenerator:
     referenced by several models' api_fields only gets built once.
     """
 
+    _foreign_key_schema_cache: dict[type[Model], type[Schema]] = {}
+    """
+    Schemas already built for a given foreign key's related model, keyed
+    separately from `_nested_schema_cache` since these are a distinct, much
+    smaller shape (primary key(s) plus a meta.type), not a full nested schema.
+    """
+
     @staticmethod
     def _normalize_api_fields(model: type[Model]) -> list[APIField]:
         return [
             field if isinstance(field, APIField) else APIField(field)
             for field in getattr(model, "api_fields", ())
+        ]
+
+    @staticmethod
+    def _get_pk_names(model: type[Model]) -> list[str]:
+        return [
+            field.name
+            # For parent-link FKs, use the parent's PK name
+            # (e.g. `id` instead of `page_ptr`)
+            if not (field.remote_field and field.remote_field.parent_link)
+            else field.remote_field.model._meta.pk.name
+            # Iterate over all PK fields, since a model can have a composite PK
+            for field in model._meta.pk_fields
         ]
 
     @staticmethod
@@ -96,6 +115,22 @@ class SchemaGenerator:
                 follow_reverse_related=False,
             )
         return self._reverse_related_schema_cache[model]
+
+    def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
+        """Build a minimal schema for a foreign key's related model.
+
+        Rather than a full nested schema, this only exposes the related model's
+        primary key(s) (which may be composite) and a ``meta.type`` label, to
+        keep foreign key fields cheap and avoid unbounded recursion through
+        relations.
+        """
+        if model not in self._foreign_key_schema_cache:
+            pk_names = self._get_pk_names(model)
+            name = f"{model._meta.object_name}ForeignKeySchema"
+            self._foreign_key_schema_cache[model] = create_schema(
+                model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
+            )
+        return self._foreign_key_schema_cache[model]
 
     def extend_schema(
         self,
@@ -221,6 +256,13 @@ class SchemaGenerator:
         )
 
 
+def foreign_key_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
+    field = cast(ForeignKey, field)
+    schema = generator.get_foreign_key_schema(field.related_model)
+    schema = (schema | None) if field.null else schema
+    return cast(type, schema), None, None
+
+
 def reverse_related_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     field: ForeignObjectRel = cast(ForeignObjectRel, field)
     schema = generator.get_reverse_related_schema(field.related_model)
@@ -247,6 +289,7 @@ def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 
 
 generator = SchemaGenerator()
+generator.register_field_schema(ForeignKey, foreign_key_schema)
 generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 generator.register_field_schema(StreamField, streamfield_schema)
 generator.register_field_schema(TaggableManager, tags_schema)

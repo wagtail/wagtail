@@ -131,7 +131,8 @@ class TestGeneratePageSchema(TestCase):
     def test_foreign_key_field(self):
         """
         BlogEntryPage.api_fields includes a real ForeignKey ("feed_image"),
-        introspected directly by create_schema.
+        resolved to a minimal schema exposing the related model's primary
+        key and a meta.type label, rather than a full nested schema.
         """
         image = Image.objects.create(title="Test image", file=get_test_image_file())
         blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test")
@@ -148,7 +149,8 @@ class TestGeneratePageSchema(TestCase):
         schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
 
-        self.assertEqual(instance.feed_image, image.pk)
+        self.assertEqual(instance.feed_image.id, image.pk)
+        self.assertEqual(instance.feed_image.meta.type, "wagtailimages.Image")
         json.loads(instance.model_dump_json())
 
     def test_tag_field_resolves_to_tag_names(self):
