@@ -9,6 +9,11 @@ repos:
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
 
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.56
+    hooks:
+      - id: ty
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:
