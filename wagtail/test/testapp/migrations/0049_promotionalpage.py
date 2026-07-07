@@ -2,6 +2,7 @@
 
 import django.db.models.deletion
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -23,13 +24,13 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
     ]
