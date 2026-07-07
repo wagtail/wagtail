@@ -1,4 +1,9 @@
-from wagtail.models import Page
+import swapper
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     FormField,
     FormFieldWithCustomSubmission,

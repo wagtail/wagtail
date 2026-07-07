@@ -3,6 +3,7 @@ import unittest
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import checks, management
@@ -32,8 +33,13 @@ from wagtail.images.models import (
     get_rendition_storage,
 )
 from wagtail.images.rect import Rect
-from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
+from wagtail.models import Collection, GroupCollectionPermission, ReferenceIndex
 from wagtail.search.backends import get_search_backend
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.dummy_external_storage import (
     DummyExternalStorage,
     DummyExternalStorageFile,

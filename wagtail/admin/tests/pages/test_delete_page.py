@@ -1,13 +1,18 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.signals import page_unpublished
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     SimplePage,
     StandardChild,

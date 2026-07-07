@@ -3,6 +3,7 @@ import json
 import os
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -22,7 +23,6 @@ from wagtail.models import (
     CommentReply,
     GroupPagePermission,
     Locale,
-    Page,
     PageLogEntry,
     PageSubscription,
     Revision,
@@ -30,6 +30,11 @@ from wagtail.models import (
     get_default_page_content_type,
 )
 from wagtail.signals import page_published
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,

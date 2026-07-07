@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -13,7 +14,12 @@ from wagtail.admin.views.home import (
     WorkflowObjectsToModeratePanel,
 )
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import GroupPagePermission, Workflow, WorkflowContentType
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile

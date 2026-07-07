@@ -1,9 +1,15 @@
+import swapper
 from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.site_summary import PagesSummaryItem
-from wagtail.models import GroupPagePermission, Page, Site
+from wagtail.models import GroupPagePermission, Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 

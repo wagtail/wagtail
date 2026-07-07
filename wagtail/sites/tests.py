@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
@@ -5,7 +6,12 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 

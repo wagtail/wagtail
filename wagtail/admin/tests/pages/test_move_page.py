@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.contrib.messages import constants as message_constants
@@ -7,8 +8,12 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
     SimpleChildPage,
