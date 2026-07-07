@@ -1,6 +1,7 @@
 import json
 import re
 
+import swapper
 from django import template
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -18,13 +19,18 @@ from wagtail.coreutils import (
     make_wagtail_template_fragment_key,
     resolve_model_string,
 )
-from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models import Locale, Site, SiteRootPath
 from wagtail.models.sites import (
     SITE_ROOT_PATHS_CACHE_KEY,
     SITE_ROOT_PATHS_CACHE_VERSION,
 )
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 
 

@@ -2,6 +2,7 @@ from datetime import timedelta
 from http import HTTPStatus
 from io import StringIO
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.management import call_command
@@ -11,7 +12,12 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.log_actions import LogContext, log
-from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
+from wagtail.models import GroupPagePermission, PageLogEntry, PageViewRestriction
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils

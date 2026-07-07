@@ -1,9 +1,13 @@
+import swapper
 from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from wagtail.models import Page
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import EventPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils

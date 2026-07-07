@@ -1,6 +1,7 @@
 import json
 import pickle
 
+import swapper
 from django.apps import apps
 from django.db import connection, models
 from django.template import Context, Template, engines
@@ -13,9 +14,13 @@ from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     ComplexDefaultStreamPage,
     JSONBlockCountsStreamModel,

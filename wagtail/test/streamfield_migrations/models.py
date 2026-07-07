@@ -1,8 +1,13 @@
+import swapper
 from django.db import models
 
 from wagtail.blocks import CharBlock, ListBlock, StreamBlock, StructBlock
 from wagtail.fields import StreamField
-from wagtail.models import Page
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 class SimpleStructBlock(StructBlock):

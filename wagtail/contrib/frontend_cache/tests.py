@@ -2,6 +2,7 @@ from unittest import mock
 from urllib.error import HTTPError, URLError
 
 import requests
+import swapper
 from azure.mgmt.cdn import CdnManagementClient
 from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
@@ -17,7 +18,11 @@ from wagtail.contrib.frontend_cache.backends import (
     HTTPBackend,
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.models import Page
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
 
 from .utils import (

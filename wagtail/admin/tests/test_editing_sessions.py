@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -10,7 +11,12 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import GroupPagePermission, Workflow, WorkflowContentType
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
