@@ -1,15 +1,15 @@
 import json
 from pathlib import Path
 
-from django.test import SimpleTestCase
 from ninja.responses import NinjaJSONEncoder
 
 from wagtail.api.v3.api import api
+from wagtail.api.v3.tests.base import TestV3Base
 
 SNAPSHOT_PATH = Path(__file__).parent / "snapshots" / "openapi.json"
 
 
-class TestOpenAPISnapshot(SimpleTestCase):
+class TestOpenAPISnapshot(TestV3Base):
     def test_openapi_version(self):
         schema = api.get_openapi_schema()
         self.assertEqual(schema["openapi"], "3.1.0")

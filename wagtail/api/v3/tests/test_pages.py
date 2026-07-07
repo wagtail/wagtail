@@ -1,7 +1,7 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.api.v3.tests.base import assert_problem_response
+from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import Locale, Page, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
@@ -19,7 +19,7 @@ def get_total_page_count():
     )
 
 
-class TestV3PageListing(WagtailTestUtils, TestCase):
+class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -143,7 +143,7 @@ class TestV3PageListing(WagtailTestUtils, TestCase):
     @override_settings(WAGTAILAPI_LIMIT_MAX=5)
     def test_limit_max_enforced(self):
         response = self.get_response(limit=10)
-        assert_problem_response(self, response, status_code=400)
+        self.assert_problem_response(response, status_code=400)
 
     @override_settings(WAGTAILAPI_LIMIT_MAX=5)
     def test_limit_within_max(self):
