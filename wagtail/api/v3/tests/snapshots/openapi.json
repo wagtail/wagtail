@@ -1,6 +1,23 @@
 {
   "components": {
     "schemas": {
+      "BaseMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "title": "BaseMetaSchema",
+        "type": "object"
+      },
       "BasePageSchema": {
         "properties": {
           "id": {
@@ -68,8 +85,12 @@
           },
           "link": {
             "title": "Link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
           }
         },
+        "required": ["meta"],
         "title": "BlogEntryPageCarouselItemSchema",
         "type": "object"
       },
@@ -89,6 +110,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -96,7 +120,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "BlogEntryPageRelatedLinkSchema",
         "type": "object"
       },
@@ -181,6 +205,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -188,7 +215,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "BlogIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -398,6 +425,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -405,7 +435,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "EventIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -495,8 +525,12 @@
           },
           "link": {
             "title": "Link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
           }
         },
+        "required": ["meta"],
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
@@ -516,6 +550,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -523,7 +560,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "EventPageRelatedLinkSchema",
         "type": "object"
       },
@@ -714,8 +751,12 @@
               }
             ],
             "title": "Surname"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
           }
         },
+        "required": ["meta"],
         "title": "EventPageSpeakerSchema",
         "type": "object"
       },
@@ -793,13 +834,16 @@
             "title": "Label",
             "type": "string"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "required": {
             "default": true,
             "title": "Required",
             "type": "boolean"
           }
         },
-        "required": ["label", "field_type"],
+        "required": ["meta", "label", "field_type"],
         "title": "FormFieldSchema",
         "type": "object"
       },
@@ -878,8 +922,12 @@
           },
           "link": {
             "title": "Link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
           }
         },
+        "required": ["meta"],
         "title": "HomePageCarouselItemSchema",
         "type": "object"
       },
@@ -899,6 +947,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -906,7 +957,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "HomePageRelatedLinkSchema",
         "type": "object"
       },
@@ -1124,6 +1175,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -1131,7 +1185,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "PersonPageRelatedLinkSchema",
         "type": "object"
       },
@@ -1548,6 +1602,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -1555,7 +1612,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "StandardIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -1656,8 +1713,12 @@
           },
           "link": {
             "title": "Link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
           }
         },
+        "required": ["meta"],
         "title": "StandardPageCarouselItemSchema",
         "type": "object"
       },
@@ -1677,6 +1738,9 @@
           "link": {
             "title": "Link"
           },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
           "title": {
             "description": "Link title",
             "maxLength": 255,
@@ -1684,7 +1748,7 @@
             "type": "string"
           }
         },
-        "required": ["title"],
+        "required": ["meta", "title"],
         "title": "StandardPageRelatedLinkSchema",
         "type": "object"
       },

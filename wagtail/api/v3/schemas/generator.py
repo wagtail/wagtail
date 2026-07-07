@@ -11,6 +11,7 @@ from ninja.orm import create_schema
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
+from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import StreamField
 
 FieldSchema = tuple[type, Any, Callable | None]
@@ -90,7 +91,7 @@ class SchemaGenerator:
             self._reverse_related_schema_cache[model] = self.build_schema(
                 model,
                 name=f"{model._meta.object_name}Schema",
-                base_class=Schema,
+                base_class=BaseSchema,
                 # Prevent going too deep into nested structures.
                 follow_reverse_related=False,
             )
