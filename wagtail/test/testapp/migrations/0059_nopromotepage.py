@@ -2,6 +2,7 @@
 
 import django.db.models.deletion
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -15,11 +16,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NoPromotePage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
+                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=swapper.get_model_name("wagtailcore", "Page"))),
             ],
             options={
                 'abstract': False,
             },
-            bases=('wagtailcore.page',),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
     ]
