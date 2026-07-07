@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.api.v3.tests.base import TestV3Base
+
 PAGE_READ_SCHEMA_FIELDS = {"id", "title", "meta"}
 PAGE_READ_META_SCHEMA_FIELDS = {
     "type",
@@ -11,7 +13,7 @@ PAGE_READ_META_SCHEMA_FIELDS = {
 }
 
 
-class TestV3SchemaDiscovery(TestCase):
+class TestV3SchemaDiscovery(TestV3Base, TestCase):
     def test_list_content_types(self):
         response = self.client.get(reverse("wagtailapi_v3:list_schemas"))
         self.assertEqual(response.status_code, 200)

@@ -1,22 +1,22 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.api.v3.tests.base import assert_problem_response
+from wagtail.api.v3.tests.base import TestV3Base
 
 
-class TestV3ErrorResponses(TestCase):
+class TestV3ErrorResponses(TestV3Base, TestCase):
     def test_not_found_is_problem_json(self):
         response = self.client.get(
             reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 999999})
         )
-        assert_problem_response(self, response, status_code=404)
+        self.assert_problem_response(response, status_code=404)
 
     def test_validation_error_is_problem_json(self):
         response = self.client.get(
             reverse("wagtailapi_v3:list_pages"),
             {"limit": "not-a-number"},
         )
-        assert_problem_response(self, response, status_code=422)
+        self.assert_problem_response(response, status_code=422)
         content = response.json()
         self.assertIn("errors", content)
 
@@ -26,7 +26,7 @@ class TestV3ErrorResponses(TestCase):
                 reverse("wagtailapi_v3:list_pages"),
                 {"limit": 100},
             )
-        assert_problem_response(self, response, status_code=400)
+        self.assert_problem_response(response, status_code=400)
 
     def test_unknown_schema_type_is_problem_json(self):
         response = self.client.get(
@@ -35,4 +35,4 @@ class TestV3ErrorResponses(TestCase):
                 kwargs={"type_name": "unknown"},
             )
         )
-        assert_problem_response(self, response, status_code=404)
+        self.assert_problem_response(response, status_code=404)
