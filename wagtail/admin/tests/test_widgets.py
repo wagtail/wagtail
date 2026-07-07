@@ -2,6 +2,7 @@ import json
 import re
 from html import unescape
 
+import swapper
 from bs4 import BeautifulSoup
 from django import forms
 from django.test import TestCase
@@ -10,7 +11,12 @@ from django.utils.html import escape
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 

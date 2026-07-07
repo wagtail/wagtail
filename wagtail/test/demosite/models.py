@@ -1,5 +1,6 @@
 from datetime import date
 
+import swapper
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import models
@@ -12,8 +13,13 @@ from wagtail.api import APIField
 from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.models import Orderable, Page
+from wagtail.models import Orderable
 from wagtail.search import index
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 # ABSTRACT MODELS
 # =============================

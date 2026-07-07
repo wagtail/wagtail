@@ -1,10 +1,10 @@
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.db.models import F
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import (
@@ -12,6 +12,11 @@ from wagtail.search.backends.base import (
     BaseSearchResults,
     OrderByFieldError,
 )
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 

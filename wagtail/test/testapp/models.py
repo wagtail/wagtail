@@ -5,6 +5,7 @@ import random
 import string
 import uuid
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -72,7 +73,6 @@ from wagtail.models import (
     DraftStateMixin,
     LockableMixin,
     Orderable,
-    Page,
     PageManager,
     PagePermissionTester,
     PageQuerySet,
@@ -86,6 +86,11 @@ from wagtail.models import (
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 from ...locks import WorkflowLock
 from .fields import CommentableJSONField

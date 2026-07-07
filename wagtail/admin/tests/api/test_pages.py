@@ -2,6 +2,7 @@ import collections
 import datetime
 import json
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -15,7 +16,12 @@ from wagtail.api.v2.tests.test_pages import (
     TestPageListing,
     TestPageListingSearch,
 )
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Locale, PageLogEntry
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.demosite import models
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.testapp.models import (

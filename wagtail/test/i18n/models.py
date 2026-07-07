@@ -1,8 +1,14 @@
+import swapper
 from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, TranslatableMixin
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 class TestPage(Page):

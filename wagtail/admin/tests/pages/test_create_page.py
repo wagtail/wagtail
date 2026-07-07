@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
@@ -12,11 +13,15 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.models import (
     GroupPagePermission,
     Locale,
-    Page,
     PageViewRestriction,
     Revision,
 )
 from wagtail.signals import init_new_page, page_published
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     BusinessChild,

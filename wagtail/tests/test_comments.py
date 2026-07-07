@@ -1,7 +1,13 @@
+import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from wagtail.models import Comment, Page
+from wagtail.models import Comment
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 class CommentTestingUtils:
