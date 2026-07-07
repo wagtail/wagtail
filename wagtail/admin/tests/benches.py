@@ -1,8 +1,14 @@
+import swapper
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.benchmark import Benchmark
 from wagtail.test.testapp.models import SingleEventPage, StreamPage
 from wagtail.test.utils import WagtailTestUtils

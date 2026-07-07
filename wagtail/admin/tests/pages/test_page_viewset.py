@@ -2,6 +2,7 @@ import datetime
 from io import BytesIO
 from unittest import mock
 
+import swapper
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.test import SimpleTestCase, TestCase
@@ -11,8 +12,12 @@ from openpyxl import load_workbook
 
 from wagtail.admin.viewsets.pages import PageViewSet, page_viewset_registry
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
 from wagtail.models.workflows import Workflow
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessSubIndex,

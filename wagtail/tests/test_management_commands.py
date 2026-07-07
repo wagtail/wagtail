@@ -2,6 +2,7 @@ from datetime import timedelta
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
@@ -13,7 +14,6 @@ from django.utils import timezone
 from wagtail.embeds.models import Embed
 from wagtail.models import (
     Collection,
-    Page,
     PageLogEntry,
     Revision,
     Task,
@@ -21,6 +21,11 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.signals import page_published, page_unpublished, published, unpublished
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     DraftStateModel,
     EventPage,

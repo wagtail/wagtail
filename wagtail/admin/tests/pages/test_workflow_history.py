@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -9,7 +10,11 @@ from django.utils.formats import localize
 from freezegun import freeze_time
 
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 

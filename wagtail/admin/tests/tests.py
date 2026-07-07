@@ -1,6 +1,7 @@
 import json
 import unittest
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -13,7 +14,11 @@ from taggit.models import Tag
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
-from wagtail.models import Page
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
 

@@ -1,11 +1,12 @@
 from unittest.mock import patch
 
+import swapper
 from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
@@ -15,6 +16,11 @@ from wagtail.rich_text import (
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.test.utils.form_data import rich_text
 

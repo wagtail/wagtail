@@ -1,6 +1,7 @@
 import re
 import unittest
 
+import swapper
 from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
@@ -14,9 +15,14 @@ from wagtail.admin.rich_text.converters.editor_html import (
 )
 from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.blocks import RichTextBlock
-from wagtail.models import Page, get_page_models
+from wagtail.models import get_page_models
 from wagtail.rich_text import RichText
 from wagtail.rich_text.feature_registry import FeatureRegistry
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SingleEventPage
 from wagtail.test.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
 from wagtail.test.utils import WagtailTestUtils

@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -7,7 +8,7 @@ from django.urls import reverse
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import GroupPagePermission, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, PageLogEntry
 from wagtail.test.demosite.models import (
     BlogEntryPage,
     BlogIndexPage,
@@ -16,6 +17,11 @@ from wagtail.test.demosite.models import (
 )
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):

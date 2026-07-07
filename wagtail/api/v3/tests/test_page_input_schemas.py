@@ -1,3 +1,4 @@
+import swapper
 from django.db import models
 from django.db.models import ForeignKey
 from django.db.models.fields.reverse_related import ForeignObjectRel
@@ -18,9 +19,13 @@ from wagtail.api.v3.schemas.pages import (
     PageCreateBaseSchema,
     PageCreateMetaSchema,
 )
-from wagtail.models import Page
 from wagtail.test.demosite.models import HomePage, HomePageCarouselItem
 from wagtail.test.testapp.models import SimplePage
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 def generate_page_input_schema(model):
