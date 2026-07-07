@@ -7,6 +7,7 @@ module or specific models defined there.
 
 from django.conf import settings
 from django.contrib.auth.models import Group
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -79,3 +80,36 @@ class BaseViewRestriction(models.Model):
         abstract = True
         verbose_name = _("view restriction")
         verbose_name_plural = _("view restrictions")
+
+
+def get_page_view_restriction_model_string():
+    """
+    Get the dotted `app.Model` name for the page view restriction model as a string.
+    Useful for developers making Wagtail apps that need to refer to the
+    page view restriction model, such as in foreign keys, but the model itself is not required.
+    """
+    return getattr(
+        settings,
+        "WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL",
+        "wagtailcore.PageViewRestriction",
+    )
+
+
+def get_page_view_restriction_model():
+    """
+    Return the PageViewRestriction model that is active in this project.
+    """
+    from django.apps import apps
+
+    model_string = get_page_view_restriction_model_string()
+    try:
+        return apps.get_model(model_string, require_ready=False)
+    except ValueError as e:
+        raise ImproperlyConfigured(
+            "WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL must be of the form 'app_label.model_name'"
+        ) from e
+    except LookupError as e:
+        raise ImproperlyConfigured(
+            "WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL refers to model '%s' that has not been installed"
+            % model_string
+        ) from e

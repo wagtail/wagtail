@@ -14,7 +14,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, Site
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 
 from .filters import (
     AncestorOfFilter,
@@ -34,6 +35,8 @@ from .utils import (
     page_models_from_string,
     parse_fields_parameter,
 )
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class BaseAPIViewSet(GenericViewSet):

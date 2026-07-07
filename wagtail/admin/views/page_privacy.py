@@ -1,3 +1,4 @@
+from django import forms
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -6,10 +7,30 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
-from wagtail.admin.forms.pages import PageViewRestrictionForm
+from wagtail.admin.forms.pages import (
+    PageViewRestrictionForm as BasePageViewRestrictionForm,
+)
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.models import Page, PageViewRestriction
-from wagtail.models.view_restrictions import BaseViewRestriction
+from wagtail.models import Page
+from wagtail.models.view_restrictions import (
+    BaseViewRestriction,
+    get_page_view_restriction_model,
+)
+
+PageViewRestriction = get_page_view_restriction_model()
+
+
+# Uses the active page view restriction model to dynamically populate
+# choices, avoiding application registry errors when a custom model is used.
+class PageViewRestrictionForm(BasePageViewRestrictionForm):
+    restriction_type = forms.ChoiceField(
+        label=_("Visibility"),
+        choices=PageViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect,
+    )
+
+    class Meta(BasePageViewRestrictionForm.Meta):
+        model = PageViewRestriction
 
 
 class SetPrivacyView(ModelFormMixin, ProcessFormView):

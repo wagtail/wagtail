@@ -327,7 +327,10 @@ class CopyPageAction:
         )
 
         # Copy child pages
-        from wagtail.models import Page, PageViewRestriction
+        from wagtail.models import Page
+        from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+        PageViewRestriction = get_page_view_restriction_model()
 
         if self.recursive:
             numchild = 0

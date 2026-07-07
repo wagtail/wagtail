@@ -55,6 +55,7 @@ from .pages import (  # noqa: F401
     PAGE_PERMISSION_TYPES,
     PAGE_TEMPLATE_VAR,
     AbstractPage,
+    AbstractPageViewRestriction,
     BasePageManager,
     Comment,
     CommentReply,
@@ -87,7 +88,10 @@ from .revisions import (  # noqa: F401
 )
 from .sites import GroupSitePermission, Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin  # noqa: F401
-from .view_restrictions import BaseViewRestriction  # noqa: F401
+from .view_restrictions import (  # noqa: F401
+    BaseViewRestriction,
+    get_page_view_restriction_model,
+)
 from .workflows import (  # noqa: F401
     AbstractGroupApprovalTask,
     AbstractWorkflow,

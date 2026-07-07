@@ -197,7 +197,8 @@ CACHES = {
 }
 
 PASSWORD_HASHERS = (
-    "django.contrib.auth.hashers.MD5PasswordHasher",  # don't use the intentionally slow default password hasher
+    # don't use the intentionally slow default password hasher
+    "django.contrib.auth.hashers.MD5PasswordHasher",
 )
 
 ALLOWED_HOSTS = [
@@ -226,6 +227,13 @@ else:
     INSTALLED_APPS.append("wagtail.test.apps.CustomUsersAppConfig")
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
+
+if os.environ.get("USE_CUTOM_PAGE_VIEW_RESTRICTION_MODEL"):
+    INSTALLED_APPS.append("wagtail.test.custom_pageviewrestriction")
+    WAGTAIL_PAGE_PRIVACY_OPTIONS = ["password", "groups", "login", "admin"]
+    WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL = (
+        "custom_pageviewrestriction.PageViewRestriction"
+    )
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")

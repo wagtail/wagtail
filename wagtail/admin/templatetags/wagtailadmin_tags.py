@@ -53,11 +53,7 @@ from wagtail.coreutils import (
     get_locales_display_names,
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.models import (
-    Locale,
-    Page,
-    PageViewRestriction,
-)
+from wagtail.models import Locale, Page
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
@@ -285,6 +281,9 @@ def test_page_is_public(context, page):
     Caches the list of page view restrictions on the request, to avoid repeated
     DB queries on repeated calls.
     """
+    from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+    PageViewRestriction = get_page_view_restriction_model()
     if not hasattr(context["request"], "all_page_view_restriction_paths"):
         context[
             "request"

@@ -31,7 +31,6 @@ from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
     Page,
-    PageViewRestriction,
     Task,
     TaskState,
     Workflow,
@@ -40,6 +39,7 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
     CustomLockTask,
@@ -54,6 +54,8 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 def delete_existing_workflows():

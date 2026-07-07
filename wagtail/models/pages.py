@@ -78,7 +78,7 @@ from .preview import PreviewableMixin
 from .revisions import Revision, RevisionMixin
 from .sites import Site
 from .specific import SpecificMixin
-from .view_restrictions import BaseViewRestriction
+from .view_restrictions import BaseViewRestriction, get_page_view_restriction_model
 from .workflows import WorkflowMixin
 
 logger = logging.getLogger("wagtail")
@@ -285,6 +285,11 @@ PAGE_PERMISSION_TYPE_CHOICES = [
 
 PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
+DEFAULT_PAGE_PRIVACY_OPTIONS = ["password", "groups", "login"]
+PRIVATE_PAGE_OPTIONS = getattr(
+    settings, "WAGTAIL_PAGE_PRIVACY_OPTIONS", DEFAULT_PAGE_PRIVACY_OPTIONS
+)
+
 
 class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
@@ -480,7 +485,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ]
 
     # Privacy options for page
-    private_page_options = ["password", "groups", "login"]
+    private_page_options = PRIVATE_PAGE_OPTIONS
 
     # Allows page types to specify a list of HTTP method names that page instances will
     # respond to. When the request type doesn't match, Wagtail should return a response
@@ -1948,6 +1953,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for page in self.get_ancestors().only("alias_of"):
             add_page_to_check_list(page)
 
+        PageViewRestriction = get_page_view_restriction_model()
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
     password_required_template = None
@@ -2467,9 +2473,9 @@ class PagePermissionTester:
         return not self.page_is_root
 
 
-class PageViewRestriction(BaseViewRestriction):
+class AbstractPageViewRestriction(BaseViewRestriction):
     page = models.ForeignKey(
-        "Page",
+        "wagtailcore.Page",
         verbose_name=_("page"),
         related_name="view_restrictions",
         on_delete=models.CASCADE,
@@ -2478,6 +2484,7 @@ class PageViewRestriction(BaseViewRestriction):
     passed_view_restrictions_session_key = "passed_page_view_restrictions"
 
     class Meta:
+        abstract = True
         verbose_name = _("page view restriction")
         verbose_name_plural = _("page view restrictions")
 
@@ -2515,6 +2522,7 @@ class PageViewRestriction(BaseViewRestriction):
         """
         specific_instance = self.page.specific
         if specific_instance:
+            PageViewRestriction = get_page_view_restriction_model()
             removed_restriction_type = PageViewRestriction.objects.filter(
                 id=self.id
             ).values_list("restriction_type", flat=True)[0]
@@ -2532,6 +2540,11 @@ class PageViewRestriction(BaseViewRestriction):
                 },
             )
         return super().delete(**kwargs)
+
+
+class PageViewRestriction(AbstractPageViewRestriction):
+    class Meta(AbstractPageViewRestriction.Meta):
+        swappable = "WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL"
 
 
 class WorkflowPage(models.Model):

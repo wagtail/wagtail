@@ -190,8 +190,8 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 Customize the behavior of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognized:
 
--   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
--   `OPTIONS`: Configuration options to pass to the widget. Recognized options are widget-specific, but `DraftailRichTextArea` accepts a `features` list indicating the active rich text features (see [](rich_text_features)).
+- `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
+- `OPTIONS`: Configuration options to pass to the widget. Recognized options are widget-specific, but `DraftailRichTextArea` accepts a `features` list indicating the active rich text features (see [](rich_text_features)).
 
 If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
 
@@ -527,9 +527,9 @@ Determines how document downloads will be linked to and served. Normally, reques
 
 For this reason, Wagtail provides several serving methods that trade some of the strictness of the permission check for performance:
 
--   `'direct'` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (for example using [wagtail-bakery](https://github.com/wagtail/wagtail-bakery) or [Gatsby](https://www.gatsbyjs.org/)).
--   `'redirect'` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user can guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
--   `'serve_view'` - links to documents point to a Django view which both checks the user's permission and serves the document. Serving will be handled by [django-sendfile](https://github.com/johnsensible/django-sendfile), if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to _disallow_ serving documents directly from their location under `MEDIA_ROOT`, as this would provide a way to bypass the permission check.
+- `'direct'` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (for example using [wagtail-bakery](https://github.com/wagtail/wagtail-bakery) or [Gatsby](https://www.gatsbyjs.org/)).
+- `'redirect'` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user can guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
+- `'serve_view'` - links to documents point to a Django view which both checks the user's permission and serves the document. Serving will be handled by [django-sendfile](https://github.com/johnsensible/django-sendfile), if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to _disallow_ serving documents directly from their location under `MEDIA_ROOT`, as this would provide a way to bypass the permission check.
 
 If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
 
@@ -588,6 +588,7 @@ If this isn't supplied all document extensions are allowed. This doesn't ensure 
 ```{warning}
 Allowing all file types may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
 ```
+
 (wagtaildocs_max_upload_size)=
 
 ### `WAGTAILDOCS_MAX_UPLOAD_SIZE`
@@ -770,6 +771,68 @@ WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
 
 For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users can dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
+(privacy_view_restrictions)=
+
+## Privacy and View Restrictions
+
+### `WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL`
+
+Default: `"wagtailcore.PageViewRestriction"`
+
+The Django model used to store page view restrictions. If you need to implement custom page access rules that extend beyond Wagtail's built-in options, you can swap this with a custom model.
+
+Your custom model must subclass `wagtail.models.AbstractPageViewRestriction` and implement or extend the `accept_request(request)` method to enforce your custom access logic.
+
+```python
+WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL = "myapp.CustomPageViewRestriction"
+```
+
+```{note}
+When using a custom restriction model, Wagtail's native page-serving mechanism will continue to evaluate the standard default restriction types. You should use the `on_serve_page` hook to enforce the HTTP response handling for your custom restriction types.
+```
+
+```{versionadded} 8.0
+The `WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL` setting was added.
+```
+
+### `WAGTAIL_PAGE_PRIVACY_OPTIONS`
+
+Default: `["password", "groups", "login"]`
+
+A list of strings defining which restriction types are surfaced to administrators in the page privacy dialog inside the Wagtail admin UI.
+
+This allows you to selectively disable built-in restrictions or append your own custom restriction keys that correspond to the choices defined in your custom `WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL`.
+
+```python
+WAGTAIL_PAGE_PRIVACY_OPTIONS = ["password", "groups", "login", "my_custom_tier"]
+```
+
+See [](private_pages) for more details.
+
+```{versionadded} 8.0
+The `WAGTAIL_PAGE_PRIVACY_OPTIONS` setting was added.
+```
+
+### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
+
+If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
+
+```python
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
+```
+
+See [](private_pages) for more details.
+
+### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
+
+If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
+
+```python
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
+```
+
+See [](private_pages) for more details.
+
 (frontend_authentication)=
 
 ## Frontend authentication
@@ -807,26 +870,6 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 ```
 
 For more details, see the [](login_page) documentation.
-
-### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
-
-If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
-
-```python
-WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
-```
-
-See [](private_pages) for more details.
-
-### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
-
-If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
-
-```python
-WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
-```
-
-See [](private_pages) for more details.
 
 ## Tags
 
@@ -983,7 +1026,7 @@ Moderation workflows can be used in two modes. The first is to require that all 
 WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.workflows.publish_workflow_state'
 ```
 
-This sets the function to be called when a workflow completes successfully - by default, `wagtail.workflows.publish_workflow_state`,which publishes the page. The function must accept a `WorkflowState` object as its only positional argument.
+This sets the function to be called when a workflow completes successfully - by default, `wagtail.workflows.publish_workflow_state`, which publishes the page. The function must accept a `WorkflowState` object as its only positional argument.
 
 ### `WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH`
 

@@ -1,8 +1,11 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import Page
+from wagtail.models.view_restrictions import get_page_view_restriction_model
 from wagtail.test.utils import WagtailTestUtils
+
+PageViewRestriction = get_page_view_restriction_model()
 
 
 class TestPagePrivacy(WagtailTestUtils, TestCase):

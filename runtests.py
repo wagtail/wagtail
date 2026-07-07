@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import json
 import os
 import shutil
 import sys
@@ -25,6 +26,7 @@ def make_parser():
     parser.add_argument("--opensearch2", action="store_true")
     parser.add_argument("--opensearch3", action="store_true")
     parser.add_argument("--emailuser", action="store_true")
+    parser.add_argument("--custompageviewrestriction", action="store_true")
     parser.add_argument("--disabletimezone", action="store_true")
     parser.add_argument("--bench", action="store_true")
     return parser
@@ -32,6 +34,30 @@ def make_parser():
 
 def parse_args(args=None):
     return make_parser().parse_known_args(args)
+
+
+def update_fixtures(undo=False):
+    """Prevent fixture loading errors when running tests with cutom PageViewRestriction model."""
+
+    src = "wagtail/test/testapp/fixtures/test.json"
+    dst = "wagtail/test/testapp/fixtures/test_original.json"
+
+    if undo and os.path.exists(dst):
+        os.remove(src)
+        shutil.move(dst, src)
+        return
+
+    shutil.copy(src, dst)
+    with open(src) as input:
+        data = json.load(input)
+        data = [
+            item
+            if item["model"] != "wagtailcore.pageviewrestriction"
+            else {**item, "model": "custom_pageviewrestriction.pageviewrestriction"}
+            for item in data
+        ]
+        with open(src, "w") as output:
+            json.dump(data, output, indent=2)
 
 
 def runtests():
@@ -84,6 +110,10 @@ def runtests():
     if args.emailuser:
         os.environ["USE_EMAIL_USER_MODEL"] = "1"
 
+    if args.custompageviewrestriction:
+        os.environ["USE_CUTOM_PAGE_VIEW_RESTRICTION_MODEL"] = "1"
+        update_fixtures()
+
     if args.disabletimezone:
         os.environ["DISABLE_TIMEZONE"] = "1"
 
@@ -98,6 +128,9 @@ def runtests():
 
     try:
         execute_from_command_line(argv)
+        if os.environ.get("USE_CUTOM_PAGE_VIEW_RESTRICTION_MODEL"):
+            update_fixtures(undo=True)
+
     finally:
         from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
 

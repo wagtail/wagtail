@@ -27,6 +27,107 @@ for page in Page.objects.private():
    page.get_view_restrictions().filter(restriction_type='password').delete()
 ```
 
+(custom_page_view_restriction)=
+
+## Custom Page View Restrictions
+
+Wagtail comes with three built-in page view restriction types: password protection, login required, and group access. If your project requires more complex business rules —such as checking for subscription tiers or customer organizations— you can implement a custom view restriction model and register custom privacy options.
+
+Implementing a custom restriction requires three steps:
+
+1. Defining a custom restriction model.
+2. Registering the model and choices in your project settings.
+3. Enforcing the restriction using the `on_serve_page` hook.
+
+### Define a Custom Restriction Model
+
+To create custom restrictions, define a model in your app that subclasses `AbstractPageViewRestriction`. You will need to extend the default `RESTRICTION_CHOICES` and override the `accept_request` method to evaluate whether a user has access.
+
+```python
+# myapp/models.py
+
+from django.db import models
+from wagtail.models import AbstractPageViewRestriction
+
+class CustomPageViewRestriction(AbstractPageViewRestriction):
+    ADVANCED_MEMBER = "advanced_member"
+
+    RESTRICTION_CHOICES = (
+        *AbstractPageViewRestriction.RESTRICTION_CHOICES,
+        (ADVANCED_MEMBER, "Private, accessible only to premium members"),
+    )
+
+    restriction_type = models.CharField(max_length=20, choices=RESTRICTION_CHOICES)
+
+    def accept_request(self, request):
+        if self.restriction_type == self.ADVANCED_MEMBER:
+            # Implement your custom evaluation logic here
+            return getattr(request.user, "is_premium_member", False)
+
+        # Fall back to Wagtail's default behavior for password/login/groups
+        return super().accept_request(request)
+
+```
+
+### Configure Project Settings
+
+Once your model is defined, update your Django settings to tell Wagtail to use your custom model instead of the default one. You must also specify which keys should be visible in the page privacy dialog inside the Wagtail admin UI via `WAGTAIL_PAGE_PRIVACY_OPTIONS` or `Page.private_page_options`.
+
+```python
+# myproject/settings.py
+
+# Swap the default view restriction model
+WAGTAIL_PAGE_VIEW_RESTRICTION_MODEL = "myapp.CustomPageViewRestriction"
+
+# Determine which options are surfaced in the admin UI privacy dialog
+WAGTAIL_PAGE_PRIVACY_OPTIONS = ["password", "groups", "login", "advanced_member"]
+
+```
+
+### Handle Unauthorized Requests via Hooks
+
+While `accept_request` determines _if_ a user has access, Wagtail's core page-serving engine only handles the default HTTP responses (like rendering the password form or redirecting standard login). For custom restriction types, you must use the `on_serve_page` hook to intercept failed checks and return the appropriate HTTP response or redirect.
+
+```python
+# myapp/wagtail_hooks.py
+
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.utils.cache import add_never_cache_headers
+from wagtail import hooks
+from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+PageViewRestriction = get_page_view_restriction_model()
+
+
+@hooks.register("on_serve_page")
+def check_custom_restrictions(callback):
+    def check(page, request, serve_args, serve_kwargs):
+        restrictions = page.get_view_restrictions().filter(
+            restriction_type=PageViewRestriction.ADVANCED_MEMBER
+        )
+
+        for restriction in restrictions:
+            if not restriction.accept_request(request):
+                # Handle your custom restriction type response
+                messages.info(request, "This page requires a premium membership.")
+                response = redirect("subscription_landing_page")
+                add_never_cache_headers(response)
+                return response
+
+        # Fall back to serving the page normally if checks pass
+        response = callback(page, request, serve_args, serve_kwargs)
+
+        # Ensure pages with restrictions are never cached
+        if restrictions:
+            add_never_cache_headers(response)
+
+        return response
+
+    return check
+
+```
+
 (private_collections)=
 
 ## Private collections (restricting documents)

@@ -396,7 +396,9 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
         return self.exclude(self.exact_type_q(*types))
 
     def private_q(self):
-        from wagtail.models import PageViewRestriction
+        from wagtail.models.view_restrictions import get_page_view_restriction_model
+
+        PageViewRestriction = get_page_view_restriction_model()
 
         q = Q()
         for restriction in PageViewRestriction.objects.select_related("page").all():
