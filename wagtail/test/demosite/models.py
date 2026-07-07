@@ -28,7 +28,7 @@ else:
 class AbstractLinkFields(models.Model):
     link_external = models.URLField("External link", blank=True)
     link_page = models.ForeignKey(
-        "wagtailcore.Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         null=True,
         blank=True,
         related_name="+",
