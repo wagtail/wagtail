@@ -10,7 +10,7 @@ api = NinjaAPI(
     description="Wagtail v3 read and write API",
     urls_namespace="wagtailapi_v3",
     openapi_url="/openapi.json",
-    docs_url="/docs",
+    docs_url="/docs/",
 )
 
 register_exception_handlers(api)
