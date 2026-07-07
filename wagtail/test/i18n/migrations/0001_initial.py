@@ -4,6 +4,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 import uuid
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -58,14 +59,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="InheritedTestModel",

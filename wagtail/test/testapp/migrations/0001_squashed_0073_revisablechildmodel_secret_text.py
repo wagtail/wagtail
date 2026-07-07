@@ -6,6 +6,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
+import swapper
 from taggit import VERSION as TAGGIT_VERSION
 import taggit.managers
 import uuid
@@ -214,14 +215,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BusinessIndex",
@@ -234,14 +235,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BusinessNowherePage",
@@ -254,14 +255,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BusinessSubIndex",
@@ -274,14 +275,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="CustomManagerPage",
@@ -294,14 +295,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="EventIndex",
@@ -314,7 +315,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("intro", wagtail.fields.RichTextField(blank=True)),
@@ -322,7 +323,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="EventPage",
@@ -335,7 +336,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("date_from", models.DateField(null=True, verbose_name="Start date")),
@@ -381,7 +382,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FilePage",
@@ -394,7 +395,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("file_field", models.FileField(upload_to="")),
@@ -402,7 +403,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FormPage",
@@ -415,7 +416,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -444,7 +445,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="GenericSnippetPage",
@@ -457,7 +458,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("snippet_object_id", models.PositiveIntegerField(null=True)),
@@ -473,7 +474,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="IconSetting",
@@ -511,7 +512,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("body", wagtail.fields.RichTextField(blank=True)),
@@ -528,7 +529,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="MTIBasePage",
@@ -541,14 +542,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "verbose_name": "MTI base page",
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="MyCustomPage",
@@ -561,14 +562,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="NotYetRegisteredSetting",
@@ -606,7 +607,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("content", models.TextField()),
@@ -614,7 +615,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SimplePage",
@@ -627,7 +628,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("content", models.TextField()),
@@ -635,7 +636,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SingletonPage",
@@ -648,14 +649,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SnippetChooserModel",
@@ -690,14 +691,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="StandardIndex",
@@ -710,14 +711,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="TaggedPage",
@@ -730,14 +731,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="TaggedPageTag",
@@ -810,7 +811,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("foo", models.CharField(max_length=255)),
@@ -818,7 +819,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="MTIChildPage",
@@ -897,7 +898,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         help_text="help text",
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
@@ -959,7 +960,7 @@ class Migration(migrations.Migration):
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="advert_placements",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
@@ -1074,14 +1075,14 @@ class Migration(migrations.Migration):
                         primary_key=True,
                         related_name="+",
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FileUploadSetting",
@@ -1120,7 +1121,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("body", wagtail.fields.RichTextField()),
@@ -1128,7 +1129,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="DefaultRichTextFieldPage",
@@ -1141,7 +1142,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("body", wagtail.fields.RichTextField()),
@@ -1149,7 +1150,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SectionedRichTextPage",
@@ -1162,14 +1163,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SectionedRichTextPageSection",
@@ -1213,7 +1214,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1242,7 +1243,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="InlineStreamPage",
@@ -1255,14 +1256,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FormPageWithCustomSubmission",
@@ -1275,7 +1276,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1306,7 +1307,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="UserProfile",
@@ -1481,14 +1482,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="RichTextFieldWithFeaturesPage",
@@ -1501,7 +1502,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("body", wagtail.fields.RichTextField()),
@@ -1509,7 +1510,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="PageWithExcludedCopyField",
@@ -1522,7 +1523,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("content", models.TextField()),
@@ -1536,7 +1537,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FormPageWithRedirect",
@@ -1549,7 +1550,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1581,14 +1582,14 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="AdvertWithCustomPrimaryKey",
@@ -1637,7 +1638,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1668,7 +1669,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FormPageWithCustomFormBuilder",
@@ -1681,7 +1682,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1710,7 +1711,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="HeadCountRelatedModelUsingPK",
@@ -1738,7 +1739,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("location", models.CharField(max_length=255)),
@@ -1747,7 +1748,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="EventPageSpeaker",
@@ -1806,7 +1807,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1868,14 +1869,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SecretPage",
@@ -1888,7 +1889,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 ("boring_data", models.TextField()),
@@ -1897,7 +1898,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SimpleChildPage",
@@ -1910,14 +1911,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="SimpleParentPage",
@@ -1930,14 +1931,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="Address",
@@ -1974,7 +1975,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -1990,7 +1991,7 @@ class Migration(migrations.Migration):
                 "verbose_name": "person",
                 "verbose_name_plural": "persons",
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="AddressTag",
@@ -2057,14 +2058,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="RestaurantTag",
@@ -2159,7 +2160,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2168,7 +2169,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2177,7 +2178,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2449,7 +2450,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2518,7 +2519,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="+",
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2709,7 +2710,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2724,7 +2725,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="AddedStreamFieldWithEmptyStringDefaultPage",
@@ -2737,7 +2738,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2752,7 +2753,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="AddedStreamFieldWithoutDefaultPage",
@@ -2765,7 +2766,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2778,7 +2779,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BlockCountsStreamModel",
@@ -2816,7 +2817,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2830,7 +2831,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="DeadlyStreamPage",
@@ -2843,7 +2844,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2857,7 +2858,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="DefaultRichBlockFieldPage",
@@ -2870,7 +2871,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2884,7 +2885,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="DefaultStreamPage",
@@ -2897,7 +2898,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -2916,7 +2917,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="InlineStreamPageSection",
@@ -3020,7 +3021,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -3060,7 +3061,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="TableBlockStreamPage",
@@ -3073,7 +3074,7 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -3087,7 +3088,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="JSONBlockCountsStreamModel",
@@ -3752,14 +3753,14 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="RelatedGenericRelation",
@@ -3809,7 +3810,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (

@@ -2,6 +2,7 @@ import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
 from django.db import migrations, models
+import swapper
 
 import wagtail.fields
 
@@ -23,7 +24,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -46,7 +47,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BlogEntryPageCarouselItem",
@@ -176,7 +177,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -188,7 +189,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="BlogIndexPageRelatedLink",
@@ -242,7 +243,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -264,7 +265,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page", models.Model),
+            bases=(swapper.get_model_name("wagtailcore", "Page"), models.Model),
         ),
         migrations.CreateModel(
             name="EventIndexPage",
@@ -273,7 +274,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -285,7 +286,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="EventIndexPageRelatedLink",
@@ -332,7 +333,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -382,7 +383,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="EventPageCarouselItem",
@@ -535,7 +536,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -547,7 +548,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "Homepage",
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="HomePageCarouselItem",
@@ -650,7 +651,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -685,7 +686,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page", models.Model),
+            bases=(swapper.get_model_name("wagtailcore", "Page"), models.Model),
         ),
         migrations.CreateModel(
             name="PersonPageRelatedLink",
@@ -732,7 +733,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -754,7 +755,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="StandardIndexPageRelatedLink",
@@ -801,7 +802,7 @@ class Migration(migrations.Migration):
                     "page_ptr",
                     models.OneToOneField(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         serialize=False,
                         parent_link=True,
                         related_name="+",
@@ -824,7 +825,7 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="StandardPageCarouselItem",
@@ -872,7 +873,7 @@ class Migration(migrations.Migration):
                     "link_page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         blank=True,
                         related_name="+",
                         null=True,
@@ -928,7 +929,7 @@ class Migration(migrations.Migration):
                     "link_page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         blank=True,
                         related_name="+",
                         null=True,
@@ -954,7 +955,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -976,7 +977,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -998,7 +999,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1020,7 +1021,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1042,7 +1043,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1064,7 +1065,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1086,7 +1087,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1108,7 +1109,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1130,7 +1131,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1152,7 +1153,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1174,7 +1175,7 @@ class Migration(migrations.Migration):
             name="link_page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 blank=True,
                 related_name="+",
                 null=True,
@@ -1214,14 +1215,14 @@ class Migration(migrations.Migration):
                         primary_key=True,
                         related_name="+",
                         serialize=False,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="FormField",

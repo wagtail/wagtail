@@ -3,6 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
+import swapper
 import wagtail.fields
 
 
@@ -33,7 +34,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="wagtailcore.page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
