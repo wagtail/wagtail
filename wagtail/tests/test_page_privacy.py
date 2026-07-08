@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 
@@ -6,7 +7,10 @@ from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestPagePrivacy(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.secret_plans_page = Page.objects.get(url_path="/home/secret-plans/")

@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
@@ -2399,7 +2400,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
 
 class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -2763,7 +2767,10 @@ class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
     https://github.com/wagtail/wagtail/issues/3890
     """
 
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
@@ -2812,7 +2819,10 @@ class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelector(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.events_page = Page.objects.get(url_path="/home/events/")
@@ -2891,7 +2901,10 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(id=1)

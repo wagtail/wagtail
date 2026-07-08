@@ -1,6 +1,7 @@
 import json
 import re
 
+import swapper
 from django import template
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -33,7 +34,10 @@ from wagtail.test.utils import Page
     CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 )
 class TestPageUrlTags(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -265,7 +269,10 @@ class TestPageUrlTags(TestCase):
 
 
 class TestWagtailSiteTag(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
         request = get_dummy_request(site=Site.objects.first())
@@ -286,7 +293,10 @@ class TestWagtailSiteTag(TestCase):
 
 
 class TestSiteRootPathsCache(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_cached_site_root_paths(self):
         return cache.get(
@@ -653,7 +663,10 @@ class TestWagtailCacheTag(TestCase):
 
 
 class TestWagtailPageCacheTag(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
@@ -13,7 +14,10 @@ from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestBulkMove(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page

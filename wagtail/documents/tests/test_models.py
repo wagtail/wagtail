@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -20,7 +21,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 @tag("transaction")
 class TestDocumentQuerySet(TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def test_search_method(self):
         # Make a test document
@@ -185,7 +189,10 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     """
 
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():

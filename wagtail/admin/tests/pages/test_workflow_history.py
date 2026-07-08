@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -14,7 +15,10 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     base_breadcrumb_items = []
 
     def setUp(self):

@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -9,7 +10,10 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestCustomListing(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

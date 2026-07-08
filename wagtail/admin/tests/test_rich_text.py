@@ -1,6 +1,7 @@
 import re
 import unittest
 
+import swapper
 from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
@@ -493,7 +494,10 @@ class TestDraftailWithAdditionalFeatures(
 
 
 class TestPageLinkHandler(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
         soup = self.get_soup('<a data-id="test-id">foo</a>')

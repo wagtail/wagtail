@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase, override_settings
@@ -671,7 +672,10 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
 
 
 class TestUserbarAddLink(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.test import TestCase
 from django.urls import reverse
 
@@ -11,7 +12,10 @@ from wagtail.views import serve
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()
@@ -56,7 +60,10 @@ class TestLoginView(WagtailTestUtils, TestCase):
 
 @mock.patch("wagtail.hooks.get_hooks", mock.Mock(return_value=[]))
 class TestServeView(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_serve_query_count(self):
         request = get_dummy_request()
