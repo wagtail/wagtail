@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
@@ -14,7 +15,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetHistory(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get(self, snippet, params=None):
         return self.client.get(self.get_url(snippet, "history"), params)

@@ -1,3 +1,4 @@
+import swapper
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 from django.utils.html import format_html
@@ -14,7 +15,10 @@ from wagtail.test.utils import Page
 
 
 class TestTable(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.rf = RequestFactory()

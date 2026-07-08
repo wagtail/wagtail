@@ -2,6 +2,7 @@ from unittest import mock
 from urllib.error import HTTPError, URLError
 
 import requests
+import swapper
 from azure.mgmt.cdn import CdnManagementClient
 from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
@@ -544,7 +545,10 @@ class MockCloudflareBackend(CloudflareBackend):
     },
 )
 class TestCachePurgingFunctions(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         PURGED_URLS.clear()
@@ -735,7 +739,10 @@ class TestCloudflareCachePurgingFunctions(TestCase):
     }
 )
 class TestCachePurgingSignals(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Reset PURGED_URLS to an empty list
@@ -828,7 +835,10 @@ class TestPurgeBatchClass(TestCase):
     # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
     # by TestCachePurgingFunctions.test_purge_batch above
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_add_url(self):
         batch = PurgeBatch()

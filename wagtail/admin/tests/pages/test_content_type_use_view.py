@@ -1,6 +1,7 @@
 import datetime
 from io import BytesIO
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
@@ -14,7 +15,10 @@ from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestContentTypeUse(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

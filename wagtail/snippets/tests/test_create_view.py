@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -588,7 +589,10 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.fr_locale = Locale.objects.create(language_code="fr")

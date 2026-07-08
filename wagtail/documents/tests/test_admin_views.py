@@ -1,6 +1,7 @@
 import json
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -2144,7 +2145,10 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -2326,7 +2330,10 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(WagtailTestUtils, Test
 
 
 class TestUsageCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -2362,7 +2369,10 @@ class TestUsageCount(WagtailTestUtils, TestCase):
 
 
 class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login()

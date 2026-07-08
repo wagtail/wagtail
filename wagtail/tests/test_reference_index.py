@@ -1,6 +1,7 @@
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.core.exceptions import FieldDoesNotExist
@@ -315,7 +316,10 @@ class TestCreateOrUpdateForObject(TestCase):
 
 
 class TestDescribeOnDelete(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.test import TestCase
 
@@ -9,7 +10,10 @@ from wagtail.test.testapp.models import Advert, AdvertWithCustomPrimaryKey
 
 
 class TestSnippetChooserBlock(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_serialize(self):
         """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""
@@ -114,7 +118,10 @@ class TestSnippetChooserBlock(TestCase):
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_serialize(self):
         """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""

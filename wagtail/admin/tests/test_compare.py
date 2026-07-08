@@ -1,5 +1,6 @@
 from functools import partial
 
+import swapper
 from django.test import TestCase
 from django.utils.safestring import SafeString
 
@@ -1050,7 +1051,10 @@ class TestTagsFieldComparison(TestCase):
 
 
 class TestM2MFieldComparison(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     comparison_class = compare.M2MFieldComparison
 
     def setUp(self):

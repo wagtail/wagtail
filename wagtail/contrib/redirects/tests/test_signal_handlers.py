@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 
@@ -21,7 +22,10 @@ User = get_user_model()
     },
 )
 class TestAutocreateRedirects(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

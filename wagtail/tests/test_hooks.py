@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
@@ -16,7 +17,10 @@ def test_hook():
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -44,7 +48,10 @@ class TestLoginView(WagtailTestUtils, TestCase):
 
 
 class TestServeHooks(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.page = Page.objects.get(id=2)

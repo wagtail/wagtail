@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -8,7 +9,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)
@@ -62,7 +66,10 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
 
 
 class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)
@@ -116,7 +123,10 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
 
 
 class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)
