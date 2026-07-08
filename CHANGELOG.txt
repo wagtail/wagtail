@@ -53,6 +53,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure models with a UUID primary key can be previewed when creating a new instance (Sébastien Corbin)
+ * Fix: Ensure the checks side panel recognises custom `ContentCheckerItem` subclasses (Robert Rollins)
  * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
 
 
