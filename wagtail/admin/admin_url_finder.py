@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
 from wagtail.hooks import search_for_hooks
+from wagtail.permissions import policies_registry
 from wagtail.utils.registry import ObjectTypeRegistry
 
 """
@@ -31,7 +32,6 @@ class ModelAdminURLFinder:
     """
 
     edit_url_name = None
-    permission_policy = None
 
     def __init__(self, user=None):
         self.user = user
@@ -53,10 +53,11 @@ class ModelAdminURLFinder:
         Return the edit URL for the given instance if one exists and the user has permission for it,
         or None otherwise.
         """
+        permission_policy = policies_registry.get(instance)
         if (
             self.user
-            and self.permission_policy
-            and not self.permission_policy.user_has_permission_for_instance(
+            and permission_policy
+            and not permission_policy.user_has_permission_for_instance(
                 self.user, "change", instance
             )
         ):

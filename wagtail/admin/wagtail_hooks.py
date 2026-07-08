@@ -1163,10 +1163,6 @@ register_admin_url_finder(Page, PageAdminURLFinder)
 class CollectionAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailadmin_collections:edit"
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(Collection)
-
 
 register_admin_url_finder(Collection, CollectionAdminURLFinder)
 
@@ -1174,20 +1170,12 @@ register_admin_url_finder(Collection, CollectionAdminURLFinder)
 class WorkflowAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailadmin_workflows:edit"
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(Workflow)
-
 
 register_admin_url_finder(Workflow, WorkflowAdminURLFinder)
 
 
 class WorkflowTaskAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailadmin_workflows:edit_task"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(Task)
 
 
 register_admin_url_finder(Task, WorkflowTaskAdminURLFinder)

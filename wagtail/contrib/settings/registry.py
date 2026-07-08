@@ -105,13 +105,13 @@ class Registry(list):
             finder_class = type(
                 "_SiteSettingAdminURLFinder",
                 (SiteSettingAdminURLFinder,),
-                {"model": model, "permission_policy": permission_policy},
+                {"model": model},
             )
         elif issubclass(model, BaseGenericSetting):
             finder_class = type(
                 "_GenericSettingAdminURLFinder",
                 (GenericSettingAdminURLFinder,),
-                {"model": model, "permission_policy": permission_policy},
+                {"model": model},
             )
         else:
             raise NotImplementedError

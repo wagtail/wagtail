@@ -1,5 +1,4 @@
 from django.urls import include, path, reverse, reverse_lazy
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -188,10 +187,6 @@ def describe_collection_docs(collection):
 
 class ImageAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailimages:edit"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
 
 
 register_admin_url_finder(get_image_model(), ImageAdminURLFinder)

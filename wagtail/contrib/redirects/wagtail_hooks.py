@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Permission
 from django.urls import include, path, reverse
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
@@ -50,10 +49,6 @@ def register_permissions():
 
 class RedirectAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailredirects:edit"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(Redirect)
 
 
 register_admin_url_finder(Redirect, RedirectAdminURLFinder)

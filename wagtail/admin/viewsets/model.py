@@ -562,7 +562,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
             "_ModelAdminURLFinder",
             (ModelAdminURLFinder,),
             {
-                "permission_policy": self.permission_policy,
                 "edit_url_name": self.get_url_name("edit"),
             },
         )
