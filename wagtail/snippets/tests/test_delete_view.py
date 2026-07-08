@@ -1,5 +1,6 @@
 from io import StringIO
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.core import management
@@ -13,7 +14,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetDelete(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)

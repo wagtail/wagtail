@@ -1,6 +1,7 @@
 import json
 from unittest.mock import patch
 
+import swapper
 from django.test import TestCase
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
@@ -36,7 +37,10 @@ def content_state_equal(v1, v2, match_keys=False):
 
 
 class TestHtmlToContentState(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def assertContentStateEqual(self, v1, v2, match_keys=False):
         "Assert that two contentState structures are equal, ignoring 'key' properties if match_keys is False"

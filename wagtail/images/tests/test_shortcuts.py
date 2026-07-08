@@ -1,3 +1,4 @@
+import swapper
 from django.test import TestCase
 
 from wagtail.images.models import Filter
@@ -10,7 +11,10 @@ from .utils import Image, get_test_image_file
 
 
 class TestShortcuts(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_fallback_to_not_found(self):
         bad_image = Image.objects.get(id=1)

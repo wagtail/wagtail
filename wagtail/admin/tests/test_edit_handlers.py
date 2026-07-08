@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -1185,7 +1186,10 @@ class TestFieldRowPanelWithChooser(TestCase):
 
 
 class TestPageChooserPanel(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1341,7 +1345,10 @@ class TestPageChooserPanel(TestCase):
 
 
 class TestInlinePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1588,7 +1595,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = get_dummy_request()
@@ -1624,7 +1634,10 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
 
 
 class TestInlinePanelGetComparison(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1732,7 +1745,10 @@ There are no tabs on non-Page model editing within InlinePanels.""",
 
 
 class TestCommentPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.commenting_user = get_user_model().objects.get(pk=7)
@@ -2070,7 +2086,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
 
 
 class TestPublishingPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -2135,7 +2154,10 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
 
 
 class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -2159,7 +2181,10 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -2340,7 +2365,10 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
 
 
 class TestTitleFieldPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

@@ -1,5 +1,6 @@
 from io import StringIO
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.core import management
 from django.test import TransactionTestCase, tag
@@ -16,7 +17,10 @@ from wagtail.test.utils.timestamps import local_datetime
 
 @tag("transaction")
 class TestPageSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         super().setUp()

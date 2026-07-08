@@ -1,6 +1,7 @@
 import json
 from urllib.parse import parse_qs, urlsplit
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
@@ -386,7 +387,10 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
@@ -1469,7 +1473,10 @@ class TestChooserPhoneLink(WagtailTestUtils, TestCase):
 
 
 class TestCanChoosePage(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -1585,7 +1592,10 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     LOCALE_SELECTOR_HTML = r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+English"
 
