@@ -27,7 +27,7 @@ class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
         )
 
         # Convert page into a generic "Page" object and add it into the index
-        unspecific_page = page.page_ptr
+        unspecific_page = page.get_base_page()
 
         backend().reset_mock()
 
