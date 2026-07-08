@@ -356,7 +356,7 @@ class Userbar(Component):
 
             if in_preview_panel:
                 items = [
-                    AccessibilityItem(),
+                    ContentCheckerItem(),
                 ]
             elif isinstance(self.object, Page) and self.object.pk:
                 if revision_id:
@@ -365,7 +365,7 @@ class Userbar(Component):
                         AdminItem(),
                         ExplorePageItem(revision.content_object),
                         EditPageItem(revision.content_object),
-                        AccessibilityItem(),
+                        ContentCheckerItem(),
                     ]
                 else:
                     # Not a revision
@@ -374,13 +374,13 @@ class Userbar(Component):
                         ExplorePageItem(self.object),
                         EditPageItem(self.object),
                         AddPageItem(self.object),
-                        AccessibilityItem(),
+                        ContentCheckerItem(),
                     ]
             else:
                 # Not a page.
                 items = [
                     AdminItem(),
-                    AccessibilityItem(),
+                    ContentCheckerItem(),
                 ]
 
             apply_userbar_hooks(request, items, self.object)

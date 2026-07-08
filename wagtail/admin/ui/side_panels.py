@@ -4,7 +4,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.admin.userbar import AccessibilityItem, apply_userbar_hooks
+from wagtail.admin.userbar import ContentCheckerItem, apply_userbar_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 from wagtail.models.view_restrictions import BaseViewRestriction
 
@@ -334,12 +334,12 @@ class ChecksSidePanel(BaseSidePanel):
 
     def get_axe_configuration(self):
         # Retrieve the Axe configuration from the userbar.
-        userbar_items = [AccessibilityItem(in_editor=True)]
+        userbar_items = [ContentCheckerItem(in_editor=True)]
         page = self.object if issubclass(self.model, Page) else None
         apply_userbar_hooks(self.request, userbar_items, page)
 
         for item in userbar_items:
-            if isinstance(item, AccessibilityItem):
+            if isinstance(item, ContentCheckerItem):
                 return item.get_axe_configuration(self.request)
 
     def get_context_data(self, parent_context):
