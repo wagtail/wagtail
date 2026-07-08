@@ -154,9 +154,21 @@ class ContactFieldsMixin(models.Model):
 
 
 class HomePage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     body = RichTextField(blank=True)
 
     api_fields = (
@@ -196,9 +208,21 @@ HomePage.content_panels = Page.content_panels + [
 
 
 class StandardPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     intro = RichTextField(blank=True)
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
@@ -250,9 +274,21 @@ StandardPage.promote_panels = [
 
 
 class StandardIndexPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     intro = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -295,9 +331,21 @@ StandardIndexPage.promote_panels = [
 
 
 class BlogEntryPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     body = RichTextField()
     tags = ClusterTaggableManager(through="BlogEntryPageTag", blank=True)
     date = models.DateField("Post date")
@@ -365,9 +413,21 @@ BlogEntryPage.promote_panels = [
 
 
 class BlogIndexPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     intro = RichTextField(blank=True)
 
     api_fields = (
@@ -422,9 +482,21 @@ BlogIndexPage.content_panels = Page.content_panels + [
 
 
 class EventPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     AUDIENCE_CHOICES = (
         ("public", "Public"),
         ("private", "Private"),
@@ -540,9 +612,21 @@ EventPage.promote_panels = [
 
 
 class EventIndexPage(Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     intro = RichTextField(blank=True)
 
     api_fields = (
@@ -584,9 +668,21 @@ EventIndexPage.content_panels = Page.content_panels + [
 
 
 class PersonPage(Page, ContactFieldsMixin):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     intro = RichTextField(blank=True)
@@ -651,9 +747,21 @@ PersonPage.promote_panels = [
 
 
 class ContactPage(Page, ContactFieldsMixin):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -690,9 +798,21 @@ class FormField(AbstractFormField):
 
 
 class FormPage(FormMixin, Page):
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            swapper.get_model_name("wagtailcore", "Page"),
+            parent_link=True,
+            related_name="+",
+            on_delete=models.CASCADE,
+        )
+
     api_fields = [APIField("form_fields")]
     content_panels = Page.content_panels + [
         InlinePanel("form_fields", label="form field")

@@ -2106,9 +2106,15 @@ class OneToOnePage(Page):
     """
 
     body = RichTextBlock(blank=True)
-    page_ptr = models.OneToOneField(
-        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
-    )
+
+    if swapper.is_swapped("wagtailcore", "Page"):
+        basepage_ptr = models.OneToOneField(
+            Page, parent_link=True, related_name="+", on_delete=models.CASCADE
+        )
+    else:
+        page_ptr = models.OneToOneField(
+            Page, parent_link=True, related_name="+", on_delete=models.CASCADE
+        )
 
 
 class GenericSnippetPage(Page):
