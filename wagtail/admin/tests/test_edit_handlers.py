@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -1219,7 +1220,9 @@ class TestPageChooserPanel(PageFixturesMixin, TestCase):
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_html()
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
 
         self.assertIn(expected_js, result)
@@ -1241,7 +1244,9 @@ class TestPageChooserPanel(PageFixturesMixin, TestCase):
 
         # the canChooseRoot flag on PageChooser should now be true
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
         self.assertIn(expected_js, result)
 
