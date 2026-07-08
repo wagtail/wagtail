@@ -5,6 +5,10 @@ import django.db.models.deletion
 import swapper
 
 
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
+
+
 class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0093_uploadedfile"),
@@ -16,7 +20,7 @@ class Migration(migrations.Migration):
             name="NoCreatableSubpageTypesPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -36,7 +40,7 @@ class Migration(migrations.Migration):
             name="NoSubpageTypesPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
