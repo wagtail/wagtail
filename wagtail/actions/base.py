@@ -48,14 +48,9 @@ class BaseAction:
         ``wagtail.permission_policies.ModelPermissionPolicy`` for models
         that have not registered one.
         """
-        from wagtail.permission_policies import ModelPermissionPolicy
+        from wagtail.permissions import policies_registry
 
-        # FIXME: use the registry when it's implemented.
-        # from wagtail.permissions import policies_registry
-        # permission_policy = policies_registry.get(self.instance)
-        permission_policy = ModelPermissionPolicy(type(self.instance))
-
-        return permission_policy
+        return policies_registry.get(self.instance)
 
     def user_has_permission(self):
         """
