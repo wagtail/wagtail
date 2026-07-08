@@ -879,7 +879,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(
             set(content["__types"].keys()),
             {
-                "wagtailcore.Page",
+                swapper.get_model_name("wagtailcore", "Page"),
                 "demosite.HomePage",
                 "demosite.BlogIndexPage",
                 "demosite.BlogEntryPageCarouselItem",

@@ -16,6 +16,8 @@ from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 from wagtail.test.utils import Page
 
+page_model_name = swapper.get_model_name("wagtailcore", "Page").lower()
+
 
 class TestAdminPageChooserWidget(TestCase):
     @classmethod
@@ -46,7 +48,7 @@ class TestAdminPageChooserWidget(TestCase):
             js_args[2],
             {
                 "canChooseRoot": False,
-                "modelNames": ["wagtailcore.page"],
+                "modelNames": [page_model_name],
                 "userPerms": None,
                 "modalUrl": "/admin/choose-page/",
             },
@@ -81,7 +83,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"}});',
             html,
         )
 
@@ -90,7 +92,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": "copy_to", "modalUrl": "/admin/choose-page/"});',
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": "copy_to", "modalUrl": "/admin/choose-page/"}});',
             html,
         )
 
@@ -107,8 +109,7 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertInHTML("foobarbaz (simple page)", html)
 
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
-            % self.root_page.id,
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {self.root_page.id}}});',
             html,
         )
 
@@ -166,8 +167,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
-            % self.root_page.id,
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {self.root_page.id}}});',
             html,
         )
 

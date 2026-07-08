@@ -56,6 +56,11 @@ else:
     TIMESTAMP_NOW = datetime.datetime(2020, 1, 1, 12, 0, 0)
 
 
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
+
+
 class TestPingView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.create_superuser(
@@ -135,7 +140,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", 999999, self.session.id),
+                args=(page_app, page_model, 999999, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -145,7 +150,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -181,7 +186,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"is_editing": "1"},
         )
@@ -226,7 +231,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -271,7 +276,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -312,7 +317,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -369,7 +374,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -435,7 +440,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {
                 "revision_id": self.original_revision.id,
@@ -484,7 +489,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {
                 "revision_id": self.original_revision.id,
@@ -542,7 +547,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {
                 "revision_id": self.original_revision.id,
@@ -616,7 +621,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -698,7 +703,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -801,7 +806,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -857,7 +862,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -889,7 +894,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             response_json["ping_url"],
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, session.id),
+                args=(page_app, page_model, self.page.id, session.id),
             ),
         )
 
@@ -912,7 +917,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             ),
             {"is_editing": "1"},
         )
@@ -955,7 +960,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1016,7 +1021,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -1059,7 +1064,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1092,7 +1097,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, new_session_id),
+                args=(page_app, page_model, self.page.id, new_session_id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -1136,7 +1141,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -1176,7 +1181,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -1254,7 +1259,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -1262,7 +1267,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.other_page.id, 999999),
+                args=(page_app, page_model, self.other_page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1286,7 +1291,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1301,7 +1306,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1466,7 +1471,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 405)
@@ -1479,7 +1484,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"is_editing": "invalid"},
         )

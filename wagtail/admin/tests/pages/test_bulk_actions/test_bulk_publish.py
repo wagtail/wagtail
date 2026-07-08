@@ -12,6 +12,10 @@ from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import Page, WagtailTestUtils
 
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
+
 
 class TestBulkPublish(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -56,8 +60,8 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "publish",
                 ),
             )
@@ -94,8 +98,8 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "publish",
                 ),
             )
@@ -301,8 +305,8 @@ class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "publish",
                 ),
             )

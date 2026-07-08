@@ -12,6 +12,10 @@ from wagtail.signals import post_page_move, pre_page_move
 from wagtail.test.testapp.models import BusinessChild, SimplePage
 from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
+
 
 class TestBulkMove(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -78,8 +82,8 @@ class TestBulkMove(PageFixturesMixin, WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
@@ -149,8 +153,8 @@ class TestBulkMove(PageFixturesMixin, WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
@@ -328,8 +332,8 @@ class TestBulkMove(PageFixturesMixin, WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
