@@ -4568,7 +4568,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4638,7 +4638,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4693,7 +4693,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4816,7 +4816,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.resolve")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4877,7 +4877,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4958,7 +4958,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -5021,7 +5021,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -5084,7 +5084,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)

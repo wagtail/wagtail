@@ -614,6 +614,17 @@ class AbstractPage(
     def get_content_type(self):
         return self.content_type
 
+    def get_base_page(self):
+        """
+        Returns this page in "non-specific" form - that is, as an instance of the
+        base page model that this page inherits from.
+        """
+        parent_link = self._meta.get_ancestor_link(self.base_page_model)
+        if parent_link:
+            return getattr(self, parent_link.name)
+        else:
+            return self
+
     @classmethod
     def get_streamfield_names(cls):
         return get_streamfield_names(cls)
