@@ -266,7 +266,12 @@ def foreign_key_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 def reverse_related_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     field: ForeignObjectRel = cast(ForeignObjectRel, field)
     schema = generator.get_reverse_related_schema(field.related_model)
-    return list[schema], [], None  # ty:ignore[invalid-type-form]
+    if field.multiple:
+        schema = list[schema]  # ty:ignore[invalid-type-form]
+    else:
+        # reverse OneToOneField
+        schema = (schema | None) if field.null else schema
+    return cast(type, schema), [], None
 
 
 def streamfield_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
