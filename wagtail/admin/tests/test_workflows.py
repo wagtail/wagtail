@@ -3,6 +3,7 @@ import json
 import logging
 from unittest import expectedFailure, mock, skip
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -4205,7 +4206,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_get_with_non_task_create_model_selected(self):
         response = self.client.get(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page"
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page")
         )
 
         self.assertEqual(response.status_code, 404)
@@ -4320,7 +4322,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_post_with_non_task_create_model_selected(self):
         response = self.client.post(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page",
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page"),
             self.get_post_data(),
         )
 

@@ -2,6 +2,7 @@ import collections
 import datetime
 import json
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -878,7 +879,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(
             set(content["__types"].keys()),
             {
-                "wagtailcore.Page",
+                swapper.get_model_name("wagtailcore", "Page"),
                 "demosite.HomePage",
                 "demosite.BlogIndexPage",
                 "demosite.BlogEntryPageCarouselItem",
