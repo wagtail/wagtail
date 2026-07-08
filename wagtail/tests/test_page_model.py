@@ -1521,6 +1521,17 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(1):
             self.assertTrue(result.content)
 
+    def test_get_base_page(self):
+        result = self.page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
+
+        specific_page = self.page.specific
+        self.assertIsInstance(specific_page, SimplePage)
+        result = specific_page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
+
 
 class TestCopyPage(TestCase):
     fixtures = ["test.json"]
@@ -2056,12 +2067,12 @@ class TestCopyPage(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -2734,12 +2745,12 @@ class TestCreateAlias(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -4021,9 +4032,11 @@ class TestLocalized(TestCase):
 
     def test_localized_different_language(self):
         with translation.override("fr"):
-            self.assertEqual(self.event_page.localized, self.fr_event_page.page_ptr)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized, self.fr_event_page.get_base_page()
+            )
+            self.assertEqual(
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -4041,7 +4054,7 @@ class TestLocalized(TestCase):
         with translation.override("fr"):
             self.assertEqual(self.event_page.localized, self.event_page)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     def test_localized_with_non_content_active_locale(self):
