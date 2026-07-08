@@ -10,6 +10,7 @@ from django.utils.translation import gettext
 from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.side_panels import ChecksSidePanel
 from wagtail.admin.userbar import AccessibilityItem, ContentCheckerItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
@@ -353,6 +354,32 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
                     },
                 },
             )
+
+    def test_checks_side_panel_respects_custom_config(self):
+        class CustomMessageContentCheckerItem(ContentCheckerItem):
+            axe_messages = {
+                "empty-heading": {
+                    "error_name": "Headings should not be empty!",
+                    "help_text": "Use meaningful text!",
+                },
+            }
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomMessageContentCheckerItem),
+        ):
+            panel = ChecksSidePanel(object=Page.objects.get(id=2), request=self.request)
+            config = panel.get_axe_configuration()
+
+        self.assertEqual(
+            config["messages"],
+            {
+                "empty-heading": {
+                    "error_name": "Headings should not be empty!",
+                    "help_text": "Use meaningful text!",
+                },
+            },
+        )
 
     def test_unset_run_only(self):
         class UnsetRunOnlyContentCheckerItem(ContentCheckerItem):
