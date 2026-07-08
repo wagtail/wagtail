@@ -17,7 +17,6 @@ from .forms import SitePermissionForm
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
-        self.permission_policy = policies_registry.get_by_type(model)
         super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse(
@@ -30,7 +29,8 @@ class SettingMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        return self.permission_policy.user_has_permission(request.user, "change")
+        permission_policy = policies_registry.get_by_type(self.model)
+        return permission_policy.user_has_permission(request.user, "change")
 
 
 class SiteSettingAdminURLFinder(ModelAdminURLFinder):

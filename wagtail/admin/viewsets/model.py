@@ -475,7 +475,8 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         from wagtail.admin.menu import MenuItem
 
         def is_shown(_self, request):
-            return self.permission_policy.user_has_any_permission(
+            permission_policy = policies_registry.get_by_type(self.model)
+            return permission_policy.user_has_any_permission(
                 request.user, self.index_view_class.any_permission_required
             )
 
