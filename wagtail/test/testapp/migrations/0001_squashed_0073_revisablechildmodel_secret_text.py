@@ -21,6 +21,10 @@ import wagtail.search.index
 import wagtail.test.testapp.models
 
 
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
+
+
 class Migration(migrations.Migration):
 
     replaces = [
@@ -208,7 +212,7 @@ class Migration(migrations.Migration):
             name="BusinessChild",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -228,7 +232,7 @@ class Migration(migrations.Migration):
             name="BusinessIndex",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -248,7 +252,7 @@ class Migration(migrations.Migration):
             name="BusinessNowherePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -268,7 +272,7 @@ class Migration(migrations.Migration):
             name="BusinessSubIndex",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -288,7 +292,7 @@ class Migration(migrations.Migration):
             name="CustomManagerPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -308,7 +312,7 @@ class Migration(migrations.Migration):
             name="EventIndex",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -329,7 +333,7 @@ class Migration(migrations.Migration):
             name="EventPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -388,7 +392,7 @@ class Migration(migrations.Migration):
             name="FilePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -409,7 +413,7 @@ class Migration(migrations.Migration):
             name="FormPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -451,7 +455,7 @@ class Migration(migrations.Migration):
             name="GenericSnippetPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -505,7 +509,7 @@ class Migration(migrations.Migration):
             name="ManyToManyBlogPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -535,7 +539,7 @@ class Migration(migrations.Migration):
             name="MTIBasePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -555,7 +559,7 @@ class Migration(migrations.Migration):
             name="MyCustomPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -600,7 +604,7 @@ class Migration(migrations.Migration):
             name="PageWithOldStyleRouteMethod",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -621,7 +625,7 @@ class Migration(migrations.Migration):
             name="SimplePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -642,7 +646,7 @@ class Migration(migrations.Migration):
             name="SingletonPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -684,7 +688,7 @@ class Migration(migrations.Migration):
             name="StandardChild",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -704,7 +708,7 @@ class Migration(migrations.Migration):
             name="StandardIndex",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -724,7 +728,7 @@ class Migration(migrations.Migration):
             name="TaggedPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -804,7 +808,7 @@ class Migration(migrations.Migration):
             name="ValidatedPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1068,7 +1072,7 @@ class Migration(migrations.Migration):
             name="OneToOnePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
@@ -1114,7 +1118,7 @@ class Migration(migrations.Migration):
             name="CustomRichTextFieldPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1135,7 +1139,7 @@ class Migration(migrations.Migration):
             name="DefaultRichTextFieldPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1156,7 +1160,7 @@ class Migration(migrations.Migration):
             name="SectionedRichTextPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1207,7 +1211,7 @@ class Migration(migrations.Migration):
             name="JadeFormPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1249,7 +1253,7 @@ class Migration(migrations.Migration):
             name="InlineStreamPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1269,7 +1273,7 @@ class Migration(migrations.Migration):
             name="FormPageWithCustomSubmission",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1475,7 +1479,7 @@ class Migration(migrations.Migration):
             name="AlwaysShowInMenusPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1495,7 +1499,7 @@ class Migration(migrations.Migration):
             name="RichTextFieldWithFeaturesPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1516,7 +1520,7 @@ class Migration(migrations.Migration):
             name="PageWithExcludedCopyField",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1543,7 +1547,7 @@ class Migration(migrations.Migration):
             name="FormPageWithRedirect",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1631,7 +1635,7 @@ class Migration(migrations.Migration):
             name="FormPageWithCustomSubmissionListView",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1675,7 +1679,7 @@ class Migration(migrations.Migration):
             name="FormPageWithCustomFormBuilder",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1732,7 +1736,7 @@ class Migration(migrations.Migration):
             name="FormClassAdditionalFieldPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1862,7 +1866,7 @@ class Migration(migrations.Migration):
             name="SingletonPageViaMaxCount",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1882,7 +1886,7 @@ class Migration(migrations.Migration):
             name="SecretPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1904,7 +1908,7 @@ class Migration(migrations.Migration):
             name="SimpleChildPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1924,7 +1928,7 @@ class Migration(migrations.Migration):
             name="SimpleParentPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -1968,7 +1972,7 @@ class Migration(migrations.Migration):
             name="PersonPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2051,7 +2055,7 @@ class Migration(migrations.Migration):
             name="RestaurantPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2703,7 +2707,7 @@ class Migration(migrations.Migration):
             name="AddedStreamFieldWithEmptyListDefaultPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2731,7 +2735,7 @@ class Migration(migrations.Migration):
             name="AddedStreamFieldWithEmptyStringDefaultPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2759,7 +2763,7 @@ class Migration(migrations.Migration):
             name="AddedStreamFieldWithoutDefaultPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2810,7 +2814,7 @@ class Migration(migrations.Migration):
             name="CustomRichBlockFieldPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2837,7 +2841,7 @@ class Migration(migrations.Migration):
             name="DeadlyStreamPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2864,7 +2868,7 @@ class Migration(migrations.Migration):
             name="DefaultRichBlockFieldPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -2891,7 +2895,7 @@ class Migration(migrations.Migration):
             name="DefaultStreamPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -3014,7 +3018,7 @@ class Migration(migrations.Migration):
             name="StreamPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -3067,7 +3071,7 @@ class Migration(migrations.Migration):
             name="TableBlockStreamPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
@@ -3746,7 +3750,7 @@ class Migration(migrations.Migration):
             name="PageWithGenericRelation",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,

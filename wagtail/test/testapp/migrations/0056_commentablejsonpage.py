@@ -8,6 +8,10 @@ import wagtail.fields
 import wagtail.test.testapp.fields
 
 
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -20,7 +24,7 @@ class Migration(migrations.Migration):
             name="CommentableJSONPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
