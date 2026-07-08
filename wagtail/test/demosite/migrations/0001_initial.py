@@ -7,6 +7,10 @@ import swapper
 import wagtail.fields
 
 
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -21,7 +25,7 @@ class Migration(migrations.Migration):
             name="BlogEntryPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -174,7 +178,7 @@ class Migration(migrations.Migration):
             name="BlogIndexPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -240,7 +244,7 @@ class Migration(migrations.Migration):
                 ("country", models.CharField(blank=True, max_length=255)),
                 ("post_code", models.CharField(blank=True, max_length=10)),
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -271,7 +275,7 @@ class Migration(migrations.Migration):
             name="EventIndexPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -330,7 +334,7 @@ class Migration(migrations.Migration):
             name="EventPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -533,7 +537,7 @@ class Migration(migrations.Migration):
             name="HomePage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -648,7 +652,7 @@ class Migration(migrations.Migration):
                 ("country", models.CharField(blank=True, max_length=255)),
                 ("post_code", models.CharField(blank=True, max_length=10)),
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -730,7 +734,7 @@ class Migration(migrations.Migration):
             name="StandardIndexPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -799,7 +803,7 @@ class Migration(migrations.Migration):
             name="StandardPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=models.CASCADE,
                         to=swapper.get_model_name("wagtailcore", "Page"),
@@ -1208,7 +1212,7 @@ class Migration(migrations.Migration):
             name="FormPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
