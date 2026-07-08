@@ -2,7 +2,6 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
 from django.utils.cache import add_never_cache_headers
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -206,10 +205,6 @@ def check_view_restrictions(document, request):
 
 class DocumentAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtaildocs:edit"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(Document)
 
 
 register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
