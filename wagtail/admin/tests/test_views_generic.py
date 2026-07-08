@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
@@ -7,7 +8,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestGenericIndexView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index"), params)
@@ -26,7 +30,10 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
 
 
 class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index_without_model"), params)
@@ -39,7 +46,10 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
 
 
 class TestGenericCreateView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -75,7 +85,10 @@ class TestGenericCreateView(WagtailTestUtils, TestCase):
 
 
 class TestGenericEditView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):
         return self.client.get(
@@ -121,7 +134,10 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
 
 
 class TestGenericDeleteView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):
         return self.client.get(

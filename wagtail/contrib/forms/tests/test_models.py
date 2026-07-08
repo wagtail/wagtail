@@ -805,7 +805,10 @@ class TestCleanedDataEmails(TestCase):
 
 
 class TestIssue798(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -846,7 +849,10 @@ class TestIssue798(WagtailTestUtils, TestCase):
 
 
 class TestNonHtmlExtension(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
@@ -856,7 +862,10 @@ class TestNonHtmlExtension(TestCase):
 
 
 class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")

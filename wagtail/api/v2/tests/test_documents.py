@@ -1,6 +1,7 @@
 import json
 from unittest import mock
 
+import swapper
 from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -12,7 +13,10 @@ from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
 class TestDocumentListing(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:documents:listing"), params)
@@ -384,7 +388,10 @@ class TestDocumentListing(TestCase):
 
 @tag("transaction")
 class TestDocumentListingSearch(TransactionTestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:documents:listing"), params)
@@ -428,7 +435,10 @@ class TestDocumentListingSearch(TransactionTestCase):
 
 
 class TestDocumentDetail(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
         return self.client.get(
@@ -567,7 +577,10 @@ class TestDocumentDetail(TestCase):
 
 
 class TestDocumentFind(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:documents:find"), params)
@@ -615,7 +628,10 @@ class TestDocumentFind(TestCase):
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestDocumentCacheInvalidation(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     @classmethod
     def setUpClass(cls):

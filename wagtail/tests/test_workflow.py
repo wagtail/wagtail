@@ -37,7 +37,10 @@ from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
 class TestWorkflowModels(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_create_workflow(self):
         # test creating and retrieving an empty Workflow from the db
@@ -148,7 +151,10 @@ class TestWorkflowModels(TestCase):
 
 
 class TestPageWorkflows(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

@@ -17,7 +17,10 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -174,7 +177,10 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
 class TestParentPageChooserViewWithLocale(
     AdminTemplateTestUtils, WagtailTestUtils, TestCase
 ):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

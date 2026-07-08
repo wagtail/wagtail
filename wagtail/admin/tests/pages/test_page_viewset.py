@@ -112,7 +112,10 @@ class TestPageViewSet(SimpleTestCase):
 
 
 class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_as_view(self):
         cases = [
@@ -187,7 +190,10 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
 
 
 class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     base_breadcrumb_items = [
         {"url": reverse("wagtailadmin_explore_root"), "label": "Root"}
     ]
@@ -565,7 +571,10 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
 
 
 class TestCustomViews(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

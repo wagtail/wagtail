@@ -26,7 +26,10 @@ def get_total_page_count():
 
 
 class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_pages"), params)
@@ -158,7 +161,10 @@ class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3PageDetail(WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def test_detail(self):
         page = Page.objects.get(id=2)

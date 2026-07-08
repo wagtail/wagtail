@@ -26,7 +26,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageQuerySet(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_live(self):
         pages = Page.objects.live()
@@ -655,7 +658,10 @@ class TestPageQuerySet(TestCase):
 
 
 class TestPageQueryInSite(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.site_2_page = SimplePage(
@@ -689,7 +695,10 @@ class TestPageQueryInSite(TestCase):
 
 @tag("transaction")
 class TestPageQuerySetSearch(TransactionTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_search(self):
         pages = EventPage.objects.search("moon", fields=["location"])
@@ -818,7 +827,10 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
     =========== =========================================
     """
 
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.live_pages = Page.objects.live().specific()
@@ -1210,7 +1222,10 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         management.call_command(
@@ -1275,7 +1290,10 @@ class TestFirstCommonAncestor(TestCase):
     of pages.
     """
 
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(url_path="/home/")

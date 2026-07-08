@@ -19,7 +19,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestBulkMove(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page

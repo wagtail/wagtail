@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.auth.models import Group
 from django.core.files.base import ContentFile
 from django.test import TestCase, override_settings
@@ -14,7 +15,10 @@ except ImportError:
 
 
 class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.fake_file = ContentFile(b"A boring example document")

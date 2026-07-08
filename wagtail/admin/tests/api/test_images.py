@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.urls import reverse
 
 from wagtail.api.v2.tests.test_images import (
@@ -14,7 +15,10 @@ from .utils import AdminAPITestCase
 
 
 class TestAdminImageListing(AdminAPITestCase, TestImageListing):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:images:listing"), params)
@@ -180,7 +184,10 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
 
 class TestAdminImageListingSearch(AdminAPITestCase, TestImageListingSearch):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:images:listing"), params)
@@ -190,7 +197,10 @@ class TestAdminImageListingSearch(AdminAPITestCase, TestImageListingSearch):
 
 
 class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
         return self.client.get(

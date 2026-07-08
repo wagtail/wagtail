@@ -2,6 +2,7 @@ from datetime import datetime
 from io import BytesIO
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
@@ -614,7 +615,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
 @tag("transaction")
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()

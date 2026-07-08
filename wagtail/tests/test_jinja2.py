@@ -67,7 +67,10 @@ class TestCoreGlobalsAndFilters(TestCase):
 
 
 class TestJinjaEscaping(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_block_render_result_is_safe(self):
         """

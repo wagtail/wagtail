@@ -98,7 +98,10 @@ def clear_edit_handler(page_cls):
 
 
 class TestPreview(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.meetings_category = EventCategory.objects.create(name="Meetings")

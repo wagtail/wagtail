@@ -320,7 +320,10 @@ class TestCreateOrUpdateForObject(TestCase):
 
 
 class TestDescribeOnDelete(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

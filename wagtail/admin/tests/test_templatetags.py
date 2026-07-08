@@ -849,7 +849,10 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
 
 
 class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     base_breadcrumb_items = []
 
     def setUp(self):
@@ -1045,7 +1048,10 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
 
 
 class PageHeaderButtonsTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = get_dummy_request()
