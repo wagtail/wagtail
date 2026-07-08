@@ -157,7 +157,10 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
 
 
 class TestFormsIndex(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -343,7 +346,10 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="superuser", password="password")
@@ -1394,7 +1400,10 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
 
 
 class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -1563,7 +1572,10 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
 
 
 class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -1899,7 +1911,10 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
     See: https://github.com/wagtail/wagtail/issues/585
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="superuser", password="password")

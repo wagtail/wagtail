@@ -36,7 +36,10 @@ class Test10411APIViewSet(PagesAPIViewSet):
 
 
 class TestPageListing(WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
@@ -1100,7 +1103,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -1272,7 +1278,10 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
 
 class TestPageDetail(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, page_id, **params):
         return self.client.get(
@@ -1714,7 +1723,10 @@ class TestPageDetail(TestCase):
 
 
 class TestPageFind(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:find"), params)
@@ -1794,7 +1806,10 @@ class TestPageFind(TestCase):
 
 
 class TestPageDetailWithStreamField(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.homepage = Page.objects.get(url_path="/home/")
@@ -1873,7 +1888,10 @@ class TestPageDetailWithStreamField(TestCase):
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestPageCacheInvalidation(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -1921,7 +1939,10 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
 
 
 class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_superuser(

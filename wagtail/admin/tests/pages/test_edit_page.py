@@ -3343,7 +3343,10 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
     # In our test models we define AdvertPlacement as a child relation on the Page model.
     # Here we check that this behaves correctly when exposed on the edit form of a Page
     # subclass (StandardIndex here).
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -3680,7 +3683,10 @@ class TestIssue3982(WagtailTestUtils, TestCase):
 
 
 class TestParentalM2M(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -3858,7 +3864,10 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
 
 
 class TestValidationerror_messages(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -4080,7 +4089,10 @@ class TestValidationerror_messages(WagtailTestUtils, TestCase):
 
 
 class TestNestedInlinePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -4250,7 +4262,10 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelector(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")

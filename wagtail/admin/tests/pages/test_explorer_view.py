@@ -1121,7 +1121,10 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_breadcrumb_next_present(self):
         self.user = self.login()
@@ -1165,7 +1168,10 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
 
 
 class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_side_panel_present(self):
         self.user = self.login()
@@ -1185,7 +1191,10 @@ class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
 
 
 class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -1420,7 +1429,10 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
     User "superman" is an admin.
     """
 
-    fixtures = ["test_explorable_pages.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_explorable_pages_basepage.json"]
+    else:
+        fixtures = ["test_explorable_pages.json"]
 
     # Integration tests adapted from @coredumperror
 
@@ -1543,7 +1555,10 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelector(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.events_page = Page.objects.get(url_path="/home/events/")
@@ -1592,7 +1607,10 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
 
 
 class TestInWorkflowStatus(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

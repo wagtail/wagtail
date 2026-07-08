@@ -718,7 +718,10 @@ class TestBulkActionsColumn(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()
@@ -899,7 +902,10 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
 
 @tag("transaction")
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()
@@ -2357,7 +2363,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_empty.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_empty_basepage.json"]
+    else:
+        fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.user = self.login()

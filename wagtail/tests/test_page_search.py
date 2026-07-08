@@ -42,7 +42,10 @@ class PageSearchTests:
     # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
     # as self.backend_name
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.backend = get_search_backend(self.backend_name)

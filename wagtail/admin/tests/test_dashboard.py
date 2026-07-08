@@ -153,7 +153,10 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
 
 
 class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.bob = self.create_superuser(username="bob", password="password")
@@ -210,7 +213,10 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
 
 
 class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.bob = self.create_superuser(username="bob", password="password")
@@ -244,7 +250,10 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
 
 
 class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.superuser = self.create_superuser(username="admin", password="password")
@@ -316,7 +325,10 @@ class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
 
 
 class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.superuser = self.create_superuser(username="admin", password="password")

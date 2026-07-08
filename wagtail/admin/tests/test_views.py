@@ -9,7 +9,10 @@ from wagtail.users.models import UserProfile
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()

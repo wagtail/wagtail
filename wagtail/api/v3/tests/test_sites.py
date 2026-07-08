@@ -17,7 +17,10 @@ SITE_FIELDS = {"id", "hostname", "port", "site_name", "root_page_id", "is_defaul
 
 
 class TestV3SiteListing(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_sites"), params)
@@ -64,7 +67,10 @@ class TestV3SiteListing(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3SiteDetail(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, site_id):
         return self.client.get(
@@ -103,7 +109,10 @@ class TestV3SiteDetail(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3SiteCreate(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -197,7 +206,10 @@ class TestV3SiteCreate(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3SiteUpdate(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -287,7 +299,10 @@ class TestV3SiteUpdate(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3SiteDelete(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()

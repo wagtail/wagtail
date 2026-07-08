@@ -2,6 +2,7 @@ import os
 import unittest
 from io import BytesIO
 
+import swapper
 import willow
 from django import forms, template
 from django.conf import settings
@@ -218,7 +219,10 @@ class TestMissingImage(TestCase):
     In this case, it's acceptable to render broken images, but not to fail rendering the page outright.
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_image_tag_with_missing_image(self):
         # the page /events/christmas/ has a missing image as the feed image

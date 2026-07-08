@@ -21,7 +21,10 @@ from wagtail.test.utils.timestamps import local_datetime
 
 
 class TestRevisions(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -214,7 +217,10 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     base_breadcrumb_items = []
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -379,7 +385,10 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
 
 class TestCompareRevisionsWithPerUserEditHandlers(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.home = Page.objects.get(url_path="/home/")
@@ -443,7 +452,10 @@ class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
     Note: Actual tests for comparison classes can be found in test_compare.py
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     # FormClassAdditionalFieldPage
 
     def setUp(self):
@@ -511,7 +523,10 @@ class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
 
 
 class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -668,7 +683,10 @@ class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
 
 
 class TestRevisionsUnscheduleForUnpublishedPages(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.unpublished_event = EventPage.objects.get(
