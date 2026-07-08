@@ -1,5 +1,4 @@
 from wagtail.actions.create import CreateAction
-from wagtail.permissions import page_permission_policy
 
 
 class CreatePageAction(CreateAction):
@@ -23,8 +22,6 @@ class CreatePageAction(CreateAction):
         # entry (via save_revision(log_action=True)) after creation.
         super().__init__(instance, user=user, log_action="wagtail.edit", **kwargs)
         self.parent = parent
-        # FIXME: use the registry
-        self.permission_policy = page_permission_policy
 
     def user_has_permission(self):
         if not super().user_has_permission():

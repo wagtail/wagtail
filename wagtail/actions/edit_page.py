@@ -1,5 +1,4 @@
 from wagtail.actions.edit import EditAction
-from wagtail.permissions import page_permission_policy
 
 
 class EditPageAction(EditAction):
@@ -9,11 +8,6 @@ class EditPageAction(EditAction):
 
     See :class:`~wagtail.actions.edit.EditAction` for the parameters.
     """
-
-    def __init__(self, instance, user=None, **kwargs):
-        super().__init__(instance, user=user, **kwargs)
-        # FIXME: use the registry
-        self.permission_policy = page_permission_policy
 
     def user_has_permission(self):
         if not super().user_has_permission():

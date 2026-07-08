@@ -1,12 +1,8 @@
 import functools
 
-import swapper
 from django.core.exceptions import PermissionDenied
 
-from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.permissions import page_permission_policy
-
-Page = swapper.load_model("wagtailcore", "Page")
+from wagtail.permissions import policies_registry
 
 
 def require_any_permission(model, actions=("add", "change", "delete", "view")):
@@ -25,13 +21,7 @@ def require_any_permission(model, actions=("add", "change", "delete", "view")):
     def decorator(view_func):
         @functools.wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            # FIXME: use the registry when it's implemented.
-            # from wagtail.permissions import policies_registry
-            # permission_policy = policies_registry.get(model)
-            if issubclass(model, Page):
-                permission_policy = page_permission_policy
-            else:
-                permission_policy = ModelPermissionPolicy(model)
+            permission_policy = policies_registry.get_by_type(model)
             if not permission_policy.user_has_any_permission(request.user, actions):
                 raise PermissionDenied
             return view_func(request, *args, **kwargs)
