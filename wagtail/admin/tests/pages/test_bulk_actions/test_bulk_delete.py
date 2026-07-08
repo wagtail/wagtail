@@ -19,6 +19,10 @@ else:
 from wagtail.test.testapp.models import SimplePage, VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
+
 
 class TestBulkDelete(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -64,8 +68,8 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "delete",
                 ),
             )
@@ -446,7 +450,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -481,7 +485,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -527,7 +531,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -579,7 +583,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )

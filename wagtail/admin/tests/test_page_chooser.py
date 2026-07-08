@@ -221,7 +221,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter
-        # (or an explicit page_type of wagtailcore.page)
+        # (or an explicit page_type of the base page model)
         response = self.get({"page_type": ""})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
@@ -298,7 +298,9 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
     def test_with_admin_display_title(self):
         # Check the display of the child page title when it's a child
-        response = self.get({"page_type": "wagtailcore.Page"})
+        response = self.get(
+            {"page_type": swapper.get_model_name("wagtailcore", "Page")}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
@@ -318,7 +320,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         # Use the child page as the chooser parent
         response = self.client.get(
             reverse("wagtailadmin_choose_page_child", args=(self.child_page.id,)),
-            params={"page_type": "wagtailcore.Page"},
+            params={"page_type": swapper.get_model_name("wagtailcore", "Page")},
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
@@ -479,7 +481,7 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter
-        # (or an explicit page_type of wagtailcore.page)
+        # (or an explicit page_type of the base page model)
         response = self.get({"q": "foobarbaz", "page_type": ""})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
@@ -593,7 +595,10 @@ class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
 
     def test_type_page(self):
         self.assertEqual(
-            self.get_best_root({"page_type": "wagtailcore.Page"}), self.tree_root
+            self.get_best_root(
+                {"page_type": swapper.get_model_name("wagtailcore", "Page")}
+            ),
+            self.tree_root,
         )
 
     def test_type_eventpage(self):

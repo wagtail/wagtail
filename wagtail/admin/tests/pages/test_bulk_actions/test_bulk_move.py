@@ -17,6 +17,10 @@ else:
 from wagtail.test.testapp.models import BusinessChild, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
+
 
 class TestBulkMove(WagtailTestUtils, TestCase):
     if swapper.is_swapped("wagtailcore", "Page"):
@@ -86,8 +90,8 @@ class TestBulkMove(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
@@ -157,8 +161,8 @@ class TestBulkMove(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
@@ -336,8 +340,8 @@ class TestBulkMove(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "move",
                 ),
             )
