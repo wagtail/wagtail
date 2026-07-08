@@ -10,6 +10,7 @@ PAGE_READ_META_SCHEMA_FIELDS = {
     "html_url",
     "slug",
     "first_published_at",
+    "locale",
 }
 
 

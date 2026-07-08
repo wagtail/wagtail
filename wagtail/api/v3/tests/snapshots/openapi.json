@@ -1074,6 +1074,17 @@
             ],
             "title": "Html Url"
           },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
           "slug": {
             "title": "Slug",
             "type": "string"

@@ -17,6 +17,7 @@ class PageMetaSchema(Schema):
     type: str | None = None
     detail_url: str | None = None
     html_url: str | None = None
+    locale: str | None = None
     slug: str
     first_published_at: datetime | None = None
 
@@ -45,6 +46,7 @@ class BasePageSchema(Schema):
             type=obj.specific_class and obj.specific_class._meta.label,
             detail_url=detail_url,
             html_url=html_url,
+            locale=obj.locale and obj.locale.language_code,
             slug=obj.slug,
             first_published_at=obj.first_published_at,
         )

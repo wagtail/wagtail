@@ -47,7 +47,14 @@ class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
             self.assertIn("meta", page)
             self.assertEqual(
                 set(page["meta"].keys()),
-                {"type", "detail_url", "html_url", "slug", "first_published_at"},
+                {
+                    "type",
+                    "detail_url",
+                    "html_url",
+                    "slug",
+                    "first_published_at",
+                    "locale",
+                },
             )
 
     @override_settings(WAGTAILAPI_BASE_URL="https://api.example.com")
@@ -174,7 +181,14 @@ class TestV3PageDetail(WagtailTestUtils, TestCase):
 
         self.assertEqual(
             set(content["meta"].keys()),
-            {"type", "detail_url", "html_url", "slug", "first_published_at"},
+            {
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "first_published_at",
+                "locale",
+            },
         )
         self.assertEqual(content["meta"]["slug"], homepage.slug)
         self.assertEqual(content["meta"]["type"], "demosite.HomePage")
