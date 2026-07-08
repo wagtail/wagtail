@@ -166,6 +166,8 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. autoattribute:: specific_class
 
+    .. automethod:: get_base_page
+
     .. autoattribute:: cached_content_type
 
     .. autoattribute:: page_type_display_name
