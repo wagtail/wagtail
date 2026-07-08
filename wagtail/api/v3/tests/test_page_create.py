@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -571,7 +572,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         response = self.post(
             {
-                "meta": {"parent_id": parent.pk, "type": "wagtailcore.Page"},
+                "meta": {
+                    "parent_id": parent.pk,
+                    "type": swapper.get_model_name("wagtailcore", "Page"),
+                },
                 "title": "New page",
                 "slug": "new-page",
             }
