@@ -4,7 +4,11 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.admin.userbar import AccessibilityItem, ContentCheckerItem, apply_userbar_hooks
+from wagtail.admin.userbar import (
+    AccessibilityItem,
+    ContentCheckerItem,
+    apply_userbar_hooks,
+)
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 from wagtail.models.view_restrictions import BaseViewRestriction
 
