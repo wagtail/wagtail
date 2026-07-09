@@ -220,10 +220,6 @@ class DocumentChooserViewSet(ChooserViewSet):
     choose_another_text = _("Choose another document")
     edit_item_text = _("Edit this document")
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_document_model())
-
 
 viewset = DocumentChooserViewSet(
     "wagtaildocs_chooser",

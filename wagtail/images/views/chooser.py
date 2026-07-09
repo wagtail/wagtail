@@ -58,10 +58,6 @@ class ImageCreationFormMixin(CreationFormMixin):
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
-
     def get_creation_form_class(self):
         return get_image_form(self.model)
 
@@ -407,10 +403,6 @@ class ImageChooserViewSet(ChooserViewSet):
     create_action_clicked_label = _("Uploading…")
     choose_another_text = _("Choose another image")
     edit_item_text = _("Edit this image")
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
 
     @property
     def select_format_view(self):

@@ -33,6 +33,7 @@ from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 from wagtail.search.index import class_is_indexed
 
 
@@ -319,7 +320,10 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     create_action_label = _("Create")
     create_action_clicked_label = None
     create_url_name = None
-    permission_policy = None
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model_class)
 
     def get_permission_policy(self):
         if self.permission_policy:
