@@ -84,7 +84,8 @@ class ChooserViewSet(ViewSet):
     create_action_clicked_label = None  #: Alternative text to display on the submit button after it has been clicked
     creation_tab_label = None  #: Label for the 'create' tab in the chooser modal (defaults to the same as create_action_label)
 
-    permission_policy = None
+    # Let the views consult the registry at request time by default.
+    permission_policy = ViewSet.UNDEFINED
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
