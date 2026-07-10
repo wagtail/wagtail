@@ -1,3 +1,5 @@
+(settings_models)=
+
 # Settings models
 
 The `wagtail.contrib.settings` module allows you to define models that hold

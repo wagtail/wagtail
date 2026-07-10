@@ -12,21 +12,30 @@ class BasePermissionPolicy:
     """
     A 'permission policy' is an object that handles all decisions about the actions
     users are allowed to perform on a given model. The mechanism by which it does this
-    is arbitrary, and may or may not involve the django.contrib.auth Permission model;
+    is arbitrary, and may or may not involve the ``django.contrib.auth``
+    :class:`~django.contrib.auth.models.Permission` model;
     it could be as simple as "allow all users to do everything".
 
     In this way, admin apps can change their permission-handling logic just by swapping
     to a different policy object, rather than having that logic spread across numerous
     view functions.
 
-    BasePermissionPolicy is an abstract class that all permission policies inherit from.
-    The only method that subclasses need to implement is users_with_any_permission;
+    ``BasePermissionPolicy`` is an abstract class that all permission policies inherit from.
+    The only method that subclasses need to implement is :meth:`users_with_any_permission`;
     all other methods can be derived from that (but in practice, subclasses will probably
     want to override additional methods, either for efficiency or to implement more
     fine-grained permission logic).
+
+
+    :param model: The model class that this permission policy applies to.
+        This may be a model class or a string in the form of ``app_label.model_name``.
     """
 
     permission_cache_name = ""
+    """
+    Attribute name on the user object to use for caching permissions information.
+    If empty, no caching will be performed.
+    """
 
     def __init__(self, model):
         self._model_or_name = model
@@ -47,8 +56,8 @@ class BasePermissionPolicy:
         """
         Return a set of all permissions that the given user has on this model.
 
-        They may be instances of django.contrib.auth.Permission, or custom
-        permission objects defined by the policy, which are not necessarily
+        They may be instances of :class:`~django.contrib.auth.models.Permission`,
+        or custom permission objects defined by the policy, which are not necessarily
         model instances.
         """
         return set()
@@ -76,14 +85,14 @@ class BasePermissionPolicy:
     def user_has_permission(self, user, action):
         """
         Return whether the given user has permission to perform the given action
-        on some or all instances of this model
+        on some or all instances of this model.
         """
         return user in self.users_with_permission(action)
 
     def user_has_any_permission(self, user, actions):
         """
         Return whether the given user has permission to perform any of the given actions
-        on some or all instances of this model
+        on some or all instances of this model.
         """
         return any(self.user_has_permission(user, action) for action in actions)
 
@@ -93,14 +102,14 @@ class BasePermissionPolicy:
     def users_with_any_permission(self, actions):
         """
         Return a queryset of users who have permission to perform any of the given actions
-        on some or all instances of this model
+        on some or all instances of this model.
         """
         raise NotImplementedError
 
     def users_with_permission(self, action):
         """
         Return a queryset of users who have permission to perform the given action on
-        some or all instances of this model
+        some or all instances of this model.
         """
         return self.users_with_any_permission([action])
 
@@ -115,14 +124,14 @@ class BasePermissionPolicy:
     def user_has_permission_for_instance(self, user, action, instance):
         """
         Return whether the given user has permission to perform the given action on the
-        given model instance
+        given model instance.
         """
         return self.user_has_permission(user, action)
 
     def user_has_any_permission_for_instance(self, user, actions, instance):
         """
         Return whether the given user has permission to perform any of the given actions
-        on the given model instance
+        on the given model instance.
         """
         return any(
             self.user_has_permission_for_instance(user, action, instance)
@@ -132,7 +141,7 @@ class BasePermissionPolicy:
     def instances_user_has_any_permission_for(self, user, actions):
         """
         Return a queryset of all instances of this model for which the given user has
-        permission to perform any of the given actions
+        permission to perform any of the given actions.
         """
         if self.user_has_any_permission(user, actions):
             return self.model._default_manager.all()
@@ -142,18 +151,22 @@ class BasePermissionPolicy:
     def instances_user_has_permission_for(self, user, action):
         """
         Return a queryset of all instances of this model for which the given user has
-        permission to perform the given action
+        permission to perform the given action.
         """
         return self.instances_user_has_any_permission_for(user, [action])
 
     def users_with_any_permission_for_instance(self, actions, instance):
         """
         Return a queryset of all users who have permission to perform any of the given
-        actions on the given model instance
+        actions on the given model instance.
         """
         return self.users_with_any_permission(actions)
 
     def users_with_permission_for_instance(self, action, instance):
+        """
+        Return a queryset of all users who have permission to perform the given
+        action on the given model instance.
+        """
         return self.users_with_any_permission_for_instance([action], instance)
 
 
@@ -205,17 +218,22 @@ class AuthenticationOnlyPermissionPolicy(BasePermissionPolicy):
 
 class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
     """
-    Extends BasePermissionPolicy with helper methods useful for policies that need to
-    perform lookups against the django.contrib.auth permission model
+    Extends :class:`~wagtail.permission_policies.BasePermissionPolicy` with
+    helper methods useful for policies that need to perform lookups against the
+    :class:`~django.contrib.auth.models.Permission` model.
+
+    :param model: The model class that this permission policy applies to.
+        This may be a model class or a string in the form of ``app_label.model_name``.
+    :param auth_model: The model class (or a string in the form of
+        ``app_label.model_name``) to use for permission record lookups.
+        Usually this will match ``model`` (which specifies the type of instances that
+        :meth:`~wagtail.permission_policies.BasePermissionPolicy.instances_user_has_permission_for` will return),
+        but this may differ when swappable models are in use - for example, an
+        interface for editing user records might use a custom ``User`` model but will
+        typically still refer to the permission records for ``auth.User``.
     """
 
     def __init__(self, model, auth_model=None):
-        # `auth_model` specifies the model to be used for permission record lookups;
-        # usually this will match `model` (which specifies the type of instances that
-        # `instances_user_has_permission_for` will return), but this may differ when
-        # swappable models are in use - for example, an interface for editing user
-        # records might use a custom User model but will typically still refer to the
-        # permission records for auth.user.
         super().__init__(model)
         self._auth_model_or_name = auth_model or model
 
@@ -288,7 +306,7 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
 class ModelPermissionPolicy(BaseDjangoAuthPermissionPolicy):
     """
     A permission policy that enforces permissions at the model level, by consulting
-    the standard django.contrib.auth permission model directly
+    the standard :class:`~django.contrib.auth.models.Permission` model directly.
     """
 
     def user_has_permission(self, user, action):
@@ -305,15 +323,15 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
     A permission policy for objects that support a concept of 'ownership', where
     the owner is typically the user who created the object.
 
-    This policy piggybacks off 'add' and 'change' permissions defined through the
-    django.contrib.auth Permission model, as follows:
+    This policy piggybacks off ``add`` and ``change`` permissions defined through the
+    :class:`~django.contrib.auth.models.Permission` model, as follows:
 
-    * any user with 'add' permission can create instances, and ALSO edit instances
-    that they own
-    * any user with 'change' permission can edit instances regardless of ownership
+    * any user with ``add`` permission can create instances, and ALSO edit instances
+      that they own
+    * any user with ``change`` permission can edit instances regardless of ownership
     * ability to edit also implies ability to delete
 
-    Besides 'add', 'change' and 'delete', no other actions are recognised or permitted
+    Besides ``add``, ``change`` and ``delete``, no other actions are recognised or permitted
     (unless the user is an active superuser, in which case they can do everything).
     """
 

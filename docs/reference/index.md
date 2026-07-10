@@ -16,6 +16,7 @@ hooks
 signals
 settings
 project_template
+permissions
 jinja2
 panels
 viewsets

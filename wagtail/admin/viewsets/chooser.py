@@ -98,7 +98,7 @@ class ChooserViewSet(ViewSet):
 
         This property is deprecated and will be removed in a future release.
         Register the permission policy for the model via
-        ``wagtail.permissions.register_permission_policy()`` instead.
+        :func:`wagtail.permissions.register_permission_policy()` instead.
     """
 
     def __init__(self, *args, **kwargs):
