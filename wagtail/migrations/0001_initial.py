@@ -13,11 +13,12 @@ def set_page_path_collation(apps, schema_editor):
 
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
-    # FIXME: need to do this on custom page models too?
     if schema_editor.connection.vendor == "postgresql":
+        Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
+        table_name = Page._meta.db_table
         schema_editor.execute(
-            """
-            ALTER TABLE wagtailcore_page ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
+            f"""
+            ALTER TABLE {table_name} ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
         """
         )
 
