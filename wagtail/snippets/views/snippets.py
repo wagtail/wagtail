@@ -1082,7 +1082,12 @@ class SnippetViewSet(ModelViewSet):
     @property
     def url_finder_class(self):
         return type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+            "_SnippetAdminURLFinder",
+            (SnippetAdminURLFinder,),
+            {
+                "model": self.model,
+                "edit_url_name": self.get_url_name("edit"),
+            },
         )
 
     def get_urlpatterns(self):
