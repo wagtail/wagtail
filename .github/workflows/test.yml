@@ -17,16 +17,17 @@ concurrency:
 # - at least one test run for each older supported version of Python and Django
 # - at least one test run for each supported Elasticsearch version
 # - a test run against Django's git main and active stable branch (allowing failures)
-# - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - test runs with USE_EMAIL_USER_MODEL=yes, USE_CUSTOM_PAGE_MODEL=yes,
+#   DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel
+# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel, USE_CUSTOM_PAGE_MODEL=yes
 # - django 5.2, python 3.10, mysql:8.0
 # - django 5.2, python 3.11, mariadb:10.5
 # - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
-# - django 6.0, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mariadb:11.4, USE_CUSTOM_PAGE_MODEL=yes
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 6.0, python 3.13, sqlite, parallel, USE_CUSTOM_PAGE_MODEL=yes
 # - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
@@ -56,7 +57,7 @@ jobs:
             parallel: '--parallel'
           - python: '3.13'
             django: 'Django>=6.0,<6.1'
-            check_template_number_format: '1'
+            custompage: 'yes'
             parallel: '--parallel'
 
     steps:
@@ -81,6 +82,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
           WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -101,6 +104,7 @@ jobs:
             psycopg: 'psycopg2>=2.8.4'
             experimental: false
             parallel: '--parallel'
+            custompage: 'yes'
           - python: '3.14'
             django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
@@ -158,6 +162,7 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -203,7 +208,7 @@ jobs:
             django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mariadb:11.4'
-            emailuser: emailuser
+            custompage: 'yes'
           - python: '3.12'
             django: 'Django>=6.0,<6.1'
             experimental: false
@@ -248,6 +253,7 @@ jobs:
           DATABASE_USER: root
           DATABASE_PASSWORD: root
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -302,6 +308,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -368,6 +376,8 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -418,6 +428,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
