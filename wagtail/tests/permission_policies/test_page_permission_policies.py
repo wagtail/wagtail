@@ -1,8 +1,14 @@
+import swapper
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.test import TestCase
 
-from wagtail.models import GroupPagePermission, Page, get_default_page_content_type
+from wagtail.models import GroupPagePermission, get_default_page_content_type
 from wagtail.permission_policies.pages import PagePermissionPolicy
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.tests.permission_policies.test_permission_policies import (
     PermissionPolicyTestUtils,
@@ -27,7 +33,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=root_editors_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.CHANGE_PERMISSION_CODENAME
             ),
         )
 
@@ -36,7 +42,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_editors_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.CHANGE_PERMISSION_CODENAME
             ),
         )
 
@@ -45,7 +51,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_adders_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="add_page"
+                content_type=page_type, codename=Page.ADD_PERMISSION_CODENAME
             ),
         )
 

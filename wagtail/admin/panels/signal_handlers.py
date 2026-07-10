@@ -2,7 +2,7 @@ from django.apps import apps
 from django.core.signals import setting_changed
 from django.dispatch import receiver
 
-from wagtail.models import Page
+from wagtail.models import AbstractPage
 
 from .model_utils import get_edit_handler
 
@@ -14,6 +14,6 @@ def reset_edit_handler_cache(**kwargs):
     """
     if kwargs["setting"] == "WAGTAILADMIN_COMMENTS_ENABLED":
         for model in apps.get_models():
-            if issubclass(model, Page):
+            if issubclass(model, AbstractPage):
                 model.get_edit_handler.cache_clear()
         get_edit_handler.cache_clear()

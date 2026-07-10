@@ -1,6 +1,7 @@
 import datetime
 import os
 
+import swapper
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
@@ -15,6 +16,8 @@ from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
+
+swapper.set_app_prefix("wagtailcore", "wagtail")
 
 FORM_FIELD_CHOICES = (
     ("singleline", _("Single line text")),
@@ -42,7 +45,9 @@ class AbstractFormSubmission(models.Model):
     """
 
     form_data = models.JSONField(encoder=DjangoJSONEncoder)
-    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    page = models.ForeignKey(
+        swapper.get_model_name("wagtailcore", "Page"), on_delete=models.CASCADE
+    )
 
     submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
 
@@ -322,6 +327,9 @@ def validate_to_address(value):
 
 class AbstractForm(FormMixin, Page):
     """A Form Page. Pages implementing a form should inherit from it."""
+
+    # TODO: document that AbstractForm and AbstractEmailForm will not work with custom page models,
+    # and that you should use FormMixin and EmailFormMixin instead.
 
     class Meta:
         abstract = True

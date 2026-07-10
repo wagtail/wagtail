@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase, override_settings
@@ -12,7 +13,12 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.components import Component
 from wagtail.admin.userbar import AccessibilityItem, ContentCheckerItem, Userbar
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
+from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -671,7 +677,10 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
 
 
 class TestUserbarAddLink(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

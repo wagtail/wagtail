@@ -1,5 +1,6 @@
 import unittest.mock
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -29,8 +30,12 @@ from wagtail.models import (
     GroupCollectionPermission,
     GroupPagePermission,
     LockableMixin,
-    Page,
 )
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
 from wagtail.test.customuser.viewsets import CustomUserViewSet
 from wagtail.test.testapp.models import VariousOnDeleteModel
@@ -1724,7 +1729,10 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["change_page", "publish_page"],
+                "page_permissions-0-permissions": [
+                    Page.CHANGE_PERMISSION_CODENAME,
+                    Page.PUBLISH_PERMISSION_CODENAME,
+                ],
                 "page_permissions-TOTAL_FORMS": ["1"],
                 "document_permissions-0-collection": [
                     Collection.get_first_root_node().pk
@@ -1752,9 +1760,9 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["publish_page"],
+                "page_permissions-0-permissions": [Page.PUBLISH_PERMISSION_CODENAME],
                 "page_permissions-1-page": ["1"],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.CHANGE_PERMISSION_CODENAME],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2068,7 +2076,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "page_permissions-MAX_NUM_FORMS": ["1000"],
             "page_permissions-INITIAL_FORMS": ["1"],
             "page_permissions-0-page": [self.root_page.pk],
-            "page_permissions-0-permissions": ["add_page"],
+            "page_permissions-0-permissions": [Page.ADD_PERMISSION_CODENAME],
             "document_permissions-TOTAL_FORMS": ["1"],
             "document_permissions-MAX_NUM_FORMS": ["1000"],
             "document_permissions-INITIAL_FORMS": ["1"],
@@ -2178,9 +2186,9 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-0-permissions": [
-                    "add_page",
-                    "publish_page",
-                    "change_page",
+                    Page.ADD_PERMISSION_CODENAME,
+                    Page.PUBLISH_PERMISSION_CODENAME,
+                    Page.CHANGE_PERMISSION_CODENAME,
                 ],
             }
         )
@@ -2323,7 +2331,8 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]["permissions"].value(), ["add_page"]
+            page_permissions_formset.forms[0]["permissions"].value(),
+            [Page.ADD_PERMISSION_CODENAME],
         )
 
         # add edit permission on root
@@ -2346,7 +2355,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.ADD_PERMISSION_CODENAME, Page.CHANGE_PERMISSION_CODENAME},
         )
 
         # add edit permission on home
@@ -2368,13 +2377,14 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.ADD_PERMISSION_CODENAME, Page.CHANGE_PERMISSION_CODENAME},
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["page"].value(), self.home_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[1]["permissions"].value(), ["change_page"]
+            page_permissions_formset.forms[1]["permissions"].value(),
+            [Page.CHANGE_PERMISSION_CODENAME],
         )
 
     def test_duplicate_page_permissions_error(self):
@@ -2382,7 +2392,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-1-page": [self.root_page.pk],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.CHANGE_PERMISSION_CODENAME],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )

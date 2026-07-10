@@ -1,5 +1,6 @@
 from io import BytesIO
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
@@ -10,7 +11,12 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects import models
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
@@ -20,7 +26,10 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
     ALLOWED_HOSTS=["testserver", "localhost", "test.example.com", "other.example.com"]
 )
 class TestRedirects(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
@@ -831,7 +840,10 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     },
 )
 class TestRedirectsAddView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login()

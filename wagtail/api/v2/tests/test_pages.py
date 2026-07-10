@@ -1,8 +1,10 @@
 import collections
 import json
+import unittest
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -13,8 +15,13 @@ from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
@@ -36,7 +43,10 @@ class Test10411APIViewSet(PagesAPIViewSet):
 
 
 class TestPageListing(WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
@@ -312,6 +322,25 @@ class TestPageListing(WagtailTestUtils, TestCase):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "seo_title",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -330,23 +359,31 @@ class TestPageListing(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "seo_title",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        removed_fields = "*,-title,-date,-seo_title"
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-date"
+
         response = self.get_response(
-            type="demosite.BlogEntryPage", fields="*,-title,-date,-seo_title"
+            type="demosite.BlogEntryPage", fields=removed_fields
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -366,17 +403,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_remove_all_fields(self):
@@ -604,6 +631,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [12])
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus="false")
         content = json.loads(response.content.decode("UTF-8"))
@@ -671,6 +702,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
             "field filter error. 'abc' is not a valid value for feed_image",
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus="abc")
         content = json.loads(response.content.decode("UTF-8"))
@@ -1100,7 +1135,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -1272,7 +1310,10 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
 
 class TestPageDetail(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, page_id, **params):
         return self.client.get(
@@ -1417,18 +1458,29 @@ class TestPageDetail(TestCase):
         ]
         self.assertEqual(list(content.keys()), field_order)
 
-        meta_field_order = [
-            "type",
-            "detail_url",
-            "html_url",
-            "slug",
-            "show_in_menus",
-            "seo_title",
-            "search_description",
-            "first_published_at",
-            "alias_of",
-            "parent",
-        ]
+        if swapper.is_swapped("wagtailcore", "Page"):
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
+        else:
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
         self.assertEqual(list(content["meta"].keys()), meta_field_order)
 
     def test_null_foreign_key(self):
@@ -1521,9 +1573,15 @@ class TestPageDetail(TestCase):
         self.assertNotIn("html_url", set(content["meta"].keys()))
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = (
+                "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-parent",
+            )
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1714,7 +1772,10 @@ class TestPageDetail(TestCase):
 
 
 class TestPageFind(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:find"), params)
@@ -1794,7 +1855,10 @@ class TestPageFind(TestCase):
 
 
 class TestPageDetailWithStreamField(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.homepage = Page.objects.get(url_path="/home/")
@@ -1873,7 +1937,10 @@ class TestPageDetailWithStreamField(TestCase):
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestPageCacheInvalidation(TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -1921,7 +1988,10 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
 
 
 class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_superuser(

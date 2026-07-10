@@ -1,6 +1,7 @@
 import datetime
 from io import BytesIO
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
@@ -8,13 +9,21 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from openpyxl import load_workbook
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import EventPage
 from wagtail.test.utils import WagtailTestUtils
 
 
 class TestContentTypeUse(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

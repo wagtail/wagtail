@@ -3,6 +3,7 @@ import json
 import unittest
 from unittest.mock import Mock
 
+import swapper
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -23,7 +24,6 @@ from wagtail.models import (
     Comment,
     GroupApprovalTask,
     Locale,
-    Page,
     PageLogEntry,
     PageManager,
     PageViewRestriction,
@@ -34,6 +34,11 @@ from wagtail.models import (
     get_translatable_models,
 )
 from wagtail.signals import page_published
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     AbstractPage,
     Advert,
@@ -81,7 +86,10 @@ def get_ct(model):
 
 
 class TestValidation(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_can_create(self):
         """
@@ -221,7 +229,10 @@ class TestAsyncMethods(TestCase):
     ]
 )
 class TestSiteRouting(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
@@ -379,7 +390,10 @@ class TestSiteRouting(TestCase):
 
 
 class TestRouting(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
     # in some tests here
@@ -842,7 +856,10 @@ class TestRoutingWithI18N(TestRouting):
 
 
 class TestServeView(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Explicitly clear the cache of site root paths. Normally this would be kept
@@ -946,7 +963,10 @@ class TestServeView(TestCase):
 
 
 class TestMovePage(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_move_page(self):
         about_us_page = SimplePage.objects.get(url_path="/home/about-us/")
@@ -967,7 +987,10 @@ class TestMovePage(TestCase):
 
 
 class TestPrevNextSiblings(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_get_next_siblings(self):
         christmas_event = Page.objects.get(url_path="/home/events/christmas/")
@@ -1000,7 +1023,10 @@ class TestPrevNextSiblings(TestCase):
 
 
 class TestSaveRevision(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_raises_error_if_non_specific_page_used(self):
         christmas_event = Page.objects.get(url_path="/home/events/christmas/")
@@ -1193,7 +1219,10 @@ class TestSaveRevision(WagtailTestUtils, TestCase):
 
 
 class TestLiveRevision(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @freeze_time("2017-01-01 12:00:00")
     def test_publish_method_will_set_live_revision(self):
@@ -1396,7 +1425,10 @@ class TestLiveRevision(TestCase):
 
 
 class TestPageGetSpecific(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -1516,9 +1548,23 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(1):
             self.assertTrue(result.content)
 
+    def test_get_base_page(self):
+        result = self.page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
+
+        specific_page = self.page.specific
+        self.assertIsInstance(specific_page, SimplePage)
+        result = specific_page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
+
 
 class TestCopyPage(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_copy_page_copies(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
@@ -2051,12 +2097,12 @@ class TestCopyPage(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -2496,7 +2542,10 @@ class TestCopyPage(TestCase):
 
 
 class TestCreateAlias(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_create_alias(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
@@ -2729,12 +2778,12 @@ class TestCreateAlias(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -3004,7 +3053,10 @@ class TestCreateAlias(TestCase):
 
 
 class TestUpdateAliases(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_update_aliases(self):
         event_page = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -3103,7 +3155,10 @@ class TestUpdateAliases(TestCase):
 
 
 class TestCopyForTranslation(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.en_homepage = Page.objects.get(url_path="/home/").specific
@@ -3393,7 +3448,10 @@ class TestIssue735(TestCase):
     updated correctly when slugs of parent pages are updated
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_child_urls_updated_on_parent_publish(self):
         event_index = Page.objects.get(url_path="/home/events/").specific
@@ -3433,7 +3491,10 @@ class TestIssue1216(TestCase):
     Test that url paths greater than 255 characters are supported
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_url_path_can_exceed_255_characters(self):
         event_index = Page.objects.get(url_path="/home/events/").specific
@@ -3554,7 +3615,10 @@ class TestIssue2024(TestCase):
     This tests that deleting a content type can't delete any Page objects.
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_delete_content_type(self):
         event_index = Page.objects.get(url_path="/home/events/")
@@ -3573,10 +3637,13 @@ class TestIssue2024(TestCase):
 
 
 class TestMakePreviewRequest(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_make_preview_request_for_accessible_page(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3603,7 +3670,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_accessible_page_https(self):
         Site.objects.update(port=443)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3630,7 +3697,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_accessible_page_non_standard_port(self):
         Site.objects.update(port=8888)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3655,7 +3722,7 @@ class TestMakePreviewRequest(TestCase):
         self.assertIn("wsgi.run_once", request.META)
 
     def test_make_preview_request_for_accessible_page_with_original_request(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         original_headers = {
             "REMOTE_ADDR": "192.168.0.1",
             "HTTP_X_FORWARDED_FOR": "192.168.0.2,192.168.0.3",
@@ -3705,7 +3772,7 @@ class TestMakePreviewRequest(TestCase):
 
     @override_settings(ALLOWED_HOSTS=["production.example.com"])
     def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3719,7 +3786,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
         self,
     ):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3728,7 +3795,7 @@ class TestMakePreviewRequest(TestCase):
         self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
         event_index.add_child(instance=stream_page)
         plain_stream_page = Page.objects.get(id=stream_page.id)
@@ -3748,12 +3815,19 @@ class TestMakePreviewRequest(TestCase):
             self.assertTrue(event_index.is_previewable())
 
 
+@unittest.skipIf(
+    swapper.is_swapped("wagtailcore", "Page"),
+    "show_in_menus is not available on custom base page models",
+)
 class TestShowInMenusDefaultOption(TestCase):
     """
     This tests that a page model can define the default for 'show_in_menus'
     """
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_show_in_menus_default(self):
         # Create a page that does not have the default init
@@ -3771,7 +3845,10 @@ class TestShowInMenusDefaultOption(TestCase):
 
 
 class TestPageWithContentJSON(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_with_content_json_preserves_values(self):
         original_page = SimplePage.objects.get(url_path="/home/about-us/")
@@ -3798,7 +3875,6 @@ class TestPageWithContentJSON(TestCase):
             locked_at="2000-01-01T00:00:00Z",
             has_unpublished_changes=not original_page.has_unpublished_changes,
             content_type=eventpage_content_type.id,
-            show_in_menus=not original_page.show_in_menus,
             owner=1,
         )
 
@@ -3806,7 +3882,7 @@ class TestPageWithContentJSON(TestCase):
         updated_page = original_page.with_content_json(content)
 
         # The following attributes values should have changed
-        for attr_name in ("title", "slug", "content", "url_path", "show_in_menus"):
+        for attr_name in ("title", "slug", "content", "url_path"):
             self.assertNotEqual(
                 getattr(original_page, attr_name), getattr(updated_page, attr_name)
             )
@@ -3870,7 +3946,10 @@ class TestPageWithContentJSON(TestCase):
 
 
 class TestUnpublish(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_unpublish_doesnt_call_full_clean_before_save(self):
         root_page = Page.objects.get(id=1)
@@ -3998,7 +4077,10 @@ class TestDefaultLocale(TestCase):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocalized(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.fr_locale = Locale.objects.create(language_code="fr")
@@ -4016,9 +4098,11 @@ class TestLocalized(TestCase):
 
     def test_localized_different_language(self):
         with translation.override("fr"):
-            self.assertEqual(self.event_page.localized, self.fr_event_page.page_ptr)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized, self.fr_event_page.get_base_page()
+            )
+            self.assertEqual(
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -4036,7 +4120,7 @@ class TestLocalized(TestCase):
         with translation.override("fr"):
             self.assertEqual(self.event_page.localized, self.event_page)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     def test_localized_with_non_content_active_locale(self):
@@ -4068,7 +4152,10 @@ class TestLocalized(TestCase):
 
 
 class TestGetLock(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_when_unlocked(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -4226,7 +4313,10 @@ class TestGetLock(TestCase):
 
 
 class TestPageCacheKey(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.page = Page.objects.last()
@@ -4249,7 +4339,10 @@ class TestPageCacheKey(TestCase):
 
 
 class TestPageCachedParentObjExists(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_cached_parent_obj_exists(self):
         # https://github.com/wagtail/wagtail/pull/11737

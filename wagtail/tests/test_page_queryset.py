@@ -1,15 +1,22 @@
+import unittest
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase, TransactionTestCase, tag
 
-from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
+from wagtail.models import Locale, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     EventPage,
     SimplePage,
@@ -20,7 +27,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageQuerySet(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_live(self):
         pages = Page.objects.live()
@@ -44,6 +54,10 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path="/home/events/someone-elses-event/")
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus is not available on custom base page models",
+    )
     def test_in_menu(self):
         pages = Page.objects.in_menu()
 
@@ -55,6 +69,10 @@ class TestPageQuerySet(TestCase):
         events_index = Page.objects.get(url_path="/home/events/")
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus is not available on custom base page models",
+    )
     def test_not_in_menu(self):
         pages = Page.objects.not_in_menu()
 
@@ -649,7 +667,10 @@ class TestPageQuerySet(TestCase):
 
 
 class TestPageQueryInSite(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.site_2_page = SimplePage(
@@ -683,7 +704,10 @@ class TestPageQueryInSite(TestCase):
 
 @tag("transaction")
 class TestPageQuerySetSearch(TransactionTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_search(self):
         pages = EventPage.objects.search("moon", fields=["location"])
@@ -812,7 +836,10 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
     =========== =========================================
     """
 
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.live_pages = Page.objects.live().specific()
@@ -855,7 +882,8 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             qs = Page.objects.live().order_by("-url_path")[:3].specific()
 
         with self.assertNumQueries(3):
-            # Metadata, EventIndex and EventPage
+            # Metadata, EventIndex and EventPage. We do not need a query on SimplePage because
+            # there are no instances of that in the slice we have taken.
             pages = list(qs)
 
         self.assertEqual(len(pages), 3)
@@ -874,21 +902,21 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # 'someone-elses-event' and the tentative event are unpublished.
 
         with self.assertNumQueries(0):
-            qs = Page.objects.specific().live().in_menu().order_by("-url_path")[:4]
+            qs = Page.objects.specific().live().order_by("-url_path")[:3]
 
-        with self.assertNumQueries(4):
-            # Metadata, EventIndex, EventPage, SimplePage.
+        with self.assertNumQueries(3):
+            # Metadata, EventIndex, EventPage. We do not need a query on SimplePage because
+            # there are no instances of that in the slice we have taken.
             pages = list(qs)
 
-        self.assertEqual(len(pages), 4)
+        self.assertEqual(len(pages), 3)
 
         self.assertEqual(
             pages,
             [
+                Page.objects.get(url_path="/home/other/special-event/").specific,
                 Page.objects.get(url_path="/home/other/").specific,
                 Page.objects.get(url_path="/home/events/christmas/").specific,
-                Page.objects.get(url_path="/home/events/").specific,
-                Page.objects.get(url_path="/home/about-us/").specific,
             ],
         )
 
@@ -1204,7 +1232,10 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
 @tag("transaction")
 class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         management.call_command(
@@ -1248,19 +1279,22 @@ class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
         pages = list(
             Page.objects.specific()
             .live()
-            .in_menu()
+            .filter(depth__gt=2)
             .search(MATCH_ALL, backend="wagtail.search.backends.database")
         )
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here
-        self.assertEqual(len(pages), 4)
-        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
-        self.assertIn(
-            Page.objects.get(url_path="/home/events/christmas/").specific, pages
+        self.assertCountEqual(
+            pages,
+            [
+                Page.objects.get(url_path="/home/other/special-event/").specific,
+                Page.objects.get(url_path="/home/other/").specific,
+                Page.objects.get(url_path="/home/events/christmas/").specific,
+                Page.objects.get(url_path="/home/events/").specific,
+                Page.objects.get(url_path="/home/about-us/").specific,
+            ],
         )
-        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
-        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
 
 
 class TestFirstCommonAncestor(TestCase):
@@ -1269,7 +1303,10 @@ class TestFirstCommonAncestor(TestCase):
     of pages.
     """
 
-    fixtures = ["test_specific.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_specific_basepage.json"]
+    else:
+        fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(url_path="/home/")

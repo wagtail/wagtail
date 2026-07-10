@@ -1,3 +1,4 @@
+import swapper
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
@@ -8,13 +9,13 @@ import wagtail.search.index
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model("contenttypes.ContentType")
     Group = apps.get_model("auth.Group")
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
     Site = apps.get_model("wagtailcore.Site")
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
 
     # Create page content type
     page_content_type, created = ContentType.objects.get_or_create(
-        model="page", app_label="wagtailcore"
+        model=Page._meta.model_name, app_label=Page._meta.app_label
     )
 
     # Create root page
@@ -118,9 +119,11 @@ def set_page_path_collation(apps, schema_editor):
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
     if schema_editor.connection.vendor == "postgresql":
+        Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
+        table_name = Page._meta.db_table
         schema_editor.execute(
-            """
-            ALTER TABLE wagtailcore_page ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
+            f"""
+            ALTER TABLE {table_name} ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
         """
         )
 
@@ -296,6 +299,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
+                "swappable": swapper.swappable_setting("wagtailcore", "Page"),
             },
             bases=(wagtail.search.index.Indexed, models.Model),
         ),
@@ -340,7 +344,7 @@ class Migration(migrations.Migration):
                         on_delete=models.CASCADE,
                         verbose_name="Page",
                         related_name="group_permissions",
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
@@ -385,7 +389,7 @@ class Migration(migrations.Migration):
                         on_delete=models.CASCADE,
                         verbose_name="Page",
                         related_name="revisions",
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (
@@ -423,7 +427,7 @@ class Migration(migrations.Migration):
                         on_delete=models.CASCADE,
                         verbose_name="Page",
                         related_name="view_restrictions",
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
@@ -479,7 +483,7 @@ class Migration(migrations.Migration):
                         on_delete=models.CASCADE,
                         verbose_name="Root page",
                         related_name="sites_rooted_here",
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],

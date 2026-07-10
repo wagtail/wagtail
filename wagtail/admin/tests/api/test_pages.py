@@ -2,6 +2,7 @@ import collections
 import datetime
 import json
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -15,7 +16,12 @@ from wagtail.api.v2.tests.test_pages import (
     TestPageListing,
     TestPageListingSearch,
 )
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Locale, PageLogEntry
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.demosite import models
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.testapp.models import (
@@ -36,7 +42,10 @@ def get_total_page_count():
 
 
 class TestAdminPageListing(AdminAPITestCase, TestPageListing):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:pages:listing"), params)
@@ -247,6 +256,32 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "seo_title",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "status",
+            "latest_revision_created_at",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -266,31 +301,39 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "seo_title",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "status",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "latest_revision_created_at",
+        }
+        removed_fields = "*,-title,-admin_display_title,-date,-seo_title,-status"
+
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-admin_display_title,-date,-status"
+
         response = self.get_response(
             type="demosite.BlogEntryPage",
-            fields="*,-title,-admin_display_title,-date,-seo_title,-status",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -310,23 +353,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_nested_fields(self):
@@ -748,7 +775,10 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
 
 class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, page_id, **params):
         return self.client.get(
@@ -877,7 +907,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(
             set(content["__types"].keys()),
             {
-                "wagtailcore.Page",
+                swapper.get_model_name("wagtailcore", "Page"),
                 "demosite.HomePage",
                 "demosite.BlogIndexPage",
                 "demosite.BlogEntryPageCarouselItem",
@@ -1077,9 +1107,13 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     # FIELDS
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-parent,-status"
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1123,7 +1157,10 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
 
 class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:pages:listing"), params)
@@ -1136,7 +1173,10 @@ class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):
 
 
 class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -1179,7 +1219,10 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
 
 
 class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -1210,7 +1253,10 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
 
 
 class TestCopyPageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1426,7 +1472,10 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
 
 
 class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -1473,7 +1522,7 @@ class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
                 }
             },
         )
-        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.page, self.alias_page.get_base_page())
         self.assertEqual(log.revision, revision)
         self.assertEqual(log.user, self.user)
 
@@ -1499,7 +1548,10 @@ class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
 
 
 class TestDeletePageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id):
         return self.client.post(
@@ -1537,7 +1589,10 @@ class TestDeletePageAction(AdminAPITestCase, TestCase):
 
 
 class TestPublishPageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id):
         return self.client.post(
@@ -1600,7 +1655,10 @@ class TestPublishPageAction(AdminAPITestCase, TestCase):
 
 
 class TestUnpublishPageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1672,7 +1730,10 @@ class TestUnpublishPageAction(AdminAPITestCase, TestCase):
 
 
 class TestMovePageAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1717,7 +1778,10 @@ class TestMovePageAction(AdminAPITestCase, TestCase):
 
 
 class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1871,7 +1935,10 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
 
 
 class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -1988,7 +2055,10 @@ class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
 
 
 class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

@@ -1,11 +1,12 @@
 from unittest.mock import patch
 
+import swapper
 from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
@@ -15,12 +16,20 @@ from wagtail.rich_text import (
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.test.utils.form_data import rich_text
 
 
 class TestPageLinktypeHandler(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_expand_db_attributes(self):
         result = PageLinkHandler.expand_db_attributes(
@@ -46,7 +55,10 @@ class TestPageLinktypeHandler(TestCase):
     ROOT_URLCONF="wagtail.test.urls_multilang",
 )
 class TestPageLinktypeHandlerWithI18N(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.fr_locale = Locale.objects.create(language_code="fr")
@@ -87,7 +99,10 @@ class TestExtractAttrs(TestCase):
 
 
 class TestExpandDbHtml(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_expand_db_html_no_linktype(self):
         html = '<a id="1">foo</a>'
@@ -220,7 +235,10 @@ This is another image: <embed embedtype="image" id="2" format="left" />
 
 
 class TestRichTextValue(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_construct_with_none(self):
         value = RichText(None)
@@ -360,7 +378,10 @@ class TestLinkRewriterTagReplacing(TestCase):
 
 
 class TestRichTextField(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_get_searchable_content(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")

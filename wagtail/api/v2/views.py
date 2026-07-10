@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
@@ -14,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, Site
+from wagtail.models import Site
 
 from .filters import (
     AncestorOfFilter,
@@ -35,6 +36,8 @@ from .utils import (
     page_models_from_string,
     parse_fields_parameter,
 )
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -466,17 +469,27 @@ class PagesAPIViewSet(BaseAPIViewSet):
     body_fields = BaseAPIViewSet.body_fields + [
         "title",
     ]
+
     meta_fields = BaseAPIViewSet.meta_fields + [
         "html_url",
         "slug",
-        "show_in_menus",
-        "seo_title",
-        "search_description",
-        "first_published_at",
-        "alias_of",
-        "parent",
-        "locale",
     ]
+    for field in ["show_in_menus", "seo_title", "search_description"]:
+        try:
+            Page._meta.get_field(field)
+        except FieldDoesNotExist:
+            pass
+        else:
+            meta_fields.append(field)
+    meta_fields.extend(
+        [
+            "first_published_at",
+            "alias_of",
+            "parent",
+            "locale",
+        ]
+    )
+
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         "title",
         "html_url",

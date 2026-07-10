@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from io import BytesIO
 
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
@@ -28,7 +29,12 @@ from wagtail.coreutils import (
     safe_snake_case,
     string_to_ascii,
 )
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.templates import template_is_overridden
 from wagtail.utils.utils import deep_update, flatten_choices

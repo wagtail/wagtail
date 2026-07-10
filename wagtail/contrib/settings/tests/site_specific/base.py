@@ -1,5 +1,12 @@
+import swapper
+
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import TestSiteSetting
 
 

@@ -1,3 +1,4 @@
+import swapper
 from django.core import mail
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
@@ -9,7 +10,11 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_redirect,
     make_types_test_form_page,
 )
-from wagtail.models import Page
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
@@ -800,7 +805,10 @@ class TestCleanedDataEmails(TestCase):
 
 
 class TestIssue798(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -841,7 +849,10 @@ class TestIssue798(WagtailTestUtils, TestCase):
 
 
 class TestNonHtmlExtension(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
@@ -851,7 +862,10 @@ class TestNonHtmlExtension(TestCase):
 
 
 class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")

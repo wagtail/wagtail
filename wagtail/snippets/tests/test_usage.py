@@ -1,12 +1,18 @@
 from io import StringIO
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.core import management
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page, ReferenceIndex
+from wagtail.models import ReferenceIndex
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
@@ -17,7 +23,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestUsageCount(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):
@@ -31,7 +40,10 @@ class TestUsageCount(TestCase):
 
 
 class TestUsedBy(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):
@@ -50,7 +62,10 @@ class TestUsedBy(TestCase):
 
 
 class TestSnippetUsageView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

@@ -4,6 +4,11 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 import uuid
+import swapper
+
+
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
 
 
 class Migration(migrations.Migration):
@@ -51,21 +56,21 @@ class Migration(migrations.Migration):
             name="TestPage",
             fields=[
                 (
-                    "page_ptr",
+                    parent_rel_name,
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
             ],
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=(swapper.get_model_name("wagtailcore", "Page"),),
         ),
         migrations.CreateModel(
             name="InheritedTestModel",

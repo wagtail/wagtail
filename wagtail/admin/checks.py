@@ -1,5 +1,6 @@
 import os
 
+import swapper
 from django.core.checks import Error, Tags, Warning, register
 
 
@@ -105,7 +106,8 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
 def check_panels_in_model(cls, context="model"):
     """Check panels configuration uses `panels` when `edit_handler` not in use."""
     from wagtail.admin.panels import InlinePanel, PanelGroup
-    from wagtail.models import Page
+
+    Page = swapper.load_model("wagtailcore", "Page")
 
     errors = []
 

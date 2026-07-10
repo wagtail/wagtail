@@ -1,10 +1,16 @@
+import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.testapp.models import EventIndex
 from wagtail.test.utils import WagtailTestUtils
@@ -21,7 +27,10 @@ User = get_user_model()
     },
 )
 class TestAutocreateRedirects(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

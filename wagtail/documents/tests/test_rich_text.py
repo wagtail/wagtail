@@ -1,3 +1,4 @@
+import swapper
 from django.test import TestCase
 from django.urls import reverse_lazy
 
@@ -14,7 +15,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
         soup = self.get_soup('<a data-id="test-id">foo</a>')
@@ -39,7 +43,10 @@ class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
 
 
 class TestFrontendDocumentLinkHandler(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_expand_db_attributes_for_frontend(self):
         result = FrontendDocumentLinkHandler.expand_db_attributes({"id": 1})

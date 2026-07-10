@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -96,7 +97,10 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
 
 
 class TestSnippetEditView(BaseTestSnippetEditView):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -769,7 +773,10 @@ class TestEditFileUploadSnippet(BaseTestSnippetEditView):
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     LOCALE_SELECTOR_LABEL = "Switch locales"
     LOCALE_INDICATOR_HTML = '<h3 id="status-sidebar-english"'
@@ -3170,7 +3177,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
 
 class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

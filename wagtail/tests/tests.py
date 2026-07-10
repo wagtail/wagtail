@@ -1,6 +1,7 @@
 import json
 import re
 
+import swapper
 from django import template
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -18,13 +19,18 @@ from wagtail.coreutils import (
     make_wagtail_template_fragment_key,
     resolve_model_string,
 )
-from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models import Locale, Site, SiteRootPath
 from wagtail.models.sites import (
     SITE_ROOT_PATHS_CACHE_KEY,
     SITE_ROOT_PATHS_CACHE_VERSION,
 )
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 
 
@@ -32,7 +38,10 @@ from wagtail.test.testapp.models import SimplePage
     CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 )
 class TestPageUrlTags(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -264,7 +273,10 @@ class TestPageUrlTags(TestCase):
 
 
 class TestWagtailSiteTag(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
         request = get_dummy_request(site=Site.objects.first())
@@ -285,7 +297,10 @@ class TestWagtailSiteTag(TestCase):
 
 
 class TestSiteRootPathsCache(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def get_cached_site_root_paths(self):
         return cache.get(
@@ -492,38 +507,38 @@ class TestSiteRootPathsCache(TestCase):
 
 class TestResolveModelString(TestCase):
     def test_resolve_from_string(self):
-        model = resolve_model_string("wagtailcore.Page")
+        model = resolve_model_string("wagtailcore.Site")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_default_app(self):
-        model = resolve_model_string("Page", default_app="wagtailcore")
+        model = resolve_model_string("Site", default_app="wagtailcore")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_different_default_app(self):
-        model = resolve_model_string("wagtailcore.Page", default_app="wagtailadmin")
+        model = resolve_model_string("wagtailcore.Site", default_app="wagtailadmin")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_class(self):
-        model = resolve_model_string(Page)
+        model = resolve_model_string(Site)
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_invalid(self):
-        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Page")
+        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Site")
 
     def test_resolve_from_string_with_incorrect_default_app(self):
         self.assertRaises(
-            LookupError, resolve_model_string, "Page", default_app="wagtailadmin"
+            LookupError, resolve_model_string, "Site", default_app="wagtailadmin"
         )
 
     def test_resolve_from_string_with_unknown_model_string(self):
-        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Page")
+        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Site")
 
     def test_resolve_from_string_with_no_default_app(self):
-        self.assertRaises(ValueError, resolve_model_string, "Page")
+        self.assertRaises(ValueError, resolve_model_string, "Site")
 
     def test_resolve_from_class_that_isnt_a_model(self):
         model = resolve_model_string(object)
@@ -652,7 +667,10 @@ class TestWagtailCacheTag(TestCase):
 
 
 class TestWagtailPageCacheTag(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
@@ -7,10 +8,18 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.models import Page
 from wagtail.signals import page_unpublished
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
 
 
 class TestBulkUnpublish(WagtailTestUtils, TestCase):
@@ -33,8 +42,8 @@ class TestBulkUnpublish(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "unpublish",
                 ),
             )
@@ -69,8 +78,8 @@ class TestBulkUnpublish(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "unpublish",
                 ),
             )
@@ -239,8 +248,8 @@ class TestBulkUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "unpublish",
                 ),
             )

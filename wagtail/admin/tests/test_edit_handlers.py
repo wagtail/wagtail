@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -44,7 +45,12 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.images import get_image_model
-from wagtail.models import Comment, CommentReply, Page, Site
+from wagtail.models import Comment, CommentReply, Site
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     Advert,
@@ -1185,7 +1191,10 @@ class TestFieldRowPanelWithChooser(TestCase):
 
 
 class TestPageChooserPanel(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1219,7 +1228,9 @@ class TestPageChooserPanel(TestCase):
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_html()
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
 
         self.assertIn(expected_js, result)
@@ -1241,7 +1252,9 @@ class TestPageChooserPanel(TestCase):
 
         # the canChooseRoot flag on PageChooser should now be true
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
         self.assertIn(expected_js, result)
 
@@ -1341,7 +1354,10 @@ class TestPageChooserPanel(TestCase):
 
 
 class TestInlinePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1588,7 +1604,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = get_dummy_request()
@@ -1624,7 +1643,10 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
 
 
 class TestInlinePanelGetComparison(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1732,7 +1754,10 @@ There are no tabs on non-Page model editing within InlinePanels.""",
 
 
 class TestCommentPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.commenting_user = get_user_model().objects.get(pk=7)
@@ -2070,7 +2095,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
 
 
 class TestPublishingPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -2135,7 +2163,10 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
 
 
 class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -2159,7 +2190,10 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -2340,7 +2374,10 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
 
 
 class TestTitleFieldPanel(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

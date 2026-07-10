@@ -1,8 +1,14 @@
+import swapper
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import PageLogEntry
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -84,6 +90,6 @@ class TestConvertAlias(WagtailTestUtils, TestCase):
                 }
             },
         )
-        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.page, self.alias_page.get_base_page())
         self.assertEqual(log.revision, revision)
         self.assertEqual(log.user, self.user)

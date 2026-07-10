@@ -1,7 +1,11 @@
+import swapper
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
@@ -13,7 +17,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageReorder(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def __init__(self, methodName: str = ...) -> None:
         super().__init__(methodName)

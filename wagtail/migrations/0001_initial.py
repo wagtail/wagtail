@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.db import migrations, models
 
@@ -12,6 +13,7 @@ def set_page_path_collation(apps, schema_editor):
 
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
+    # FIXME: need to do this on custom page models too?
     if schema_editor.connection.vendor == "postgresql":
         schema_editor.execute(
             """
@@ -186,7 +188,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="revisions",
                     ),
                 ),
@@ -220,7 +222,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="view_restrictions",
                     ),
                 ),
@@ -266,7 +268,7 @@ class Migration(migrations.Migration):
                     "root_page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="sites_rooted_here",
                     ),
                 ),
@@ -283,7 +285,7 @@ class Migration(migrations.Migration):
             name="page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 related_name="group_permissions",
             ),
             preserve_default=True,

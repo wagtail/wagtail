@@ -2,6 +2,7 @@
 
 import django.db.models.deletion
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -19,7 +20,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="head_count_relations",
-                to="wagtailcore.page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
         ),
     ]

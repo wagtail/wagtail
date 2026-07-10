@@ -3,6 +3,7 @@
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -22,7 +23,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.PROTECT,
                 related_name="+",
-                to="wagtailcore.page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
         ),
         migrations.AddField(

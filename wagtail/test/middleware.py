@@ -1,7 +1,11 @@
+import swapper
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.utils.deprecation import MiddlewareMixin
 
-from wagtail.models import Page
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.views import serve
 
 

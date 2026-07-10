@@ -1,11 +1,17 @@
 from unittest import mock
 
+import swapper
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 
 from wagtail import hooks
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import PageViewRestriction
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve, serve_chain
 from wagtail.wagtail_hooks import check_view_restrictions
@@ -16,7 +22,10 @@ def test_hook():
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -44,7 +53,10 @@ class TestLoginView(WagtailTestUtils, TestCase):
 
 
 class TestServeHooks(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.page = Page.objects.get(id=2)

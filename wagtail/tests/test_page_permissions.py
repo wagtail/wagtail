@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
@@ -9,11 +10,15 @@ from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
     Locale,
-    Page,
     Workflow,
     WorkflowTask,
 )
 from wagtail.permission_policies.pages import PagePermissionPolicy
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
     CustomPermissionPage,
@@ -29,7 +34,10 @@ from wagtail.test.testapp.models import (
 
 
 class TestPagePermission(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def create_workflow_and_task(self):
         workflow = Workflow.objects.create(name="test_workflow")
@@ -279,7 +287,8 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="change_page"
+            group__name="Event moderators",
+            permission__codename=Page.CHANGE_PERMISSION_CODENAME,
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -815,7 +824,8 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="unlock_page"
+            group__name="Event moderators",
+            permission__codename=Page.UNLOCK_PERMISSION_CODENAME,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -834,7 +844,8 @@ class TestPagePermission(TestCase):
         christmas_page.save()
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="unlock_page"
+            group__name="Event moderators",
+            permission__codename=Page.UNLOCK_PERMISSION_CODENAME,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -993,7 +1004,10 @@ class TestPagePermission(TestCase):
 class TestPagePermissionTesterCanCopyTo(TestCase):
     """Tests PagePermissionTester.can_copy_to()"""
 
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # These same pages will be used for testing the result for each user
@@ -1080,9 +1094,10 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
 
 
 class TestPagePermissionModel(TestCase):
-    fixtures = [
-        "test.json",
-    ]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_create_with_permission_type_only(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
@@ -1090,4 +1105,6 @@ class TestPagePermissionModel(TestCase):
         group_permission = GroupPagePermission.objects.create(
             group=user.groups.first(), page=page, permission_type="add"
         )
-        self.assertEqual(group_permission.permission.codename, "add_page")
+        self.assertEqual(
+            group_permission.permission.codename, Page.ADD_PERMISSION_CODENAME
+        )

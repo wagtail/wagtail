@@ -1,11 +1,17 @@
+import swapper
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.utils import WagtailTestUtils
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 def get_total_page_count():
@@ -20,7 +26,10 @@ def get_total_page_count():
 
 
 class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_pages"), params)
@@ -152,7 +161,10 @@ class TestV3PageListing(TestV3Base, WagtailTestUtils, TestCase):
 
 
 class TestV3PageDetail(WagtailTestUtils, TestCase):
-    fixtures = ["demosite.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["demosite_basepage.json"]
+    else:
+        fixtures = ["demosite.json"]
 
     def test_detail(self):
         page = Page.objects.get(id=2)

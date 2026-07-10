@@ -2,6 +2,7 @@ import datetime
 from io import BytesIO
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.conf.locale import LANG_INFO
 from django.contrib.auth.models import Group, Permission
@@ -21,10 +22,14 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     ModelLogEntry,
-    Page,
     PageLogEntry,
     Site,
 )
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     EventPage,
@@ -323,7 +328,10 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
 
 class TestFilteredLockedPagesView(BaseReportViewTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:locked_pages"
 
     def setUp(self):
@@ -372,7 +380,10 @@ class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
 
 
 class TestFilteredLogEntriesView(BaseReportViewTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:site_history"
 
     def setUp(self):
@@ -1068,7 +1079,10 @@ class TestAgingPagesViewPermissions(BaseReportViewTestCase):
 
 
 class TestFilteredAgingPagesView(BaseReportViewTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:aging_pages"
 
     def setUp(self):
@@ -1124,7 +1138,10 @@ class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
 
 
 class PageTypesUsageReportViewTest(BaseReportViewTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
     def setUp(self):
@@ -1426,7 +1443,10 @@ class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
 
 
 class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
     def test_simple(self):

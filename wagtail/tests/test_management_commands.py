@@ -2,6 +2,7 @@ from datetime import timedelta
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
@@ -13,7 +14,6 @@ from django.utils import timezone
 from wagtail.embeds.models import Embed
 from wagtail.models import (
     Collection,
-    Page,
     PageLogEntry,
     Revision,
     Task,
@@ -21,6 +21,11 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.signals import page_published, page_unpublished, published, unpublished
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     DraftStateModel,
     EventPage,
@@ -33,7 +38,10 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestFixTreeCommand(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def badly_delete_page(self, page):
         # Deletes a page the wrong way.
@@ -149,7 +157,10 @@ class TestFixTreeCommand(TestCase):
 
 
 class TestMovePagesCommand(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def run_command(self, from_, to):
         management.call_command("move_pages", str(from_), str(to), stdout=StringIO())
@@ -169,7 +180,10 @@ class TestMovePagesCommand(TestCase):
 
 
 class TestSetUrlPathsCommand(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def run_command(self):
         management.call_command("set_url_paths", stdout=StringIO())
@@ -186,7 +200,10 @@ class TestSetUrlPathsCommand(TestCase):
     }
 )
 class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         cache.clear()
@@ -225,7 +242,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(48):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -283,7 +300,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(48):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -320,7 +337,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(48):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
@@ -349,7 +366,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(42):
+        with self.assertNumQueries(41):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
@@ -386,7 +403,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
 
-            with self.assertNumQueries(29):
+            with self.assertNumQueries(28):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -432,7 +449,10 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
     }
 )
 class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         cache.clear()
@@ -773,7 +793,10 @@ class TestPurgeRevisionsCommandForSnippetsWithPagesOnly(
 
 
 class TestPurgeEmbedsCommand(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         # create dummy Embed objects
@@ -807,7 +830,10 @@ class TestPurgeEmbedsCommand(TestCase):
 
 
 class TestCreateLogEntriesFromRevisionsCommand(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def setUp(self):
         self.page = SimplePage(
@@ -883,8 +909,13 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
         )
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
+        method_path = (
+            "wagtail.test.basepage.models.BasePage.specific_class"
+            if swapper.is_swapped("wagtailcore", "Page")
+            else "wagtail.models.Page.specific_class"
+        )
         with mock.patch(
-            "wagtail.models.Page.specific_class",
+            method_path,
             return_value=None,
             new_callable=mock.PropertyMock,
         ):

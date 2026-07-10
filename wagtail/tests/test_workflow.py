@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock, skip
 
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -13,7 +14,6 @@ from freezegun import freeze_time
 
 from wagtail.models import (
     GroupApprovalTask,
-    Page,
     Task,
     TaskState,
     Workflow,
@@ -22,6 +22,11 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     ModeratedModel,
@@ -32,7 +37,10 @@ from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
 class TestWorkflowModels(TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     def test_create_workflow(self):
         # test creating and retrieving an empty Workflow from the db
@@ -143,7 +151,10 @@ class TestWorkflowModels(TestCase):
 
 
 class TestPageWorkflows(WagtailTestUtils, TestCase):
-    fixtures = ["test.json"]
+    if swapper.is_swapped("wagtailcore", "Page"):
+        fixtures = ["test_basepage.json"]
+    else:
+        fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):
