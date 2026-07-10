@@ -4,6 +4,8 @@
 
 Wagtail adapts and extends [the Django permission system](inv:django#topic-authorization) to cater to the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
+This document provides an introduction to the basics of how permissions can be configured in the Wagtail admin. For a more detailed look at how permissions are implemented in Wagtail, refer to [Permissions reference](permissions_reference).
+
 ```{note}
 Whilst Wagtail supports a number of user roles and permissions, the Wagtail Admin should still be restricted to trusted users.
 ```
