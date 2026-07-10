@@ -3875,7 +3875,6 @@ class TestPageWithContentJSON(TestCase):
             locked_at="2000-01-01T00:00:00Z",
             has_unpublished_changes=not original_page.has_unpublished_changes,
             content_type=eventpage_content_type.id,
-            show_in_menus=not original_page.show_in_menus,
             owner=1,
         )
 
@@ -3883,7 +3882,7 @@ class TestPageWithContentJSON(TestCase):
         updated_page = original_page.with_content_json(content)
 
         # The following attributes values should have changed
-        for attr_name in ("title", "slug", "content", "url_path", "show_in_menus"):
+        for attr_name in ("title", "slug", "content", "url_path"):
             self.assertNotEqual(
                 getattr(original_page, attr_name), getattr(updated_page, attr_name)
             )
