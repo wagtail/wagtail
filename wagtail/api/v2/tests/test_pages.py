@@ -314,6 +314,25 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "seo_title",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -332,23 +351,31 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "seo_title",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        removed_fields = "*,-title,-date,-seo_title"
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-date"
+
         response = self.get_response(
-            type="demosite.BlogEntryPage", fields="*,-title,-date,-seo_title"
+            type="demosite.BlogEntryPage", fields=removed_fields
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -368,17 +395,7 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_remove_all_fields(self):
@@ -1427,18 +1444,29 @@ class TestPageDetail(PageFixturesMixin, TestCase):
         ]
         self.assertEqual(list(content.keys()), field_order)
 
-        meta_field_order = [
-            "type",
-            "detail_url",
-            "html_url",
-            "slug",
-            "show_in_menus",
-            "seo_title",
-            "search_description",
-            "first_published_at",
-            "alias_of",
-            "parent",
-        ]
+        if swapper.is_swapped("wagtailcore", "Page"):
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
+        else:
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
         self.assertEqual(list(content["meta"].keys()), meta_field_order)
 
     def test_null_foreign_key(self):
@@ -1531,9 +1559,15 @@ class TestPageDetail(PageFixturesMixin, TestCase):
         self.assertNotIn("html_url", set(content["meta"].keys()))
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = (
+                "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-parent",
+            )
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
