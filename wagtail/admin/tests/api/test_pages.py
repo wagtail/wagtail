@@ -256,6 +256,32 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "seo_title",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "status",
+            "latest_revision_created_at",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -275,31 +301,39 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "seo_title",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "status",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "latest_revision_created_at",
+        }
+        removed_fields = "*,-title,-admin_display_title,-date,-seo_title,-status"
+
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-admin_display_title,-date,-status"
+
         response = self.get_response(
             type="demosite.BlogEntryPage",
-            fields="*,-title,-admin_display_title,-date,-seo_title,-status",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -319,23 +353,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_nested_fields(self):
@@ -1089,9 +1107,13 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     # FIELDS
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-parent,-status"
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
