@@ -1,0 +1,92 @@
+[
+  {
+    "pk": "00000000-0000-0000-0000-000000000001",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Clark",
+      "last_name": "Kent",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "groups": [],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "superman@example.com"
+    }
+  },
+  {
+    "pk": "00000000-0000-0000-0000-000000000002",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "groups": [["Group 1"]],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "jane@example.com"
+    }
+  },
+  {
+    "pk": "00000000-0000-0000-0000-000000000003",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Bob",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "groups": [["Group 2"]],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "bob@example.com"
+    }
+  },
+  {
+    "pk": "00000000-0000-0000-0000-000000000004",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "groups": [["Group 1"], ["Group 2"]],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "sam@example.com"
+    }
+  },
+  {
+    "pk": "00000000-0000-0000-0000-000000000005",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Mary",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "groups": [],
+      "user_permissions": [["access_admin", "wagtailadmin", "admin"]],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "mary@example.com"
+    }
+  },
+  {
+    "pk": "00000000-0000-0000-0000-000000000006",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "Josh",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "groups": [["Group 2"], ["Group 3"]],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "josh@example.com"
+    }
+  }
+]
