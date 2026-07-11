@@ -145,18 +145,20 @@ class TestLocaleModel(TestCase):
                 self.assertEqual(locale.get_display_name(), expected_result)
 
     def test_get_display_name_disambiguates_unconfigured_variants(self):
-        # Django reports several English variants under the generic "English"
-        # name. Unconfigured variants must not collapse to the same label,
-        # otherwise they are indistinguishable in the Locales admin listing.
-        display_names = {
-            Locale(language_code=code).get_display_name()
-            for code in ("en-us", "en-ca", "en-nz")
-        }
-        self.assertEqual(len(display_names), 3)
-        self.assertEqual(
-            display_names,
-            {"English (en-us)", "English (en-ca)", "English (en-nz)"},
-        )
+        # Django reports several English variants under the same generic
+        # language name, so without the language code suffix these unconfigured
+        # locales would collapse to the same label and be indistinguishable in
+        # the Locales admin listing. Assert the suffix and uniqueness rather
+        # than the exact base name, which can vary across Django versions and
+        # locale data.
+        codes = ("en-us", "en-ca", "en-nz")
+        display_names = [
+            Locale(language_code=code).get_display_name() for code in codes
+        ]
+        for code, display_name in zip(codes, display_names):
+            with self.subTest(code):
+                self.assertTrue(display_name.endswith(f"({code})"))
+        self.assertEqual(len(set(display_names)), len(codes))
 
     def test_str_reflects_get_display(self):
         for language_code in ("en", "zh-hans", "foo"):
