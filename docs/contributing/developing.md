@@ -64,6 +64,18 @@ pip install -e path/to/wagtail[testing,docs] --config-settings editable-mode=str
 
 Here, `path/to/wagtail` is the path to your local Wagtail copy.
 
+(installing_just)=
+
+## Installing just
+
+Wagtail's common development tasks - linting, formatting, running tests, and building the documentation - are provided as recipes in the root `justfile`, run with [`just`](https://just.systems/), a lightweight command runner. Install it by following the [`just` installation instructions](https://just.systems/man/en/packages.html) for your platform, then run the following from the project root to see all available recipes:
+
+```sh
+just --list
+```
+
+Using `just` is optional - each recipe is a thin wrapper around the underlying tools, so you can always run those directly if you prefer.
+
 (development_on_windows)=
 
 ## Development on Windows
@@ -72,7 +84,7 @@ Documentation for development on Windows has some gaps and should be considered 
 
 If you are confident with Python and Node development on Windows and wish to proceed here are some helpful tips.
 
-We recommend [Chocolatey](https://chocolatey.org/install) for managing packages in Windows. Once Chocolatey is installed you can then install the [`make`](https://community.chocolatey.org/packages/make) utility in order to run common build and development commands.
+We recommend [Chocolatey](https://chocolatey.org/install) for managing packages in Windows. Once Chocolatey is installed you can then install the [`just`](https://community.chocolatey.org/packages/just) command runner in order to run common build and development commands (see [](installing_just)).
 
 We use LF for our line endings. To effectively collaborate with other developers on different operating systems, use Git's automatic CRLF handling by setting the `core.autocrlf` config to `true`:
 
@@ -266,8 +278,7 @@ pip install -e .[docs] --config-settings editable-mode=strict
 # or if using zsh as your shell:
 #    pip install -e '.[docs]' -U
 # Compile the docs
-cd docs/
-make html
+just docs
 ```
 
 The compiled documentation will now be in `docs/_build/html`.
@@ -291,9 +302,8 @@ To clear the built HTML and start fresh, so you can see all warnings thrown when
 ```sh
 # Starting from the wagtail root directory:
 
-cd docs/
-make clean
-make html
+rm -rf docs/_build
+just docs
 ```
 
 Wagtail also provides a way for documentation to be compiled automatically on each change.
@@ -302,8 +312,7 @@ To do this, you can run the following command to see the changes automatically a
 ```sh
 # Starting from the wagtail root directory:
 
-cd docs/
-make livehtml
+just docs-serve
 ```
 
 (linting_and_formatting)=
@@ -316,12 +325,12 @@ Wagtail makes use of various tools to ensure consistency and readability across 
 - [djhtml](https://github.com/rtts/djhtml) and [Curlylint](https://www.curlylint.org/) for formatting and linting HTML templates
 - [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and [ESLint](https://eslint.org/) for formatting and linting JavaScript and CSS code
 
-All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. Here are the available commands:
+All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. These tasks are provided as [`just`](https://just.systems/) recipes (see [](installing_just)):
 
--   `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
--   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+-   `just lint` will run all linting, `just lint-server` lints Python and template code, and `just lint-client` lints JS/CSS.
+-   `just format` will run all formatting and fixing of linting issues. There is also `just format-server` and `just format-client`.
 
-Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
+Run `just` (or `just --list`) to see all available recipes, and have a look at our `justfile` and `package.json` scripts if you prefer more granular options.
 
 ### Automatically lint and code format on commits
 

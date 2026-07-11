@@ -308,7 +308,7 @@ If you have done all of that and think you can give it a go, add a comment with 
 
 0. The fix or feature you are working on
 1. Tests
-2. Linted code (we make use of [pre-commit](https://pre-commit.com/). You can run all formatting with `make format`)
+2. Linted code (we make use of [pre-commit](https://pre-commit.com/). You can run all formatting with `just format`)
 3. Updated documentation where relevant (such as when adding a new feature)
 
 ### What if I fix multiple issues in the same pull request (PR)

@@ -34,6 +34,7 @@ Changelog
  * Maintenance: Refactor pages' function-based views to class-based views (Sage Abdullah)
  * Maintenance: Add renovate configuration to automate Python dependencies management (Sage Abdullah)
  * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
+ * Maintenance: Replace the root `Makefile` with a `just` `justfile` for development tasks (Shresth Samyak)
 
 
 7.4.2 (15.06.2026)

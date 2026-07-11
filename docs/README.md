@@ -5,17 +5,17 @@ These are Sphinx docs, automatically built at [https://docs.wagtail.org](https:/
 pip install -e .[testing,docs] --config-settings editable-mode=strict
 ```
 
-To build the documentation for browsing, from this directory run:
+To build the documentation for browsing, from the repository root run:
 
 **On Linux / macOS:**
 ```sh
-make html
+just docs
 ```
 **On Windows:**
 ```
-python -m sphinx . _build/html
+python -m sphinx docs docs/_build/html
 ```
-then open `_build/html/index.html` in a browser.
+then open `docs/_build/html/index.html` in a browser.
 
 To rebuild automatically while editing the documentation, from this directory run:
 ```

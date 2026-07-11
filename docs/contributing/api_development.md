@@ -11,7 +11,7 @@ CI asserts that `api.get_openapi_schema()` matches `wagtail/api/v3/tests/snapsho
 When you add or change endpoints intentionally, regenerate the snapshot and commit the changes:
 
 ```bash
-make openapi-snapshot
+just openapi-snapshot
 ```
 
 ## Type checking
