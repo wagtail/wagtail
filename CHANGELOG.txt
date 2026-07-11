@@ -23,6 +23,7 @@ Changelog
  * Fix: Use canonical URL for TED oEmbed provider (Marquis Nobles)
  * Fix: Prevent icons from capturing clicks inside buttons (Maciek Baron)
  * Fix: Prevent stale content types from breaking audit log message formatting (Thibaud Colas)
+ * Fix: Distinguish locales with unsupported language codes in the admin by appending the language code to their display name (Shresth Samyak)
  * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
  * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)

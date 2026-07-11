@@ -135,12 +135,28 @@ class TestLocaleModel(TestCase):
     def test_get_display_name(self):
         for language_code, expected_result in (
             ("en", "English"),  # configured
-            ("zh-hans", "Simplified Chinese"),  # not configured but valid
-            ("foo", "foo"),  # not configured or valid
+            # not configured but recognised - the language code is appended so
+            # that unsupported locales remain distinguishable in the admin
+            ("zh-hans", "Simplified Chinese (zh-hans)"),
+            ("foo", "foo"),  # not configured or recognised
         ):
             locale = Locale(language_code=language_code)
             with self.subTest(language_code):
                 self.assertEqual(locale.get_display_name(), expected_result)
+
+    def test_get_display_name_disambiguates_unconfigured_variants(self):
+        # Django reports several English variants under the generic "English"
+        # name. Unconfigured variants must not collapse to the same label,
+        # otherwise they are indistinguishable in the Locales admin listing.
+        display_names = {
+            Locale(language_code=code).get_display_name()
+            for code in ("en-us", "en-ca", "en-nz")
+        }
+        self.assertEqual(len(display_names), 3)
+        self.assertEqual(
+            display_names,
+            {"English (en-us)", "English (en-ca)", "English (en-nz)"},
+        )
 
     def test_str_reflects_get_display(self):
         for language_code in ("en", "zh-hans", "foo"):

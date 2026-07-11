@@ -87,8 +87,13 @@ class Locale(models.Model):
             return get_content_languages()[self.language_code]
         except KeyError:
             pass
+        # The language code is not configured in WAGTAIL_CONTENT_LANGUAGES, so this
+        # locale is flagged as unsupported in the admin. Include the language code
+        # alongside the name so that locales whose names resolve to the same value
+        # remain distinguishable - for example, Django reports both "en-us" and
+        # "en-ca" as "English", which would otherwise render identically.
         try:
-            return self.language_name
+            return f"{self.language_name} ({self.language_code})"
         except KeyError:
             pass
 
