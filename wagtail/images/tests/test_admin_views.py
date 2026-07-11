@@ -595,6 +595,9 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(link)
         self.assertEqual(link.text.strip(), "Used 0 times")
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_order_by_usage_count(self):
         with self.captureOnCommitCallbacks(execute=True):
             VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
@@ -613,7 +616,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                 )
                 with (
                     self.subTest(layout=layout, ordering=ordering),
-                    self.assertNumQueries(22),
+                    self.assertNumQueries(12),
                 ):
                     response = self.client.get(
                         reverse("wagtailimages:index"),
@@ -2289,6 +2292,9 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_list_mode(self):
         image = Image.objects.create(
             title="Test image",
@@ -2299,7 +2305,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             VariousOnDeleteModel.objects.create(protected_image=image)
 
         response = self.get({"layout": "list"})
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(11):
             response = self.get({"layout": "list"})
 
         self.assertEqual(response.status_code, 200)

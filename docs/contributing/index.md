@@ -78,6 +78,7 @@ Creating and maintaining packages is a great way to contribute to the Django and
 
 first_contribution_guide
 developing
+api_development
 general_guidelines
 python_guidelines
 ui_guidelines

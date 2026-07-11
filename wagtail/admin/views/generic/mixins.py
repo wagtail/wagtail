@@ -28,7 +28,6 @@ from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
-from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -41,7 +40,6 @@ from wagtail.models import (
     WorkflowMixin,
     WorkflowState,
 )
-from wagtail.models.orderable import set_max_order
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -516,61 +514,44 @@ class CreateEditViewOptionalFeaturesMixin:
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        if self.draftstate_enabled:
-            instance = self.form.save(
-                commit=self.view_name == "edit" and not self.object.live
-            )
-
-            # If DraftStateMixin is applied, only save to the database in CreateView,
-            # and make sure the live field is set to False.
-            if self.view_name == "create":
-                instance.live = False
-                instance.save()
-                self.form.save_m2m()
-        else:
-            instance = self.form.save()
-
-        # Apply max order number if the model uses custom ordering and the
-        # sort_order_field is not set.
-        if (
-            self.view_name == "create"
-            and self.sort_order_field
-            and getattr(instance, self.sort_order_field) is None
-        ):
-            set_max_order(instance, self.sort_order_field)
-
-        self.has_content_changes = self.view_name == "create" or self.form.has_changed()
-
-        # Save revision if the model inherits from RevisionMixin
-        self.new_revision = None
-        if self.revision_enabled:
-            overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-            if overwrite_revision_id:
-                try:
-                    overwrite_revision = instance.revisions.get(
-                        pk=overwrite_revision_id
-                    )
-                except Revision.DoesNotExist as e:
-                    raise PermissionDenied(
-                        "Cannot overwrite a revision that does not exist"
-                    ) from e
-            else:
-                overwrite_revision = None
-
-            self.new_revision = instance.save_revision(
+        # Publishing, if any, happens separately in publish_action (after this),
+        # so the action never publishes here; clean reflects whether we're saving
+        # a draft. Permission is already checked by the view.
+        if self.view_name == "create":
+            action = self.action_class(
+                self.form.instance,
                 user=self.request.user,
+                form=self.form,
+                sort_order_field=self.sort_order_field,
                 clean=not self.saving_as_draft,
-                overwrite_revision=overwrite_revision,
+            )
+        else:
+            action = self.action_class(
+                self.form.instance,
+                user=self.request.user,
+                form=self.form,
+                overwrite_revision=self.overwrite_revision,
+                clean=not self.saving_as_draft,
             )
 
-        log(
-            instance=instance,
-            action="wagtail.create" if self.view_name == "create" else "wagtail.edit",
-            revision=self.new_revision,
-            content_changed=self.has_content_changes,
-        )
+        instance = action.execute(skip_permission_checks=True)
+        self.new_revision = action.revision
 
         return instance
+
+    @cached_property
+    def overwrite_revision(self):
+        if not self.revision_enabled:
+            return None
+        overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+        if not overwrite_revision_id:
+            return None
+        try:
+            return self.object.revisions.get(pk=overwrite_revision_id)
+        except Revision.DoesNotExist as e:
+            raise PermissionDenied(
+                "Cannot overwrite a revision that does not exist"
+            ) from e
 
     def publish_action(self):
         hook_response = self.run_hook("before_publish", self.request, self.object)

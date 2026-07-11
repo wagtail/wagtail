@@ -18,3 +18,9 @@ class WagtailRedirectsAppConfig(AppConfig):
 
         post_page_move.connect(autocreate_redirects_on_page_move)
         page_slug_changed.connect(autocreate_redirects_on_slug_change)
+
+        from wagtail.api.v3.api import api
+
+        from .api import router
+
+        api.add_router("/redirects/", router)

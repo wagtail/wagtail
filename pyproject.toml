@@ -38,6 +38,8 @@ dependencies = [
   "django-taggit>=5.0,<7",
   "django-treebeard>=4.8,<6.0",
   "djangorestframework>=3.15.1,<4.0",
+  "django-ninja>=1.4,<2.0",
+  "pydantic>=2,<3",
   "django-filter>=23.3",
   "draftjs_exporter>=2.1.5,<6.0",
   "Pillow>=9.1.0",
@@ -74,9 +76,11 @@ testing = [
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.15.17",
+  "ruff==0.15.20",
+  "ty==0.0.56",
+  "django-stubs==6.0.6",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.166.0",
+  "semgrep==1.168.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
@@ -96,6 +100,8 @@ docs = [
   "sphinx-wagtail-theme>=6.5.0,<7",
   "myst_parser>=4.0.0,<6",
   "sphinx_llm>=0.2.1",
+  "sphinxcontrib-openapi>=0.9.0",
+  "sphinxcontrib-httpdomain>=1.5.0",
 ]
 
 [project.scripts]
@@ -127,3 +133,7 @@ include = ["wagtail*"]
 
 [tool.setuptools.dynamic]
 version = { attr = "wagtail.__version__" }
+
+[tool.ty.src]
+# Scoped to specific modules for gradual adoption.
+include = ["wagtail/api/v3"]

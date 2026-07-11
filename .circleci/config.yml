@@ -21,6 +21,7 @@ jobs:
       - run: echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
       - run: ruff check .
       - run: ruff format --check .
+      - run: ty check
       - run: semgrep --config .semgrep.yml --error .
       - run: git ls-files '*.html' | xargs djhtml --check
       - run: curlylint --parse-only wagtail
@@ -33,7 +34,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:24.16.0
+      - image: cimg/node:24.18.0
     steps:
       - checkout
       - restore_cache:

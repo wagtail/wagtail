@@ -1,0 +1,866 @@
+{
+  "components": {
+    "schemas": {
+      "ContentTypeListSchema": {
+        "properties": {
+          "types": {
+            "items": {
+              "$ref": "#/components/schemas/ContentTypeSummarySchema"
+            },
+            "title": "Types",
+            "type": "array"
+          }
+        },
+        "required": ["types"],
+        "title": "ContentTypeListSchema",
+        "type": "object"
+      },
+      "ContentTypeSummarySchema": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": ["name", "label"],
+        "title": "ContentTypeSummarySchema",
+        "type": "object"
+      },
+      "Input": {
+        "properties": {
+          "limit": {
+            "default": 20,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "PageListingSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "PageListingSchema",
+        "type": "object"
+      },
+      "PageMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["slug"],
+        "title": "PageMetaSchema",
+        "type": "object"
+      },
+      "PagedPageListingSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PageListingSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedPageListingSchema",
+        "type": "object"
+      },
+      "PagedRedirectSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RedirectSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedRedirectSchema",
+        "type": "object"
+      },
+      "PagedSiteSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SiteSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedSiteSchema",
+        "type": "object"
+      },
+      "RedirectInputSchema": {
+        "properties": {
+          "is_permanent": {
+            "default": true,
+            "title": "Is Permanent",
+            "type": "boolean"
+          },
+          "old_path": {
+            "title": "Old Path",
+            "type": "string"
+          },
+          "redirect_link": {
+            "default": "",
+            "title": "Redirect Link",
+            "type": "string"
+          },
+          "redirect_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Page Id"
+          },
+          "redirect_page_route_path": {
+            "default": "",
+            "title": "Redirect Page Route Path",
+            "type": "string"
+          },
+          "site": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Site"
+          }
+        },
+        "required": ["old_path"],
+        "title": "RedirectInputSchema",
+        "type": "object"
+      },
+      "RedirectSchema": {
+        "properties": {
+          "automatically_created": {
+            "title": "Automatically Created",
+            "type": "boolean"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_permanent": {
+            "title": "Is Permanent",
+            "type": "boolean"
+          },
+          "old_path": {
+            "title": "Old Path",
+            "type": "string"
+          },
+          "redirect_link": {
+            "title": "Redirect Link",
+            "type": "string"
+          },
+          "redirect_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Page Id"
+          },
+          "redirect_page_route_path": {
+            "title": "Redirect Page Route Path",
+            "type": "string"
+          },
+          "site_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Site Id"
+          }
+        },
+        "required": [
+          "id",
+          "old_path",
+          "site_id",
+          "is_permanent",
+          "redirect_page_id",
+          "redirect_page_route_path",
+          "redirect_link",
+          "automatically_created",
+          "created_at"
+        ],
+        "title": "RedirectSchema",
+        "type": "object"
+      },
+      "SchemaDetailResponse": {
+        "properties": {
+          "create": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Create"
+          },
+          "patch": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patch"
+          },
+          "read": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read"
+          }
+        },
+        "title": "SchemaDetailResponse",
+        "type": "object"
+      },
+      "SiteInputSchema": {
+        "properties": {
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          },
+          "is_default_site": {
+            "default": false,
+            "title": "Is Default Site",
+            "type": "boolean"
+          },
+          "port": {
+            "default": 80,
+            "title": "Port",
+            "type": "integer"
+          },
+          "root_page_id": {
+            "title": "Root Page Id",
+            "type": "integer"
+          },
+          "site_name": {
+            "default": "",
+            "title": "Site Name",
+            "type": "string"
+          }
+        },
+        "required": ["hostname", "root_page_id"],
+        "title": "SiteInputSchema",
+        "type": "object"
+      },
+      "SiteSchema": {
+        "properties": {
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_default_site": {
+            "title": "Is Default Site",
+            "type": "boolean"
+          },
+          "port": {
+            "title": "Port",
+            "type": "integer"
+          },
+          "root_page_id": {
+            "title": "Root Page Id",
+            "type": "integer"
+          },
+          "site_name": {
+            "title": "Site Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "hostname",
+          "port",
+          "site_name",
+          "root_page_id",
+          "is_default_site"
+        ],
+        "title": "SiteSchema",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Wagtail v3 read and write API",
+    "title": "Wagtail API",
+    "version": "3.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v3/pages/": {
+      "get": {
+        "operationId": "pages_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedPageListingSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List pages",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/": {
+      "get": {
+        "operationId": "pages_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageListingSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Page detail",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/redirects/": {
+      "get": {
+        "operationId": "redirects_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedRedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List redirects",
+        "tags": ["redirects"]
+      },
+      "post": {
+        "operationId": "redirects_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedirectInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create redirect",
+        "tags": ["redirects"]
+      }
+    },
+    "/api/v3/redirects/{redirect_id}/": {
+      "delete": {
+        "operationId": "redirects_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete redirect",
+        "tags": ["redirects"]
+      },
+      "get": {
+        "operationId": "redirects_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Redirect detail",
+        "tags": ["redirects"]
+      },
+      "put": {
+        "operationId": "redirects_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedirectInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update redirect",
+        "tags": ["redirects"]
+      }
+    },
+    "/api/v3/schema/": {
+      "get": {
+        "operationId": "schema_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTypeListSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List registered content types",
+        "tags": ["schema"]
+      }
+    },
+    "/api/v3/schema/{type_name}/": {
+      "get": {
+        "operationId": "schema_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type_name",
+            "required": true,
+            "schema": {
+              "title": "Type Name",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaDetailResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Schemas for a content type",
+        "tags": ["schema"]
+      }
+    },
+    "/api/v3/sites/": {
+      "get": {
+        "operationId": "sites_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedSiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List sites",
+        "tags": ["sites"]
+      },
+      "post": {
+        "operationId": "sites_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create site",
+        "tags": ["sites"]
+      }
+    },
+    "/api/v3/sites/{site_id}/": {
+      "delete": {
+        "operationId": "sites_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete site",
+        "tags": ["sites"]
+      },
+      "get": {
+        "operationId": "sites_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Site detail",
+        "tags": ["sites"]
+      },
+      "put": {
+        "operationId": "sites_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update site",
+        "tags": ["sites"]
+      }
+    }
+  },
+  "servers": []
+}

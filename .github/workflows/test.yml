@@ -28,7 +28,7 @@ concurrency:
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/6.0.x, python 3.14, postgres:15, psycopg 3 (allow failures)
+# - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 5.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
@@ -60,11 +60,11 @@ jobs:
             parallel: '--parallel'
 
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
@@ -109,15 +109,17 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'git+https://github.com/django/django.git@stable/6.0.x#egg=Django'
+            django: 'git+https://github.com/django/django.git@stable/6.1.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
+            install_extras: 'uv pip install git+https://github.com/encode/django-rest-framework.git#egg=djangorestframework'
             experimental: true
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
+            install_extras: 'uv pip install git+https://github.com/encode/django-rest-framework.git#egg=djangorestframework'
             parallel: '--parallel'
     services:
       postgres:
@@ -129,11 +131,11 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
           allow-prereleases: true
@@ -221,11 +223,11 @@ jobs:
         options: --health-cmd=$HEALTH_CMD --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
@@ -278,11 +280,11 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
@@ -339,12 +341,12 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
 
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
@@ -394,11 +396,11 @@ jobs:
       - uses: ankane/setup-opensearch@b73d8d2d65eaa5da2add094872f12f3ae6ef1eea # v1
         with:
           opensearch-version: 2
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
@@ -435,12 +437,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out the repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.14'
 
