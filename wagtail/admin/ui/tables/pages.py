@@ -69,7 +69,7 @@ class ParentPageColumn(Column):
     """
     A column that displays the parent page of a given page. It uses a
     ``_parent_page`` annotation if present on the page instance for efficiency,
-    before falling back to calling  :meth:`~wagtail.models.Page.get_parent()`.
+    before falling back to calling :meth:`~wagtail.models.AbstractPage.get_parent()`.
     """
 
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"

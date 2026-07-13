@@ -310,7 +310,7 @@ The interval (in milliseconds) to automatically check for changes made in the pa
 
 If set to `0`, a refresh button will be shown in the panel and the preview is only updated when the button is clicked.
 
-To completely disable previews, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model (`preview_modes = []`).
+To completely disable previews, set [preview modes](wagtail.models.AbstractPage.preview_modes) to be empty on your model (`preview_modes = []`).
 
 (wagtail_editing_session_ping_interval)=
 
