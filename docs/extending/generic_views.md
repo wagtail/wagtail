@@ -44,17 +44,25 @@ class PersonViewSet(ModelViewSet):
 person_viewset = PersonViewSet("person")  # defines /admin/person/ as the base URL
 ```
 
-This viewset can then be registered with the Wagtail admin to make it available under the URL `/admin/person/`, by adding the following to `wagtail_hooks.py`:
+Before enabling the viewset, the model must be registered to Wagtail's permission system using {func}`~wagtail.permissions.register_permission_policy`. Then, the viewset can be registered with the Wagtail admin to make it available under the URL `/admin/person/`. To do so, add the following to `wagtail_hooks.py`:
 
 ```python
 from wagtail import hooks
+from wagtail.permissions import register_permission_policy
 
+from .models import Person
 from .views import person_viewset
+
+register_permission_policy(Person)
 
 
 @hooks.register("register_admin_viewset")
 def register_viewset():
     return person_viewset
+```
+
+```{versionchanged} 8.0
+Models registered with `ModelViewSet` must also be registered to Wagtail's permission system.
 ```
 
 The viewset can be further customized by overriding other attributes and methods.
@@ -249,12 +257,16 @@ class PersonChooserViewSet(ChooserViewSet):
 person_chooser_viewset = PersonChooserViewSet("person_chooser")
 ```
 
-Again this can be registered with the `register_admin_viewset` hook:
+After registering the model to Wagtail's permission system using {func}`~wagtail.permissions.register_permission_policy`, the chooser viewset can be registered with the `register_admin_viewset` hook:
 
 ```python
 from wagtail import hooks
+from wagtail.permissions import register_permission_policy
 
+from .models import Person
 from .views import person_chooser_viewset
+
+register_permission_policy(Person)  # If not already done
 
 
 @hooks.register("register_admin_viewset")
