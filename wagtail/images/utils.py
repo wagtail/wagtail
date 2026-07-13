@@ -146,7 +146,7 @@ def get_allowed_image_extensions():
     return getattr(
         settings,
         "WAGTAILIMAGES_EXTENSIONS",
-        ["avif", "gif", "jpg", "jpeg", "png", "webp"],
+        ["avif", "gif", "jpg", "jpeg", "jxl", "png", "webp"],
     )
 
 
@@ -157,5 +157,7 @@ def get_accept_attributes():
         accept_attrs += ", image/heic"
     if "avif" in allowed_image_extensions:
         accept_attrs += ", image/avif"
+    if "jxl" in allowed_image_extensions:
+        accept_attrs += ", image/jxl"
 
     return accept_attrs

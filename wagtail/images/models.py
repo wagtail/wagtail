@@ -58,6 +58,7 @@ logger = logging.getLogger("wagtail.images")
 IMAGE_FORMAT_EXTENSIONS = {
     "avif": ".avif",
     "jpeg": ".jpg",
+    "jxl": ".jxl",
     "png": ".png",
     "gif": ".gif",
     "webp": ".webp",
@@ -1079,9 +1080,10 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert avif, bmp and webp to png, and heic to jpg, by default
+                # Convert avif, jxl, bmp and webp to png, and heic to jpg, by default
                 default_conversions = {
                     "avif": "png",
+                    "jxl": "png",
                     "bmp": "png",
                     "webp": "png",
                     "heic": "jpeg",
@@ -1120,6 +1122,20 @@ class Filter:
                 return willow.save_as_jpeg(
                     output, quality=quality, progressive=True, optimize=True
                 )
+            if output_format == "jxl":
+                # Allow lossless JPEG-XL output if requested
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_jxl(output, lossless=True)
+                # Allow changing of JPEG-XL compression quality
+                if "jxl-quality" in env:
+                    quality = env["jxl-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_JXL_QUALITY", 76)
+
+                return willow.save_as_jxl(output, quality=quality)
             elif output_format == "png":
                 return willow.save_as_png(output, optimize=True)
             elif output_format == "gif":
