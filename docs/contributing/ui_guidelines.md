@@ -103,7 +103,7 @@ For all of our styles, we use:
 
 ### Tailwind usage
 
-We use [Tailwind](https://tailwindcss.com/) to manage our design tokens via its theme and generate CSS utilities. It is configured in the root [tailwind.config.js](../../tailwind.config.js), which extends the base configuration in [client/tailwind.config.js](../../client/tailwind.config.js).
+We use [Tailwind](https://tailwindcss.com/) to manage our design tokens via its theme and generate CSS utilities. It is configured in the root [tailwind.config.js](https://github.com/wagtail/wagtail/blob/main/tailwind.config.js), which extends the base configuration in [client/tailwind.config.js](https://github.com/wagtail/wagtail/blob/main/client/tailwind.config.js).
 
 Wagtail’s Tailwind setup is designed to maintain a consistent design system across the admin interface while enabling customization. Design tokens are defined in JavaScript files under `client/src/tokens/` (e.g., `colors.js`, `spacing.js`, `typography.js`), which generate both the Tailwind theme and the underlying CSS Custom Properties (e.g., `--w-color-*`).
 
@@ -121,18 +121,18 @@ Tailwind variants (e.g., `sm:`, `hover:`, `dark:`, `focus:`) are placed *before*
 #### Available utilities and design tokens
 
 ##### Breakpoints
-Custom breakpoints are configured in [client/src/tokens/breakpoints.js](../../client/src/tokens/breakpoints.js):
+Custom breakpoints are configured in [client/src/tokens/breakpoints.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/breakpoints.js):
 * `sm`: `50em` (800px)
 * `md`: `56.25em` (900px)
 * `lg`: `75em` (1200px)
 * `xl`: `100em` (1600px)
 
 ##### Spacing
-Wagtail uses a customized spacing scale. Refer to [client/src/tokens/spacing.js](../../client/src/tokens/spacing.js) for the complete list of allowed multiplier values. The spacing theme is also extended with a custom class:
+Wagtail uses a customized spacing scale. Refer to [client/src/tokens/spacing.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/spacing.js) for the complete list of allowed multiplier values. The spacing theme is also extended with a custom class:
 * `w-h-slim-header` / `w-w-slim-header` / `w-p-slim-header` (value: `50px`)
 
 ##### Borders and shadow
-Custom border radii, border widths, and shadows are defined in [client/src/tokens/objectStyles.js](../../client/src/tokens/objectStyles.js):
+Custom border radii, border widths, and shadows are defined in [client/src/tokens/objectStyles.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/objectStyles.js):
 * **Border Radius**:
   * `w-rounded-none` (`0`)
   * `w-rounded-sm` (`0.1875rem` / 3px)
@@ -152,13 +152,13 @@ Custom border radii, border widths, and shadows are defined in [client/src/token
 ##### Colors
 Colors are split into **Static Colors** and **Semantic Theme Colors**.
 
-1. **Static Colors** (defined in [client/src/tokens/colors.js](../../client/src/tokens/colors.js)):
+1. **Static Colors** (defined in [client/src/tokens/colors.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/colors.js)):
    * `primary`, `secondary` (accent), `info`, `positive`, `warning`, `critical`
    * `grey` (shades: `50`, `100`, `150`, `200`, `400`, `500`, `600`, `700`, `800`)
    * `black`, `white`
    * *Example utilities*: `w-bg-primary`, `w-text-grey-600`, `w-border-secondary-100`
 
-2. **Semantic Theme Colors** (defined in [client/src/tokens/colorThemes.js](../../client/src/tokens/colorThemes.js)):
+2. **Semantic Theme Colors** (defined in [client/src/tokens/colorThemes.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/colorThemes.js)):
    These adapt dynamically depending on the active theme (light/dark/contrast/system):
    * **Surfaces**: `surface-page`, `surface-field`, `surface-field-inactive`, `surface-header`, `surface-menus`, `surface-menu-item-active`, `surface-tooltip`, `surface-button-default`, `surface-button-hover`, `surface-button-inactive`, `surface-button-outline-hover`, `surface-button-critical-hover`, `surface-status-label`, `surface-info-panel`, `surface-dashboard-panel`.
    * **Text**: `text-button`, `text-label-menus-default`, `text-label-menus-active`, `text-label`, `text-context`, `text-meta`, `text-placeholder`, `text-link-default`, `text-link-hover`, `text-button-outline-default`, `text-button-outline-hover`, `text-highlight`, `text-error`, `text-button-critical-outline-hover`, `text-status-label`, `text-link-info`.
@@ -170,7 +170,7 @@ Colors are split into **Static Colors** and **Semantic Theme Colors**.
 ##### Typography and Type Scale
 With utility classes, we recommend to:
 * Keep their number to a reasonable maximum, creating component styles instead if the utilities are inter-dependent, or if they are frequently reused together.
-* **Avoid utilities relating to font size, weight, or other typographic considerations.** Instead, use the higher-level type scale component classes defined in [client/src/tokens/typography.js](../../client/src/tokens/typography.js):
+* **Avoid utilities relating to font size, weight, or other typographic considerations.** Instead, use the higher-level type scale component classes defined in [client/src/tokens/typography.js](https://github.com/wagtail/wagtail/blob/main/client/src/tokens/typography.js):
   * **Headings**: `.w-h1`, `.w-h2`, `.w-h3`, `.w-h4`
   * **Labels**: `.w-label-1`, `.w-label-2`, `.w-label-3`
   * **Body text**: `.w-body-text-large`, `.w-body-text`, `.w-help-text`
