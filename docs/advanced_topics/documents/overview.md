@@ -146,7 +146,7 @@ In `blog_page.html`, add the following block of code to display the document lin
 
 ## Working documents and collections
 
-Documents in Wagtail can be organized within [collections](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
+Documents in Wagtail can be organized within [collections](https://guide.wagtail.org/en/how-to-guides/manage-collections/). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
 
 Here's an example:
 
@@ -197,7 +197,7 @@ Here’s an example template to access the document collection and render it:
 
 ## Making documents private
 
-If you want to restrict access to certain documents, you can place them in [private collections](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings).
+If you want to restrict access to certain documents, you can place them in [private collections](https://guide.wagtail.org/en/how-to-guides/manage-collections/#privacy-settings).
 
 Private collections are not publicly accessible, and their contents are only available to users with the appropriate permissions.
 
