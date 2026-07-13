@@ -26,7 +26,7 @@ INSTALLED_APPS = [
 
 ## The basics
 
-To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
+To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page` (or a custom {class}`wagtail.models.AbstractPage` subclass), then define some view methods and decorate them with `path` or `re_path`.
 
 These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object.
 You may use the `RoutablePageMixing.render` method to override the context and template that the default page rendering would use.
@@ -143,7 +143,7 @@ def next_event(self, request):
     'year/2015/'
 ```
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {meth}`~wagtail.models.Page.get_url` method or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {meth}`~wagtail.models.AbstractPage.get_url` method or the {attr}`~wagtail.models.AbstractPage.full_url` attribute on your page:
 
 ```python
 >>> event_page.get_url() + event_page.reverse_subpage('events_for_year', args=(2015, ))
@@ -186,7 +186,7 @@ class EventPage(RoutablePageMixin, Page):
 
   .. automethod:: route
 
-    This method overrides the default :meth:`Page.route() <wagtail.models.Page.route>`
+    This method overrides the default :meth:`AbstractPage.route() <wagtail.models.AbstractPage.route>`
     method to route requests to the appropriate view method.
 
     It sets ``routable_resolver_match`` on the request object to make sub-URL routing

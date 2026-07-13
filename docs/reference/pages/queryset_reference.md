@@ -1,6 +1,6 @@
 # Page QuerySet reference
 
-All models that inherit from {class}`~wagtail.models.Page` are given some extra QuerySet methods accessible from their `.objects` attribute.
+All models that inherit from {class}`~wagtail.models.AbstractPage` are given some extra QuerySet methods accessible from their `.objects` attribute.
 
 ## Examples
 
@@ -265,7 +265,7 @@ menu_items = homepage.get_children().live().in_menu()
             # in a minimum number of database queries.
             homepage.get_children().specific()
 
-        See also: :py:attr:`Page.specific <wagtail.models.Page.specific>`
+        See also: :py:attr:`Page.specific <wagtail.models.AbstractPage.specific>`
 
     .. automethod:: defer_streamfields
 

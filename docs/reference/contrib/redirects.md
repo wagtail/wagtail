@@ -43,7 +43,7 @@ Wagtail automatically creates permanent redirects for pages (and their descendan
 
 If your project uses `RoutablePageMixin` to create pages with alternative routes, you might want to consider overriding the `get_route_paths()` method for those page types. Adding popular route paths to this list will result in the creation of additional redirects; helping visitors to alternative routes to get to the right place also.
 
-For more information, please see {meth}`~wagtail.models.Page.get_route_paths`.
+For more information, please see {meth}`~wagtail.models.AbstractPage.get_route_paths`.
 
 ### Disabling automatic redirect creation
 
@@ -51,8 +51,8 @@ Wagtail's default implementation works best for small-to-medium sized projects (
 
 Overrides to the following `Page` methods are respected when generating redirects, but use of specific page fields in those overrides will trigger additional database queries.
 
--   {meth}`~wagtail.models.Page.get_url_parts()`
--   {meth}`~wagtail.models.Page.get_route_paths()`
+-   {meth}`~wagtail.models.AbstractPage.get_url_parts()`
+-   {meth}`~wagtail.models.AbstractPage.get_route_paths()`
 
 If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
 

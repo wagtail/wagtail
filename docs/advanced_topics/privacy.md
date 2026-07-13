@@ -76,7 +76,7 @@ To integrate Wagtail into a Django site with an existing login mechanism, settin
 
 ## Setting the default privacy restriction
 
-You can modify the default privacy restriction of a page by overriding the {meth}`~wagtail.models.Page.get_default_privacy_setting` method for the page. This could be done to make a page type require login by default, but it can also be used for more complex configurations, such as adjusting the default privacy setting based on the user or using an auto-generated shared password.
+You can modify the default privacy restriction of a page by overriding the {meth}`~wagtail.models.AbstractPage.get_default_privacy_setting` method for the page. This could be done to make a page type require login by default, but it can also be used for more complex configurations, such as adjusting the default privacy setting based on the user or using an auto-generated shared password.
 
 The method must return a dictionary with at least a `type` key. The value must be one of the following values for {class}`~wagtail.models.PageViewRestriction`'s {attr}`~wagtail.models.PageViewRestriction.restriction_type`:
 

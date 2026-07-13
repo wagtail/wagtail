@@ -1,6 +1,6 @@
 # Page models
 
-Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.models.Page` class.
+Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.models.Page` class (or a custom {class}`wagtail.models.AbstractPage` subclass specific to the project).
 
 As all page types are Django models, you can use any field type that Django provides. See [Model field reference](inv:django#ref/models/fields) for a complete list of field types you can use. Wagtail also provides `wagtail.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
@@ -198,7 +198,7 @@ super().get_url_parts(*args, **kwargs)
 While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
 
-For more information, please see {meth}`wagtail.models.Page.get_url_parts`.
+For more information, please see {meth}`wagtail.models.AbstractPage.get_url_parts`.
 
 #### Obtaining URLs for page instances
 
@@ -207,11 +207,11 @@ You can call the `Page.get_url(request)` method whenever you need a page URL. It
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and uses `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
-For more information, please see {meth}`wagtail.models.Page.get_url`.
+For more information, please see {meth}`wagtail.models.AbstractPage.get_url`.
 
 To retrieve the full URL (including the protocol and domain), use `Page.get_full_url(request)`. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
 
-For more information, please see {meth}`wagtail.models.Page.get_full_url`.
+For more information, please see {meth}`wagtail.models.AbstractPage.get_full_url`.
 
 ## Template rendering
 
