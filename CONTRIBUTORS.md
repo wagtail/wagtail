@@ -987,6 +987,7 @@
 * Marquis Nobles
 * Eesh Saxena
 * Thomas Herman
+* KavyaNagariya
 
 ## Translators
 
