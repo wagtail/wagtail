@@ -1,7 +1,8 @@
 import swapper
+from django.db.models import Model
 
 from wagtail.models import AbstractPage, Collection, Locale, Site, Task, Workflow
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permission_policies import BasePermissionPolicy, ModelPermissionPolicy
 from wagtail.permission_policies.collections import CollectionManagementPermissionPolicy
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.utils.registry import ObjectTypeRegistry
@@ -18,7 +19,7 @@ class PolicyRegistry(ObjectTypeRegistry):
     :func:`~wagtail.permissions.register_permission_policy` function instead.
     """
 
-    def get_by_type(self, cls):
+    def get_by_type(self, cls: type[Model]) -> BasePermissionPolicy:
         """
         Get the permission policy for a given model class.
         If a matching policy was registered with ``exact_class=True``, it will be
@@ -28,7 +29,7 @@ class PolicyRegistry(ObjectTypeRegistry):
         """
         return super().get_by_type(cls)
 
-    def get(self, obj):
+    def get(self, obj: Model) -> BasePermissionPolicy:
         """
         Get the permission policy for a given model instance based on its class.
         """
@@ -42,7 +43,11 @@ register and look up permission policies for models managed by Wagtail.
 """
 
 
-def register_permission_policy(model, policy=None, exact_class=False):
+def register_permission_policy(
+    model: type[Model],
+    policy: BasePermissionPolicy = None,
+    exact_class=False,
+):
     """
     Register a permission policy for a given model class.
 
