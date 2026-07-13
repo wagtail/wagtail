@@ -21,6 +21,8 @@ permissions:
 
 jobs:
   test:
+    # Don't run scheduled workflows on forks
+    if: ${{ github.repository == 'wagtail/wagtail' }}
     name: Latest dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 60
