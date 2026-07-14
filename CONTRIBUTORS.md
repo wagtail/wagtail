@@ -1006,6 +1006,7 @@
 * Satyam Laheri
 * Waqas Ahmed
 * Keerthi Kumar
+* Damien Meur
 
 ## Translators
 
