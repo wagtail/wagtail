@@ -870,6 +870,21 @@ class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(field.clean_name, "telefon_nummer")
 
+    def test_form_field_clean_name_set_when_blank_on_save(self):
+        """clean_name should be derived on save whenever it's still blank"""
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label="",
+            field_type="number",
+        )
+        self.assertEqual(field.clean_name, "")
+
+        field.label = "Telefón-nummer"
+        field.save()
+
+        self.assertEqual(field.clean_name, "telefon_nummer")
+
 
 class TestFormFieldCleanNameCreationOverride(WagtailTestUtils, TestCase):
     def setUp(self):
