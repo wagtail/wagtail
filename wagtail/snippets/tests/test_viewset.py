@@ -1812,6 +1812,7 @@ class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
     def test_registered_policy(self):
         permission_policy = policies_registry.get_by_type(self.model)
         self.assertIsInstance(permission_policy, FullFeaturedPermissionPolicy)
+        self.assertIs(permission_policy, self.model.snippet_viewset.permission_policy)
 
 
 class TestSnippetIndexViewBreadcrumbs(SimpleTestCase):
