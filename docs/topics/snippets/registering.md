@@ -2,21 +2,7 @@
 
 # Registering snippets
 
-Before registering a snippet model for use in the admin, it must be registered with Wagtail's permission system using {func}`~wagtail.permissions.register_permission_policy`. This can be done by adding the following at the top of `wagtail_hooks.py`:
-
-```python
-from wagtail.permissions import register_permission_policy
-
-from .models import Advert
-
-register_permission_policy(Advert)
-```
-
-```{versionchanged} 8.0
-Snippets must also be registered to Wagtail's permission system.
-```
-
-Snippets can then be registered using `register_snippet` as a decorator or as a function. The latter is recommended, but the decorator is provided for convenience and backward compatibility.
+Snippets can be registered using `register_snippet` as a decorator or as a function. The latter is recommended, but the decorator is provided for convenience and backward compatibility.
 
 ## Using `@register_snippet` as a decorator
 
