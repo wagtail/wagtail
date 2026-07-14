@@ -1,5 +1,6 @@
 from unittest import mock
 
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from wagtail.models import Collection, Locale, Page, Site, Task, Workflow
@@ -79,6 +80,18 @@ class TestPolicyRegistry(TestCase):
         instance = Advert(text="test")
         self.assertIs(self.registry.get(instance), policy)
 
+    def test_register_raises_if_fallback_already_created(self):
+        self.registry.get_by_type(Advert)  # creates and caches a fallback policy
+        policy = ModelPermissionPolicy(Advert)
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "A fallback permission policy has already been created for "
+            "tests.Advert. Please ensure your custom ModelPermissionPolicy is "
+            "registered earlier on, such as at the top of wagtail_hooks.py or "
+            "in your AppConfig.ready().",
+        ):
+            self.registry.register(Advert, policy)
+
     def test_register_succeeds_if_no_fallback_created(self):
         policy = ModelPermissionPolicy(Advert)
         self.registry.register(Advert, policy)
@@ -111,6 +124,17 @@ class TestRegisterPermissionPolicy(TestCase):
         register_permission_policy(RevisableModel, policy, exact_class=True)
         self.assertIs(self.registry.get_by_type(RevisableModel), policy)
         self.assertIsNot(self.registry.get_by_type(RevisableChildModel), policy)
+
+    def test_raises_if_fallback_already_created_for_model(self):
+        self.registry.get_by_type(Advert)  # creates a fallback policy
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "A fallback permission policy has already been created for "
+            "tests.Advert. Please ensure your custom ModelPermissionPolicy is "
+            "registered earlier on, such as at the top of wagtail_hooks.py or "
+            "in your AppConfig.ready().",
+        ):
+            register_permission_policy(Advert)
 
 
 class TestDefaultPermissionPolicies(TestCase):
@@ -166,3 +190,17 @@ class TestDefaultPermissionPolicies(TestCase):
         self.assertEqual(policy.model, Advert)
         # The fallback is cached, so a second lookup returns the same instance.
         self.assertIs(policies_registry.get_by_type(Advert), policy)
+
+    def test_registering_a_policy_for_a_model_with_existing_fallback_raises(self):
+        self.addCleanup(self._clear_fallback_policy, Advert)
+        # Once a fallback policy has been created for a model, the registry
+        # protects against a custom policy being registered too late.
+        policies_registry.get_by_type(Advert)
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "A fallback permission policy has already been created for "
+            "tests.Advert. Please ensure your custom ModelPermissionPolicy is "
+            "registered earlier on, such as at the top of wagtail_hooks.py or "
+            "in your AppConfig.ready().",
+        ):
+            register_permission_policy(Advert, ModelPermissionPolicy(Advert))
