@@ -311,7 +311,7 @@ class Block(metaclass=BaseBlock):
         else:
             new_context = self.get_context(value, parent_context=dict(context))
 
-        return mark_safe(render_to_string(template, new_context))
+        return mark_safe(render_to_string(template, new_context))  # noqa: S308 - rendered template marked as safe
 
     def get_preview_context(self, value, parent_context=None):
         """

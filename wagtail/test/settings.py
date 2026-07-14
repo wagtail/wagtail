@@ -58,7 +58,7 @@ if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
-SECRET_KEY = "not needed"
+SECRET_KEY = "not needed"  # noqa: S105 -  false positive, test setting
 
 ROOT_URLCONF = "wagtail.test.urls"
 
@@ -207,7 +207,7 @@ ALLOWED_HOSTS = [
     "testserver",
     "other.example.com",
     "127.0.0.1",
-    "0.0.0.0",
+    "0.0.0.0",  # noqa: S104 -  false positive, test setting
 ]
 
 WAGTAILSEARCH_BACKENDS = {

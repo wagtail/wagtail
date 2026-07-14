@@ -846,10 +846,10 @@ class RawHTMLBlock(FieldBlock):
         return self.normalize(self._evaluate_callable(self.meta.default or ""))
 
     def to_python(self, value):
-        return mark_safe(value)
+        return mark_safe(value)  # noqa: S308 - raw html is allowed
 
     def normalize(self, value):
-        return mark_safe(value)
+        return mark_safe(value)  # noqa: S308 - raw html is allowed
 
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
@@ -861,7 +861,7 @@ class RawHTMLBlock(FieldBlock):
         return str(value) + ""
 
     def value_from_form(self, value):
-        return mark_safe(value)
+        return mark_safe(value)  # noqa: S308 - raw html is allowed
 
     class Meta:
         icon = "code"

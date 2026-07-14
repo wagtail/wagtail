@@ -64,11 +64,7 @@ class CloudflareBackend(BaseBackend):
 
             data = {"files": urls}
 
-            response = requests.post(
-                purge_url,
-                json=data,
-                headers=headers,
-            )
+            response = requests.post(purge_url, json=data, headers=headers, timeout=30)
 
             try:
                 response_json = response.json()

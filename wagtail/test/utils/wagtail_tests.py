@@ -32,7 +32,7 @@ class WagtailTestUtils:
 
         return user_model.objects.create_superuser(**user_data)
 
-    def login(self, user=None, username=None, password="password"):
+    def login(self, user=None, username=None, password="password"):  # noqa: S107 - usage in tests allowed
         # wrapper for self.client.login that works interchangeably for user models
         # with email as the username field; in this case it will use the passed username
         # plus '@example.com'

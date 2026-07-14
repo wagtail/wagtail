@@ -530,7 +530,7 @@ class BaseStructBlock(Block):
         context = self.get_form_context(
             self.get_default(), prefix="__PREFIX__", errors=None
         )
-        return mark_safe(render_to_string(self.meta.form_template, context))
+        return mark_safe(render_to_string(self.meta.form_template, context))  # noqa: S308 - rendered template is safe
 
     def get_description(self):
         return super().get_description() or getattr(self.meta, "help_text", "")

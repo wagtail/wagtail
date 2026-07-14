@@ -61,7 +61,7 @@ class RevisionsRevertView(EditView):
             {"user": self.previous_revision.user},
         )
 
-        return mark_safe(
+        return mark_safe(  # noqa: S308 - uses template-rendered HTML
             _(
                 "You are viewing a previous version of this page from <b>%(created_at)s</b> by %(user)s"
             )
