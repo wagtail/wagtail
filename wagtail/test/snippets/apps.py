@@ -14,26 +14,6 @@ class WagtailSnippetsTestsAppConfig(AppConfig):
         # Invoking `register` from `ready` confirms that it does not perform any database queries -
         # if it did, it would fail (on a standard test run without --keepdb at least) because the
         # test database hasn't been migrated yet.
-        from wagtail.permissions import register_permission_policy
         from wagtail.users.permission_order import register
 
-        from . import models
-
         register("snippetstests.fancysnippet", order=999)
-
-        models_for_permissions = [
-            models.AlphaSnippet,
-            models.ZuluSnippet,
-            models.RegisterFunction,
-            models.RegisterDecorator,
-            models.SearchableSnippet,
-            models.NonAutocompleteSearchableSnippet,
-            models.StandardSnippet,
-            models.FancySnippet,
-            models.FileUploadSnippet,
-            models.MultiSectionRichTextSnippet,
-            models.StandardSnippetWithCustomPrimaryKey,
-            models.TranslatableSnippet,
-        ]
-        for model in models_for_permissions:
-            register_permission_policy(model)
