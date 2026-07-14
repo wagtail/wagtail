@@ -1,5 +1,9 @@
 from django.http import Http404, HttpResponse, HttpResponseForbidden
-from django.utils.deprecation import MiddlewareMixin
+
+try:
+    from django.middleware import MiddlewareMixin
+except ImportError:  # DJANGO_VERSION < (6, 2)
+    from django.utils.deprecation import MiddlewareMixin
 
 from wagtail.models import Page
 from wagtail.views import serve
