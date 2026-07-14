@@ -2176,28 +2176,45 @@ class TestReorderView(WagtailTestUtils, TestCase):
         self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])
 
 
-class TestPermissionPolicyDeprecation(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
+class TestPermissionPolicyRegistration(WagtailTestUtils, TestCase):
     @isolate_apps("wagtail")
-    def test_default_policy_registration(self):
+    def test_fallback_policy_registration(self):
         class Toy(models.Model):
             pass
 
         class SomeToyViewSet(ModelViewSet):
             model = Toy
 
-        self.assertIsNone(policies_registry.get_by_type(Toy))
         viewset = SomeToyViewSet()
+        viewset.register_permissions()
+        # Upon registration, the registry creates a fallback policy for the model
+        policy = policies_registry.get_by_type(Toy)
+        self.assertIsInstance(policy, ModelPermissionPolicy)
+        self.assertIs(policy, viewset.permission_policy)
+        self.assertIs(policies_registry.get_fallback_policy(Toy), policy)
+
+    @isolate_apps("wagtail")
+    def test_deprecated_policy_registration(self):
+        class CustomToy(models.Model):
+            pass
+
+        class CustomToyViewSet(ModelViewSet):
+            model = CustomToy
+            permission_policy = ModelPermissionPolicy(
+                CustomToy, auth_model="wagtailadmin.Admin"
+            )
+
+        viewset = CustomToyViewSet()
         with self.assertWarnsMessage(
             RemovedInWagtail90Warning,
-            "A permission policy for Toy was registered via SomeToyViewSet. "
+            "A permission policy for CustomToy was registered via CustomToyViewSet. "
             "Please register the policy with "
-            "wagtail.permissions.register_permission_policy(Toy, <policy_instance>) "
+            "wagtail.permissions.register_permission_policy(CustomToy, <policy_instance>) "
             "instead.",
         ):
             viewset.register_permissions()
-            policy = policies_registry.get_by_type(Toy)
+            policy = policies_registry.get_by_type(CustomToy)
             self.assertIsInstance(policy, ModelPermissionPolicy)
+            self.assertEqual(policy.auth_model._meta.label, "wagtailadmin.Admin")
             self.assertIs(policy, viewset.permission_policy)
+            self.assertIsNone(policies_registry.get_fallback_policy(CustomToy))
