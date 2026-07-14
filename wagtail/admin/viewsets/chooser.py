@@ -10,7 +10,6 @@ from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
 from wagtail.blocks import ChooserBlock
-from wagtail.permissions import policies_registry
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.registry import resolve_model_string
 
@@ -251,14 +250,7 @@ class ChooserViewSet(ViewSet):
                 register_telepath_adapter(adapter, self.widget_class)
 
         model = resolve_model_string(self.model)
-        # When ChooserViewSet.permission_policy is removed in Wagtail 9.0, we may
-        # want to raise a RuntimeWarning or ImproperlyConfigured to ensure developers
-        # do not forget to register the permission policy for their model.
-        if (
-            self.permission_policy
-            and self.permission_policy is not self.UNDEFINED
-            and not policies_registry.get_by_type(model)
-        ):
+        if self.permission_policy and self.permission_policy is not self.UNDEFINED:
             warnings.warn(
                 f"A permission policy for {model.__name__} was set via "
                 f"{self.__class__.__name__}. Please register the policy with "

@@ -18,15 +18,35 @@ class PolicyRegistry(ObjectTypeRegistry):
     :func:`~wagtail.permissions.register_permission_policy` function instead.
     """
 
-    def get_by_type(self, cls: type[Model]) -> BasePermissionPolicy:
+    fallback_policies = {}
+    """
+    A dict that stores fallback permission policies for models that have not
+    registered a custom permission policy. Having this as a separate dict
+    allows us to ensure custom permission policies are registered before any
+    code attempts to retrieve them from the registry.
+    """
+
+    def get_fallback_policy(self, cls: type[Model]) -> BasePermissionPolicy | None:
+        """
+        Get the fallback permission policy for a given model class,
+        if a fallback was registered.
+        """
+        return self.fallback_policies.get(cls)
+
+    def get_by_type(self, cls: type[Model], fallback=True) -> BasePermissionPolicy:
         """
         Get the permission policy for a given model class.
         If a matching policy was registered with ``exact_class=True``, it will be
         returned. Otherwise, the policy registered with ``exact_class=False`` for
         the given class or its nearest ancestor class will be returned. If no policy
-        can be found, ``None`` will be returned.
+        can be found and ``fallback`` is True, a default fallback
+        :class:`~wagtail.permission_policies.ModelPermissionPolicy` will be used.
+        Otherwise, return ``None``.
         """
-        return super().get_by_type(cls)
+        if not (policy := super().get_by_type(cls)):
+            if fallback and not (policy := self.get_fallback_policy(cls)):
+                self.fallback_policies[cls] = policy = ModelPermissionPolicy(cls)
+        return policy
 
     def get(self, obj: Model) -> BasePermissionPolicy:
         """
