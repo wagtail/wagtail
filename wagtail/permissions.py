@@ -1,4 +1,5 @@
 import swapper
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 
 from wagtail.models import AbstractPage, Collection, Locale, Site, Task, Workflow
@@ -56,6 +57,16 @@ class PolicyRegistry(ObjectTypeRegistry):
         Get the permission policy for a given model instance based on its class.
         """
         return super().get(obj)
+
+    def register(self, cls, value=None, exact_class=False):
+        if self.get_fallback_policy(cls):
+            raise ImproperlyConfigured(
+                f"A fallback permission policy has already been created for "
+                f"{cls._meta.label}. Please ensure your custom "
+                f"{value.__class__.__name__} is registered earlier on, such as "
+                f"at the top of wagtail_hooks.py or in your AppConfig.ready()."
+            )
+        return super().register(cls, value, exact_class)
 
 
 policies_registry = PolicyRegistry()
