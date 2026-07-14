@@ -24,7 +24,7 @@ from wagtail.images.views.bulk_actions import (
     DeleteBulkAction,
 )
 from wagtail.images.views.chooser import viewset as chooser_viewset
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 @hooks.register("register_admin_urls")
@@ -41,7 +41,7 @@ def construct_admin_api(router):
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
+        return policy_registry.get_by_type(get_image_model()).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -130,7 +130,7 @@ class ImagesSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_images": policies_registry.get_by_type(get_image_model())
+            "total_images": policy_registry.get_by_type(get_image_model())
             .instances_user_has_any_permission_for(
                 self.request.user, {"add", "change", "delete", "choose"}
             )
@@ -139,7 +139,7 @@ class ImagesSummaryItem(SummaryItem):
         }
 
     def is_shown(self):
-        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
+        return policy_registry.get_by_type(get_image_model()).user_has_any_permission(
             self.request.user, ["add", "change", "delete"]
         )
 
@@ -151,7 +151,7 @@ def add_images_summary_item(request, items):
 
 class ImagesSearchArea(SearchArea):
     def is_shown(self, request):
-        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
+        return policy_registry.get_by_type(get_image_model()).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 

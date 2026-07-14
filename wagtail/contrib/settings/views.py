@@ -17,7 +17,7 @@ from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import preview
 from wagtail.models import PreviewableMixin, Site
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
@@ -58,7 +58,7 @@ def redirect_to_relevant_instance(request, app_name, model_name):
         # Redirect the user to the edit page for the current site
         # (or the current request does not correspond to a site, the first site in the list)
         site = Site.find_for_request(request)
-        permission_policy = policies_registry.get_by_type(model)
+        permission_policy = policy_registry.get_by_type(model)
         if not site or not permission_policy.user_has_permission_for_instance(
             request.user, "change", site
         ):

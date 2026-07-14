@@ -6,7 +6,7 @@ from django.http import HttpRequest
 from wagtail.api.v2.querysets import get_public_pages_queryset
 from wagtail.models import Page
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class AccessTier(str, Enum):
@@ -28,6 +28,6 @@ def get_pages_queryset(request: HttpRequest, tier: AccessTier = AccessTier.PUBLI
     if tier == AccessTier.AUTHENTICATED:
         permission_policy = cast(
             PagePermissionPolicy,
-            policies_registry.get_by_type(Page),
+            policy_registry.get_by_type(Page),
         )
         return permission_policy.explorable_instances(request.user)

@@ -3,7 +3,7 @@ from rest_framework.filters import BaseFilterBackend
 from wagtail import hooks
 from wagtail.api.v2.utils import BadRequestError, parse_boolean
 from wagtail.models import Page
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class HasChildrenFilter(BaseFilterBackend):
@@ -40,7 +40,7 @@ class ForExplorerFilter(BaseFilterBackend):
                 queryset = hook(parent_page, queryset, request)
 
             queryset = (
-                policies_registry.get_by_type(Page).explorable_instances(request.user)
+                policy_registry.get_by_type(Page).explorable_instances(request.user)
                 & queryset
             )
 

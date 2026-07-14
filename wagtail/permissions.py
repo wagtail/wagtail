@@ -15,7 +15,7 @@ class PolicyRegistry(ObjectTypeRegistry):
     given model class.
 
     Instead of using this class directly, use the global
-    :obj:`~wagtail.permissions.policies_registry` instance and the
+    :obj:`~wagtail.permissions.policy_registry` instance and the
     :func:`~wagtail.permissions.register_permission_policy` function instead.
     """
 
@@ -66,7 +66,7 @@ class PolicyRegistry(ObjectTypeRegistry):
         return super().register(cls, value, exact_class)
 
 
-policies_registry = PolicyRegistry()
+policy_registry = PolicyRegistry()
 """
 A global instance of :class:`~wagtail.permissions.PolicyRegistry` used to
 register and look up permission policies for models managed by Wagtail.
@@ -89,7 +89,7 @@ def register_permission_policy(
     """
     if policy is None:
         policy = ModelPermissionPolicy(model)
-    policies_registry.register(model, value=policy, exact_class=exact_class)
+    policy_registry.register(model, value=policy, exact_class=exact_class)
 
 
 page_permission_policy = PagePermissionPolicy(Page)

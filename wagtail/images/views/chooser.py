@@ -34,7 +34,7 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.utils import find_image_duplicates
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
@@ -90,7 +90,7 @@ class BaseImageChooseView(BaseChooseView):
     def get_object_list(self):
         # Get images (filtered by user permission)
         images = (
-            policies_registry.get_by_type(get_image_model())
+            policy_registry.get_by_type(get_image_model())
             .instances_user_has_any_permission_for(self.request.user, ["choose"])
             .select_related("collection")
             .prefetch_renditions("max-165x165")
@@ -217,7 +217,7 @@ class ImageChooseResultsView(
 class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
     def get_object(self, pk):
         item = super().get_object(pk)
-        permission_policy = policies_registry.get_by_type(self.model)
+        permission_policy = policy_registry.get_by_type(self.model)
         if not permission_policy.user_has_permission_for_instance(
             self.request.user, "choose", item
         ):
@@ -233,7 +233,7 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
 class ImageChosenMultipleView(ChosenMultipleViewMixin, ImageChosenResponseMixin, View):
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def get_objects(self, pks):
         return self.permission_policy.instances_user_has_any_permission_for(

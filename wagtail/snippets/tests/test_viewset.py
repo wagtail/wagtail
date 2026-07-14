@@ -33,7 +33,7 @@ from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Workflow, WorkflowContentType
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
@@ -1810,7 +1810,7 @@ class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_registered_policy(self):
-        permission_policy = policies_registry.get_by_type(self.model)
+        permission_policy = policy_registry.get_by_type(self.model)
         self.assertIsInstance(permission_policy, FullFeaturedPermissionPolicy)
         self.assertIs(permission_policy, self.model.snippet_viewset.permission_policy)
 

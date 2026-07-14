@@ -4,7 +4,7 @@ from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.models import Site
 from wagtail.permission_policies.sites import SitePermissionPolicy
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.test.testapp.models import ImportantPagesSiteSetting, TestSiteSetting
 
 from .base import SiteSettingsTestMixin
@@ -231,7 +231,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             ImportantPagesSiteSetting.get_permission_policy(),
             SitePermissionPolicy,
         )
-        registered = policies_registry.get_by_type(ImportantPagesSiteSetting)
+        registered = policy_registry.get_by_type(ImportantPagesSiteSetting)
         # get_permission_policy() creates a new instance each time, so we can't
         # assertIs, but we can check that they are similar
         self.assertIsInstance(registered, SitePermissionPolicy)

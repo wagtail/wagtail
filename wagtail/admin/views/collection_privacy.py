@@ -5,12 +5,12 @@ from django.urls import reverse
 from wagtail.admin.forms.collections import CollectionViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.models import Collection, CollectionViewRestriction
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 def set_privacy(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
-    if not policies_registry.get_by_type(Collection).user_has_permission(
+    if not policy_registry.get_by_type(Collection).user_has_permission(
         request.user, "change"
     ):
         raise PermissionDenied

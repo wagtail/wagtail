@@ -34,7 +34,7 @@ from wagtail.contrib.redirects.utils import (
 )
 from wagtail.log_actions import log
 from wagtail.models import Site
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class RedirectPermissionPolicyChecker(PermissionPolicyChecker):
@@ -45,7 +45,7 @@ class RedirectPermissionPolicyChecker(PermissionPolicyChecker):
 
     @cached_property
     def policy(self):
-        return policies_registry.get_by_type(Redirect)
+        return policy_registry.get_by_type(Redirect)
 
 
 permission_checker = RedirectPermissionPolicyChecker()

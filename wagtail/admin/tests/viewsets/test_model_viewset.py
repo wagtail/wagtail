@@ -21,7 +21,7 @@ from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
     JSONStreamModel,
@@ -2188,10 +2188,10 @@ class TestPermissionPolicyRegistration(WagtailTestUtils, TestCase):
         viewset = SomeToyViewSet()
         viewset.register_permissions()
         # Upon registration, the registry creates a fallback policy for the model
-        policy = policies_registry.get_by_type(Toy)
+        policy = policy_registry.get_by_type(Toy)
         self.assertIsInstance(policy, ModelPermissionPolicy)
         self.assertIs(policy, viewset.permission_policy)
-        self.assertIs(policies_registry.get_fallback_policy(Toy), policy)
+        self.assertIs(policy_registry.get_fallback_policy(Toy), policy)
 
     @isolate_apps("wagtail")
     def test_deprecated_policy_registration(self):
@@ -2213,8 +2213,8 @@ class TestPermissionPolicyRegistration(WagtailTestUtils, TestCase):
             "instead.",
         ):
             viewset.register_permissions()
-            policy = policies_registry.get_by_type(CustomToy)
+            policy = policy_registry.get_by_type(CustomToy)
             self.assertIsInstance(policy, ModelPermissionPolicy)
             self.assertEqual(policy.auth_model._meta.label, "wagtailadmin.Admin")
             self.assertIs(policy, viewset.permission_policy)
-            self.assertIsNone(policies_registry.get_fallback_policy(CustomToy))
+            self.assertIsNone(policy_registry.get_fallback_policy(CustomToy))

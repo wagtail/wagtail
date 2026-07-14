@@ -27,7 +27,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 User = get_user_model()
 
@@ -237,7 +237,7 @@ class LockedPagesPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        permissions_policy = policies_registry.get_by_type(Page)
+        permissions_policy = policy_registry.get_by_type(Page)
         context.update(
             {
                 "locked_pages": Page.objects.filter(
@@ -300,7 +300,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(Page)
+        return policy_registry.get_by_type(Page)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

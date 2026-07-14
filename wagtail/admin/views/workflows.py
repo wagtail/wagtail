@@ -45,7 +45,7 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
 
@@ -421,7 +421,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     def permission_policy(self):
         # This view lists Page objects, but we want to check permissions
         # against the Workflow model.
-        return policies_registry.get_by_type(Workflow)
+        return policy_registry.get_by_type(Workflow)
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -429,7 +429,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
         # We set Workflow's permission_policy as the main permission policy for this view
         # for consistency with the other workflow views. However, since we are listing
         # page objects in this view, we want to ensure the user has a page permission.
-        if not policies_registry.get_by_type(Page).user_has_any_permission(
+        if not policy_registry.get_by_type(Page).user_has_any_permission(
             request.user,
             {"add", "change", "publish", "bulk_delete", "lock", "unlock"},
         ):
@@ -466,7 +466,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
 
     def get_base_queryset(self):
         editable_pages = (
-            policies_registry.get_by_type(Page)
+            policy_registry.get_by_type(Page)
             .instances_user_has_permission_for(self.request.user, "change")
             .filter(depth__gt=1)
         )
@@ -481,7 +481,7 @@ def enable_workflow(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
     # Check permissions
-    if not policies_registry.get_by_type(Workflow).user_has_permission(
+    if not policy_registry.get_by_type(Workflow).user_has_permission(
         request.user, "add"
     ):
         raise PermissionDenied
@@ -513,7 +513,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
     page = get_object_or_404(Page, id=page_pk)
 
     # Check permissions
-    if not policies_registry.get_by_type(Workflow).user_has_permission(
+    if not policy_registry.get_by_type(Workflow).user_has_permission(
         request.user, "change"
     ):
         raise PermissionDenied
@@ -622,7 +622,7 @@ class TaskIndex(IndexView):
 
 
 def select_task_type(request):
-    if not policies_registry.get_by_type(Task).user_has_permission(request.user, "add"):
+    if not policy_registry.get_by_type(Task).user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     task_types = [
@@ -812,7 +812,7 @@ def enable_task(request, pk):
     task = get_object_or_404(Task, id=pk)
 
     # Check permissions
-    if not policies_registry.get_by_type(Task).user_has_permission(request.user, "add"):
+    if not policy_registry.get_by_type(Task).user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive
@@ -855,7 +855,7 @@ class BaseTaskChooserView(TemplateView):
     def dispatch(self, request):
         self.task_models = get_task_types()
         self.can_create = (
-            policies_registry.get_by_type(Task).user_has_permission(request.user, "add")
+            policy_registry.get_by_type(Task).user_has_permission(request.user, "add")
             and len(self.task_models) != 0
         )
         return super().dispatch(request)

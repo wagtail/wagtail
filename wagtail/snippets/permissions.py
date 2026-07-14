@@ -1,6 +1,6 @@
 from django.contrib.auth import get_permission_codename
 
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.snippets.models import get_snippet_models
 
 
@@ -30,7 +30,7 @@ def user_can_access_snippets(user, models=None):
         models = get_snippet_models()
 
     for model in models:
-        if policies_registry.get_by_type(model).user_has_any_permission(
+        if policy_registry.get_by_type(model).user_has_any_permission(
             user, {"add", "change", "delete", "view"}
         ):
             return True

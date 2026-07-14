@@ -27,7 +27,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
@@ -41,7 +41,7 @@ def get_requested_by_queryset(request):
 
 
 def get_editable_page_ids_query(request):
-    pages = policies_registry.get_by_type(Page).instances_user_has_permission_for(
+    pages = policy_registry.get_by_type(Page).instances_user_has_permission_for(
         request.user, "change"
     )
     # Need to cast the page ids to string because Postgres doesn't support
@@ -168,7 +168,7 @@ class WorkflowView(ReportView):
     def permission_policy(self):
         # This view lists WorkflowState objects, but we want to check permissions
         # against the Page model.
-        return policies_registry.get_by_type(Page)
+        return policy_registry.get_by_type(Page)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -254,7 +254,7 @@ class WorkflowTasksView(ReportView):
     def permission_policy(self):
         # This view lists TaskState objects, but we want to check permissions
         # against the Page model.
-        return policies_registry.get_by_type(Page)
+        return policy_registry.get_by_type(Page)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

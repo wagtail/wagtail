@@ -12,7 +12,7 @@ from wagtail.permissions import (
     collection_permission_policy,
     locale_permission_policy,
     page_permission_policy,
-    policies_registry,
+    policy_registry,
     register_permission_policy,
     site_permission_policy,
     task_permission_policy,
@@ -30,7 +30,7 @@ class TestPolicyRegistry(TestCase):
     def setUp(self):
         self.registry = PolicyRegistry()
         # fallback_policies is a class attribute shared by all PolicyRegistry
-        # instances (including the global policies_registry), so give this
+        # instances (including the global policy_registry), so give this
         # registry its own dict to avoid leaking state between tests.
         self.registry.fallback_policies = {}
 
@@ -104,7 +104,7 @@ class TestRegisterPermissionPolicy(TestCase):
         self.registry.fallback_policies = {}
         # register_permission_policy() delegates to the module-level global,
         # so patch it to point at an isolated registry for these tests.
-        patcher = mock.patch("wagtail.permissions.policies_registry", self.registry)
+        patcher = mock.patch("wagtail.permissions.policy_registry", self.registry)
         patcher.start()
         self.addCleanup(patcher.stop)
 
@@ -139,63 +139,63 @@ class TestRegisterPermissionPolicy(TestCase):
 
 class TestDefaultPermissionPolicies(TestCase):
     """
-    The global policies_registry is pre-populated with policies for
+    The global policy_registry is pre-populated with policies for
     Wagtail's own models.
     """
 
     def test_page_uses_page_permission_policy(self):
-        policy = policies_registry.get_by_type(Page)
+        policy = policy_registry.get_by_type(Page)
         self.assertIs(policy, page_permission_policy)
         self.assertIsInstance(policy, PagePermissionPolicy)
 
     def test_site_uses_model_permission_policy(self):
-        policy = policies_registry.get_by_type(Site)
+        policy = policy_registry.get_by_type(Site)
         self.assertIs(policy, site_permission_policy)
         self.assertIsInstance(policy, ModelPermissionPolicy)
 
     def test_collection_uses_collection_management_permission_policy(self):
-        policy = policies_registry.get_by_type(Collection)
+        policy = policy_registry.get_by_type(Collection)
         self.assertIs(policy, collection_permission_policy)
         self.assertIsInstance(policy, CollectionManagementPermissionPolicy)
 
     def test_task_uses_model_permission_policy(self):
-        policy = policies_registry.get_by_type(Task)
+        policy = policy_registry.get_by_type(Task)
         self.assertIs(policy, task_permission_policy)
         self.assertIsInstance(policy, ModelPermissionPolicy)
 
     def test_workflow_uses_model_permission_policy(self):
-        policy = policies_registry.get_by_type(Workflow)
+        policy = policy_registry.get_by_type(Workflow)
         self.assertIs(policy, workflow_permission_policy)
         self.assertIsInstance(policy, ModelPermissionPolicy)
 
     def test_locale_uses_model_permission_policy(self):
-        policy = policies_registry.get_by_type(Locale)
+        policy = policy_registry.get_by_type(Locale)
         self.assertIs(policy, locale_permission_policy)
         self.assertIsInstance(policy, ModelPermissionPolicy)
 
     def test_page_subclass_inherits_page_permission_policy(self):
-        self.assertIs(policies_registry.get_by_type(SimplePage), page_permission_policy)
+        self.assertIs(policy_registry.get_by_type(SimplePage), page_permission_policy)
 
     def _clear_fallback_policy(self, model):
         # fallback_policies is a class attribute shared by every PolicyRegistry
-        # instance, including the global policies_registry, so any fallback
+        # instance, including the global policy_registry, so any fallback
         # created for a test-only model must be cleaned up afterwards to avoid
         # leaking state into other tests.
-        policies_registry.fallback_policies.pop(model, None)
+        policy_registry.fallback_policies.pop(model, None)
 
     def test_unregistered_model_gets_a_fallback_model_permission_policy(self):
         self.addCleanup(self._clear_fallback_policy, Advert)
-        policy = policies_registry.get_by_type(Advert)
+        policy = policy_registry.get_by_type(Advert)
         self.assertIsInstance(policy, ModelPermissionPolicy)
         self.assertEqual(policy.model, Advert)
         # The fallback is cached, so a second lookup returns the same instance.
-        self.assertIs(policies_registry.get_by_type(Advert), policy)
+        self.assertIs(policy_registry.get_by_type(Advert), policy)
 
     def test_registering_a_policy_for_a_model_with_existing_fallback_raises(self):
         self.addCleanup(self._clear_fallback_policy, Advert)
         # Once a fallback policy has been created for a model, the registry
         # protects against a custom policy being registered too late.
-        policies_registry.get_by_type(Advert)
+        policy_registry.get_by_type(Advert)
         with self.assertRaisesMessage(
             ImproperlyConfigured,
             "A fallback permission policy has already been created for "

@@ -48,11 +48,11 @@ class PublishRevisionAction:
         log_action: bool = True,
         previous_revision: Revision | None = None,
     ):
-        from wagtail.permissions import policies_registry
+        from wagtail.permissions import policy_registry
 
         self.revision = revision
         self.object = self.revision.as_object()
-        self.permission_policy = policies_registry.get(self.object)
+        self.permission_policy = policy_registry.get(self.object)
         self.user = user
         self.changed = changed
         self.log_action = log_action

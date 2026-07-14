@@ -19,7 +19,7 @@ from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 from wagtail.log_actions import log
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.search.utils import normalise_query_string
 
 
@@ -66,7 +66,7 @@ class IndexView(generic.IndexView):
     def permission_policy(self):
         # This view works with Query objects, but we want to check permissions
         # against the SearchPromotion model.
-        return policies_registry.get_by_type(SearchPromotion)
+        return policy_registry.get_by_type(SearchPromotion)
 
     def get_base_queryset(self):
         # Use a subquery to filter out the Query objects that do not have a
@@ -101,7 +101,7 @@ class SearchPromotionCreateEditMixin:
     def permission_policy(self):
         # This view works with Query objects, but we want to check permissions
         # against the SearchPromotion model.
-        return policies_registry.get_by_type(SearchPromotion)
+        return policy_registry.get_by_type(SearchPromotion)
 
     def get_success_message(self, instance=None):
         return self.success_message % {"query": instance}
@@ -218,7 +218,7 @@ class DeleteView(generic.DeleteView):
     def permission_policy(self):
         # This view works with Query objects, but we want to check permissions
         # against the SearchPromotion model.
-        return policies_registry.get_by_type(SearchPromotion)
+        return policy_registry.get_by_type(SearchPromotion)
 
     def delete_action(self):
         editors_picks = self.object.editors_picks.all()

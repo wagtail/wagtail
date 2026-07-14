@@ -4,14 +4,14 @@ from django.utils.translation import ngettext
 
 from wagtail.images import get_image_model
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class CollectionForm(forms.Form):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        permission_policy = policies_registry.get_by_type(get_image_model())
+        permission_policy = policy_registry.get_by_type(get_image_model())
         self.fields["collection"] = forms.ModelChoiceField(
             label=_("Collection"),
             queryset=permission_policy.collections_user_has_permission_for(user, "add"),

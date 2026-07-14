@@ -36,7 +36,7 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.utils import generate_signature
 from wagtail.models import ReferenceIndex, Site
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 Image = get_image_model()
 
@@ -46,7 +46,7 @@ USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 class ImagesFilterSet(BaseMediaFilterSet):
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(Image)
+        return policy_registry.get_by_type(Image)
 
     class Meta:
         model = Image
@@ -434,7 +434,7 @@ def preview(request, image_id, filter_spec):
     model = get_image_model()
     image = get_object_or_404(model, id=image_id)
 
-    if not policies_registry.get_by_type(model).user_has_permission_for_instance(
+    if not policy_registry.get_by_type(model).user_has_permission_for_instance(
         request.user, "change", image
     ):
         raise PermissionDenied
