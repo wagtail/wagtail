@@ -30,7 +30,7 @@ ignore = ["D100", "D101", "D102", "D103", "D105", "N806", "E501"]
 select = ["E", "F", "I", "S", "T20", "BLE", "C4", "B006", "B904"]
 
 [lint.per-file-ignores]
-"wagtail/test/*" = [
+"wagtail/test/**" = [
   "S101",  # Assert allowed in tests
   "S105",  # Hardcoded password assignments allowed in tests
   "S106",  # Hardcoded password assignments allowed in tests

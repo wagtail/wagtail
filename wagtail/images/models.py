@@ -1230,7 +1230,7 @@ class ResponsiveImage:
         return self.renditions[0].img_tag(attrs)
 
     def __str__(self):
-        return mark_safe(self.__html__())  # noqa: S308 - TODO: investigate if susceptible to XSS
+        return mark_safe(self.__html__())  # noqa: S308 - flatatt-rendered attributes are escaped
 
     def __bool__(self):
         return bool(self.renditions)
@@ -1295,7 +1295,7 @@ class Picture(ResponsiveImage):
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
         if not self.formats:
-            return mark_safe(f"<picture>{super().__html__()}</picture>")  # noqa: S308 - TODO: investigate if susceptible to XSS
+            return mark_safe(f"<picture>{super().__html__()}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
         attrs = self.attrs or {}
 
@@ -1319,7 +1319,7 @@ class Picture(ResponsiveImage):
         # The first rendition is the "base" / "fallback" image.
         fallback = fallback_renditions[0].img_tag(attrs)
 
-        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")  # noqa: S308 - TODO: investigate if susceptible to XSS
+        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
 
 class AbstractRendition(ImageFileMixin, models.Model):

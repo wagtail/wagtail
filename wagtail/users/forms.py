@@ -106,7 +106,7 @@ class UserForm(UsernameForm):
 
         if self.password_enabled:
             if self.password_required:
-                self.fields["password1"].help_text = mark_safe(  # noqa S308 - password validator help text is trusted
+                self.fields["password1"].help_text = mark_safe(  # noqa: S308 - password validator help text is trusted
                     password_validators_help_text_html()
                 )
                 self.fields["password1"].required = True

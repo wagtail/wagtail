@@ -989,7 +989,7 @@ class FragmentNode(template.Node):
         # Then, use mark_safe because the SafeString returned by
         # NodeList.render() is lost after stripping.
         if self.stripped:
-            fragment = mark_safe(fragment.strip())  # noqa: S308 - TODO: investigate if susceptible to XSS
+            fragment = mark_safe(fragment.strip())  # noqa: S308 - Template-rendered HTML is safe
         context[self.target_var] = fragment
         return ""
 

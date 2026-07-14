@@ -180,14 +180,14 @@ class WorkflowLock(BaseLock):
                 )
                 # Make sure message is correctly capitalised even if it
                 # starts with model_name.
-                workflow_info = mark_safe(capfirst(workflow_info))  # noqa: S308 - TODO: investigate if susceptible to XSS
+                workflow_info = mark_safe(capfirst(workflow_info))  # noqa: S308 - correctly uses format_html
 
             reviewers_info = capfirst(
                 _("Only reviewers for this task can edit the %(model_name)s.")
                 % {"model_name": self.model_name}
             )
 
-            return mark_safe(workflow_info + " " + reviewers_info)  # noqa: S308 - TODO: investigate if susceptible to XSS
+            return mark_safe(workflow_info + " " + reviewers_info)  # noqa: S308 - correctly uses format_html, model_name is developer-controlled
 
     def get_icon(self, user, can_lock=False):
         if can_lock:

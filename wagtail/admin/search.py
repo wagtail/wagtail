@@ -133,7 +133,7 @@ class Search:
         for item in search_areas:
             rendered_search_areas.append(item.render_html(request, query, current))
 
-        return mark_safe("".join(rendered_search_areas))  # noqa: S308 - TODO: investigate if susceptible to XSS
+        return mark_safe("".join(rendered_search_areas))  # noqa: S308 - individual items are template-rendered HTML
 
 
 admin_search_areas = Search(
