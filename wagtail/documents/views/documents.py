@@ -24,7 +24,7 @@ from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 Document = get_document_model()
 
@@ -51,7 +51,7 @@ class DocumentTable(Table):
 class DocumentsFilterSet(BaseMediaFilterSet):
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(Document)
+        return policy_registry.get_by_type(Document)
 
     class Meta:
         model = Document

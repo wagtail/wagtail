@@ -20,7 +20,7 @@ from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
 from wagtail.models import Collection
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.search import index as search_index
 
 
@@ -54,7 +54,7 @@ class BaseImageForm(BaseCollectionMemberForm):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
+        return policy_registry.get_by_type(get_image_model())
 
     def save(self, commit=True):
         if "file" in self.changed_data:

@@ -2,7 +2,7 @@ from django.utils.functional import cached_property, classproperty
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.views.bulk_action import BulkAction
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.snippets.models import get_snippet_models
 
 
@@ -21,7 +21,7 @@ class SnippetBulkAction(BulkAction):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def object_context(self, snippet):
         return {

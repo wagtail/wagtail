@@ -30,7 +30,7 @@ from wagtail.documents.views.bulk_actions import (
 )
 from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.wagtail_hooks import require_wagtail_login
 
 Document = get_document_model()
@@ -50,7 +50,7 @@ def construct_admin_api(router):
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return policies_registry.get_by_type(Document).user_has_any_permission(
+        return policy_registry.get_by_type(Document).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -104,7 +104,7 @@ class DocumentsSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_docs": policies_registry.get_by_type(Document)
+            "total_docs": policy_registry.get_by_type(Document)
             .instances_user_has_any_permission_for(
                 self.request.user, {"add", "change", "delete", "choose"}
             )
@@ -113,7 +113,7 @@ class DocumentsSummaryItem(SummaryItem):
         }
 
     def is_shown(self):
-        return policies_registry.get_by_type(Document).user_has_any_permission(
+        return policy_registry.get_by_type(Document).user_has_any_permission(
             self.request.user, ["add", "change", "delete"]
         )
 
@@ -125,7 +125,7 @@ def add_documents_summary_item(request, items):
 
 class DocsSearchArea(SearchArea):
     def is_shown(self, request):
-        return policies_registry.get_by_type(Document).user_has_any_permission(
+        return policy_registry.get_by_type(Document).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 

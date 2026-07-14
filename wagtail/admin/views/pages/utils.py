@@ -10,7 +10,7 @@ from wagtail.admin.utils import (  # noqa: F401
     get_latest_str,
     get_valid_next_url_from_request,
 )
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 def get_breadcrumbs_items_for_page(
@@ -24,7 +24,7 @@ def get_breadcrumbs_items_for_page(
     Page = swapper.load_model("wagtailcore", "Page")
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = policies_registry.get_by_type(Page).explorable_root_instance(user)
+    cca = policy_registry.get_by_type(Page).explorable_root_instance(user)
     if not cca:
         return []
 

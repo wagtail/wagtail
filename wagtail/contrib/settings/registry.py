@@ -9,7 +9,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.menu import MenuItem
-from wagtail.permissions import policies_registry, register_permission_policy
+from wagtail.permissions import policy_registry, register_permission_policy
 
 from .forms import SitePermissionForm
 
@@ -29,7 +29,7 @@ class SettingMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        permission_policy = policies_registry.get_by_type(self.model)
+        permission_policy = policy_registry.get_by_type(self.model)
         return permission_policy.user_has_permission(request.user, "change")
 
 

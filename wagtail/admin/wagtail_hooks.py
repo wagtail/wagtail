@@ -56,7 +56,7 @@ from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.pages import base_page_viewset
 from wagtail.admin.widgets import ButtonWithDropdownFromHook
 from wagtail.models import Collection, Task, Workflow
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.templatetags.wagtailcore_tags import (
     wagtail_feature_release_editor_guide_link,
     wagtail_feature_release_whats_new_link,
@@ -78,7 +78,7 @@ class ExplorerMenuItem(MenuItem):
 
     def get_context(self, request):
         context = super().get_context(request)
-        start_page = policies_registry.get_by_type(Page).explorable_root_instance(
+        start_page = policy_registry.get_by_type(Page).explorable_root_instance(
             request.user
         )
 
@@ -88,7 +88,7 @@ class ExplorerMenuItem(MenuItem):
         return context
 
     def render_component(self, request):
-        start_page = policies_registry.get_by_type(Page).explorable_root_instance(
+        start_page = policy_registry.get_by_type(Page).explorable_root_instance(
             request.user
         )
 
@@ -172,7 +172,7 @@ def register_collection_permissions_panel():
 
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
-        return policies_registry.get_by_type(Collection).user_has_any_permission(
+        return policy_registry.get_by_type(Collection).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -193,7 +193,7 @@ class WorkflowsMenuItem(MenuItem):
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
-        return policies_registry.get_by_type(Workflow).user_has_any_permission(
+        return policy_registry.get_by_type(Workflow).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -203,7 +203,7 @@ class WorkflowTasksMenuItem(MenuItem):
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
-        return policies_registry.get_by_type(Task).user_has_any_permission(
+        return policy_registry.get_by_type(Task).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -844,7 +844,7 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return policies_registry.get_by_type(Page).user_has_permission(
+        return policy_registry.get_by_type(Page).user_has_permission(
             request.user, "unlock"
         )
 
@@ -852,7 +852,7 @@ class LockedPagesMenuItem(MenuItem):
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
         return getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True) and (
-            policies_registry.get_by_type(Page).user_has_any_permission(
+            policy_registry.get_by_type(Page).user_has_any_permission(
                 request.user, ["add", "change", "publish"]
             )
         )
@@ -861,7 +861,7 @@ class WorkflowReportMenuItem(MenuItem):
 class SiteHistoryReportMenuItem(MenuItem):
     def is_shown(self, request):
         return (
-            policies_registry.get_by_type(Page).explorable_root_instance(request.user)
+            policy_registry.get_by_type(Page).explorable_root_instance(request.user)
             is not None
         )
 
@@ -869,7 +869,7 @@ class SiteHistoryReportMenuItem(MenuItem):
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
         return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True) and (
-            policies_registry.get_by_type(Page).user_has_any_permission(
+            policy_registry.get_by_type(Page).user_has_any_permission(
                 request.user, ["add", "change", "publish"]
             )
         )
@@ -877,7 +877,7 @@ class AgingPagesReportMenuItem(MenuItem):
 
 class PageTypesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return policies_registry.get_by_type(Page).user_has_any_permission(
+        return policy_registry.get_by_type(Page).user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
 

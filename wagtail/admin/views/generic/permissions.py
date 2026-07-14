@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.utils.functional import cached_property
 
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class PermissionCheckedMixin:
@@ -33,9 +33,7 @@ class PermissionCheckedMixin:
 
     @cached_property
     def permission_policy(self):
-        return getattr(self, "model", None) and policies_registry.get_by_type(
-            self.model
-        )
+        return getattr(self, "model", None) and policy_registry.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return not self.permission_policy or (

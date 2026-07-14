@@ -55,19 +55,19 @@ Other supporting code (not documented here) is used by pages and snippets to cat
    .. automethod:: get_by_type
    .. automethod:: get
 
-.. autodata:: wagtail.permissions.policies_registry
+.. autodata:: wagtail.permissions.policy_registry
 ```
 
 Retrieving a permission policy for a given Django model class or instance can be done as below.
 
 ```py
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from .models import MyModel
 
 # With the model class
-policies_registry.get_by_type(MyModel)
+policy_registry.get_by_type(MyModel)
 # With a model instance
-policies_registry.get(MyModel.objects.first())
+policy_registry.get(MyModel.objects.first())
 ```
 
 ```{eval-rst}

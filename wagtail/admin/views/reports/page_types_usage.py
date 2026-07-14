@@ -10,7 +10,7 @@ from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
 from wagtail.models import Site, get_page_models
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -112,7 +112,7 @@ class PageTypesUsageReportView(ReportView):
     def permission_policy(self):
         # This view lists ContentType objects, but we want to check permissions
         # against the Page model.
-        return policies_registry.get_by_type(Page)
+        return policy_registry.get_by_type(Page)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

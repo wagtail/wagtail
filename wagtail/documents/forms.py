@@ -16,7 +16,7 @@ from wagtail.documents import get_document_model
 from wagtail.documents.fields import WagtailDocumentField
 from wagtail.documents.models import Document
 from wagtail.models import Collection
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.search import index as search_index
 
 
@@ -49,7 +49,7 @@ class BaseDocumentForm(BaseCollectionMemberForm):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(get_document_model())
+        return policy_registry.get_by_type(get_document_model())
 
     def save(self, commit=True):
         if "file" in self.changed_data:

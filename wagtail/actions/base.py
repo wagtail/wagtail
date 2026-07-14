@@ -48,9 +48,9 @@ class BaseAction:
         ``wagtail.permission_policies.ModelPermissionPolicy`` for models
         that have not registered one.
         """
-        from wagtail.permissions import policies_registry
+        from wagtail.permissions import policy_registry
 
-        return policies_registry.get(self.instance)
+        return policy_registry.get(self.instance)
 
     def user_has_permission(self):
         """

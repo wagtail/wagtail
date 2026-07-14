@@ -21,7 +21,7 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock
 from wagtail.documents import get_document_model, get_document_model_string
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -122,7 +122,7 @@ class DocumentChooseResultsView(
 class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def get_object(self, pk):
         item = super().get_object(pk)
@@ -143,7 +143,7 @@ class DocumentChosenMultipleView(
 ):
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def get_objects(self, pks):
         return self.permission_policy.instances_user_has_any_permission_for(

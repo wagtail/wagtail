@@ -2,7 +2,7 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.images import get_image_model
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 
 class ImageBulkAction(BulkAction):
@@ -10,7 +10,7 @@ class ImageBulkAction(BulkAction):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def get_all_objects_in_listing_query(self, parent_id):
         listing_objects = self.permission_policy.instances_user_has_permission_for(

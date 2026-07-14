@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 from wagtail.models import CollectionMember, ReferenceIndex
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 from wagtail.utils.file import hash_filelike
@@ -182,7 +182,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     def is_editable_by_user(self, user):
         from wagtail.documents import get_document_model
 
-        return policies_registry.get_by_type(
+        return policy_registry.get_by_type(
             get_document_model()
         ).user_has_permission_for_instance(user, "change", self)
 

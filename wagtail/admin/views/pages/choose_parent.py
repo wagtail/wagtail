@@ -12,7 +12,7 @@ from django.views.generic import FormView
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.mixins import LocaleMixin
-from wagtail.permissions import policies_registry
+from wagtail.permissions import policy_registry
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -25,7 +25,7 @@ class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
 
     @cached_property
     def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     def get_valid_parent_pages(self, user):
         """

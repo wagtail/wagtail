@@ -21,7 +21,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import policies_registry, register_permission_policy
+from wagtail.permissions import policy_registry, register_permission_policy
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import ViewSet, ViewSetGroup
@@ -136,7 +136,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         """
         # Upon access, this will either return an explicitly registered policy
         # for the model, or create and register a fallback policy for the model.
-        return policies_registry.get_by_type(self.model)
+        return policy_registry.get_by_type(self.model)
 
     @cached_property
     def pk_path_converter(self):
@@ -476,7 +476,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         from wagtail.admin.menu import MenuItem
 
         def is_shown(_self, request):
-            permission_policy = policies_registry.get_by_type(self.model)
+            permission_policy = policy_registry.get_by_type(self.model)
             return permission_policy.user_has_any_permission(
                 request.user, self.index_view_class.any_permission_required
             )
@@ -595,7 +595,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)
 
-        registered_policy = policies_registry.get_by_type(self.model, fallback=False)
+        registered_policy = policy_registry.get_by_type(self.model, fallback=False)
         if not registered_policy:
             # If no explicit policy was registered by now, accessing
             # self.permission_policy will create and register a fallback policy
@@ -604,8 +604,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
             # unless the cached property was overridden with a custom one, thus
             # it is not the same as the fallback policy for the model.
             has_custom_policy = (
-                permission_policy
-                is not policies_registry.get_fallback_policy(self.model)
+                permission_policy is not policy_registry.get_fallback_policy(self.model)
             )
 
             if has_custom_policy:
