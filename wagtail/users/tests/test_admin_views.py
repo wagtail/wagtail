@@ -1,6 +1,5 @@
 import unittest.mock
 
-import swapper
 from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -31,15 +30,10 @@ from wagtail.models import (
     GroupPagePermission,
     LockableMixin,
 )
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
 from wagtail.test.customuser.viewsets import CustomUserViewSet
 from wagtail.test.testapp.models import VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import GroupForm
 from wagtail.users.models import UserProfile

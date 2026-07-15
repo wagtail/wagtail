@@ -1,7 +1,6 @@
 import datetime
 from unittest import mock
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
@@ -17,11 +16,6 @@ from wagtail.models import (
     Revision,
 )
 from wagtail.signals import init_new_page, page_published
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     BusinessChild,
@@ -37,7 +31,7 @@ from wagtail.test.testapp.models import (
     StandardChild,
     StandardIndex,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 

@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
@@ -14,11 +13,6 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.permission_policies.pages import PagePermissionPolicy
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
     CustomPermissionPage,
@@ -31,6 +25,7 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     SingletonPageViaMaxCount,
 )
+from wagtail.test.utils import Page
 
 
 class TestPagePermission(TestCase):

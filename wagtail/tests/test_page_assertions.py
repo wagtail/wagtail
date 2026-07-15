@@ -1,14 +1,9 @@
 from unittest import mock
 
-import swapper
 from django.conf import settings
 
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.routablepage.models import RoutablePageTest
-from wagtail.test.utils import WagtailPageTestCase
+from wagtail.test.utils import Page, WagtailPageTestCase
 
 
 class TestCustomPageAssertions(WagtailPageTestCase):

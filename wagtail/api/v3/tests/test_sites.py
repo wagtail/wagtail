@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import Permission
 from django.core.cache import cache
 from django.test import TestCase
@@ -12,12 +11,7 @@ from wagtail.models.sites import (
     SITE_ROOT_PATHS_CACHE_KEY,
     SITE_ROOT_PATHS_CACHE_VERSION,
 )
-from wagtail.test.utils import WagtailTestUtils
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
+from wagtail.test.utils import Page, WagtailTestUtils
 
 SITE_FIELDS = {"id", "hostname", "port", "site_name", "root_page_id", "is_default_site"}
 

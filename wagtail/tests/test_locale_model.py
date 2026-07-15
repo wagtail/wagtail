@@ -1,16 +1,11 @@
-import swapper
 from django.conf import settings
 from django.test import TestCase, override_settings
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import Locale
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.i18n.models import TestPage
+from wagtail.test.utils import Page
 
 
 def make_test_page(**kwargs):

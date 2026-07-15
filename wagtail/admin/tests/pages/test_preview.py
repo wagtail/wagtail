@@ -2,7 +2,6 @@ import datetime
 import json
 from functools import wraps
 
-import swapper
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
@@ -13,11 +12,6 @@ from freezegun import freeze_time
 from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomPreviewSizesPage,
     EventCategory,
@@ -26,7 +20,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     StreamPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestIssue2599(WagtailTestUtils, TestCase):

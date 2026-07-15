@@ -1,7 +1,6 @@
 from io import StringIO
 from unittest import mock
 
-import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -11,18 +10,13 @@ from django.test import TestCase, TransactionTestCase, tag
 from wagtail.models import Locale, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     EventPage,
     SimplePage,
     SingleEventPage,
     StreamPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestPageQuerySet(TestCase):

@@ -4,7 +4,6 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
-import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -46,11 +45,6 @@ from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.images import get_image_model
 from wagtail.models import Comment, CommentReply, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     Advert,
@@ -66,7 +60,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     ValidatedPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestGetFormForModel(TestCase):

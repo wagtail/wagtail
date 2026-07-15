@@ -1,20 +1,14 @@
 import json
 import unittest
 
-import swapper
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import translation
 
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import TableBlockStreamPage, ValidationError
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 from .blocks import TableInput
 

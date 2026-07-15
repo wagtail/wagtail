@@ -1,16 +1,10 @@
 import itertools
 
-import swapper
 from django import forms
 from django.test import TestCase
 
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.utils import get_field_clean_name
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     ExtendedFormField,
     FormBuilderWithCustomWidget,
@@ -18,6 +12,7 @@ from wagtail.test.testapp.models import (
     FormPage,
     FormPageWithCustomFormBuilder,
 )
+from wagtail.test.utils import Page
 
 
 class TestFormBuilder(TestCase):

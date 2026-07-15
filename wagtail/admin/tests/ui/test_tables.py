@@ -1,4 +1,3 @@
-import swapper
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 from django.utils.html import format_html
@@ -11,11 +10,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
 )
 from wagtail.models import Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
+from wagtail.test.utils import Page
 
 
 class TestTable(TestCase):
