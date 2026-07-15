@@ -902,6 +902,14 @@ WAGTAILAPI_USE_FRONTENDCACHE = True
 
 Requires `wagtailfrontendcache` app to be installed, indicates the API should use the frontend cache.
 
+### `WAGTAILAPI_RICH_TEXT_FORMAT`
+
+```python
+WAGTAILAPI_RICH_TEXT_FORMAT = 'html'
+```
+
+Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)). Set to `html` to use display-ready HTML instead. This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
+
 ## Frontend cache
 
 For full documentation on frontend cache invalidation, including these settings, see [](frontend_cache_purging).
