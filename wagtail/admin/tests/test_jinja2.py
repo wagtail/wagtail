@@ -1,16 +1,10 @@
-import swapper
 from django.contrib.auth.models import AnonymousUser
 from django.template import engines
 from django.test import TestCase
 
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestCoreJinja(WagtailTestUtils, TestCase):

@@ -1,6 +1,5 @@
 from http import HTTPStatus
 
-import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Group, Permission
@@ -21,15 +20,10 @@ from wagtail.contrib.simple_translation.views import (
 )
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import GroupPagePermission, Locale
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import FullFeaturedSnippet
-from wagtail.test.utils import TestCase, WagtailTestUtils
+from wagtail.test.utils import Page, TestCase, WagtailTestUtils
 
 
 @override_settings(

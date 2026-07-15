@@ -1,7 +1,6 @@
 import json
 from urllib.parse import parse_qs, urlsplit
 
-import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
@@ -10,18 +9,13 @@ from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
 from wagtail.models import Locale
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     SimplePage,
     SingleEventPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestChooserBrowse(WagtailTestUtils, TestCase):

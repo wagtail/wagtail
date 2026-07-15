@@ -1,7 +1,6 @@
 import json
 from unittest import mock
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -26,11 +25,6 @@ from wagtail.models import (
     ReferenceIndex,
     UploadedFile,
 )
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomDocument,
     CustomDocumentWithAuthor,
@@ -38,7 +32,7 @@ from wagtail.test.testapp.models import (
     EventPageRelatedLink,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 

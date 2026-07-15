@@ -3,7 +3,6 @@ import json
 import logging
 from unittest import expectedFailure, mock, skip
 
-import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -41,11 +40,6 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.signals import page_published, published
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomLockTask,
     CustomWorkflowLock,
@@ -56,7 +50,7 @@ from wagtail.test.testapp.models import (
     SimpleTask,
     UserApprovalTask,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 

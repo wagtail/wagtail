@@ -1,6 +1,5 @@
 from unittest import mock
 
-import swapper
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest
@@ -11,13 +10,8 @@ from django.utils.http import urlencode
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.signals import page_unpublished
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage, VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestBulkDelete(WagtailTestUtils, TestCase):

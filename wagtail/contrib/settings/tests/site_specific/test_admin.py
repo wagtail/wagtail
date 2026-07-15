@@ -1,4 +1,3 @@
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
@@ -10,11 +9,6 @@ from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.models import GroupSitePermission, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     FileSiteSetting,
     IconSiteSetting,
@@ -23,7 +17,7 @@ from wagtail.test.testapp.models import (
     TestPermissionedSiteSetting,
     TestSiteSetting,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class SiteSettingTestMixin:

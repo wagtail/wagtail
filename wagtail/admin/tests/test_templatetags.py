@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
 
-import swapper
 from django import forms
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
@@ -25,12 +24,7 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail90Warning

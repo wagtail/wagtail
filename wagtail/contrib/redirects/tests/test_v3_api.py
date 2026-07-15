@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -8,13 +7,7 @@ from django.urls import reverse
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Site
-from wagtail.test.utils import WagtailTestUtils
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
-
+from wagtail.test.utils import Page, WagtailTestUtils
 
 REDIRECT_FIELDS = {
     "id",

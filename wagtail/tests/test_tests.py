@@ -1,7 +1,6 @@
 import json
 import unittest
 
-import swapper
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -10,11 +9,6 @@ from django.test import SimpleTestCase, TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.models import PAGE_MODEL_CLASSES, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.dummy_external_storage import DummyExternalStorage
 from wagtail.test.numberformat import ignore_numberformat
 from wagtail.test.testapp.models import (
@@ -32,7 +26,7 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     StreamPage,
 )
-from wagtail.test.utils import WagtailPageTests, WagtailTestUtils
+from wagtail.test.utils import Page, WagtailPageTests, WagtailTestUtils
 from wagtail.test.utils.form_data import (
     inline_formset,
     nested_form_data,
