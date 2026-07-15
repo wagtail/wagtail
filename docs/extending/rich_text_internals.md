@@ -1,3 +1,5 @@
+(rich_text_internals)=
+
 # Rich text internals
 
 At first glance, Wagtail's rich text capabilities appear to give editors direct control over a block of HTML content. In reality, it's necessary to give editors a representation of rich text content that is several steps removed from the final HTML output, for several reasons:
