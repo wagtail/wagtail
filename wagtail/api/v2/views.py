@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
+from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.models import Page, Site
 
 from .filters import (
@@ -62,6 +63,7 @@ class BaseAPIViewSet(GenericViewSet):
             "order",
             "search",
             "search_operator",
+            "rich_text_format",
             # Used by jQuery for cache-busting. See #1671
             "_",
             # Required by BrowsableAPIRenderer
@@ -102,6 +104,7 @@ class BaseAPIViewSet(GenericViewSet):
         return self._cached_object
 
     def detail_view(self, request, pk):
+        self.validate_rich_text_format()
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -243,6 +246,17 @@ class BaseAPIViewSet(GenericViewSet):
                 "query parameter is not an operation or a recognised field: %s"
                 % ", ".join(sorted(unknown_parameters))
             )
+
+        self.validate_rich_text_format()
+
+    def validate_rich_text_format(self):
+        if "rich_text_format" not in self.request.GET:
+            return
+
+        try:
+            APIRichText.resolve_format(self.request)
+        except RichTextFormatError as exc:
+            raise BadRequestError(str(exc)) from exc
 
     @classmethod
     def _get_serializer_class(

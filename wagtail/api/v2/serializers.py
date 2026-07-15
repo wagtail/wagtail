@@ -7,6 +7,7 @@ from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
 from wagtail import fields as wagtailcore_fields
+from wagtail.api.rich_text import APIRichText
 
 from .utils import get_object_detail_url
 
@@ -265,6 +266,23 @@ class StreamField(Field):
         return value.stream_block.get_api_representation(value, self.context)
 
 
+class RichTextFieldSerializer(serializers.CharField):
+    """
+    Serializes RichTextField values.
+
+    Output format is controlled by the ``?rich_text_format=`` query parameter
+    or the ``WAGTAILAPI_RICH_TEXT_FORMAT`` setting (default: ``db_html``).
+    """
+
+    def to_representation(self, value):
+        rich_text_format = self.context.setdefault(
+            "_wagtail_rich_text_format",
+            APIRichText.resolve_format(self.context.get("request")),
+        )
+        representation = super().to_representation(value)
+        return APIRichText.serialize(representation, format=rich_text_format)
+
+
 class TagsField(Field):
     """
     Serializes django-taggit TaggableManager fields.
@@ -290,6 +308,7 @@ class BaseSerializer(serializers.ModelSerializer):
     serializer_field_mapping.update(
         {
             wagtailcore_fields.StreamField: StreamField,
+            wagtailcore_fields.RichTextField: RichTextFieldSerializer,
         }
     )
     serializer_related_field = RelatedField
