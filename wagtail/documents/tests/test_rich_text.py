@@ -1,4 +1,3 @@
-import swapper
 from django.test import TestCase
 from django.urls import reverse_lazy
 
@@ -11,14 +10,11 @@ from wagtail.documents.rich_text.editor_html import (
 )
 from wagtail.fields import RichTextField
 from wagtail.rich_text.feature_registry import FeatureRegistry
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestEditorHtmlDocumentLinkHandler(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
         soup = self.get_soup('<a data-id="test-id">foo</a>')
@@ -42,11 +38,8 @@ class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
         self.assertEqual(result, '<a data-linktype="document">')
 
 
-class TestFrontendDocumentLinkHandler(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFrontendDocumentLinkHandler(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_expand_db_attributes_for_frontend(self):
         result = FrontendDocumentLinkHandler.expand_db_attributes({"id": 1})

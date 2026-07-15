@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.urls import reverse
 
 from wagtail.api.v2.tests.test_documents import (
@@ -14,10 +13,7 @@ from .utils import AdminAPITestCase
 
 
 class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:documents:listing"), params)
@@ -89,10 +85,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
 
 
 class TestAdminDocumentListingSearch(AdminAPITestCase, TestDocumentListingSearch):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailadmin_api:documents:listing"), params)
@@ -102,10 +95,7 @@ class TestAdminDocumentListingSearch(AdminAPITestCase, TestDocumentListingSearch
 
 
 class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+    fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
         return self.client.get(

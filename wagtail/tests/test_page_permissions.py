@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
@@ -26,14 +25,11 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     SingletonPageViaMaxCount,
 )
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
-class TestPagePermission(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPagePermission(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def create_workflow_and_task(self):
         workflow = Workflow.objects.create(name="test_workflow")
@@ -994,13 +990,10 @@ class TestPagePermission(TestCase):
         self.assertIsInstance(page.permissions_for_user(user), CustomPermissionTester)
 
 
-class TestPagePermissionTesterCanCopyTo(TestCase):
+class TestPagePermissionTesterCanCopyTo(PageFixturesMixin, TestCase):
     """Tests PagePermissionTester.can_copy_to()"""
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         # These same pages will be used for testing the result for each user
@@ -1086,11 +1079,8 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         )
 
 
-class TestPagePermissionModel(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPagePermissionModel(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_create_with_permission_type_only(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")

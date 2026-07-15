@@ -3,7 +3,6 @@ import json
 import os
 from unittest import mock
 
-import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -48,7 +47,7 @@ from wagtail.test.testapp.models import (
     StreamPage,
     TaggedPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
@@ -3340,14 +3339,11 @@ class TestIssue197(WagtailTestUtils, TestCase):
         self.assertIn("world", page.tags.slugs())
 
 
-class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
+class TestChildRelationsOnSuperclass(PageFixturesMixin, WagtailTestUtils, TestCase):
     # In our test models we define AdvertPlacement as a child relation on the Page model.
     # Here we check that this behaves correctly when exposed on the edit form of a Page
     # subclass (StandardIndex here).
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -3683,11 +3679,8 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         )
 
 
-class TestParentalM2M(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestParentalM2M(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -3864,11 +3857,8 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationerror_messages(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestValidationerror_messages(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -4089,11 +4079,8 @@ class TestValidationerror_messages(WagtailTestUtils, TestCase):
         self.assertIn("This field is required.", error_message.get_text())
 
 
-class TestNestedInlinePanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestNestedInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.events_index = Page.objects.get(url_path="/home/events/")
@@ -4262,11 +4249,8 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")

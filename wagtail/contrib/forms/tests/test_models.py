@@ -1,4 +1,3 @@
-import swapper
 from django.core import mail
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
@@ -18,7 +17,7 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestFormSubmission(TestCase):
@@ -799,11 +798,8 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 21.12.1910 21:19", mail.outbox[0].body)
 
 
-class TestIssue798(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestIssue798(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -843,11 +839,8 @@ class TestIssue798(WagtailTestUtils, TestCase):
         )
 
 
-class TestNonHtmlExtension(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestNonHtmlExtension(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
@@ -856,11 +849,8 @@ class TestNonHtmlExtension(TestCase):
         )
 
 
-class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFormFieldCleanNameCreation(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")

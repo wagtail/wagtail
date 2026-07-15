@@ -1,6 +1,5 @@
 from http import HTTPStatus
 
-import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -16,16 +15,13 @@ from wagtail.test.testapp.models import (
     FormClassAdditionalFieldPage,
     SecretPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestRevisions(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRevisions(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -214,14 +210,13 @@ class TestStreamRevisions(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestCompareRevisions(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     base_breadcrumb_items = []
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -385,11 +380,10 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisionsWithPerUserEditHandlers(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestCompareRevisionsWithPerUserEditHandlers(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.home = Page.objects.get(url_path="/home/")
@@ -445,7 +439,9 @@ class TestCompareRevisionsWithPerUserEditHandlers(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
+class TestCompareRevisionsWithNonModelField(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     """
     Tests if form fields defined in the base_form_class will not be included.
     in revisions view as they are not actually on the model.
@@ -453,10 +449,7 @@ class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
     Note: Actual tests for comparison classes can be found in test_compare.py
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
     # FormClassAdditionalFieldPage
 
     def setUp(self):
@@ -523,11 +516,8 @@ class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<h2>Code:</h2>")
 
 
-class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRevisionsUnschedule(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -683,11 +673,10 @@ class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
         )
 
 
-class TestRevisionsUnscheduleForUnpublishedPages(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRevisionsUnscheduleForUnpublishedPages(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.unpublished_event = EventPage.objects.get(

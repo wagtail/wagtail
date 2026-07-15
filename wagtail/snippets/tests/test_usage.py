@@ -1,6 +1,5 @@
 from io import StringIO
 
-import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.core import management
@@ -14,14 +13,11 @@ from wagtail.test.testapp.models import (
     EventPage,
     GenericSnippetPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestUsageCount(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUsageCount(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):
@@ -34,11 +30,8 @@ class TestUsageCount(TestCase):
         self.assertEqual(ReferenceIndex.get_grouped_references_to(advert).count(), 2)
 
 
-class TestUsedBy(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUsedBy(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):
@@ -56,11 +49,8 @@ class TestUsedBy(TestCase):
         self.assertIsInstance(usage[0][1][0], ReferenceIndex)
 
 
-class TestSnippetUsageView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetUsageView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
