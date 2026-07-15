@@ -1,6 +1,5 @@
 from functools import partial
 
-import swapper
 from django.test import TestCase
 from django.utils.safestring import SafeString
 
@@ -19,6 +18,7 @@ from wagtail.test.testapp.models import (
     StreamPage,
     TaggedPage,
 )
+from wagtail.test.utils import PageFixturesMixin
 
 
 class TestFieldComparison(TestCase):
@@ -1050,11 +1050,8 @@ class TestTagsFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
 
-class TestM2MFieldComparison(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestM2MFieldComparison(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
     comparison_class = compare.M2MFieldComparison
 
     def setUp(self):

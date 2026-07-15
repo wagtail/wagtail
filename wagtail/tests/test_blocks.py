@@ -7,7 +7,6 @@ import unittest.mock
 from decimal import Decimal
 
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
-import swapper
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
@@ -34,7 +33,7 @@ from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -729,11 +728,8 @@ class TestRegexBlock(TestCase):
             block.clean("bar")
 
 
-class TestRichTextBlock(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRichTextBlock(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RichTextBlock().get_default()
@@ -4087,11 +4083,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             self.assert_eq_list_values(normalized[0], [1, 2, 3])
 
 
-class TestListBlockWithFixtures(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestListBlockWithFixtures(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_calls_child_bulk_to_python_when_available(self):
         page_ids = [2, 3, 4, 5]
@@ -5698,11 +5691,8 @@ class TestNormalizeStreamBlock(SimpleTestCase):
                 )
 
 
-class TestStructBlockWithFixtures(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestStructBlockWithFixtures(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_bulk_to_python(self):
         page_link_block = blocks.StructBlock(
@@ -5763,11 +5753,8 @@ class TestStructBlockWithFixtures(TestCase):
         )
 
 
-class TestStreamBlockWithFixtures(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestStreamBlockWithFixtures(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_bulk_to_python(self):
         stream_block = blocks.StreamBlock(
@@ -5877,11 +5864,8 @@ class TestStreamBlockWithFixtures(TestCase):
         )
 
 
-class TestPageChooserBlock(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageChooserBlock(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_serialize(self):
         """The value of a PageChooserBlock (a Page object) should serialize to an ID"""

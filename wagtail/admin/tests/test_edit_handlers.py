@@ -4,7 +4,6 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
-import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -61,7 +60,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     ValidatedPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestGetFormForModel(TestCase):
@@ -1185,11 +1184,8 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.assertNotIn("error-message", result)
 
 
-class TestPageChooserPanel(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageChooserPanel(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1344,11 +1340,8 @@ class TestPageChooserPanel(TestCase):
         self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
 
-class TestInlinePanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1594,11 +1587,8 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             )
 
 
-class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestNonOrderableInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = get_dummy_request()
@@ -1633,11 +1623,8 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestInlinePanelGetComparison(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestInlinePanelGetComparison(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -1744,11 +1731,8 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         delattr(EventPageSpeaker, "content_panels")
 
 
-class TestCommentPanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestCommentPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.commenting_user = get_user_model().objects.get(pk=7)
@@ -2085,11 +2069,8 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         # The existing reply was from the same user, so should be deletable
 
 
-class TestPublishingPanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPublishingPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -2153,11 +2134,8 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         self.assertIn("expire_at", form.base_fields)
 
 
-class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestMultipleChooserPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -2180,11 +2158,8 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestMultipleChooserPanelGetComparison(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestMultipleChooserPanelGetComparison(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -2364,11 +2339,8 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
                 self.assertIn(f"#icon-{expected_icon}", html)
 
 
-class TestTitleFieldPanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestTitleFieldPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

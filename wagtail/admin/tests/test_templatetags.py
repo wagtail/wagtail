@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
 
-import swapper
 from django import forms
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
@@ -25,7 +24,7 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
@@ -843,11 +842,10 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
         self.assertIsNotNone(icon)
 
 
-class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class PageBreadcrumbsTagTest(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
     base_breadcrumb_items = []
 
     def setUp(self):
@@ -1042,11 +1040,10 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertIsNotNone(icon)
 
 
-class PageHeaderButtonsTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class PageHeaderButtonsTest(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = get_dummy_request()

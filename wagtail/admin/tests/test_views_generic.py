@@ -1,17 +1,13 @@
-import swapper
 from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.test.testapp.models import ModelWithStringTypePrimaryKey
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestGenericIndexView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGenericIndexView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index"), params)
@@ -29,11 +25,8 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(h1.text.strip(), "Model with string type primary keys")
 
 
-class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGenericIndexViewWithoutModel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index_without_model"), params)
@@ -45,11 +38,8 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
         self.assertEqual(response_object_count, 4)
 
 
-class TestGenericCreateView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGenericCreateView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -84,11 +74,8 @@ class TestGenericCreateView(WagtailTestUtils, TestCase):
         )
 
 
-class TestGenericEditView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGenericEditView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):
         return self.client.get(
@@ -133,11 +120,8 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
                 self.assertEqual(delete_url_pk, quote(object_pk))
 
 
-class TestGenericDeleteView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGenericDeleteView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):
         return self.client.get(

@@ -1,7 +1,6 @@
 import json
 from unittest.mock import patch
 
-import swapper
 from django.test import TestCase
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
@@ -11,6 +10,7 @@ from wagtail.admin.rich_text.converters.contentstate import (
     persist_key_for_block,
 )
 from wagtail.embeds.models import Embed
+from wagtail.test.utils import PageFixturesMixin
 
 
 def content_state_equal(v1, v2, match_keys=False):
@@ -36,11 +36,8 @@ def content_state_equal(v1, v2, match_keys=False):
         return v1 == v2
 
 
-class TestHtmlToContentState(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestHtmlToContentState(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def assertContentStateEqual(self, v1, v2, match_keys=False):
         "Assert that two contentState structures are equal, ignoring 'key' properties if match_keys is False"

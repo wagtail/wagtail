@@ -1,19 +1,15 @@
 import unittest
 
-import swapper
 from django.conf import settings
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestUserPasswordReset(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUserPasswordReset(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
     # in some tests here
