@@ -247,9 +247,11 @@ This adds two fields to the API (other fields omitted for brevity):
 
 ### Rich text in the API
 
-In the above example, we serialize the `body` field using Wagtail’s storage format for rich text, described in [](../../../extending/rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
+By default, `RichTextField` values are serialized in Wagtail's database HTML format, described in [](rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
 
-It’s also often useful for the API to directly provide a “display” representation, similarly to the `|richtext` template filter. This can be done with a custom serializer:
+To return display-ready HTML instead (equivalent to the `|richtext` template filter), use the `?rich_text_format=html` query parameter or set the project-wide default with `WAGTAILAPI_RICH_TEXT_FORMAT = 'html'` in your settings. The default format is `db_html`.
+
+For per-field control regardless of the query parameter, you can still use a custom serializer that acts like the `|richtext` template filter:
 
 ```python
 from rest_framework.fields import CharField
