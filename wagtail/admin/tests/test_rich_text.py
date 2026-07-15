@@ -19,7 +19,7 @@ from wagtail.rich_text import RichText
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.testapp.models import SingleEventPage
 from wagtail.test.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):
@@ -492,11 +492,8 @@ class TestDraftailWithAdditionalFeatures(
         self.assertNotIn('"type": "ITALIC"', data)
 
 
-class TestPageLinkHandler(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageLinkHandler(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
         soup = self.get_soup('<a data-id="test-id">foo</a>')

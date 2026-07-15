@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.admin.utils import quote
 from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
@@ -18,14 +17,11 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetChoose(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChoose(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -121,11 +117,8 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["results"][0].text, "English snippet")
 
 
-class TestSnippetChooseResults(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooseResults(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -290,11 +283,8 @@ class TestSnippetChooseWithNonAutocompleteSearchableSnippet(
         self.assertIn(self.snippet_c, items)
 
 
-class TestSnippetChosen(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChosen(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -315,11 +305,10 @@ class TestSnippetChosen(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooseWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -348,11 +337,10 @@ class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["results"][0].text, "advert 1")
 
 
-class TestSnippetChosenWithCustomPrimaryKey(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChosenWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -372,11 +360,10 @@ class TestSnippetChosenWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
 
 
-class TestSnippetChosenWithCustomUUIDPrimaryKey(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChosenWithCustomUUIDPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()

@@ -6,15 +6,12 @@ from django.urls import reverse
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Site
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.views import serve
 
 
-class TestLoginView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestLoginView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()
@@ -58,11 +55,8 @@ class TestLoginView(WagtailTestUtils, TestCase):
 
 
 @mock.patch("wagtail.hooks.get_hooks", mock.Mock(return_value=[]))
-class TestServeView(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestServeView(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_serve_query_count(self):
         request = get_dummy_request()

@@ -11,16 +11,13 @@ from wagtail.models.sites import (
     SITE_ROOT_PATHS_CACHE_KEY,
     SITE_ROOT_PATHS_CACHE_VERSION,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 SITE_FIELDS = {"id", "hostname", "port", "site_name", "root_page_id", "is_default_site"}
 
 
-class TestV3SiteListing(TestV3Base, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestV3SiteListing(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_sites"), params)
@@ -66,11 +63,8 @@ class TestV3SiteListing(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=403)
 
 
-class TestV3SiteDetail(TestV3Base, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestV3SiteDetail(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, site_id):
         return self.client.get(
@@ -108,11 +102,8 @@ class TestV3SiteDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=404)
 
 
-class TestV3SiteCreate(TestV3Base, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestV3SiteCreate(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -205,11 +196,8 @@ class TestV3SiteCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["hostname"], "upper.example.com")
 
 
-class TestV3SiteUpdate(TestV3Base, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestV3SiteUpdate(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -298,11 +286,8 @@ class TestV3SiteUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(set(content.keys()), SITE_FIELDS)
 
 
-class TestV3SiteDelete(TestV3Base, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestV3SiteDelete(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()

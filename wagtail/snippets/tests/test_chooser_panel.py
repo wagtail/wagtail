@@ -1,4 +1,3 @@
-import swapper
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase
 
@@ -10,14 +9,11 @@ from wagtail.test.testapp.models import (
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooserPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -84,11 +80,10 @@ class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
         self.assertEqual(widget.model, Advert)
 
 
-class TestSnippetChooserPanelWithCustomPrimaryKey(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooserPanelWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.request = RequestFactory().get("/")

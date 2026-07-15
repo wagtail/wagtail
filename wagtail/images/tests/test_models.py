@@ -44,7 +44,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 from .utils import (
     Image,
@@ -205,11 +205,8 @@ class TestImage(TestCase):
 
 
 @tag("transaction")
-class TestImageQuerySet(TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestImageQuerySet(PageFixturesMixin, TransactionTestCase):
+    fixtures = ["test_empty.json"]
 
     def test_search_method(self):
         # Create an image for running tests on
@@ -1122,11 +1119,8 @@ class TestRenditions(TestCase):
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 )
-class TestPrefetchRenditions(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPrefetchRenditions(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.images = []
@@ -1180,11 +1174,8 @@ class TestPrefetchRenditions(TestCase):
         self.assertListEqual(self.large_renditions, large_renditions)
 
 
-class TestUsageCount(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUsageCount(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.image = Image.objects.create(
@@ -1205,11 +1196,8 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
-class TestGetUsage(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGetUsage(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.image = Image.objects.create(
@@ -1234,11 +1222,8 @@ class TestGetUsage(TestCase):
         self.assertIsInstance(self.image.get_usage()[0][1][0], ReferenceIndex)
 
 
-class TestGetWillowImage(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGetWillowImage(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.image = Image.objects.create(

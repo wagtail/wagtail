@@ -1,17 +1,13 @@
-import swapper
 from django.core.checks import Error
 from django.test import TestCase, override_settings
 from django.utils.formats import reset_format_cache
 
 from wagtail.admin.checks import datetime_format_check
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestDateTimeChecks(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         reset_format_cache()

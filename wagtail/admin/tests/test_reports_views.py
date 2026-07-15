@@ -30,7 +30,7 @@ from wagtail.test.testapp.models import (
     EventPageSpeaker,
     SimplePage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
@@ -321,11 +321,8 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
-class TestFilteredLockedPagesView(BaseReportViewTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFilteredLockedPagesView(PageFixturesMixin, BaseReportViewTestCase):
+    fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:locked_pages"
 
     def setUp(self):
@@ -373,11 +370,8 @@ class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
     results_only = True
 
 
-class TestFilteredLogEntriesView(BaseReportViewTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFilteredLogEntriesView(PageFixturesMixin, BaseReportViewTestCase):
+    fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:site_history"
 
     def setUp(self):
@@ -1072,11 +1066,8 @@ class TestAgingPagesViewPermissions(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestFilteredAgingPagesView(BaseReportViewTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFilteredAgingPagesView(PageFixturesMixin, BaseReportViewTestCase):
+    fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:aging_pages"
 
     def setUp(self):
@@ -1131,11 +1122,8 @@ class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
     results_only = True
 
 
-class PageTypesUsageReportViewTest(BaseReportViewTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class PageTypesUsageReportViewTest(PageFixturesMixin, BaseReportViewTestCase):
+    fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
     def setUp(self):
@@ -1436,11 +1424,10 @@ class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
     results_only = True
 
 
-class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageTypesUsageReportViewPermissions(
+    PageFixturesMixin, BaseReportViewTestCase
+):
+    fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
     def test_simple(self):

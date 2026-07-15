@@ -1,4 +1,3 @@
-import swapper
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.test import TestCase
 
@@ -7,13 +6,11 @@ from wagtail.models import Locale
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import Advert, AdvertWithCustomPrimaryKey
+from wagtail.test.utils import PageFixturesMixin
 
 
-class TestSnippetChooserBlock(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooserBlock(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_serialize(self):
         """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""
@@ -117,11 +114,8 @@ class TestSnippetChooserBlock(TestCase):
             block.widget
 
 
-class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSnippetChooserBlockWithCustomPrimaryKey(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_serialize(self):
         """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""

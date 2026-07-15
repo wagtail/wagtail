@@ -12,14 +12,14 @@ from wagtail.search.backends.base import (
     OrderByFieldError,
 )
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 @mock.patch("wagtail.tests.DummySearchBackend", create=True)
 @override_settings(
     WAGTAILSEARCH_BACKENDS={"default": {"BACKEND": "wagtail.tests.DummySearchBackend"}}
 )
-class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
+class TestInsertOrUpdateObject(PageFixturesMixin, WagtailTestUtils, TestCase):
     def test_converts_to_specific_page(self, backend):
         root_page = Page.objects.get(id=1)
         page = root_page.add_child(
@@ -37,15 +37,12 @@ class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
         backend().add.assert_called_with(page)
 
 
-class PageSearchTests:
+class PageSearchTests(PageFixturesMixin):
     # A TestCase with this class mixed in will be dynamically created
     # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
     # as self.backend_name
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.backend = get_search_backend(self.backend_name)

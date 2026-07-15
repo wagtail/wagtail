@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.models import Comment
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 class CommentTestingUtils:
@@ -21,11 +21,8 @@ class CommentTestingUtils:
         )
 
 
-class TestRevisionDeletion(CommentTestingUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRevisionDeletion(PageFixturesMixin, CommentTestingUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

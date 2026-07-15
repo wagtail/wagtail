@@ -26,17 +26,14 @@ from wagtail.models.sites import (
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 )
-class TestPageUrlTags(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageUrlTags(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -267,11 +264,8 @@ class TestPageUrlTags(TestCase):
             tpl.render(template.Context({"page": 123}))
 
 
-class TestWagtailSiteTag(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestWagtailSiteTag(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
         request = get_dummy_request(site=Site.objects.first())
@@ -291,11 +285,8 @@ class TestWagtailSiteTag(TestCase):
         self.assertEqual("", result)
 
 
-class TestSiteRootPathsCache(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestSiteRootPathsCache(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def get_cached_site_root_paths(self):
         return cache.get(
@@ -661,11 +652,8 @@ class TestWagtailCacheTag(TestCase):
         )
 
 
-class TestWagtailPageCacheTag(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestWagtailPageCacheTag(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

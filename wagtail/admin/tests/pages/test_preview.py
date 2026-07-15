@@ -20,7 +20,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     StreamPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestIssue2599(WagtailTestUtils, TestCase):
@@ -91,11 +91,8 @@ def clear_edit_handler(page_cls):
     return decorator
 
 
-class TestPreview(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPreview(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.meetings_category = EventCategory.objects.create(name="Meetings")

@@ -15,7 +15,7 @@ from wagtail.admin.views.home import (
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import GroupPagePermission, Workflow, WorkflowContentType
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -152,11 +152,8 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Goodbye world!")
 
 
-class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRecentEditsQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.bob = self.create_superuser(username="bob", password="password")
@@ -212,11 +209,8 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(statuses, expected_statuses)
 
 
-class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestLockedPagesQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.bob = self.create_superuser(username="bob", password="password")
@@ -249,11 +243,10 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(titles, expected_titles)
 
 
-class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class UserObjectsInWorkflowModerationQueryCount(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.superuser = self.create_superuser(username="admin", password="password")
@@ -324,11 +317,10 @@ class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(titles, expected_titles)
 
 
-class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class WorkflowObjectsToModerateQueryCount(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.superuser = self.create_superuser(username="admin", password="password")

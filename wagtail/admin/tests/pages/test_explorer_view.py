@@ -17,7 +17,7 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StandardIndex,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
@@ -1120,11 +1120,8 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertIsNone(add_subpage_link)
 
 
-class TestBreadcrumb(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestBreadcrumb(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def test_breadcrumb_next_present(self):
         self.user = self.login()
@@ -1167,11 +1164,8 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
 
 
-class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageExplorerSidePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def test_side_panel_present(self):
         self.user = self.login()
@@ -1190,11 +1184,8 @@ class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageExplorerSignposting(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         # Find root page
@@ -1398,7 +1389,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
 
 
-class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
+class TestExplorablePageVisibility(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
     This is isolated in its own test case because it requires a custom page tree and custom set of
@@ -1429,10 +1420,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
     User "superman" is an admin.
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_explorable_pages_basepage.json"]
-    else:
-        fixtures = ["test_explorable_pages.json"]
+    fixtures = ["test_explorable_pages.json"]
 
     # Integration tests adapted from @coredumperror
 
@@ -1554,11 +1542,8 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.events_page = Page.objects.get(url_path="/home/events/")
@@ -1606,11 +1591,8 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         )
 
 
-class TestInWorkflowStatus(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestInWorkflowStatus(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

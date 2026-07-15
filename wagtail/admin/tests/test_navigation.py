@@ -1,12 +1,11 @@
-import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestExplorablePages(WagtailTestUtils, TestCase):
+class TestExplorablePages(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test the way that the explorer nav menu behaves for users with different permissions.
 
@@ -40,10 +39,7 @@ class TestExplorablePages(WagtailTestUtils, TestCase):
     Note that the Explorer Nav does not display leaf nodes.
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_explorable_pages_basepage.json"]
-    else:
-        fixtures = ["test_explorable_pages.json"]
+    fixtures = ["test_explorable_pages.json"]
 
     def test_admins_see_all_pages(self):
         User = get_user_model()

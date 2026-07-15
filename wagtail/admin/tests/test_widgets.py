@@ -2,6 +2,7 @@ import json
 import re
 from html import unescape
 
+import swapper
 from bs4 import BeautifulSoup
 from django import forms
 from django.test import TestCase

@@ -9,15 +9,14 @@ from django.utils.formats import localize
 from freezegun import freeze_time
 
 from wagtail.admin.utils import get_user_display_name
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestWorkflowHistoryDetail(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
     base_breadcrumb_items = []
 
     def setUp(self):

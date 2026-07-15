@@ -4,15 +4,12 @@ from django.urls import reverse
 
 from wagtail.admin.forms.auth import PasswordResetForm
 from wagtail.admin.tests.test_forms import CustomLoginForm, CustomPasswordResetForm
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestLoginView(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestLoginView(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()

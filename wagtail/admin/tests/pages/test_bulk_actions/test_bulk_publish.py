@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase

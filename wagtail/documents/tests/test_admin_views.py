@@ -32,7 +32,7 @@ from wagtail.test.testapp.models import (
     EventPageRelatedLink,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
@@ -2143,11 +2143,10 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestDocumentChooserViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -2328,11 +2327,8 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(WagtailTestUtils, Test
         self.assertEqual(doc.get().collection, self.evil_plans_collection)
 
 
-class TestUsageCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUsageCount(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
@@ -2367,11 +2363,10 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertContains(response, "Used 0 times")
 
 
-class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestGetUsage(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()

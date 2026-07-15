@@ -27,15 +27,12 @@ from wagtail.test.testapp.models import (
     SimplePage,
     SimpleTask,
 )
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
-class TestWorkflowModels(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestWorkflowModels(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_create_workflow(self):
         # test creating and retrieving an empty Workflow from the db
@@ -145,11 +142,8 @@ class TestWorkflowModels(TestCase):
             self.assertEqual(tasks, [Task.objects.get(name="Moderators approval")])
 
 
-class TestPageWorkflows(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageWorkflows(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

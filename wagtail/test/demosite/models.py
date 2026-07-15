@@ -1,5 +1,6 @@
 from datetime import date
 
+import swapper
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import models

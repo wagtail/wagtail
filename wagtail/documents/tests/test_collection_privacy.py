@@ -1,4 +1,3 @@
-import swapper
 from django.contrib.auth.models import Group
 from django.core.files.base import ContentFile
 from django.test import TestCase, override_settings
@@ -6,7 +5,7 @@ from django.urls import reverse
 
 from wagtail.documents.models import Document
 from wagtail.models import Collection, CollectionViewRestriction
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 try:
     from urllib.parse import quote
@@ -14,11 +13,8 @@ except ImportError:
     from urllib import quote
 
 
-class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestCollectionPrivacyDocument(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.fake_file = ContentFile(b"A boring example document")

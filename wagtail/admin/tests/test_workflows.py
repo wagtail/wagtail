@@ -3,6 +3,7 @@ import json
 import logging
 from unittest import expectedFailure, mock, skip
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -50,7 +51,7 @@ from wagtail.test.testapp.models import (
     SimpleTask,
     UserApprovalTask,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
@@ -1000,11 +1001,8 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertFalse(self.workflow.workflow_content_types.exists())
 
 
-class TestRemoveWorkflow(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRemoveWorkflow(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         delete_existing_workflows()

@@ -47,7 +47,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
@@ -717,11 +717,10 @@ class TestBulkActionsColumn(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestImageIndexViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()
@@ -901,11 +900,10 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
 
 
 @tag("transaction")
-class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestImageListingResultsView(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()
@@ -2362,11 +2360,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestImageChooserViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.user = self.login()

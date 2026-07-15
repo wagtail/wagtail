@@ -3,6 +3,7 @@ import json
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -17,7 +18,7 @@ from wagtail.models import Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 def get_total_page_count():
@@ -35,11 +36,8 @@ class Test10411APIViewSet(PagesAPIViewSet):
     meta_fields = []
 
 
-class TestPageListing(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
@@ -1102,11 +1100,8 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestPageListingSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
+    fixtures = ["demosite.json"]
 
     def setUp(self):
         super().setUp()
@@ -1277,11 +1272,8 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(content["meta"]["total_count"], 0)
 
 
-class TestPageDetail(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestPageDetail(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, page_id, **params):
         return self.client.get(
@@ -1722,11 +1714,8 @@ class TestPageDetail(TestCase):
         )
 
 
-class TestPageFind(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestPageFind(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:find"), params)
@@ -1805,11 +1794,8 @@ class TestPageFind(TestCase):
         self.assertEqual(content, {"message": "not found"})
 
 
-class TestPageDetailWithStreamField(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageDetailWithStreamField(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.homepage = Page.objects.get(url_path="/home/")
@@ -1887,11 +1873,8 @@ class TestPageDetailWithStreamField(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestPageCacheInvalidation(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestPageCacheInvalidation(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -1938,11 +1921,8 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
         )
 
 
-class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestAPIDetailQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_superuser(

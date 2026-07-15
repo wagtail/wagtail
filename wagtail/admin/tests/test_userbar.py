@@ -15,7 +15,7 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Site
 from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
@@ -670,11 +670,8 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
         self.assertTrue(kwargs.get("called"))
 
 
-class TestUserbarAddLink(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestUserbarAddLink(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()

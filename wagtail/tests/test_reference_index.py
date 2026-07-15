@@ -30,7 +30,7 @@ from wagtail.test.testapp.models import (
     ModelWithNullableParentalKey,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 class TestCreateOrUpdateForObject(TestCase):
@@ -314,11 +314,8 @@ class TestCreateOrUpdateForObject(TestCase):
         self.assertEqual(refs.count(), 1)
 
 
-class TestDescribeOnDelete(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestDescribeOnDelete(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     @classmethod
     def setUpTestData(cls):

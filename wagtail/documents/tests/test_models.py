@@ -1,4 +1,3 @@
-import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -16,15 +15,12 @@ from wagtail.documents import (
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
 @tag("transaction")
-class TestDocumentQuerySet(TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestDocumentQuerySet(PageFixturesMixin, TransactionTestCase):
+    fixtures = ["test_empty.json"]
 
     def test_search_method(self):
         # Make a test document
@@ -175,7 +171,7 @@ class TestDocumentFilenameProperties(TestCase):
 
 
 @tag("transaction")
-class TestFilesDeletedForDefaultModels(TransactionTestCase):
+class TestFilesDeletedForDefaultModels(PageFixturesMixin, TransactionTestCase):
     """
     Because we expect file deletion to only happen once a transaction is
     successfully committed, we must run these tests using TransactionTestCase
@@ -189,10 +185,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+    fixtures = ["test_empty.json"]
 
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():

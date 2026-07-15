@@ -2,7 +2,6 @@ from datetime import datetime
 from io import BytesIO
 from unittest import mock
 
-import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
@@ -50,7 +49,7 @@ from wagtail.test.testapp.models import (
     SnippetChooserModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.utils.timestamps import render_timestamp
 
@@ -614,11 +613,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
 
 @tag("transaction")
-class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestFilterSetClassSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         self.login()

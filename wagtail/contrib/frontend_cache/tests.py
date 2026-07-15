@@ -18,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.test.testapp.models import EventIndex, EventPage
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 from .utils import (
     PurgeBatch,
@@ -486,11 +486,8 @@ class MockCloudflareBackend(CloudflareBackend):
         }
     },
 )
-class TestCachePurgingFunctions(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestCachePurgingFunctions(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         PURGED_URLS.clear()
@@ -680,11 +677,8 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         },
     }
 )
-class TestCachePurgingSignals(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestCachePurgingSignals(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         # Reset PURGED_URLS to an empty list
@@ -773,14 +767,11 @@ class TestCachePurgingSignals(TestCase):
         )
 
 
-class TestPurgeBatchClass(TestCase):
+class TestPurgeBatchClass(PageFixturesMixin, TestCase):
     # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
     # by TestCachePurgingFunctions.test_purge_batch above
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def test_add_url(self):
         batch = PurgeBatch()

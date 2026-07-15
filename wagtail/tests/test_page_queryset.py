@@ -1,6 +1,7 @@
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -16,14 +17,11 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StreamPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPageQuerySet(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageQuerySet(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_live(self):
         pages = Page.objects.live()
@@ -651,11 +649,8 @@ class TestPageQuerySet(TestCase):
                         )
 
 
-class TestPageQueryInSite(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageQueryInSite(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.site_2_page = SimplePage(
@@ -688,11 +683,8 @@ class TestPageQueryInSite(TestCase):
 
 
 @tag("transaction")
-class TestPageQuerySetSearch(TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageQuerySetSearch(PageFixturesMixin, TransactionTestCase):
+    fixtures = ["test.json"]
 
     def test_search(self):
         pages = EventPage.objects.search("moon", fields=["location"])
@@ -798,7 +790,7 @@ class TestPageQuerySetSearch(TransactionTestCase):
             page_unpublished.disconnect(page_unpublished_handler)
 
 
-class TestSpecificQuery(WagtailTestUtils, TestCase):
+class TestSpecificQuery(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test the .specific() queryset method. This is isolated in its own test case
     because it is sensitive to database changes that might happen for other
@@ -821,10 +813,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
     =========== =========================================
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_specific_basepage.json"]
-    else:
-        fixtures = ["test_specific.json"]
+    fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.live_pages = Page.objects.live().specific()
@@ -1215,11 +1204,8 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_specific_basepage.json"]
-    else:
-        fixtures = ["test_specific.json"]
+class TestSpecificQuerySearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_specific.json"]
 
     def setUp(self):
         management.call_command(
@@ -1278,16 +1264,13 @@ class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
         self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
 
 
-class TestFirstCommonAncestor(TestCase):
+class TestFirstCommonAncestor(PageFixturesMixin, TestCase):
     """
     Uses the same fixture as TestSpecificQuery. See that class for the layout
     of pages.
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_specific_basepage.json"]
-    else:
-        fixtures = ["test_specific.json"]
+    fixtures = ["test_specific.json"]
 
     def setUp(self):
         self.root_page = Page.objects.get(url_path="/home/")

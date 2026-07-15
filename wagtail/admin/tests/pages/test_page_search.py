@@ -10,16 +10,13 @@ from django.utils.http import urlencode
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import GroupPagePermission
 from wagtail.test.testapp.models import EventIndex, SimplePage, SingleEventPage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
 @tag("transaction")
-class TestPageSearch(WagtailTestUtils, TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_empty_basepage.json"]
-    else:
-        fixtures = ["test_empty.json"]
+class TestPageSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
 
     def setUp(self):
         super().setUp()

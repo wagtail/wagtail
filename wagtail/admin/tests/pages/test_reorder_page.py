@@ -8,14 +8,11 @@ from wagtail.test.testapp.models import (
     NoSubpageTypesPage,
     SimplePage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPageReorder(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestPageReorder(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def __init__(self, methodName: str = ...) -> None:
         super().__init__(methodName)

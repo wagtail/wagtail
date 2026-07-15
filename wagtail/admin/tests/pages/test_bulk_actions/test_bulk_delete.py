@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest
