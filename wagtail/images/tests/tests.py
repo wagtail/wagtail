@@ -2,7 +2,6 @@ import os
 import unittest
 from io import BytesIO
 
-import swapper
 import willow
 from django import forms, template
 from django.conf import settings
@@ -29,7 +28,11 @@ from wagtail.images.rect import Rect, Vector
 from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
-from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
+from wagtail.test.utils import (
+    PageFixturesMixin,
+    WagtailTestUtils,
+    disconnect_signal_receiver,
+)
 
 from .utils import (
     Image,
@@ -212,17 +215,14 @@ class TestImageTag(TestCase):
             temp.render(context)
 
 
-class TestMissingImage(TestCase):
+class TestMissingImage(PageFixturesMixin, TestCase):
     """
     Missing image files in media/original_images should be handled gracefully, to cope with
     pulling live databases to a development instance without copying the corresponding image files.
     In this case, it's acceptable to render broken images, but not to fail rendering the page outright.
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def test_image_tag_with_missing_image(self):
         # the page /events/christmas/ has a missing image as the feed image

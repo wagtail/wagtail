@@ -1,10 +1,10 @@
-import swapper
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 
 from wagtail.images import get_image_model, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Collection
+from wagtail.test.utils import PageFixturesMixin
 
 from .utils import Image
 
@@ -89,11 +89,8 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
 
 
 @override_settings(WAGTAILIMAGES_FEATURE_DETECTION_ENABLED=True)
-class TestRawForPreSaveImageFeatureDetection(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestRawForPreSaveImageFeatureDetection(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     # just to test the file is from a fixture doesn't actually exists.
     # raw check in pre_save_image_feature_detection skips on the provided condition of this test

@@ -1,7 +1,6 @@
 import json
 from unittest import mock
 
-import swapper
 from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -9,14 +8,12 @@ from django.urls import reverse
 from wagtail.api.v2 import signal_handlers
 from wagtail.images import get_image_model
 from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils import PageFixturesMixin
 from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
-class TestImageListing(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestImageListing(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:images:listing"), params)
@@ -390,11 +387,8 @@ class TestImageListing(TestCase):
 
 
 @tag("transaction")
-class TestImageListingSearch(TransactionTestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestImageListingSearch(PageFixturesMixin, TransactionTestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:images:listing"), params)
@@ -437,11 +431,8 @@ class TestImageListingSearch(TransactionTestCase):
         )
 
 
-class TestImageDetail(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestImageDetail(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
         return self.client.get(
@@ -568,11 +559,8 @@ class TestImageDetail(TestCase):
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
 
 
-class TestImageFind(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestImageFind(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:images:find"), params)
@@ -619,11 +607,8 @@ class TestImageFind(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestImageCacheInvalidation(TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["demosite_basepage.json"]
-    else:
-        fixtures = ["demosite.json"]
+class TestImageCacheInvalidation(PageFixturesMixin, TestCase):
+    fixtures = ["demosite.json"]
 
     @classmethod
     def setUpClass(cls):

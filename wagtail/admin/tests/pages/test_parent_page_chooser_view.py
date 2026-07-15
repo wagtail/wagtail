@@ -1,21 +1,19 @@
 from unittest import mock
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.models import GroupPagePermission, Locale
 from wagtail.test.testapp.models import BusinessIndex, EventIndex, EventPage, SimplePage
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestParentPageChooserView(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()
@@ -170,12 +168,9 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestParentPageChooserViewWithLocale(
-    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
 ):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

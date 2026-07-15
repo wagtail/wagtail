@@ -2,7 +2,6 @@ import datetime
 import html
 from io import BytesIO
 
-import swapper
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
@@ -37,7 +36,7 @@ from wagtail.test.testapp.models import (
     FormPageWithRedirect,
     JadeFormPage,
 )
-from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 
 
@@ -157,11 +156,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
         self.assertFalse(self.panel.is_shown())
 
 
-class TestFormsIndex(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFormsIndex(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -346,11 +342,10 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestFormsIndexWithLocalisationEnabled(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="superuser", password="password")
@@ -1400,11 +1395,8 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
 
-class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestDeleteFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -1572,11 +1564,8 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.assertRedirects(response, next_url)
 
 
-class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+class TestDeleteCustomFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
@@ -1906,16 +1895,13 @@ class TestFormsWithCustomFormBuilderSubmissionsList(WagtailTestUtils, TestCase):
         self.assertContains(response, "192.0.2.15")
 
 
-class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
+class TestDuplicateFormFieldLabels(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585
     """
 
-    if swapper.is_swapped("wagtailcore", "Page"):
-        fixtures = ["test_basepage.json"]
-    else:
-        fixtures = ["test.json"]
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login(username="superuser", password="password")
