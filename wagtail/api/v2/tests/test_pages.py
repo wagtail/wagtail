@@ -3,7 +3,6 @@ import json
 from io import StringIO
 from unittest import mock
 
-import swapper
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -16,14 +15,9 @@ from wagtail.api.v2 import signal_handlers
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.models import Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 def get_total_page_count():

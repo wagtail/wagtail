@@ -1,7 +1,6 @@
 from io import StringIO
 from unittest import mock
 
-import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.core.exceptions import FieldDoesNotExist
@@ -16,11 +15,6 @@ from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import ReferenceIndex
 from wagtail.rich_text import RichText
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomUUIDPrimaryKey,
@@ -36,6 +30,7 @@ from wagtail.test.testapp.models import (
     ModelWithNullableParentalKey,
     VariousOnDeleteModel,
 )
+from wagtail.test.utils import Page
 
 
 class TestCreateOrUpdateForObject(TestCase):

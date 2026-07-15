@@ -1,7 +1,6 @@
 import datetime
 import json
 
-import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -21,13 +20,8 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.models.audit_log import ModelLogEntry
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestAuditLogManager(WagtailTestUtils, TestCase):

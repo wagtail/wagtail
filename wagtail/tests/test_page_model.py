@@ -3,7 +3,6 @@ import json
 import unittest
 from unittest.mock import Mock
 
-import swapper
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -34,11 +33,6 @@ from wagtail.models import (
     get_translatable_models,
 )
 from wagtail.signals import page_published
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     AbstractPage,
     Advert,
@@ -76,7 +70,7 @@ from wagtail.test.testapp.models import (
     TaggedGrandchildPage,
     TaggedPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 

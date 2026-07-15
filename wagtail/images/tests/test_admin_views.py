@@ -5,7 +5,6 @@ import warnings
 from http import HTTPStatus
 from unittest.mock import patch
 
-import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -42,18 +41,13 @@ from wagtail.models import (
     UploadedFile,
     get_root_collection_id,
 )
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomImage,
     CustomImageWithAuthor,
     EventPage,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 

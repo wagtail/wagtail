@@ -1,16 +1,11 @@
-import swapper
 from django.forms.fields import CharField
 from django.test import SimpleTestCase, TestCase
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.admin.forms.models import WagtailAdminModelForm
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.snippets.models import MultiSectionRichTextSnippet
 from wagtail.test.testapp.models import Advert, CustomImage, EventPage
+from wagtail.test.utils import Page
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, rich_text
 
 
