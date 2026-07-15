@@ -1,7 +1,6 @@
 import json
 from typing import Any, cast
 
-import swapper
 from django.test import TestCase
 
 from wagtail.api.v3.schemas import BasePageSchema, read_generator
@@ -9,11 +8,7 @@ from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.demosite.models import BlogEntryPage, BlogIndexPage, HomePage
 from wagtail.test.testapp.models import StreamPage
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
+from wagtail.test.utils import Page
 
 
 class TestGeneratePageSchema(TestCase):

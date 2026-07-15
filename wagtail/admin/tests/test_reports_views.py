@@ -2,7 +2,6 @@ import datetime
 from io import BytesIO
 from unittest import mock
 
-import swapper
 from django.conf import settings
 from django.conf.locale import LANG_INFO
 from django.contrib.auth.models import Group, Permission
@@ -25,18 +24,13 @@ from wagtail.models import (
     PageLogEntry,
     Site,
 )
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     Advert,
     EventPage,
     EventPageSpeaker,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 

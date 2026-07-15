@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase, override_settings
@@ -14,14 +13,9 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.userbar import AccessibilityItem, ContentCheckerItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 

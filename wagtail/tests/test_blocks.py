@@ -6,8 +6,6 @@ import unittest
 import unittest.mock
 from decimal import Decimal
 
-import swapper
-
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
 from django import forms
 from django.core.exceptions import ValidationError
@@ -32,15 +30,10 @@ from wagtail.blocks.struct_block import (
     StructBlockValidationError,
 )
 from wagtail.rich_text import RichText
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class FooStreamBlock(blocks.StreamBlock):

@@ -1,6 +1,5 @@
 import datetime
 
-import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
@@ -8,12 +7,8 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.models import PageViewRestriction, Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, SimplePage
+from wagtail.test.utils import Page
 
 from .sitemap_generator import Sitemap
 

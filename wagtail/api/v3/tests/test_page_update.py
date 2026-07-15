@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -16,12 +15,7 @@ from wagtail.test.demosite.models import (
     HomePage,
 )
 from wagtail.test.testapp.models import StreamPage
-from wagtail.test.utils import WagtailTestUtils
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):

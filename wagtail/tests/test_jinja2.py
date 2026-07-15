@@ -1,4 +1,3 @@
-import swapper
 from django.template import engines
 from django.template.loader import render_to_string
 from django.test import TestCase
@@ -7,12 +6,8 @@ from django.utils.safestring import mark_safe
 from wagtail import __version__, blocks
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Site
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.blocks import SectionBlock
+from wagtail.test.utils import Page
 
 
 class TestCoreGlobalsAndFilters(TestCase):

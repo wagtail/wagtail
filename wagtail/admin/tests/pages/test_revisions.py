@@ -1,6 +1,5 @@
 from http import HTTPStatus
 
-import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -10,18 +9,13 @@ from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import GroupPagePermission
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     DefaultStreamPage,
     EventPage,
     FormClassAdditionalFieldPage,
     SecretPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 

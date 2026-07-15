@@ -1,17 +1,11 @@
 import datetime
 
-import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from freezegun import freeze_time
 
 from wagtail.models import ModelLogEntry, Revision, get_default_page_content_type
-
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     RevisableChildModel,
@@ -19,7 +13,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestRevisableModel(WagtailTestUtils, TestCase):

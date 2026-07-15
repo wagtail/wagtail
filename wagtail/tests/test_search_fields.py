@@ -1,18 +1,14 @@
 from contextlib import contextmanager
 
-import swapper
 from django.core import checks
 from django.test import TestCase
 
-if swapper.is_swapped("wagtailcore", "Page"):
-    from wagtail.test.basepage.models import BasePage as Page
-else:
-    from wagtail.models import Page
 from wagtail.test.testapp.models import (
     TaggedChildPage,
     TaggedGrandchildPage,
     TaggedPage,
 )
+from wagtail.test.utils import Page
 
 
 @contextmanager
