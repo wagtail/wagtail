@@ -43,6 +43,18 @@ class TestV3SchemaDiscovery(TestV3Base, TestCase):
         self.assertEqual(content["create"], {"description": "Not yet available."})
         self.assertEqual(content["patch"], {"description": "Not yet available."})
 
+    def test_get_specific_page_type_schema_includes_create_schema(self):
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:get_schema_for_type",
+                kwargs={"type_name": "tests.SimplePage"},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertIn("title", content["create"]["properties"])
+        self.assertIn("slug", content["create"]["properties"])
+
     def test_unknown_type_returns_404(self):
         response = self.client.get(
             reverse(
