@@ -18,9 +18,6 @@ class Migration(migrations.Migration):
         ("contenttypes", "0002_remove_content_type_name"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
-    run_before = [
-        ("wagtailcore", "0001_squashed_0016_change_page_url_path_to_text_field"),
-    ]
 
     operations = [
         migrations.CreateModel(
