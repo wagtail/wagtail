@@ -7,7 +7,7 @@ from django.urls import reverse
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import GroupPagePermission, Page
 from wagtail.test.demosite.models import HomePage
-from wagtail.test.testapp.models import EventPage, SimplePage, StreamPage
+from wagtail.test.testapp.models import MultiPreviewModesPage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -27,25 +27,25 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "New page",
                 "slug": "new-page",
             }
         )
         self.assert_problem_response(response, status_code=401)
 
-    def test_superuser_can_create_simple_page(self):
+    def test_superuser_can_create_page(self):
         self.login()
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "New page",
                 "slug": "new-page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = SimplePage.objects.get(slug="new-page")
+        page = MultiPreviewModesPage.objects.get(slug="new-page")
         self.assertEqual(page.title, "New page")
         self.assertEqual(page.get_parent().pk, self.root_page.pk)
         self.assertFalse(page.live)
@@ -53,15 +53,18 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
         content = response.json()
         self.assertEqual(content["title"], "New page")
-        self.assertEqual(content["meta"]["type"], "tests.SimplePage")
+        self.assertEqual(content["meta"]["type"], "tests.MultiPreviewModesPage")
         self.assertEqual(content["meta"]["slug"], "new-page")
 
     def test_superuser_can_create_page_with_api_field(self):
         """
         Only fields listed in a page model's api_fields (plus the base
         title/slug/seo_title/search_description/show_in_menus) are writable.
-        SimplePage.content isn't in api_fields, so unlike the admin form,
-        this API can't set it - StreamPage.body is in api_fields, so it can.
+        A model with required panel fields outside api_fields (e.g.
+        SimplePage.content) can't be created via this endpoint: the real
+        admin form used for validation will reject the create for missing
+        that field, since it isn't exposed in the input schema. StreamPage's
+        body is in api_fields, so it's fully creatable.
         """
         self.login()
         response = self.post(
@@ -82,23 +85,23 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "Auto Slug Page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = SimplePage.objects.get(title="Auto Slug Page")
+        page = MultiPreviewModesPage.objects.get(title="Auto Slug Page")
         self.assertEqual(page.slug, "auto-slug-page")
 
     def test_duplicate_slug_returns_422(self):
         self.login()
         self.root_page.add_child(
-            instance=SimplePage(title="Existing", slug="existing", content="x")
+            instance=MultiPreviewModesPage(title="Existing", slug="existing")
         )
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "Another",
                 "slug": "existing",
             }
@@ -110,8 +113,25 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "slug": "no-title",
+            }
+        )
+        self.assert_problem_response(response, status_code=422)
+
+    def test_page_type_with_required_field_outside_api_fields_returns_422(self):
+        """
+        SimplePage.content is required by the real admin form but isn't in
+        api_fields, so it's absent from the input schema entirely - the form
+        rejects the create rather than silently creating a blank page.
+        """
+        self.login()
+        response = self.post(
+            {
+                "parent_id": self.root_page.pk,
+                "type": "tests.SimplePage",
+                "title": "New page",
+                "slug": "new-page",
             }
         )
         self.assert_problem_response(response, status_code=422)
@@ -121,7 +141,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": 999999,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -146,7 +166,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -168,7 +188,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "type": "tests.MultiPreviewModesPage",
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -177,10 +197,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
     def test_disallowed_subpage_type_returns_403(self):
         self.login()
-        # SimplePage cannot be created under another SimplePage's "no subpages"
-        # equivalent; use a page type whose parent_page_types excludes SimplePage.
+        # MultiPreviewModesPage's default page-type rules allow being created
+        # under the root, but wagtailcore.Page itself is not creatable at all.
         parent = self.root_page.add_child(
-            instance=SimplePage(title="Parent", slug="parent-page", content="x")
+            instance=MultiPreviewModesPage(title="Parent", slug="parent-page")
         )
         response = self.post(
             {
@@ -221,6 +241,22 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             }
         )
         self.assert_problem_response(response, status_code=422)
+
+    def test_create_page_with_rich_text_field(self):
+        self.login()
+        response = self.post(
+            {
+                "parent_id": self.root_page.pk,
+                "type": "demosite.HomePage",
+                "title": "Home",
+                "slug": "home-rich-text",
+                "body": "<p>hello</p>",
+                "carousel_items": [],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = HomePage.objects.get(slug="home-rich-text")
+        self.assertIn("hello", page.body)
 
     def test_create_page_with_child_relations(self):
         self.login()
@@ -274,22 +310,23 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assert_problem_response(response, status_code=422)
 
-    def test_max_count_per_parent_enforced(self):
+    def test_create_page_with_child_relation_missing_link_returns_422(self):
+        """
+        AbstractLinkFields.clean() (a custom cross-field validator on
+        HomePageCarouselItem's own form) requires a related page, document,
+        or external URL - this is real form-level validation, not something
+        the input schema itself can express, and it runs because we validate
+        through the model's actual admin form rather than bypassing it.
+        """
         self.login()
-        # EventPage has no max_count restrictions by default, so this instead
-        # verifies a plain successful create under a non-root parent works,
-        # exercising can_create_at's other checks via a real EventPage.
         response = self.post(
             {
                 "parent_id": self.root_page.pk,
-                "type": "tests.EventPage",
-                "title": "Event",
-                "slug": "event",
-                "date_from": "2026-01-01",
-                "audience": "public",
-                "location": "London",
-                "cost": "Free",
+                "type": "demosite.HomePage",
+                "title": "Home",
+                "slug": "home-missing-link",
+                "body": "<p>hi</p>",
+                "carousel_items": [{"caption": "No link"}],
             }
         )
-        self.assertEqual(response.status_code, 201)
-        self.assertTrue(EventPage.objects.filter(slug="event").exists())
+        self.assert_problem_response(response, status_code=422)

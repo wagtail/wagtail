@@ -86,9 +86,12 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     ):
         raise PermissionDenied
 
-    page = build_page_instance(model, parent, data, request.user)
+    page, form = build_page_instance(model, parent, data, request.user)
     page.live = False
     parent.add_child(instance=page)
+    # save_m2m is set dynamically by ModelForm.save(commit=False), which
+    # build_page_instance always calls.
+    form.save_m2m()  # ty: ignore[unresolved-attribute]
 
     CreateAction(page, user=request.user, clean=False).execute(
         skip_permission_checks=True

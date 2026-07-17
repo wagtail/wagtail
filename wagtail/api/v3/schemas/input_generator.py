@@ -1,7 +1,7 @@
 from typing import Any, cast
 
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import ForeignKey, Model
+from django.db.models import Model
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
@@ -116,12 +116,16 @@ class InputSchemaGenerator:
                     list[child_schema],  # ty: ignore[invalid-type-form]
                     [],
                 )
-            elif isinstance(model_field, ForeignKey):
+            elif isinstance(model_field, ForeignObjectRel):
+                # Any other reverse relation (a plain ForeignObjectRel with no
+                # ParentalKey) has no defined writable shape via this API, so
+                # it's skipped rather than guessed at.
+                continue
+            else:
+                # A ForeignKey, or any other concrete Django field
+                # (CharField, TextField, RichTextField, IntegerField, ...).
                 python_type, field_info = get_schema_field(model_field)
                 extra_fields[field.name] = (python_type, field_info.default)
-            # Any other reverse relation (a plain ForeignObjectRel with no
-            # ParentalKey) or field type has no defined writable shape via
-            # this API, so it's skipped rather than guessed at.
 
         return extra_fields
 
