@@ -115,6 +115,26 @@ def build_page_schema_union(models: Iterable[type[Model]]) -> Any:
     ]
 
 
+#: Page's own fields that every concrete page type can accept on creation,
+#: beyond whatever extra fields a model declares through ``api_fields``.
+PAGE_CREATE_FIELDS = (
+    "title",
+    "slug",
+    "seo_title",
+    "search_description",
+    "show_in_menus",
+)
+
+
+class PageCreateMetaSchema(Schema):
+    parent_id: int
+    type: str
+
+
+class PageCreateBaseSchema(Schema):
+    meta: PageCreateMetaSchema
+
+
 def _discriminate_page_create_schema(value: Any) -> str | None:
     """Pick the page-create union member matching ``value``'s ``meta.type``.
 
@@ -136,16 +156,26 @@ def build_page_input_schema_union(models: Iterable[type[Model]]) -> Any:
     create the new page under) and ``type`` (the page model's content type
     label, e.g. ``"tests.SimplePage"``), which together pick the specific
     page model to create - the same discriminator value used by the read-side
-    union and ``meta.type`` in responses. ``meta`` itself is added by
-    ``input_generator.generate_schema``.
+    union and ``meta.type`` in responses. ``meta`` itself is narrowed per
+    model by ``create_generator.generate_schema``.
     """
     models = list(models)
     if len(models) == 1:
-        return create_generator.generate_schema(models[0])
+        return create_generator.generate_schema(
+            models[0],
+            base_class=PageCreateBaseSchema,
+            fields=PAGE_CREATE_FIELDS,
+            required_fields=("title",),
+        )
 
     members = tuple(
         Annotated[
-            create_generator.generate_schema(model),  # ty: ignore[invalid-type-form]
+            create_generator.generate_schema(  # ty: ignore[invalid-type-form]
+                model,
+                base_class=PageCreateBaseSchema,
+                fields=PAGE_CREATE_FIELDS,
+                required_fields=("title",),
+            ),
             Tag(model._meta.label),
         ]
         for model in models

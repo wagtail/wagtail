@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import Any, Callable, Literal, cast
 
 from django.core.exceptions import FieldDoesNotExist
@@ -13,39 +14,21 @@ from taggit.managers import TaggableManager
 from wagtail.api import APIField
 from wagtail.fields import StreamField
 
-#: Page's own fields that every concrete page type can accept on creation,
-#: beyond whatever extra fields a model declares through ``api_fields``.
-PAGE_BASE_WRITABLE_FIELDS = (
-    "title",
-    "slug",
-    "seo_title",
-    "search_description",
-    "show_in_menus",
-)
-
 #: (annotation, default), or None if the field has no defined writable shape.
 InputFieldSchema = tuple[Any, Any] | None
 InputFieldSchemaFunc = Callable[["InputSchemaGenerator", Field], InputFieldSchema]
 
 
-class PageCreateMetaSchema(Schema):
-    parent_id: int
-    type: str
-
-
-class PageCreateBaseSchema(Schema):
-    meta: PageCreateMetaSchema
-
-
 class InputSchemaGenerator:
     """
-    Auto-generates Ninja input (create) schemas for concrete page models.
+    Auto-generates Ninja input (create) schemas for concrete models.
 
-    Mirrors :class:`wagtail.api.v3.schemas.generator.SchemaGenerator`, but
-    describes what the API accepts for writing rather than what it returns
-    for reading. A field is included if it is one of ``PAGE_BASE_WRITABLE_FIELDS``
-    or listed in the model's ``api_fields``, excluding legacy API v2 custom
-    serializer fields (those are read-only computed values, not real fields).
+    Mirrors :class:`wagtail.api.v3.schemas.generators.read.SchemaGenerator`,
+    but describes what the API accepts for writing rather than what it
+    returns for reading. A field is included if it's one of the model's own
+    ``fields`` (passed to ``generate_schema``) or listed in the model's
+    ``api_fields``, excluding legacy API v2 custom serializer fields (those
+    are read-only computed values, not real fields).
     """
 
     field_schemas: dict[type[Field | ForeignObjectRel], InputFieldSchemaFunc] = {}
@@ -148,52 +131,80 @@ class InputSchemaGenerator:
 
         return extra_fields
 
-    def generate_schema(self, model: type[Model]) -> type[Schema]:
-        """Build an input (create) schema for the concrete page model ``model``.
+    @staticmethod
+    def _narrowed_meta_schema(
+        base_meta_schema: type[Schema], model: type[Model]
+    ) -> type[Schema]:
+        """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
-        Includes a ``meta`` field holding ``parent_id`` (the page to create
-        the new page under) and ``type`` (the page model's content type
-        label, narrowed to a ``Literal`` for this specific model), nested
-        under ``meta`` - mirroring the read-side response's own
-        ``meta.type``/``meta.slug`` convention - rather than sitting at the
-        top level alongside the page model's own fields, so a model with a
-        field literally named ``parent_id`` or ``type`` (e.g. a CharField
-        choice named "type") can't have it silently shadowed by our control
-        fields.
+        A shared base class's ``meta`` field types ``type`` generically
+        (e.g. ``str``), since one class is reused across every model's
+        generated schema. This builds a per-model subclass that only accepts
+        its own content type label instead, so the OpenAPI schema (and
+        validation) reflects the actual, constant value rather than an
+        open-ended string.
         """
-        base_names = [
+        return cast(
+            type[Schema],
+            type(base_meta_schema)(
+                f"{model._meta.object_name}InputMetaSchema",
+                (base_meta_schema,),
+                {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
+            ),
+        )
+
+    def generate_schema(
+        self,
+        model: type[Model],
+        *,
+        base_class: type[Schema],
+        fields: Iterable[str] = (),
+        required_fields: Iterable[str] = (),
+    ) -> type[Schema]:
+        """Build an input (create) schema for the concrete model ``model``.
+
+        ``fields`` names the model's own fields to always include (besides
+        whatever ``api_fields`` adds) - e.g. a page's ``title``/``slug``.
+        ``required_fields`` marks which of those ``fields`` must be provided;
+        the rest are optional.
+
+        If ``base_class`` declares a ``meta`` field (e.g. a schema holding
+        control fields like ``parent_id`` and a ``type`` discriminator, kept
+        under ``meta`` rather than at the top level so a model field sharing
+        one of those names can't be silently shadowed by them - see
+        :class:`wagtail.api.v3.schemas.pages.PageCreateBaseSchema`), it's
+        narrowed to a ``Literal`` matching this specific model, the same way
+        the read-side generator narrows ``meta.type`` for read schemas.
+        """
+        field_names = [
             name
-            for name in PAGE_BASE_WRITABLE_FIELDS
+            for name in fields
             if name in {f.name for f in model._meta.get_fields()}
         ]
         name = f"{model._meta.object_name}InputSchema"
         schema = create_schema(
             model,
             name=f"{name}Base",
-            fields=base_names,
-            optional_fields=[n for n in base_names if n != "title"],
-            base_class=Schema,
+            fields=field_names,
+            optional_fields=[n for n in field_names if n not in required_fields],
+            base_class=base_class,
         )
 
-        meta_schema = cast(
-            type[Schema],
-            type(PageCreateMetaSchema)(
-                f"{model._meta.object_name}InputMetaSchema",
-                (PageCreateMetaSchema,),
-                {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
-            ),
-        )
         extra_fields = self._build_extra_fields(model)
-        namespace: dict[str, Any] = {"__annotations__": {"meta": meta_schema}}
+        namespace: dict[str, Any] = {"__annotations__": {}}
+
+        meta_field = base_class.model_fields.get("meta")
+        if meta_field is not None:
+            namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
+                meta_field.annotation, model
+            )
+
         for field_name, (annotation, default) in extra_fields.items():
             namespace["__annotations__"][field_name] = annotation
             namespace[field_name] = default
 
         metaclass = type(schema)
-        return cast(
-            type[Schema],
-            metaclass(name, (PageCreateBaseSchema, schema), namespace),
-        )
+        return cast(type[Schema], metaclass(name, (schema,), namespace))
 
 
 def streamfield_schema(

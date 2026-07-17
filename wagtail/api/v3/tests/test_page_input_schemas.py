@@ -1,8 +1,47 @@
 from django.test import SimpleTestCase
+from ninja import Schema
 
-from wagtail.api.v3.schemas import PageCreateMetaSchema, create_generator
+from wagtail.api.v3.schemas import create_generator
+from wagtail.api.v3.schemas.pages import (
+    PAGE_CREATE_FIELDS,
+    PageCreateBaseSchema,
+    PageCreateMetaSchema,
+)
 from wagtail.test.demosite.models import HomePage
 from wagtail.test.testapp.models import SimplePage
+
+
+def generate_page_input_schema(model):
+    return create_generator.generate_schema(
+        model,
+        base_class=PageCreateBaseSchema,
+        fields=PAGE_CREATE_FIELDS,
+        required_fields=("title",),
+    )
+
+
+class TestInputSchemaGeneratorIsGeneric(SimpleTestCase):
+    """
+    InputSchemaGenerator itself has no knowledge of pages, ``meta``, or
+    ``parent_id``/``type`` - those are supplied by the caller via
+    ``base_class``/``fields``/``required_fields``. A plain ``base_class``
+    with no ``meta`` field (e.g. a hypothetical non-page model) should build
+    a schema with no ``meta`` field at all, rather than assuming one exists.
+    """
+
+    def test_generate_schema_without_meta_field_on_base_class(self):
+        schema = create_generator.generate_schema(
+            SimplePage,
+            base_class=Schema,
+            fields=("title", "slug"),
+            required_fields=("title",),
+        )
+
+        self.assertNotIn("meta", schema.model_fields)
+        self.assertIn("title", schema.model_fields)
+        self.assertIn("slug", schema.model_fields)
+        self.assertTrue(schema.model_fields["title"].is_required())
+        self.assertFalse(schema.model_fields["slug"].is_required())
 
 
 class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
@@ -18,7 +57,7 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
     """
 
     def test_meta_is_a_dedicated_schema_separate_from_model_fields(self):
-        schema = create_generator.generate_schema(SimplePage)
+        schema = generate_page_input_schema(SimplePage)
 
         meta_annotation = schema.model_fields["meta"].annotation
         self.assertTrue(issubclass(meta_annotation, PageCreateMetaSchema))
@@ -31,8 +70,8 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
         self.assertNotIn("parent_id", schema.model_fields)
 
     def test_meta_type_is_narrowed_per_model(self):
-        home_schema = create_generator.generate_schema(HomePage)
-        simple_schema = create_generator.generate_schema(SimplePage)
+        home_schema = generate_page_input_schema(HomePage)
+        simple_schema = generate_page_input_schema(SimplePage)
 
         home_meta = home_schema.model_fields["meta"].annotation
         simple_meta = simple_schema.model_fields["meta"].annotation

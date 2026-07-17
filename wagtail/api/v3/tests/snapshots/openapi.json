@@ -80,7 +80,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageInputSchema",
         "type": "object"
       },
@@ -242,7 +242,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageInputSchema",
         "type": "object"
       },
@@ -404,7 +404,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithoutDefaultPageInputSchema",
         "type": "object"
       },
@@ -566,7 +566,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "AlwaysShowInMenusPageInputSchema",
         "type": "object"
       },
@@ -931,7 +931,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta", "body", "date"],
+        "required": ["meta", "title", "body", "date"],
         "title": "BlogEntryPageInputSchema",
         "type": "object"
       },
@@ -1244,7 +1244,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "BlogIndexPageInputSchema",
         "type": "object"
       },
@@ -1511,7 +1511,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "BusinessChildInputSchema",
         "type": "object"
       },
@@ -1673,7 +1673,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "BusinessIndexInputSchema",
         "type": "object"
       },
@@ -1835,7 +1835,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "BusinessNowherePageInputSchema",
         "type": "object"
       },
@@ -1997,7 +1997,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "BusinessSubIndexInputSchema",
         "type": "object"
       },
@@ -2159,7 +2159,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CommentableJSONPageInputSchema",
         "type": "object"
       },
@@ -2321,7 +2321,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "ComplexDefaultStreamPageInputSchema",
         "type": "object"
       },
@@ -2582,7 +2582,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "ContactPageInputSchema",
         "type": "object"
       },
@@ -2878,7 +2878,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomCopyFormPageInputSchema",
         "type": "object"
       },
@@ -3040,7 +3040,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomManagerPageInputSchema",
         "type": "object"
       },
@@ -3202,7 +3202,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomPermissionPageInputSchema",
         "type": "object"
       },
@@ -3364,7 +3364,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomPreviewSizesPageInputSchema",
         "type": "object"
       },
@@ -3526,7 +3526,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomRichBlockFieldPageInputSchema",
         "type": "object"
       },
@@ -3688,7 +3688,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "CustomRichTextFieldPageInputSchema",
         "type": "object"
       },
@@ -3850,7 +3850,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "DeadlyStreamPageInputSchema",
         "type": "object"
       },
@@ -4012,7 +4012,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "DefaultRichBlockFieldPageInputSchema",
         "type": "object"
       },
@@ -4174,7 +4174,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "DefaultRichTextFieldPageInputSchema",
         "type": "object"
       },
@@ -4336,7 +4336,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "DefaultStreamPageInputSchema",
         "type": "object"
       },
@@ -4498,7 +4498,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "EarlyPageInputSchema",
         "type": "object"
       },
@@ -4660,7 +4660,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "EventIndexInputSchema",
         "type": "object"
       },
@@ -4823,7 +4823,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "EventIndexPageInputSchema",
         "type": "object"
       },
@@ -5474,7 +5474,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FilePageInputSchema",
         "type": "object"
       },
@@ -5636,7 +5636,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormClassAdditionalFieldPageInputSchema",
         "type": "object"
       },
@@ -5962,7 +5962,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomFormBuilderInputSchema",
         "type": "object"
       },
@@ -6124,7 +6124,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomSubmissionInputSchema",
         "type": "object"
       },
@@ -6207,7 +6207,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomSubmissionListViewInputSchema",
         "type": "object"
       },
@@ -6448,7 +6448,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageWithRedirectInputSchema",
         "type": "object"
       },
@@ -6610,7 +6610,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "GalleryPageInputSchema",
         "type": "object"
       },
@@ -6772,7 +6772,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "GenericSnippetNoFieldIndexPageInputSchema",
         "type": "object"
       },
@@ -6934,7 +6934,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "GenericSnippetNoIndexPageInputSchema",
         "type": "object"
       },
@@ -7096,7 +7096,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "GenericSnippetPageInputSchema",
         "type": "object"
       },
@@ -7426,7 +7426,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "HomePageInputSchema",
         "type": "object"
       },
@@ -7734,7 +7734,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "InlineStreamPageInputSchema",
         "type": "object"
       },
@@ -7914,7 +7914,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "JadeFormPageInputSchema",
         "type": "object"
       },
@@ -8076,7 +8076,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "MTIBasePageInputSchema",
         "type": "object"
       },
@@ -8238,7 +8238,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "MTIChildPageInputSchema",
         "type": "object"
       },
@@ -8400,7 +8400,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "ManyToManyBlogPageInputSchema",
         "type": "object"
       },
@@ -8562,7 +8562,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "MultiPreviewModesPageInputSchema",
         "type": "object"
       },
@@ -8724,7 +8724,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "MyCustomPageInputSchema",
         "type": "object"
       },
@@ -8886,7 +8886,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "NoCreatableSubpageTypesPageInputSchema",
         "type": "object"
       },
@@ -9048,7 +9048,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "NoPromotePageInputSchema",
         "type": "object"
       },
@@ -9210,7 +9210,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "NoSubpageTypesPageInputSchema",
         "type": "object"
       },
@@ -9372,7 +9372,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "OneToOnePageInputSchema",
         "type": "object"
       },
@@ -9534,7 +9534,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageInputSchema",
         "type": "object"
       },
@@ -9703,7 +9703,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageWithExcludedCopyFieldInputSchema",
         "type": "object"
       },
@@ -9865,7 +9865,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageWithGenericRelationInputSchema",
         "type": "object"
       },
@@ -10027,7 +10027,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageWithOldStyleRouteMethodInputSchema",
         "type": "object"
       },
@@ -10329,7 +10329,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PromotionalPageInputSchema",
         "type": "object"
       },
@@ -10614,7 +10614,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "RequiredDatePageInputSchema",
         "type": "object"
       },
@@ -10776,7 +10776,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "RestaurantPageInputSchema",
         "type": "object"
       },
@@ -10938,7 +10938,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "RichTextFieldWithFeaturesPageInputSchema",
         "type": "object"
       },
@@ -11100,7 +11100,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "RoutablePageTestInputSchema",
         "type": "object"
       },
@@ -11262,7 +11262,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "RoutablePageWithOverriddenIndexRouteTestInputSchema",
         "type": "object"
       },
@@ -11424,7 +11424,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SamplePageInputSchema",
         "type": "object"
       },
@@ -11628,7 +11628,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SecretPageInputSchema",
         "type": "object"
       },
@@ -11790,7 +11790,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SectionedRichTextPageInputSchema",
         "type": "object"
       },
@@ -11952,7 +11952,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SimpleChildPageInputSchema",
         "type": "object"
       },
@@ -12114,7 +12114,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SimplePageInputSchema",
         "type": "object"
       },
@@ -12276,7 +12276,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SimpleParentPageInputSchema",
         "type": "object"
       },
@@ -12438,7 +12438,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SingleEventPageInputSchema",
         "type": "object"
       },
@@ -12600,7 +12600,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SingletonPageInputSchema",
         "type": "object"
       },
@@ -12762,7 +12762,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "SingletonPageViaMaxCountInputSchema",
         "type": "object"
       },
@@ -12992,7 +12992,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "StandardChildInputSchema",
         "type": "object"
       },
@@ -13154,7 +13154,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "StandardIndexInputSchema",
         "type": "object"
       },
@@ -13328,7 +13328,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "StandardIndexPageInputSchema",
         "type": "object"
       },
@@ -13813,7 +13813,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "StandardPageInputSchema",
         "type": "object"
       },
@@ -14115,7 +14115,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "StreamPageInputSchema",
         "type": "object"
       },
@@ -14283,7 +14283,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "TableBlockStreamPageInputSchema",
         "type": "object"
       },
@@ -14445,7 +14445,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "TaggedChildPageInputSchema",
         "type": "object"
       },
@@ -14607,7 +14607,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "TaggedGrandchildPageInputSchema",
         "type": "object"
       },
@@ -14769,7 +14769,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "TaggedPageInputSchema",
         "type": "object"
       },
@@ -14931,7 +14931,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "TestPageInputSchema",
         "type": "object"
       },
@@ -15093,7 +15093,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "ValidatedPageInputSchema",
         "type": "object"
       },
@@ -15271,7 +15271,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "EventPageInputSchema",
         "type": "object"
       },
@@ -15449,8 +15449,8 @@
           }
         },
         "required": [
-          "title",
           "meta",
+          "title",
           "date_from",
           "audience",
           "location",
@@ -15833,7 +15833,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageInputSchema",
         "type": "object"
       },
@@ -15908,7 +15908,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "FormPageInputSchema",
         "type": "object"
       },
@@ -16173,7 +16173,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PersonPageInputSchema",
         "type": "object"
       },
@@ -16377,7 +16377,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta", "first_name", "last_name"],
+        "required": ["meta", "title", "first_name", "last_name"],
         "title": "PersonPageInputSchema",
         "type": "object"
       },

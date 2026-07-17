@@ -1,12 +1,9 @@
 from .base import BaseMetaSchema, BaseSchema, ContentTypeSummarySchema
-from .generators import (
-    PageCreateBaseSchema,
-    PageCreateMetaSchema,
-    create_generator,
-    read_generator,
-)
+from .generators import create_generator, read_generator
 from .pages import (
     BasePageSchema,
+    PageCreateBaseSchema,
+    PageCreateMetaSchema,
     PageMetaSchema,
     build_page_input_schema_union,
     build_page_schema_union,
