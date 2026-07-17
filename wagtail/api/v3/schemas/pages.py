@@ -44,7 +44,13 @@ class BasePageSchema(Schema):
             html_url = None
 
         return PageMetaSchema(
-            type=obj.specific_class and obj.specific_class._meta.label,
+            # specific_class reflects obj's real content type even when obj
+            # itself hasn't been upcast via .specific (e.g. in a listing).
+            # If the content type's model class is missing entirely,
+            # specific_class is None - get_specific() would then fall back
+            # to returning the page as a plain Page instance, so Page's own
+            # label is the correct fallback here too, rather than None.
+            type=(obj.specific_class or Page)._meta.label,
             detail_url=detail_url,
             html_url=html_url,
             locale=obj.locale and obj.locale.language_code,
@@ -86,7 +92,9 @@ def build_page_schema_union(models: Iterable[type[Model]]) -> Any:
 
     Each model's schema is tagged with its content type label and resolved
     through :func:`_discriminate_page_schema`, rather than relying on
-    Pydantic to guess the right member from field overlap alone.
+    Pydantic to guess the right member from field overlap alone. ``meta.type``
+    on each member is narrowed to that model's own label by
+    ``generator.generate_schema`` itself.
     """
     models = list(models)
     if len(models) == 1:

@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Callable, cast
+from typing import Any, Callable, Literal, cast
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import ForeignKey, Model
@@ -127,8 +127,14 @@ class SchemaGenerator:
         if model not in self._foreign_key_schema_cache:
             pk_names = self._get_pk_names(model)
             name = f"{model._meta.object_name}ForeignKeySchema"
-            self._foreign_key_schema_cache[model] = create_schema(
+            schema = create_schema(
                 model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
+            )
+            meta_schema = self._narrowed_meta_schema(
+                BaseSchema.model_fields["meta"].annotation, model
+            )
+            self._foreign_key_schema_cache[model] = self.extend_schema(
+                schema, name, {"meta": (meta_schema, ..., None)}
             )
         return self._foreign_key_schema_cache[model]
 
@@ -185,6 +191,14 @@ class SchemaGenerator:
             if not (field.remote_field and field.remote_field.parent_link)
         ]
         extra_fields: dict[str, FieldSchema] = {}
+
+        meta_field = base_class.model_fields.get("meta")
+        if meta_field is not None:
+            extra_fields["meta"] = (
+                self._narrowed_meta_schema(meta_field.annotation, model),
+                ...,
+                None,
+            )
 
         for field in self._normalize_api_fields(model):
             # Legacy APIv2 APIField instance with a custom serializer.
@@ -253,6 +267,31 @@ class SchemaGenerator:
             name=f"{model._meta.object_name}Schema",
             base_class=base_class,
             follow_reverse_related=True,
+        )
+
+    @staticmethod
+    def _narrowed_meta_schema(
+        base_meta_schema: type[Schema], model: type[Model]
+    ) -> type[Schema]:
+        """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
+
+        A shared base class's ``meta`` field (``BaseMetaSchema``/
+        ``PageMetaSchema``) types ``type`` generically (``str | None``), since
+        one class is reused across every model's generated schema. This
+        builds a per-model subclass that only accepts its own content type
+        label instead, so the OpenAPI schema (and validation) reflects the
+        actual, constant value rather than an open-ended string. Used as
+        ``build_schema``'s own ``meta`` field override, so the narrowing is
+        baked into the same dynamic class as any other extra field rather
+        than needing a second subclassing pass over the finished schema.
+        """
+        return cast(
+            type[Schema],
+            type(base_meta_schema)(
+                f"{model._meta.object_name}MetaSchema",
+                (base_meta_schema,),
+                {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
+            ),
         )
 
 
