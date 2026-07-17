@@ -1,4 +1,4 @@
-from typing import Any, cast
+from typing import Any, Literal, cast
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
@@ -22,6 +22,15 @@ PAGE_BASE_WRITABLE_FIELDS = (
     "search_description",
     "show_in_menus",
 )
+
+
+class PageCreateMetaSchema(Schema):
+    parent_id: int
+    type: str
+
+
+class PageCreateBaseSchema(Schema):
+    meta: PageCreateMetaSchema
 
 
 class InputSchemaGenerator:
@@ -75,12 +84,11 @@ class InputSchemaGenerator:
             )
 
             extra_fields = self._build_extra_fields(model)
-            if extra_fields:
-                namespace: dict[str, Any] = {"__annotations__": {}}
-                for field_name, (annotation, default) in extra_fields.items():
-                    namespace["__annotations__"][field_name] = annotation
-                    namespace[field_name] = default
-                schema = cast(type[Schema], type(schema)(name, (schema,), namespace))
+            namespace: dict[str, Any] = {"__annotations__": {}}
+            for field_name, (annotation, default) in extra_fields.items():
+                namespace["__annotations__"][field_name] = annotation
+                namespace[field_name] = default
+            schema = cast(type[Schema], type(schema)(name, (schema,), namespace))
 
             self._child_relation_schema_cache[model] = schema
         return self._child_relation_schema_cache[model]
@@ -130,7 +138,18 @@ class InputSchemaGenerator:
         return extra_fields
 
     def generate_schema(self, model: type[Model]) -> type[Schema]:
-        """Build an input (create) schema for the concrete page model ``model``."""
+        """Build an input (create) schema for the concrete page model ``model``.
+
+        Includes a ``meta`` field holding ``parent_id`` (the page to create
+        the new page under) and ``type`` (the page model's content type
+        label, narrowed to a ``Literal`` for this specific model), nested
+        under ``meta`` - mirroring the read-side response's own
+        ``meta.type``/``meta.slug`` convention - rather than sitting at the
+        top level alongside the page model's own fields, so a model with a
+        field literally named ``parent_id`` or ``type`` (e.g. a CharField
+        choice named "type") can't have it silently shadowed by our control
+        fields.
+        """
         base_names = [
             name
             for name in PAGE_BASE_WRITABLE_FIELDS
@@ -145,17 +164,25 @@ class InputSchemaGenerator:
             base_class=Schema,
         )
 
+        meta_schema = cast(
+            type[Schema],
+            type(PageCreateMetaSchema)(
+                f"{model._meta.object_name}InputMetaSchema",
+                (PageCreateMetaSchema,),
+                {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
+            ),
+        )
         extra_fields = self._build_extra_fields(model)
-        if not extra_fields:
-            return schema
-
-        namespace: dict[str, Any] = {"__annotations__": {}}
+        namespace: dict[str, Any] = {"__annotations__": {"meta": meta_schema}}
         for field_name, (annotation, default) in extra_fields.items():
             namespace["__annotations__"][field_name] = annotation
             namespace[field_name] = default
 
         metaclass = type(schema)
-        return cast(type[Schema], metaclass(name, (schema,), namespace))
+        return cast(
+            type[Schema],
+            metaclass(name, (PageCreateBaseSchema, schema), namespace),
+        )
 
 
 input_generator = InputSchemaGenerator()

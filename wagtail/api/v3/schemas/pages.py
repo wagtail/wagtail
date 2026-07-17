@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from datetime import datetime
-from typing import Annotated, Any, Literal, Union, cast
+from typing import Annotated, Any, Union
 
 from django.db.models import Model
 from django.urls import reverse
@@ -108,49 +108,42 @@ def build_page_schema_union(models: Iterable[type[Model]]) -> Any:
     ]
 
 
-class PageCreateBaseSchema(Schema):
-    parent_id: int
+def _discriminate_page_create_schema(value: Any) -> str | None:
+    """Pick the page-create union member matching ``value``'s ``meta.type``.
 
+    Runs during validation, where ``value`` is the raw request dict (parsed
+    JSON), so ``meta`` is itself still a plain dict at this point.
+    """
+    if isinstance(value, dict):
+        meta = value.get("meta") or {}
+        return meta.get("type") if isinstance(meta, dict) else meta.type
 
-def _with_create_base(schema: type[Schema], model: type[Model]) -> type[Schema]:
-    """Add ``parent_id`` and a ``type`` literal (the discriminator) to ``schema``."""
-    metaclass = type(schema)
-    namespace = {
-        "__annotations__": {"type": Literal[model._meta.label]},  # ty: ignore[invalid-type-form]
-    }
-    return cast(
-        type[Schema],
-        metaclass(
-            f"{schema.__name__}WithParent",
-            (PageCreateBaseSchema, schema),
-            namespace,
-        ),
-    )
+    meta = getattr(value, "meta", None)
+    return getattr(meta, "type", None)
 
 
 def build_page_input_schema_union(models: Iterable[type[Model]]) -> Any:
     """Build a request type covering every model's generated input schema.
 
-    Every member includes ``parent_id`` (the page to create the new page
-    under) and ``type`` (the page model's content type label, e.g.
-    ``"tests.SimplePage"``), which together pick the specific page model to
-    create - the same discriminator value used by the read-side union and
-    ``meta.type`` in responses.
+    Every member includes a ``meta`` field holding ``parent_id`` (the page to
+    create the new page under) and ``type`` (the page model's content type
+    label, e.g. ``"tests.SimplePage"``), which together pick the specific
+    page model to create - the same discriminator value used by the read-side
+    union and ``meta.type`` in responses. ``meta`` itself is added by
+    ``input_generator.generate_schema``.
     """
     models = list(models)
     if len(models) == 1:
-        return _with_create_base(input_generator.generate_schema(models[0]), models[0])
+        return input_generator.generate_schema(models[0])
 
     members = tuple(
         Annotated[
-            _with_create_base(  # ty: ignore[invalid-type-form]
-                input_generator.generate_schema(model), model
-            ),
+            input_generator.generate_schema(model),  # ty: ignore[invalid-type-form]
             Tag(model._meta.label),
         ]
         for model in models
     )
     return Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
-        Discriminator("type"),
+        Discriminator(_discriminate_page_create_schema),
     ]

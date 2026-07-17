@@ -26,8 +26,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
     def test_anonymous_returns_401(self):
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -38,8 +40,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -69,8 +73,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.StreamPage",
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
                 "title": "Stream page",
                 "slug": "api-field-page",
                 "body": [{"type": "text", "value": "hello world"}],
@@ -84,8 +87,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "Auto Slug Page",
             }
         )
@@ -100,8 +105,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "Another",
                 "slug": "existing",
             }
@@ -112,8 +119,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "slug": "no-title",
             }
         )
@@ -128,8 +137,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.SimplePage",
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.SimplePage"},
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -140,8 +148,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": 999999,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {"parent_id": 999999, "type": "tests.MultiPreviewModesPage"},
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -152,8 +159,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "not.AType",
+                "meta": {"parent_id": self.root_page.pk, "type": "not.AType"},
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -165,8 +171,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login(username="noperms", password="password")
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -187,8 +195,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login(username="editor", password="password")
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.MultiPreviewModesPage",
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -204,8 +214,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         response = self.post(
             {
-                "parent_id": parent.pk,
-                "type": "wagtailcore.Page",
+                "meta": {"parent_id": parent.pk, "type": "wagtailcore.Page"},
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -216,8 +225,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.StreamPage",
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
                 "title": "Stream page",
                 "slug": "stream-page",
                 "body": [{"type": "text", "value": "hello streamfield"}],
@@ -233,8 +241,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "tests.StreamPage",
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
                 "title": "Stream page",
                 "slug": "stream-page-invalid",
                 "body": [{"type": "not_a_real_block", "value": "hello"}],
@@ -246,8 +253,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "demosite.HomePage",
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
                 "title": "Home",
                 "slug": "home-rich-text",
                 "body": "<p>hello</p>",
@@ -262,8 +268,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "demosite.HomePage",
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
                 "title": "Home",
                 "slug": "home-with-children",
                 "body": "<p>hi</p>",
@@ -294,8 +299,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "demosite.HomePage",
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
                 "title": "Home",
                 "slug": "home-invalid-child",
                 "body": "<p>hi</p>",
@@ -321,8 +325,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "parent_id": self.root_page.pk,
-                "type": "demosite.HomePage",
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
                 "title": "Home",
                 "slug": "home-missing-link",
                 "body": "<p>hi</p>",

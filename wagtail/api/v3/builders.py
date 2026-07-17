@@ -91,7 +91,7 @@ def build_page_form(
     the real bound form from that.
     """
     form_class = _get_form_class(model)
-    payload = data.dict(exclude={"parent_id", "type"})
+    payload = data.dict(exclude={"meta"})
     formset_payloads = {
         name: value for name, value in payload.items() if isinstance(value, list)
     }

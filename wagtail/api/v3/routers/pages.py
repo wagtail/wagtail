@@ -37,7 +37,7 @@ def _get_page_model(type_label: str) -> type[Page]:
     for model in get_page_models():
         if model._meta.label == type_label:
             return model
-    raise ValidationError({"type": f"Unknown page type: {type_label!r}"})
+    raise ValidationError({"meta": {"type": f"Unknown page type: {type_label!r}"}})
 
 
 @router.get(
@@ -75,12 +75,12 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     if not request.user.is_active:
         raise PermissionDenied
 
-    parent = get_object_or_404(Page.objects.all(), pk=data.parent_id).specific
+    parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
 
     if not parent.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    model = _get_page_model(data.type)
+    model = _get_page_model(data.meta.type)
     if model not in parent.creatable_subpage_models() or not model.can_create_at(
         parent
     ):
