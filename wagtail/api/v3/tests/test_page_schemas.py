@@ -3,7 +3,7 @@ from typing import Any, cast
 
 from django.test import TestCase
 
-from wagtail.api.v3.schemas import BasePageSchema, generator
+from wagtail.api.v3.schemas import BasePageSchema, read_generator
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page
@@ -31,7 +31,7 @@ class TestGeneratePageSchema(TestCase):
         )
         home.related_links.create(title="Related", link_external="http://example.com")
 
-        schema = generator.generate_schema(HomePage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(HomePage, base_class=BasePageSchema)
         fields = schema.model_fields
         self.assertIn("body", fields)
         self.assertIn("carousel_items", fields)
@@ -72,7 +72,7 @@ class TestGeneratePageSchema(TestCase):
         stream_page = cast(Any, stream_page)
         self.root_page.add_child(instance=stream_page)
 
-        schema = generator.generate_schema(StreamPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(StreamPage, base_class=BasePageSchema)
         instance = cast(Any, schema.from_orm(stream_page, context={"request": None}))
 
         self.assertIsInstance(instance.body, list)
@@ -100,7 +100,9 @@ class TestGeneratePageSchema(TestCase):
         )
         blog_index.add_child(instance=entry)
 
-        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
         self.assertIn("feed_image_thumbnail", schema.model_fields)
 
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
@@ -124,7 +126,9 @@ class TestGeneratePageSchema(TestCase):
         )
         self.root_page.add_child(instance=entry)
 
-        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
         self.assertIsNone(instance.feed_image_thumbnail)
 
@@ -146,7 +150,9 @@ class TestGeneratePageSchema(TestCase):
         )
         blog_index.add_child(instance=entry)
 
-        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
 
         self.assertEqual(instance.feed_image.id, image.pk)
@@ -168,7 +174,9 @@ class TestGeneratePageSchema(TestCase):
         blog_index.add_child(instance=entry)
         entry.tags.add("wagtail", "python")
 
-        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
         self.assertEqual(schema.model_fields["tags"].annotation, list[str])
 
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
@@ -190,6 +198,8 @@ class TestGeneratePageSchema(TestCase):
         )
         blog_index.add_child(instance=entry)
 
-        schema = generator.generate_schema(BlogEntryPage, base_class=BasePageSchema)
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
         self.assertEqual(instance.tags, [])

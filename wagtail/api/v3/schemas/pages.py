@@ -9,8 +9,7 @@ from ninja import Schema
 from pydantic import Discriminator, Tag
 
 from wagtail.api.v2.utils import get_full_url
-from wagtail.api.v3.schemas import generator
-from wagtail.api.v3.schemas.input_generator import input_generator
+from wagtail.api.v3.schemas import create_generator, read_generator
 from wagtail.models import Page
 
 
@@ -98,11 +97,11 @@ def build_page_schema_union(models: Iterable[type[Model]]) -> Any:
     """
     models = list(models)
     if len(models) == 1:
-        return generator.generate_schema(models[0], base_class=BasePageSchema)
+        return read_generator.generate_schema(models[0], base_class=BasePageSchema)
 
     members = tuple(
         Annotated[
-            generator.generate_schema(  # ty: ignore[invalid-type-form]
+            read_generator.generate_schema(  # ty: ignore[invalid-type-form]
                 model,
                 base_class=BasePageSchema,
             ),
@@ -142,11 +141,11 @@ def build_page_input_schema_union(models: Iterable[type[Model]]) -> Any:
     """
     models = list(models)
     if len(models) == 1:
-        return input_generator.generate_schema(models[0])
+        return create_generator.generate_schema(models[0])
 
     members = tuple(
         Annotated[
-            input_generator.generate_schema(model),  # ty: ignore[invalid-type-form]
+            create_generator.generate_schema(model),  # ty: ignore[invalid-type-form]
             Tag(model._meta.label),
         ]
         for model in models

@@ -80,7 +80,11 @@ class ContentTypeRegistry:
 
     def register_defaults(self) -> None:
         """Register the content types shipped with Wagtail (currently ``pages``)."""
-        from wagtail.api.v3.schemas import BasePageSchema, generator, input_generator
+        from wagtail.api.v3.schemas import (
+            BasePageSchema,
+            create_generator,
+            read_generator,
+        )
         from wagtail.models import get_page_models
 
         self.register(
@@ -96,10 +100,10 @@ class ContentTypeRegistry:
                 ContentTypeRegistration(
                     name=model._meta.label,
                     label=str(model._meta.verbose_name),
-                    read_schema=generator.generate_schema(
+                    read_schema=read_generator.generate_schema(
                         model, base_class=BasePageSchema
                     ),
-                    create_schema=input_generator.generate_schema(model),
+                    create_schema=create_generator.generate_schema(model),
                 )
             )
 

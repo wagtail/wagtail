@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 
-from wagtail.api.v3.schemas.input_generator import PageCreateMetaSchema, input_generator
+from wagtail.api.v3.schemas import PageCreateMetaSchema, create_generator
 from wagtail.test.demosite.models import HomePage
 from wagtail.test.testapp.models import SimplePage
 
@@ -18,7 +18,7 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
     """
 
     def test_meta_is_a_dedicated_schema_separate_from_model_fields(self):
-        schema = input_generator.generate_schema(SimplePage)
+        schema = create_generator.generate_schema(SimplePage)
 
         meta_annotation = schema.model_fields["meta"].annotation
         self.assertTrue(issubclass(meta_annotation, PageCreateMetaSchema))
@@ -31,8 +31,8 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
         self.assertNotIn("parent_id", schema.model_fields)
 
     def test_meta_type_is_narrowed_per_model(self):
-        home_schema = input_generator.generate_schema(HomePage)
-        simple_schema = input_generator.generate_schema(SimplePage)
+        home_schema = create_generator.generate_schema(HomePage)
+        simple_schema = create_generator.generate_schema(SimplePage)
 
         home_meta = home_schema.model_fields["meta"].annotation
         simple_meta = simple_schema.model_fields["meta"].annotation

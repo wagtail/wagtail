@@ -228,8 +228,8 @@ def foreign_key_schema(
     return python_type, field_info.default
 
 
-input_generator = InputSchemaGenerator()
-input_generator.register_field_schema(StreamField, streamfield_schema)
-input_generator.register_field_schema(TaggableManager, tags_schema)
-input_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
-input_generator.register_field_schema(ForeignKey, foreign_key_schema)
+generator = InputSchemaGenerator()
+generator.register_field_schema(StreamField, streamfield_schema)
+generator.register_field_schema(TaggableManager, tags_schema)
+generator.register_field_schema(ForeignObjectRel, child_relation_schema)
+generator.register_field_schema(ForeignKey, foreign_key_schema)
