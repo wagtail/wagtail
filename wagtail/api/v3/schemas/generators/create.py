@@ -85,7 +85,7 @@ class InputSchemaGenerator:
                 base_class=Schema,
             )
 
-            extra_fields = self._build_extra_fields(model)
+            extra_fields = self._build_extra_fields(model, exclude=exclude)
             namespace: dict[str, Any] = {"__annotations__": {}}
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
@@ -95,15 +95,30 @@ class InputSchemaGenerator:
             self._child_relation_schema_cache[model] = schema
         return self._child_relation_schema_cache[model]
 
-    def _build_extra_fields(self, model: type[Model]) -> dict[str, tuple[Any, Any]]:
+    def _build_extra_fields(
+        self,
+        model: type[Model],
+        *,
+        exclude: Iterable[str] = (),
+    ) -> dict[str, tuple[Any, Any]]:
         """Return ``{field_name: (annotation, default)}`` for ``api_fields`` extras.
 
         Custom-serializer (legacy API v2) fields are skipped since those are
-        read-only computed values with no defined writable shape.
+        read-only computed values with no defined writable shape. ``exclude``
+        drops any field also named there - namely the housekeeping fields
+        ``get_child_relation_schema`` already excludes (the ``ParentalKey``
+        back to the parent, the primary key, ``sort_order``): a model's
+        ``api_fields`` may list one of those (e.g. to expose the parent link
+        for reading), and without this, that would silently reintroduce a
+        field this API never intends to accept from the client.
         """
+        exclude = set(exclude)
         extra_fields: dict[str, tuple[Any, Any]] = {}
 
         for field in self._normalize_api_fields(model):
+            if field.name in exclude:
+                continue
+
             if field.serializer is not None:
                 continue
 

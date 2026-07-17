@@ -7,7 +7,7 @@ from wagtail.api.v3.schemas.pages import (
     PageCreateBaseSchema,
     PageCreateMetaSchema,
 )
-from wagtail.test.demosite.models import HomePage
+from wagtail.test.demosite.models import HomePage, HomePageCarouselItem
 from wagtail.test.testapp.models import SimplePage
 
 
@@ -82,3 +82,30 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
         self.assertEqual(
             simple_meta.model_fields["type"].annotation.__args__, ("tests.SimplePage",)
         )
+
+
+class TestChildRelationSchemaExcludesParentalKey(SimpleTestCase):
+    """
+    A child-relation model's own ``api_fields`` might list its ParentalKey
+    field name (e.g. to expose the parent link when reading). The create
+    schema must still never accept it as a writable field: the association
+    to the page being created is implicit from nesting the item under the
+    page's own payload, not something a client should (or even could
+    sensibly) supply directly.
+    """
+
+    def setUp(self):
+        self.original_api_fields = getattr(HomePageCarouselItem, "api_fields", ())
+        HomePageCarouselItem.api_fields = ("page", "caption", "embed_url")
+        create_generator._child_relation_schema_cache.pop(HomePageCarouselItem, None)
+
+    def tearDown(self):
+        HomePageCarouselItem.api_fields = self.original_api_fields
+        create_generator._child_relation_schema_cache.pop(HomePageCarouselItem, None)
+
+    def test_parental_key_listed_in_api_fields_is_not_reintroduced(self):
+        schema = create_generator.get_child_relation_schema(HomePageCarouselItem)
+
+        self.assertNotIn("page", schema.model_fields)
+        self.assertIn("caption", schema.model_fields)
+        self.assertIn("embed_url", schema.model_fields)
