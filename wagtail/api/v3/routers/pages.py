@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Status
 from ninja.pagination import paginate
 
-from wagtail.actions.create import CreateAction
 from wagtail.api.v3.builders import build_page_instance
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
@@ -88,12 +87,18 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
 
     page, form = build_page_instance(model, parent, data, request.user)
     page.live = False
+    # add_child() saves the page (logging its own "wagtail.create" entry via
+    # Page.save()) and commits any staged child relations. We deliberately
+    # don't use CreateAction here, unlike sites/redirects: it assumes it owns
+    # the initial save via its own instance.save() call, which would either
+    # duplicate add_child's save or - if skipped - never position the page in
+    # the tree. Composing the two produces a second, redundant "wagtail.create"
+    # log entry from CreateAction's own log() call. save_revision(log_action=True)
+    # below is what the admin's own create view uses instead, for the same reason.
     parent.add_child(instance=page)
     # save_m2m is set dynamically by ModelForm.save(commit=False), which
     # build_page_instance always calls.
     form.save_m2m()  # ty: ignore[unresolved-attribute]
 
-    CreateAction(page, user=request.user, clean=False).execute(
-        skip_permission_checks=True
-    )
+    page.save_revision(user=request.user, log_action=True, clean=False)
     return Status(201, page)

@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission, Page, PageLogEntry
 from wagtail.test.demosite.models import HomePage
 from wagtail.test.testapp.models import MultiPreviewModesPage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
@@ -59,6 +59,40 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["title"], "New page")
         self.assertEqual(content["meta"]["type"], "tests.MultiPreviewModesPage")
         self.assertEqual(content["meta"]["slug"], "new-page")
+
+    def test_create_saves_one_revision_and_matches_admin_log_entries(self):
+        """
+        add_child() saves the page directly, which already logs its own
+        "wagtail.create" entry via Page.save() - so the router must not also
+        use CreateAction (which would log a second, redundant "wagtail.create").
+        The real admin create view logs "wagtail.create" (from add_child's
+        save) plus "wagtail.edit" (from save_revision(log_action=True)) for
+        every new page; this asserts the API produces that same pair, not a
+        duplicate "wagtail.create".
+        """
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
+                "title": "Logged page",
+                "slug": "logged-page",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = MultiPreviewModesPage.objects.get(slug="logged-page")
+
+        self.assertEqual(page.revisions.count(), 1)
+        self.assertIsNotNone(page.latest_revision)
+
+        actions = list(
+            PageLogEntry.objects.filter(page=page)
+            .order_by("timestamp")
+            .values_list("action", flat=True)
+        )
+        self.assertEqual(actions, ["wagtail.create", "wagtail.edit"])
 
     def test_superuser_can_create_page_with_api_field(self):
         """
