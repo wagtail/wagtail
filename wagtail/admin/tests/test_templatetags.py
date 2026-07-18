@@ -3,6 +3,7 @@ import unittest
 from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
+from unittest.mock import patch
 
 from django import forms
 from django.conf import settings
@@ -1253,3 +1254,26 @@ class FormattedfieldTagTestCase(WagtailTestUtils, SimpleTestCase):
             },
             soup.attrs,
         )
+
+
+class WagtailConfigTemplateTagTest(TestCase):
+    @patch("wagtail.admin.templatetags.wagtailadmin_tags.apps.is_installed")
+    def test_wagtail_config_without_documents(self, mock_is_installed):
+        def mock_installed(app):
+            return app != "wagtail.documents"
+
+        mock_is_installed.side_effect = mock_installed
+
+        template = Template("""
+            {% load wagtailadmin_tags %}
+            {% wagtail_config as config %}
+        """)
+
+        request = get_dummy_request()
+        context = Context({"request": request})
+
+        template.render(context)
+
+        config = context["config"]
+
+        self.assertNotIn("DOCUMENTS", config["ADMIN_API"])
