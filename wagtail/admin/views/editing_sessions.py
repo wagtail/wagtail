@@ -32,7 +32,11 @@ def ping(request, app_label, model_name, object_id, session_id):
     if isinstance(obj, Page):
         can_edit = obj.permissions_for_user(request.user).can_edit()
     else:
-        permission_policy = policy_registry.get_by_type(model)
+        permission_policy = policy_registry.get_by_type(model, fallback=False)
+        if not permission_policy:
+            # Model likely was not registered with Wagtail
+            raise Http404
+
         can_edit = permission_policy.user_has_permission_for_instance(
             request.user, "change", obj
         )
