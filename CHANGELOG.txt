@@ -35,6 +35,7 @@ Changelog
  * Maintenance: Add renovate configuration to automate Python dependencies management (Sage Abdullah)
  * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
  * Maintenance: Enable flake8-bandit security-focused linting rules (Storm Heg)
+ * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
 
 
 7.4.2 (15.06.2026)
