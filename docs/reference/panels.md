@@ -65,6 +65,10 @@ Here are some built-in panel types that you can use in your panel definitions. T
     .. attribute:: FieldPanel.attrs (optional)
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
+    .. attribute:: FieldPanel.label_format (optional)
+
+        A summary shown next to the panel's heading when it is collapsed and in the minimap. Set a string with the field name in braces to interpolate its current value, for example ``label_format="{title}"``. Only takes effect when the ``FieldPanel`` is a direct child of an ``ObjectList`` (or ``TabbedInterface``).
 ```
 
 ````{note}
@@ -105,6 +109,10 @@ Instead of
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
 
+    .. attribute:: MultiFieldPanel.label_format (optional)
+
+        A summary shown next to the panel's ``heading`` when it is collapsed and in the minimap. Set a string with field names in braces to interpolate their current values, for example ``label_format="{first_name} {last_name}"``.
+
 ```
 
 (inline_panels)=
@@ -139,6 +147,10 @@ Instead of
     .. attribute:: InlinePanel.attrs (optional)
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
+
+    .. attribute:: InlinePanel.label_format (optional)
+
+        A summary shown next to each child panel's ``label`` when it is collapsed and in the minimap. Set a string with field names in braces to interpolate the current value of fields on the inline form, for example ``label_format="{first_name} {last_name}"``.
 
 ```
 
