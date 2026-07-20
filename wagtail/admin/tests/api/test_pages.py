@@ -572,6 +572,28 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         self.assertEqual(page_id_list, [6, 20, 4, 12, 5])
 
+    def test_for_explorer_filter_with_ordering(self):
+        # Regression test for #11859: the ChildOfFilter stores the parent page
+        # as an attribute on the queryset, which the ForExplorerFilter relies on.
+        # order_by() returns a fresh queryset that drops that attribute, so
+        # combining for_explorer with the order filter must not lose the
+        # child_of context (which previously raised a spurious 400 error).
+        movies = self.make_simple_page(Page.objects.get(pk=1), "Movies")
+        pages = [
+            self.make_simple_page(movies, "The Way of the Dragon"),
+            self.make_simple_page(movies, "Enter the Dragon"),
+            self.make_simple_page(movies, "Dragons Forever"),
+        ]
+
+        response = self.get_response(child_of=movies.pk, for_explorer=1, order="title")
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content.decode("UTF-8"))
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(
+            page_id_list,
+            [page.pk for page in sorted(pages, key=lambda page: page.title)],
+        )
+
     # HAS CHILDREN FILTER
 
     def test_has_children_filter(self):
