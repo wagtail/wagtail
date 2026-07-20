@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
+from PIL import Image, ImageOps
 
 from wagtail.admin.localization import (
     get_available_admin_languages,
@@ -135,6 +135,8 @@ class AvatarPreferencesForm(forms.ModelForm):
             return self._original_avatar
 
         image = Image.open(file)
+        orig_format = image.format or "JPEG"
+        image = ImageOps.exif_transpose(image)
         width, height = image.size
 
         if width <= 400 and height <= 400:
@@ -151,10 +153,8 @@ class AvatarPreferencesForm(forms.ModelForm):
 
         resized_image = image.resize((new_width, new_height))
 
-        orig_format = image.format or "JPEG"
-
         output = io.BytesIO()
-        resized_image.save(output, format=image.format)
+        resized_image.save(output, format=orig_format)
         output.seek(0)
 
         new_ext = (
