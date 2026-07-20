@@ -1,11 +1,13 @@
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import ValidationError
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Status
 from ninja.pagination import paginate
 
+from wagtail.actions.create_page import CreatePageAction
 from wagtail.api.v3.builders import build_page_instance
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
+from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import (
     BasePageSchema,
@@ -70,35 +72,11 @@ def get_page(request: HttpRequest, page_id: int):
     summary="Create page",
     operation_id="pages_create",
 )
+@require_any_permission(Page, ("add",))
 def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
-    if not request.user.is_active:
-        raise PermissionDenied
-
     parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
-
-    if not parent.permissions_for_user(request.user).can_add_subpage():
-        raise PermissionDenied
-
     model = _get_page_model(data.meta.type)
-    if model not in parent.creatable_subpage_models() or not model.can_create_at(
-        parent
-    ):
-        raise PermissionDenied
-
     page, form = build_page_instance(model, parent, data, request.user)
-    page.live = False
-    # add_child() saves the page (logging its own "wagtail.create" entry via
-    # Page.save()) and commits any staged child relations. We deliberately
-    # don't use CreateAction here, unlike sites/redirects: it assumes it owns
-    # the initial save via its own instance.save() call, which would either
-    # duplicate add_child's save or - if skipped - never position the page in
-    # the tree. Composing the two produces a second, redundant "wagtail.create"
-    # log entry from CreateAction's own log() call. save_revision(log_action=True)
-    # below is what the admin's own create view uses instead, for the same reason.
-    parent.add_child(instance=page)
-    # save_m2m is set dynamically by ModelForm.save(commit=False), which
-    # build_page_instance always calls.
-    form.save_m2m()  # ty: ignore[unresolved-attribute]
-
-    page.save_revision(user=request.user, log_action=True, clean=False)
+    action = CreatePageAction(page, parent, user=request.user, form=form, clean=False)
+    action.execute()
     return Status(201, page)
