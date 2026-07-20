@@ -45,6 +45,13 @@ def get_test_image_file_jpeg(filename="test.jpg", colour="white", size=(640, 480
     return ImageFile(f, name=filename)
 
 
+def get_test_image_file_jxl(filename="test.jxl", colour="white", size=(640, 480)):
+    f = BytesIO()
+    image = PIL.Image.new("RGB", size, colour)
+    image.save(f, "JXL")
+    return ImageFile(f, name=filename)
+
+
 def get_test_image_file_webp(filename="test.webp", colour="white", size=(640, 480)):
     f = BytesIO()
     image = PIL.Image.new("RGB", size, colour)
