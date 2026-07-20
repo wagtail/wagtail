@@ -4,7 +4,10 @@ from django.test import TestCase
 
 from wagtail import blocks
 from wagtail.blocks.base import get_error_json_data
-from wagtail.blocks.definition_lookup import BlockDefinitionLookup
+from wagtail.blocks.definition_lookup import (
+    BlockDefinitionLookup,
+    BlockDefinitionLookupBuilder,
+)
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
@@ -560,3 +563,14 @@ class TestBlockDefinitionLookup(TestCase):
         self.assertTrue(text_block.required)
         country_block = struct_block.child_blocks["country"]
         self.assertIsInstance(country_block, blocks.ChoiceBlock)
+
+    def test_reference_round_trips(self):
+        class TableBlock(blocks.StructBlock):
+            table = TypedTableBlock(
+                [("cell", blocks.BlockReference(lambda: TableBlock))]
+            )
+
+        builder = BlockDefinitionLookupBuilder()
+        index = builder.add_block(TableBlock())
+        rebuilt = BlockDefinitionLookup(builder.get_lookup_as_dict()).get_block(index)
+        self.assertEqual(rebuilt.check(), [])

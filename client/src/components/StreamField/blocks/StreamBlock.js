@@ -445,14 +445,26 @@ export class StreamBlockDefinition {
     this.name = name;
     this.groupedChildBlockDefs = groupedChildBlockDefs;
     this.initialChildStates = initialChildStates;
-    this.childBlockDefsByName = {};
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
-      blockDefs.forEach((blockDef) => {
-        this.childBlockDefsByName[blockDef.name] = blockDef;
-      });
-    });
     this.meta = meta;
+  }
+
+  /**
+   * Lazy map of child block definitions keyed by name. Built on first
+   * access so this can be constructed while children are still
+   * placeholders with unset `.name` (cyclic reconstruction via telepath _ref).
+   */
+  get childBlockDefsByName() {
+    if (this.childBlockDefsByNameCache === undefined) {
+      const map = {};
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
+        blockDefs.forEach((blockDef) => {
+          map[blockDef.name] = blockDef;
+        });
+      });
+      this.childBlockDefsByNameCache = map;
+    }
+    return this.childBlockDefsByNameCache;
   }
 
   render(placeholder, prefix, initialState, initialError) {
