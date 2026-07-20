@@ -987,6 +987,7 @@
 * Marquis Nobles
 * Eesh Saxena
 * Jack Whitworth
+* Thomas Herman
 
 ## Translators
 

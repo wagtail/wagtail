@@ -57,6 +57,7 @@
     {
       "matchPackageNames": [
         "/ruff/",
+        "/ty/",
         "/doc8/",
         "/semgrep/",
         "/curlylint/",

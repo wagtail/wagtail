@@ -3,11 +3,15 @@ default_language_version:
   python: python3
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.15.17'
+    rev: 'v0.15.20'
     hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-check
       - id: ruff-format
+
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.56
+    hooks:
+      - id: ty
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
@@ -52,7 +56,7 @@ repos:
       - id: djhtml
   - repo: https://github.com/semgrep/semgrep
     # NOTE: Keep in sync with dependencies in pyproject.toml
-    rev: v1.166.0
+    rev: v1.168.0
     hooks:
       - id: semgrep
         files: \.(js|ts|tsx|html|py)$

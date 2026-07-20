@@ -2,6 +2,10 @@
 
 # How to set up Django Ninja
 
+```{versionadded} 8.0
+Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
+```
+
 While Wagtail provides a [built-in API module](api) based on Django REST Framework, it is possible to use other API frameworks.
 Here is information on usage with [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
 

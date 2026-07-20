@@ -1185,7 +1185,7 @@ class Filter:
         if not vary_string:
             return ""
 
-        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]  # noqa: S324 -  use of sha1 is acceptable here to generate a short hash for cache key
 
     def __eq__(self, value):
         if isinstance(value, Filter):
@@ -1230,7 +1230,7 @@ class ResponsiveImage:
         return self.renditions[0].img_tag(attrs)
 
     def __str__(self):
-        return mark_safe(self.__html__())
+        return mark_safe(self.__html__())  # noqa: S308 - flatatt-rendered attributes are escaped
 
     def __bool__(self):
         return bool(self.renditions)
@@ -1295,7 +1295,7 @@ class Picture(ResponsiveImage):
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
         if not self.formats:
-            return mark_safe(f"<picture>{super().__html__()}</picture>")
+            return mark_safe(f"<picture>{super().__html__()}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
         attrs = self.attrs or {}
 
@@ -1319,7 +1319,7 @@ class Picture(ResponsiveImage):
         # The first rendition is the "base" / "fallback" image.
         fallback = fallback_renditions[0].img_tag(attrs)
 
-        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")
+        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
 
 class AbstractRendition(ImageFileMixin, models.Model):
@@ -1466,7 +1466,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         if extra_attributes:
             attrs.update(extra_attributes)
 
-        return mark_safe(f"<img{flatatt(attrs)}>")
+        return mark_safe(f"<img{flatatt(attrs)}>")  # noqa: S308 - no security implications
 
     def __html__(self):
         return self.img_tag()

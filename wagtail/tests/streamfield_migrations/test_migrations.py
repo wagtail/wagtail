@@ -234,7 +234,7 @@ class TestNullStreamField(BaseMigrationTest):
         # Bypass StreamField/StreamBlock processing that cast a None stream field value
         # to the empty StreamValue, and set the underlying JSON to null.
         with connection.cursor() as cursor:
-            cursor.execute(f"UPDATE {self.model._meta.db_table} SET content = 'null'")
+            cursor.execute(f"UPDATE {self.model._meta.db_table} SET content = 'null'")  # noqa: S608 - no injection risk
 
     def assert_null_content(self):
         """

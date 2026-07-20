@@ -21,9 +21,36 @@ ignore = ["D100", "D101", "D102", "D103", "D105", "N806", "E501"]
 # E: pycodestyle errors
 # F: Pyflakes
 # I: isort
+# S: flake8-bandit
 # T20: flake8-print
 # BLE: flake8-blind-except
 # C4: flake8-comprehensions
 # B006: Do not use mutable data structures for argument defaults
 # B904: Within an `except` clause, raise exceptions with `raise ... from err`
-select = ["E", "F", "I", "T20", "BLE", "C4", "B006", "B904"]
+select = ["E", "F", "I", "S", "T20", "BLE", "C4", "B006", "B904"]
+
+[lint.per-file-ignores]
+"wagtail/test/**" = [
+  "S101",  # Assert allowed in tests
+  "S105",  # Hardcoded password assignments allowed in tests
+  "S106",  # Hardcoded password assignments allowed in tests
+  "S301",  # Use of pickle allowed in tests
+  "S308",  # Mark safe is often necessary in tests
+  "S324",  # Any hashlib usage is allowed in tests, no need to use a secure hash functions only
+]
+"test_*" = [
+  "S101",  # Assert allowed in tests
+  "S105",  # Hardcoded password assignments allowed in tests
+  "S106",  # Hardcoded password assignments allowed in tests
+  "S301",  # Use of pickle allowed in tests
+  "S308",  # Mark safe is often necessary in tests
+  "S324",  # Any hashlib usage is allowed in tests, no need to use a secure hash functions only
+]
+"tests.py" = [
+  "S101",  # Assert allowed in tests
+  "S105",  # Hardcoded password assignments allowed in tests
+  "S106",  # Hardcoded password assignments allowed in tests
+  "S301",  # Use of pickle allowed in tests
+  "S308",  # Mark safe is often necessary in tests
+  "S324",  # Any hashlib usage is allowed in tests, no need to use a secure hash functions only
+]

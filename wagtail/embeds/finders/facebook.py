@@ -70,12 +70,12 @@ class FacebookOEmbedFinder(OEmbedFinder):
             params["omitscript"] = "true"
 
         # Configure request
-        request = Request(endpoint + "?" + urlencode(params))
+        request = Request(endpoint + "?" + urlencode(params))  # noqa: S310 - scheme controlled through configured endpoints, not exploitable
         request.add_header("Authorization", f"Bearer {self.app_id}|{self.app_secret}")
 
         # Perform request
         try:
-            r = urllib_request.urlopen(request)
+            r = urllib_request.urlopen(request)  # noqa: S310 - scheme controlled through configured endpoints, not exploitable
         except (HTTPError, URLError) as e:
             if isinstance(e, HTTPError) and e.code == 404:
                 raise EmbedNotFoundException from e

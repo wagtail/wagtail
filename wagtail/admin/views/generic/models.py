@@ -22,6 +22,7 @@ from django.views.generic.edit import (
     BaseUpdateView,
 )
 
+from wagtail.actions import action_registry
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
@@ -52,11 +53,9 @@ from wagtail.admin.widgets.button import (
     ButtonWithDropdown,
     HeaderButton,
 )
-from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
-from wagtail.models.orderable import set_max_order
 from wagtail.search.index import class_is_indexed
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
@@ -551,6 +550,10 @@ class CreateView(
             self.produced_error_message = self.get_error_message()
         return result
 
+    @cached_property
+    def action_class(self):
+        return action_registry.get_action_class(self.model, "create")
+
     def get_action(self, request):
         for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
@@ -704,13 +707,14 @@ class CreateView(
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        instance = self.form.save()
-        # Apply max order number if the model uses custom ordering and the
-        # sort_order_field is not set.
-        if self.sort_order_field and getattr(instance, self.sort_order_field) is None:
-            set_max_order(instance, self.sort_order_field)
-        log(instance=instance, action="wagtail.create", content_changed=True)
-        return instance
+        # Permission is already checked by PermissionCheckedMixin.
+        self.action_class(
+            self.form.instance,
+            user=self.request.user,
+            form=self.form,
+            sort_order_field=self.sort_order_field,
+        ).execute(skip_permission_checks=True)
+        return self.form.instance
 
     def get_success_json(self):
         edit_url = self.get_edit_url()
@@ -854,6 +858,10 @@ class EditView(
         except KeyError:
             quoted_pk = self.args[0]
         return unquote(str(quoted_pk))
+
+    @cached_property
+    def action_class(self):
+        return action_registry.get_action_class(self.model, "edit")
 
     def get_action(self, request):
         for action in self.get_available_actions():
@@ -1007,17 +1015,14 @@ class EditView(
         Called after the form is successfully validated - saves the object to the db.
         Override this to implement custom save logic.
         """
-        instance = self.form.save()
+        # Permission is already checked by PermissionCheckedMixin.
+        self.action_class(
+            self.form.instance,
+            user=self.request.user,
+            form=self.form,
+        ).execute(skip_permission_checks=True)
 
-        self.has_content_changes = self.form.has_changed()
-
-        log(
-            instance=instance,
-            action="wagtail.edit",
-            content_changed=self.has_content_changes,
-        )
-
-        return instance
+        return self.form.instance
 
     def get_success_json(self):
         result = {
@@ -1176,6 +1181,10 @@ class DeleteView(
 
         return super().get_object(queryset)
 
+    @cached_property
+    def action_class(self):
+        return action_registry.get_action_class(self.model, "delete")
+
     def get_usage(self):
         if not self.usage_url:
             return None
@@ -1232,9 +1241,10 @@ class DeleteView(
         )
 
     def delete_action(self):
-        with transaction.atomic():
-            log(instance=self.object, action="wagtail.delete")
-            self.object.delete()
+        # Permission is already checked by PermissionCheckedMixin.
+        self.action_class(self.object, user=self.request.user).execute(
+            skip_permission_checks=True
+        )
 
     def form_valid(self, form):
         if self.usage and self.usage.is_protected:

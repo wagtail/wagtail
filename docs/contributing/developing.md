@@ -312,6 +312,7 @@ make livehtml
 Wagtail makes use of various tools to ensure consistency and readability across the codebase:
 
 - [Ruff](https://github.com/astral-sh/ruff) for formatting and linting Python code, including enforcing [PEP8](https://peps.python.org/pep-0008/) and [isort](https://pycqa.github.io/isort/) rules
+- [ty](https://docs.astral.sh/ty/) for gradual type-checking
 - [djhtml](https://github.com/rtts/djhtml) and [Curlylint](https://www.curlylint.org/) for formatting and linting HTML templates
 - [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and [ESLint](https://eslint.org/) for formatting and linting JavaScript and CSS code
 
