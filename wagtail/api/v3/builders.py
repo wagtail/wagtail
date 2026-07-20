@@ -80,14 +80,6 @@ def build_page_form(
     view binds), so any custom ``clean()``/``clean_<field>()`` logic a
     project defines on that form or its formsets runs for real, rather than
     being bypassed.
-
-    Since ``ClusterForm`` builds its child formsets from ``data`` inside
-    ``__init__``, we can't know the form's field/formset shape until an
-    instance exists - so this constructs a throwaway unbound form first
-    purely to discover field names and formsets, then flattens the JSON
-    payload into the multipart-style keys a real HTML submission would have
-    produced (see :mod:`wagtail.api.v3.form_data`), and finally constructs
-    the real bound form from that.
     """
     form_class = _get_form_class(model)
     payload = data.dict(exclude={"meta"})
@@ -104,7 +96,6 @@ def build_page_form(
     if not payload.get("slug") and payload.get("title"):
         payload["slug"] = _autogenerate_slug(payload["title"], parent, page)
 
-    scratch_form = form_class(instance=page, parent_page=parent, for_user=user)
-    form_data = build_form_data(scratch_form, payload, formset_payloads)
+    form_data = build_form_data(form_class, payload, formset_payloads)
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)

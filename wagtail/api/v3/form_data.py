@@ -88,13 +88,13 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
 
 
 def build_form_data(
-    form: BaseForm,
+    form_class: type[BaseForm],
     payload: dict[str, Any],
     formset_payloads: dict[str, list],
 ) -> MultiValueDict:
-    """Build a ``MultiValueDict`` that binds ``form`` (and its child formsets,
-    if it's a ``ClusterForm``) as if the equivalent HTML form had been
-    submitted.
+    """Build a ``MultiValueDict`` that binds ``form_class`` (and its child
+    formsets, if it's a ``ClusterForm``) as if the equivalent HTML form had
+    been submitted.
 
     ``payload`` supplies values for the top-level form's own fields, keyed by
     field name. ``formset_payloads`` supplies, for each InlinePanel-backed
@@ -108,20 +108,20 @@ def build_form_data(
     are simply not looked up here (see ``InlinePanel.get_form_options``).
     """
     data = MultiValueDict()
-
-    for name, field in form.fields.items():
+    base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
+    for name, field in base_fields.items():
         if name in payload:
             _set_field_value(field, name, payload[name], data)
 
-    for rel_name, formset in getattr(form, "formsets", {}).items():
+    for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
         items = formset_payloads.get(rel_name, [])
-        prefix = formset.prefix
+        prefix = rel_name
         data[f"{prefix}-TOTAL_FORMS"] = str(len(items))
         data[f"{prefix}-INITIAL_FORMS"] = "0"
-        empty_form = formset.empty_form
+        child_fields = formset_class.form.base_fields
         for i, item in enumerate(items):
             item_prefix = f"{prefix}-{i}"
-            for field_name, field in empty_form.fields.items():
+            for field_name, field in child_fields.items():
                 if field_name in item:
                     _set_field_value(
                         field, f"{item_prefix}-{field_name}", item[field_name], data
