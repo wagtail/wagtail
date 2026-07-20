@@ -157,10 +157,8 @@ class AbstractFormField(Orderable):
         as this would invalidate any previously submitted data.
         """
 
-        is_new = self.pk is None
-        if is_new:
-            clean_name = self.get_field_clean_name()
-            self.clean_name = clean_name
+        if not self.clean_name:
+            self.clean_name = self.get_field_clean_name()
 
         super().save(*args, **kwargs)
 
