@@ -5,7 +5,7 @@ from ninja import Body, Router, Status
 from ninja.pagination import paginate
 
 from wagtail.actions.create_page import CreatePageAction
-from wagtail.api.v3.builders import build_page_instance
+from wagtail.api.v3.builders import build_page_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
@@ -74,7 +74,13 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
             {"meta": {"type": f"Unknown page type: {data.meta.type!r}"}}
         )
     parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
-    page, form = build_page_instance(model, parent, data, request.user)
-    action = CreatePageAction(page, parent, user=request.user, form=form, clean=False)
+    form = build_page_form(model, parent, data, request.user)
+    action = CreatePageAction(
+        form.instance,
+        parent,
+        user=request.user,
+        form=form,
+        clean=True,
+    )
     action.execute()
-    return Status(201, page)
+    return Status(201, form.instance)

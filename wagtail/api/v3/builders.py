@@ -2,7 +2,6 @@ from typing import Any, cast
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
-from django.core.exceptions import ValidationError
 from django.forms import BaseForm
 from django.utils.text import slugify
 
@@ -109,31 +108,3 @@ def build_page_form(
     form_data = build_form_data(scratch_form, payload, formset_payloads)
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
-
-
-def build_page_instance(
-    model: type[Page],
-    parent: Page,
-    data: Any,
-    user: AbstractBaseUser | AnonymousUser,
-) -> tuple[Page, BaseForm]:
-    """Validate a create-input schema through the page's own admin form.
-
-    Returns the (unsaved) page instance with its fields - including any
-    InlinePanel-backed child relations, staged in-memory pending a real
-    ``save()`` - set from the form, plus the form itself so the caller can
-    finish the save sequence (``parent.add_child(instance=page)`` followed by
-    ``form.save_m2m()``), matching the admin "create page" view's own
-    ``save_action`` (``form.save(commit=False)`` then ``add_child``, since
-    ``ClusterForm.save(commit=True)`` would call ``instance.save()`` directly
-    and skip treebeard's tree-positioning logic).
-
-    Raises :class:`~django.core.exceptions.ValidationError` (a flat list of
-    messages) if the form - or any InlinePanel formset - doesn't validate.
-    """
-    form = build_page_form(model, parent, data, user)
-    if not form.is_valid():
-        raise ValidationError(_collect_form_error_messages(form))
-
-    page = form.save(commit=False)
-    return page, form

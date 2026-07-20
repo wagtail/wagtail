@@ -43,6 +43,7 @@ class CreatePageAction(CreateAction):
         from wagtail.models import PageSubscription
 
         self.instance.live = False
+        self.instance = self.form.save(commit=False)
         self.parent.add_child(instance=self.instance)
         # TODO: Set page privacy setting, needs duplicating/extracting logic
         # from the admin views, so do this later.
