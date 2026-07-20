@@ -334,6 +334,10 @@ class BoundDraftailWidget {
     return this.input.draftailEditor.getEditorState();
   }
 
+  getDuplicatedState() {
+    return this.getValue();
+  }
+
   setState(editorState) {
     this.input.draftailEditor.onChange(editorState);
   }
