@@ -14,6 +14,7 @@ from wagtail.api.v3.schemas import (
     build_page_input_schema_union,
     build_page_schema_union,
 )
+from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page, get_page_models
 
 router = Router(tags=["pages"])
@@ -32,13 +33,6 @@ PageCreateSchema = build_page_input_schema_union(get_page_models())
 def _public_pages_queryset(request: HttpRequest):
     # Stable ordering so offset/limit pagination is deterministic (v2 parity).
     return get_pages_queryset(request, tier=AccessTier.PUBLIC).order_by("id")
-
-
-def _get_page_model(type_label: str) -> type[Page]:
-    for model in get_page_models():
-        if model._meta.label == type_label:
-            return model
-    raise ValidationError({"meta": {"type": f"Unknown page type: {type_label!r}"}})
 
 
 @router.get(
@@ -74,8 +68,12 @@ def get_page(request: HttpRequest, page_id: int):
 )
 @require_any_permission(Page, ("add",))
 def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
+    model = resolve_model_string(data.meta.type)
+    if not (model and issubclass(model, Page)):
+        raise ValidationError(
+            {"meta": {"type": f"Unknown page type: {data.meta.type!r}"}}
+        )
     parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
-    model = _get_page_model(data.meta.type)
     page, form = build_page_instance(model, parent, data, request.user)
     action = CreatePageAction(page, parent, user=request.user, form=form, clean=False)
     action.execute()
