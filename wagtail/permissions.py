@@ -45,7 +45,7 @@ class PolicyRegistry(ObjectTypeRegistry):
         Otherwise, return ``None``.
         """
         if not (policy := super().get_by_type(cls)):
-            if fallback and not (policy := self.get_fallback_policy(cls)):
+            if (not (policy := self.get_fallback_policy(cls))) and fallback:
                 self.fallback_policies[cls] = policy = ModelPermissionPolicy(cls)
         return policy
 
