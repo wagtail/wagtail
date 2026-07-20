@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from wagtail.admin import messages
 from wagtail.admin.localization import get_localized_response
 from wagtail.log_actions import LogContext
-from wagtail.permissions import page_permission_policy
+from wagtail.models import Page
+from wagtail.permissions import policy_registry
 
 
 def permission_denied(request):
@@ -104,7 +105,7 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    return page_permission_policy.user_has_any_permission(
+    return policy_registry.get_by_type(Page).user_has_any_permission(
         user, {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
     )
 

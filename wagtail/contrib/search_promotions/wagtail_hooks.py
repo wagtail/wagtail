@@ -9,9 +9,11 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import AdminOnlyMenuItem, MenuItem
 from wagtail.contrib.search_promotions import admin_urls
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import register_permission_policy
 
 from .models import SearchPromotion
+
+register_permission_policy(SearchPromotion)
 
 
 @hooks.register("register_admin_urls")
@@ -65,8 +67,6 @@ def register_permissions():
 
 
 class SearchPromotionAdminURLFinder(ModelAdminURLFinder):
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
-
     def construct_edit_url(self, instance):
         return reverse("wagtailsearchpromotions:edit", args=(instance.query.id,))
 

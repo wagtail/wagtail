@@ -14,6 +14,7 @@ from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.editing_sessions import EditingSessionsList
 from wagtail.admin.utils import get_user_display_name
 from wagtail.models import Page, Revision, RevisionMixin, WorkflowMixin
+from wagtail.permissions import policy_registry
 
 
 @require_POST
@@ -31,11 +32,10 @@ def ping(request, app_label, model_name, object_id, session_id):
     if isinstance(obj, Page):
         can_edit = obj.permissions_for_user(request.user).can_edit()
     else:
-        try:
-            permission_policy = model.snippet_viewset.permission_policy
-        except AttributeError as e:
-            # model is neither a Page nor a snippet
-            raise Http404 from e
+        permission_policy = policy_registry.get_by_type(model, fallback=False)
+        if not permission_policy:
+            # Model likely was not registered with Wagtail
+            raise Http404
 
         can_edit = permission_policy.user_has_permission_for_instance(
             request.user, "change", obj

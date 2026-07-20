@@ -1,9 +1,12 @@
 from enum import Enum
+from typing import cast
 
 from django.http import HttpRequest
 
 from wagtail.api.v2.querysets import get_public_pages_queryset
-from wagtail.permissions import page_permission_policy
+from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import policy_registry
 
 
 class AccessTier(str, Enum):
@@ -23,4 +26,8 @@ def get_pages_queryset(request: HttpRequest, tier: AccessTier = AccessTier.PUBLI
         return get_public_pages_queryset(request)
 
     if tier == AccessTier.AUTHENTICATED:
-        return page_permission_policy.explorable_instances(getattr(request, "user"))
+        permission_policy = cast(
+            PagePermissionPolicy,
+            policy_registry.get_by_type(Page),
+        )
+        return permission_policy.explorable_instances(request.user)

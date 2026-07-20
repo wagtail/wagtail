@@ -28,7 +28,6 @@ from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
 from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -66,7 +65,6 @@ class FormPageFilterSet(PageFilterSet):
 class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     """Lists the available form pages for the current user"""
 
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",

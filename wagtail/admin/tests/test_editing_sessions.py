@@ -10,10 +10,17 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import (
+    GroupPagePermission,
+    Page,
+    PageLogEntry,
+    Workflow,
+    WorkflowContentType,
+)
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
+    FeatureCompleteToy,
     FullFeaturedSnippet,
     SimplePage,
 )
@@ -114,18 +121,62 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
-    def test_ping_non_page_non_snippet_model(self):
-        editors = Group.objects.get(name="Editors")
+    def test_ping_non_page_non_snippet_registered_model(self):
+        # FeatureCompleteToy is a model that was registered with a ModelViewSet.
+        # It is not a page nor a snippet, but we can still check for permissions
+        # and ping it to have an idle or is_editing state, if so desired.
+        toy = FeatureCompleteToy.objects.create(name="Buzz Lightyear")
         session = EditingSession.objects.create(
             user=self.user,
-            content_type=ContentType.objects.get_for_model(Group),
-            object_id=editors.pk,
+            content_type=ContentType.objects.get_for_model(FeatureCompleteToy),
+            object_id=toy.pk,
             last_seen_at=TIMESTAMP_1,
         )
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("auth", "group", str(editors.pk), session.id),
+                args=("tests", "featurecompletetoy", quote(toy.pk), session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], session.id)
+        self.assertEqual(response_json["other_sessions"], [])
+
+    def test_ping_non_page_non_snippet_registered_model_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        editors = Group.objects.get(name="Editors")
+        self.user.groups.add(editors)
+        toy = FeatureCompleteToy.objects.create(name="Buzz Lightyear")
+        session = EditingSession.objects.create(
+            user=self.user,
+            content_type=ContentType.objects.get_for_model(FeatureCompleteToy),
+            object_id=toy.pk,
+            last_seen_at=TIMESTAMP_1,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("tests", "featurecompletetoy", quote(toy.pk), session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_ping_non_registered_model(self):
+        # PageLogEntry is not a model that was registered to the admin at all,
+        # so we cannot check edit permissions for it, thus cannot ping it either
+        log_entry = PageLogEntry.objects.first()
+        session = EditingSession.objects.create(
+            user=self.user,
+            content_type=ContentType.objects.get_for_model(PageLogEntry),
+            object_id=log_entry.pk,
+            last_seen_at=TIMESTAMP_1,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "pagelogentry", str(log_entry.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 404)

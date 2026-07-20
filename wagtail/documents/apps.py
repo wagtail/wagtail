@@ -27,3 +27,9 @@ class WagtailDocsAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Document)
+
+        from wagtail.permissions import register_permission_policy
+
+        from . import get_permission_policy
+
+        register_permission_policy(Document, get_permission_policy())

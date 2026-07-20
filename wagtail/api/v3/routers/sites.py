@@ -10,7 +10,7 @@ from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.schemas import SiteInputSchema, SiteSchema
 from wagtail.models import Site
-from wagtail.permissions import site_permission_policy
+from wagtail.permissions import policy_registry
 from wagtail.sites.forms import SiteForm
 
 router = Router(tags=["sites"])
@@ -26,7 +26,7 @@ router = Router(tags=["sites"])
 @paginate(WagtailLimitOffsetPagination)
 @require_any_permission(Site)
 def list_sites(request: HttpRequest):
-    return site_permission_policy.instances_user_has_any_permission_for(
+    return policy_registry.get_by_type(Site).instances_user_has_any_permission_for(
         request.user,
         ("add", "change", "delete", "view"),
     )
@@ -42,7 +42,7 @@ def list_sites(request: HttpRequest):
 @require_any_permission(Site)
 def get_site(request: HttpRequest, site_id: int):
     return get_object_or_404(
-        site_permission_policy.instances_user_has_any_permission_for(
+        policy_registry.get_by_type(Site).instances_user_has_any_permission_for(
             request.user,
             ("add", "change", "delete", "view"),
         ),

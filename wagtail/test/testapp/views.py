@@ -70,6 +70,7 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 class TestIndexView(IndexView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     index_url_name = "testapp_generic_index"
     template_name = "tests/generic_view_templates/index.html"
     paginate_by = 20
@@ -97,6 +98,7 @@ class TestCreateView(CreateView):
 
 class TestEditView(EditView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/edit.html"
     index_url_name = "testapp_generic_index"
@@ -110,6 +112,7 @@ class TestEditView(EditView):
 
 class TestDeleteView(DeleteView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/delete.html"
     index_url_name = "testapp_generic_index"

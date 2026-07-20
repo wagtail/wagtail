@@ -6,6 +6,14 @@ from wagtail.permission_policies.base import OwnershipPermissionPolicy
 
 
 class PagePermissionPolicy(OwnershipPermissionPolicy):
+    """
+    A permission policy for page objects, which are arranged in a tree structure.
+    Permissions may be defined at any node of the tree, through the
+    ``GroupPagePermission`` model, and propagate downwards. These permissions are
+    applied to objects according to the 'ownership' permission model (see
+    :class:`~wagtail.permission_policies.OwnershipPermissionPolicy`).
+    """
+
     permission_cache_name = "_page_permission_cache"
     _explorable_root_instance_cache_name = "_explorable_root_page_cache"
 

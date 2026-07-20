@@ -82,6 +82,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_form_class
    .. automethod:: get_edit_handler
    .. automethod:: get_permissions_to_register
+   .. autoattribute:: permission_policy
 
    .. autoattribute:: menu_label
 
@@ -94,13 +95,13 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: sort_order_field
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
-   
+
         This list will be passed to the ``list_display`` attribute of the index
         view. If left unset, the ``list_display`` attribute of the index view
         will be used instead, which by default is defined as a list containing
         ``"__str__"``, :class:`LocaleColumn() <wagtail.admin.ui.tables.LocaleColumn>`,
         and :class:`UpdatedAtColumn() <wagtail.admin.ui.tables.UpdatedAtColumn>`.
-    
+
         Note that the ``LocaleColumn`` is only included if the model is translatable.
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
@@ -152,6 +153,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    Required; the model class that this viewset will work with.
 
    .. autoattribute:: icon
+   .. autoattribute:: permission_policy
    .. autoattribute:: choose_one_text
    .. autoattribute:: page_title
    .. autoattribute:: choose_another_text

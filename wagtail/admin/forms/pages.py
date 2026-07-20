@@ -5,7 +5,7 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.models import Page, PageViewRestriction
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policy_registry
 
 from .models import WagtailAdminModelForm
 from .view_restrictions import BaseViewRestrictionForm
@@ -16,7 +16,9 @@ class CopyForm(forms.Form):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop("page")
         self.user = kwargs.pop("user")
-        can_publish = page_permission_policy.user_has_permission(self.user, "publish")
+        can_publish = policy_registry.get_by_type(Page).user_has_permission(
+            self.user, "publish"
+        )
 
         super().__init__(*args, **kwargs)
         self.fields["new_title"] = forms.CharField(

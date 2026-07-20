@@ -12,7 +12,7 @@ from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.mixins import LocaleMixin
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policy_registry
 
 
 class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
@@ -20,6 +20,10 @@ class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
     model = Page
     index_url_name = None
     page_title = gettext_lazy("Choose parent")
+
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model)
 
     def get_valid_parent_pages(self, user):
         """
@@ -50,7 +54,7 @@ class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
 
             perms = {
                 perm
-                for perm in page_permission_policy.get_cached_permissions_for_user(user)
+                for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if perm.permission.codename == "add_page"
             }
 
