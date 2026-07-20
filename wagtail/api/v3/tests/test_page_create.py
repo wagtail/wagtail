@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.models import GroupPagePermission, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageSubscription
 from wagtail.test.demosite.models import HomePage
 from wagtail.test.testapp.models import MultiPreviewModesPage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
@@ -59,6 +59,27 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["title"], "New page")
         self.assertEqual(content["meta"]["type"], "tests.MultiPreviewModesPage")
         self.assertEqual(content["meta"]["slug"], "new-page")
+
+    def test_create_page_subscribes_creator_to_comment_notifications(self):
+        """
+        Matches the admin create view, which subscribes the creating user to
+        comment notifications on the new page by default.
+        """
+        user = self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                },
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = MultiPreviewModesPage.objects.get(slug="new-page")
+        subscription = PageSubscription.objects.get(page=page, user=user)
+        self.assertTrue(subscription.comment_notifications)
 
     def test_create_saves_one_revision_and_matches_admin_log_entries(self):
         """

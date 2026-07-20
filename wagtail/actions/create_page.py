@@ -40,11 +40,19 @@ class CreatePageAction(CreateAction):
         return True
 
     def _save_instance(self):
+        from wagtail.models import PageSubscription
+
         self.instance.live = False
         self.parent.add_child(instance=self.instance)
         # TODO: Set page privacy setting, needs duplicating/extracting logic
         # from the admin views, so do this later.
-        # TODO: Save subscription settings
+
+        if self.user:
+            PageSubscription.objects.update_or_create(
+                page=self.instance,
+                user=self.user,
+                defaults={"comment_notifications": True},
+            )
 
         if self.form:
             # Might not be necessary, as the admin create view doesn't do this.
