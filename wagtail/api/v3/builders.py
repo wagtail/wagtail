@@ -2,7 +2,6 @@ from typing import Any, cast
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
-from django.forms import BaseForm
 
 from wagtail.admin.panels import Panel
 from wagtail.api.v3.form_data import build_form_data
@@ -14,31 +13,6 @@ def _get_form_class(model: type[Page]):
     # wagtail.admin.panels.page_utils, so it isn't visible statically.
     edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
     return edit_handler.get_form_class()
-
-
-def _collect_form_error_messages(form: BaseForm, prefix: str = "") -> list[str]:
-    """Flatten a (possibly ``ClusterForm``) form's errors into readable messages.
-
-    Recurses into each InlinePanel-backed formset's non-form errors (e.g. a
-    formset-level ``clean()``) and each child form's own field errors, since
-    those aren't visited by ``form.errors`` alone.
-    """
-    messages = []
-    for field_name, field_errors in form.errors.items():
-        label = f"{prefix}{field_name}"
-        messages.extend(f"{label}: {message}" for message in field_errors)
-
-    for rel_name, formset in getattr(form, "formsets", {}).items():
-        for message in formset.non_form_errors():
-            messages.append(f"{prefix}{rel_name}: {message}")
-        for i, child_form in enumerate(formset.forms):
-            messages.extend(
-                _collect_form_error_messages(
-                    child_form, prefix=f"{prefix}{rel_name}[{i}]."
-                )
-            )
-
-    return messages
 
 
 def build_page_form(

@@ -221,6 +221,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assert_problem_response(response, status_code=422)
 
+    def test_non_page_type_returns_422(self):
+        self.login()
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "auth.User"},
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assert_problem_response(response, status_code=422)
+
     def test_user_without_add_permission_gets_403(self):
         self.create_user(username="noperms", password="password")
         self.login(username="noperms", password="password")

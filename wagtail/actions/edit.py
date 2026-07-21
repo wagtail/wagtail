@@ -1,7 +1,8 @@
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
+from wagtail.utils.forms import FormValidationError
 
 
 class EditPermissionError(PermissionDenied):
@@ -77,7 +78,7 @@ class EditAction(BaseAction):
     def _clean_instance(self):
         if self.form:
             if not self.form.is_valid():
-                raise ValidationError(self.form.errors.get_json_data())
+                raise FormValidationError.from_form(self.form)
         else:
             self.instance.full_clean()
 

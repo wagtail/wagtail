@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Status
@@ -16,6 +15,7 @@ from wagtail.api.v3.schemas import (
 )
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page, get_page_models
+from wagtail.utils.forms import FormValidationError
 
 router = Router(tags=["pages"])
 
@@ -70,8 +70,8 @@ def get_page(request: HttpRequest, page_id: int):
 def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
     model = resolve_model_string(data.meta.type)
     if not (model and issubclass(model, Page)):
-        raise ValidationError(
-            {"meta": {"type": f"Unknown page type: {data.meta.type!r}"}}
+        raise FormValidationError(
+            {("meta", "type"): [f"Unknown page type: {data.meta.type!r}"]}
         )
     parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
     form = build_page_form(model, parent, data, request.user)
