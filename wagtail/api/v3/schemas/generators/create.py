@@ -108,7 +108,7 @@ class InputSchemaGenerator:
         exclude = set(exclude)
         extra_fields: dict[str, tuple[Any, Any]] = {}
 
-        for field in APIField.get_fields_for_model(model):
+        for field in APIField.get_writable_fields_for_model(model):
             if field.name in exclude:
                 continue
 

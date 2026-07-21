@@ -36,6 +36,7 @@ from wagtail.admin.panels import (
     TabbedInterface,
     TitleFieldPanel,
 )
+from wagtail.api import APIField
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,
@@ -1819,7 +1820,7 @@ class StreamPage(Page):
         ],
     )
 
-    api_fields = ("body",)
+    api_fields = (APIField("body", writable=True),)
 
     content_panels = [
         TitleFieldPanel("title"),
