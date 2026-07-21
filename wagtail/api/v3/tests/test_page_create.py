@@ -7,7 +7,7 @@ from django.urls import reverse
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageSubscription
 from wagtail.test.demosite.models import HomePage
-from wagtail.test.testapp.models import MultiPreviewModesPage, StreamPage
+from wagtail.test.testapp.models import MultiPreviewModesPage, SimplePage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -263,16 +263,29 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             ],
         )
 
-    def test_page_type_with_required_field_outside_api_fields_returns_422(self):
-        """
-        SimplePage.content is required by the real admin form but isn't in
-        api_fields, so it's absent from the input schema entirely - the form
-        rejects the create rather than silently creating a blank page.
-        """
+    def test_page_type_with_required_field_can_be_saved_as_draft(self):
         self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "tests.SimplePage"},
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = SimplePage.objects.get(slug="new-page")
+        self.assertFalse(page.live)
+        self.assertEqual(page.content, "")
+
+    def test_page_type_with_missing_required_field_returns_422_on_publish(self):
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.SimplePage",
+                    "action": "publish",
+                },
                 "title": "New page",
                 "slug": "new-page",
             }

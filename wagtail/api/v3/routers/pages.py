@@ -80,7 +80,6 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
         parent,
         user=request.user,
         form=form,
-        clean=True,
         publish=data.meta.action == "publish",
     )
     action.execute()
