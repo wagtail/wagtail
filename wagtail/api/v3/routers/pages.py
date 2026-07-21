@@ -4,7 +4,7 @@ from ninja import Body, Router, Status
 from ninja.pagination import paginate
 
 from wagtail.actions.create_page import CreatePageAction
-from wagtail.api.v3.builders import build_page_form
+from wagtail.api.v3.form_data import build_page_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
