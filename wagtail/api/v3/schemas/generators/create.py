@@ -44,13 +44,6 @@ class InputSchemaGenerator:
     "one" side of a ParentalKey, e.g. a carousel item), keyed by that model.
     """
 
-    @staticmethod
-    def _normalize_api_fields(model: type[Model]) -> list[APIField]:
-        return [
-            field if isinstance(field, APIField) else APIField(field)
-            for field in getattr(model, "api_fields", ())
-        ]
-
     def register_field_schema(
         self,
         field_class: type[Field | ForeignObjectRel],
@@ -115,7 +108,7 @@ class InputSchemaGenerator:
         exclude = set(exclude)
         extra_fields: dict[str, tuple[Any, Any]] = {}
 
-        for field in self._normalize_api_fields(model):
+        for field in APIField.get_fields_for_model(model):
             if field.name in exclude:
                 continue
 

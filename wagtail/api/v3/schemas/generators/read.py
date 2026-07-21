@@ -49,13 +49,6 @@ class SchemaGenerator:
     """
 
     @staticmethod
-    def _normalize_api_fields(model: type[Model]) -> list[APIField]:
-        return [
-            field if isinstance(field, APIField) else APIField(field)
-            for field in getattr(model, "api_fields", ())
-        ]
-
-    @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
         return [
             field.name
@@ -200,7 +193,7 @@ class SchemaGenerator:
                 None,
             )
 
-        for field in self._normalize_api_fields(model):
+        for field in APIField.get_fields_for_model(model):
             # Legacy APIv2 APIField instance with a custom serializer.
             if field.serializer is not None:
                 extra_fields[field.name] = self._custom_serializer_schema(field)
