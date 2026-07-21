@@ -3064,3 +3064,123 @@ class TestAdminPermissions(WagtailTestUtils, TestCase):
             set(registered_user_permissions.values_list("codename", flat=True)),
             {f"add_{model_name}", f"change_{model_name}", f"delete_{model_name}"},
         )
+
+
+class TestUserEscalationPreventionForNonSuperuser(WagtailTestUtils, TestCase):
+    def setUp(self):
+        # Create user with user management permissions (add, change, delete)
+        self.editor_user = self.create_user(username="editor", password="password")
+        editors_group = Group.objects.create(name="User managers")
+        editors_group.permissions.add(Permission.objects.get(codename="access_admin"))
+        for codename in [
+            add_user_perm_codename,
+            change_user_perm_codename,
+            delete_user_perm_codename,
+        ]:
+            editors_group.permissions.add(
+                Permission.objects.get(
+                    content_type__app_label=AUTH_USER_APP_LABEL,
+                    codename=codename,
+                )
+            )
+        self.editor_user.groups.add(editors_group)
+        self.superuser = self.create_superuser(
+            username="admin_user", email="admin@email.com", password="password"
+        )
+        self.login(username="editor", password="password")
+
+    def test_cannot_view_superusers_in_index(self):
+        response = self.client.get(reverse("wagtailusers_users:index"))
+        self.assertEqual(response.status_code, 200)
+        # The list should not contain the superuser
+        self.assertNotContains(response, "admin_user")
+        self.assertNotContains(response, "admin@email.com")
+
+    def test_cannot_edit_superuser(self):
+        response = self.client.get(
+            reverse("wagtailusers_users:edit", args=(self.superuser.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Try to post to edit view of superuser
+        post_data = {
+            "username": "admin_user",
+            "email": "admin@email.com",
+            "first_name": "Hack",
+            "last_name": "User",
+            "password1": "newpassword123",
+            "password2": "newpassword123",
+        }
+        response = self.client.post(
+            reverse("wagtailusers_users:edit", args=(self.superuser.pk,)), post_data
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        # Check password and first_name was not changed
+        self.superuser.refresh_from_db()
+        self.assertNotEqual(self.superuser.first_name, "Hack")
+        self.assertTrue(self.superuser.check_password("password"))
+
+    def test_cannot_create_superuser(self):
+        post_data = {
+            "username": "new_superuser",
+            "email": "newsuperuser@email.com",
+            "first_name": "New",
+            "last_name": "Superuser",
+            "password1": "password123",
+            "password2": "password123",
+            "is_superuser": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
+        response = self.client.post(reverse("wagtailusers_users:add"), post_data)
+        self.assertRedirects(response, reverse("wagtailusers_users:index"))
+
+        new_user = get_user_model().objects.get(username="new_superuser")
+        # Check that is_superuser was ignored and remains False
+        self.assertFalse(new_user.is_superuser)
+
+    def test_cannot_update_regular_user_to_superuser(self):
+        regular_user = self.create_user(username="regular", password="password")
+        post_data = {
+            "username": "regular",
+            "email": "regular@email.com",
+            "first_name": "Regular",
+            "last_name": "User",
+            "password1": "",
+            "password2": "",
+            "is_superuser": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
+        response = self.client.post(
+            reverse("wagtailusers_users:edit", args=(regular_user.pk,)), post_data
+        )
+        self.assertRedirects(response, reverse("wagtailusers_users:index"))
+
+        regular_user.refresh_from_db()
+        self.assertFalse(regular_user.is_superuser)
+
+    def test_cannot_view_superuser_history(self):
+        response = self.client.get(
+            reverse("wagtailusers_users:history", args=(self.superuser.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_bulk_action_excludes_superusers(self):
+        response = self.client.get(
+            reverse("wagtailusers_users:index")
+            + f"?id={self.superuser.pk}&action=set_active_state"
+        )
+        self.assertEqual(response.status_code, 200)

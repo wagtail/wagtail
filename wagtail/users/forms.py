@@ -102,7 +102,12 @@ class UserForm(UsernameForm):
     )
 
     def __init__(self, *args, **kwargs):
+        can_assign_superuser = kwargs.pop("can_assign_superuser", False)
         super().__init__(*args, **kwargs)
+
+        if not can_assign_superuser:
+            if "is_superuser" in self.fields:
+                del self.fields["is_superuser"]
 
         if self.password_enabled:
             if self.password_required:
@@ -206,7 +211,8 @@ class UserEditForm(UserForm):
 
         if editing_self:
             del self.fields["is_active"]
-            del self.fields["is_superuser"]
+            if "is_superuser" in self.fields:
+                del self.fields["is_superuser"]
 
     class Meta:
         model = User
