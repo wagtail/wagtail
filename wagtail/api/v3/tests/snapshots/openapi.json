@@ -3,6 +3,18 @@
     "schemas": {
       "AddedStreamFieldWithEmptyListDefaultPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -165,6 +177,18 @@
       },
       "AddedStreamFieldWithEmptyStringDefaultPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -327,6 +351,18 @@
       },
       "AddedStreamFieldWithoutDefaultPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -489,6 +525,18 @@
       },
       "AlwaysShowInMenusPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -810,6 +858,18 @@
       },
       "BlogEntryPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -1148,6 +1208,18 @@
       },
       "BlogIndexPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -1434,6 +1506,18 @@
       },
       "BusinessChildInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -1596,6 +1680,18 @@
       },
       "BusinessIndexInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -1758,6 +1854,18 @@
       },
       "BusinessNowherePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -1920,6 +2028,18 @@
       },
       "BusinessSubIndexInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -2082,6 +2202,18 @@
       },
       "CommentableJSONPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -2244,6 +2376,18 @@
       },
       "ComplexDefaultStreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -2406,6 +2550,18 @@
       },
       "ContactPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -2801,6 +2957,18 @@
       },
       "CustomCopyFormPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -2963,6 +3131,18 @@
       },
       "CustomManagerPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3125,6 +3305,18 @@
       },
       "CustomPermissionPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3287,6 +3479,18 @@
       },
       "CustomPreviewSizesPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3449,6 +3653,18 @@
       },
       "CustomRichBlockFieldPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3611,6 +3827,18 @@
       },
       "CustomRichTextFieldPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3773,6 +4001,18 @@
       },
       "DeadlyStreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -3935,6 +4175,18 @@
       },
       "DefaultRichBlockFieldPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -4097,6 +4349,18 @@
       },
       "DefaultRichTextFieldPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -4259,6 +4523,18 @@
       },
       "DefaultStreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -4421,6 +4697,18 @@
       },
       "EarlyPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -4583,6 +4871,18 @@
       },
       "EventIndexInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -4727,6 +5027,18 @@
       },
       "EventIndexPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -5397,6 +5709,18 @@
       },
       "FilePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -5559,6 +5883,18 @@
       },
       "FormClassAdditionalFieldPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -5885,6 +6221,18 @@
       },
       "FormPageWithCustomFormBuilderInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6047,6 +6395,18 @@
       },
       "FormPageWithCustomSubmissionInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6130,6 +6490,18 @@
       },
       "FormPageWithCustomSubmissionListViewInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6371,6 +6743,18 @@
       },
       "FormPageWithRedirectInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6533,6 +6917,18 @@
       },
       "GalleryPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6695,6 +7091,18 @@
       },
       "GenericSnippetNoFieldIndexPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -6857,6 +7265,18 @@
       },
       "GenericSnippetNoIndexPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -7019,6 +7439,18 @@
       },
       "GenericSnippetPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -7322,6 +7754,18 @@
       },
       "HomePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -7657,6 +8101,18 @@
       },
       "InlineStreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -7837,6 +8293,18 @@
       },
       "JadeFormPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -7999,6 +8467,18 @@
       },
       "MTIBasePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8161,6 +8641,18 @@
       },
       "MTIChildPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8323,6 +8815,18 @@
       },
       "ManyToManyBlogPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8485,6 +8989,18 @@
       },
       "MultiPreviewModesPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8647,6 +9163,18 @@
       },
       "MyCustomPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8809,6 +9337,18 @@
       },
       "NoCreatableSubpageTypesPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -8971,6 +9511,18 @@
       },
       "NoPromotePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9133,6 +9685,18 @@
       },
       "NoSubpageTypesPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9295,6 +9859,18 @@
       },
       "OneToOnePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9457,6 +10033,18 @@
       },
       "PageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9626,6 +10214,18 @@
       },
       "PageWithExcludedCopyFieldInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9788,6 +10388,18 @@
       },
       "PageWithGenericRelationInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -9950,6 +10562,18 @@
       },
       "PageWithOldStyleRouteMethodInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -10252,6 +10876,18 @@
       },
       "PromotionalPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -10537,6 +11173,18 @@
       },
       "RequiredDatePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -10699,6 +11347,18 @@
       },
       "RestaurantPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -10861,6 +11521,18 @@
       },
       "RichTextFieldWithFeaturesPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11023,6 +11695,18 @@
       },
       "RoutablePageTestInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11185,6 +11869,18 @@
       },
       "RoutablePageWithOverriddenIndexRouteTestInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11347,6 +12043,18 @@
       },
       "SamplePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11551,6 +12259,18 @@
       },
       "SecretPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11713,6 +12433,18 @@
       },
       "SectionedRichTextPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -11875,6 +12607,18 @@
       },
       "SimpleChildPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12037,6 +12781,18 @@
       },
       "SimplePageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12199,6 +12955,18 @@
       },
       "SimpleParentPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12361,6 +13129,18 @@
       },
       "SingleEventPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12523,6 +13303,18 @@
       },
       "SingletonPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12685,6 +13477,18 @@
       },
       "SingletonPageViaMaxCountInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -12915,6 +13719,18 @@
       },
       "StandardChildInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -13077,6 +13893,18 @@
       },
       "StandardIndexInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -13221,6 +14049,18 @@
       },
       "StandardIndexPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -13687,6 +14527,18 @@
       },
       "StandardPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14032,6 +14884,18 @@
       },
       "StreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14206,6 +15070,18 @@
       },
       "TableBlockStreamPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14368,6 +15244,18 @@
       },
       "TaggedChildPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14530,6 +15418,18 @@
       },
       "TaggedGrandchildPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14692,6 +15592,18 @@
       },
       "TaggedPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -14854,6 +15766,18 @@
       },
       "TestPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -15016,6 +15940,18 @@
       },
       "ValidatedPageInputMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -15178,6 +16114,18 @@
       },
       "abc__EventPageInputMetaSchema__1": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -15194,6 +16142,18 @@
       },
       "abc__EventPageInputMetaSchema__2": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -15740,6 +16700,18 @@
       },
       "abc__FormPageInputMetaSchema__1": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -15756,6 +16728,18 @@
       },
       "abc__FormPageInputMetaSchema__2": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -16080,6 +17064,18 @@
       },
       "abc__PersonPageInputMetaSchema__1": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"
@@ -16096,6 +17092,18 @@
       },
       "abc__PersonPageInputMetaSchema__2": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "parent_id": {
             "title": "Parent Id",
             "type": "integer"

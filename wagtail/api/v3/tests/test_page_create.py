@@ -53,12 +53,67 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.title, "New page")
         self.assertEqual(page.get_parent().pk, self.root_page.pk)
         self.assertFalse(page.live)
+        self.assertIsNone(page.live_revision)
+        self.assertIsNone(page.first_published_at)
         self.assertIsNotNone(page.owner_id)
 
         content = response.json()
         self.assertEqual(content["title"], "New page")
         self.assertEqual(content["meta"]["type"], "tests.MultiPreviewModesPage")
         self.assertEqual(content["meta"]["slug"], "new-page")
+
+    def test_create_page_with_publish_action_publishes_page(self):
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                    "action": "publish",
+                },
+                "title": "Published page",
+                "slug": "published-page",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = MultiPreviewModesPage.objects.get(slug="published-page")
+        self.assertTrue(page.live)
+        self.assertIsNotNone(page.live_revision)
+        self.assertIsNotNone(page.first_published_at)
+        self.assertEqual(page.live_revision, page.latest_revision)
+
+    def test_create_page_with_invalid_action_returns_422(self):
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "tests.MultiPreviewModesPage",
+                    "action": "not_a_real_action",
+                },
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "literal_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.MultiPreviewModesPage",
+                        "meta",
+                        "action",
+                    ],
+                    "msg": "Input should be 'publish'",
+                    "ctx": {"expected": "'publish'"},
+                }
+            ],
+        )
+        self.assertIsNone(MultiPreviewModesPage.objects.filter(slug="new-page").first())
 
     def test_create_page_subscribes_creator_to_comment_notifications(self):
         """

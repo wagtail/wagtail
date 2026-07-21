@@ -81,6 +81,7 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
         user=request.user,
         form=form,
         clean=True,
+        publish=data.meta.action == "publish",
     )
     action.execute()
     return Status(201, form.instance)

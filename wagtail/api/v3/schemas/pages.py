@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from datetime import datetime
-from typing import Annotated, Any, Union
+from typing import Annotated, Any, Literal, Union
 
 from django.db.models import Model
 from django.urls import reverse
@@ -129,6 +129,7 @@ PAGE_CREATE_FIELDS = (
 class PageCreateMetaSchema(Schema):
     parent_id: int
     type: str
+    action: Literal["publish"] | None = None
 
 
 class PageCreateBaseSchema(Schema):
