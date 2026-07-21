@@ -168,7 +168,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "existing",
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "invalid",
+                    "loc": ["slug"],
+                    "message": "The slug 'existing' is already in use within the parent page.",
+                }
+            ],
+        )
 
     def test_missing_required_field_returns_422(self):
         self.login()
@@ -181,7 +191,22 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "no-title",
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "missing",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.MultiPreviewModesPage",
+                        "title",
+                    ],
+                    "msg": "Field required",
+                }
+            ],
+        )
 
     def test_page_type_with_required_field_outside_api_fields_returns_422(self):
         """
@@ -197,7 +222,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "new-page",
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "required",
+                    "loc": ["content"],
+                    "message": "This field is required.",
+                }
+            ],
+        )
 
     def test_unknown_parent_returns_404(self):
         self.login()
@@ -219,7 +254,12 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "new-page",
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(len(content["errors"]), 1)
+        error = content["errors"][0]
+        self.assertEqual(error["type"], "union_tag_invalid")
+        self.assertEqual(error["loc"], ["body", "data"])
+        self.assertIn("'not.AType'", error["msg"])
 
     def test_non_page_type_returns_422(self):
         self.login()
@@ -230,7 +270,12 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "new-page",
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(len(content["errors"]), 1)
+        error = content["errors"][0]
+        self.assertEqual(error["type"], "union_tag_invalid")
+        self.assertEqual(error["loc"], ["body", "data"])
+        self.assertIn("'auth.User'", error["msg"])
 
     def test_user_without_add_permission_gets_403(self):
         self.create_user(username="noperms", password="password")
@@ -313,7 +358,11 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "body": [{"type": "not_a_real_block", "value": "hello"}],
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [{"message": "body: unrecognised block type 'not_a_real_block'"}],
+        )
 
     def test_create_page_with_rich_text_field(self):
         self.login()
@@ -378,7 +427,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 ],
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "max_length",
+                    "loc": ["carousel_items", 0, "caption"],
+                    "message": "Ensure this value has at most 255 characters (it has 1000).",
+                }
+            ],
+        )
 
     def test_create_page_with_child_relation_missing_link_returns_422(self):
         """
@@ -398,4 +457,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "carousel_items": [{"caption": "No link"}],
             }
         )
-        self.assert_problem_response(response, status_code=422)
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "invalid",
+                    "loc": ["carousel_items", 0, "__all__"],
+                    "message": "You must provide a related page, related document or an external URL",
+                }
+            ],
+        )

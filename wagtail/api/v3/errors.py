@@ -83,9 +83,9 @@ def register_exception_handlers(api):
     ):
         if isinstance(exc, FormValidationError):
             errors = [
-                {"loc": list(path), "message": message}
-                for path, messages in exc.loc_errors
-                for message in messages
+                {"type": code, "loc": list(path), "message": message}
+                for path, coded_messages in exc.loc_errors
+                for message, code in coded_messages
             ]
         elif isinstance(exc, DjangoValidationError):
             errors = [{"message": msg} for msg in exc.messages]

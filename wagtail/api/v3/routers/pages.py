@@ -71,7 +71,7 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     model = resolve_model_string(data.meta.type)
     if not (model and issubclass(model, Page)):
         raise FormValidationError(
-            {("meta", "type"): [f"Unknown page type: {data.meta.type!r}"]}
+            {("meta", "type"): [(f"Unknown page type: {data.meta.type!r}", "invalid")]}
         )
     parent = get_object_or_404(Page.objects.all(), pk=data.meta.parent_id).specific
     form = build_page_form(model, parent, data, request.user)
