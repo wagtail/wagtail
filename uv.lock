@@ -70,15 +70,6 @@ wheels = [
 ]
 
 [[package]]
-name = "azure-common"
-version = "1.1.28"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/3e/71/f6f71a276e2e69264a97ad39ef850dca0a04fce67b12570730cb38d0ccac/azure-common-1.1.28.zip", hash = "sha256:4ac0cd3214e36b6a1b6a442686722a5d8cc449603aa833f3f0f40bda836704a3", size = 20914, upload-time = "2022-02-03T19:39:44.373Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/62/55/7f118b9c1b23ec15ca05d15a578d8207aa1706bc6f7c87218efffbbf875d/azure_common-1.1.28-py2.py3-none-any.whl", hash = "sha256:5c12d3dcf4ec20599ca6b0d3e09e86e146353d443e7fcc050c9a19c1f9df20ad", size = 14462, upload-time = "2022-02-03T19:39:42.417Z" },
-]
-
-[[package]]
 name = "azure-core"
 version = "1.41.0"
 source = { registry = "https://pypi.org/simple" }
@@ -93,16 +84,16 @@ wheels = [
 
 [[package]]
 name = "azure-mgmt-cdn"
-version = "12.0.0"
+version = "14.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "azure-common" },
     { name = "azure-mgmt-core" },
-    { name = "msrest" },
+    { name = "isodate" },
+    { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d7/fc/48310b510043223c42ea2f9ac1e91a9a88b7438c0882d4c32db9f0b9fb0c/azure-mgmt-cdn-12.0.0.zip", hash = "sha256:b7c3ee2189234b4af51ace2924927c5fd733f3de748a642d6d5040067c8c9ddd", size = 260396, upload-time = "2022-03-22T03:17:36.085Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4a/5e/988f7e4dba949f414a55d5b69506905dda9fcb48472d584698289c804cb1/azure_mgmt_cdn-14.0.0.tar.gz", hash = "sha256:afc626507ced2c6beca912cb1a6233bf515af538121ecd21501aaa5dc82602f5", size = 288530, upload-time = "2026-07-14T05:42:07.905Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b2/a7/8d3ceda8211cc842e8ca406f78838a2891ee59363170153adf90a82af5e0/azure_mgmt_cdn-12.0.0-py3-none-any.whl", hash = "sha256:531c17c7e785ed7490a4ba40a409a12c24f5e9bd6db75a79ab33bfa2b29babdc", size = 239411, upload-time = "2022-03-22T03:17:33.671Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/d4/417d3b12a3bb39728bfcfccd1429f6e830c92ecc0e4d4221ff2731923fa6/azure_mgmt_cdn-14.0.0-py3-none-any.whl", hash = "sha256:9f53cdaa19943ddece6445fdd642b0571a18b2635164f736e14523d2dbbfdc12", size = 247969, upload-time = "2026-07-14T05:42:09.234Z" },
 ]
 
 [[package]]
@@ -119,16 +110,16 @@ wheels = [
 
 [[package]]
 name = "azure-mgmt-frontdoor"
-version = "1.0.1"
+version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "azure-common" },
     { name = "azure-mgmt-core" },
-    { name = "msrest" },
+    { name = "isodate" },
+    { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1e/81/c0a517564282ea4592ef7e68af236b43a7216481d2e3941b2f81065585b1/azure-mgmt-frontdoor-1.0.1.zip", hash = "sha256:9c95d0fc1a723b09b26cd52a138701c6ae71c59139ea5aa01d24ca65320722e5", size = 127648, upload-time = "2022-03-29T03:42:26.22Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/23/6c/4a8f9e3ac818b573a7b02180b6cf36afa99137f9861d0859fd9aaea2e73e/azure_mgmt_frontdoor-2.0.0.tar.gz", hash = "sha256:62c601df7281f84a48bcab400d39fab10d13afc36c27fab72ec15ad5eff21909", size = 119802, upload-time = "2026-06-30T10:03:18.104Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/43/367830e43e68cf52de4a55ab82908b6db42bf4a33489bfb68c5887275cee/azure_mgmt_frontdoor-1.0.1-py3-none-any.whl", hash = "sha256:16c7e5d50fa276a77d0cf9eb773ded80072c69763b328b88528bd744a4a42150", size = 117046, upload-time = "2022-03-29T03:42:24.127Z" },
+    { url = "https://files.pythonhosted.org/packages/27/3f/1664da3c2d6519714aebd8e0439f6abd4f572857f3ecbc999f5be882c4c6/azure_mgmt_frontdoor-2.0.0-py3-none-any.whl", hash = "sha256:ce4da7099f8f58f5ce3fb375724892452ef92e31962bcc3fdbf81aee447a82f6", size = 114848, upload-time = "2026-06-30T10:03:19.221Z" },
 ]
 
 [[package]]
@@ -1306,22 +1297,6 @@ wheels = [
 ]
 
 [[package]]
-name = "msrest"
-version = "0.7.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "azure-core" },
-    { name = "certifi" },
-    { name = "isodate" },
-    { name = "requests" },
-    { name = "requests-oauthlib" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/68/77/8397c8fb8fc257d8ea0fa66f8068e073278c65f05acb17dcb22a02bfdc42/msrest-0.7.1.zip", hash = "sha256:6e7661f46f3afd88b75667b7187a92829924446c7ea1d169be8c4bb7eeb788b9", size = 175332, upload-time = "2022-06-13T22:41:25.111Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/cf/f2966a2638144491f8696c27320d5219f48a072715075d168b31d3237720/msrest-0.7.1-py3-none-any.whl", hash = "sha256:21120a810e1233e5e6cc7fe40b474eeb4ec6f757a15d7cf86702c369f9567c32", size = 85384, upload-time = "2022-06-13T22:41:22.42Z" },
-]
-
-[[package]]
 name = "myst-parser"
 version = "4.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1361,15 +1336,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/21/dc/603751677fff302f34396e206b610f556a59d7fe58b9a2145f54e96b48e8/myst_parser-5.1.0.tar.gz", hash = "sha256:ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02", size = 101182, upload-time = "2026-05-13T09:38:19.361Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/09/dc/f3dfb7488b770f3f67e6545085bf2abea5172e88f57b8ad25ef860ca704c/myst_parser-5.1.0-py3-none-any.whl", hash = "sha256:9c91c52b3cdb4d94a6506e4fab4e2f296c7623a0da0dcbe6de1565c3dad67a8a", size = 85817, upload-time = "2026-05-13T09:38:17.904Z" },
-]
-
-[[package]]
-name = "oauthlib"
-version = "3.3.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0b/5f/19930f824ffeb0ad4372da4812c50edbd1434f678c90c2733e1188edfc63/oauthlib-3.3.1.tar.gz", hash = "sha256:0f0f8aa759826a193cf66c12ea1af1637f87b9b4622d46e866952bb022e538c9", size = 185918, upload-time = "2025-06-19T22:48:08.269Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/be/9c/92789c596b8df838baa98fa71844d84283302f7604ed565dafe5a6b5041a/oauthlib-3.3.1-py3-none-any.whl", hash = "sha256:88119c938d2b8fb88561af5f6ee0eec8cc8d552b7bb1f712743136eb7523b7a1", size = 160065, upload-time = "2025-06-19T22:48:06.508Z" },
 ]
 
 [[package]]
@@ -2075,19 +2041,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed", size = 142856, upload-time = "2026-05-14T19:25:27.735Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl", hash = "sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0", size = 73075, upload-time = "2026-05-14T19:25:26.443Z" },
-]
-
-[[package]]
-name = "requests-oauthlib"
-version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "oauthlib" },
-    { name = "requests" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/42/f2/05f29bc3913aea15eb670be136045bf5c5bbf4b99ecb839da9b422bb2c85/requests-oauthlib-2.0.0.tar.gz", hash = "sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9", size = 55650, upload-time = "2024-03-22T20:32:29.939Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl", hash = "sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36", size = 24179, upload-time = "2024-03-22T20:32:28.055Z" },
 ]
 
 [[package]]
@@ -3192,8 +3145,8 @@ testing = [
 [package.metadata]
 requires-dist = [
     { name = "anyascii", specifier = ">=0.1.5" },
-    { name = "azure-mgmt-cdn", marker = "extra == 'testing'", specifier = ">=12.0,<14.0" },
-    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=1.0,<1.3" },
+    { name = "azure-mgmt-cdn", marker = "extra == 'testing'", specifier = ">=14,<14.1" },
+    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=2,<2.1" },
     { name = "beautifulsoup4", specifier = ">=4.13.3,<5" },
     { name = "boto3", marker = "extra == 'testing'", specifier = ">=1.28,<2" },
     { name = "coverage", marker = "extra == 'testing'", specifier = ">=3.7.0" },
