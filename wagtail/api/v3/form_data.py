@@ -5,8 +5,11 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
 from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
+from ninja.schema import BaseModel
 
-from wagtail.admin.panels import Panel
+from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.admin.panels import Panel, get_form_for_model
+from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.blocks.base import BlockField
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
@@ -18,7 +21,30 @@ def _get_form_class(model: type[Page]):
     # Page.get_edit_handler is monkey-patched onto the class by
     # wagtail.admin.panels.page_utils, so it isn't visible statically.
     edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
-    return edit_handler.get_form_class()
+
+    # The following is similar to Panel.get_form_class(),
+    form_options = edit_handler.get_form_options()
+    model_form_class = getattr(model, "base_form_class", WagtailAdminModelForm)
+    base_form_class = edit_handler.base_form_class or model_form_class
+
+    # but we filter the fields and formsets to only writable APIFields.
+    registered_schemas = cast(ContentTypeRegistration, registry.get(model._meta.label))
+    create_schema = cast(type[BaseModel], registered_schemas.create_schema)
+    writable_fields = create_schema.model_fields.keys()
+    form_options["fields"] = [
+        name for name in form_options.get("fields", []) if name in writable_fields
+    ]
+    form_options["formsets"] = {
+        name: formset_options
+        for name, formset_options in form_options.get("formsets", {}).items()
+        if name in writable_fields
+    }
+
+    return get_form_for_model(
+        model,
+        form_class=base_form_class,
+        **form_options,
+    )
 
 
 def build_page_form(

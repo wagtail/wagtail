@@ -155,9 +155,9 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 
     api_fields = (
-        "body",
-        "carousel_items",
-        "related_links",
+        APIField("body", writable=True),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
     )
 
     search_fields = Page.search_fields + [
@@ -305,16 +305,16 @@ class BlogEntryPage(Page):
     )
 
     api_fields = (
-        APIField("body"),
-        APIField("tags"),
-        APIField("date"),
-        APIField("feed_image"),
+        APIField("body", writable=True),
+        APIField("tags", writable=True),
+        APIField("date", writable=True),
+        APIField("feed_image", writable=True),
         APIField(
             "feed_image_thumbnail",
             serializer=ImageRenditionField("fill-300x300", source="feed_image"),
         ),
-        APIField("carousel_items"),
-        APIField("related_links"),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
     )
 
     search_fields = Page.search_fields + [
@@ -448,19 +448,19 @@ class EventPage(Page):
     )
 
     api_fields = (
-        "date_from",
-        "date_to",
-        "time_from",
-        "time_to",
-        "audience",
-        "location",
-        "body",
-        "cost",
-        "signup_link",
-        "feed_image",
-        "carousel_items",
-        "related_links",
-        "speakers",
+        APIField("date_from", writable=True),
+        APIField("date_to", writable=True),
+        APIField("time_from", writable=True),
+        APIField("time_to", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("body", writable=True),
+        APIField("cost", writable=True),
+        APIField("signup_link", writable=True),
+        APIField("feed_image", writable=True),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
+        APIField("speakers", writable=True),
     )
 
     search_fields = Page.search_fields + [

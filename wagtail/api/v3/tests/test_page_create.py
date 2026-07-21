@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageSubscription
-from wagtail.test.demosite.models import HomePage
-from wagtail.test.testapp.models import MultiPreviewModesPage, SimplePage, StreamPage
+from wagtail.test.demosite.models import BlogIndexPage, EventPage, HomePage
+from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -28,7 +28,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "New page",
                 "slug": "new-page",
@@ -42,14 +42,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "New page",
                 "slug": "new-page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = MultiPreviewModesPage.objects.get(slug="new-page")
+        page = BlogIndexPage.objects.get(slug="new-page")
         self.assertEqual(page.title, "New page")
         self.assertEqual(page.get_parent().pk, self.root_page.pk)
         self.assertFalse(page.live)
@@ -59,7 +59,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
         content = response.json()
         self.assertEqual(content["title"], "New page")
-        self.assertEqual(content["meta"]["type"], "tests.MultiPreviewModesPage")
+        self.assertEqual(content["meta"]["type"], "demosite.BlogIndexPage")
         self.assertEqual(content["meta"]["slug"], "new-page")
 
     def test_create_page_with_publish_action_publishes_page(self):
@@ -68,7 +68,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                     "action": "publish",
                 },
                 "title": "Published page",
@@ -76,7 +76,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = MultiPreviewModesPage.objects.get(slug="published-page")
+        page = BlogIndexPage.objects.get(slug="published-page")
         self.assertTrue(page.live)
         self.assertIsNotNone(page.live_revision)
         self.assertIsNotNone(page.first_published_at)
@@ -88,7 +88,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                     "action": "not_a_real_action",
                 },
                 "title": "New page",
@@ -104,7 +104,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                     "loc": [
                         "body",
                         "data",
-                        "tests.MultiPreviewModesPage",
+                        "demosite.BlogIndexPage",
                         "meta",
                         "action",
                     ],
@@ -113,7 +113,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 }
             ],
         )
-        self.assertIsNone(MultiPreviewModesPage.objects.filter(slug="new-page").first())
+        self.assertIsNone(BlogIndexPage.objects.filter(slug="new-page").first())
 
     def test_create_page_subscribes_creator_to_comment_notifications(self):
         """
@@ -125,14 +125,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "New page",
                 "slug": "new-page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = MultiPreviewModesPage.objects.get(slug="new-page")
+        page = BlogIndexPage.objects.get(slug="new-page")
         subscription = PageSubscription.objects.get(page=page, user=user)
         self.assertTrue(subscription.comment_notifications)
 
@@ -151,14 +151,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "Logged page",
                 "slug": "logged-page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = MultiPreviewModesPage.objects.get(slug="logged-page")
+        page = BlogIndexPage.objects.get(slug="logged-page")
 
         self.assertEqual(page.revisions.count(), 1)
         self.assertIsNotNone(page.latest_revision)
@@ -172,13 +172,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
     def test_superuser_can_create_page_with_api_field(self):
         """
-        Only fields listed in a page model's api_fields (plus the base
+        Only fields listed in a page model's api_fields as
+        APIField(name, writable=True) (plus the base
         title/slug/seo_title/search_description/show_in_menus) are writable.
-        A model with required panel fields outside api_fields (e.g.
-        SimplePage.content) can't be created via this endpoint: the real
-        admin form used for validation will reject the create for missing
-        that field, since it isn't exposed in the input schema. StreamPage's
-        body is in api_fields, so it's fully creatable.
+        A model with a required panel field that isn't marked writable can't
+        have that field set via this endpoint: the real admin form used for
+        validation will reject the create for missing that field, since it
+        isn't exposed in the input schema. StreamPage's body is marked
+        writable, so it's fully creatable.
         """
         self.login()
         response = self.post(
@@ -199,25 +200,25 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "Auto Slug Page",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = MultiPreviewModesPage.objects.get(title="Auto Slug Page")
+        page = BlogIndexPage.objects.get(title="Auto Slug Page")
         self.assertEqual(page.slug, "auto-slug-page")
 
     def test_duplicate_slug_returns_422(self):
         self.login()
         self.root_page.add_child(
-            instance=MultiPreviewModesPage(title="Existing", slug="existing")
+            instance=BlogIndexPage(title="Existing", slug="existing")
         )
         response = self.post(
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "Another",
                 "slug": "existing",
@@ -241,7 +242,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "slug": "no-title",
             }
@@ -255,7 +256,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                     "loc": [
                         "body",
                         "data",
-                        "tests.MultiPreviewModesPage",
+                        "demosite.BlogIndexPage",
                         "title",
                     ],
                     "msg": "Field required",
@@ -267,15 +268,19 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "meta": {"parent_id": self.root_page.pk, "type": "tests.SimplePage"},
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.EventPage"},
                 "title": "New page",
                 "slug": "new-page",
+                "date_from": "2026-07-21",
+                "audience": "public",
+                "location": "",
+                "cost": "",
             }
         )
         self.assertEqual(response.status_code, 201)
-        page = SimplePage.objects.get(slug="new-page")
+        page = EventPage.objects.get(slug="new-page")
         self.assertFalse(page.live)
-        self.assertEqual(page.content, "")
+        self.assertEqual(page.location, "")
 
     def test_page_type_with_missing_required_field_returns_422_on_publish(self):
         self.login()
@@ -283,11 +288,15 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.SimplePage",
+                    "type": "demosite.EventPage",
                     "action": "publish",
                 },
                 "title": "New page",
                 "slug": "new-page",
+                "date_from": "2026-07-21",
+                "audience": "public",
+                "location": "",
+                "cost": "",
             }
         )
         content = self.assert_problem_response(response, status_code=422)
@@ -296,9 +305,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             [
                 {
                     "type": "required",
-                    "loc": ["content"],
+                    "loc": ["location"],
                     "message": "This field is required.",
-                }
+                },
+                {
+                    "type": "required",
+                    "loc": ["cost"],
+                    "message": "This field is required.",
+                },
             ],
         )
 
@@ -306,7 +320,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
         response = self.post(
             {
-                "meta": {"parent_id": 999999, "type": "tests.MultiPreviewModesPage"},
+                "meta": {"parent_id": 999999, "type": "demosite.BlogIndexPage"},
                 "title": "New page",
                 "slug": "new-page",
             }
@@ -352,7 +366,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "New page",
                 "slug": "new-page",
@@ -376,7 +390,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {
                     "parent_id": self.root_page.pk,
-                    "type": "tests.MultiPreviewModesPage",
+                    "type": "demosite.BlogIndexPage",
                 },
                 "title": "New page",
                 "slug": "new-page",
@@ -386,10 +400,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
     def test_disallowed_subpage_type_returns_403(self):
         self.login()
-        # MultiPreviewModesPage's default page-type rules allow being created
+        # BlogIndexPage's default page-type rules allow being created
         # under the root, but wagtailcore.Page itself is not creatable at all.
         parent = self.root_page.add_child(
-            instance=MultiPreviewModesPage(title="Parent", slug="parent-page")
+            instance=BlogIndexPage(title="Parent", slug="parent-page")
         )
         response = self.post(
             {
@@ -500,9 +514,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             content["errors"],
             [
                 {
-                    "type": "max_length",
-                    "loc": ["carousel_items", 0, "caption"],
-                    "message": "Ensure this value has at most 255 characters (it has 1000).",
+                    "type": "string_too_long",
+                    "loc": [
+                        "body",
+                        "data",
+                        "demosite.HomePage",
+                        "carousel_items",
+                        0,
+                        "caption",
+                    ],
+                    "msg": "String should have at most 255 characters",
+                    "ctx": {"max_length": 255},
                 }
             ],
         )
