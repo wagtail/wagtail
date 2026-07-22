@@ -63,9 +63,6 @@ def build_page_form(
     """
     form_class = _get_form_class(model)
     payload = data.dict(exclude={"meta"})
-    formset_payloads = {
-        name: value for name, value in payload.items() if isinstance(value, list)
-    }
 
     page = model(owner=user, locale=parent.locale)
 
@@ -85,7 +82,7 @@ def build_page_form(
         payload["slug"] = page.slug
         page._cached_parent_obj = None
 
-    form_data = build_form_data(form_class, payload, formset_payloads)
+    form_data = build_form_data(form_class, payload)
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
 
@@ -170,17 +167,15 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
 def build_form_data(
     form_class: type[BaseForm],
     payload: dict[str, Any],
-    formset_payloads: dict[str, list],
 ) -> MultiValueDict:
     """Build a ``MultiValueDict`` that binds ``form_class`` (and its child
     formsets, if it's a ``ClusterForm``) as if the equivalent HTML form had
     been submitted.
 
     ``payload`` supplies values for the top-level form's own fields, keyed by
-    field name. ``formset_payloads`` supplies, for each InlinePanel-backed
-    relation name declared on the form, a list of dicts (one per child, keyed
-    by the child form's own field names) - both taken directly from the
-    parsed JSON request body.
+    field name, and, for each InlinePanel-backed relation name declared on
+    the form, a list of dicts (one per child, keyed by the child form's own
+    field names) - all taken directly from the parsed JSON request body.
 
     Only fields the form actually declares are considered: a page model's
     ``api_fields`` may list more than a panel exposes, and an InlinePanel
@@ -194,7 +189,7 @@ def build_form_data(
             _set_field_value(field, name, payload[name], data)
 
     for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
-        items = formset_payloads.get(rel_name, [])
+        items = payload.get(rel_name, [])
         prefix = rel_name
         data[f"{prefix}-TOTAL_FORMS"] = str(len(items))
         data[f"{prefix}-INITIAL_FORMS"] = "0"
