@@ -100,11 +100,11 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
         label=_("Workflow"),
     )
 
-    # When a workflow is chosen in the 'id_workflow' selector, filter this list of tasks
+    # When a workflow is chosen in the field named 'workflow', filter this list of tasks
     # to just the ones whose workflows attribute includes the selected workflow.
     task = FilteredModelChoiceFilter(
         queryset=Task.objects.all(),
-        filter_field="id_workflow",
+        filter_field="workflow",
         filter_accessor="workflows",
     )
 
