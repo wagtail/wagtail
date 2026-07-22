@@ -30,5 +30,6 @@ editor_api
 client_side_panels
 rich_text_internals
 extending_draftail
+customizing_richtext_output
 custom_bulk_actions
 ```
