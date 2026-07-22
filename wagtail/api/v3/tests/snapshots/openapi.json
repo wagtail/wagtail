@@ -5604,6 +5604,28 @@
               }
             ],
             "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
           }
         },
         "title": "EventPageSpeakerInputSchema",
@@ -5667,6 +5689,40 @@
               }
             ],
             "title": "Surname"
+          },
+          "link": {
+            "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/EventPageSpeakerMetaSchema"

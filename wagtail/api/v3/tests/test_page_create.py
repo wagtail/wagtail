@@ -5,6 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
+from wagtail.documents.models import Document
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageSubscription
 from wagtail.test.demosite.models import BlogIndexPage, EventPage, HomePage
 from wagtail.test.testapp.models import StreamPage
@@ -193,6 +194,135 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 201)
         page = StreamPage.objects.get(slug="api-field-page")
         self.assertEqual(page.body[0].value, "hello world")
+
+    def test_create_page_with_non_writable_api_field_ignores_it(self):
+        """
+        BlogIndexPage.intro is a real model field listed in api_fields, but
+        not as APIField("intro", writable=True) - so it's read-only via this
+        API and posting it is silently ignored, not an error.
+        """
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogIndexPage",
+                },
+                "title": "New page",
+                "slug": "new-page",
+                "intro": "should be ignored",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = BlogIndexPage.objects.get(slug="new-page")
+        self.assertEqual(page.intro, "")
+
+    def test_create_page_with_field_not_in_api_fields_ignores_it(self):
+        """
+        Page.live is a real model field, but isn't listed in BlogIndexPage's
+        api_fields at all - posting it is silently ignored, not an error.
+        """
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogIndexPage",
+                },
+                "title": "New page",
+                "slug": "new-page",
+                "live": True,
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = BlogIndexPage.objects.get(slug="new-page")
+        self.assertFalse(page.live)
+
+    def test_create_page_with_non_model_field_in_api_fields_ignores_it(self):
+        """
+        AbstractLinkFields.link is listed in api_fields but is a Python
+        @property, not a real Django field - it has no defined writable
+        shape, so posting it (here nested in a HomePage carousel item) is
+        silently ignored, not an error.
+        """
+        self.login()
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
+                "title": "Home",
+                "slug": "home-with-link-property",
+                "carousel_items": [
+                    {
+                        "caption": "First",
+                        "link_external": "http://example.com/real",
+                        "link": "http://should-be-ignored.example",
+                    },
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = HomePage.objects.get(slug="home-with-link-property")
+        item = page.carousel_items.get()
+        self.assertEqual(item.caption, "First")
+        self.assertEqual(item.link_external, "http://example.com/real")
+        self.assertEqual(item.link, "http://example.com/real")
+
+    def test_create_page_with_non_writable_api_field_in_inline_model_ignores_it(self):
+        """
+        EventPageSpeaker.link_document is a real model field listed in
+        api_fields, but not as APIField("link_document", writable=True) - so
+        it's read-only via this API and posting it (nested in an EventPage's
+        speakers InlinePanel) is silently ignored, not an error. link_external
+        is writable, so it's set as normal, and the link property (also
+        listed in api_fields, but never writable) resolves from it.
+        """
+        document = Document.objects.create(title="Test document")
+        self.login()
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "demosite.EventPage"},
+                "title": "New page",
+                "slug": "new-page",
+                "date_from": "2026-07-21",
+                "audience": "public",
+                "location": "",
+                "cost": "",
+                "speakers": [
+                    {
+                        "first_name": "Jane",
+                        "link_external": "http://example.com/speaker",
+                        "link_document": document.pk,
+                    },
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = EventPage.objects.get(slug="new-page")
+        speaker = page.speakers.get()
+        self.assertEqual(speaker.first_name, "Jane")
+        self.assertIsNone(speaker.link_document)
+        self.assertEqual(speaker.link_external, "http://example.com/speaker")
+        self.assertEqual(speaker.link, "http://example.com/speaker")
+
+    def test_create_page_with_unknown_field_ignores_it(self):
+        """
+        A field that's neither a real model field nor listed in api_fields
+        at all is silently ignored, not an error.
+        """
+        self.login()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogIndexPage",
+                },
+                "title": "New page",
+                "slug": "new-page",
+                "not_a_real_field_at_all": "should be ignored",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        self.assertTrue(BlogIndexPage.objects.filter(slug="new-page").exists())
 
     def test_slug_is_auto_generated_from_title_when_omitted(self):
         self.login()

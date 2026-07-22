@@ -507,6 +507,10 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
         APIField("first_name", writable=True),
         APIField("last_name", writable=True),
         APIField("image", writable=True),
+        "link",
+        APIField("link_external", writable=True),
+        APIField("link_page", writable=True),
+        "link_document",  # test writable=False for model fields in inline models
     )
 
     panels = [
