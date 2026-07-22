@@ -868,7 +868,17 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         for carousel_item in content["carousel_items"]:
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "embed_url", "link", "caption", "image"},
+                {
+                    "id",
+                    "meta",
+                    "embed_url",
+                    "link",
+                    "caption",
+                    "image",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(set(carousel_item["meta"].keys()), {"type"})
 

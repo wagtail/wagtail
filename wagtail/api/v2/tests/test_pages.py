@@ -440,7 +440,17 @@ class TestPageListing(WagtailTestUtils, TestCase):
                 # Note: inline objects default to displaying all fields
                 self.assertEqual(
                     set(carousel_item.keys()),
-                    {"id", "meta", "image", "embed_url", "caption", "link"},
+                    {
+                        "id",
+                        "meta",
+                        "image",
+                        "embed_url",
+                        "caption",
+                        "link",
+                        "link_page",
+                        "link_document",
+                        "link_external",
+                    },
                 )
                 self.assertEqual(
                     set(carousel_item["image"].keys()),
@@ -1382,7 +1392,17 @@ class TestPageDetail(TestCase):
         for carousel_item in content["carousel_items"]:
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "embed_url", "link", "caption", "image"},
+                {
+                    "id",
+                    "meta",
+                    "embed_url",
+                    "link",
+                    "caption",
+                    "image",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(set(carousel_item["meta"].keys()), {"type"})
 
@@ -1582,7 +1602,17 @@ class TestPageDetail(TestCase):
             # Note: inline objects default to displaying all fields
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "image", "embed_url", "caption", "link"},
+                {
+                    "id",
+                    "meta",
+                    "image",
+                    "embed_url",
+                    "caption",
+                    "link",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(
                 set(carousel_item["image"].keys()),
