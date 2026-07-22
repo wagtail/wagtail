@@ -7,6 +7,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
@@ -421,6 +422,26 @@ BlogIndexPage.content_panels = Page.content_panels + [
 # Events pages
 
 
+class EventPageAPIForm(WagtailAdminPageForm):
+    """
+    Used as EventPage's ``api_base_form_class``.
+
+    Demonstrate a custom validation mechanism that only applies when
+    publishing events via the API.
+    """
+
+    def clean_signup_link(self):
+        link = self.cleaned_data["signup_link"]
+
+        if not self.is_deferred_validation and not link:
+            self.add_error(
+                "signup_link",
+                "This field is required when publishing events via the API.",
+            )
+
+        return link
+
+
 class EventPage(Page):
     page_ptr = models.OneToOneField(
         Page, parent_link=True, related_name="+", on_delete=models.CASCADE
@@ -429,6 +450,8 @@ class EventPage(Page):
         ("public", "Public"),
         ("private", "Private"),
     )
+
+    api_base_form_class = EventPageAPIForm
 
     date_from = models.DateField("Start date")
     date_to = models.DateField(
