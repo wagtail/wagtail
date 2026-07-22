@@ -5,6 +5,7 @@ from django.conf import settings
 from django.http import HttpRequest
 
 from wagtail.rich_text import expand_db_html
+from wagtail.rich_text.markdown import expand_db_html_to_markdown
 
 
 class RichTextFormatError(Exception):
@@ -18,14 +19,18 @@ class APIRichText:
     Built-in formats:
 
     - ``db_html``: Wagtail database HTML (default)
-    - ``html``: display HTML via ``expand_db_html()``
+    - ``html``: display-ready HTML
+    - ``markdown``: display-ready Markdown
+    - ``internal_markdown``: Internal/private Markdown with internal references all preserved
 
-    To add formats (for example ``markdown`` or ``content_state``), extend
-    :meth:`_serializers` and add a corresponding ``_serialize_*`` method.
+    To add formats, extend :meth:`_serializers` and add a corresponding
+    ``_serialize_*`` method.
     """
 
     FORMAT_DB_HTML = "db_html"
     FORMAT_HTML = "html"
+    FORMAT_MARKDOWN = "markdown"
+    FORMAT_INTERNAL_MARKDOWN = "internal_markdown"
 
     DEFAULT_FORMAT = FORMAT_DB_HTML
     SETTING_NAME = "WAGTAILAPI_RICH_TEXT_FORMAT"
@@ -69,6 +74,8 @@ class APIRichText:
         return {
             cls.FORMAT_DB_HTML: cls._serialize_db_html,
             cls.FORMAT_HTML: cls._serialize_html,
+            cls.FORMAT_MARKDOWN: cls._serialize_markdown,
+            cls.FORMAT_INTERNAL_MARKDOWN: cls._serialize_internal_markdown,
         }
 
     @staticmethod
@@ -78,6 +85,14 @@ class APIRichText:
     @staticmethod
     def _serialize_html(value: str) -> str:
         return expand_db_html(value)
+
+    @staticmethod
+    def _serialize_markdown(value: str) -> str:
+        return expand_db_html_to_markdown(value, internal=False)
+
+    @staticmethod
+    def _serialize_internal_markdown(value: str) -> str:
+        return expand_db_html_to_markdown(value, internal=True)
 
     @classmethod
     def _validate_format(cls, rich_text_format: str, *, source: str) -> None:

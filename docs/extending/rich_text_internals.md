@@ -4,10 +4,10 @@
 
 At first glance, Wagtail's rich text capabilities appear to give editors direct control over a block of HTML content. In reality, it's necessary to give editors a representation of rich text content that is several steps removed from the final HTML output, for several reasons:
 
--   The editor interface needs to filter out certain kinds of unwanted markup; this includes malicious scripting, font styles pasted from an external word processor, and elements which would break the validity or consistency of the site design (for example, pages will generally reserve the `<h1>` element for the page title, and so it would be inappropriate to allow users to insert their own additional `<h1>` elements through rich text).
--   Rich text fields can specify a `features` argument to further restrict the elements permitted in the field - see [Rich Text Features](rich_text_features).
--   Enforcing a subset of HTML helps to keep presentational markup out of the database, making the site more maintainable, and making it easier to repurpose site content (including, potentially, producing non-HTML output such as [LaTeX](https://www.latex-project.org/)).
--   Elements such as page links and images need to preserve metadata such as the page or image ID, which is not present in the final HTML representation.
+- The editor interface needs to filter out certain kinds of unwanted markup; this includes malicious scripting, font styles pasted from an external word processor, and elements which would break the validity or consistency of the site design (for example, pages will generally reserve the `<h1>` element for the page title, and so it would be inappropriate to allow users to insert their own additional `<h1>` elements through rich text).
+- Rich text fields can specify a `features` argument to further restrict the elements permitted in the field - see [Rich Text Features](rich_text_features).
+- Enforcing a subset of HTML helps to keep presentational markup out of the database, making the site more maintainable, and making it easier to repurpose site content (including, potentially, producing non-HTML output such as [LaTeX](https://www.latex-project.org/)).
+- Elements such as page links and images need to preserve metadata such as the page or image ID, which is not present in the final HTML representation.
 
 This requires the rich text content to go through a number of validation and conversion steps; both between the editor interface and the version stored in the database, and from the database representation to the final rendered HTML.
 
@@ -53,10 +53,10 @@ Again, the `embedtype` attribute identifies a rule that shall be used to rewrite
 
 A number of additional constraints apply to `<a linktype="...">` and `<embed embedtype="..." />` tags, to allow the conversion to be performed efficiently via string replacement:
 
--   The tag name and attributes must be lower-case
--   Attribute values must be quoted with double quotes
--   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
--   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
+- The tag name and attributes must be lower-case
+- Attribute values must be quoted with double quotes
+- `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
+- The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
 (rich_text_manual_conversion)=
 
@@ -70,6 +70,68 @@ from wagtail.rich_text import expand_db_html
 # Converts the stored rich text data format to HTML suitable for rendering.
 expand_db_html(page.body)
 ```
+
+(rich_text_markdown_conversion)=
+
+### Markdown conversion
+
+For Markdown output, use `expand_db_html_to_markdown`. It expands the same internal references as `expand_db_html`, then renders the result as [CommonMark](https://commonmark.org/)-compliant Markdown. Two modes are supported:
+
+- **Public Markdown** (default): references are resolved to public URLs. Equivalent to `expand_db_html` followed by Markdown rendering. Suitable for publishing content as Markdown.
+- **Internal Markdown** (`internal=True`): references are preserved using a `wagtail://` URL scheme so they can be resolved back to CMS objects. This is useful for content editing scenarios, importing or exporting content in a CMS.
+
+```python
+from wagtail.rich_text.markdown import expand_db_html_to_markdown
+
+# Public Markdown: references resolved to URLs.
+expand_db_html_to_markdown(page.body)
+
+# Internal Markdown: references preserved as wagtail:// URLs.
+expand_db_html_to_markdown(page.body, internal=True)
+```
+
+The reference syntax uses query parameters so custom link and embed types can carry arbitrary attributes. The table below shows the full set of built-in formattings across all four representation formats.
+
+#### Reference: rich text representations
+
+The `Default` column indicates whether the feature is enabled by default (see [Rich Text Features](rich_text_features)). Features marked "sub-type" are variants of the `link` feature, not separately registered.
+
+| Feature         | DB HTML                                                       | Public HTML                                     | ContentState type                                                       | Public Markdown                     | Internal Markdown                                   |
+| --------------- | ------------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------- |
+| Paragraph       | `<p>text</p>`                                                 | (unchanged)                                     | block: `unstyled`                                                       | `text`                              | (same)                                              |
+| Heading h1      | `<h1>text</h1>`                                               | (unchanged)                                     | block: `header-one`                                                     | `# text`                            | (same)                                              |
+| Heading h2      | `<h2>text</h2>`                                               | (unchanged)                                     | block: `header-two`                                                     | `## text`                           | (same)                                              |
+| Heading h3      | `<h3>text</h3>`                                               | (unchanged)                                     | block: `header-three`                                                   | `### text`                          | (same)                                              |
+| Heading h4      | `<h4>text</h4>`                                               | (unchanged)                                     | block: `header-four`                                                    | `#### text`                         | (same)                                              |
+| Heading h5      | `<h5>text</h5>`                                               | (unchanged)                                     | block: `header-five`                                                    | `##### text`                        | (same)                                              |
+| Heading h6      | `<h6>text</h6>`                                               | (unchanged)                                     | block: `header-six`                                                     | `###### text`                       | (same)                                              |
+| Bold            | `<b>text</b>`                                                 | (unchanged)                                     | style: `BOLD`                                                           | `**text**`                          | (same)                                              |
+| Italic          | `<i>text</i>`                                                 | (unchanged)                                     | style: `ITALIC`                                                         | `_text_`                            | (same)                                              |
+| Strikethrough   | `<s>text</s>`                                                 | (unchanged)                                     | style: `STRIKETHROUGH`                                                  | `~text~`                            | (same)                                              |
+| Superscript     | `<sup>text</sup>`                                             | (unchanged)                                     | style: `SUPERSCRIPT`                                                    | (`<sup>text</sup>`)                 | (same)                                              |
+| Subscript       | `<sub>text</sub>`                                             | (unchanged)                                     | style: `SUBSCRIPT`                                                      | (`<sub>text</sub>`)                 | (same)                                              |
+| Inline code     | `<code>text</code>`                                           | (unchanged)                                     | style: `CODE`                                                           | `` `text` ``                        | (same)                                              |
+| Unordered list  | `<ul><li>item</li></ul>`                                      | (unchanged)                                     | block: `unordered-list-item`                                            | `- item`                            | (same)                                              |
+| Ordered list    | `<ol><li>item</li></ol>`                                      | (unchanged)                                     | block: `ordered-list-item`                                              | `1. item`                           | (same)                                              |
+| Blockquote      | `<blockquote>text</blockquote>`                               | (unchanged)                                     | block: `blockquote`                                                     | `> text`                            | (same)                                              |
+| Horizontal rule | `<hr>`                                                        | (unchanged)                                     | block: `atomic` + entity: `HORIZONTAL_RULE`                             | `---`                               | (same)                                              |
+| External link   | `<a href="https://example.com/">label</a>`                    | (unchanged)                                     | entity: `LINK`, data: `{"url": ...}`                                    | `[label](https://example.com/)`     | (same)                                              |
+| Page link       | `<a linktype="page" id="3">label</a>`                         | `<a href="/page-url/">label</a>`                | entity: `LINK`, data: `{"id":..., "url":...}`                           | `[label](/page-url/)`               | `[label](wagtail://page?id=3)`                      |
+| Document link   | `<a linktype="document" id="1">label</a>`                     | `<a href="/documents/1/file.pdf">label</a>`     | entity: `DOCUMENT`, data: `{"id":..., "url":...}`                       | `[label](/documents/1/file.pdf)`    | `[label](wagtail://document?id=1)`                  |
+| Email link      | `<a href="mailto:user@example.com">label</a>`                 | (unchanged)                                     | entity: `LINK`, data: `{"url": "mailto:..."}`                           | `[label](mailto:user@example.com)`  | (same)                                              |
+| Anchor link     | `<a href="#section">label</a>`                                | (unchanged)                                     | entity: `LINK`, data: `{"url": "#section"}`                             | `[label](#section)`                 | (same)                                              |
+| Image embed     | `<embed embedtype="image" id="10" alt="alt" format="left" />` | `<img alt="alt" src="/media/...jpg" />`         | block: `atomic` + entity: `IMAGE`, data: `{"id":..., "src":..., }`      | `![alt](/media/...jpg)`             | `![alt](wagtail://image?id=10&alt=alt&format=left)` |
+| Media embed     | `<embed embedtype="media" url="https://youtu.be/..." />`      | `<div class="responsive-object">…iframe…</div>` | block: `atomic` + entity: `EMBED`, data: `{"url":..., "embedType":...}` | (embed frontend HTML)               | `![](wagtail://media?url=https%3A%2F%2F...)`        |
+| Custom example  | `<a linktype="user" username="wagtail">label</a>`             | `<a href="mailto:hello@wagtail.org">label</a>`  | entity: `LINK` (custom), data: `{"username":...}`                       | `[label](mailto:hello@wagtail.org)` | `[label](wagtail://user?username=wagtail)`          |
+
+Notes on the table:
+
+- Some inline styles with no Markdown equivalent will be rendered as inline HTML in the Markdown output.
+- Wagtail’s custom formats like embeds with no Markdown equivalent would also be rendered as inline HTML.
+- The `wagtail://` query-parameter syntax preserves all DB HTML attributes needed to reconstruct the original tag. For example, an image embed's `id`, `alt`, and `format` are all carried as query parameters. Derived data (rendition `src` URLs, page URLs captured at render time) is intentionally omitted. Custom link and embed types can carry arbitrary attributes, as shown in the "Custom link" example — see [Rewrite handlers](rich_text_rewrite_handlers) below for how to register custom link types.
+- In public Markdown, broken references (deleted pages, images, documents, or failed embeds) render a visible `[broken link: …]`, `[broken image: …]`, or `[broken embed: …]` marker instead of a stale or non-functional link. Internal Markdown preserves the reference ID regardless, so it can be resolved on re-import.
+
+The `MarkdownConverter` accepts a `features` list (defaults to the project's default rich text features). This controls which `linktype`/`embedtype` conversion rules are loaded so that custom handlers render correctly.
 
 ## The feature registry
 

@@ -245,11 +245,20 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+(rich_text_in_the_api)=
+
 ### Rich text in the API
 
 By default, `RichTextField` values are serialized in Wagtail's database HTML format, described in [](rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
 
 To return display-ready HTML instead (equivalent to the `|richtext` template filter), use the `?rich_text_format=html` query parameter or set the project-wide default with `WAGTAILAPI_RICH_TEXT_FORMAT = 'html'` in your settings. The default format is `db_html`.
+
+Wagtail also supports two Markdown options for `rich_text_format`:
+
+- `markdown`: public Markdown. Internal references (page links, images, documents, embeds) all convert to public URLs, similarly to Wagtail’s rich text rendering. Use this when the API client wants display-ready Markdown.
+- `internal_markdown`: internal/private Markdown. References are preserved using a `wagtail://` URL scheme so they can be resolved back to CMS objects. Use this for editing of Wagtail content as Markdown.
+
+For more details on the `wagtail://` syntax and other aspects of Markdown output, see [Markdown conversion](rich_text_markdown_conversion).
 
 For per-field control regardless of the query parameter, you can still use a custom serializer that acts like the `|richtext` template filter:
 
@@ -269,6 +278,8 @@ We can then change our `api_fields` definition so `body` uses this new serialize
 ```python
 APIField('body', serializer=RichTextSerializer()),
 ```
+
+A similar serializer using `expand_db_html_to_markdown` would return Markdown instead.
 
 (api_v2_images)=
 

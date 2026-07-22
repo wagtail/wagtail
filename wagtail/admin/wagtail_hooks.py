@@ -38,6 +38,10 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     ListItemElementHandler,
     PageLinkElementHandler,
 )
+from wagtail.admin.rich_text.converters.markdown import (
+    MarkdownInternalLinkConversionRule,
+    MarkdownLinkConversionRule,
+)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.ui.menus.pages import PageMenuItem
@@ -753,6 +757,10 @@ def register_core_features(features):
             },
             "to_database_format": {"entity_decorators": {"LINK": link_entity}},
         },
+    )
+    features.register_converter_rule("markdown", "link", MarkdownLinkConversionRule)
+    features.register_converter_rule(
+        "markdown_internal", "link", MarkdownInternalLinkConversionRule
     )
     features.register_editor_plugin(
         "draftail",

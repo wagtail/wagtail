@@ -148,6 +148,20 @@ Only fields using `RichTextField` need this applied in the template.
 {{ page.body|richtext }}
 ```
 
+(rich_text_markdown_filter)=
+
+## Rich text as Markdown (filter)
+
+The `richtext_markdown` filter renders the same content as [CommonMark](https://commonmark.org/)-compliant Markdown instead of HTML. It resolves internal references to public URLs (page links become their URL, images become their rendition URL, media embeds render as their frontend HTML). The returned string is plain Markdown; templates that need HTML should pass the result through a Markdown renderer.
+
+```html+django
+{% load wagtailcore_tags %}
+...
+{{ page.body|richtext_markdown }}
+```
+
+See [Markdown conversion](rich_text_markdown_conversion) for the underlying Python API and the `wagtail://` reference syntax used by the API's `internal_markdown` format.
+
 (responsive_embeds)=
 
 ### Responsive Embeds

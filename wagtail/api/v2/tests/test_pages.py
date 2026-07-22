@@ -1279,6 +1279,9 @@ class TestPageDetail(TestCase):
             reverse("wagtailapi_v2:pages:detail", args=(page_id,)), params
         )
 
+    def get_json(self, page_id, **params):
+        return json.loads(self.get_response(page_id, **params).content.decode("UTF-8"))
+
     def test_basic(self):
         response = self.get_response(16)
 
@@ -1714,65 +1717,84 @@ class TestPageDetail(TestCase):
 
     def test_rich_text_format_defaults_to_db_html(self):
         blog_index = models.BlogIndexPage.objects.get(id=5)
-        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        db_html = f'<p>See <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
         models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
 
-        content = json.loads(
-            self.get_response(16, fields="body").content.decode("UTF-8")
-        )
+        content = self.get_json(16, fields="body")
 
         self.assertEqual(content["body"], db_html)
 
     def test_rich_text_format_html_expands_entity_references(self):
         blog_index = models.BlogIndexPage.objects.get(id=5)
-        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        db_html = f'<p>See <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
         models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
 
-        content = json.loads(
-            self.get_response(
-                16, fields="body", rich_text_format="html"
-            ).content.decode("UTF-8")
-        )
+        content = self.get_json(16, fields="body", rich_text_format="html")
 
         self.assertIn("/blog-index/", content["body"])
         self.assertNotIn("linktype=", content["body"])
 
-    @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html")
-    def test_rich_text_format_project_setting(self):
+    def test_rich_text_format_markdown_resolves_entity_references(self):
         blog_index = models.BlogIndexPage.objects.get(id=5)
-        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        db_html = f'<p>See <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
         models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
 
-        content = json.loads(
-            self.get_response(16, fields="body").content.decode("UTF-8")
-        )
+        content = self.get_json(16, fields="body", rich_text_format="markdown")
+
+        # Page link resolves to its public URL (the request host may be
+        # localhost in the test environment).
+        self.assertIn("/blog-index/", content["body"])
+        self.assertNotIn("linktype=", content["body"])
+        self.assertNotIn("wagtail://", content["body"])
+
+    def test_rich_text_format_internal_markdown_preserves_entity_references(self):
+        blog_index = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>See <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        content = self.get_json(16, fields="body", rich_text_format="internal_markdown")
+
+        self.assertIn(f"(wagtail://page?id={blog_index.id})", content["body"])
+        self.assertNotIn("linktype=", content["body"])
+
+    @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="markdown")
+    def test_rich_text_format_markdown_project_setting(self):
+        p = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>See <a linktype="page" id="{p.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        content = self.get_json(16, fields="body")
+
+        self.assertIn("/blog-index/", content["body"])
+
+    @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html")
+    def test_rich_text_format_project_setting(self):
+        p = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>See <a linktype="page" id="{p.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        content = self.get_json(16, fields="body")
 
         self.assertIn("/blog-index/", content["body"])
 
     def test_rich_text_format_query_parameter_overrides_setting(self):
         blog_index = models.BlogIndexPage.objects.get(id=5)
-        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        db_html = f'<p>See <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
         models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
 
         with override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html"):
-            content = json.loads(
-                self.get_response(
-                    16, fields="body", rich_text_format="db_html"
-                ).content.decode("UTF-8")
-            )
+            content = self.get_json(16, fields="body", rich_text_format="db_html")
 
         self.assertEqual(content["body"], db_html)
 
     def test_invalid_rich_text_format_gives_error(self):
-        response = self.get_response(16, rich_text_format="markdown")
+        response = self.get_response(16, rich_text_format="unsupported")
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            content,
-            {
-                "message": "rich_text_format must be one of 'db_html', 'html', got 'markdown'"
-            },
+            content["message"],
+            "rich_text_format must be one of 'db_html', 'html', 'internal_markdown', 'markdown', got 'unsupported'",
         )
 
 
