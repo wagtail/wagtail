@@ -16,6 +16,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         self.root_page = Page.objects.get(depth=1)
+        self.user = self.login()
 
     def post(self, data):
         return self.client.post(
@@ -25,6 +26,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_anonymous_returns_401(self):
+        self.client.logout()
         response = self.post(
             {
                 "meta": {
@@ -38,7 +40,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=401)
 
     def test_superuser_can_create_page(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -64,7 +65,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["meta"]["slug"], "new-page")
 
     def test_create_page_with_publish_action_publishes_page(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -84,7 +84,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.live_revision, page.latest_revision)
 
     def test_create_page_with_invalid_action_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -121,7 +120,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         Matches the admin create view, which subscribes the creating user to
         comment notifications on the new page by default.
         """
-        user = self.login()
+        user = self.user
         response = self.post(
             {
                 "meta": {
@@ -147,7 +146,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         every new page; this asserts the API produces that same pair, not a
         duplicate "wagtail.create".
         """
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -182,7 +180,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         isn't exposed in the input schema. StreamPage's body is marked
         writable, so it's fully creatable.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
@@ -201,7 +198,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         not as APIField("intro", writable=True) - so it's read-only via this
         API and posting it is silently ignored, not an error.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -222,7 +218,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         Page.live is a real model field, but isn't listed in BlogIndexPage's
         api_fields at all - posting it is silently ignored, not an error.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -245,7 +240,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         shape, so posting it (here nested in a HomePage carousel item) is
         silently ignored, not an error.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
@@ -277,7 +271,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         listed in api_fields, but never writable) resolves from it.
         """
         document = Document.objects.create(title="Test document")
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.EventPage"},
@@ -309,7 +302,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         A field that's neither a real model field nor listed in api_fields
         at all is silently ignored, not an error.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -325,7 +317,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertTrue(BlogIndexPage.objects.filter(slug="new-page").exists())
 
     def test_slug_is_auto_generated_from_title_when_omitted(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -340,7 +331,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.slug, "auto-slug-page")
 
     def test_duplicate_slug_returns_422(self):
-        self.login()
         self.root_page.add_child(
             instance=BlogIndexPage(title="Existing", slug="existing")
         )
@@ -367,7 +357,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_missing_required_field_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -395,7 +384,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_page_type_with_required_field_can_be_saved_as_draft(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.EventPage"},
@@ -413,7 +401,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.location, "")
 
     def test_page_type_with_missing_required_field_returns_422_on_publish(self):
-        self.login()
         response = self.post(
             {
                 "meta": {
@@ -452,7 +439,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         EventPage has API-specific api_base_form_class with a custom validation
         rule that requires signup_link to be set when publishing an event.
         """
-        self.login()
         payload = {
             "meta": {
                 "parent_id": self.root_page.pk,
@@ -492,7 +478,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_unknown_parent_returns_404(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": 999999, "type": "demosite.BlogIndexPage"},
@@ -503,7 +488,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=404)
 
     def test_unknown_type_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "not.AType"},
@@ -519,7 +503,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertIn("'not.AType'", error["msg"])
 
     def test_non_page_type_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "auth.User"},
@@ -574,7 +557,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_disallowed_subpage_type_returns_403(self):
-        self.login()
         # BlogIndexPage's default page-type rules allow being created
         # under the root, but wagtailcore.Page itself is not creatable at all.
         parent = self.root_page.add_child(
@@ -590,7 +572,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=403)
 
     def test_create_streamfield_page(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
@@ -606,7 +587,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.body[0].value, "hello streamfield")
 
     def test_create_streamfield_page_with_invalid_block_type_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
@@ -622,7 +602,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_create_page_with_rich_text_field(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
@@ -637,7 +616,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertIn("hello", page.body)
 
     def test_create_page_with_child_relations(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
@@ -668,7 +646,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(items[1].sort_order, 1)
 
     def test_create_page_with_invalid_child_relation_field_returns_422(self):
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
@@ -712,7 +689,6 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         the input schema itself can express, and it runs because we validate
         through the model's actual admin form rather than bypassing it.
         """
-        self.login()
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "demosite.HomePage"},
