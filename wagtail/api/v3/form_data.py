@@ -3,12 +3,13 @@ from typing import Any, cast
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
+from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
 from ninja.schema import BaseModel
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
-from wagtail.admin.panels import Panel, get_form_for_model
+from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.blocks.base import BlockField
 from wagtail.blocks.list_block import ListBlock
@@ -17,10 +18,13 @@ from wagtail.blocks.struct_block import BaseStructBlock
 from wagtail.models import Page
 
 
-def _get_form_class(model: type[Page]):
-    # Page.get_edit_handler is monkey-patched onto the class by
-    # wagtail.admin.panels.page_utils, so it isn't visible statically.
-    edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
+def get_api_form_class(model: type[Model]):
+    try:
+        # Page.get_edit_handler is monkey-patched onto the class by
+        # wagtail.admin.panels.page_utils, so it isn't visible statically.
+        edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
+    except AttributeError:
+        edit_handler = get_edit_handler(model)
 
     # The following is similar to Panel.get_form_class(),
     form_options = edit_handler.get_form_options()
@@ -61,7 +65,7 @@ def build_page_form(
     project defines on that form or its formsets runs for real, rather than
     being bypassed.
     """
-    form_class = _get_form_class(model)
+    form_class = get_api_form_class(model)
     payload = data.dict(exclude={"meta"})
 
     page = model(owner=user, locale=parent.locale)
@@ -177,7 +181,7 @@ def build_form_data(
     the form, a list of dicts (one per child, keyed by the child form's own
     field names) - all taken directly from the parsed JSON request body.
 
-    Only fields the form actually declares are considered: a page model's
+    Only fields the form actually declares are considered: a model's
     ``api_fields`` may list more than a panel exposes, and an InlinePanel
     restricts its child form to its own panel fields, so surplus JSON keys
     are simply not looked up here (see ``InlinePanel.get_form_options``).
