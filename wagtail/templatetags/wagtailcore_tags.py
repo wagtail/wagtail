@@ -9,6 +9,7 @@ from django.utils.html import conditional_escape
 from wagtail import VERSION, __version__
 from wagtail.models import Page, Site
 from wagtail.rich_text import RichText, expand_db_html
+from wagtail.rich_text.markdown import expand_db_html_to_markdown
 from wagtail.utils.version import get_main_version
 
 register = template.Library()
@@ -132,6 +133,25 @@ def richtext(value):
                 )
             )
     return render_to_string("wagtailcore/shared/richtext.html", {"html": html})
+
+
+@register.filter
+def richtext_markdown(value):
+    """
+    Render a RichTextField value as public Markdown.
+    """
+    if isinstance(value, RichText):
+        value = value.source
+    if value is None:
+        return ""
+    if isinstance(value, Promise):
+        value = str(value)
+    if not isinstance(value, str):
+        raise TypeError(
+            "'richtext_markdown' template filter received an invalid value; "
+            "expected string, got {}.".format(type(value))
+        )
+    return expand_db_html_to_markdown(value, internal=False)
 
 
 class IncludeBlockNode(template.Node):
