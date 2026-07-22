@@ -1,10 +1,9 @@
 from collections.abc import Iterable
 from typing import Any, Callable, Literal, cast
 
-from django.core.exceptions import FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Field, ForeignKey, Model
 from django.db.models.fields.reverse_related import ForeignObjectRel
-from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
@@ -55,30 +54,50 @@ class InputSchemaGenerator:
     def get_child_relation_schema(self, model: type[Model]) -> type[Schema]:
         """Build an input schema for a child relation's related model.
 
-        Includes the related model's own editable, concrete fields (skipping
-        the ``ParentalKey`` back to the parent, and the ``id``/``sort_order``
-        housekeeping fields), plus its own ``api_fields`` extras (e.g. a
-        StreamField nested inside an InlinePanel-managed model).
+        Includes only the related model's own writable ``api_fields``, plus
+        any that need special handling (e.g. a StreamField nested inside an
+        InlinePanel-managed model).
         """
         if model not in self._child_relation_schema_cache:
-            exclude = {model._meta.pk.name, "sort_order"}
-            for field in model._meta.get_fields():
-                if isinstance(field, ParentalKey):
-                    exclude.add(field.name)
-                elif not (getattr(field, "concrete", False) and field.editable) or (
-                    isinstance(field, StreamField)
-                ):
-                    exclude.add(field.name)
+            writable_field_names = {
+                field.name for field in APIField.get_writable_fields_for_model(model)
+            }
+            if not writable_field_names:
+                raise ImproperlyConfigured(
+                    f"{model._meta.label} is used as a writable child relation, but "
+                    f"none of its own api_fields are writable. Mark at least one "
+                    f"field as APIField(name, writable=True) on {model.__name__}."
+                )
+
+            field_names = [
+                field.name
+                for field in model._meta.get_fields()
+                if field.name in writable_field_names
+                # Real fields, not e.g. reverse-relations
+                and getattr(field, "concrete", False)
+                # Editable fields, not e.g. pk, sort_order
+                and field.editable
+                # Has no registered field schema function
+                and not any(cls in self.field_schemas for cls in field.__class__.mro())
+            ]
 
             name = f"{model._meta.object_name}InputSchema"
-            schema = create_schema(
-                model,
-                name=f"{name}Base",
-                exclude=list(exclude),
-                base_class=Schema,
-            )
+            if field_names:
+                schema = create_schema(
+                    model,
+                    name=f"{name}Base",
+                    fields=field_names,
+                    base_class=Schema,
+                )
+            else:
+                # ninja's create_schema() treats an empty `fields` list as
+                # "no restriction" and includes every model field, so build
+                # an empty base schema directly instead - every writable
+                # field here is a relation/StreamField/etc handled below via
+                # _build_extra_fields.
+                schema = type(Schema)(f"{name}Base", (Schema,), {})
 
-            extra_fields = self._build_extra_fields(model, exclude=exclude)
+            extra_fields = self._build_extra_fields(model)
             namespace: dict[str, Any] = {"__annotations__": {}}
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
@@ -88,30 +107,15 @@ class InputSchemaGenerator:
             self._child_relation_schema_cache[model] = schema
         return self._child_relation_schema_cache[model]
 
-    def _build_extra_fields(
-        self,
-        model: type[Model],
-        *,
-        exclude: Iterable[str] = (),
-    ) -> dict[str, tuple[Any, Any]]:
+    def _build_extra_fields(self, model: type[Model]) -> dict[str, tuple[Any, Any]]:
         """Return ``{field_name: (annotation, default)}`` for ``api_fields`` extras.
 
         Custom-serializer (legacy API v2) fields are skipped since those are
-        read-only computed values with no defined writable shape. ``exclude``
-        drops any field also named there - namely the housekeeping fields
-        ``get_child_relation_schema`` already excludes (the ``ParentalKey``
-        back to the parent, the primary key, ``sort_order``): a model's
-        ``api_fields`` may list one of those (e.g. to expose the parent link
-        for reading), and without this, that would silently reintroduce a
-        field this API never intends to accept from the client.
+        read-only computed values with no defined writable shape.
         """
-        exclude = set(exclude)
         extra_fields: dict[str, tuple[Any, Any]] = {}
 
         for field in APIField.get_writable_fields_for_model(model):
-            if field.name in exclude:
-                continue
-
             if field.serializer is not None:
                 continue
 
@@ -134,8 +138,7 @@ class InputSchemaGenerator:
                         extra_fields[field.name] = field_schema
                     break
             else:
-                python_type, field_info = get_schema_field(model_field)
-                extra_fields[field.name] = (python_type, field_info.default)
+                extra_fields[field.name] = get_schema_field(model_field)
 
         return extra_fields
 
@@ -243,8 +246,7 @@ def foreign_key_schema(
     generator: InputSchemaGenerator, field: Field
 ) -> InputFieldSchema:
     field = cast(ForeignKey, field)
-    python_type, field_info = get_schema_field(field)
-    return python_type, field_info.default
+    return get_schema_field(field)
 
 
 generator = InputSchemaGenerator()

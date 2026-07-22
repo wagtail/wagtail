@@ -1,6 +1,7 @@
 from django.test import SimpleTestCase
 from ninja import Schema
 
+from wagtail.api import APIField
 from wagtail.api.v3.schemas import create_generator
 from wagtail.api.v3.schemas.pages import (
     PAGE_CREATE_FIELDS,
@@ -96,7 +97,11 @@ class TestChildRelationSchemaExcludesParentalKey(SimpleTestCase):
 
     def setUp(self):
         self.original_api_fields = getattr(HomePageCarouselItem, "api_fields", ())
-        HomePageCarouselItem.api_fields = ("page", "caption", "embed_url")
+        HomePageCarouselItem.api_fields = (
+            "page",
+            APIField("caption", writable=True),
+            APIField("embed_url", writable=True),
+        )
         create_generator._child_relation_schema_cache.pop(HomePageCarouselItem, None)
 
     def tearDown(self):
