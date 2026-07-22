@@ -55,6 +55,15 @@ def filter_form_options(
 
 
 def get_api_form_class(model: type[Model]):
+    """
+    Creates a form class for the given model, using the model's edit handler to
+    preserve configuration such as required_on_save, permissions, etc., but only
+    including fields that are writable APIFields.
+
+    The form class is based on the model's ``api_base_form_class`` (if defined),
+    or the edit handler's ``base_form_class``, or the model's ``base_form_class``,
+    or ``WagtailAdminModelForm`` as a last resort.
+    """
     try:
         # Page.get_edit_handler is monkey-patched onto the class by
         # wagtail.admin.panels.page_utils, so it isn't visible statically.
@@ -64,8 +73,12 @@ def get_api_form_class(model: type[Model]):
 
     # The following is similar to Panel.get_form_class(),
     form_options = edit_handler.get_form_options()
-    model_form_class = getattr(model, "base_form_class", WagtailAdminModelForm)
-    base_form_class = edit_handler.base_form_class or model_form_class
+    base_form_class = (
+        getattr(model, "api_base_form_class", None)
+        or edit_handler.base_form_class
+        or getattr(model, "base_form_class", None)
+        or WagtailAdminModelForm
+    )
 
     # but we narrow fields/formsets to only writable APIFields, adding back
     # any writable APIField that isn't exposed by a panel.

@@ -427,6 +427,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "audience": "public",
                 "location": "",
                 "cost": "",
+                "signup_link": "http://example.com/signup",
             }
         )
         content = self.assert_problem_response(response, status_code=422)
@@ -443,6 +444,50 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                     "loc": ["cost"],
                     "message": "This field is required.",
                 },
+            ],
+        )
+
+    def test_api_base_form_class(self):
+        """
+        EventPage has API-specific api_base_form_class with a custom validation
+        rule that requires signup_link to be set when publishing an event.
+        """
+        self.login()
+        payload = {
+            "meta": {
+                "parent_id": self.root_page.pk,
+                "type": "demosite.EventPage",
+            },
+            "title": "New page as draft",
+            "slug": "new-page-as-draft",
+            "date_from": "2026-07-21",
+            "audience": "public",
+            "location": "Somewhere",
+            "cost": "Free",
+        }
+        response = self.post(payload)
+        self.assertEqual(response.status_code, 201)
+        page = EventPage.objects.get(slug="new-page-as-draft")
+        self.assertFalse(page.live)
+        self.assertEqual(page.signup_link, "")
+
+        response = self.post(
+            {
+                **payload,
+                "meta": {**payload["meta"], "action": "publish"},
+                "title": "New page to publish",
+                "slug": "new-page-to-publish",
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "invalid",
+                    "loc": ["signup_link"],
+                    "message": "This field is required when publishing events via the API.",
+                }
             ],
         )
 
