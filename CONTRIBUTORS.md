@@ -1001,6 +1001,7 @@
 * Saksham Chawla
 * Roshan Ramani
 * Jawad Khan
+* Taras Panasiuk
 
 ## Translators
 

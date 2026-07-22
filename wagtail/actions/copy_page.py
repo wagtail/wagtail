@@ -35,6 +35,7 @@ class CopyPageAction(BaseAction):
 
     action_name = "copy"
     permission_error_class = CopyPagePermissionError
+    revision_copy_chunk_size = 500
 
     def __init__(
         self,
@@ -192,7 +193,9 @@ class CopyPageAction(BaseAction):
             # will be replaced with the corresponding field from here.
             page_copy_data = page_copy.serializable_data()
 
-            for revision in page.revisions.all():
+            for revision in page.revisions.all().iterator(
+                chunk_size=self.revision_copy_chunk_size
+            ):
                 use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
                 revision.approved_go_live_at = None
