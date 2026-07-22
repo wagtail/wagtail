@@ -849,6 +849,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/BlogEntryPageCarouselItemMetaSchema"
           }
@@ -901,10 +932,10 @@
           },
           "date": {
             "format": "date",
-            "title": "Date",
+            "title": "Post date",
             "type": "string"
           },
-          "feed_image": {
+          "feed_image_id": {
             "anyOf": [
               {
                 "type": "integer"
@@ -1130,6 +1161,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/BlogEntryPageRelatedLinkMetaSchema"
@@ -1392,6 +1454,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/BlogIndexPageRelatedLinkMetaSchema"
@@ -4536,6 +4629,39 @@
         "title": "DefaultStreamPageSchema",
         "type": "object"
       },
+      "DocumentForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DocumentMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "DocumentForeignKeySchema",
+        "type": "object"
+      },
+      "DocumentMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "wagtaildocs.Document",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "DocumentMetaSchema",
+        "type": "object"
+      },
       "EarlyPageInputMetaSchema": {
         "properties": {
           "action": {
@@ -5050,6 +5176,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/EventIndexPageRelatedLinkMetaSchema"
           },
@@ -5253,6 +5410,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/EventPageCarouselItemMetaSchema"
           }
@@ -5335,6 +5523,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/EventPageRelatedLinkMetaSchema"
           },
@@ -5385,39 +5604,6 @@
               }
             ],
             "title": "Surname"
-          },
-          "link_document_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Document"
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
           }
         },
         "title": "EventPageSpeakerInputSchema",
@@ -7463,6 +7649,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/HomePageCarouselItemMetaSchema"
           }
@@ -7727,6 +7944,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/HomePageRelatedLinkMetaSchema"
@@ -9752,6 +10000,27 @@
         "title": "OneToOnePageSchema",
         "type": "object"
       },
+      "PageForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__PageMetaSchema__2"
+          }
+        },
+        "required": ["meta"],
+        "title": "PageForeignKeySchema",
+        "type": "object"
+      },
       "PageInputMetaSchema": {
         "properties": {
           "action": {
@@ -9899,12 +10168,18 @@
             "type": "string"
           },
           "type": {
-            "const": "wagtailcore.Page",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
-        "required": ["type", "slug"],
+        "required": ["slug"],
         "title": "PageMetaSchema",
         "type": "object"
       },
@@ -9922,7 +10197,7 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/PageMetaSchema"
+            "$ref": "#/components/schemas/abc__PageMetaSchema__1"
           },
           "title": {
             "title": "Title",
@@ -10536,6 +10811,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/PersonPageRelatedLinkMetaSchema"
@@ -13908,6 +14214,37 @@
           "link": {
             "title": "Link"
           },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "meta": {
             "$ref": "#/components/schemas/StandardIndexPageRelatedLinkMetaSchema"
           },
@@ -14047,6 +14384,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/StandardPageCarouselItemMetaSchema"
@@ -14239,6 +14607,37 @@
           },
           "link": {
             "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/StandardPageRelatedLinkMetaSchema"
@@ -15676,6 +16075,7 @@
       "abc__EventPageInputSchema__2": {
         "properties": {
           "audience": {
+            "maxLength": 255,
             "title": "Audience",
             "type": "string"
           },
@@ -15699,12 +16099,13 @@
             "type": "array"
           },
           "cost": {
+            "maxLength": 255,
             "title": "Cost",
             "type": "string"
           },
           "date_from": {
             "format": "date",
-            "title": "Date From",
+            "title": "Start date",
             "type": "string"
           },
           "date_to": {
@@ -15717,9 +16118,10 @@
                 "type": "null"
               }
             ],
-            "title": "Date To"
+            "description": "Not required if event is on a single day",
+            "title": "End date"
           },
-          "feed_image": {
+          "feed_image_id": {
             "anyOf": [
               {
                 "type": "integer"
@@ -15731,6 +16133,7 @@
             "title": "Feed Image"
           },
           "location": {
+            "maxLength": 255,
             "title": "Location",
             "type": "string"
           },
@@ -15825,7 +16228,7 @@
                 "type": "null"
               }
             ],
-            "title": "Time From"
+            "title": "Start time"
           },
           "time_to": {
             "anyOf": [
@@ -15837,7 +16240,7 @@
                 "type": "null"
               }
             ],
-            "title": "Time To"
+            "title": "End time"
           },
           "title": {
             "description": "The page title as you'd like it to be seen by the public",
@@ -16490,6 +16893,79 @@
         },
         "required": ["id", "title", "meta"],
         "title": "FormPageSchema",
+        "type": "object"
+      },
+      "abc__PageMetaSchema__1": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "const": "wagtailcore.Page",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type", "slug"],
+        "title": "PageMetaSchema",
+        "type": "object"
+      },
+      "abc__PageMetaSchema__2": {
+        "properties": {
+          "type": {
+            "const": "wagtailcore.Page",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "PageMetaSchema",
         "type": "object"
       },
       "abc__PersonPageInputMetaSchema__1": {

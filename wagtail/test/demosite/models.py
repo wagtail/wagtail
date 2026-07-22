@@ -55,7 +55,12 @@ class AbstractLinkFields(models.Model):
                 "You must provide a related page, related document or an external URL"
             )
 
-    api_fields = ("link",)
+    api_fields = (
+        "link",
+        APIField("link_external", writable=True),
+        APIField("link_page", writable=True),
+        APIField("link_document", writable=True),
+    )
 
     panels = [
         FieldPanel("link_external"),
@@ -70,7 +75,7 @@ class AbstractLinkFields(models.Model):
 class AbstractRelatedLink(AbstractLinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
-    api_fields = ("title",) + AbstractLinkFields.api_fields
+    api_fields = (APIField("title", writable=True),) + AbstractLinkFields.api_fields
 
     panels = [
         FieldPanel("title"),
@@ -93,9 +98,9 @@ class AbstractCarouselItem(AbstractLinkFields):
     caption = models.CharField(max_length=255, blank=True)
 
     api_fields = (
-        "image",
-        "embed_url",
-        "caption",
+        APIField("image", writable=True),
+        APIField("embed_url", writable=True),
+        APIField("caption", writable=True),
     ) + AbstractLinkFields.api_fields
 
     panels = [
@@ -499,9 +504,9 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
     )
 
     api_fields = (
-        "first_name",
-        "last_name",
-        "image",
+        APIField("first_name", writable=True),
+        APIField("last_name", writable=True),
+        APIField("image", writable=True),
     )
 
     panels = [

@@ -11,11 +11,47 @@ from ninja.schema import BaseModel
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
+from wagtail.api.v3.schemas import create_generator
 from wagtail.blocks.base import BlockField
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
 from wagtail.models import Page
+
+
+def filter_form_options(
+    model: type[Model],
+    form_options: dict[str, Any],
+    writable_fields: list[str],
+) -> dict[str, Any]:
+    """Restrict ``form_options`` (from a ``Panel``/``InlinePanel``'s
+    ``get_form_options()``) to writable APIFields: ``fields`` is narrowed to
+    ``writable_fields``, minus any name that's actually a formset relation,
+    and each formset in ``formsets`` is recursively narrowed the same way
+    against its own child model's writable APIFields - so a child model that
+    itself declares an InlinePanel is handled too.
+
+    Reuses ``create_generator``'s cached child relation schema (built while
+    generating the top-level ``create_schema``) rather than re-deriving a
+    child model's writable fields from its raw ``api_fields``.
+    """
+    formsets = form_options.get("formsets") or {}
+    fields = [name for name in writable_fields if name not in formsets]
+
+    filtered_formsets = {}
+    for name, formset_options in formsets.items():
+        if name not in writable_fields:
+            continue
+        child_model = cast(type[Model], model._meta.get_field(name).related_model)
+        child_schema = create_generator.get_child_relation_schema(child_model)
+        filtered_formsets[name] = {
+            **formset_options,
+            **filter_form_options(
+                child_model, formset_options, child_schema.model_fields.keys()
+            ),
+        }
+
+    return {**form_options, "fields": fields, "formsets": filtered_formsets}
 
 
 def get_api_form_class(model: type[Model]):
@@ -31,18 +67,14 @@ def get_api_form_class(model: type[Model]):
     model_form_class = getattr(model, "base_form_class", WagtailAdminModelForm)
     base_form_class = edit_handler.base_form_class or model_form_class
 
-    # but we filter the fields and formsets to only writable APIFields.
+    # but we narrow fields/formsets to only writable APIFields, adding back
+    # any writable APIField that isn't exposed by a panel.
     registered_schemas = cast(ContentTypeRegistration, registry.get(model._meta.label))
     create_schema = cast(type[BaseModel], registered_schemas.create_schema)
-    writable_fields = create_schema.model_fields.keys()
-    form_options["fields"] = [
-        name for name in form_options.get("fields", []) if name in writable_fields
+    writable_fields = [
+        name for name in create_schema.model_fields.keys() if name != "meta"
     ]
-    form_options["formsets"] = {
-        name: formset_options
-        for name, formset_options in form_options.get("formsets", {}).items()
-        if name in writable_fields
-    }
+    form_options.update(filter_form_options(model, form_options, writable_fields))
 
     return get_form_for_model(
         model,
