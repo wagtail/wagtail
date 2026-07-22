@@ -21,7 +21,7 @@ def hash_filelike(filelike):
     if hasattr(hashlib, "file_digest"):
         hasher = hashlib.file_digest(filelike, hashlib.sha1)
     else:
-        hasher = hashlib.sha1()
+        hasher = hashlib.sha1()  # noqa: S324 -  use of sha1 is acceptable here for non-security purposes
         while True:
             data = filelike.read(HASH_READ_SIZE)
             if not data:

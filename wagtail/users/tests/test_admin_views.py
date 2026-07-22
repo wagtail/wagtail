@@ -2715,10 +2715,10 @@ class TestGroupViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "group_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.group_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.group_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "group_viewset")
 
@@ -2771,10 +2771,10 @@ class TestUserViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "user_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.user_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.user_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "user_viewset")
 

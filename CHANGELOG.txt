@@ -34,6 +34,8 @@ Changelog
  * Maintenance: Refactor pages' function-based views to class-based views (Sage Abdullah)
  * Maintenance: Add renovate configuration to automate Python dependencies management (Sage Abdullah)
  * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
+ * Maintenance: Enable flake8-bandit security-focused linting rules (Storm Heg)
+ * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
 
 
 7.4.2 (15.06.2026)
@@ -135,6 +137,7 @@ Changelog
  * Docs: Clarify default value for for `WAGTAILDOCS_SERVE_METHOD` (Thibaud Colas)
  * Docs: Document security reporting policy about runtime vs. development dependencies (Thibaud Colas)
  * Docs: Add reference documentation for `wagtail.admin.ui.tables` (Sage Abdullah)
+ * Docs: Update django-ninja code examples to use new Meta class implemented in django-ninja V1 (Jack Whitworth)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)

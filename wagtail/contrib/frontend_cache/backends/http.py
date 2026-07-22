@@ -50,7 +50,7 @@ class HTTPBackend(BaseBackend):
         )
 
         try:
-            urlopen(request)
+            urlopen(request)  # noqa: S310 - scheme is controlled through configured backend LOCATION
         except HTTPError as e:
             logger.error(
                 "Couldn't purge '%s' from HTTP cache. HTTPError: %d %s",

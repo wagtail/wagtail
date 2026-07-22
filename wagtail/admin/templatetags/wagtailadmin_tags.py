@@ -310,7 +310,7 @@ def hook_output(hook_name):
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
 
-    return mark_safe("".join(snippets))
+    return mark_safe("".join(snippets))  # noqa: S308 - not this function's responsibility to escape unsafe content
 
 
 @register.simple_tag
@@ -989,7 +989,7 @@ class FragmentNode(template.Node):
         # Then, use mark_safe because the SafeString returned by
         # NodeList.render() is lost after stripping.
         if self.stripped:
-            fragment = mark_safe(fragment.strip())
+            fragment = mark_safe(fragment.strip())  # noqa: S308 - Template-rendered HTML is safe
         context[self.target_var] = fragment
         return ""
 

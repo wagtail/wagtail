@@ -7,7 +7,7 @@ from setuptools.command.sdist import sdist as base_sdist
 class sdist(base_sdist):
     def compile_assets(self):
         try:
-            subprocess.check_call(["npm", "run", "build"])
+            subprocess.check_call(["npm", "run", "build"])  # noqa: S603, S607 - no untrusted input. Starting process from partial path is fine.
         except (OSError, subprocess.CalledProcessError) as e:
             print("Error compiling assets: " + str(e))  # noqa: T201
             raise SystemExit(1) from e
