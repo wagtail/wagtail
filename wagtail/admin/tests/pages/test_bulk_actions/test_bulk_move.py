@@ -350,3 +350,23 @@ class TestBulkMove(WagtailTestUtils, TestCase):
             ),
             html,
         )
+
+    def test_bulk_move_with_ancestor_descendant_selection(self):
+        parent = SimplePage(title="Parent page", slug="parent-page", content="parent")
+        self.section_c.add_child(instance=parent)
+        child = SimplePage(title="Child page", slug="child-page", content="child")
+        parent.add_child(instance=child)
+
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "move"),
+            )
+            + f"?id={parent.id}&id={child.id}"
+        )
+        response = self.client.post(url, {"chooser": self.section_b.id})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            Page.objects.get(id=parent.id).get_parent().id, self.section_b.id
+        )
+        self.assertEqual(Page.objects.get(id=child.id).get_parent().id, parent.id)
