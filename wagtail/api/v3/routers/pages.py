@@ -9,32 +9,17 @@ from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
-from wagtail.api.v3.schemas import (
-    BasePageSchema,
-    build_page_input_schema_union,
-    build_page_schema_union,
-    build_page_update_schema_union,
-)
+from wagtail.api.v3.schemas import BasePageSchema, build_page_schema_unions
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page, get_page_models
 from wagtail.utils.forms import FormValidationError
 
 router = Router(tags=["pages"])
 
-#: A discriminated union of every concrete page model's generated schema,
-#: so the detail endpoint's response accurately reflects whichever specific
-#: page type was requested, instead of only the fields BasePageSchema has.
-PageDetailSchema = build_page_schema_union(get_page_models())
-
-#: A discriminated union of every concrete page model's generated input
-#: schema, so the create endpoint accepts whichever fields are valid for the
-#: specific page type named by its "type" field.
-PageCreateSchema = build_page_input_schema_union(get_page_models())
-
-#: A discriminated union of every concrete page model's generated update
-#: schema, so the update endpoint accepts whichever fields are valid for the
-#: specific page type named by its "type" field.
-PageUpdateSchema = build_page_update_schema_union(get_page_models())
+_page_schemas = build_page_schema_unions(get_page_models())
+PageDetailSchema = _page_schemas.detail
+PageCreateSchema = _page_schemas.create
+PageUpdateSchema = _page_schemas.update
 
 
 def _public_pages_queryset(request: HttpRequest):
