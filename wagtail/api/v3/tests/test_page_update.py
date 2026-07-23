@@ -5,8 +5,15 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import GroupPagePermission, Page, PageLogEntry
-from wagtail.test.demosite.models import BlogIndexPage, EventPage, HomePage
+from wagtail.test.demosite.models import (
+    BlogEntryPage,
+    BlogIndexPage,
+    EventPage,
+    HomePage,
+)
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -424,6 +431,74 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         items = list(page.carousel_items.order_by("sort_order"))
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0].caption, "Kept")
+
+    def test_update_page_with_foreign_key_field(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "feed_image_id": image.pk,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertEqual(page.feed_image_id, image.pk)
+
+    def test_update_page_with_foreign_key_field_omitted_is_untouched(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                feed_image=image,
+                live=False,
+            )
+        )
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "title": "Entry renamed",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertEqual(page.feed_image_id, image.pk)
+
+    def test_update_page_with_foreign_key_field_set_to_null_clears_it(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                feed_image=image,
+                live=False,
+            )
+        )
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "feed_image_id": None,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertIsNone(page.feed_image_id)
 
     def test_page_type_mismatch_returns_422(self):
         page = self.root_page.add_child(
