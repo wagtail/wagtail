@@ -2,7 +2,6 @@ from collections.abc import Callable
 from typing import Any
 
 from django.conf import settings
-from django.http import HttpRequest
 
 from wagtail.rich_text import expand_db_html
 
@@ -29,7 +28,6 @@ class APIRichText:
 
     DEFAULT_FORMAT = FORMAT_DB_HTML
     SETTING_NAME = "WAGTAILAPI_RICH_TEXT_FORMAT"
-    QUERY_PARAMETER = "rich_text_format"
 
     @classmethod
     def formats(cls) -> frozenset[str]:
@@ -42,16 +40,17 @@ class APIRichText:
         return rich_text_format
 
     @classmethod
-    def resolve_format(cls, request: HttpRequest | None = None) -> str:
+    def resolve_format(cls, rich_text_format: str | None = None) -> str:
         """
         Return the rich text output format for this request.
 
-        The ``?rich_text_format=`` query parameter takes precedence over
-        ``WAGTAILAPI_RICH_TEXT_FORMAT``.
+        When ``rich_text_format`` is provided (e.g. from a query parameter),
+        it is validated and takes precedence over
+        ``WAGTAILAPI_RICH_TEXT_FORMAT``. When ``None``, falls back to the
+        project-wide default.
         """
-        if request is not None and cls.QUERY_PARAMETER in request.GET:
-            rich_text_format = request.GET[cls.QUERY_PARAMETER]
-            cls._validate_format(rich_text_format, source=cls.QUERY_PARAMETER)
+        if rich_text_format is not None:
+            cls._validate_format(rich_text_format)
             return rich_text_format
 
         return cls.get_default_format()
@@ -80,7 +79,9 @@ class APIRichText:
         return expand_db_html(value)
 
     @classmethod
-    def _validate_format(cls, rich_text_format: str, *, source: str) -> None:
+    def _validate_format(
+        cls, rich_text_format: str, *, source: str | None = None
+    ) -> None:
         if rich_text_format in cls._serializers():
             return
 
@@ -89,9 +90,11 @@ class APIRichText:
             message = (
                 f"{cls.SETTING_NAME} must be one of {allowed}, got '{rich_text_format}'"
             )
-        elif source == cls.QUERY_PARAMETER:
-            message = f"{cls.QUERY_PARAMETER} must be one of {allowed}, got '{rich_text_format}'"
-        else:
+        elif source is not None:
             message = f"Unknown rich text format '{rich_text_format}'"
+        else:
+            message = (
+                f"rich_text_format must be one of {allowed}, got '{rich_text_format}'"
+            )
 
         raise RichTextFormatError(message)

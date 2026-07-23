@@ -277,7 +277,9 @@ class RichTextFieldSerializer(serializers.CharField):
     def to_representation(self, value):
         rich_text_format = self.context.get("_wagtail_rich_text_format")
         if rich_text_format is None:
-            rich_text_format = APIRichText.resolve_format(self.context.get("request"))
+            request = self.context.get("request")
+            raw = request.GET.get("rich_text_format") if request else None
+            rich_text_format = APIRichText.resolve_format(raw)
             self.context["_wagtail_rich_text_format"] = rich_text_format
         representation = super().to_representation(value)
         return APIRichText.serialize(representation, format=rich_text_format)
