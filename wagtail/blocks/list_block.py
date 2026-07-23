@@ -103,6 +103,12 @@ class ListValue(MutableSequence):
                 "id": self.id,
             }
 
+        def render(self, context=None):
+            context = context or {}
+            if "id" not in context:
+                context["id"] = self.id
+            return super().render(context)
+
     def __init__(self, list_block, values=None, bound_blocks=None):
         self.list_block = list_block
 
