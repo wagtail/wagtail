@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail import hooks
 from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.admin.views.pages.utils import type_to_delete_confirmation
@@ -52,10 +53,36 @@ class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
     @classmethod
     def execute_action(cls, objects, user=None, **kwargs):
         num_parent_objects, num_child_objects = 0, 0
+
+        # Collect pages to delete including translations if I18N is enabled
+        all_pages_to_delete = {}
+        parent_translations_map = {}
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
+                fn_pages = fn(objects, "delete")
+                if fn_pages and isinstance(fn_pages, dict):
+                    for source_page, translated_pages in fn_pages.items():
+                        if source_page not in all_pages_to_delete:
+                            all_pages_to_delete[source_page] = []
+                        all_pages_to_delete[source_page].extend(list(translated_pages))
+            
+            # Store parent translations before deleting pages
+            for page in objects:
+                parent_translations_map[page] = list(page.get_parent().get_translations())
+
         for page in objects:
             num_parent_objects += 1
             num_child_objects += page.get_descendant_count()
             page.delete(user=user)
+
+            # Delete translation and alias pages if they have the same parent page
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                translated_pages = all_pages_to_delete.get(page, [])
+                parent_page_translations = parent_translations_map.get(page, [])
+                for translation in translated_pages:
+                    if translation.get_parent() in parent_page_translations:
+                        translation.delete(user=user)
+
         return num_parent_objects, num_child_objects
 
     def get_usage_url(self, item):
