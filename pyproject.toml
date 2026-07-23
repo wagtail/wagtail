@@ -76,11 +76,11 @@ testing = [
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.15.20",
-  "ty==0.0.56",
+  "ruff==0.15.22",
+  "ty==0.0.60",
   "django-stubs==6.0.6",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.168.0",
+  "semgrep==1.170.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
