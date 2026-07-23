@@ -21,7 +21,7 @@ InputFieldSchemaFunc = Callable[["InputSchemaGenerator", Field], InputFieldSchem
 
 class InputSchemaGenerator:
     """
-    Auto-generates Ninja input (create) schemas for concrete models.
+    Auto-generates Ninja input (create/patch) schemas for concrete models.
 
     Mirrors :class:`wagtail.api.v3.schemas.generators.read.SchemaGenerator`,
     but describes what the API accepts for writing rather than what it
@@ -317,11 +317,11 @@ def foreign_key_schema(
     return get_schema_field(field)
 
 
-generator = InputSchemaGenerator()
-generator.register_field_schema(StreamField, streamfield_schema)
-generator.register_field_schema(TaggableManager, tags_schema)
-generator.register_field_schema(ForeignObjectRel, child_relation_schema)
-generator.register_field_schema(ForeignKey, foreign_key_schema)
+create_generator = InputSchemaGenerator()
+create_generator.register_field_schema(StreamField, streamfield_schema)
+create_generator.register_field_schema(TaggableManager, tags_schema)
+create_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
+create_generator.register_field_schema(ForeignKey, foreign_key_schema)
 
 #: Same field-schema handling as ``generator``, but every extra field it
 #: adds is optional regardless of the underlying Django field's own
