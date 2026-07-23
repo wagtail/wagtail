@@ -1,3 +1,6 @@
+import { BlockToolbar, CommandPalette, InlineToolbar } from 'draftail';
+import React from 'react';
+
 import draftail, {
   Document,
   EmbedBlock,
@@ -8,6 +11,22 @@ import draftail, {
 
 window.comments = {
   getContentPath: jest.fn(),
+};
+
+const findComponent = (children, type) => {
+  const components = React.Children.toArray(children);
+  let component = components.find((child) => child.type === type);
+
+  if (component) {
+    return component;
+  }
+
+  components.some((child) => {
+    component = findComponent(child.props?.children, type);
+    return Boolean(component);
+  });
+
+  return component;
 };
 
 describe('Draftail', () => {
@@ -96,6 +115,44 @@ describe('Draftail', () => {
       draftail.initEditor('#test', {});
 
       expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
+    });
+
+    it('applies block toolbar changes without completing a source', () => {
+      document.body.innerHTML = '<input id="test" value="null" />';
+      const field = document.querySelector('#test');
+      const toolbarProps = {
+        onChange: jest.fn(),
+        onCompleteSource: jest.fn(),
+        onRequestSource: jest.fn(),
+        addHR: jest.fn(),
+      };
+      const nextState = {};
+
+      draftail.initEditor('#test', {});
+
+      const topToolbar = field.draftailEditor.props.topToolbar(toolbarProps);
+      const blockToolbar = findComponent(
+        topToolbar.props.children,
+        BlockToolbar,
+      );
+      const inlineToolbar = findComponent(
+        topToolbar.props.children,
+        InlineToolbar,
+      );
+      const commandToolbar =
+        field.draftailEditor.props.commandToolbar(toolbarProps);
+      const commandPalette = findComponent(commandToolbar, CommandPalette);
+
+      blockToolbar.props.onCompleteSource(nextState);
+
+      expect(toolbarProps.onChange).toHaveBeenCalledWith(nextState);
+      expect(toolbarProps.onCompleteSource).not.toHaveBeenCalled();
+      expect(inlineToolbar.props.onCompleteSource).toBe(
+        toolbarProps.onCompleteSource,
+      );
+      expect(commandPalette.props.onCompleteSource).toBe(
+        toolbarProps.onCompleteSource,
+      );
     });
 
     describe('selector conflicts', () => {
