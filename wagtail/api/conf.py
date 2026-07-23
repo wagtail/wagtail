@@ -2,7 +2,7 @@ from django.db.models import Model
 
 
 class APIField:
-    def __init__(self, name, serializer=None, writable=False):
+    def __init__(self, name: str, serializer=None, writable=False):
         self.name = name
         self.serializer = serializer
         self.writable = writable

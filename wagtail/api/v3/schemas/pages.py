@@ -2,6 +2,7 @@ from collections.abc import Iterable
 from datetime import datetime
 from typing import Annotated, Any, Literal, Union
 
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
@@ -9,7 +10,7 @@ from ninja import Schema
 from pydantic import Discriminator, Tag
 
 from wagtail.api.v2.utils import get_full_url
-from wagtail.api.v3.schemas import create_generator, read_generator
+from wagtail.api.v3.schemas import read_generator
 from wagtail.models import Page
 
 
@@ -136,7 +137,7 @@ class PageCreateBaseSchema(Schema):
     meta: PageCreateMetaSchema
 
 
-def _discriminate_page_create_schema(value: Any) -> str | None:
+def _discriminate_page_write_schema(value: Any) -> str | None:
     """Pick the page-create union member matching ``value``'s ``meta.type``.
 
     Runs during validation, where ``value`` is the raw request dict (parsed
@@ -159,29 +160,97 @@ def build_page_input_schema_union(models: Iterable[type[Model]]) -> Any:
     page model to create - the same discriminator value used by the read-side
     union and ``meta.type`` in responses. ``meta`` itself is narrowed per
     model by ``create_generator.generate_schema``.
+
+    Reads each model's ``create_schema`` off the registry (populated by
+    ``ContentTypeRegistry.register_defaults``) instead of generating it
+    again here: two independently generated schemas for the same model and
+    ``base_class`` would be distinct Python objects sharing one class
+    ``__name__``, and ninja/pydantic key OpenAPI components by that name -
+    so whichever one got built second would silently shadow the other in
+    the generated docs.
     """
+    from wagtail.api.v3.registry import registry
+
+    def schema_for(model: type[Model]) -> type[Any]:
+        registration = registry.get(model._meta.label)
+        if registration is None or registration.create_schema is None:
+            raise ImproperlyConfigured(
+                f"{model._meta.label} has no registered create_schema - "
+                "ContentTypeRegistry.register_defaults() must run before "
+                "build_page_input_schema_union()."
+            )
+        return registration.create_schema
+
     models = list(models)
     if len(models) == 1:
-        return create_generator.generate_schema(
-            models[0],
-            base_class=PageCreateBaseSchema,
-            fields=PAGE_CREATE_FIELDS,
-            required_fields=("title",),
-        )
+        return schema_for(models[0])
 
     members = tuple(
-        Annotated[
-            create_generator.generate_schema(  # ty: ignore[invalid-type-form]
-                model,
-                base_class=PageCreateBaseSchema,
-                fields=PAGE_CREATE_FIELDS,
-                required_fields=("title",),
-            ),
-            Tag(model._meta.label),
-        ]
+        Annotated[schema_for(model), Tag(model._meta.label)]  # ty: ignore[invalid-type-form]
         for model in models
     )
     return Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
-        Discriminator(_discriminate_page_create_schema),
+        Discriminator(_discriminate_page_write_schema),
+    ]
+
+
+class PageUpdateMetaSchema(Schema):
+    type: str
+    action: Literal["publish"] | None = None
+
+
+class PageUpdateBaseSchema(Schema):
+    meta: PageUpdateMetaSchema
+
+
+def build_page_update_schema_union(models: Iterable[type[Model]]) -> Any:
+    """Build a request type covering every model's generated input schema
+    for partially updating an existing page.
+
+    Every member includes a ``meta`` field holding ``type`` (the page
+    model's content type label, e.g. ``"tests.SimplePage"``) - the same
+    discriminator value used by the create-side union and ``meta.type`` in
+    responses - which picks the specific page model's schema to validate
+    against. Unlike the create-side schema, there is no ``parent_id``: an
+    update does not move the page in the tree. Reuses
+    ``_discriminate_page_write_schema`` since both schemas key off the same
+    ``meta.type`` shape.
+
+    No field is marked required here (unlike the create-side union, which
+    requires ``title``): this is a PATCH-style partial update, where a field
+    absent from the request body must be left untouched rather than
+    rejected or cleared. The view reads which fields were actually supplied
+    via ``exclude_unset`` and narrows the bound form to just those, so a
+    field this schema defaults for validation purposes is never actually
+    written unless the request included it.
+
+    Reads each model's ``patch_schema`` off the registry instead of
+    generating it again here, for the same reason
+    ``build_page_input_schema_union`` reads ``create_schema`` off the
+    registry rather than regenerating it.
+    """
+    from wagtail.api.v3.registry import registry
+
+    def schema_for(model: type[Model]) -> type[Any]:
+        registration = registry.get(model._meta.label)
+        if registration is None or registration.patch_schema is None:
+            raise ImproperlyConfigured(
+                f"{model._meta.label} has no registered patch_schema - "
+                "ContentTypeRegistry.register_defaults() must run before "
+                "build_page_update_schema_union()."
+            )
+        return registration.patch_schema
+
+    models = list(models)
+    if len(models) == 1:
+        return schema_for(models[0])
+
+    members = tuple(
+        Annotated[schema_for(model), Tag(model._meta.label)]  # ty: ignore[invalid-type-form]
+        for model in models
+    )
+    return Annotated[
+        Union[members],  # ty: ignore[invalid-type-form]
+        Discriminator(_discriminate_page_write_schema),
     ]
