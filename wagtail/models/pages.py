@@ -663,7 +663,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # this method will be called again as part of the call to `save()` after the
         # path is populated, and we will auto-generate the slug at that point if
         # necessary.
-        if (not self.slug) and self.path:
+        # However, if the parent is known (e.g. when creating a new page under an
+        # existing page), we can auto-generate the slug and check for duplicates.
+        parent_is_known = bool(self.path or getattr(self, "_cached_parent_obj", None))
+        if (not self.slug) and parent_is_known:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
             base_slug = slugify(self.title, allow_unicode=allow_unicode)

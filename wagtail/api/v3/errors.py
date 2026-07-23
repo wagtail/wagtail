@@ -8,6 +8,8 @@ from ninja import Schema
 from ninja.errors import HttpError
 from ninja.errors import ValidationError as NinjaValidationError
 
+from wagtail.utils.forms import FormValidationError
+
 PROBLEM_JSON = "application/problem+json"
 DEFAULT_PROBLEM_TYPE = "about:blank"
 
@@ -76,9 +78,16 @@ def register_exception_handlers(api):
     @api.exception_handler(NinjaValidationError)
     @api.exception_handler(DjangoValidationError)
     def validation_error_handler(
-        request: HttpRequest, exc: DjangoValidationError | NinjaValidationError
+        request: HttpRequest,
+        exc: FormValidationError | DjangoValidationError | NinjaValidationError,
     ):
-        if isinstance(exc, DjangoValidationError):
+        if isinstance(exc, FormValidationError):
+            errors = [
+                {"type": code, "loc": list(path), "message": message}
+                for path, coded_messages in exc.loc_errors
+                for message, code in coded_messages
+            ]
+        elif isinstance(exc, DjangoValidationError):
             errors = [{"message": msg} for msg in exc.messages]
         else:
             errors = exc.errors

@@ -7,6 +7,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
@@ -55,7 +56,12 @@ class AbstractLinkFields(models.Model):
                 "You must provide a related page, related document or an external URL"
             )
 
-    api_fields = ("link",)
+    api_fields = (
+        "link",
+        APIField("link_external", writable=True),
+        APIField("link_page", writable=True),
+        APIField("link_document", writable=True),
+    )
 
     panels = [
         FieldPanel("link_external"),
@@ -70,7 +76,7 @@ class AbstractLinkFields(models.Model):
 class AbstractRelatedLink(AbstractLinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
-    api_fields = ("title",) + AbstractLinkFields.api_fields
+    api_fields = (APIField("title", writable=True),) + AbstractLinkFields.api_fields
 
     panels = [
         FieldPanel("title"),
@@ -93,9 +99,9 @@ class AbstractCarouselItem(AbstractLinkFields):
     caption = models.CharField(max_length=255, blank=True)
 
     api_fields = (
-        "image",
-        "embed_url",
-        "caption",
+        APIField("image", writable=True),
+        APIField("embed_url", writable=True),
+        APIField("caption", writable=True),
     ) + AbstractLinkFields.api_fields
 
     panels = [
@@ -155,9 +161,9 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 
     api_fields = (
-        "body",
-        "carousel_items",
-        "related_links",
+        APIField("body", writable=True),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
     )
 
     search_fields = Page.search_fields + [
@@ -305,16 +311,16 @@ class BlogEntryPage(Page):
     )
 
     api_fields = (
-        APIField("body"),
-        APIField("tags"),
-        APIField("date"),
-        APIField("feed_image"),
+        APIField("body", writable=True),
+        APIField("tags", writable=True),
+        APIField("date", writable=True),
+        APIField("feed_image", writable=True),
         APIField(
             "feed_image_thumbnail",
             serializer=ImageRenditionField("fill-300x300", source="feed_image"),
         ),
-        APIField("carousel_items"),
-        APIField("related_links"),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
     )
 
     search_fields = Page.search_fields + [
@@ -416,6 +422,26 @@ BlogIndexPage.content_panels = Page.content_panels + [
 # Events pages
 
 
+class EventPageAPIForm(WagtailAdminPageForm):
+    """
+    Used as EventPage's ``api_base_form_class``.
+
+    Demonstrate a custom validation mechanism that only applies when
+    publishing events via the API.
+    """
+
+    def clean_signup_link(self):
+        link = self.cleaned_data["signup_link"]
+
+        if not self.is_deferred_validation and not link:
+            self.add_error(
+                "signup_link",
+                "This field is required when publishing events via the API.",
+            )
+
+        return link
+
+
 class EventPage(Page):
     page_ptr = models.OneToOneField(
         Page, parent_link=True, related_name="+", on_delete=models.CASCADE
@@ -424,6 +450,8 @@ class EventPage(Page):
         ("public", "Public"),
         ("private", "Private"),
     )
+
+    api_base_form_class = EventPageAPIForm
 
     date_from = models.DateField("Start date")
     date_to = models.DateField(
@@ -448,19 +476,19 @@ class EventPage(Page):
     )
 
     api_fields = (
-        "date_from",
-        "date_to",
-        "time_from",
-        "time_to",
-        "audience",
-        "location",
-        "body",
-        "cost",
-        "signup_link",
-        "feed_image",
-        "carousel_items",
-        "related_links",
-        "speakers",
+        APIField("date_from", writable=True),
+        APIField("date_to", writable=True),
+        APIField("time_from", writable=True),
+        APIField("time_to", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("body", writable=True),
+        APIField("cost", writable=True),
+        APIField("signup_link", writable=True),
+        APIField("feed_image", writable=True),
+        APIField("carousel_items", writable=True),
+        APIField("related_links", writable=True),
+        APIField("speakers", writable=True),
     )
 
     search_fields = Page.search_fields + [
@@ -499,9 +527,13 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
     )
 
     api_fields = (
-        "first_name",
-        "last_name",
-        "image",
+        APIField("first_name", writable=True),
+        APIField("last_name", writable=True),
+        APIField("image", writable=True),
+        "link",
+        APIField("link_external", writable=True),
+        APIField("link_page", writable=True),
+        "link_document",  # test writable=False for model fields in inline models
     )
 
     panels = [

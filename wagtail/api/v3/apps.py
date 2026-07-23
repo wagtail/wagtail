@@ -6,8 +6,3 @@ class WagtailAPIV3AppConfig(AppConfig):
     name = "wagtail.api.v3"
     label = "wagtailapi_v3"
     verbose_name = _("Wagtail API v3")
-
-    def ready(self):
-        from wagtail.api.v3.registry import registry
-
-        registry.register_defaults()

@@ -1,7 +1,8 @@
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
+from wagtail.utils.forms import FormValidationError
 
 # Sentinel for "auto-detect the sort order field from the model", distinct from
 # an explicit None which means "do not set a sort order".
@@ -83,10 +84,20 @@ class CreateAction(BaseAction):
         )
 
     def _clean_instance(self):
+        # Always clean if a form is provided, as the form cannot be saved
+        # if it has not been validated.
         if self.form:
-            if not self.form.is_valid():
-                raise ValidationError(self.form.errors.get_json_data())
-        else:
+            from wagtail.admin.forms.models import WagtailAdminModelForm
+
+            if not self.publish and (isinstance(self.form, WagtailAdminModelForm)):
+                self.form.defer_required_fields()
+                is_valid = self.form.is_valid()
+                self.form.restore_required_fields()
+            else:
+                is_valid = self.form.is_valid()
+            if not is_valid:
+                raise FormValidationError.from_form(self.form)
+        elif self.clean:
             self.instance.full_clean()
 
     def _save_instance(self):
@@ -103,9 +114,7 @@ class CreateAction(BaseAction):
     def _create(self, skip_permission_checks=False):
         from wagtail.models.orderable import set_max_order
 
-        if self.clean:
-            self._clean_instance()
-
+        self._clean_instance()
         self._save_instance()
 
         # If the model declares a sort order field (e.g. via the Orderable

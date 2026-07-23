@@ -1,7 +1,8 @@
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
+from wagtail.utils.forms import FormValidationError
 
 
 class EditPermissionError(PermissionDenied):
@@ -75,10 +76,20 @@ class EditAction(BaseAction):
         self.revision = None
 
     def _clean_instance(self):
+        # Always clean if a form is provided, as the form cannot be saved
+        # if it has not been validated.
         if self.form:
-            if not self.form.is_valid():
-                raise ValidationError(self.form.errors.get_json_data())
-        else:
+            from wagtail.admin.forms.models import WagtailAdminModelForm
+
+            if not self.publish and (isinstance(self.form, WagtailAdminModelForm)):
+                self.form.defer_required_fields()
+                is_valid = self.form.is_valid()
+                self.form.restore_required_fields()
+            else:
+                is_valid = self.form.is_valid()
+            if not is_valid:
+                raise FormValidationError.from_form(self.form)
+        elif self.clean:
             self.instance.full_clean()
 
     def _save_instance(self):
@@ -98,8 +109,7 @@ class EditAction(BaseAction):
                 self.instance.save()
 
     def _edit(self, skip_permission_checks=False):
-        if self.clean:
-            self._clean_instance()
+        self._clean_instance()
 
         self._save_instance()
 
