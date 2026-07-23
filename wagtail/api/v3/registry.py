@@ -32,9 +32,10 @@ class ContentTypeRegistry:
     """Registry of content types exposed by the v3 API.
 
     Types are keyed by their ``name`` and discovered through the ``/schema/``
-    endpoints. Registrations are populated from
-    :meth:`WagtailAPIV3AppConfig.ready` so other apps can register types from
-    their own ``ready()`` hooks.
+    endpoints. The defaults Wagtail ships (currently ``pages``) are
+    populated as soon as this module is first imported (see the bottom of
+    this module) - other apps can register their own types any time after
+    that, including from their own ``ready()`` hooks.
     """
 
     def __init__(self):
@@ -131,5 +132,15 @@ class ContentTypeRegistry:
         return schema_cls.model_json_schema()
 
 
-#: Module-level singleton consumed by routers and the app config.
+#: Module-level singleton consumed by routers and other apps.
 registry = ContentTypeRegistry()
+
+# Populate immediately, rather than from WagtailAPIV3AppConfig.ready():
+# a router module (e.g. routers/pages.py) reads these registrations at
+# *its own* import time to build its request/response schemas, and
+# another app's ready() may trigger that import before any app's ready()
+# has necessarily run in wagtailapi_v3's favour, depending on
+# INSTALLED_APPS order. Every path to the
+# registry imports this module first (it's the only place `registry`
+# exists), so calling it here removes the ordering dependency entirely.
+registry.register_defaults()
