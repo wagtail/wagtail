@@ -107,7 +107,6 @@ class BaseAPIViewSet(GenericViewSet):
         return self._cached_object
 
     def detail_view(self, request, pk):
-        self.validate_rich_text_format()
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -249,17 +248,6 @@ class BaseAPIViewSet(GenericViewSet):
                 "query parameter is not an operation or a recognised field: %s"
                 % ", ".join(sorted(unknown_parameters))
             )
-
-        self.validate_rich_text_format()
-
-    def validate_rich_text_format(self):
-        if "rich_text_format" not in self.request.GET:
-            return
-
-        try:
-            APIRichText.resolve_format(self.request)
-        except RichTextFormatError as exc:
-            raise BadRequestError(str(exc)) from exc
 
     @classmethod
     def _get_serializer_class(
