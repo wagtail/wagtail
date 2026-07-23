@@ -101,3 +101,42 @@ class TestUserPasswordReset(WagtailTestUtils, TestCase):
         self.assertNotIn(
             "Your username (in case you've forgotten)", mail.outbox[0].body
         )
+
+    def test_confirmation_email_sent_after_password_reset(self):
+        """
+        This tests that a confirmation email is sent to the user after
+        their password has been successfully reset.
+        """
+        # request the reset email
+        self.client.post(
+            reverse("wagtailadmin_password_reset"),
+            {"email": "siteeditor@example.com"},
+        )
+
+        # get the reset link from the email body
+        self.assertEqual(len(mail.outbox), 1)
+        email_body = mail.outbox[0].body
+        # extract the URL from the email body
+        reset_url = [
+            line for line in email_body.splitlines() if "password_reset/confirm" in line
+        ][0].strip()
+
+        # follow the reset link
+        response = self.client.get(reset_url)
+        # Django redirects to a session-based URL
+        confirm_url = response["Location"]
+
+        # submit the new password
+        self.client.post(
+            confirm_url,
+            {
+                "new_password1": "newpassword123!",
+                "new_password2": "newpassword123!",
+            },
+        )
+
+        # check confirmation email was sent
+        self.assertEqual(len(mail.outbox), 2)
+        confirmation_email = mail.outbox[1]
+        self.assertIn("siteeditor@example.com", confirmation_email.to)
+        self.assertIn("Password reset confirmation", confirmation_email.subject)
