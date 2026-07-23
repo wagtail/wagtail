@@ -56,7 +56,7 @@ class BasePageSchema(Schema):
 
 #: Page's own fields that every concrete page type can accept on creation,
 #: beyond whatever extra fields a model declares through ``api_fields``.
-PAGE_CREATE_FIELDS = (
+BASE_PAGE_FIELDS = (
     "title",
     "slug",
     "seo_title",

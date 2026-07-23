@@ -232,9 +232,9 @@ class InputSchemaGenerator:
         base_class: type[Schema],
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
-        name_suffix: str = "Input",
+        name_suffix: str = "Create",
     ) -> type[Schema]:
-        """Build an input (create) schema for the concrete model ``model``.
+        """Build an input (create/patch) schema for the concrete model ``model``.
 
         ``fields`` names the model's own fields to always include (besides
         whatever ``api_fields`` adds) - e.g. a page's ``title``/``slug``.
