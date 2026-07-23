@@ -1,2 +1,4 @@
 # Make GitHub highlight html files as Django templates
 *.html linguist-language=django
+
+**/openapi.json linguist-generated
