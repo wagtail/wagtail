@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import Any, cast
 
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -54,7 +55,7 @@ def filter_form_options(
     return {**form_options, "fields": fields, "formsets": filtered_formsets}
 
 
-def get_api_form_class(model: type[Model]):
+def get_api_form_class(model: type[Model], field_names: Iterable[str] | None = None):
     """
     Creates a form class for the given model, using the model's edit handler to
     preserve configuration such as required_on_save, permissions, etc., but only
@@ -63,6 +64,12 @@ def get_api_form_class(model: type[Model]):
     The form class is based on the model's ``api_base_form_class`` (if defined),
     or the edit handler's ``base_form_class``, or the model's ``base_form_class``,
     or ``WagtailAdminModelForm`` as a last resort.
+
+    ``field_names``, if given, further restricts the form to that subset of
+    writable APIFields - e.g. only the fields present in a partial update
+    payload, so that a field the request didn't mention is left off the form
+    entirely rather than being cleared to empty (which is what would happen
+    if it were included but unbound).
     """
     try:
         # Page.get_edit_handler is monkey-patched onto the class by
@@ -87,6 +94,9 @@ def get_api_form_class(model: type[Model]):
     writable_fields = [
         name for name in create_schema.model_fields.keys() if name != "meta"
     ]
+    if field_names is not None:
+        field_names = set(field_names)
+        writable_fields = [name for name in writable_fields if name in field_names]
     form_options.update(filter_form_options(model, form_options, writable_fields))
 
     return get_form_for_model(
@@ -134,6 +144,48 @@ def build_page_form(
     form_data = build_form_data(form_class, payload)
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
+
+
+def build_page_update_form(
+    page: Page,
+    data: Any,
+    user: AbstractBaseUser | AnonymousUser,
+):
+    """Build a bound page form from a validated, partial update-input schema.
+
+    Like :func:`build_page_form`, but binds the given, already-saved ``page``
+    instead of constructing a new one - there's no parent to attach to or
+    slug to auto-generate, since the page already exists in the tree.
+
+    This is a partial (PATCH-style) update: every field in the update schema
+    is optional, and only the fields actually present in the request body
+    (``exclude_unset``) are put on the form at all. A field the request
+    didn't mention would otherwise be bound as empty/default by the
+    underlying Django form - wiping it - rather than left as-is, so the form
+    class itself is narrowed to just the supplied fields (via
+    ``get_api_form_class``'s ``field_names``), the same way an admin partial
+    edit would only touch the fields its HTML form actually submits. This
+    also covers an InlinePanel-backed child relation the request didn't
+    mention: since it's never declared as a formset on the narrowed form,
+    ``ClusterForm.save()`` never touches its ``_cluster_related_objects``
+    entry, so ``ClusterableModel.save()``'s own unconditional
+    ``.commit()`` call on that relation finds no staged changes and leaves
+    its existing rows alone.
+
+    A relation the request did mention has its whole set replaced, not
+    appended to - see ``build_form_data``'s ``instance`` param.
+    """
+    model = type(page)
+    payload = data.dict(exclude={"meta"}, exclude_unset=True)
+    form_class = get_api_form_class(model, field_names=payload.keys())
+    form_data = build_form_data(form_class, payload, instance=page)
+
+    return form_class(
+        data=form_data,
+        instance=page,
+        parent_page=page.get_parent(),
+        for_user=user,
+    )
 
 
 def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) -> None:
@@ -216,6 +268,7 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
 def build_form_data(
     form_class: type[BaseForm],
     payload: dict[str, Any],
+    instance: Model | None = None,
 ) -> MultiValueDict:
     """Build a ``MultiValueDict`` that binds ``form_class`` (and its child
     formsets, if it's a ``ClusterForm``) as if the equivalent HTML form had
@@ -230,6 +283,19 @@ def build_form_data(
     ``api_fields`` may list more than a panel exposes, and an InlinePanel
     restricts its child form to its own panel fields, so surplus JSON keys
     are simply not looked up here (see ``InlinePanel.get_form_options``).
+
+    ``instance``, on an update, is the page (or other model) being
+    edited. This replaces the relation's whole set rather than trying to
+    diff it item by item: every one of ``instance``'s current rows
+    for that relation becomes an initial form, and each submitted item
+    either binds to the existing row whose pk matches its own ``id`` (an
+    edit in place) or, lacking a matching ``id``, becomes a new
+    (non-initial) form. Any existing row no *submitted* item's ``id``
+    refers to is marked for deletion. Without this, the submitted items
+    would be added *alongside* the existing rows instead of replacing them,
+    since an all-zero ``INITIAL_FORMS`` (correct when there's no
+    ``instance``, i.e. on create) tells the formset there's
+    nothing existing to reconcile against.
     """
     data = MultiValueDict()
     base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
@@ -238,13 +304,47 @@ def build_form_data(
             _set_field_value(field, name, payload[name], data)
 
     for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
-        items = payload.get(rel_name, [])
+        if rel_name not in payload:
+            continue
+        items = payload[rel_name]
         prefix = rel_name
-        data[f"{prefix}-TOTAL_FORMS"] = str(len(items))
-        data[f"{prefix}-INITIAL_FORMS"] = "0"
         child_fields = formset_class.form.base_fields
-        for i, item in enumerate(items):
-            item_prefix = f"{prefix}-{i}"
+
+        existing = (
+            list(getattr(instance, rel_name).all()) if instance is not None else []
+        )
+        existing_by_pk = {obj.pk: obj for obj in existing}
+        matched_pks: set[Any] = set()
+
+        data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
+        for i, obj in enumerate(existing):
+            data[f"{prefix}-{i}-id"] = obj.pk
+
+        new_items = []
+        for item in items:
+            matched_pk = item.get("id")
+            if matched_pk in existing_by_pk and matched_pk not in matched_pks:
+                matched_pks.add(matched_pk)
+                item_index = next(
+                    i for i, obj in enumerate(existing) if obj.pk == matched_pk
+                )
+                item_prefix = f"{prefix}-{item_index}"
+            else:
+                new_items.append(item)
+                continue
+            for field_name, field in child_fields.items():
+                if field_name in item:
+                    _set_field_value(
+                        field, f"{item_prefix}-{field_name}", item[field_name], data
+                    )
+
+        for i, obj in enumerate(existing):
+            if obj.pk not in matched_pks:
+                data[f"{prefix}-{i}-DELETE"] = "on"
+
+        data[f"{prefix}-TOTAL_FORMS"] = str(len(existing) + len(new_items))
+        for j, item in enumerate(new_items):
+            item_prefix = f"{prefix}-{len(existing) + j}"
             for field_name, field in child_fields.items():
                 if field_name in item:
                     _set_field_value(

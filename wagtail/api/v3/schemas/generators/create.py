@@ -8,6 +8,7 @@ from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
 from ninja.orm.fields import get_schema_field
+from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
@@ -28,20 +29,36 @@ class InputSchemaGenerator:
     ``fields`` (passed to ``generate_schema``) or listed in the model's
     ``api_fields``, excluding legacy API v2 custom serializer fields (those
     are read-only computed values, not real fields).
+
+    :param force_optional: when ``True``, every "extra" field this
+        generator adds via ``api_fields`` (as opposed to a ``fields=`` name
+        passed to ``generate_schema``, which has its own ``required_fields``
+        control) is always optional, regardless of whatever requiredness its
+        underlying Django field would otherwise imply. Used for the patch
+        generator: a partial update must accept any writable field being
+        left out, even one that's non-blank on the model and so would
+        otherwise be required.
     """
 
-    field_schemas: dict[type[Field | ForeignObjectRel], InputFieldSchemaFunc] = {}
-    """
-    Map of Django field classes to functions that return an
-    ``(annotation, default)`` tuple for that field type, or ``None`` if the
-    field type has no defined writable shape via this API.
-    """
+    def __init__(self, *, force_optional: bool = False):
+        self.force_optional = force_optional
 
-    _child_relation_schema_cache: dict[type[Model], type[Schema]] = {}
-    """
-    Input schemas already built for a child relation's related model (the
-    "one" side of a ParentalKey, e.g. a carousel item), keyed by that model.
-    """
+        #: Map of Django field classes to functions that return an
+        #: ``(annotation, default)`` tuple for that field type, or ``None``
+        #: if the field type has no defined writable shape via this API.
+        #: An instance attribute, not shared class state: a second
+        #: generator instance (e.g. the patch generator) must be able to
+        #: cache/compute its own schemas independently.
+        self.field_schemas: dict[
+            type[Field | ForeignObjectRel], InputFieldSchemaFunc
+        ] = {}
+
+        #: Input schemas already built for a child relation's related model
+        #: (the "one" side of a ParentalKey, e.g. a carousel item), keyed by
+        #: that model. Also an instance attribute for the same reason: the
+        #: patch generator's child schemas need their extra fields optional
+        #: too, which the create generator's cached entry wouldn't be.
+        self._child_relation_schema_cache: dict[type[Model], type[Schema]] = {}
 
     def register_field_schema(
         self,
@@ -98,7 +115,16 @@ class InputSchemaGenerator:
                 schema = type(Schema)(f"{name}Base", (Schema,), {})
 
             extra_fields = self._build_extra_fields(model)
-            namespace: dict[str, Any] = {"__annotations__": {}}
+            namespace: dict[str, Any] = {
+                # Optional, and not itself a writable APIField: on an
+                # update, matching this against an existing child row's own
+                # pk (see build_form_data's existing_instance handling)
+                # lets the request edit that row in place instead of
+                # deleting and recreating it. Ignored on create, where
+                # there's nothing existing to match against.
+                "__annotations__": {"id": int | None},
+                "id": None,
+            }
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
                 namespace[field_name] = default
@@ -140,11 +166,14 @@ class InputSchemaGenerator:
             else:
                 extra_fields[field.name] = get_schema_field(model_field)
 
+            if self.force_optional and field.name in extra_fields:
+                extra_fields[field.name] = self._make_optional(extra_fields[field.name])
+
         return extra_fields
 
     @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema], model: type[Model]
+        base_meta_schema: type[Schema], model: type[Model], name_suffix: str
     ) -> type[Schema]:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -154,15 +183,47 @@ class InputSchemaGenerator:
         its own content type label instead, so the OpenAPI schema (and
         validation) reflects the actual, constant value rather than an
         open-ended string.
+
+        ``name_suffix`` (e.g. ``"Input"`` or ``"Patch"``) keeps this
+        distinct from another schema generated for the same model under a
+        different ``base_class`` (e.g. create vs. update): ninja/pydantic
+        key OpenAPI components by class ``__name__``, so two differently
+        shaped schemas sharing a name would collide and one would silently
+        shadow the other in the generated docs.
         """
         return cast(
             type[Schema],
             type(base_meta_schema)(
-                f"{model._meta.object_name}InputMetaSchema",
+                f"{model._meta.object_name}{name_suffix}MetaSchema",
                 (base_meta_schema,),
                 {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
             ),
         )
+
+    @staticmethod
+    def _make_optional(field_schema: tuple[Any, Any]) -> tuple[Any, Any]:
+        """Force an ``(annotation, default)`` pair to be optional.
+
+        Most extra fields (StreamField, tags, child relations) already default
+        to an empty value from their own dedicated ``field_schemas`` function,
+        so they're always optional regardless of this. This only has real work
+        to do for a field whose ``default`` is a ``FieldInfo`` derived straight
+        from the Django field's own requiredness (``get_schema_field``, used by
+        the plain-field fallback and ``foreign_key_schema``) - e.g. a writable
+        APIField on a non-blank/non-null model field, which would otherwise be
+        required even for a partial (patch) update that simply doesn't mention
+        it.
+        """
+        annotation, default = field_schema
+        if isinstance(default, FieldInfo) and default.is_required():
+            default = FieldInfo(
+                default=None,
+                alias=default.alias,
+                title=default.title,
+                description=default.description,
+            )
+            annotation = annotation | None
+        return annotation, default
 
     def generate_schema(
         self,
@@ -171,6 +232,7 @@ class InputSchemaGenerator:
         base_class: type[Schema],
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
+        name_suffix: str = "Input",
     ) -> type[Schema]:
         """Build an input (create) schema for the concrete model ``model``.
 
@@ -186,13 +248,19 @@ class InputSchemaGenerator:
         :class:`wagtail.api.v3.schemas.pages.PageCreateBaseSchema`), it's
         narrowed to a ``Literal`` matching this specific model, the same way
         the read-side generator narrows ``meta.type`` for read schemas.
+
+        ``name_suffix`` distinguishes this call's generated class name (and
+        its narrowed meta schema's) from another call for the same model
+        under a different ``base_class`` - see ``_narrowed_meta_schema``.
+        Callers generating more than one schema shape per model (e.g. both
+        a create and an update/patch schema) must pass distinct values.
         """
         field_names = [
             name
             for name in fields
             if name in {f.name for f in model._meta.get_fields()}
         ]
-        name = f"{model._meta.object_name}InputSchema"
+        name = f"{model._meta.object_name}{name_suffix}Schema"
         schema = create_schema(
             model,
             name=f"{name}Base",
@@ -207,7 +275,7 @@ class InputSchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
-                meta_field.annotation, model
+                meta_field.annotation, model, name_suffix
             )
 
         for field_name, (annotation, default) in extra_fields.items():
@@ -254,3 +322,16 @@ generator.register_field_schema(StreamField, streamfield_schema)
 generator.register_field_schema(TaggableManager, tags_schema)
 generator.register_field_schema(ForeignObjectRel, child_relation_schema)
 generator.register_field_schema(ForeignKey, foreign_key_schema)
+
+#: Same field-schema handling as ``generator``, but every extra field it
+#: adds is optional regardless of the underlying Django field's own
+#: requiredness - for building patch (partial update) schemas, where a
+#: field the request doesn't mention must be left off rather than
+#: rejected as missing. A separate instance, not a shared one, so its
+#: cached child-relation schemas (which also need to be all-optional) and
+#: registered field-schema functions don't collide with ``generator``'s.
+patch_generator = InputSchemaGenerator(force_optional=True)
+patch_generator.register_field_schema(StreamField, streamfield_schema)
+patch_generator.register_field_schema(TaggableManager, tags_schema)
+patch_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
+patch_generator.register_field_schema(ForeignKey, foreign_key_schema)
