@@ -68,6 +68,8 @@ Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/)
 
 Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
 
+When setting up a caching proxy, make sure your public page responses can actually be shared by the cache. The [frontend cache reference](frontend_cache_purging) includes guidance on avoiding `Vary: Cookie` on pages that should be cached for anonymous visitors.
+
 If you have multiple frontends configured (eg Cloudflare for one site, CloudFront for another), it's recommended to set the [`HOSTNAMES`](frontendcache_multiple_backends) key to the list of hostnames the backend can purge, to prevent unnecessary extra purge requests.
 
 (performance_page_urls)=
