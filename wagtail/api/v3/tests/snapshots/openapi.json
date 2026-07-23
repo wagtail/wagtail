@@ -1,7 +1,7 @@
 {
   "components": {
     "schemas": {
-      "AddedStreamFieldWithEmptyListDefaultPageInputMetaSchema": {
+      "AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -26,13 +26,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "AddedStreamFieldWithEmptyListDefaultPageInputMetaSchema",
+        "title": "AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema",
         "type": "object"
       },
-      "AddedStreamFieldWithEmptyListDefaultPageInputSchema": {
+      "AddedStreamFieldWithEmptyListDefaultPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageInputMetaSchema"
+            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -93,7 +93,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "AddedStreamFieldWithEmptyListDefaultPageInputSchema",
+        "title": "AddedStreamFieldWithEmptyListDefaultPageCreateSchema",
         "type": "object"
       },
       "AddedStreamFieldWithEmptyListDefaultPageMetaSchema": {
@@ -273,7 +273,7 @@
         "title": "AddedStreamFieldWithEmptyListDefaultPageSchema",
         "type": "object"
       },
-      "AddedStreamFieldWithEmptyStringDefaultPageInputMetaSchema": {
+      "AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -298,13 +298,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "AddedStreamFieldWithEmptyStringDefaultPageInputMetaSchema",
+        "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema",
         "type": "object"
       },
-      "AddedStreamFieldWithEmptyStringDefaultPageInputSchema": {
+      "AddedStreamFieldWithEmptyStringDefaultPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageInputMetaSchema"
+            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -365,7 +365,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "AddedStreamFieldWithEmptyStringDefaultPageInputSchema",
+        "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateSchema",
         "type": "object"
       },
       "AddedStreamFieldWithEmptyStringDefaultPageMetaSchema": {
@@ -545,7 +545,7 @@
         "title": "AddedStreamFieldWithEmptyStringDefaultPageSchema",
         "type": "object"
       },
-      "AddedStreamFieldWithoutDefaultPageInputMetaSchema": {
+      "AddedStreamFieldWithoutDefaultPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -570,13 +570,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "AddedStreamFieldWithoutDefaultPageInputMetaSchema",
+        "title": "AddedStreamFieldWithoutDefaultPageCreateMetaSchema",
         "type": "object"
       },
-      "AddedStreamFieldWithoutDefaultPageInputSchema": {
+      "AddedStreamFieldWithoutDefaultPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageInputMetaSchema"
+            "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -637,7 +637,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "AddedStreamFieldWithoutDefaultPageInputSchema",
+        "title": "AddedStreamFieldWithoutDefaultPageCreateSchema",
         "type": "object"
       },
       "AddedStreamFieldWithoutDefaultPageMetaSchema": {
@@ -817,7 +817,7 @@
         "title": "AddedStreamFieldWithoutDefaultPageSchema",
         "type": "object"
       },
-      "AlwaysShowInMenusPageInputMetaSchema": {
+      "AlwaysShowInMenusPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -842,13 +842,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "AlwaysShowInMenusPageInputMetaSchema",
+        "title": "AlwaysShowInMenusPageCreateMetaSchema",
         "type": "object"
       },
-      "AlwaysShowInMenusPageInputSchema": {
+      "AlwaysShowInMenusPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AlwaysShowInMenusPageInputMetaSchema"
+            "$ref": "#/components/schemas/AlwaysShowInMenusPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -909,7 +909,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "AlwaysShowInMenusPageInputSchema",
+        "title": "AlwaysShowInMenusPageCreateSchema",
         "type": "object"
       },
       "AlwaysShowInMenusPageMetaSchema": {
@@ -1291,7 +1291,7 @@
         "title": "BlogEntryPageCarouselItemSchema",
         "type": "object"
       },
-      "BlogEntryPageInputMetaSchema": {
+      "BlogEntryPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -1316,10 +1316,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BlogEntryPageInputMetaSchema",
+        "title": "BlogEntryPageCreateMetaSchema",
         "type": "object"
       },
-      "BlogEntryPageInputSchema": {
+      "BlogEntryPageCreateSchema": {
         "properties": {
           "body": {
             "title": "Body",
@@ -1350,7 +1350,7 @@
             "title": "Feed Image"
           },
           "meta": {
-            "$ref": "#/components/schemas/BlogEntryPageInputMetaSchema"
+            "$ref": "#/components/schemas/BlogEntryPageCreateMetaSchema"
           },
           "related_links": {
             "default": [],
@@ -1427,7 +1427,7 @@
           }
         },
         "required": ["meta", "title", "body", "date"],
-        "title": "BlogEntryPageInputSchema",
+        "title": "BlogEntryPageCreateSchema",
         "type": "object"
       },
       "BlogEntryPageMetaSchema": {
@@ -1846,7 +1846,7 @@
         "title": "BlogEntryPageSchema",
         "type": "object"
       },
-      "BlogIndexPageInputMetaSchema": {
+      "BlogIndexPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -1871,13 +1871,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BlogIndexPageInputMetaSchema",
+        "title": "BlogIndexPageCreateMetaSchema",
         "type": "object"
       },
-      "BlogIndexPageInputSchema": {
+      "BlogIndexPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BlogIndexPageInputMetaSchema"
+            "$ref": "#/components/schemas/BlogIndexPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -1938,7 +1938,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "BlogIndexPageInputSchema",
+        "title": "BlogIndexPageCreateSchema",
         "type": "object"
       },
       "BlogIndexPageMetaSchema": {
@@ -2210,7 +2210,7 @@
         "title": "BlogIndexPageSchema",
         "type": "object"
       },
-      "BusinessChildInputMetaSchema": {
+      "BusinessChildCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -2235,13 +2235,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BusinessChildInputMetaSchema",
+        "title": "BusinessChildCreateMetaSchema",
         "type": "object"
       },
-      "BusinessChildInputSchema": {
+      "BusinessChildCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessChildInputMetaSchema"
+            "$ref": "#/components/schemas/BusinessChildCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -2302,7 +2302,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "BusinessChildInputSchema",
+        "title": "BusinessChildCreateSchema",
         "type": "object"
       },
       "BusinessChildMetaSchema": {
@@ -2482,7 +2482,7 @@
         "title": "BusinessChildSchema",
         "type": "object"
       },
-      "BusinessIndexInputMetaSchema": {
+      "BusinessIndexCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -2507,13 +2507,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BusinessIndexInputMetaSchema",
+        "title": "BusinessIndexCreateMetaSchema",
         "type": "object"
       },
-      "BusinessIndexInputSchema": {
+      "BusinessIndexCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessIndexInputMetaSchema"
+            "$ref": "#/components/schemas/BusinessIndexCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -2574,7 +2574,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "BusinessIndexInputSchema",
+        "title": "BusinessIndexCreateSchema",
         "type": "object"
       },
       "BusinessIndexMetaSchema": {
@@ -2754,7 +2754,7 @@
         "title": "BusinessIndexSchema",
         "type": "object"
       },
-      "BusinessNowherePageInputMetaSchema": {
+      "BusinessNowherePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -2779,13 +2779,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BusinessNowherePageInputMetaSchema",
+        "title": "BusinessNowherePageCreateMetaSchema",
         "type": "object"
       },
-      "BusinessNowherePageInputSchema": {
+      "BusinessNowherePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessNowherePageInputMetaSchema"
+            "$ref": "#/components/schemas/BusinessNowherePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -2846,7 +2846,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "BusinessNowherePageInputSchema",
+        "title": "BusinessNowherePageCreateSchema",
         "type": "object"
       },
       "BusinessNowherePageMetaSchema": {
@@ -3026,7 +3026,7 @@
         "title": "BusinessNowherePageSchema",
         "type": "object"
       },
-      "BusinessSubIndexInputMetaSchema": {
+      "BusinessSubIndexCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -3051,13 +3051,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "BusinessSubIndexInputMetaSchema",
+        "title": "BusinessSubIndexCreateMetaSchema",
         "type": "object"
       },
-      "BusinessSubIndexInputSchema": {
+      "BusinessSubIndexCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessSubIndexInputMetaSchema"
+            "$ref": "#/components/schemas/BusinessSubIndexCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -3118,7 +3118,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "BusinessSubIndexInputSchema",
+        "title": "BusinessSubIndexCreateSchema",
         "type": "object"
       },
       "BusinessSubIndexMetaSchema": {
@@ -3298,7 +3298,7 @@
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
-      "CommentableJSONPageInputMetaSchema": {
+      "CommentableJSONPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -3323,13 +3323,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CommentableJSONPageInputMetaSchema",
+        "title": "CommentableJSONPageCreateMetaSchema",
         "type": "object"
       },
-      "CommentableJSONPageInputSchema": {
+      "CommentableJSONPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CommentableJSONPageInputMetaSchema"
+            "$ref": "#/components/schemas/CommentableJSONPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -3390,7 +3390,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CommentableJSONPageInputSchema",
+        "title": "CommentableJSONPageCreateSchema",
         "type": "object"
       },
       "CommentableJSONPageMetaSchema": {
@@ -3570,7 +3570,7 @@
         "title": "CommentableJSONPageSchema",
         "type": "object"
       },
-      "ComplexDefaultStreamPageInputMetaSchema": {
+      "ComplexDefaultStreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -3595,13 +3595,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "ComplexDefaultStreamPageInputMetaSchema",
+        "title": "ComplexDefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
-      "ComplexDefaultStreamPageInputSchema": {
+      "ComplexDefaultStreamPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ComplexDefaultStreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/ComplexDefaultStreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -3662,7 +3662,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "ComplexDefaultStreamPageInputSchema",
+        "title": "ComplexDefaultStreamPageCreateSchema",
         "type": "object"
       },
       "ComplexDefaultStreamPageMetaSchema": {
@@ -3842,7 +3842,7 @@
         "title": "ComplexDefaultStreamPageSchema",
         "type": "object"
       },
-      "ContactPageInputMetaSchema": {
+      "ContactPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -3867,13 +3867,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "ContactPageInputMetaSchema",
+        "title": "ContactPageCreateMetaSchema",
         "type": "object"
       },
-      "ContactPageInputSchema": {
+      "ContactPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ContactPageInputMetaSchema"
+            "$ref": "#/components/schemas/ContactPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -3934,7 +3934,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "ContactPageInputSchema",
+        "title": "ContactPageCreateSchema",
         "type": "object"
       },
       "ContactPageMetaSchema": {
@@ -4248,7 +4248,7 @@
         "title": "ContentTypeSummarySchema",
         "type": "object"
       },
-      "CustomCopyFormPageInputMetaSchema": {
+      "CustomCopyFormPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -4273,13 +4273,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomCopyFormPageInputMetaSchema",
+        "title": "CustomCopyFormPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomCopyFormPageInputSchema": {
+      "CustomCopyFormPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomCopyFormPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomCopyFormPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -4340,7 +4340,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomCopyFormPageInputSchema",
+        "title": "CustomCopyFormPageCreateSchema",
         "type": "object"
       },
       "CustomCopyFormPageMetaSchema": {
@@ -4520,7 +4520,7 @@
         "title": "CustomCopyFormPageSchema",
         "type": "object"
       },
-      "CustomManagerPageInputMetaSchema": {
+      "CustomManagerPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -4545,13 +4545,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomManagerPageInputMetaSchema",
+        "title": "CustomManagerPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomManagerPageInputSchema": {
+      "CustomManagerPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomManagerPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomManagerPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -4612,7 +4612,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomManagerPageInputSchema",
+        "title": "CustomManagerPageCreateSchema",
         "type": "object"
       },
       "CustomManagerPageMetaSchema": {
@@ -4792,7 +4792,7 @@
         "title": "CustomManagerPageSchema",
         "type": "object"
       },
-      "CustomPermissionPageInputMetaSchema": {
+      "CustomPermissionPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -4817,13 +4817,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomPermissionPageInputMetaSchema",
+        "title": "CustomPermissionPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomPermissionPageInputSchema": {
+      "CustomPermissionPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomPermissionPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomPermissionPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -4884,7 +4884,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomPermissionPageInputSchema",
+        "title": "CustomPermissionPageCreateSchema",
         "type": "object"
       },
       "CustomPermissionPageMetaSchema": {
@@ -5064,7 +5064,7 @@
         "title": "CustomPermissionPageSchema",
         "type": "object"
       },
-      "CustomPreviewSizesPageInputMetaSchema": {
+      "CustomPreviewSizesPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -5089,13 +5089,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomPreviewSizesPageInputMetaSchema",
+        "title": "CustomPreviewSizesPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomPreviewSizesPageInputSchema": {
+      "CustomPreviewSizesPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomPreviewSizesPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomPreviewSizesPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -5156,7 +5156,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomPreviewSizesPageInputSchema",
+        "title": "CustomPreviewSizesPageCreateSchema",
         "type": "object"
       },
       "CustomPreviewSizesPageMetaSchema": {
@@ -5336,7 +5336,7 @@
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
-      "CustomRichBlockFieldPageInputMetaSchema": {
+      "CustomRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -5361,13 +5361,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomRichBlockFieldPageInputMetaSchema",
+        "title": "CustomRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomRichBlockFieldPageInputSchema": {
+      "CustomRichBlockFieldPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomRichBlockFieldPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomRichBlockFieldPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -5428,7 +5428,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomRichBlockFieldPageInputSchema",
+        "title": "CustomRichBlockFieldPageCreateSchema",
         "type": "object"
       },
       "CustomRichBlockFieldPageMetaSchema": {
@@ -5608,7 +5608,7 @@
         "title": "CustomRichBlockFieldPageSchema",
         "type": "object"
       },
-      "CustomRichTextFieldPageInputMetaSchema": {
+      "CustomRichTextFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -5633,13 +5633,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "CustomRichTextFieldPageInputMetaSchema",
+        "title": "CustomRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
-      "CustomRichTextFieldPageInputSchema": {
+      "CustomRichTextFieldPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomRichTextFieldPageInputMetaSchema"
+            "$ref": "#/components/schemas/CustomRichTextFieldPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -5700,7 +5700,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "CustomRichTextFieldPageInputSchema",
+        "title": "CustomRichTextFieldPageCreateSchema",
         "type": "object"
       },
       "CustomRichTextFieldPageMetaSchema": {
@@ -5880,7 +5880,7 @@
         "title": "CustomRichTextFieldPageSchema",
         "type": "object"
       },
-      "DeadlyStreamPageInputMetaSchema": {
+      "DeadlyStreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -5905,13 +5905,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "DeadlyStreamPageInputMetaSchema",
+        "title": "DeadlyStreamPageCreateMetaSchema",
         "type": "object"
       },
-      "DeadlyStreamPageInputSchema": {
+      "DeadlyStreamPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DeadlyStreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/DeadlyStreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -5972,7 +5972,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "DeadlyStreamPageInputSchema",
+        "title": "DeadlyStreamPageCreateSchema",
         "type": "object"
       },
       "DeadlyStreamPageMetaSchema": {
@@ -6152,7 +6152,7 @@
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
-      "DefaultRichBlockFieldPageInputMetaSchema": {
+      "DefaultRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -6177,13 +6177,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "DefaultRichBlockFieldPageInputMetaSchema",
+        "title": "DefaultRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
-      "DefaultRichBlockFieldPageInputSchema": {
+      "DefaultRichBlockFieldPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultRichBlockFieldPageInputMetaSchema"
+            "$ref": "#/components/schemas/DefaultRichBlockFieldPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -6244,7 +6244,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "DefaultRichBlockFieldPageInputSchema",
+        "title": "DefaultRichBlockFieldPageCreateSchema",
         "type": "object"
       },
       "DefaultRichBlockFieldPageMetaSchema": {
@@ -6424,7 +6424,7 @@
         "title": "DefaultRichBlockFieldPageSchema",
         "type": "object"
       },
-      "DefaultRichTextFieldPageInputMetaSchema": {
+      "DefaultRichTextFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -6449,13 +6449,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "DefaultRichTextFieldPageInputMetaSchema",
+        "title": "DefaultRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
-      "DefaultRichTextFieldPageInputSchema": {
+      "DefaultRichTextFieldPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultRichTextFieldPageInputMetaSchema"
+            "$ref": "#/components/schemas/DefaultRichTextFieldPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -6516,7 +6516,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "DefaultRichTextFieldPageInputSchema",
+        "title": "DefaultRichTextFieldPageCreateSchema",
         "type": "object"
       },
       "DefaultRichTextFieldPageMetaSchema": {
@@ -6696,7 +6696,7 @@
         "title": "DefaultRichTextFieldPageSchema",
         "type": "object"
       },
-      "DefaultStreamPageInputMetaSchema": {
+      "DefaultStreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -6721,13 +6721,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "DefaultStreamPageInputMetaSchema",
+        "title": "DefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
-      "DefaultStreamPageInputSchema": {
+      "DefaultStreamPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultStreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/DefaultStreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -6788,7 +6788,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "DefaultStreamPageInputSchema",
+        "title": "DefaultStreamPageCreateSchema",
         "type": "object"
       },
       "DefaultStreamPageMetaSchema": {
@@ -7001,7 +7001,7 @@
         "title": "DocumentMetaSchema",
         "type": "object"
       },
-      "EarlyPageInputMetaSchema": {
+      "EarlyPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -7026,13 +7026,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "EarlyPageInputMetaSchema",
+        "title": "EarlyPageCreateMetaSchema",
         "type": "object"
       },
-      "EarlyPageInputSchema": {
+      "EarlyPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EarlyPageInputMetaSchema"
+            "$ref": "#/components/schemas/EarlyPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -7093,7 +7093,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "EarlyPageInputSchema",
+        "title": "EarlyPageCreateSchema",
         "type": "object"
       },
       "EarlyPageMetaSchema": {
@@ -7273,7 +7273,7 @@
         "title": "EarlyPageSchema",
         "type": "object"
       },
-      "EventIndexInputMetaSchema": {
+      "EventIndexCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -7298,13 +7298,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "EventIndexInputMetaSchema",
+        "title": "EventIndexCreateMetaSchema",
         "type": "object"
       },
-      "EventIndexInputSchema": {
+      "EventIndexCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EventIndexInputMetaSchema"
+            "$ref": "#/components/schemas/EventIndexCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -7365,7 +7365,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "EventIndexInputSchema",
+        "title": "EventIndexCreateSchema",
         "type": "object"
       },
       "EventIndexMetaSchema": {
@@ -7429,7 +7429,7 @@
         "title": "EventIndexMetaSchema",
         "type": "object"
       },
-      "EventIndexPageInputMetaSchema": {
+      "EventIndexPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -7454,13 +7454,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "EventIndexPageInputMetaSchema",
+        "title": "EventIndexPageCreateMetaSchema",
         "type": "object"
       },
-      "EventIndexPageInputSchema": {
+      "EventIndexPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EventIndexPageInputMetaSchema"
+            "$ref": "#/components/schemas/EventIndexPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -7521,7 +7521,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "EventIndexPageInputSchema",
+        "title": "EventIndexPageCreateSchema",
         "type": "object"
       },
       "EventIndexPageMetaSchema": {
@@ -8403,7 +8403,7 @@
         "title": "EventPageSpeakerSchema",
         "type": "object"
       },
-      "FilePageInputMetaSchema": {
+      "FilePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -8428,13 +8428,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FilePageInputMetaSchema",
+        "title": "FilePageCreateMetaSchema",
         "type": "object"
       },
-      "FilePageInputSchema": {
+      "FilePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FilePageInputMetaSchema"
+            "$ref": "#/components/schemas/FilePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -8495,7 +8495,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FilePageInputSchema",
+        "title": "FilePageCreateSchema",
         "type": "object"
       },
       "FilePageMetaSchema": {
@@ -8675,7 +8675,7 @@
         "title": "FilePageSchema",
         "type": "object"
       },
-      "FormClassAdditionalFieldPageInputMetaSchema": {
+      "FormClassAdditionalFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -8700,13 +8700,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormClassAdditionalFieldPageInputMetaSchema",
+        "title": "FormClassAdditionalFieldPageCreateMetaSchema",
         "type": "object"
       },
-      "FormClassAdditionalFieldPageInputSchema": {
+      "FormClassAdditionalFieldPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormClassAdditionalFieldPageInputMetaSchema"
+            "$ref": "#/components/schemas/FormClassAdditionalFieldPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -8767,7 +8767,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormClassAdditionalFieldPageInputSchema",
+        "title": "FormClassAdditionalFieldPageCreateSchema",
         "type": "object"
       },
       "FormClassAdditionalFieldPageMetaSchema": {
@@ -9046,7 +9046,7 @@
         "title": "FormFieldSchema",
         "type": "object"
       },
-      "FormPageWithCustomFormBuilderInputMetaSchema": {
+      "FormPageWithCustomFormBuilderCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -9071,13 +9071,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageWithCustomFormBuilderInputMetaSchema",
+        "title": "FormPageWithCustomFormBuilderCreateMetaSchema",
         "type": "object"
       },
-      "FormPageWithCustomFormBuilderInputSchema": {
+      "FormPageWithCustomFormBuilderCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomFormBuilderInputMetaSchema"
+            "$ref": "#/components/schemas/FormPageWithCustomFormBuilderCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -9138,7 +9138,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageWithCustomFormBuilderInputSchema",
+        "title": "FormPageWithCustomFormBuilderCreateSchema",
         "type": "object"
       },
       "FormPageWithCustomFormBuilderMetaSchema": {
@@ -9318,7 +9318,7 @@
         "title": "FormPageWithCustomFormBuilderSchema",
         "type": "object"
       },
-      "FormPageWithCustomSubmissionInputMetaSchema": {
+      "FormPageWithCustomSubmissionCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -9343,13 +9343,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageWithCustomSubmissionInputMetaSchema",
+        "title": "FormPageWithCustomSubmissionCreateMetaSchema",
         "type": "object"
       },
-      "FormPageWithCustomSubmissionInputSchema": {
+      "FormPageWithCustomSubmissionCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomSubmissionInputMetaSchema"
+            "$ref": "#/components/schemas/FormPageWithCustomSubmissionCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -9410,10 +9410,10 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageWithCustomSubmissionInputSchema",
+        "title": "FormPageWithCustomSubmissionCreateSchema",
         "type": "object"
       },
-      "FormPageWithCustomSubmissionListViewInputMetaSchema": {
+      "FormPageWithCustomSubmissionListViewCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -9438,13 +9438,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageWithCustomSubmissionListViewInputMetaSchema",
+        "title": "FormPageWithCustomSubmissionListViewCreateMetaSchema",
         "type": "object"
       },
-      "FormPageWithCustomSubmissionListViewInputSchema": {
+      "FormPageWithCustomSubmissionListViewCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewInputMetaSchema"
+            "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -9505,7 +9505,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageWithCustomSubmissionListViewInputSchema",
+        "title": "FormPageWithCustomSubmissionListViewCreateSchema",
         "type": "object"
       },
       "FormPageWithCustomSubmissionListViewMetaSchema": {
@@ -9862,7 +9862,7 @@
         "title": "FormPageWithCustomSubmissionSchema",
         "type": "object"
       },
-      "FormPageWithRedirectInputMetaSchema": {
+      "FormPageWithRedirectCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -9887,13 +9887,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageWithRedirectInputMetaSchema",
+        "title": "FormPageWithRedirectCreateMetaSchema",
         "type": "object"
       },
-      "FormPageWithRedirectInputSchema": {
+      "FormPageWithRedirectCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithRedirectInputMetaSchema"
+            "$ref": "#/components/schemas/FormPageWithRedirectCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -9954,7 +9954,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageWithRedirectInputSchema",
+        "title": "FormPageWithRedirectCreateSchema",
         "type": "object"
       },
       "FormPageWithRedirectMetaSchema": {
@@ -10134,7 +10134,7 @@
         "title": "FormPageWithRedirectSchema",
         "type": "object"
       },
-      "GalleryPageInputMetaSchema": {
+      "GalleryPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -10159,13 +10159,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "GalleryPageInputMetaSchema",
+        "title": "GalleryPageCreateMetaSchema",
         "type": "object"
       },
-      "GalleryPageInputSchema": {
+      "GalleryPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GalleryPageInputMetaSchema"
+            "$ref": "#/components/schemas/GalleryPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -10226,7 +10226,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "GalleryPageInputSchema",
+        "title": "GalleryPageCreateSchema",
         "type": "object"
       },
       "GalleryPageMetaSchema": {
@@ -10406,7 +10406,7 @@
         "title": "GalleryPageSchema",
         "type": "object"
       },
-      "GenericSnippetNoFieldIndexPageInputMetaSchema": {
+      "GenericSnippetNoFieldIndexPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -10431,13 +10431,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "GenericSnippetNoFieldIndexPageInputMetaSchema",
+        "title": "GenericSnippetNoFieldIndexPageCreateMetaSchema",
         "type": "object"
       },
-      "GenericSnippetNoFieldIndexPageInputSchema": {
+      "GenericSnippetNoFieldIndexPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageInputMetaSchema"
+            "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -10498,7 +10498,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "GenericSnippetNoFieldIndexPageInputSchema",
+        "title": "GenericSnippetNoFieldIndexPageCreateSchema",
         "type": "object"
       },
       "GenericSnippetNoFieldIndexPageMetaSchema": {
@@ -10678,7 +10678,7 @@
         "title": "GenericSnippetNoFieldIndexPageSchema",
         "type": "object"
       },
-      "GenericSnippetNoIndexPageInputMetaSchema": {
+      "GenericSnippetNoIndexPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -10703,13 +10703,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "GenericSnippetNoIndexPageInputMetaSchema",
+        "title": "GenericSnippetNoIndexPageCreateMetaSchema",
         "type": "object"
       },
-      "GenericSnippetNoIndexPageInputSchema": {
+      "GenericSnippetNoIndexPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetNoIndexPageInputMetaSchema"
+            "$ref": "#/components/schemas/GenericSnippetNoIndexPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -10770,7 +10770,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "GenericSnippetNoIndexPageInputSchema",
+        "title": "GenericSnippetNoIndexPageCreateSchema",
         "type": "object"
       },
       "GenericSnippetNoIndexPageMetaSchema": {
@@ -10950,7 +10950,7 @@
         "title": "GenericSnippetNoIndexPageSchema",
         "type": "object"
       },
-      "GenericSnippetPageInputMetaSchema": {
+      "GenericSnippetPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -10975,13 +10975,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "GenericSnippetPageInputMetaSchema",
+        "title": "GenericSnippetPageCreateMetaSchema",
         "type": "object"
       },
-      "GenericSnippetPageInputSchema": {
+      "GenericSnippetPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetPageInputMetaSchema"
+            "$ref": "#/components/schemas/GenericSnippetPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -11042,7 +11042,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "GenericSnippetPageInputSchema",
+        "title": "GenericSnippetPageCreateSchema",
         "type": "object"
       },
       "GenericSnippetPageMetaSchema": {
@@ -11406,7 +11406,7 @@
         "title": "HomePageCarouselItemSchema",
         "type": "object"
       },
-      "HomePageInputMetaSchema": {
+      "HomePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -11431,10 +11431,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "HomePageInputMetaSchema",
+        "title": "HomePageCreateMetaSchema",
         "type": "object"
       },
-      "HomePageInputSchema": {
+      "HomePageCreateSchema": {
         "properties": {
           "body": {
             "anyOf": [
@@ -11456,7 +11456,7 @@
             "type": "array"
           },
           "meta": {
-            "$ref": "#/components/schemas/HomePageInputMetaSchema"
+            "$ref": "#/components/schemas/HomePageCreateMetaSchema"
           },
           "related_links": {
             "default": [],
@@ -11525,7 +11525,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "HomePageInputSchema",
+        "title": "HomePageCreateSchema",
         "type": "object"
       },
       "HomePageMetaSchema": {
@@ -11927,7 +11927,7 @@
         "title": "ImageMetaSchema",
         "type": "object"
       },
-      "InlineStreamPageInputMetaSchema": {
+      "InlineStreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -11952,13 +11952,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "InlineStreamPageInputMetaSchema",
+        "title": "InlineStreamPageCreateMetaSchema",
         "type": "object"
       },
-      "InlineStreamPageInputSchema": {
+      "InlineStreamPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/InlineStreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/InlineStreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -12019,7 +12019,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "InlineStreamPageInputSchema",
+        "title": "InlineStreamPageCreateSchema",
         "type": "object"
       },
       "InlineStreamPageMetaSchema": {
@@ -12217,7 +12217,7 @@
         "title": "Input",
         "type": "object"
       },
-      "JadeFormPageInputMetaSchema": {
+      "JadeFormPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -12242,13 +12242,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "JadeFormPageInputMetaSchema",
+        "title": "JadeFormPageCreateMetaSchema",
         "type": "object"
       },
-      "JadeFormPageInputSchema": {
+      "JadeFormPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/JadeFormPageInputMetaSchema"
+            "$ref": "#/components/schemas/JadeFormPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -12309,7 +12309,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "JadeFormPageInputSchema",
+        "title": "JadeFormPageCreateSchema",
         "type": "object"
       },
       "JadeFormPageMetaSchema": {
@@ -12489,7 +12489,7 @@
         "title": "JadeFormPageSchema",
         "type": "object"
       },
-      "MTIBasePageInputMetaSchema": {
+      "MTIBasePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -12514,13 +12514,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "MTIBasePageInputMetaSchema",
+        "title": "MTIBasePageCreateMetaSchema",
         "type": "object"
       },
-      "MTIBasePageInputSchema": {
+      "MTIBasePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MTIBasePageInputMetaSchema"
+            "$ref": "#/components/schemas/MTIBasePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -12581,7 +12581,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "MTIBasePageInputSchema",
+        "title": "MTIBasePageCreateSchema",
         "type": "object"
       },
       "MTIBasePageMetaSchema": {
@@ -12761,7 +12761,7 @@
         "title": "MTIBasePageSchema",
         "type": "object"
       },
-      "MTIChildPageInputMetaSchema": {
+      "MTIChildPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -12786,13 +12786,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "MTIChildPageInputMetaSchema",
+        "title": "MTIChildPageCreateMetaSchema",
         "type": "object"
       },
-      "MTIChildPageInputSchema": {
+      "MTIChildPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MTIChildPageInputMetaSchema"
+            "$ref": "#/components/schemas/MTIChildPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -12853,7 +12853,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "MTIChildPageInputSchema",
+        "title": "MTIChildPageCreateSchema",
         "type": "object"
       },
       "MTIChildPageMetaSchema": {
@@ -13033,7 +13033,7 @@
         "title": "MTIChildPageSchema",
         "type": "object"
       },
-      "ManyToManyBlogPageInputMetaSchema": {
+      "ManyToManyBlogPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -13058,13 +13058,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "ManyToManyBlogPageInputMetaSchema",
+        "title": "ManyToManyBlogPageCreateMetaSchema",
         "type": "object"
       },
-      "ManyToManyBlogPageInputSchema": {
+      "ManyToManyBlogPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ManyToManyBlogPageInputMetaSchema"
+            "$ref": "#/components/schemas/ManyToManyBlogPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -13125,7 +13125,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "ManyToManyBlogPageInputSchema",
+        "title": "ManyToManyBlogPageCreateSchema",
         "type": "object"
       },
       "ManyToManyBlogPageMetaSchema": {
@@ -13305,7 +13305,7 @@
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
-      "MultiPreviewModesPageInputMetaSchema": {
+      "MultiPreviewModesPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -13330,13 +13330,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "MultiPreviewModesPageInputMetaSchema",
+        "title": "MultiPreviewModesPageCreateMetaSchema",
         "type": "object"
       },
-      "MultiPreviewModesPageInputSchema": {
+      "MultiPreviewModesPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MultiPreviewModesPageInputMetaSchema"
+            "$ref": "#/components/schemas/MultiPreviewModesPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -13397,7 +13397,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "MultiPreviewModesPageInputSchema",
+        "title": "MultiPreviewModesPageCreateSchema",
         "type": "object"
       },
       "MultiPreviewModesPageMetaSchema": {
@@ -13577,7 +13577,7 @@
         "title": "MultiPreviewModesPageSchema",
         "type": "object"
       },
-      "MyCustomPageInputMetaSchema": {
+      "MyCustomPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -13602,13 +13602,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "MyCustomPageInputMetaSchema",
+        "title": "MyCustomPageCreateMetaSchema",
         "type": "object"
       },
-      "MyCustomPageInputSchema": {
+      "MyCustomPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MyCustomPageInputMetaSchema"
+            "$ref": "#/components/schemas/MyCustomPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -13669,7 +13669,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "MyCustomPageInputSchema",
+        "title": "MyCustomPageCreateSchema",
         "type": "object"
       },
       "MyCustomPageMetaSchema": {
@@ -13849,7 +13849,7 @@
         "title": "MyCustomPageSchema",
         "type": "object"
       },
-      "NoCreatableSubpageTypesPageInputMetaSchema": {
+      "NoCreatableSubpageTypesPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -13874,13 +13874,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "NoCreatableSubpageTypesPageInputMetaSchema",
+        "title": "NoCreatableSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
-      "NoCreatableSubpageTypesPageInputSchema": {
+      "NoCreatableSubpageTypesPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoCreatableSubpageTypesPageInputMetaSchema"
+            "$ref": "#/components/schemas/NoCreatableSubpageTypesPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -13941,7 +13941,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "NoCreatableSubpageTypesPageInputSchema",
+        "title": "NoCreatableSubpageTypesPageCreateSchema",
         "type": "object"
       },
       "NoCreatableSubpageTypesPageMetaSchema": {
@@ -14121,7 +14121,7 @@
         "title": "NoCreatableSubpageTypesPageSchema",
         "type": "object"
       },
-      "NoPromotePageInputMetaSchema": {
+      "NoPromotePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -14146,13 +14146,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "NoPromotePageInputMetaSchema",
+        "title": "NoPromotePageCreateMetaSchema",
         "type": "object"
       },
-      "NoPromotePageInputSchema": {
+      "NoPromotePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoPromotePageInputMetaSchema"
+            "$ref": "#/components/schemas/NoPromotePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -14213,7 +14213,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "NoPromotePageInputSchema",
+        "title": "NoPromotePageCreateSchema",
         "type": "object"
       },
       "NoPromotePageMetaSchema": {
@@ -14393,7 +14393,7 @@
         "title": "NoPromotePageSchema",
         "type": "object"
       },
-      "NoSubpageTypesPageInputMetaSchema": {
+      "NoSubpageTypesPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -14418,13 +14418,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "NoSubpageTypesPageInputMetaSchema",
+        "title": "NoSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
-      "NoSubpageTypesPageInputSchema": {
+      "NoSubpageTypesPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoSubpageTypesPageInputMetaSchema"
+            "$ref": "#/components/schemas/NoSubpageTypesPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -14485,7 +14485,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "NoSubpageTypesPageInputSchema",
+        "title": "NoSubpageTypesPageCreateSchema",
         "type": "object"
       },
       "NoSubpageTypesPageMetaSchema": {
@@ -14665,7 +14665,7 @@
         "title": "NoSubpageTypesPageSchema",
         "type": "object"
       },
-      "OneToOnePageInputMetaSchema": {
+      "OneToOnePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -14690,13 +14690,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "OneToOnePageInputMetaSchema",
+        "title": "OneToOnePageCreateMetaSchema",
         "type": "object"
       },
-      "OneToOnePageInputSchema": {
+      "OneToOnePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/OneToOnePageInputMetaSchema"
+            "$ref": "#/components/schemas/OneToOnePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -14757,7 +14757,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "OneToOnePageInputSchema",
+        "title": "OneToOnePageCreateSchema",
         "type": "object"
       },
       "OneToOnePageMetaSchema": {
@@ -14937,28 +14937,7 @@
         "title": "OneToOnePageSchema",
         "type": "object"
       },
-      "PageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/abc__PageMetaSchema__2"
-          }
-        },
-        "required": ["meta"],
-        "title": "PageForeignKeySchema",
-        "type": "object"
-      },
-      "PageInputMetaSchema": {
+      "PageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -14983,13 +14962,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PageInputMetaSchema",
+        "title": "PageCreateMetaSchema",
         "type": "object"
       },
-      "PageInputSchema": {
+      "PageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageInputMetaSchema"
+            "$ref": "#/components/schemas/PageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -15050,7 +15029,28 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PageInputSchema",
+        "title": "PageCreateSchema",
+        "type": "object"
+      },
+      "PageForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__PageMetaSchema__2"
+          }
+        },
+        "required": ["meta"],
+        "title": "PageForeignKeySchema",
         "type": "object"
       },
       "PageMetaSchema": {
@@ -15243,7 +15243,7 @@
         "title": "PageSchema",
         "type": "object"
       },
-      "PageWithExcludedCopyFieldInputMetaSchema": {
+      "PageWithExcludedCopyFieldCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -15268,13 +15268,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PageWithExcludedCopyFieldInputMetaSchema",
+        "title": "PageWithExcludedCopyFieldCreateMetaSchema",
         "type": "object"
       },
-      "PageWithExcludedCopyFieldInputSchema": {
+      "PageWithExcludedCopyFieldCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithExcludedCopyFieldInputMetaSchema"
+            "$ref": "#/components/schemas/PageWithExcludedCopyFieldCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -15335,7 +15335,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PageWithExcludedCopyFieldInputSchema",
+        "title": "PageWithExcludedCopyFieldCreateSchema",
         "type": "object"
       },
       "PageWithExcludedCopyFieldMetaSchema": {
@@ -15515,7 +15515,7 @@
         "title": "PageWithExcludedCopyFieldSchema",
         "type": "object"
       },
-      "PageWithGenericRelationInputMetaSchema": {
+      "PageWithGenericRelationCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -15540,13 +15540,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PageWithGenericRelationInputMetaSchema",
+        "title": "PageWithGenericRelationCreateMetaSchema",
         "type": "object"
       },
-      "PageWithGenericRelationInputSchema": {
+      "PageWithGenericRelationCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithGenericRelationInputMetaSchema"
+            "$ref": "#/components/schemas/PageWithGenericRelationCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -15607,7 +15607,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PageWithGenericRelationInputSchema",
+        "title": "PageWithGenericRelationCreateSchema",
         "type": "object"
       },
       "PageWithGenericRelationMetaSchema": {
@@ -15787,7 +15787,7 @@
         "title": "PageWithGenericRelationSchema",
         "type": "object"
       },
-      "PageWithOldStyleRouteMethodInputMetaSchema": {
+      "PageWithOldStyleRouteMethodCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -15812,13 +15812,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PageWithOldStyleRouteMethodInputMetaSchema",
+        "title": "PageWithOldStyleRouteMethodCreateMetaSchema",
         "type": "object"
       },
-      "PageWithOldStyleRouteMethodInputSchema": {
+      "PageWithOldStyleRouteMethodCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithOldStyleRouteMethodInputMetaSchema"
+            "$ref": "#/components/schemas/PageWithOldStyleRouteMethodCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -15879,7 +15879,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PageWithOldStyleRouteMethodInputSchema",
+        "title": "PageWithOldStyleRouteMethodCreateSchema",
         "type": "object"
       },
       "PageWithOldStyleRouteMethodMetaSchema": {
@@ -16186,7 +16186,7 @@
         "title": "PersonPageRelatedLinkSchema",
         "type": "object"
       },
-      "PromotionalPageInputMetaSchema": {
+      "PromotionalPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -16211,13 +16211,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PromotionalPageInputMetaSchema",
+        "title": "PromotionalPageCreateMetaSchema",
         "type": "object"
       },
-      "PromotionalPageInputSchema": {
+      "PromotionalPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PromotionalPageInputMetaSchema"
+            "$ref": "#/components/schemas/PromotionalPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -16278,7 +16278,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PromotionalPageInputSchema",
+        "title": "PromotionalPageCreateSchema",
         "type": "object"
       },
       "PromotionalPageMetaSchema": {
@@ -16581,7 +16581,7 @@
         "title": "RedirectSchema",
         "type": "object"
       },
-      "RequiredDatePageInputMetaSchema": {
+      "RequiredDatePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -16606,13 +16606,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "RequiredDatePageInputMetaSchema",
+        "title": "RequiredDatePageCreateMetaSchema",
         "type": "object"
       },
-      "RequiredDatePageInputSchema": {
+      "RequiredDatePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RequiredDatePageInputMetaSchema"
+            "$ref": "#/components/schemas/RequiredDatePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -16673,7 +16673,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "RequiredDatePageInputSchema",
+        "title": "RequiredDatePageCreateSchema",
         "type": "object"
       },
       "RequiredDatePageMetaSchema": {
@@ -16853,7 +16853,7 @@
         "title": "RequiredDatePageSchema",
         "type": "object"
       },
-      "RestaurantPageInputMetaSchema": {
+      "RestaurantPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -16878,13 +16878,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "RestaurantPageInputMetaSchema",
+        "title": "RestaurantPageCreateMetaSchema",
         "type": "object"
       },
-      "RestaurantPageInputSchema": {
+      "RestaurantPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RestaurantPageInputMetaSchema"
+            "$ref": "#/components/schemas/RestaurantPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -16945,7 +16945,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "RestaurantPageInputSchema",
+        "title": "RestaurantPageCreateSchema",
         "type": "object"
       },
       "RestaurantPageMetaSchema": {
@@ -17125,7 +17125,7 @@
         "title": "RestaurantPageSchema",
         "type": "object"
       },
-      "RichTextFieldWithFeaturesPageInputMetaSchema": {
+      "RichTextFieldWithFeaturesPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -17150,13 +17150,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "RichTextFieldWithFeaturesPageInputMetaSchema",
+        "title": "RichTextFieldWithFeaturesPageCreateMetaSchema",
         "type": "object"
       },
-      "RichTextFieldWithFeaturesPageInputSchema": {
+      "RichTextFieldWithFeaturesPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageInputMetaSchema"
+            "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -17217,7 +17217,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "RichTextFieldWithFeaturesPageInputSchema",
+        "title": "RichTextFieldWithFeaturesPageCreateSchema",
         "type": "object"
       },
       "RichTextFieldWithFeaturesPageMetaSchema": {
@@ -17397,7 +17397,7 @@
         "title": "RichTextFieldWithFeaturesPageSchema",
         "type": "object"
       },
-      "RoutablePageTestInputMetaSchema": {
+      "RoutablePageTestCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -17422,13 +17422,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "RoutablePageTestInputMetaSchema",
+        "title": "RoutablePageTestCreateMetaSchema",
         "type": "object"
       },
-      "RoutablePageTestInputSchema": {
+      "RoutablePageTestCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RoutablePageTestInputMetaSchema"
+            "$ref": "#/components/schemas/RoutablePageTestCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -17489,7 +17489,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "RoutablePageTestInputSchema",
+        "title": "RoutablePageTestCreateSchema",
         "type": "object"
       },
       "RoutablePageTestMetaSchema": {
@@ -17669,7 +17669,7 @@
         "title": "RoutablePageTestSchema",
         "type": "object"
       },
-      "RoutablePageWithOverriddenIndexRouteTestInputMetaSchema": {
+      "RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -17694,13 +17694,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "RoutablePageWithOverriddenIndexRouteTestInputMetaSchema",
+        "title": "RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema",
         "type": "object"
       },
-      "RoutablePageWithOverriddenIndexRouteTestInputSchema": {
+      "RoutablePageWithOverriddenIndexRouteTestCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestInputMetaSchema"
+            "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -17761,7 +17761,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "RoutablePageWithOverriddenIndexRouteTestInputSchema",
+        "title": "RoutablePageWithOverriddenIndexRouteTestCreateSchema",
         "type": "object"
       },
       "RoutablePageWithOverriddenIndexRouteTestMetaSchema": {
@@ -17941,7 +17941,7 @@
         "title": "RoutablePageWithOverriddenIndexRouteTestSchema",
         "type": "object"
       },
-      "SamplePageInputMetaSchema": {
+      "SamplePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -17966,13 +17966,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SamplePageInputMetaSchema",
+        "title": "SamplePageCreateMetaSchema",
         "type": "object"
       },
-      "SamplePageInputSchema": {
+      "SamplePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SamplePageInputMetaSchema"
+            "$ref": "#/components/schemas/SamplePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -18033,7 +18033,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SamplePageInputSchema",
+        "title": "SamplePageCreateSchema",
         "type": "object"
       },
       "SamplePageMetaSchema": {
@@ -18255,7 +18255,7 @@
         "title": "SchemaDetailResponse",
         "type": "object"
       },
-      "SecretPageInputMetaSchema": {
+      "SecretPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -18280,13 +18280,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SecretPageInputMetaSchema",
+        "title": "SecretPageCreateMetaSchema",
         "type": "object"
       },
-      "SecretPageInputSchema": {
+      "SecretPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SecretPageInputMetaSchema"
+            "$ref": "#/components/schemas/SecretPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -18347,7 +18347,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SecretPageInputSchema",
+        "title": "SecretPageCreateSchema",
         "type": "object"
       },
       "SecretPageMetaSchema": {
@@ -18527,7 +18527,7 @@
         "title": "SecretPageSchema",
         "type": "object"
       },
-      "SectionedRichTextPageInputMetaSchema": {
+      "SectionedRichTextPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -18552,13 +18552,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SectionedRichTextPageInputMetaSchema",
+        "title": "SectionedRichTextPageCreateMetaSchema",
         "type": "object"
       },
-      "SectionedRichTextPageInputSchema": {
+      "SectionedRichTextPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SectionedRichTextPageInputMetaSchema"
+            "$ref": "#/components/schemas/SectionedRichTextPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -18619,7 +18619,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SectionedRichTextPageInputSchema",
+        "title": "SectionedRichTextPageCreateSchema",
         "type": "object"
       },
       "SectionedRichTextPageMetaSchema": {
@@ -18799,7 +18799,7 @@
         "title": "SectionedRichTextPageSchema",
         "type": "object"
       },
-      "SimpleChildPageInputMetaSchema": {
+      "SimpleChildPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -18824,13 +18824,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SimpleChildPageInputMetaSchema",
+        "title": "SimpleChildPageCreateMetaSchema",
         "type": "object"
       },
-      "SimpleChildPageInputSchema": {
+      "SimpleChildPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimpleChildPageInputMetaSchema"
+            "$ref": "#/components/schemas/SimpleChildPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -18891,7 +18891,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SimpleChildPageInputSchema",
+        "title": "SimpleChildPageCreateSchema",
         "type": "object"
       },
       "SimpleChildPageMetaSchema": {
@@ -19071,7 +19071,7 @@
         "title": "SimpleChildPageSchema",
         "type": "object"
       },
-      "SimplePageInputMetaSchema": {
+      "SimplePageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -19096,13 +19096,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SimplePageInputMetaSchema",
+        "title": "SimplePageCreateMetaSchema",
         "type": "object"
       },
-      "SimplePageInputSchema": {
+      "SimplePageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimplePageInputMetaSchema"
+            "$ref": "#/components/schemas/SimplePageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -19163,7 +19163,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SimplePageInputSchema",
+        "title": "SimplePageCreateSchema",
         "type": "object"
       },
       "SimplePageMetaSchema": {
@@ -19343,7 +19343,7 @@
         "title": "SimplePageSchema",
         "type": "object"
       },
-      "SimpleParentPageInputMetaSchema": {
+      "SimpleParentPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -19368,13 +19368,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SimpleParentPageInputMetaSchema",
+        "title": "SimpleParentPageCreateMetaSchema",
         "type": "object"
       },
-      "SimpleParentPageInputSchema": {
+      "SimpleParentPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimpleParentPageInputMetaSchema"
+            "$ref": "#/components/schemas/SimpleParentPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -19435,7 +19435,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SimpleParentPageInputSchema",
+        "title": "SimpleParentPageCreateSchema",
         "type": "object"
       },
       "SimpleParentPageMetaSchema": {
@@ -19615,7 +19615,7 @@
         "title": "SimpleParentPageSchema",
         "type": "object"
       },
-      "SingleEventPageInputMetaSchema": {
+      "SingleEventPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -19640,13 +19640,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SingleEventPageInputMetaSchema",
+        "title": "SingleEventPageCreateMetaSchema",
         "type": "object"
       },
-      "SingleEventPageInputSchema": {
+      "SingleEventPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingleEventPageInputMetaSchema"
+            "$ref": "#/components/schemas/SingleEventPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -19707,7 +19707,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SingleEventPageInputSchema",
+        "title": "SingleEventPageCreateSchema",
         "type": "object"
       },
       "SingleEventPageMetaSchema": {
@@ -19887,7 +19887,7 @@
         "title": "SingleEventPageSchema",
         "type": "object"
       },
-      "SingletonPageInputMetaSchema": {
+      "SingletonPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -19912,13 +19912,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SingletonPageInputMetaSchema",
+        "title": "SingletonPageCreateMetaSchema",
         "type": "object"
       },
-      "SingletonPageInputSchema": {
+      "SingletonPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingletonPageInputMetaSchema"
+            "$ref": "#/components/schemas/SingletonPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -19979,7 +19979,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SingletonPageInputSchema",
+        "title": "SingletonPageCreateSchema",
         "type": "object"
       },
       "SingletonPageMetaSchema": {
@@ -20159,7 +20159,7 @@
         "title": "SingletonPageSchema",
         "type": "object"
       },
-      "SingletonPageViaMaxCountInputMetaSchema": {
+      "SingletonPageViaMaxCountCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -20184,13 +20184,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "SingletonPageViaMaxCountInputMetaSchema",
+        "title": "SingletonPageViaMaxCountCreateMetaSchema",
         "type": "object"
       },
-      "SingletonPageViaMaxCountInputSchema": {
+      "SingletonPageViaMaxCountCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingletonPageViaMaxCountInputMetaSchema"
+            "$ref": "#/components/schemas/SingletonPageViaMaxCountCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -20251,7 +20251,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "SingletonPageViaMaxCountInputSchema",
+        "title": "SingletonPageViaMaxCountCreateSchema",
         "type": "object"
       },
       "SingletonPageViaMaxCountMetaSchema": {
@@ -20499,7 +20499,7 @@
         "title": "SiteSchema",
         "type": "object"
       },
-      "StandardChildInputMetaSchema": {
+      "StandardChildCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -20524,13 +20524,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "StandardChildInputMetaSchema",
+        "title": "StandardChildCreateMetaSchema",
         "type": "object"
       },
-      "StandardChildInputSchema": {
+      "StandardChildCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardChildInputMetaSchema"
+            "$ref": "#/components/schemas/StandardChildCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -20591,7 +20591,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "StandardChildInputSchema",
+        "title": "StandardChildCreateSchema",
         "type": "object"
       },
       "StandardChildMetaSchema": {
@@ -20771,7 +20771,7 @@
         "title": "StandardChildSchema",
         "type": "object"
       },
-      "StandardIndexInputMetaSchema": {
+      "StandardIndexCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -20796,13 +20796,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "StandardIndexInputMetaSchema",
+        "title": "StandardIndexCreateMetaSchema",
         "type": "object"
       },
-      "StandardIndexInputSchema": {
+      "StandardIndexCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardIndexInputMetaSchema"
+            "$ref": "#/components/schemas/StandardIndexCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -20863,7 +20863,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "StandardIndexInputSchema",
+        "title": "StandardIndexCreateSchema",
         "type": "object"
       },
       "StandardIndexMetaSchema": {
@@ -20927,7 +20927,7 @@
         "title": "StandardIndexMetaSchema",
         "type": "object"
       },
-      "StandardIndexPageInputMetaSchema": {
+      "StandardIndexPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -20952,13 +20952,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "StandardIndexPageInputMetaSchema",
+        "title": "StandardIndexPageCreateMetaSchema",
         "type": "object"
       },
-      "StandardIndexPageInputSchema": {
+      "StandardIndexPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardIndexPageInputMetaSchema"
+            "$ref": "#/components/schemas/StandardIndexPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -21019,7 +21019,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "StandardIndexPageInputSchema",
+        "title": "StandardIndexPageCreateSchema",
         "type": "object"
       },
       "StandardIndexPageMetaSchema": {
@@ -21517,7 +21517,7 @@
         "title": "StandardPageCarouselItemSchema",
         "type": "object"
       },
-      "StandardPageInputMetaSchema": {
+      "StandardPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -21542,13 +21542,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "StandardPageInputMetaSchema",
+        "title": "StandardPageCreateMetaSchema",
         "type": "object"
       },
-      "StandardPageInputSchema": {
+      "StandardPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardPageInputMetaSchema"
+            "$ref": "#/components/schemas/StandardPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -21609,7 +21609,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "StandardPageInputSchema",
+        "title": "StandardPageCreateSchema",
         "type": "object"
       },
       "StandardPageMetaSchema": {
@@ -21910,7 +21910,7 @@
         "title": "StandardPageSchema",
         "type": "object"
       },
-      "StreamPageInputMetaSchema": {
+      "StreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -21935,10 +21935,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "StreamPageInputMetaSchema",
+        "title": "StreamPageCreateMetaSchema",
         "type": "object"
       },
-      "StreamPageInputSchema": {
+      "StreamPageCreateSchema": {
         "properties": {
           "body": {
             "default": [],
@@ -21947,7 +21947,7 @@
             "type": "array"
           },
           "meta": {
-            "$ref": "#/components/schemas/StreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/StreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -22008,7 +22008,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "StreamPageInputSchema",
+        "title": "StreamPageCreateSchema",
         "type": "object"
       },
       "StreamPageMetaSchema": {
@@ -22200,7 +22200,7 @@
         "title": "StreamPageSchema",
         "type": "object"
       },
-      "TableBlockStreamPageInputMetaSchema": {
+      "TableBlockStreamPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -22225,13 +22225,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "TableBlockStreamPageInputMetaSchema",
+        "title": "TableBlockStreamPageCreateMetaSchema",
         "type": "object"
       },
-      "TableBlockStreamPageInputSchema": {
+      "TableBlockStreamPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TableBlockStreamPageInputMetaSchema"
+            "$ref": "#/components/schemas/TableBlockStreamPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -22292,7 +22292,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "TableBlockStreamPageInputSchema",
+        "title": "TableBlockStreamPageCreateSchema",
         "type": "object"
       },
       "TableBlockStreamPageMetaSchema": {
@@ -22472,7 +22472,7 @@
         "title": "TableBlockStreamPageSchema",
         "type": "object"
       },
-      "TaggedChildPageInputMetaSchema": {
+      "TaggedChildPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -22497,13 +22497,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "TaggedChildPageInputMetaSchema",
+        "title": "TaggedChildPageCreateMetaSchema",
         "type": "object"
       },
-      "TaggedChildPageInputSchema": {
+      "TaggedChildPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedChildPageInputMetaSchema"
+            "$ref": "#/components/schemas/TaggedChildPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -22564,7 +22564,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "TaggedChildPageInputSchema",
+        "title": "TaggedChildPageCreateSchema",
         "type": "object"
       },
       "TaggedChildPageMetaSchema": {
@@ -22744,7 +22744,7 @@
         "title": "TaggedChildPageSchema",
         "type": "object"
       },
-      "TaggedGrandchildPageInputMetaSchema": {
+      "TaggedGrandchildPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -22769,13 +22769,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "TaggedGrandchildPageInputMetaSchema",
+        "title": "TaggedGrandchildPageCreateMetaSchema",
         "type": "object"
       },
-      "TaggedGrandchildPageInputSchema": {
+      "TaggedGrandchildPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedGrandchildPageInputMetaSchema"
+            "$ref": "#/components/schemas/TaggedGrandchildPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -22836,7 +22836,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "TaggedGrandchildPageInputSchema",
+        "title": "TaggedGrandchildPageCreateSchema",
         "type": "object"
       },
       "TaggedGrandchildPageMetaSchema": {
@@ -23016,7 +23016,7 @@
         "title": "TaggedGrandchildPageSchema",
         "type": "object"
       },
-      "TaggedPageInputMetaSchema": {
+      "TaggedPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -23041,13 +23041,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "TaggedPageInputMetaSchema",
+        "title": "TaggedPageCreateMetaSchema",
         "type": "object"
       },
-      "TaggedPageInputSchema": {
+      "TaggedPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedPageInputMetaSchema"
+            "$ref": "#/components/schemas/TaggedPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -23108,7 +23108,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "TaggedPageInputSchema",
+        "title": "TaggedPageCreateSchema",
         "type": "object"
       },
       "TaggedPageMetaSchema": {
@@ -23288,7 +23288,7 @@
         "title": "TaggedPageSchema",
         "type": "object"
       },
-      "TestPageInputMetaSchema": {
+      "TestPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -23313,13 +23313,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "TestPageInputMetaSchema",
+        "title": "TestPageCreateMetaSchema",
         "type": "object"
       },
-      "TestPageInputSchema": {
+      "TestPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TestPageInputMetaSchema"
+            "$ref": "#/components/schemas/TestPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -23380,7 +23380,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "TestPageInputSchema",
+        "title": "TestPageCreateSchema",
         "type": "object"
       },
       "TestPageMetaSchema": {
@@ -23560,7 +23560,7 @@
         "title": "TestPageSchema",
         "type": "object"
       },
-      "ValidatedPageInputMetaSchema": {
+      "ValidatedPageCreateMetaSchema": {
         "properties": {
           "action": {
             "anyOf": [
@@ -23585,13 +23585,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "ValidatedPageInputMetaSchema",
+        "title": "ValidatedPageCreateMetaSchema",
         "type": "object"
       },
-      "ValidatedPageInputSchema": {
+      "ValidatedPageCreateSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ValidatedPageInputMetaSchema"
+            "$ref": "#/components/schemas/ValidatedPageCreateMetaSchema"
           },
           "search_description": {
             "anyOf": [
@@ -23652,7 +23652,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "ValidatedPageInputSchema",
+        "title": "ValidatedPageCreateSchema",
         "type": "object"
       },
       "ValidatedPageMetaSchema": {
@@ -23832,7 +23832,7 @@
         "title": "ValidatedPageSchema",
         "type": "object"
       },
-      "abc__EventPageInputMetaSchema__1": {
+      "abc__EventPageCreateMetaSchema__1": {
         "properties": {
           "action": {
             "anyOf": [
@@ -23857,10 +23857,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "EventPageInputMetaSchema",
+        "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__EventPageInputMetaSchema__2": {
+      "abc__EventPageCreateMetaSchema__2": {
         "properties": {
           "action": {
             "anyOf": [
@@ -23885,13 +23885,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "EventPageInputMetaSchema",
+        "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__EventPageInputSchema__1": {
+      "abc__EventPageCreateSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__EventPageInputMetaSchema__1"
+            "$ref": "#/components/schemas/abc__EventPageCreateMetaSchema__1"
           },
           "search_description": {
             "anyOf": [
@@ -23952,10 +23952,10 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "EventPageInputSchema",
+        "title": "EventPageCreateSchema",
         "type": "object"
       },
-      "abc__EventPageInputSchema__2": {
+      "abc__EventPageCreateSchema__2": {
         "properties": {
           "audience": {
             "maxLength": 255,
@@ -24021,7 +24021,7 @@
             "type": "string"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__EventPageInputMetaSchema__2"
+            "$ref": "#/components/schemas/abc__EventPageCreateMetaSchema__2"
           },
           "related_links": {
             "default": [],
@@ -24140,7 +24140,7 @@
           "location",
           "cost"
         ],
-        "title": "EventPageInputSchema",
+        "title": "EventPageCreateSchema",
         "type": "object"
       },
       "abc__EventPageMetaSchema__1": {
@@ -24757,7 +24757,7 @@
         "title": "EventPageSchema",
         "type": "object"
       },
-      "abc__FormPageInputMetaSchema__1": {
+      "abc__FormPageCreateMetaSchema__1": {
         "properties": {
           "action": {
             "anyOf": [
@@ -24782,10 +24782,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageInputMetaSchema",
+        "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__FormPageInputMetaSchema__2": {
+      "abc__FormPageCreateMetaSchema__2": {
         "properties": {
           "action": {
             "anyOf": [
@@ -24810,13 +24810,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "FormPageInputMetaSchema",
+        "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__FormPageInputSchema__1": {
+      "abc__FormPageCreateSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__FormPageInputMetaSchema__1"
+            "$ref": "#/components/schemas/abc__FormPageCreateMetaSchema__1"
           },
           "search_description": {
             "anyOf": [
@@ -24877,13 +24877,13 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageInputSchema",
+        "title": "FormPageCreateSchema",
         "type": "object"
       },
-      "abc__FormPageInputSchema__2": {
+      "abc__FormPageCreateSchema__2": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__FormPageInputMetaSchema__2"
+            "$ref": "#/components/schemas/abc__FormPageCreateMetaSchema__2"
           },
           "search_description": {
             "anyOf": [
@@ -24944,7 +24944,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "FormPageInputSchema",
+        "title": "FormPageCreateSchema",
         "type": "object"
       },
       "abc__FormPageMetaSchema__1": {
@@ -25382,7 +25382,7 @@
         "title": "PageMetaSchema",
         "type": "object"
       },
-      "abc__PersonPageInputMetaSchema__1": {
+      "abc__PersonPageCreateMetaSchema__1": {
         "properties": {
           "action": {
             "anyOf": [
@@ -25407,10 +25407,10 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PersonPageInputMetaSchema",
+        "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__PersonPageInputMetaSchema__2": {
+      "abc__PersonPageCreateMetaSchema__2": {
         "properties": {
           "action": {
             "anyOf": [
@@ -25435,13 +25435,13 @@
           }
         },
         "required": ["parent_id", "type"],
-        "title": "PersonPageInputMetaSchema",
+        "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
-      "abc__PersonPageInputSchema__1": {
+      "abc__PersonPageCreateSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__PersonPageInputMetaSchema__1"
+            "$ref": "#/components/schemas/abc__PersonPageCreateMetaSchema__1"
           },
           "search_description": {
             "anyOf": [
@@ -25502,13 +25502,13 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PersonPageInputSchema",
+        "title": "PersonPageCreateSchema",
         "type": "object"
       },
-      "abc__PersonPageInputSchema__2": {
+      "abc__PersonPageCreateSchema__2": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__PersonPageInputMetaSchema__2"
+            "$ref": "#/components/schemas/abc__PersonPageCreateMetaSchema__2"
           },
           "search_description": {
             "anyOf": [
@@ -25569,7 +25569,7 @@
           }
         },
         "required": ["meta", "title"],
-        "title": "PersonPageInputSchema",
+        "title": "PersonPageCreateSchema",
         "type": "object"
       },
       "abc__PersonPageMetaSchema__1": {
@@ -26130,256 +26130,256 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/PageInputSchema"
+                    "$ref": "#/components/schemas/PageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/EarlyPageInputSchema"
+                    "$ref": "#/components/schemas/EarlyPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SimplePageInputSchema"
+                    "$ref": "#/components/schemas/SimplePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/NoPromotePageInputSchema"
+                    "$ref": "#/components/schemas/NoPromotePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/MultiPreviewModesPageInputSchema"
+                    "$ref": "#/components/schemas/MultiPreviewModesPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomPreviewSizesPageInputSchema"
+                    "$ref": "#/components/schemas/CustomPreviewSizesPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/PageWithExcludedCopyFieldInputSchema"
+                    "$ref": "#/components/schemas/PageWithExcludedCopyFieldCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/PageWithGenericRelationInputSchema"
+                    "$ref": "#/components/schemas/PageWithGenericRelationCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/PageWithOldStyleRouteMethodInputSchema"
+                    "$ref": "#/components/schemas/PageWithOldStyleRouteMethodCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/FilePageInputSchema"
+                    "$ref": "#/components/schemas/FilePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__EventPageInputSchema__1"
+                    "$ref": "#/components/schemas/abc__EventPageCreateSchema__1"
                   },
                   {
-                    "$ref": "#/components/schemas/FormClassAdditionalFieldPageInputSchema"
+                    "$ref": "#/components/schemas/FormClassAdditionalFieldPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SingleEventPageInputSchema"
+                    "$ref": "#/components/schemas/SingleEventPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/EventIndexInputSchema"
+                    "$ref": "#/components/schemas/EventIndexCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__FormPageInputSchema__1"
+                    "$ref": "#/components/schemas/abc__FormPageCreateSchema__1"
                   },
                   {
-                    "$ref": "#/components/schemas/JadeFormPageInputSchema"
+                    "$ref": "#/components/schemas/JadeFormPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/FormPageWithRedirectInputSchema"
+                    "$ref": "#/components/schemas/FormPageWithRedirectCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/FormPageWithCustomSubmissionInputSchema"
+                    "$ref": "#/components/schemas/FormPageWithCustomSubmissionCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewInputSchema"
+                    "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/FormPageWithCustomFormBuilderInputSchema"
+                    "$ref": "#/components/schemas/FormPageWithCustomFormBuilderCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/StandardIndexInputSchema"
+                    "$ref": "#/components/schemas/StandardIndexCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/PromotionalPageInputSchema"
+                    "$ref": "#/components/schemas/PromotionalPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/StandardChildInputSchema"
+                    "$ref": "#/components/schemas/StandardChildCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BusinessIndexInputSchema"
+                    "$ref": "#/components/schemas/BusinessIndexCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BusinessSubIndexInputSchema"
+                    "$ref": "#/components/schemas/BusinessSubIndexCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BusinessChildInputSchema"
+                    "$ref": "#/components/schemas/BusinessChildCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BusinessNowherePageInputSchema"
+                    "$ref": "#/components/schemas/BusinessNowherePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomCopyFormPageInputSchema"
+                    "$ref": "#/components/schemas/CustomCopyFormPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/TaggedPageInputSchema"
+                    "$ref": "#/components/schemas/TaggedPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/TaggedChildPageInputSchema"
+                    "$ref": "#/components/schemas/TaggedChildPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/TaggedGrandchildPageInputSchema"
+                    "$ref": "#/components/schemas/TaggedGrandchildPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SingletonPageInputSchema"
+                    "$ref": "#/components/schemas/SingletonPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SingletonPageViaMaxCountInputSchema"
+                    "$ref": "#/components/schemas/SingletonPageViaMaxCountCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/StreamPageInputSchema"
+                    "$ref": "#/components/schemas/StreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/DefaultStreamPageInputSchema"
+                    "$ref": "#/components/schemas/DefaultStreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/ComplexDefaultStreamPageInputSchema"
+                    "$ref": "#/components/schemas/ComplexDefaultStreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/MTIBasePageInputSchema"
+                    "$ref": "#/components/schemas/MTIBasePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/MTIChildPageInputSchema"
+                    "$ref": "#/components/schemas/MTIChildPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/NoCreatableSubpageTypesPageInputSchema"
+                    "$ref": "#/components/schemas/NoCreatableSubpageTypesPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/NoSubpageTypesPageInputSchema"
+                    "$ref": "#/components/schemas/NoSubpageTypesPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/ManyToManyBlogPageInputSchema"
+                    "$ref": "#/components/schemas/ManyToManyBlogPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/OneToOnePageInputSchema"
+                    "$ref": "#/components/schemas/OneToOnePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/GenericSnippetPageInputSchema"
+                    "$ref": "#/components/schemas/GenericSnippetPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomManagerPageInputSchema"
+                    "$ref": "#/components/schemas/CustomManagerPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/MyCustomPageInputSchema"
+                    "$ref": "#/components/schemas/MyCustomPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/ValidatedPageInputSchema"
+                    "$ref": "#/components/schemas/ValidatedPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/DefaultRichTextFieldPageInputSchema"
+                    "$ref": "#/components/schemas/DefaultRichTextFieldPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/DefaultRichBlockFieldPageInputSchema"
+                    "$ref": "#/components/schemas/DefaultRichBlockFieldPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomRichTextFieldPageInputSchema"
+                    "$ref": "#/components/schemas/CustomRichTextFieldPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomRichBlockFieldPageInputSchema"
+                    "$ref": "#/components/schemas/CustomRichBlockFieldPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageInputSchema"
+                    "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SectionedRichTextPageInputSchema"
+                    "$ref": "#/components/schemas/SectionedRichTextPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/InlineStreamPageInputSchema"
+                    "$ref": "#/components/schemas/InlineStreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/TableBlockStreamPageInputSchema"
+                    "$ref": "#/components/schemas/TableBlockStreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/AlwaysShowInMenusPageInputSchema"
+                    "$ref": "#/components/schemas/AlwaysShowInMenusPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageInputSchema"
+                    "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageInputSchema"
+                    "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageInputSchema"
+                    "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SecretPageInputSchema"
+                    "$ref": "#/components/schemas/SecretPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SimpleParentPageInputSchema"
+                    "$ref": "#/components/schemas/SimpleParentPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SimpleChildPageInputSchema"
+                    "$ref": "#/components/schemas/SimpleChildPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__PersonPageInputSchema__1"
+                    "$ref": "#/components/schemas/abc__PersonPageCreateSchema__1"
                   },
                   {
-                    "$ref": "#/components/schemas/RestaurantPageInputSchema"
+                    "$ref": "#/components/schemas/RestaurantPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/DeadlyStreamPageInputSchema"
+                    "$ref": "#/components/schemas/DeadlyStreamPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/GalleryPageInputSchema"
+                    "$ref": "#/components/schemas/GalleryPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/GenericSnippetNoIndexPageInputSchema"
+                    "$ref": "#/components/schemas/GenericSnippetNoIndexPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageInputSchema"
+                    "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CustomPermissionPageInputSchema"
+                    "$ref": "#/components/schemas/CustomPermissionPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/RequiredDatePageInputSchema"
+                    "$ref": "#/components/schemas/RequiredDatePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/CommentableJSONPageInputSchema"
+                    "$ref": "#/components/schemas/CommentableJSONPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/HomePageInputSchema"
+                    "$ref": "#/components/schemas/HomePageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/StandardPageInputSchema"
+                    "$ref": "#/components/schemas/StandardPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/StandardIndexPageInputSchema"
+                    "$ref": "#/components/schemas/StandardIndexPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BlogEntryPageInputSchema"
+                    "$ref": "#/components/schemas/BlogEntryPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/BlogIndexPageInputSchema"
+                    "$ref": "#/components/schemas/BlogIndexPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__EventPageInputSchema__2"
+                    "$ref": "#/components/schemas/abc__EventPageCreateSchema__2"
                   },
                   {
-                    "$ref": "#/components/schemas/EventIndexPageInputSchema"
+                    "$ref": "#/components/schemas/EventIndexPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__PersonPageInputSchema__2"
+                    "$ref": "#/components/schemas/abc__PersonPageCreateSchema__2"
                   },
                   {
-                    "$ref": "#/components/schemas/ContactPageInputSchema"
+                    "$ref": "#/components/schemas/ContactPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/abc__FormPageInputSchema__2"
+                    "$ref": "#/components/schemas/abc__FormPageCreateSchema__2"
                   },
                   {
-                    "$ref": "#/components/schemas/RoutablePageTestInputSchema"
+                    "$ref": "#/components/schemas/RoutablePageTestCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestInputSchema"
+                    "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/TestPageInputSchema"
+                    "$ref": "#/components/schemas/TestPageCreateSchema"
                   },
                   {
-                    "$ref": "#/components/schemas/SamplePageInputSchema"
+                    "$ref": "#/components/schemas/SamplePageCreateSchema"
                   }
                 ],
                 "title": "Data"

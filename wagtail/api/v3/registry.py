@@ -88,7 +88,7 @@ class ContentTypeRegistry:
             read_generator,
         )
         from wagtail.api.v3.schemas.pages import (
-            PAGE_CREATE_FIELDS,
+            BASE_PAGE_FIELDS,
             PageCreateBaseSchema,
             PageUpdateBaseSchema,
         )
@@ -113,13 +113,13 @@ class ContentTypeRegistry:
                     create_schema=create_generator.generate_schema(
                         model,
                         base_class=PageCreateBaseSchema,
-                        fields=PAGE_CREATE_FIELDS,
+                        fields=BASE_PAGE_FIELDS,
                         required_fields=("title",),
                     ),
                     patch_schema=patch_generator.generate_schema(
                         model,
                         base_class=PageUpdateBaseSchema,
-                        fields=PAGE_CREATE_FIELDS,
+                        fields=BASE_PAGE_FIELDS,
                         name_suffix="Patch",
                     ),
                 )

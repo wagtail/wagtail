@@ -4,7 +4,7 @@ from ninja import Schema
 from wagtail.api import APIField
 from wagtail.api.v3.schemas import create_generator
 from wagtail.api.v3.schemas.pages import (
-    PAGE_CREATE_FIELDS,
+    BASE_PAGE_FIELDS,
     PageCreateBaseSchema,
     PageCreateMetaSchema,
 )
@@ -16,7 +16,7 @@ def generate_page_input_schema(model):
     return create_generator.generate_schema(
         model,
         base_class=PageCreateBaseSchema,
-        fields=PAGE_CREATE_FIELDS,
+        fields=BASE_PAGE_FIELDS,
         required_fields=("title",),
     )
 
