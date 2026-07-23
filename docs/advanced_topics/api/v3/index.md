@@ -28,7 +28,7 @@ urlpatterns = [
 
 Browse the interactive docs at `/api/v3/docs` and the OpenAPI schema at `/api/v3/openapi.json`.
 
-The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`). See [](api_v2_configuration) and the [API settings reference](/reference/settings).
+The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`, `WAGTAILAPI_RICH_TEXT_FORMAT`). See [](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
 
 ## Pagination
 
@@ -41,7 +41,9 @@ List endpoints use Django Ninja's limit/offset pagination:
 }
 ```
 
-`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](/reference/settings)).
+`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](wagtailapi_settings)).
+
+Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of `WAGTAILAPI_RICH_TEXT_FORMAT`.
 
 ## Error format
 
