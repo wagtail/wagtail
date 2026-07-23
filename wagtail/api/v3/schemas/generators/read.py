@@ -325,8 +325,8 @@ def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     return list[str], [], staticmethod(resolve)
 
 
-generator = SchemaGenerator()
-generator.register_field_schema(ForeignKey, foreign_key_schema)
-generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
-generator.register_field_schema(StreamField, streamfield_schema)
-generator.register_field_schema(TaggableManager, tags_schema)
+read_generator = SchemaGenerator()
+read_generator.register_field_schema(ForeignKey, foreign_key_schema)
+read_generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
+read_generator.register_field_schema(StreamField, streamfield_schema)
+read_generator.register_field_schema(TaggableManager, tags_schema)
