@@ -21,14 +21,14 @@ const ImageBlock = (props) => {
       <p className="ImageBlock__alt">{altLabel}</p>
 
       <button
-        className="button Tooltip__button"
+        className="button button-small Tooltip__button"
         type="button"
         onClick={onEditEntity}
       >
         {gettext('Edit')}
       </button>
       <button
-        className="button button-secondary no Tooltip__button"
+        className="button button-small button-secondary no Tooltip__button"
         onClick={onRemoveEntity}
       >
         {gettext('Delete')}
