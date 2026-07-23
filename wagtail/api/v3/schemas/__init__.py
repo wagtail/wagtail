@@ -5,11 +5,10 @@ from .pages import (
     PageCreateBaseSchema,
     PageCreateMetaSchema,
     PageMetaSchema,
+    PageSchemaUnions,
     PageUpdateBaseSchema,
     PageUpdateMetaSchema,
-    build_page_input_schema_union,
-    build_page_schema_union,
-    build_page_update_schema_union,
+    build_page_schema_unions,
 )
 from .sites import SiteInputSchema, SiteSchema
 
@@ -24,11 +23,10 @@ __all__ = [
     "PageCreateBaseSchema",
     "PageCreateMetaSchema",
     "PageMetaSchema",
+    "PageSchemaUnions",
     "PageUpdateBaseSchema",
     "PageUpdateMetaSchema",
-    "build_page_input_schema_union",
-    "build_page_schema_union",
-    "build_page_update_schema_union",
+    "build_page_schema_unions",
     "SiteInputSchema",
     "SiteSchema",
 ]
