@@ -7,6 +7,10 @@ from wagtail.embeds import urls
 from wagtail.embeds.rich_text import MediaEmbedHandler
 from wagtail.embeds.rich_text.contentstate import ContentstateMediaConversionRule
 from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
+from wagtail.embeds.rich_text.markdown import (
+    MarkdownInternalMediaEmbedConversionRule,
+    MarkdownMediaEmbedConversionRule,
+)
 
 
 @hooks.register("register_admin_urls")
@@ -48,6 +52,14 @@ def register_embed_feature(features):
     # the database representation-
     features.register_converter_rule(
         "contentstate", "embed", ContentstateMediaConversionRule
+    )
+
+    # define how to render embeds as Markdown (public and internal)
+    features.register_converter_rule(
+        "markdown", "embed", MarkdownMediaEmbedConversionRule
+    )
+    features.register_converter_rule(
+        "markdown_internal", "embed", MarkdownInternalMediaEmbedConversionRule
     )
 
     # add 'embed' to the set of on-by-default rich text features
