@@ -1,4 +1,4 @@
-from django.test import RequestFactory, SimpleTestCase, TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.api.v2.serializers import RichTextFieldSerializer
@@ -6,9 +6,6 @@ from wagtail.models import Page
 
 
 class TestRichTextFormatResolution(SimpleTestCase):
-    def setUp(self):
-        self.request_factory = RequestFactory()
-
     def test_default_format_is_db_html(self):
         self.assertEqual(APIRichText.get_default_format(), APIRichText.DEFAULT_FORMAT)
 
@@ -17,15 +14,14 @@ class TestRichTextFormatResolution(SimpleTestCase):
         self.assertEqual(APIRichText.get_default_format(), "html")
 
     def test_query_parameter_overrides_setting(self):
-        request = self.request_factory.get("/", {"rich_text_format": "html"})
         with override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="db_html"):
-            self.assertEqual(APIRichText.resolve_format(request), "html")
+            self.assertEqual(APIRichText.resolve_format("html"), "html")
 
     def test_invalid_query_parameter_raises(self):
-        request = self.request_factory.get("/", {"rich_text_format": "markdown"})
+        request = self.request_factory.get("/", {"rich_text_format": "invalid"})
         with self.assertRaises(RichTextFormatError) as cm:
             APIRichText.resolve_format(request)
-        self.assertIn("markdown", str(cm.exception))
+        self.assertIn("invalid", str(cm.exception))
 
     @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="invalid")
     def test_invalid_setting_raises(self):
@@ -47,9 +43,10 @@ class TestSerializeRichText(TestCase):
     def test_html_expands_entity_references(self):
         page = Page.objects.get(url_path="/home/events/")
         value = f'<p><a linktype="page" id="{page.id}">Events</a></p>'
-        result = APIRichText.serialize(value, format="html")
-        self.assertIn('href="/events/"', result)
-        self.assertNotIn("linktype=", result)
+        self.assertEqual(
+            APIRichText.serialize(value, format="html"),
+            '<p><a href="/events/">Events</a></p>',
+        )
 
     def test_none_returns_none(self):
         self.assertIsNone(APIRichText.serialize(None, format="html"))
