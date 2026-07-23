@@ -1280,7 +1280,7 @@ class TestPageDetail(TestCase):
         )
 
     def get_json(self, page_id, **params):
-        return json.loads(self.get_response(page_id, **params).content.decode("UTF-8"))
+        return self.get_response(page_id, **params).json()
 
     def test_basic(self):
         response = self.get_response(16)
