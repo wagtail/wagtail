@@ -6,8 +6,15 @@ from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.documents.models import Document
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageSubscription
-from wagtail.test.demosite.models import BlogIndexPage, EventPage, HomePage
+from wagtail.test.demosite.models import (
+    BlogEntryPage,
+    BlogIndexPage,
+    EventPage,
+    HomePage,
+)
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -677,6 +684,76 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                     ],
                     "msg": "String should have at most 255 characters",
                     "ctx": {"max_length": 255},
+                }
+            ],
+        )
+
+    def test_create_page_with_foreign_key_field(self):
+        """
+        BlogEntryPage.feed_image is a writable ForeignKey APIField, exposed
+        on the input schema as feed_image_id - posting the related object's
+        pk sets the relation.
+        """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "New entry",
+                "slug": "new-entry",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "feed_image_id": image.pk,
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = BlogEntryPage.objects.get(slug="new-entry")
+        self.assertEqual(page.feed_image_id, image.pk)
+
+    def test_create_page_with_foreign_key_field_omitted_is_null(self):
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "New entry",
+                "slug": "new-entry-no-image",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = BlogEntryPage.objects.get(slug="new-entry-no-image")
+        self.assertIsNone(page.feed_image_id)
+
+    def test_create_page_with_unknown_foreign_key_id_returns_422(self):
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "New entry",
+                "slug": "new-entry-bad-image",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "feed_image_id": 999999,
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"],
+            [
+                {
+                    "type": "invalid_choice",
+                    "loc": ["feed_image"],
+                    "message": (
+                        "Select a valid choice. That choice is not one of "
+                        "the available choices."
+                    ),
                 }
             ],
         )
