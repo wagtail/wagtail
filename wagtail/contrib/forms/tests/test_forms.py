@@ -147,7 +147,7 @@ class TestFormBuilder(TestCase):
         self.assertIn("your_favourite_number", field_names)
         self.assertIn("your_favourite_text_editors", field_names)
         self.assertIn("your_favourite_python_ides", field_names)
-        self.assertIn("u03a5our_favourite_u03a1ython_ixd0e", field_names)
+        self.assertIn("ὕour_favourite_ρython_ïðè", field_names)
         self.assertIn("your_choices", field_names)
         self.assertIn("i_agree_to_the_terms_of_use", field_names)
         self.assertIn("a_hidden_field", field_names)
@@ -172,7 +172,7 @@ class TestFormBuilder(TestCase):
             form_class.base_fields["your_favourite_python_ides"], forms.ChoiceField
         )
         self.assertIsInstance(
-            form_class.base_fields["u03a5our_favourite_u03a1ython_ixd0e"],
+            form_class.base_fields["ὕour_favourite_ρython_ïðè"],
             forms.ChoiceField,
         )
         self.assertIsInstance(
@@ -188,7 +188,7 @@ class TestFormBuilder(TestCase):
             form_class.base_fields["your_message"].widget, forms.Textarea
         )
         self.assertIsInstance(
-            form_class.base_fields["u03a5our_favourite_u03a1ython_ixd0e"].widget,
+            form_class.base_fields["ὕour_favourite_ρython_ïðè"].widget,
             forms.RadioSelect,
         )
         self.assertIsInstance(
@@ -317,8 +317,8 @@ class TestFormBuilder(TestCase):
                 '<input type="text" name="your_favourite_python_ides" class="custom">',
             ),
             (
-                "u03a5our_favourite_u03a1ython_ixd0e",
-                '<input type="text" name="u03a5our_favourite_u03a1ython_ixd0e" class="custom">',
+                "ὕour_favourite_ρython_ïðè",
+                '<input type="text" name="ὕour_favourite_ρython_ïðè" class="custom">',
             ),
             (
                 "your_choices",
