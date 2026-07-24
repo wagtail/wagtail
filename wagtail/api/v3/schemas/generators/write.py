@@ -42,6 +42,7 @@ class InputSchemaGenerator:
 
     def __init__(self, *, for_update: bool = False):
         self.for_update = for_update
+        self.name_suffix = "Patch" if for_update else "Create"
 
         #: Map of Django field classes to functions that return an
         #: ``(annotation, default)`` tuple for that field type, or ``None``
@@ -98,7 +99,7 @@ class InputSchemaGenerator:
                 and not any(cls in self.field_schemas for cls in field.__class__.mro())
             ]
 
-            name = f"{model._meta.object_name}InputSchema"
+            name = f"{model._meta.object_name}{self.name_suffix}Schema"
             if field_names:
                 schema = create_schema(
                     model,
@@ -182,7 +183,7 @@ class InputSchemaGenerator:
         validation) reflects the actual, constant value rather than an
         open-ended string.
 
-        ``name_suffix`` (e.g. ``"Input"`` or ``"Patch"``) keeps this
+        ``name_suffix`` (e.g. ``"Create"`` or ``"Patch"``) keeps this
         distinct from another schema generated for the same model under a
         different ``base_class`` (e.g. create vs. update): ninja/pydantic
         key OpenAPI components by class ``__name__``, so two differently
@@ -230,7 +231,6 @@ class InputSchemaGenerator:
         base_class: type[Schema],
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
-        name_suffix: str = "Create",
     ) -> type[Schema]:
         """Build an input (create/patch) schema for the concrete model ``model``.
 
@@ -246,19 +246,13 @@ class InputSchemaGenerator:
         :class:`wagtail.api.v3.schemas.pages.PageCreateBaseSchema`), it's
         narrowed to a ``Literal`` matching this specific model, the same way
         the read-side generator narrows ``meta.type`` for read schemas.
-
-        ``name_suffix`` distinguishes this call's generated class name (and
-        its narrowed meta schema's) from another call for the same model
-        under a different ``base_class`` - see ``_narrowed_meta_schema``.
-        Callers generating more than one schema shape per model (e.g. both
-        a create and an update/patch schema) must pass distinct values.
         """
         field_names = [
             name
             for name in fields
             if name in {f.name for f in model._meta.get_fields()}
         ]
-        name = f"{model._meta.object_name}{name_suffix}Schema"
+        name = f"{model._meta.object_name}{self.name_suffix}Schema"
         schema = create_schema(
             model,
             name=f"{name}Base",
@@ -273,7 +267,7 @@ class InputSchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
-                meta_field.annotation, model, name_suffix
+                meta_field.annotation, model, self.name_suffix
             )
 
         for field_name, (annotation, default) in extra_fields.items():

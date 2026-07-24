@@ -1107,7 +1107,92 @@
         "title": "BasePageSchema",
         "type": "object"
       },
-      "BlogEntryPageCarouselItemInputSchema": {
+      "BlogEntryPageCarouselItemCreateSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "BlogEntryPageCarouselItemCreateSchema",
+        "type": "object"
+      },
+      "BlogEntryPageCarouselItemMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.BlogEntryPageCarouselItem",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "BlogEntryPageCarouselItemMetaSchema",
+        "type": "object"
+      },
+      "BlogEntryPageCarouselItemPatchSchema": {
         "properties": {
           "caption": {
             "anyOf": [
@@ -1188,19 +1273,7 @@
             "title": "Link Page"
           }
         },
-        "title": "BlogEntryPageCarouselItemInputSchema",
-        "type": "object"
-      },
-      "BlogEntryPageCarouselItemMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.BlogEntryPageCarouselItem",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "BlogEntryPageCarouselItemMetaSchema",
+        "title": "BlogEntryPageCarouselItemPatchSchema",
         "type": "object"
       },
       "BlogEntryPageCarouselItemSchema": {
@@ -1328,7 +1401,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/BlogEntryPageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/BlogEntryPageCarouselItemCreateSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -1355,7 +1428,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/BlogEntryPageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/BlogEntryPageRelatedLinkCreateSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -1531,7 +1604,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/BlogEntryPageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/BlogEntryPageCarouselItemPatchSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -1565,7 +1638,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/BlogEntryPageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/BlogEntryPageRelatedLinkPatchSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -1647,7 +1720,65 @@
         "title": "BlogEntryPagePatchSchema",
         "type": "object"
       },
-      "BlogEntryPageRelatedLinkInputSchema": {
+      "BlogEntryPageRelatedLinkCreateSchema": {
+        "properties": {
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "BlogEntryPageRelatedLinkCreateSchema",
+        "type": "object"
+      },
+      "BlogEntryPageRelatedLinkMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.BlogEntryPageRelatedLink",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "BlogEntryPageRelatedLinkMetaSchema",
+        "type": "object"
+      },
+      "BlogEntryPageRelatedLinkPatchSchema": {
         "properties": {
           "id": {
             "anyOf": [
@@ -1706,19 +1837,7 @@
             "title": "Title"
           }
         },
-        "title": "BlogEntryPageRelatedLinkInputSchema",
-        "type": "object"
-      },
-      "BlogEntryPageRelatedLinkMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.BlogEntryPageRelatedLink",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "BlogEntryPageRelatedLinkMetaSchema",
+        "title": "BlogEntryPageRelatedLinkPatchSchema",
         "type": "object"
       },
       "BlogEntryPageRelatedLinkSchema": {
@@ -7909,7 +8028,92 @@
         "title": "EventIndexSchema",
         "type": "object"
       },
-      "EventPageCarouselItemInputSchema": {
+      "EventPageCarouselItemCreateSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageCarouselItemCreateSchema",
+        "type": "object"
+      },
+      "EventPageCarouselItemMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageCarouselItem",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageCarouselItemMetaSchema",
+        "type": "object"
+      },
+      "EventPageCarouselItemPatchSchema": {
         "properties": {
           "caption": {
             "anyOf": [
@@ -7990,19 +8194,7 @@
             "title": "Link Page"
           }
         },
-        "title": "EventPageCarouselItemInputSchema",
-        "type": "object"
-      },
-      "EventPageCarouselItemMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.EventPageCarouselItem",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "EventPageCarouselItemMetaSchema",
+        "title": "EventPageCarouselItemPatchSchema",
         "type": "object"
       },
       "EventPageCarouselItemSchema": {
@@ -8093,7 +8285,65 @@
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
-      "EventPageRelatedLinkInputSchema": {
+      "EventPageRelatedLinkCreateSchema": {
+        "properties": {
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "EventPageRelatedLinkCreateSchema",
+        "type": "object"
+      },
+      "EventPageRelatedLinkMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageRelatedLink",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageRelatedLinkMetaSchema",
+        "type": "object"
+      },
+      "EventPageRelatedLinkPatchSchema": {
         "properties": {
           "id": {
             "anyOf": [
@@ -8152,19 +8402,7 @@
             "title": "Title"
           }
         },
-        "title": "EventPageRelatedLinkInputSchema",
-        "type": "object"
-      },
-      "EventPageRelatedLinkMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.EventPageRelatedLink",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "EventPageRelatedLinkMetaSchema",
+        "title": "EventPageRelatedLinkPatchSchema",
         "type": "object"
       },
       "EventPageRelatedLinkSchema": {
@@ -8228,7 +8466,82 @@
         "title": "EventPageRelatedLinkSchema",
         "type": "object"
       },
-      "EventPageSpeakerInputSchema": {
+      "EventPageSpeakerCreateSchema": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageSpeakerCreateSchema",
+        "type": "object"
+      },
+      "EventPageSpeakerMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageSpeaker",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerMetaSchema",
+        "type": "object"
+      },
+      "EventPageSpeakerPatchSchema": {
         "properties": {
           "first_name": {
             "anyOf": [
@@ -8299,19 +8612,7 @@
             "title": "Link Page"
           }
         },
-        "title": "EventPageSpeakerInputSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.EventPageSpeaker",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "EventPageSpeakerMetaSchema",
+        "title": "EventPageSpeakerPatchSchema",
         "type": "object"
       },
       "EventPageSpeakerSchema": {
@@ -11222,7 +11523,92 @@
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
-      "HomePageCarouselItemInputSchema": {
+      "HomePageCarouselItemCreateSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "embed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embed URL"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "HomePageCarouselItemCreateSchema",
+        "type": "object"
+      },
+      "HomePageCarouselItemMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.HomePageCarouselItem",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "HomePageCarouselItemMetaSchema",
+        "type": "object"
+      },
+      "HomePageCarouselItemPatchSchema": {
         "properties": {
           "caption": {
             "anyOf": [
@@ -11303,19 +11689,7 @@
             "title": "Link Page"
           }
         },
-        "title": "HomePageCarouselItemInputSchema",
-        "type": "object"
-      },
-      "HomePageCarouselItemMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.HomePageCarouselItem",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "HomePageCarouselItemMetaSchema",
+        "title": "HomePageCarouselItemPatchSchema",
         "type": "object"
       },
       "HomePageCarouselItemSchema": {
@@ -11450,7 +11824,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/HomePageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/HomePageCarouselItemCreateSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -11461,7 +11835,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/HomePageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/HomePageRelatedLinkCreateSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -11629,7 +12003,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/HomePageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/HomePageCarouselItemPatchSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -11640,7 +12014,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/HomePageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/HomePageRelatedLinkPatchSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -11714,7 +12088,65 @@
         "title": "HomePagePatchSchema",
         "type": "object"
       },
-      "HomePageRelatedLinkInputSchema": {
+      "HomePageRelatedLinkCreateSchema": {
+        "properties": {
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "HomePageRelatedLinkCreateSchema",
+        "type": "object"
+      },
+      "HomePageRelatedLinkMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "demosite.HomePageRelatedLink",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "HomePageRelatedLinkMetaSchema",
+        "type": "object"
+      },
+      "HomePageRelatedLinkPatchSchema": {
         "properties": {
           "id": {
             "anyOf": [
@@ -11773,19 +12205,7 @@
             "title": "Title"
           }
         },
-        "title": "HomePageRelatedLinkInputSchema",
-        "type": "object"
-      },
-      "HomePageRelatedLinkMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.HomePageRelatedLink",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "HomePageRelatedLinkMetaSchema",
+        "title": "HomePageRelatedLinkPatchSchema",
         "type": "object"
       },
       "HomePageRelatedLinkSchema": {
@@ -23976,7 +24396,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/EventPageCarouselItemCreateSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -24026,7 +24446,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/EventPageRelatedLinkCreateSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -24096,7 +24516,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerInputSchema"
+              "$ref": "#/components/schemas/EventPageSpeakerCreateSchema"
             },
             "title": "Speakers",
             "type": "array"
@@ -24414,7 +24834,7 @@
           "carousel_items": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageCarouselItemInputSchema"
+              "$ref": "#/components/schemas/EventPageCarouselItemPatchSchema"
             },
             "title": "Carousel Items",
             "type": "array"
@@ -24483,7 +24903,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageRelatedLinkInputSchema"
+              "$ref": "#/components/schemas/EventPageRelatedLinkPatchSchema"
             },
             "title": "Related Links",
             "type": "array"
@@ -24553,7 +24973,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerInputSchema"
+              "$ref": "#/components/schemas/EventPageSpeakerPatchSchema"
             },
             "title": "Speakers",
             "type": "array"

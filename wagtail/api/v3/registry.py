@@ -120,7 +120,6 @@ class ContentTypeRegistry:
                         model,
                         base_class=PageUpdateBaseSchema,
                         fields=BASE_PAGE_FIELDS,
-                        name_suffix="Patch",
                     ),
                 )
             )
