@@ -218,6 +218,8 @@ class InputSchemaGenerator:
             default = FieldInfo(
                 default=None,
                 alias=default.alias,
+                validation_alias=default.validation_alias,
+                serialization_alias=default.serialization_alias,
                 title=default.title,
                 description=default.description,
             )

@@ -1,13 +1,24 @@
+from django.db import models
+from django.db.models import ForeignKey
+from django.db.models.fields.reverse_related import ForeignObjectRel
 from django.test import SimpleTestCase
+from django.test.utils import isolate_apps
+from modelcluster.fields import ParentalKey
 from ninja import Schema
 
 from wagtail.api import APIField
 from wagtail.api.v3.schemas import create_generator
+from wagtail.api.v3.schemas.generators.write import (
+    InputSchemaGenerator,
+    child_relation_schema,
+    foreign_key_schema,
+)
 from wagtail.api.v3.schemas.pages import (
     BASE_PAGE_FIELDS,
     PageCreateBaseSchema,
     PageCreateMetaSchema,
 )
+from wagtail.models import Page
 from wagtail.test.demosite.models import HomePage, HomePageCarouselItem
 from wagtail.test.testapp.models import SimplePage
 
@@ -114,3 +125,71 @@ class TestChildRelationSchemaExcludesParentalKey(SimpleTestCase):
         self.assertNotIn("page", schema.model_fields)
         self.assertIn("caption", schema.model_fields)
         self.assertIn("embed_url", schema.model_fields)
+
+
+class TestPatchSchemaPreservesRequiredForeignKeyAlias(SimpleTestCase):
+    """
+    Ensure a writable, non-nullable ``ForeignKey`` on a child relation preserves
+    its alias in the patch schema when making it optional, i.e.
+    ``related_thing_id`` not ``related_thing``.
+    """
+
+    @isolate_apps("wagtail.test.testapp", "wagtail")
+    def test_required_foreign_key_alias_survives_in_patch_schema(self):
+        class RelatedThing(models.Model):
+            class Meta:
+                app_label = "tests"
+
+        class PageWithRequiredForeignKeyChild(Page):
+            api_fields = (APIField("children", writable=True),)
+
+            class Meta:
+                app_label = "tests"
+
+        class InlineChildWithRequiredForeignKey(models.Model):
+            page = ParentalKey(
+                PageWithRequiredForeignKeyChild,
+                on_delete=models.CASCADE,
+                related_name="children",
+            )
+            related_thing = models.ForeignKey(RelatedThing, on_delete=models.CASCADE)
+
+            api_fields = (APIField("related_thing", writable=True),)
+
+            class Meta:
+                app_label = "tests"
+
+        # Fresh generator instances to avoid polluting the global instance
+        create_gen = InputSchemaGenerator()
+        create_gen.register_field_schema(ForeignObjectRel, child_relation_schema)
+        create_gen.register_field_schema(ForeignKey, foreign_key_schema)
+        patch_gen = InputSchemaGenerator(for_update=True)
+        patch_gen.register_field_schema(ForeignObjectRel, child_relation_schema)
+        patch_gen.register_field_schema(ForeignKey, foreign_key_schema)
+
+        create_schema = create_gen.generate_schema(
+            PageWithRequiredForeignKeyChild,
+            base_class=Schema,
+            fields=("title",),
+        )
+        patch_schema = patch_gen.generate_schema(
+            PageWithRequiredForeignKeyChild,
+            base_class=Schema,
+            fields=("title",),
+        )
+
+        create_children_annotation = create_schema.model_fields["children"].annotation
+        patch_children_annotation = patch_schema.model_fields["children"].annotation
+        create_child_schema = create_children_annotation.__args__[0]
+        create_json_schema = create_child_schema.model_json_schema()
+        patch_child_schema = patch_children_annotation.__args__[0]
+        patch_json_schema = patch_child_schema.model_json_schema()
+
+        self.assertEqual(
+            create_json_schema["properties"]["related_thing_id"]["title"],
+            "Related Thing",
+        )
+        self.assertEqual(
+            patch_json_schema["properties"]["related_thing_id"]["title"],
+            "Related Thing",
+        )
