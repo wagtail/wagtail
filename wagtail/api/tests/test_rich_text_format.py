@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.api.rich_text import APIRichText, RichTextFormatError
@@ -18,16 +19,16 @@ class TestRichTextFormatResolution(SimpleTestCase):
             self.assertEqual(APIRichText.resolve_format("html"), "html")
 
     def test_invalid_query_parameter_raises(self):
-        request = self.request_factory.get("/", {"rich_text_format": "invalid"})
         with self.assertRaises(RichTextFormatError) as cm:
-            APIRichText.resolve_format(request)
+            APIRichText.resolve_format("invalid")
         self.assertIn("invalid", str(cm.exception))
 
     @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="invalid")
     def test_invalid_setting_raises(self):
-        with self.assertRaises(RichTextFormatError) as cm:
-            APIRichText.get_default_format()
+        with self.assertRaises(ImproperlyConfigured) as cm:
+            APIRichText.check_setting()
         self.assertIn("invalid", str(cm.exception))
+        self.assertIn(APIRichText.SETTING_NAME, str(cm.exception))
 
 
 class TestSerializeRichText(TestCase):
