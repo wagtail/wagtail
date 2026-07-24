@@ -30,7 +30,7 @@ class InputSchemaGenerator:
     ``api_fields``, excluding legacy API v2 custom serializer fields (those
     are read-only computed values, not real fields).
 
-    :param force_optional: when ``True``, every "extra" field this
+    :param for_update: when ``True``, every "extra" field this
         generator adds via ``api_fields`` (as opposed to a ``fields=`` name
         passed to ``generate_schema``, which has its own ``required_fields``
         control) is always optional, regardless of whatever requiredness its
@@ -40,8 +40,8 @@ class InputSchemaGenerator:
         otherwise be required.
     """
 
-    def __init__(self, *, force_optional: bool = False):
-        self.force_optional = force_optional
+    def __init__(self, *, for_update: bool = False):
+        self.for_update = for_update
 
         #: Map of Django field classes to functions that return an
         #: ``(annotation, default)`` tuple for that field type, or ``None``
@@ -116,7 +116,7 @@ class InputSchemaGenerator:
 
             extra_fields = self._build_extra_fields(model)
             namespace: dict[str, Any] = {"__annotations__": {}}
-            if self.force_optional:
+            if self.for_update:
                 # Add the model's pk as an optional field, so a child relation
                 # can be identified by its id when updating an existing item.
                 pk_schema = get_schema_field(model._meta.pk)
@@ -164,7 +164,7 @@ class InputSchemaGenerator:
             else:
                 extra_fields[field.name] = get_schema_field(model_field)
 
-            if self.force_optional and field.name in extra_fields:
+            if self.for_update and field.name in extra_fields:
                 extra_fields[field.name] = self._make_optional(extra_fields[field.name])
 
         return extra_fields
@@ -328,7 +328,7 @@ create_generator.register_field_schema(ForeignKey, foreign_key_schema)
 #: rejected as missing. A separate instance, not a shared one, so its
 #: cached child-relation schemas (which also need to be all-optional) and
 #: registered field-schema functions don't collide with ``generator``'s.
-patch_generator = InputSchemaGenerator(force_optional=True)
+patch_generator = InputSchemaGenerator(for_update=True)
 patch_generator.register_field_schema(StreamField, streamfield_schema)
 patch_generator.register_field_schema(TaggableManager, tags_schema)
 patch_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
