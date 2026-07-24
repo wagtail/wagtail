@@ -115,16 +115,14 @@ class InputSchemaGenerator:
                 schema = type(Schema)(f"{name}Base", (Schema,), {})
 
             extra_fields = self._build_extra_fields(model)
-            namespace: dict[str, Any] = {
-                # Optional, and not itself a writable APIField: on an
-                # update, matching this against an existing child row's own
-                # pk (see build_form_data's existing_instance handling)
-                # lets the request edit that row in place instead of
-                # deleting and recreating it. Ignored on create, where
-                # there's nothing existing to match against.
-                "__annotations__": {"id": int | None},
-                "id": None,
-            }
+            namespace: dict[str, Any] = {"__annotations__": {}}
+            if self.force_optional:
+                # Add the model's pk as an optional field, so a child relation
+                # can be identified by its id when updating an existing item.
+                pk_schema = get_schema_field(model._meta.pk)
+                id_annotation, id_default = self._make_optional(pk_schema)
+                namespace["__annotations__"]["id"] = id_annotation
+                namespace["id"] = id_default
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
                 namespace[field_name] = default
