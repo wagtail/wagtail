@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
+from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.models import Page, Site
 
 from .filters import (
@@ -399,7 +400,21 @@ class BaseAPIViewSet(GenericViewSet):
             "request": self.request,
             "view": self,
             "router": self.request.wagtailapi_router,
+            "_wagtail_rich_text_format": self.resolve_rich_text_format(),
         }
+
+    def resolve_rich_text_format(self):
+        """
+        Resolve and validate ``?rich_text_format=`` for this request.
+
+        This is the single validation point for API requests; serializers
+        should use the value from the serializer context.
+        """
+        raw = self.request.GET.get("rich_text_format")
+        try:
+            return APIRichText.resolve_format(raw)
+        except RichTextFormatError as exc:
+            raise BadRequestError(str(exc)) from exc
 
     def get_renderer_context(self):
         context = super().get_renderer_context()

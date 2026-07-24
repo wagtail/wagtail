@@ -275,6 +275,7 @@ class RichTextFieldSerializer(serializers.CharField):
     """
 
     def to_representation(self, value):
+        # Prefer the format resolved by BaseAPIViewSet; fall back for other callers.
         rich_text_format = self.context.get("_wagtail_rich_text_format")
         if rich_text_format is None:
             request = self.context.get("request")

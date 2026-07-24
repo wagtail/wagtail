@@ -1763,6 +1763,18 @@ class TestPageDetail(TestCase):
 
         self.assertEqual(content["body"], db_html)
 
+    def test_invalid_rich_text_format_gives_error(self):
+        response = self.get_response(16, rich_text_format="markdown")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            content,
+            {
+                "message": "rich_text_format must be one of 'db_html', 'html', got 'markdown'"
+            },
+        )
+
 
 class TestPageFind(TestCase):
     fixtures = ["demosite.json"]

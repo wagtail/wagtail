@@ -2,6 +2,7 @@ from collections.abc import Callable
 from typing import Any
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.rich_text import expand_db_html
 
@@ -30,14 +31,24 @@ class APIRichText:
     SETTING_NAME = "WAGTAILAPI_RICH_TEXT_FORMAT"
 
     @classmethod
-    def formats(cls) -> frozenset[str]:
-        return frozenset(cls._serializers())
+    def check_setting(cls) -> None:
+        """
+        Validate ``WAGTAILAPI_RICH_TEXT_FORMAT``.
+
+        Called at app startup; raises ``ImproperlyConfigured`` if invalid.
+        """
+        rich_text_format = getattr(settings, cls.SETTING_NAME, cls.DEFAULT_FORMAT)
+        if rich_text_format in cls._serializers():
+            return
+
+        allowed = ", ".join(f"'{name}'" for name in sorted(cls._serializers()))
+        raise ImproperlyConfigured(
+            f"{cls.SETTING_NAME} must be one of {allowed}, got '{rich_text_format}'"
+        )
 
     @classmethod
     def get_default_format(cls) -> str:
-        rich_text_format = getattr(settings, cls.SETTING_NAME, cls.DEFAULT_FORMAT)
-        cls._validate_format(rich_text_format, source=cls.SETTING_NAME)
-        return rich_text_format
+        return getattr(settings, cls.SETTING_NAME, cls.DEFAULT_FORMAT)
 
     @classmethod
     def resolve_format(cls, rich_text_format: str | None = None) -> str:
@@ -57,10 +68,15 @@ class APIRichText:
 
     @classmethod
     def serialize(cls, value: str | None, *, format: str) -> Any:
+        """
+        Serialize ``value`` using a previously validated ``format``.
+
+        Callers must resolve the format via :meth:`resolve_format` (or
+        :meth:`check_setting` for the project default) before calling this.
+        """
         if value is None:
             return None
 
-        cls._validate_format(format, source="format")
         return cls._serializers()[format](value)
 
     @classmethod
@@ -79,22 +95,11 @@ class APIRichText:
         return expand_db_html(value)
 
     @classmethod
-    def _validate_format(
-        cls, rich_text_format: str, *, source: str | None = None
-    ) -> None:
+    def _validate_format(cls, rich_text_format: str) -> None:
         if rich_text_format in cls._serializers():
             return
 
         allowed = ", ".join(f"'{name}'" for name in sorted(cls._serializers()))
-        if source == cls.SETTING_NAME:
-            message = (
-                f"{cls.SETTING_NAME} must be one of {allowed}, got '{rich_text_format}'"
-            )
-        elif source is not None:
-            message = f"Unknown rich text format '{rich_text_format}'"
-        else:
-            message = (
-                f"rich_text_format must be one of {allowed}, got '{rich_text_format}'"
-            )
-
-        raise RichTextFormatError(message)
+        raise RichTextFormatError(
+            f"rich_text_format must be one of {allowed}, got '{rich_text_format}'"
+        )
