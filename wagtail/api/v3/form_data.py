@@ -134,12 +134,15 @@ def build_page_form(
     # parent for slug de-duplication, and clearing it again after the slug is
     # generated. Once the slug is obtained, we put it in the payload so the form
     # field passes validation.
-    page._cached_parent_obj = parent
+    # django-treebeard 6.0 moved node methods/attributes to the manager, so
+    # `_cached_parent_obj` is no longer declared on the model class (it still
+    # works at runtime, kept backwards-compatible until treebeard 7).
+    page._cached_parent_obj = parent  # ty: ignore[unresolved-attribute]
     if not payload.get("slug") and payload.get("title"):
         page.title = payload["title"]
         page.minimal_clean()
         payload["slug"] = page.slug
-        page._cached_parent_obj = None
+        page._cached_parent_obj = None  # ty: ignore[unresolved-attribute]
 
     form_data = build_form_data(form_class, payload)
 
@@ -183,7 +186,9 @@ def build_page_update_form(
     return form_class(
         data=form_data,
         instance=page,
-        parent_page=page.get_parent(),
+        # treebeard 6.0 moved `get_parent` to the manager; the instance method
+        # is still available at runtime (kept until treebeard 7).
+        parent_page=page.get_parent(),  # ty: ignore[unresolved-attribute]
         for_user=user,
     )
 
