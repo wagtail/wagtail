@@ -286,9 +286,7 @@ class PageBase(models.base.ModelBase):
                 dct["Meta"] = meta
             elif not issubclass(meta, AbstractPageMeta):
                 raise ImproperlyConfigured(
-                    "Meta class for base page model {} must inherit from AbstractPageMeta".format(
-                        name
-                    )
+                    f"Meta class for base page model {name} must inherit from AbstractPageMeta"
                 )
 
             model_name = name.lower()
