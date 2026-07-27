@@ -172,7 +172,10 @@ class InputSchemaGenerator:
 
     @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema], model: type[Model], name_suffix: str
+        base_meta_schema: type[Schema],
+        model: type[Model],
+        name_suffix: str,
+        for_update: bool = False,
     ) -> type[Schema]:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -190,12 +193,15 @@ class InputSchemaGenerator:
         shaped schemas sharing a name would collide and one would silently
         shadow the other in the generated docs.
         """
+        meta_type = Literal[model._meta.label]  # ty: ignore[invalid-type-form]
+        if for_update:
+            meta_type = meta_type | None
         return cast(
             type[Schema],
             type(base_meta_schema)(
                 f"{model._meta.object_name}{name_suffix}MetaSchema",
                 (base_meta_schema,),
-                {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
+                {"__annotations__": {"type": meta_type}},
             ),
         )
 
@@ -274,7 +280,7 @@ class InputSchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
-                meta_field.annotation, model, self.name_suffix
+                meta_field.annotation, model, self.name_suffix, self.for_update
             )
 
         for field_name, (annotation, default) in extra_fields.items():
@@ -316,11 +322,16 @@ def foreign_key_schema(
     return get_schema_field(field)
 
 
+def register_default_field_schemas(generator: InputSchemaGenerator) -> None:
+    """Register the default field-schema functions for ``generator``."""
+    generator.register_field_schema(StreamField, streamfield_schema)
+    generator.register_field_schema(TaggableManager, tags_schema)
+    generator.register_field_schema(ForeignObjectRel, child_relation_schema)
+    generator.register_field_schema(ForeignKey, foreign_key_schema)
+
+
 create_generator = InputSchemaGenerator()
-create_generator.register_field_schema(StreamField, streamfield_schema)
-create_generator.register_field_schema(TaggableManager, tags_schema)
-create_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
-create_generator.register_field_schema(ForeignKey, foreign_key_schema)
+register_default_field_schemas(create_generator)
 
 #: Same field-schema handling as ``generator``, but every extra field it
 #: adds is optional regardless of the underlying Django field's own
@@ -330,7 +341,4 @@ create_generator.register_field_schema(ForeignKey, foreign_key_schema)
 #: cached child-relation schemas (which also need to be all-optional) and
 #: registered field-schema functions don't collide with ``generator``'s.
 patch_generator = InputSchemaGenerator(for_update=True)
-patch_generator.register_field_schema(StreamField, streamfield_schema)
-patch_generator.register_field_schema(TaggableManager, tags_schema)
-patch_generator.register_field_schema(ForeignObjectRel, child_relation_schema)
-patch_generator.register_field_schema(ForeignKey, foreign_key_schema)
+register_default_field_schemas(patch_generator)
