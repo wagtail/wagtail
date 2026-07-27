@@ -1,6 +1,7 @@
 from django.test import SimpleTestCase
 
 from wagtail.api.v3.errors import PROBLEM_JSON
+from wagtail.log_actions import registry as log_registry
 
 
 class TestV3Base(SimpleTestCase):
@@ -25,3 +26,10 @@ class TestV3Base(SimpleTestCase):
             self.assertIn(detail_contains, content["detail"])
 
         return content
+
+    def assert_log_actions(self, instance, actions, since=None):
+        logs = log_registry.get_logs_for_instance(instance)
+        if since:
+            logs = logs.filter(timestamp__gte=since)
+        new_actions = list(logs.order_by("timestamp").values_list("action", flat=True))
+        self.assertEqual(new_actions, actions)
