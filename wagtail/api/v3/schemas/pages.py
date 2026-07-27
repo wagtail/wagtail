@@ -84,9 +84,9 @@ class PageCreateBaseSchema(Schema):
 
 
 class PageUpdateMetaSchema(Schema):
-    type: str
+    type: str | None = None
     action: Literal["publish"] | None = None
 
 
 class PageUpdateBaseSchema(Schema):
-    meta: PageUpdateMetaSchema
+    meta: PageUpdateMetaSchema = PageUpdateMetaSchema()
