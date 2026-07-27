@@ -3,11 +3,12 @@ import json
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import GroupPagePermission, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Page
 from wagtail.test.demosite.models import (
     BlogEntryPage,
     BlogIndexPage,
@@ -124,6 +125,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             instance=BlogIndexPage(title="Original", slug="original", live=False)
         )
         self.assertFalse(page.live)
+        logs_since = timezone.now()
         response = self.patch(
             page,
             {
@@ -137,6 +139,38 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.title, "New title")
         self.assertIsNotNone(page.live_revision)
         self.assertEqual(page.live_revision, page.latest_revision)
+        self.assert_log_actions(
+            page,
+            ["wagtail.edit", "wagtail.publish"],
+            since=logs_since,
+        )
+
+    def test_update_live_page_with_publish_action_logs_rename(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        page.save_revision().publish()
+        page.refresh_from_db()
+        self.assertTrue(page.live)
+        logs_since = timezone.now()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogIndexPage", "action": "publish"},
+                "title": "New title",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertTrue(page.live)
+        self.assertEqual(page.title, "New title")
+        self.assertIsNotNone(page.live_revision)
+        self.assertEqual(page.live_revision, page.latest_revision)
+        self.assert_log_actions(
+            page,
+            ["wagtail.edit", "wagtail.rename", "wagtail.publish"],
+            since=logs_since,
+        )
 
     def test_update_page_with_invalid_action_returns_422(self):
         page = self.root_page.add_child(
@@ -158,9 +192,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
         )
-        entries_before = set(
-            PageLogEntry.objects.filter(page=page).values_list("pk", flat=True)
-        )
+        logs_since = timezone.now()
         response = self.patch(
             page,
             {
@@ -171,14 +203,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page.refresh_from_db()
         self.assertEqual(page.revisions.count(), 1)
-
-        new_actions = list(
-            PageLogEntry.objects.filter(page=page)
-            .exclude(pk__in=entries_before)
-            .order_by("timestamp")
-            .values_list("action", flat=True)
-        )
-        self.assertEqual(new_actions, ["wagtail.edit"])
+        self.assert_log_actions(page, ["wagtail.edit"], since=logs_since)
 
     def test_update_page_with_api_field(self):
         page = self.root_page.add_child(
