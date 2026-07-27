@@ -75,9 +75,20 @@ class AzureBaseBackend(BaseBackend):
         Obtain subscription ID directly from Azure.
         """
         try:
-            from azure.mgmt.resource import SubscriptionClient
+            from azure.mgmt.subscription import SubscriptionClient
         except ImportError:
-            return ""
+            # Old versions
+            try:
+                from azure.mgmt.resource import SubscriptionClient
+            except ImportError:
+                return ""
+            else:
+                warnings.warn(
+                    "Support for getting the default Azure subscription from "
+                    "azure-mgmt-resource is deprecated. "
+                    "Please install azure-mgmt-subscription instead.",
+                    RemovedInWagtail90Warning,
+                )
         credential = self._get_credentials()
         subscription_client = SubscriptionClient(credential)
         subscription = next(subscription_client.subscriptions.list())

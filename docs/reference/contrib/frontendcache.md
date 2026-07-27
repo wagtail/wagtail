@@ -145,10 +145,12 @@ The third-party dependencies of this backend are:
 | ---------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | [`azure-mgmt-cdn`](https://pypi.org/project/azure-mgmt-cdn/)           | Yes (v13.0 or above) | Interacting with the CDN service.                                                                                                   |
 | [`azure-identity`](https://pypi.org/project/azure-identity/)           | No                   | Obtaining credentials. It's optional if you want to specify your own credential using a `CREDENTIALS` setting (more details below). |
-| [`azure-mgmt-resource`](https://pypi.org/project/azure-mgmt-resource/) | No                   | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
+| [`azure-mgmt-subscription`](https://pypi.org/project/azure-mgmt-subscription/) | No                   | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
 
 ```{versionchanged} 8.0
 Support for versions of `azure-mgmt-cdn` below 13.0 is deprecated and will be dropped in a future release.
+
+Support for obtaining the default subscription ID via `azure-mgmt-resource` is deprecated and will be dropped in a future release. To automatically get the default subscription ID, install the `azure-mgmt-subscription` package instead.
 ```
 
 Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.AzureCdnBackend`. This backend requires the following settings to be set:
@@ -199,10 +201,12 @@ The third-party dependencies of this backend are:
 | ------------------------------------------------------------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | [`azure-mgmt-frontdoor`](https://pypi.org/project/azure-mgmt-frontdoor/) | Yes (v1.1 or above) | Interacting with the Front Door service.                                                                                            |
 | [`azure-identity`](https://pypi.org/project/azure-identity/)             | No                  | Obtaining credentials. It's optional if you want to specify your own credential using a `CREDENTIALS` setting (more details below). |
-| [`azure-mgmt-resource`](https://pypi.org/project/azure-mgmt-resource/)   | No                  | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
+| [`azure-mgmt-subscription`](https://pypi.org/project/azure-mgmt-subscription/)   | No                  | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
 
 ```{versionchanged} 8.0
 Support for versions of `azure-mgmt-frontdoor` below 1.1 is deprecated and will be dropped in a future release.
+
+Support for obtaining the default subscription ID via `azure-mgmt-resource` is deprecated and will be dropped in a future release. To automatically get the default subscription ID, install the `azure-mgmt-subscription` package instead.
 ```
 
 Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend`. This backend requires the following settings to be set:
