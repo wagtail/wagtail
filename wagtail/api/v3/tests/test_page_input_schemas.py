@@ -1,38 +1,56 @@
+from typing import Literal
+
 from django.db import models
-from django.db.models import ForeignKey
-from django.db.models.fields.reverse_related import ForeignObjectRel
 from django.test import SimpleTestCase
 from django.test.utils import isolate_apps
 from modelcluster.fields import ParentalKey
 from ninja import Schema
 
 from wagtail.api import APIField
-from wagtail.api.v3.schemas import create_generator
 from wagtail.api.v3.schemas.generators.write import (
     InputSchemaGenerator,
-    child_relation_schema,
-    foreign_key_schema,
+    register_default_field_schemas,
 )
 from wagtail.api.v3.schemas.pages import (
     BASE_PAGE_FIELDS,
     PageCreateBaseSchema,
     PageCreateMetaSchema,
+    PageUpdateBaseSchema,
 )
 from wagtail.test.demosite.models import HomePage, HomePageCarouselItem
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import Page
 
 
-def generate_page_input_schema(model):
-    return create_generator.generate_schema(
-        model,
-        base_class=PageCreateBaseSchema,
-        fields=BASE_PAGE_FIELDS,
-        required_fields=("title",),
-    )
+class TestSchemaGenerator(SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.create_generator = InputSchemaGenerator()
+        cls.patch_generator = InputSchemaGenerator(for_update=True)
+        register_default_field_schemas(cls.create_generator)
+        register_default_field_schemas(cls.patch_generator)
+
+    @classmethod
+    def generate_page_create_schema(cls, model):
+        return cls.create_generator.generate_schema(
+            model,
+            base_class=PageCreateBaseSchema,
+            fields=BASE_PAGE_FIELDS,
+            required_fields=("title",),
+        )
+
+    @classmethod
+    def generate_page_patch_schema(cls, model):
+        return cls.patch_generator.generate_schema(
+            model,
+            base_class=PageUpdateBaseSchema,
+            fields=BASE_PAGE_FIELDS,
+            required_fields=("title",),
+        )
 
 
-class TestInputSchemaGeneratorIsGeneric(SimpleTestCase):
+class TestInputSchemaGeneratorIsGeneric(TestSchemaGenerator):
     """
     InputSchemaGenerator itself has no knowledge of pages, ``meta``, or
     ``parent_id``/``type`` - those are supplied by the caller via
@@ -42,7 +60,7 @@ class TestInputSchemaGeneratorIsGeneric(SimpleTestCase):
     """
 
     def test_generate_schema_without_meta_field_on_base_class(self):
-        schema = create_generator.generate_schema(
+        schema = self.create_generator.generate_schema(
             SimplePage,
             base_class=Schema,
             fields=("title", "slug"),
@@ -56,7 +74,7 @@ class TestInputSchemaGeneratorIsGeneric(SimpleTestCase):
         self.assertFalse(schema.model_fields["slug"].is_required())
 
 
-class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
+class TestSchemaMetaNamespacing(TestSchemaGenerator):
     """
     parent_id and type are control fields the create endpoint needs to pick
     a parent page and a page model, not part of any page's own writable
@@ -69,7 +87,7 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
     """
 
     def test_meta_is_a_dedicated_schema_separate_from_model_fields(self):
-        schema = generate_page_input_schema(SimplePage)
+        schema = self.generate_page_create_schema(SimplePage)
 
         meta_annotation = schema.model_fields["meta"].annotation
         self.assertTrue(issubclass(meta_annotation, PageCreateMetaSchema))
@@ -81,9 +99,9 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
         # to exist) would never be shadowed by parent_id/type.
         self.assertNotIn("parent_id", schema.model_fields)
 
-    def test_meta_type_is_narrowed_per_model(self):
-        home_schema = generate_page_input_schema(HomePage)
-        simple_schema = generate_page_input_schema(SimplePage)
+    def test_create_meta_type_is_narrowed_per_model(self):
+        home_schema = self.generate_page_create_schema(HomePage)
+        simple_schema = self.generate_page_create_schema(SimplePage)
 
         home_meta = home_schema.model_fields["meta"].annotation
         simple_meta = simple_schema.model_fields["meta"].annotation
@@ -95,8 +113,24 @@ class TestPageCreateSchemaMetaNamespacing(SimpleTestCase):
             simple_meta.model_fields["type"].annotation.__args__, ("tests.SimplePage",)
         )
 
+    def test_patch_meta_type_is_narrowed_per_model_and_optional(self):
+        home_schema = self.generate_page_patch_schema(HomePage)
+        simple_schema = self.generate_page_patch_schema(SimplePage)
 
-class TestChildRelationSchemaExcludesParentalKey(SimpleTestCase):
+        home_meta = home_schema.model_fields["meta"].annotation
+        simple_meta = simple_schema.model_fields["meta"].annotation
+
+        self.assertEqual(
+            home_meta.model_fields["type"].annotation.__args__,
+            (Literal["demosite.HomePage"], type(None)),
+        )
+        self.assertEqual(
+            simple_meta.model_fields["type"].annotation.__args__,
+            (Literal["tests.SimplePage"], type(None)),
+        )
+
+
+class TestChildRelationSchemaExcludesParentalKey(TestSchemaGenerator):
     """
     A child-relation model's own ``api_fields`` might list its ParentalKey
     field name (e.g. to expose the parent link when reading). The create
@@ -113,21 +147,24 @@ class TestChildRelationSchemaExcludesParentalKey(SimpleTestCase):
             APIField("caption", writable=True),
             APIField("embed_url", writable=True),
         )
-        create_generator._child_relation_schema_cache.pop(HomePageCarouselItem, None)
+        self.create_generator._child_relation_schema_cache.pop(
+            HomePageCarouselItem, None
+        )
 
     def tearDown(self):
         HomePageCarouselItem.api_fields = self.original_api_fields
-        create_generator._child_relation_schema_cache.pop(HomePageCarouselItem, None)
+        self.create_generator._child_relation_schema_cache.pop(
+            HomePageCarouselItem, None
+        )
 
     def test_parental_key_listed_in_api_fields_is_not_reintroduced(self):
-        schema = create_generator.get_child_relation_schema(HomePageCarouselItem)
-
+        schema = self.create_generator.get_child_relation_schema(HomePageCarouselItem)
         self.assertNotIn("page", schema.model_fields)
         self.assertIn("caption", schema.model_fields)
         self.assertIn("embed_url", schema.model_fields)
 
 
-class TestPatchSchemaPreservesRequiredForeignKeyAlias(SimpleTestCase):
+class TestPatchSchemaPreservesRequiredForeignKeyAlias(TestSchemaGenerator):
     """
     Ensure a writable, non-nullable ``ForeignKey`` on a child relation preserves
     its alias in the patch schema when making it optional, i.e.
@@ -159,20 +196,12 @@ class TestPatchSchemaPreservesRequiredForeignKeyAlias(SimpleTestCase):
             class Meta:
                 app_label = "tests"
 
-        # Fresh generator instances to avoid polluting the global instance
-        create_gen = InputSchemaGenerator()
-        create_gen.register_field_schema(ForeignObjectRel, child_relation_schema)
-        create_gen.register_field_schema(ForeignKey, foreign_key_schema)
-        patch_gen = InputSchemaGenerator(for_update=True)
-        patch_gen.register_field_schema(ForeignObjectRel, child_relation_schema)
-        patch_gen.register_field_schema(ForeignKey, foreign_key_schema)
-
-        create_schema = create_gen.generate_schema(
+        create_schema = self.create_generator.generate_schema(
             PageWithRequiredForeignKeyChild,
             base_class=Schema,
             fields=("title",),
         )
-        patch_schema = patch_gen.generate_schema(
+        patch_schema = self.patch_generator.generate_schema(
             PageWithRequiredForeignKeyChild,
             base_class=Schema,
             fields=("title",),

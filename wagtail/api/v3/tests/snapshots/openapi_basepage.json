@@ -134,9 +134,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.AddedStreamFieldWithEmptyListDefaultPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.AddedStreamFieldWithEmptyListDefaultPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -330,9 +337,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.AddedStreamFieldWithEmptyStringDefaultPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.AddedStreamFieldWithEmptyStringDefaultPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -526,9 +540,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.AddedStreamFieldWithoutDefaultPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.AddedStreamFieldWithoutDefaultPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -722,9 +743,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.AlwaysShowInMenusPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.AlwaysShowInMenusPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -878,9 +906,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "basepage.BasePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -1382,9 +1417,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.BlogEntryPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.BlogEntryPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -1863,9 +1905,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.BlogIndexPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.BlogIndexPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -2151,9 +2200,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.BusinessChild",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.BusinessChild",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -2347,9 +2403,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.BusinessIndex",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.BusinessIndex",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -2543,9 +2606,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.BusinessNowherePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.BusinessNowherePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -2739,9 +2809,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.BusinessSubIndex",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.BusinessSubIndex",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -2935,9 +3012,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CommentableJSONPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CommentableJSONPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -3131,9 +3215,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.ComplexDefaultStreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.ComplexDefaultStreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -3327,9 +3418,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.ContactPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.ContactPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -3657,9 +3755,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomCopyFormPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomCopyFormPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -3853,9 +3958,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomManagerPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomManagerPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -4049,9 +4161,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomPermissionPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomPermissionPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -4245,9 +4364,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomPreviewSizesPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomPreviewSizesPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -4441,9 +4567,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomRichBlockFieldPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomRichBlockFieldPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -4637,9 +4770,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.CustomRichTextFieldPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.CustomRichTextFieldPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -4833,9 +4973,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.DeadlyStreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.DeadlyStreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -5029,9 +5176,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.DefaultRichBlockFieldPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.DefaultRichBlockFieldPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -5225,9 +5379,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.DefaultRichTextFieldPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.DefaultRichTextFieldPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -5421,9 +5582,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.DefaultStreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.DefaultStreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -5650,9 +5818,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "earlypage.EarlyPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "earlypage.EarlyPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -5964,9 +6139,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.EventIndexPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.EventIndexPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -6134,9 +6316,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.EventIndex",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.EventIndex",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -7006,9 +7195,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FilePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FilePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -7202,9 +7398,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormClassAdditionalFieldPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormClassAdditionalFieldPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -7497,9 +7700,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormPageWithCustomFormBuilder",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormPageWithCustomFormBuilder",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -7750,9 +7960,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormPageWithCustomSubmissionListView",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormPageWithCustomSubmissionListView",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -7889,9 +8106,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormPageWithCustomSubmission",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormPageWithCustomSubmission",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -8085,9 +8309,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormPageWithRedirect",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormPageWithRedirect",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -8281,9 +8512,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.GalleryPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.GalleryPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -8477,9 +8715,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.GenericSnippetNoFieldIndexPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.GenericSnippetNoFieldIndexPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -8673,9 +8918,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.GenericSnippetNoIndexPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.GenericSnippetNoIndexPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -8869,9 +9121,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.GenericSnippetPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.GenericSnippetPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -9349,9 +9608,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.HomePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.HomePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -9813,9 +10079,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.InlineStreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.InlineStreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -10027,9 +10300,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.JadeFormPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.JadeFormPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -10223,9 +10503,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.MTIBasePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.MTIBasePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -10419,9 +10706,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.MTIChildPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.MTIChildPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -10615,9 +10909,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.ManyToManyBlogPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.ManyToManyBlogPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -10811,9 +11112,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.MultiPreviewModesPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.MultiPreviewModesPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -11007,9 +11315,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.MyCustomPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.MyCustomPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -11203,9 +11518,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.NoCreatableSubpageTypesPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.NoCreatableSubpageTypesPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -11399,9 +11721,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.NoPromotePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.NoPromotePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -11595,9 +11924,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.NoSubpageTypesPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.NoSubpageTypesPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -11791,9 +12127,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.OneToOnePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.OneToOnePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -12054,9 +12397,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.PageWithExcludedCopyField",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.PageWithExcludedCopyField",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -12250,9 +12600,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.PageWithGenericRelation",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.PageWithGenericRelation",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -12446,9 +12803,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.PageWithOldStyleRouteMethod",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.PageWithOldStyleRouteMethod",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -12769,9 +13133,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.PromotionalPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.PromotionalPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -13088,9 +13459,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.RequiredDatePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.RequiredDatePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -13284,9 +13662,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.RestaurantPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.RestaurantPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -13480,9 +13865,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.RichTextFieldWithFeaturesPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.RichTextFieldWithFeaturesPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -13676,9 +14068,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "routablepagetests.RoutablePageTest",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "routablepagetests.RoutablePageTest",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -13872,9 +14271,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "routablepagetests.RoutablePageWithOverriddenIndexRouteTest",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "routablepagetests.RoutablePageWithOverriddenIndexRouteTest",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -14068,9 +14474,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "streamfield_migration_tests.SamplePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "streamfield_migration_tests.SamplePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -14306,9 +14719,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SecretPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SecretPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -14502,9 +14922,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SectionedRichTextPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SectionedRichTextPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -14698,9 +15125,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SimpleChildPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SimpleChildPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -14894,9 +15328,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SimplePage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SimplePage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -15090,9 +15531,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SimpleParentPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SimpleParentPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -15286,9 +15734,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SingleEventPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SingleEventPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -15482,9 +15937,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SingletonPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SingletonPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -15678,9 +16140,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.SingletonPageViaMaxCount",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.SingletonPageViaMaxCount",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -15942,9 +16411,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.StandardChild",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.StandardChild",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -16256,9 +16732,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.StandardIndexPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.StandardIndexPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -16436,9 +16919,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.StandardIndex",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.StandardIndex",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -16732,9 +17222,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.StandardPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.StandardPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -17055,9 +17552,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.StreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.StreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -17263,9 +17767,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.TableBlockStreamPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.TableBlockStreamPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -17459,9 +17970,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.TaggedChildPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.TaggedChildPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -17655,9 +18173,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.TaggedGrandchildPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.TaggedGrandchildPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -17851,9 +18376,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.TaggedPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.TaggedPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -18047,9 +18579,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "i18n.TestPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "i18n.TestPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -18243,9 +18782,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.ValidatedPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.ValidatedPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -18751,9 +19297,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.EventPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.EventPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -18775,9 +19328,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.EventPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.EventPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -19403,9 +19963,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.FormPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.FormPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -19427,9 +19994,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.FormPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.FormPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -19803,9 +20377,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "tests.PersonPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "tests.PersonPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
@@ -19827,9 +20408,16 @@
             "title": "Action"
           },
           "type": {
-            "const": "demosite.PersonPage",
-            "title": "Type",
-            "type": "string"
+            "anyOf": [
+              {
+                "const": "demosite.PersonPage",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
           }
         },
         "required": ["type"],
