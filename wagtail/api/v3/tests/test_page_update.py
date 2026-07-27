@@ -525,6 +525,15 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page.refresh_from_db()
         self.assertIsNone(page.feed_image_id)
 
+    def test_omitted_meta_type_defaults_to_pages_own_type(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        response = self.patch(page, {"title": "New title"})
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertEqual(page.title, "New title")
+
     def test_page_type_mismatch_returns_422(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)

@@ -1,8 +1,14 @@
+import functools
+import json
+
 import swapper
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Status
+from ninja.decorators import decorate_view
 from ninja.pagination import paginate
+from pydantic import ValidationError
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -12,6 +18,7 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
+from wagtail.api.v3.schemas.pages import PageUpdateBaseSchema
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import get_page_models
 from wagtail.utils.forms import FormValidationError
@@ -29,6 +36,40 @@ PageUpdateSchema = _page_schemas.update
 def _public_pages_queryset(request: HttpRequest):
     # Stable ordering so offset/limit pagination is deterministic (v2 parity).
     return get_pages_queryset(request, tier=AccessTier.PUBLIC).order_by("id")
+
+
+def default_meta_type(func):
+    """
+    A decorator to fill in a missing ``meta.type`` on the request body from the
+    page being updated, so callers can omit it.
+
+    This must run in VIEW mode to fill in the type before the request body is
+    parsed into a Pydantic model with the discriminated union schema.
+    """
+
+    @functools.wraps(func)
+    def wrapper(request, *args, **kwargs):
+        try:
+            parsed = PageUpdateBaseSchema.model_validate_json(request.body)
+        except ValidationError:
+            parsed = None
+
+        # Only do this when the type is not supplied, as it impacts performance.
+        if parsed is not None and not parsed.meta.type:
+            page_id = kwargs.get("page_id")
+            ct_ids = Page.objects.values_list("content_type_id", flat=True)
+            content_type_id = get_object_or_404(ct_ids, pk=page_id)
+            content_type = ContentType.objects.get_for_id(content_type_id)
+            # HACK: deserialize, fill in the type, and reserialize. Unoptimal,
+            # but the only way to do it currently.
+            body = json.loads(request.body)
+            body.setdefault("meta", {})
+            body["meta"]["type"] = (content_type.model_class() or Page)._meta.label
+            request._body = json.dumps(body).encode()
+
+        return func(request, *args, **kwargs)
+
+    return wrapper
 
 
 @router.get(
@@ -90,6 +131,7 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     operation_id="pages_update",
 )
 @require_any_permission(Page, ("change",))
+@decorate_view(default_meta_type)
 def update_page(
     request: HttpRequest,
     page_id: int,
