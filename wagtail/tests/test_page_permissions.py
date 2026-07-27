@@ -280,7 +280,7 @@ class TestPagePermission(PageFixturesMixin, TestCase):
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
             group__name="Event moderators",
-            permission__codename=Page.CHANGE_PERMISSION_CODENAME,
+            permission__codename=Page.PERMISSION_CODENAMES.CHANGE,
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -817,7 +817,7 @@ class TestPagePermission(PageFixturesMixin, TestCase):
 
         GroupPagePermission.objects.filter(
             group__name="Event moderators",
-            permission__codename=Page.UNLOCK_PERMISSION_CODENAME,
+            permission__codename=Page.PERMISSION_CODENAMES.UNLOCK,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -837,7 +837,7 @@ class TestPagePermission(PageFixturesMixin, TestCase):
 
         GroupPagePermission.objects.filter(
             group__name="Event moderators",
-            permission__codename=Page.UNLOCK_PERMISSION_CODENAME,
+            permission__codename=Page.PERMISSION_CODENAMES.UNLOCK,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -1092,5 +1092,5 @@ class TestPagePermissionModel(PageFixturesMixin, TestCase):
             group=user.groups.first(), page=page, permission_type="add"
         )
         self.assertEqual(
-            group_permission.permission.codename, Page.ADD_PERMISSION_CODENAME
+            group_permission.permission.codename, Page.PERMISSION_CODENAMES.ADD
         )

@@ -548,7 +548,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             group=editor_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                codename=Page.ADD_PERMISSION_CODENAME,
+                codename=Page.PERMISSION_CODENAMES.ADD,
             ),
         )
         self.login(username="editor", password="password")

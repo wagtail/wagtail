@@ -1000,7 +1000,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.user.groups.add(Group.objects.get(name="Moderators"))
         self.user.save()
         GroupPagePermission.objects.filter(
-            permission__codename=Page.PUBLISH_PERMISSION_CODENAME
+            permission__codename=Page.PERMISSION_CODENAMES.PUBLISH
         ).update(page=self.destination_page)
 
         post_data = {
