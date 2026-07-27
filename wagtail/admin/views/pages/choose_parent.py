@@ -53,7 +53,7 @@ class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
             perms = {
                 perm
                 for perm in page_permission_policy.get_cached_permissions_for_user(user)
-                if perm.permission.codename == Page.ADD_PERMISSION_CODENAME
+                if perm.permission.codename == Page.PERMISSION_CODENAMES.ADD
             }
 
             for perm in perms:

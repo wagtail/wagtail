@@ -254,6 +254,16 @@ class AbstractPageMeta:
     unique_together = [("translation_key", "locale")]
 
 
+class PagePermissionCodenames:
+    def __init__(self, model_name):
+        self.ADD = f"add_{model_name}"
+        self.CHANGE = f"change_{model_name}"
+        self.DELETE = f"delete_{model_name}"
+        self.PUBLISH = f"publish_{model_name}"
+        self.LOCK = f"lock_{model_name}"
+        self.UNLOCK = f"unlock_{model_name}"
+
+
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
 
@@ -292,12 +302,7 @@ class PageBase(models.base.ModelBase):
                     if codename not in {"add", "change", "delete", "view"}
                 ]
 
-            dct["ADD_PERMISSION_CODENAME"] = f"add_{model_name}"
-            dct["CHANGE_PERMISSION_CODENAME"] = f"change_{model_name}"
-            dct["DELETE_PERMISSION_CODENAME"] = f"delete_{model_name}"
-            dct["PUBLISH_PERMISSION_CODENAME"] = f"publish_{model_name}"
-            dct["LOCK_PERMISSION_CODENAME"] = f"lock_{model_name}"
-            dct["UNLOCK_PERMISSION_CODENAME"] = f"unlock_{model_name}"
+            dct["PERMISSION_CODENAMES"] = PagePermissionCodenames(model_name)
 
         return super().__new__(cls, name, bases, dct, **kwargs)
 

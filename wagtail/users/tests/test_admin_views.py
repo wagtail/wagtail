@@ -1724,8 +1724,8 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
                 "page_permissions-0-permissions": [
-                    Page.CHANGE_PERMISSION_CODENAME,
-                    Page.PUBLISH_PERMISSION_CODENAME,
+                    Page.PERMISSION_CODENAMES.CHANGE,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
                 ],
                 "page_permissions-TOTAL_FORMS": ["1"],
                 "document_permissions-0-collection": [
@@ -1754,9 +1754,9 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": [Page.PUBLISH_PERMISSION_CODENAME],
+                "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.PUBLISH],
                 "page_permissions-1-page": ["1"],
-                "page_permissions-1-permissions": [Page.CHANGE_PERMISSION_CODENAME],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2070,7 +2070,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "page_permissions-MAX_NUM_FORMS": ["1000"],
             "page_permissions-INITIAL_FORMS": ["1"],
             "page_permissions-0-page": [self.root_page.pk],
-            "page_permissions-0-permissions": [Page.ADD_PERMISSION_CODENAME],
+            "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.ADD],
             "document_permissions-TOTAL_FORMS": ["1"],
             "document_permissions-MAX_NUM_FORMS": ["1000"],
             "document_permissions-INITIAL_FORMS": ["1"],
@@ -2180,9 +2180,9 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-0-permissions": [
-                    Page.ADD_PERMISSION_CODENAME,
-                    Page.PUBLISH_PERMISSION_CODENAME,
-                    Page.CHANGE_PERMISSION_CODENAME,
+                    Page.PERMISSION_CODENAMES.ADD,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
+                    Page.PERMISSION_CODENAMES.CHANGE,
                 ],
             }
         )
@@ -2326,7 +2326,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             page_permissions_formset.forms[0]["permissions"].value(),
-            [Page.ADD_PERMISSION_CODENAME],
+            [Page.PERMISSION_CODENAMES.ADD],
         )
 
         # add edit permission on root
@@ -2349,7 +2349,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {Page.ADD_PERMISSION_CODENAME, Page.CHANGE_PERMISSION_CODENAME},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
 
         # add edit permission on home
@@ -2371,14 +2371,14 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {Page.ADD_PERMISSION_CODENAME, Page.CHANGE_PERMISSION_CODENAME},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["page"].value(), self.home_page.pk
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["permissions"].value(),
-            [Page.CHANGE_PERMISSION_CODENAME],
+            [Page.PERMISSION_CODENAMES.CHANGE],
         )
 
     def test_duplicate_page_permissions_error(self):
@@ -2386,7 +2386,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-1-page": [self.root_page.pk],
-                "page_permissions-1-permissions": [Page.CHANGE_PERMISSION_CODENAME],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )

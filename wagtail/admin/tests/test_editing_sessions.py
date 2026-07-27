@@ -1253,7 +1253,9 @@ class TestPingView(WagtailTestUtils, TestCase):
         GroupPagePermission.objects.create(
             group=editors,
             page=self.other_page,
-            permission=Permission.objects.get(codename=Page.CHANGE_PERMISSION_CODENAME),
+            permission=Permission.objects.get(
+                codename=Page.PERMISSION_CODENAMES.CHANGE
+            ),
         )
 
         response = self.client.post(
