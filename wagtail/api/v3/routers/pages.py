@@ -170,6 +170,27 @@ class PageFilterSchema(FilterSchema):
         relative_to = self.get_public_page_or_root(request, self.translation_of)
         return queryset.translation_of(relative_to)
 
+    def apply_custom_filters(
+        self,
+        request: HttpRequest,
+        queryset: PageQuerySet,
+    ) -> PageQuerySet:
+        queryset = self.apply_ancestor_of(request, queryset)
+        queryset = self.apply_descendant_of(request, queryset)
+        queryset = self.apply_translation_of(request, queryset)
+        return queryset
+
+    def filter(
+        self,
+        queryset: PageQuerySet,
+        request: Optional[HttpRequest] = None,
+    ) -> PageQuerySet:
+        queryset = super().filter(queryset)
+        # request is optional as it's not part of Ninja's FilterSchema API
+        if request:
+            queryset = self.apply_custom_filters(request, queryset)
+        return queryset
+
 
 @router.get(
     "/",
@@ -186,10 +207,7 @@ def list_pages(
     models = cast(list[type[Model]], filters.type)
     model = models[0] if len(models) == 1 else Page
     queryset = _public_pages_queryset(request, model)
-    queryset = filters.filter(queryset)
-    queryset = filters.apply_ancestor_of(request, queryset)
-    queryset = filters.apply_descendant_of(request, queryset)
-    queryset = filters.apply_translation_of(request, queryset)
+    queryset = filters.filter(queryset, request)
     return queryset
 
 
