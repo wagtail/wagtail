@@ -15806,6 +15806,22 @@
             ],
             "title": "Child Of"
           },
+          "descendant_of": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "const": "root",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descendant Of"
+          },
           "type": {
             "default": [],
             "items": {
@@ -27325,6 +27341,27 @@
                 }
               ],
               "title": "Child Of"
+            }
+          },
+          {
+            "in": "query",
+            "name": "descendant_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "const": "root",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Descendant Of"
             }
           },
           {

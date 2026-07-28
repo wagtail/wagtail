@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from ninja import Body, FilterSchema, Query, Router, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
-from pydantic import PositiveInt, ValidationError, field_validator
+from pydantic import PositiveInt, ValidationError, field_validator, model_validator
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -78,7 +78,8 @@ def default_meta_type(func):
     return wrapper
 
 
-ChildOfFilter: TypeAlias = PositiveInt | Literal["root"] | None
+IntPKFilter: TypeAlias = PositiveInt | None
+DescendantOfFilter: TypeAlias = IntPKFilter | Literal["root"]
 
 
 # A no-op so that Ninja does not try to do a default exact lookup with the value
@@ -88,7 +89,8 @@ def custom_filter(self, value):
 
 class PageFilterSchema(FilterSchema):
     type: list[PageTypeLiteral] = []
-    child_of: ChildOfFilter = None
+    child_of: DescendantOfFilter = None
+    descendant_of: DescendantOfFilter = None
 
     @field_validator("type", mode="after")
     @classmethod
@@ -103,24 +105,35 @@ class PageFilterSchema(FilterSchema):
         ]
         return Q(content_type__in=content_types)
 
-    filter_child_of = custom_filter
+    @model_validator(mode="after")
+    def validate_child_of_or_descendant_of(self):
+        if self.child_of and self.descendant_of:
+            raise ValueError(
+                "filtering by descendant_of with child_of is not supported."
+            )
+        return self
 
-    @staticmethod
-    def apply_child_of(
+    filter_child_of = custom_filter
+    filter_descendant_of = custom_filter
+
+    def apply_descendant_of(
+        self,
         request: HttpRequest,
         queryset: PageQuerySet,
-        child_of: ChildOfFilter,
     ) -> PageQuerySet:
-        if child_of is None:
+        relative_to = self.child_of or self.descendant_of
+        if relative_to is None:
             return queryset
-        if child_of == "root":
-            parent = Site.find_for_request(request).root_page
+        if relative_to == "root":
+            relative_to = Site.find_for_request(request).root_page
         else:
-            parent = get_object_or_404(
+            relative_to = get_object_or_404(
                 _public_pages_queryset(request, Page),
-                pk=child_of,
+                pk=relative_to,
             )
-        return queryset.child_of(parent)
+        if self.child_of:
+            return queryset.child_of(relative_to)
+        return queryset.descendant_of(relative_to)
 
 
 @router.get(
@@ -139,7 +152,7 @@ def list_pages(
     model = models[0] if len(models) == 1 else Page
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset)
-    queryset = PageFilterSchema.apply_child_of(request, queryset, filters.child_of)
+    queryset = filters.apply_descendant_of(request, queryset)
     return queryset
 
 
