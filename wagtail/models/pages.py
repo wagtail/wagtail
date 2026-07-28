@@ -2174,7 +2174,47 @@ class AbstractPage(
         abstract = True
 
 
-class Page(AbstractPage):
+class ShowInMenusMixin(models.Model):
+    show_in_menus_default = False
+    show_in_menus = models.BooleanField(
+        verbose_name=_("show in menus"),
+        default=False,
+        help_text=_(
+            "Whether a link to this page will appear in automatically generated menus"
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db
+            if "show_in_menus" not in kwargs:
+                # if the value is not set on submit refer to the model setting
+                self.show_in_menus = self.show_in_menus_default
+
+    search_fields = [
+        index.FilterField("show_in_menus"),
+    ]
+
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+class Page(AbstractPage, ShowInMenusMixin):
     seo_title = models.CharField(
         verbose_name=_("title tag"),
         max_length=255,
@@ -2184,14 +2224,6 @@ class Page(AbstractPage):
         ),
     )
 
-    show_in_menus_default = False
-    show_in_menus = models.BooleanField(
-        verbose_name=_("show in menus"),
-        default=False,
-        help_text=_(
-            "Whether a link to this page will appear in automatically generated menus"
-        ),
-    )
     search_description = models.TextField(
         verbose_name=_("meta description"),
         blank=True,
@@ -2200,9 +2232,7 @@ class Page(AbstractPage):
         ),
     )
 
-    search_fields = AbstractPage.search_fields + [
-        index.FilterField("show_in_menus"),
-    ]
+    search_fields = AbstractPage.search_fields + ShowInMenusMixin.search_fields
 
     promote_panels = [
         PanelPlaceholder(
@@ -2216,29 +2246,8 @@ class Page(AbstractPage):
                 _("For search engines"),
             ],
             {},
-        ),
-        PanelPlaceholder(
-            "wagtail.admin.panels.MultiFieldPanel",
-            [
-                [
-                    "show_in_menus",
-                ],
-                _("For site menus"),
-            ],
-            {},
-        ),
-    ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.id:
-            # this model is being newly created
-            # rather than retrieved from the db
-            if "show_in_menus" not in kwargs:
-                # if the value is not set on submit refer to the model setting
-                self.show_in_menus = self.show_in_menus_default
-                # FIXME: find a way to make this functionality pluggable so that custom Page models
-                # can define show_in_menus without doing this
+        )
+    ] + ShowInMenusMixin.promote_panels
 
     class Meta(AbstractPageMeta):
         swappable = swapper.swappable_setting("wagtailcore", "Page")

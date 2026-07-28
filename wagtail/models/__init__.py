@@ -67,6 +67,7 @@ from .pages import (  # noqa: F401
     PagePermissionTester,
     PageSubscription,
     PageViewRestriction,
+    ShowInMenusMixin,
     WorkflowPage,
     get_page_content_types,
     get_page_models,
