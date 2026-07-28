@@ -12243,6 +12243,17 @@
             ],
             "title": "Descendant Of"
           },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
           "translation_of": {
             "anyOf": [
               {
@@ -21026,6 +21037,22 @@
                 }
               ],
               "title": "Translation Of"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Locale"
             }
           },
           {
