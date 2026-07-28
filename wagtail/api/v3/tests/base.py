@@ -5,7 +5,14 @@ from wagtail.log_actions import registry as log_registry
 
 
 class TestV3Base(SimpleTestCase):
-    def assert_problem_response(self, response, *, status_code, detail_contains=None):
+    def assert_problem_response(
+        self,
+        response,
+        *,
+        status_code,
+        detail_contains=None,
+        errors=None,
+    ):
         """
         Assert that a response is an RFC 7807 problem response. Usage:
         ```python
@@ -24,6 +31,16 @@ class TestV3Base(SimpleTestCase):
 
         if detail_contains is not None:
             self.assertIn(detail_contains, content["detail"])
+
+        if errors is not None:
+            self.assertTrue(
+                all(
+                    error.items() <= content["errors"][i].items()
+                    for i, error in enumerate(errors)
+                ),
+                f"Expected errors {errors} to be a subset of "
+                f"response errors {content['errors']}",
+            )
 
         return content
 

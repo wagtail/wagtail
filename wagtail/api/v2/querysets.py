@@ -4,14 +4,14 @@ from wagtail.api.v2.utils import BadRequestError
 from wagtail.models import Page, PageViewRestriction, Site
 
 
-def get_public_pages_queryset(request):
+def get_public_pages_queryset(request, model=Page):
     """
     Returns a queryset containing all live, public pages visible to anonymous
     API consumers, scoped to the requested site.
 
     Shared by the v2 pages API and the v3 public read tier.
     """
-    queryset = Page.objects.all().live()
+    queryset = model._default_manager.all().live()
 
     # Exclude pages that the user doesn't have access to
     restricted_pages = [
