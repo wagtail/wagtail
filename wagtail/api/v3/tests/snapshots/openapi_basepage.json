@@ -25,10 +25,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -57,10 +54,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageCreateSchema",
         "type": "object"
       },
@@ -121,10 +115,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageMetaSchema",
         "type": "object"
       },
@@ -155,9 +146,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "AddedStreamFieldWithEmptyListDefaultPagePatchMetaSchema",
         "type": "object"
       },
@@ -193,9 +182,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "AddedStreamFieldWithEmptyListDefaultPagePatchSchema",
         "type": "object"
       },
@@ -213,11 +200,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageSchema",
         "type": "object"
       },
@@ -245,10 +228,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -277,10 +257,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateSchema",
         "type": "object"
       },
@@ -341,10 +318,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageMetaSchema",
         "type": "object"
       },
@@ -375,9 +349,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPagePatchMetaSchema",
         "type": "object"
       },
@@ -413,9 +385,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPagePatchSchema",
         "type": "object"
       },
@@ -433,11 +403,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageSchema",
         "type": "object"
       },
@@ -465,10 +431,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "AddedStreamFieldWithoutDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -497,10 +460,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "AddedStreamFieldWithoutDefaultPageCreateSchema",
         "type": "object"
       },
@@ -561,10 +521,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "AddedStreamFieldWithoutDefaultPageMetaSchema",
         "type": "object"
       },
@@ -595,9 +552,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "AddedStreamFieldWithoutDefaultPagePatchMetaSchema",
         "type": "object"
       },
@@ -633,9 +588,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "AddedStreamFieldWithoutDefaultPagePatchSchema",
         "type": "object"
       },
@@ -653,11 +606,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "AddedStreamFieldWithoutDefaultPageSchema",
         "type": "object"
       },
@@ -685,10 +634,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "AlwaysShowInMenusPageCreateMetaSchema",
         "type": "object"
       },
@@ -717,10 +663,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "AlwaysShowInMenusPageCreateSchema",
         "type": "object"
       },
@@ -781,10 +724,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "AlwaysShowInMenusPageMetaSchema",
         "type": "object"
       },
@@ -815,9 +755,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "AlwaysShowInMenusPagePatchMetaSchema",
         "type": "object"
       },
@@ -853,9 +791,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "AlwaysShowInMenusPagePatchSchema",
         "type": "object"
       },
@@ -873,11 +809,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
@@ -905,10 +837,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BasePageCreateMetaSchema",
         "type": "object"
       },
@@ -937,10 +866,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BasePageCreateSchema",
         "type": "object"
       },
@@ -961,9 +887,7 @@
             "$ref": "#/components/schemas/abc__BasePageMetaSchema__2"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BasePageForeignKeySchema",
         "type": "object"
       },
@@ -994,9 +918,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BasePagePatchMetaSchema",
         "type": "object"
       },
@@ -1032,9 +954,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BasePagePatchSchema",
         "type": "object"
       },
@@ -1059,10 +979,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "title",
-          "meta"
-        ],
+        "required": ["title", "meta"],
         "title": "BasePageSchema",
         "type": "object"
       },
@@ -1147,9 +1064,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BlogEntryPageCarouselItemMetaSchema",
         "type": "object"
       },
@@ -1321,9 +1236,7 @@
             "$ref": "#/components/schemas/BlogEntryPageCarouselItemMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BlogEntryPageCarouselItemSchema",
         "type": "object"
       },
@@ -1351,10 +1264,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BlogEntryPageCreateMetaSchema",
         "type": "object"
       },
@@ -1427,12 +1337,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title",
-          "body",
-          "date"
-        ],
+        "required": ["meta", "title", "body", "date"],
         "title": "BlogEntryPageCreateSchema",
         "type": "object"
       },
@@ -1493,10 +1398,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BlogEntryPageMetaSchema",
         "type": "object"
       },
@@ -1527,9 +1429,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BlogEntryPagePatchMetaSchema",
         "type": "object"
       },
@@ -1623,9 +1523,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BlogEntryPagePatchSchema",
         "type": "object"
       },
@@ -1671,9 +1569,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "title"
-        ],
+        "required": ["title"],
         "title": "BlogEntryPageRelatedLinkCreateSchema",
         "type": "object"
       },
@@ -1685,9 +1581,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BlogEntryPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -1810,10 +1704,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BlogEntryPageRelatedLinkSchema",
         "type": "object"
       },
@@ -1877,13 +1768,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta",
-          "body",
-          "date"
-        ],
+        "required": ["id", "title", "meta", "body", "date"],
         "title": "BlogEntryPageSchema",
         "type": "object"
       },
@@ -1911,10 +1796,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BlogIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -1943,10 +1825,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BlogIndexPageCreateSchema",
         "type": "object"
       },
@@ -2007,10 +1886,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BlogIndexPageMetaSchema",
         "type": "object"
       },
@@ -2041,9 +1917,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BlogIndexPagePatchMetaSchema",
         "type": "object"
       },
@@ -2079,9 +1953,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BlogIndexPagePatchSchema",
         "type": "object"
       },
@@ -2093,9 +1965,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BlogIndexPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -2156,10 +2026,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BlogIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -2196,11 +2063,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "BlogIndexPageSchema",
         "type": "object"
       },
@@ -2228,10 +2091,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BusinessChildCreateMetaSchema",
         "type": "object"
       },
@@ -2260,10 +2120,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BusinessChildCreateSchema",
         "type": "object"
       },
@@ -2324,10 +2181,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BusinessChildMetaSchema",
         "type": "object"
       },
@@ -2358,9 +2212,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BusinessChildPatchMetaSchema",
         "type": "object"
       },
@@ -2396,9 +2248,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BusinessChildPatchSchema",
         "type": "object"
       },
@@ -2416,11 +2266,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "BusinessChildSchema",
         "type": "object"
       },
@@ -2448,10 +2294,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BusinessIndexCreateMetaSchema",
         "type": "object"
       },
@@ -2480,10 +2323,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BusinessIndexCreateSchema",
         "type": "object"
       },
@@ -2544,10 +2384,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BusinessIndexMetaSchema",
         "type": "object"
       },
@@ -2578,9 +2415,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BusinessIndexPatchMetaSchema",
         "type": "object"
       },
@@ -2616,9 +2451,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BusinessIndexPatchSchema",
         "type": "object"
       },
@@ -2636,11 +2469,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "BusinessIndexSchema",
         "type": "object"
       },
@@ -2668,10 +2497,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BusinessNowherePageCreateMetaSchema",
         "type": "object"
       },
@@ -2700,10 +2526,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BusinessNowherePageCreateSchema",
         "type": "object"
       },
@@ -2764,10 +2587,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BusinessNowherePageMetaSchema",
         "type": "object"
       },
@@ -2798,9 +2618,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BusinessNowherePagePatchMetaSchema",
         "type": "object"
       },
@@ -2836,9 +2654,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BusinessNowherePagePatchSchema",
         "type": "object"
       },
@@ -2856,11 +2672,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "BusinessNowherePageSchema",
         "type": "object"
       },
@@ -2888,10 +2700,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "BusinessSubIndexCreateMetaSchema",
         "type": "object"
       },
@@ -2920,10 +2729,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "BusinessSubIndexCreateSchema",
         "type": "object"
       },
@@ -2984,10 +2790,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BusinessSubIndexMetaSchema",
         "type": "object"
       },
@@ -3018,9 +2821,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BusinessSubIndexPatchMetaSchema",
         "type": "object"
       },
@@ -3056,9 +2857,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "BusinessSubIndexPatchSchema",
         "type": "object"
       },
@@ -3076,11 +2875,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
@@ -3108,10 +2903,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CommentableJSONPageCreateMetaSchema",
         "type": "object"
       },
@@ -3140,10 +2932,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CommentableJSONPageCreateSchema",
         "type": "object"
       },
@@ -3204,10 +2993,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CommentableJSONPageMetaSchema",
         "type": "object"
       },
@@ -3238,9 +3024,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CommentableJSONPagePatchMetaSchema",
         "type": "object"
       },
@@ -3276,9 +3060,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CommentableJSONPagePatchSchema",
         "type": "object"
       },
@@ -3296,11 +3078,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CommentableJSONPageSchema",
         "type": "object"
       },
@@ -3328,10 +3106,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "ComplexDefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -3360,10 +3135,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "ComplexDefaultStreamPageCreateSchema",
         "type": "object"
       },
@@ -3424,10 +3196,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "ComplexDefaultStreamPageMetaSchema",
         "type": "object"
       },
@@ -3458,9 +3227,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "ComplexDefaultStreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -3496,9 +3263,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "ComplexDefaultStreamPagePatchSchema",
         "type": "object"
       },
@@ -3516,11 +3281,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "ComplexDefaultStreamPageSchema",
         "type": "object"
       },
@@ -3548,10 +3309,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "ContactPageCreateMetaSchema",
         "type": "object"
       },
@@ -3580,10 +3338,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "ContactPageCreateSchema",
         "type": "object"
       },
@@ -3644,10 +3399,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "ContactPageMetaSchema",
         "type": "object"
       },
@@ -3678,9 +3430,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "ContactPagePatchMetaSchema",
         "type": "object"
       },
@@ -3716,9 +3466,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "ContactPagePatchSchema",
         "type": "object"
       },
@@ -3841,11 +3589,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "ContactPageSchema",
         "type": "object"
       },
@@ -3859,9 +3603,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "types"
-        ],
+        "required": ["types"],
         "title": "ContentTypeListSchema",
         "type": "object"
       },
@@ -3876,10 +3618,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name",
-          "label"
-        ],
+        "required": ["name", "label"],
         "title": "ContentTypeSummarySchema",
         "type": "object"
       },
@@ -3907,10 +3646,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomCopyFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -3939,10 +3675,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomCopyFormPageCreateSchema",
         "type": "object"
       },
@@ -4003,10 +3736,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomCopyFormPageMetaSchema",
         "type": "object"
       },
@@ -4037,9 +3767,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomCopyFormPagePatchMetaSchema",
         "type": "object"
       },
@@ -4075,9 +3803,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomCopyFormPagePatchSchema",
         "type": "object"
       },
@@ -4095,11 +3821,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomCopyFormPageSchema",
         "type": "object"
       },
@@ -4127,10 +3849,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomManagerPageCreateMetaSchema",
         "type": "object"
       },
@@ -4159,10 +3878,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomManagerPageCreateSchema",
         "type": "object"
       },
@@ -4223,10 +3939,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomManagerPageMetaSchema",
         "type": "object"
       },
@@ -4257,9 +3970,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomManagerPagePatchMetaSchema",
         "type": "object"
       },
@@ -4295,9 +4006,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomManagerPagePatchSchema",
         "type": "object"
       },
@@ -4315,11 +4024,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomManagerPageSchema",
         "type": "object"
       },
@@ -4347,10 +4052,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomPermissionPageCreateMetaSchema",
         "type": "object"
       },
@@ -4379,10 +4081,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomPermissionPageCreateSchema",
         "type": "object"
       },
@@ -4443,10 +4142,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomPermissionPageMetaSchema",
         "type": "object"
       },
@@ -4477,9 +4173,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomPermissionPagePatchMetaSchema",
         "type": "object"
       },
@@ -4515,9 +4209,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomPermissionPagePatchSchema",
         "type": "object"
       },
@@ -4535,11 +4227,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomPermissionPageSchema",
         "type": "object"
       },
@@ -4567,10 +4255,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomPreviewSizesPageCreateMetaSchema",
         "type": "object"
       },
@@ -4599,10 +4284,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomPreviewSizesPageCreateSchema",
         "type": "object"
       },
@@ -4663,10 +4345,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomPreviewSizesPageMetaSchema",
         "type": "object"
       },
@@ -4697,9 +4376,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomPreviewSizesPagePatchMetaSchema",
         "type": "object"
       },
@@ -4735,9 +4412,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomPreviewSizesPagePatchSchema",
         "type": "object"
       },
@@ -4755,11 +4430,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
@@ -4787,10 +4458,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -4819,10 +4487,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomRichBlockFieldPageCreateSchema",
         "type": "object"
       },
@@ -4883,10 +4548,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomRichBlockFieldPageMetaSchema",
         "type": "object"
       },
@@ -4917,9 +4579,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomRichBlockFieldPagePatchMetaSchema",
         "type": "object"
       },
@@ -4955,9 +4615,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomRichBlockFieldPagePatchSchema",
         "type": "object"
       },
@@ -4975,11 +4633,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -5007,10 +4661,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "CustomRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -5039,10 +4690,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "CustomRichTextFieldPageCreateSchema",
         "type": "object"
       },
@@ -5103,10 +4751,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "CustomRichTextFieldPageMetaSchema",
         "type": "object"
       },
@@ -5137,9 +4782,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "CustomRichTextFieldPagePatchMetaSchema",
         "type": "object"
       },
@@ -5175,9 +4818,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "CustomRichTextFieldPagePatchSchema",
         "type": "object"
       },
@@ -5195,11 +4836,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "CustomRichTextFieldPageSchema",
         "type": "object"
       },
@@ -5227,10 +4864,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "DeadlyStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -5259,10 +4893,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "DeadlyStreamPageCreateSchema",
         "type": "object"
       },
@@ -5323,10 +4954,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "DeadlyStreamPageMetaSchema",
         "type": "object"
       },
@@ -5357,9 +4985,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "DeadlyStreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -5395,9 +5021,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "DeadlyStreamPagePatchSchema",
         "type": "object"
       },
@@ -5415,11 +5039,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
@@ -5447,10 +5067,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "DefaultRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -5479,10 +5096,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "DefaultRichBlockFieldPageCreateSchema",
         "type": "object"
       },
@@ -5543,10 +5157,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "DefaultRichBlockFieldPageMetaSchema",
         "type": "object"
       },
@@ -5577,9 +5188,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "DefaultRichBlockFieldPagePatchMetaSchema",
         "type": "object"
       },
@@ -5615,9 +5224,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "DefaultRichBlockFieldPagePatchSchema",
         "type": "object"
       },
@@ -5635,11 +5242,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "DefaultRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -5667,10 +5270,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "DefaultRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -5699,10 +5299,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "DefaultRichTextFieldPageCreateSchema",
         "type": "object"
       },
@@ -5763,10 +5360,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "DefaultRichTextFieldPageMetaSchema",
         "type": "object"
       },
@@ -5797,9 +5391,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "DefaultRichTextFieldPagePatchMetaSchema",
         "type": "object"
       },
@@ -5835,9 +5427,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "DefaultRichTextFieldPagePatchSchema",
         "type": "object"
       },
@@ -5855,11 +5445,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "DefaultRichTextFieldPageSchema",
         "type": "object"
       },
@@ -5887,10 +5473,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "DefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -5919,10 +5502,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "DefaultStreamPageCreateSchema",
         "type": "object"
       },
@@ -5983,10 +5563,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "DefaultStreamPageMetaSchema",
         "type": "object"
       },
@@ -6017,9 +5594,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "DefaultStreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -6055,9 +5630,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "DefaultStreamPagePatchSchema",
         "type": "object"
       },
@@ -6075,11 +5648,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "DefaultStreamPageSchema",
         "type": "object"
       },
@@ -6100,9 +5669,7 @@
             "$ref": "#/components/schemas/DocumentMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "DocumentForeignKeySchema",
         "type": "object"
       },
@@ -6114,9 +5681,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "DocumentMetaSchema",
         "type": "object"
       },
@@ -6144,10 +5709,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "EarlyPageCreateMetaSchema",
         "type": "object"
       },
@@ -6176,10 +5738,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EarlyPageCreateSchema",
         "type": "object"
       },
@@ -6240,10 +5799,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "EarlyPageMetaSchema",
         "type": "object"
       },
@@ -6274,9 +5830,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EarlyPagePatchMetaSchema",
         "type": "object"
       },
@@ -6312,9 +5866,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EarlyPagePatchSchema",
         "type": "object"
       },
@@ -6332,11 +5884,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "EarlyPageSchema",
         "type": "object"
       },
@@ -6364,10 +5912,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "EventIndexCreateMetaSchema",
         "type": "object"
       },
@@ -6396,10 +5941,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EventIndexCreateSchema",
         "type": "object"
       },
@@ -6460,10 +6002,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "EventIndexMetaSchema",
         "type": "object"
       },
@@ -6491,10 +6030,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "EventIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -6523,10 +6059,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EventIndexPageCreateSchema",
         "type": "object"
       },
@@ -6587,10 +6120,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "EventIndexPageMetaSchema",
         "type": "object"
       },
@@ -6621,9 +6151,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventIndexPagePatchMetaSchema",
         "type": "object"
       },
@@ -6659,9 +6187,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventIndexPagePatchSchema",
         "type": "object"
       },
@@ -6673,9 +6199,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventIndexPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -6736,10 +6260,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EventIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -6776,11 +6297,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "EventIndexPageSchema",
         "type": "object"
       },
@@ -6811,9 +6328,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventIndexPatchMetaSchema",
         "type": "object"
       },
@@ -6849,9 +6364,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventIndexPatchSchema",
         "type": "object"
       },
@@ -6869,11 +6382,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "EventIndexSchema",
         "type": "object"
       },
@@ -6958,9 +6467,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventPageCarouselItemMetaSchema",
         "type": "object"
       },
@@ -7132,9 +6639,7 @@
             "$ref": "#/components/schemas/EventPageCarouselItemMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
@@ -7180,9 +6685,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "title"
-        ],
+        "required": ["title"],
         "title": "EventPageRelatedLinkCreateSchema",
         "type": "object"
       },
@@ -7194,9 +6697,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -7319,10 +6820,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EventPageRelatedLinkSchema",
         "type": "object"
       },
@@ -7397,9 +6895,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventPageSpeakerMetaSchema",
         "type": "object"
       },
@@ -7562,9 +7058,7 @@
             "$ref": "#/components/schemas/EventPageSpeakerMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventPageSpeakerSchema",
         "type": "object"
       },
@@ -7592,10 +7086,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FilePageCreateMetaSchema",
         "type": "object"
       },
@@ -7624,10 +7115,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FilePageCreateSchema",
         "type": "object"
       },
@@ -7688,10 +7176,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FilePageMetaSchema",
         "type": "object"
       },
@@ -7722,9 +7207,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FilePagePatchMetaSchema",
         "type": "object"
       },
@@ -7760,9 +7243,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FilePagePatchSchema",
         "type": "object"
       },
@@ -7780,11 +7261,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FilePageSchema",
         "type": "object"
       },
@@ -7812,10 +7289,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormClassAdditionalFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -7844,10 +7318,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormClassAdditionalFieldPageCreateSchema",
         "type": "object"
       },
@@ -7908,10 +7379,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormClassAdditionalFieldPageMetaSchema",
         "type": "object"
       },
@@ -7942,9 +7410,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormClassAdditionalFieldPagePatchMetaSchema",
         "type": "object"
       },
@@ -7980,9 +7446,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormClassAdditionalFieldPagePatchSchema",
         "type": "object"
       },
@@ -8000,11 +7464,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormClassAdditionalFieldPageSchema",
         "type": "object"
       },
@@ -8016,9 +7476,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormFieldMetaSchema",
         "type": "object"
       },
@@ -8105,11 +7563,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "meta",
-          "label",
-          "field_type"
-        ],
+        "required": ["meta", "label", "field_type"],
         "title": "FormFieldSchema",
         "type": "object"
       },
@@ -8137,10 +7591,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageWithCustomFormBuilderCreateMetaSchema",
         "type": "object"
       },
@@ -8169,10 +7620,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomFormBuilderCreateSchema",
         "type": "object"
       },
@@ -8233,10 +7681,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageWithCustomFormBuilderMetaSchema",
         "type": "object"
       },
@@ -8267,9 +7712,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPageWithCustomFormBuilderPatchMetaSchema",
         "type": "object"
       },
@@ -8305,9 +7748,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPageWithCustomFormBuilderPatchSchema",
         "type": "object"
       },
@@ -8325,11 +7766,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageWithCustomFormBuilderSchema",
         "type": "object"
       },
@@ -8357,10 +7794,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageWithCustomSubmissionCreateMetaSchema",
         "type": "object"
       },
@@ -8389,10 +7823,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomSubmissionCreateSchema",
         "type": "object"
       },
@@ -8420,10 +7851,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageWithCustomSubmissionListViewCreateMetaSchema",
         "type": "object"
       },
@@ -8452,10 +7880,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageWithCustomSubmissionListViewCreateSchema",
         "type": "object"
       },
@@ -8516,10 +7941,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageWithCustomSubmissionListViewMetaSchema",
         "type": "object"
       },
@@ -8550,9 +7972,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPageWithCustomSubmissionListViewPatchMetaSchema",
         "type": "object"
       },
@@ -8588,9 +8008,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPageWithCustomSubmissionListViewPatchSchema",
         "type": "object"
       },
@@ -8608,11 +8026,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageWithCustomSubmissionListViewSchema",
         "type": "object"
       },
@@ -8673,10 +8087,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageWithCustomSubmissionMetaSchema",
         "type": "object"
       },
@@ -8707,9 +8118,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPageWithCustomSubmissionPatchMetaSchema",
         "type": "object"
       },
@@ -8745,9 +8154,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPageWithCustomSubmissionPatchSchema",
         "type": "object"
       },
@@ -8765,11 +8172,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageWithCustomSubmissionSchema",
         "type": "object"
       },
@@ -8797,10 +8200,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageWithRedirectCreateMetaSchema",
         "type": "object"
       },
@@ -8829,10 +8229,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageWithRedirectCreateSchema",
         "type": "object"
       },
@@ -8893,10 +8290,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageWithRedirectMetaSchema",
         "type": "object"
       },
@@ -8927,9 +8321,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPageWithRedirectPatchMetaSchema",
         "type": "object"
       },
@@ -8965,9 +8357,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPageWithRedirectPatchSchema",
         "type": "object"
       },
@@ -8985,11 +8375,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageWithRedirectSchema",
         "type": "object"
       },
@@ -9017,10 +8403,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "GalleryPageCreateMetaSchema",
         "type": "object"
       },
@@ -9049,10 +8432,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "GalleryPageCreateSchema",
         "type": "object"
       },
@@ -9113,10 +8493,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "GalleryPageMetaSchema",
         "type": "object"
       },
@@ -9147,9 +8524,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "GalleryPagePatchMetaSchema",
         "type": "object"
       },
@@ -9185,9 +8560,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "GalleryPagePatchSchema",
         "type": "object"
       },
@@ -9205,11 +8578,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "GalleryPageSchema",
         "type": "object"
       },
@@ -9237,10 +8606,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "GenericSnippetNoFieldIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -9269,10 +8635,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "GenericSnippetNoFieldIndexPageCreateSchema",
         "type": "object"
       },
@@ -9333,10 +8696,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "GenericSnippetNoFieldIndexPageMetaSchema",
         "type": "object"
       },
@@ -9367,9 +8727,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "GenericSnippetNoFieldIndexPagePatchMetaSchema",
         "type": "object"
       },
@@ -9405,9 +8763,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "GenericSnippetNoFieldIndexPagePatchSchema",
         "type": "object"
       },
@@ -9425,11 +8781,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "GenericSnippetNoFieldIndexPageSchema",
         "type": "object"
       },
@@ -9457,10 +8809,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "GenericSnippetNoIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -9489,10 +8838,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "GenericSnippetNoIndexPageCreateSchema",
         "type": "object"
       },
@@ -9553,10 +8899,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "GenericSnippetNoIndexPageMetaSchema",
         "type": "object"
       },
@@ -9587,9 +8930,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "GenericSnippetNoIndexPagePatchMetaSchema",
         "type": "object"
       },
@@ -9625,9 +8966,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "GenericSnippetNoIndexPagePatchSchema",
         "type": "object"
       },
@@ -9645,11 +8984,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "GenericSnippetNoIndexPageSchema",
         "type": "object"
       },
@@ -9677,10 +9012,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "GenericSnippetPageCreateMetaSchema",
         "type": "object"
       },
@@ -9709,10 +9041,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "GenericSnippetPageCreateSchema",
         "type": "object"
       },
@@ -9773,10 +9102,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "GenericSnippetPageMetaSchema",
         "type": "object"
       },
@@ -9807,9 +9133,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "GenericSnippetPagePatchMetaSchema",
         "type": "object"
       },
@@ -9845,9 +9169,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "GenericSnippetPagePatchSchema",
         "type": "object"
       },
@@ -9865,11 +9187,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
@@ -9954,9 +9272,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "HomePageCarouselItemMetaSchema",
         "type": "object"
       },
@@ -10128,9 +9444,7 @@
             "$ref": "#/components/schemas/HomePageCarouselItemMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "HomePageCarouselItemSchema",
         "type": "object"
       },
@@ -10158,10 +9472,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "HomePageCreateMetaSchema",
         "type": "object"
       },
@@ -10217,10 +9528,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "HomePageCreateSchema",
         "type": "object"
       },
@@ -10281,10 +9589,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "HomePageMetaSchema",
         "type": "object"
       },
@@ -10315,9 +9620,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "HomePagePatchMetaSchema",
         "type": "object"
       },
@@ -10380,9 +9683,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "HomePagePatchSchema",
         "type": "object"
       },
@@ -10428,9 +9729,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "title"
-        ],
+        "required": ["title"],
         "title": "HomePageRelatedLinkCreateSchema",
         "type": "object"
       },
@@ -10442,9 +9741,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "HomePageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -10567,10 +9864,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "HomePageRelatedLinkSchema",
         "type": "object"
       },
@@ -10615,11 +9909,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "HomePageSchema",
         "type": "object"
       },
@@ -10640,9 +9930,7 @@
             "$ref": "#/components/schemas/ImageMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "ImageForeignKeySchema",
         "type": "object"
       },
@@ -10654,9 +9942,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "ImageMetaSchema",
         "type": "object"
       },
@@ -10684,10 +9970,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "InlineStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -10716,10 +9999,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "InlineStreamPageCreateSchema",
         "type": "object"
       },
@@ -10780,10 +10060,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "InlineStreamPageMetaSchema",
         "type": "object"
       },
@@ -10814,9 +10091,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "InlineStreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -10852,9 +10127,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "InlineStreamPagePatchSchema",
         "type": "object"
       },
@@ -10872,11 +10145,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "InlineStreamPageSchema",
         "type": "object"
       },
@@ -10922,10 +10191,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "JadeFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -10954,10 +10220,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "JadeFormPageCreateSchema",
         "type": "object"
       },
@@ -11018,10 +10281,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "JadeFormPageMetaSchema",
         "type": "object"
       },
@@ -11052,9 +10312,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "JadeFormPagePatchMetaSchema",
         "type": "object"
       },
@@ -11090,9 +10348,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "JadeFormPagePatchSchema",
         "type": "object"
       },
@@ -11110,11 +10366,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "JadeFormPageSchema",
         "type": "object"
       },
@@ -11142,10 +10394,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "MTIBasePageCreateMetaSchema",
         "type": "object"
       },
@@ -11174,10 +10423,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "MTIBasePageCreateSchema",
         "type": "object"
       },
@@ -11238,10 +10484,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "MTIBasePageMetaSchema",
         "type": "object"
       },
@@ -11272,9 +10515,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "MTIBasePagePatchMetaSchema",
         "type": "object"
       },
@@ -11310,9 +10551,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "MTIBasePagePatchSchema",
         "type": "object"
       },
@@ -11330,11 +10569,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "MTIBasePageSchema",
         "type": "object"
       },
@@ -11362,10 +10597,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "MTIChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -11394,10 +10626,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "MTIChildPageCreateSchema",
         "type": "object"
       },
@@ -11458,10 +10687,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "MTIChildPageMetaSchema",
         "type": "object"
       },
@@ -11492,9 +10718,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "MTIChildPagePatchMetaSchema",
         "type": "object"
       },
@@ -11530,9 +10754,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "MTIChildPagePatchSchema",
         "type": "object"
       },
@@ -11550,11 +10772,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "MTIChildPageSchema",
         "type": "object"
       },
@@ -11582,10 +10800,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "ManyToManyBlogPageCreateMetaSchema",
         "type": "object"
       },
@@ -11614,10 +10829,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "ManyToManyBlogPageCreateSchema",
         "type": "object"
       },
@@ -11678,10 +10890,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "ManyToManyBlogPageMetaSchema",
         "type": "object"
       },
@@ -11712,9 +10921,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "ManyToManyBlogPagePatchMetaSchema",
         "type": "object"
       },
@@ -11750,9 +10957,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "ManyToManyBlogPagePatchSchema",
         "type": "object"
       },
@@ -11770,11 +10975,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
@@ -11802,10 +11003,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "MultiPreviewModesPageCreateMetaSchema",
         "type": "object"
       },
@@ -11834,10 +11032,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "MultiPreviewModesPageCreateSchema",
         "type": "object"
       },
@@ -11898,10 +11093,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "MultiPreviewModesPageMetaSchema",
         "type": "object"
       },
@@ -11932,9 +11124,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "MultiPreviewModesPagePatchMetaSchema",
         "type": "object"
       },
@@ -11970,9 +11160,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "MultiPreviewModesPagePatchSchema",
         "type": "object"
       },
@@ -11990,11 +11178,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "MultiPreviewModesPageSchema",
         "type": "object"
       },
@@ -12022,10 +11206,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "MyCustomPageCreateMetaSchema",
         "type": "object"
       },
@@ -12054,10 +11235,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "MyCustomPageCreateSchema",
         "type": "object"
       },
@@ -12118,10 +11296,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "MyCustomPageMetaSchema",
         "type": "object"
       },
@@ -12152,9 +11327,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "MyCustomPagePatchMetaSchema",
         "type": "object"
       },
@@ -12190,9 +11363,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "MyCustomPagePatchSchema",
         "type": "object"
       },
@@ -12210,11 +11381,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "MyCustomPageSchema",
         "type": "object"
       },
@@ -12242,10 +11409,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "NoCreatableSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -12274,10 +11438,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "NoCreatableSubpageTypesPageCreateSchema",
         "type": "object"
       },
@@ -12338,10 +11499,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "NoCreatableSubpageTypesPageMetaSchema",
         "type": "object"
       },
@@ -12372,9 +11530,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "NoCreatableSubpageTypesPagePatchMetaSchema",
         "type": "object"
       },
@@ -12410,9 +11566,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "NoCreatableSubpageTypesPagePatchSchema",
         "type": "object"
       },
@@ -12430,11 +11584,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "NoCreatableSubpageTypesPageSchema",
         "type": "object"
       },
@@ -12462,10 +11612,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "NoPromotePageCreateMetaSchema",
         "type": "object"
       },
@@ -12494,10 +11641,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "NoPromotePageCreateSchema",
         "type": "object"
       },
@@ -12558,10 +11702,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "NoPromotePageMetaSchema",
         "type": "object"
       },
@@ -12592,9 +11733,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "NoPromotePagePatchMetaSchema",
         "type": "object"
       },
@@ -12630,9 +11769,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "NoPromotePagePatchSchema",
         "type": "object"
       },
@@ -12650,11 +11787,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "NoPromotePageSchema",
         "type": "object"
       },
@@ -12682,10 +11815,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "NoSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -12714,10 +11844,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "NoSubpageTypesPageCreateSchema",
         "type": "object"
       },
@@ -12778,10 +11905,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "NoSubpageTypesPageMetaSchema",
         "type": "object"
       },
@@ -12812,9 +11936,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "NoSubpageTypesPagePatchMetaSchema",
         "type": "object"
       },
@@ -12850,9 +11972,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "NoSubpageTypesPagePatchSchema",
         "type": "object"
       },
@@ -12870,11 +11990,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "NoSubpageTypesPageSchema",
         "type": "object"
       },
@@ -12902,10 +12018,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "OneToOnePageCreateMetaSchema",
         "type": "object"
       },
@@ -12934,10 +12047,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "OneToOnePageCreateSchema",
         "type": "object"
       },
@@ -12998,10 +12108,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "OneToOnePageMetaSchema",
         "type": "object"
       },
@@ -13032,9 +12139,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "OneToOnePagePatchMetaSchema",
         "type": "object"
       },
@@ -13070,9 +12175,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "OneToOnePagePatchSchema",
         "type": "object"
       },
@@ -13090,16 +12193,28 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "OneToOnePageSchema",
         "type": "object"
       },
       "PageFilterSchema": {
         "properties": {
+          "child_of": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "const": "root",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Child Of"
+          },
           "type": {
             "default": [],
             "items": {
@@ -13261,9 +12376,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "slug"
-        ],
+        "required": ["slug"],
         "title": "PageMetaSchema",
         "type": "object"
       },
@@ -13291,10 +12404,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PageWithExcludedCopyFieldCreateMetaSchema",
         "type": "object"
       },
@@ -13323,10 +12433,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PageWithExcludedCopyFieldCreateSchema",
         "type": "object"
       },
@@ -13387,10 +12494,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PageWithExcludedCopyFieldMetaSchema",
         "type": "object"
       },
@@ -13421,9 +12525,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PageWithExcludedCopyFieldPatchMetaSchema",
         "type": "object"
       },
@@ -13459,9 +12561,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PageWithExcludedCopyFieldPatchSchema",
         "type": "object"
       },
@@ -13479,11 +12579,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "PageWithExcludedCopyFieldSchema",
         "type": "object"
       },
@@ -13511,10 +12607,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PageWithGenericRelationCreateMetaSchema",
         "type": "object"
       },
@@ -13543,10 +12636,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PageWithGenericRelationCreateSchema",
         "type": "object"
       },
@@ -13607,10 +12697,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PageWithGenericRelationMetaSchema",
         "type": "object"
       },
@@ -13641,9 +12728,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PageWithGenericRelationPatchMetaSchema",
         "type": "object"
       },
@@ -13679,9 +12764,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PageWithGenericRelationPatchSchema",
         "type": "object"
       },
@@ -13699,11 +12782,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "PageWithGenericRelationSchema",
         "type": "object"
       },
@@ -13731,10 +12810,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PageWithOldStyleRouteMethodCreateMetaSchema",
         "type": "object"
       },
@@ -13763,10 +12839,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PageWithOldStyleRouteMethodCreateSchema",
         "type": "object"
       },
@@ -13827,10 +12900,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PageWithOldStyleRouteMethodMetaSchema",
         "type": "object"
       },
@@ -13861,9 +12931,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PageWithOldStyleRouteMethodPatchMetaSchema",
         "type": "object"
       },
@@ -13899,9 +12967,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PageWithOldStyleRouteMethodPatchSchema",
         "type": "object"
       },
@@ -13919,11 +12985,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "PageWithOldStyleRouteMethodSchema",
         "type": "object"
       },
@@ -13941,10 +13003,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "items",
-          "count"
-        ],
+        "required": ["items", "count"],
         "title": "PagedBasePageSchema",
         "type": "object"
       },
@@ -13962,10 +13021,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "items",
-          "count"
-        ],
+        "required": ["items", "count"],
         "title": "PagedRedirectSchema",
         "type": "object"
       },
@@ -13983,10 +13039,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "items",
-          "count"
-        ],
+        "required": ["items", "count"],
         "title": "PagedSiteSchema",
         "type": "object"
       },
@@ -13998,9 +13051,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PersonPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -14061,10 +13112,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PersonPageRelatedLinkSchema",
         "type": "object"
       },
@@ -14092,10 +13140,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PromotionalPageCreateMetaSchema",
         "type": "object"
       },
@@ -14124,10 +13169,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PromotionalPageCreateSchema",
         "type": "object"
       },
@@ -14188,10 +13230,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PromotionalPageMetaSchema",
         "type": "object"
       },
@@ -14222,9 +13261,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PromotionalPagePatchMetaSchema",
         "type": "object"
       },
@@ -14260,9 +13297,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PromotionalPagePatchSchema",
         "type": "object"
       },
@@ -14280,11 +13315,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "PromotionalPageSchema",
         "type": "object"
       },
@@ -14332,9 +13363,7 @@
             "title": "Site"
           }
         },
-        "required": [
-          "old_path"
-        ],
+        "required": ["old_path"],
         "title": "RedirectInputSchema",
         "type": "object"
       },
@@ -14437,10 +13466,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "RequiredDatePageCreateMetaSchema",
         "type": "object"
       },
@@ -14469,10 +13495,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "RequiredDatePageCreateSchema",
         "type": "object"
       },
@@ -14533,10 +13556,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "RequiredDatePageMetaSchema",
         "type": "object"
       },
@@ -14567,9 +13587,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "RequiredDatePagePatchMetaSchema",
         "type": "object"
       },
@@ -14605,9 +13623,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "RequiredDatePagePatchSchema",
         "type": "object"
       },
@@ -14625,11 +13641,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "RequiredDatePageSchema",
         "type": "object"
       },
@@ -14657,10 +13669,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "RestaurantPageCreateMetaSchema",
         "type": "object"
       },
@@ -14689,10 +13698,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "RestaurantPageCreateSchema",
         "type": "object"
       },
@@ -14753,10 +13759,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "RestaurantPageMetaSchema",
         "type": "object"
       },
@@ -14787,9 +13790,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "RestaurantPagePatchMetaSchema",
         "type": "object"
       },
@@ -14825,9 +13826,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "RestaurantPagePatchSchema",
         "type": "object"
       },
@@ -14845,11 +13844,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "RestaurantPageSchema",
         "type": "object"
       },
@@ -14877,10 +13872,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "RichTextFieldWithFeaturesPageCreateMetaSchema",
         "type": "object"
       },
@@ -14909,10 +13901,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "RichTextFieldWithFeaturesPageCreateSchema",
         "type": "object"
       },
@@ -14973,10 +13962,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "RichTextFieldWithFeaturesPageMetaSchema",
         "type": "object"
       },
@@ -15007,9 +13993,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "RichTextFieldWithFeaturesPagePatchMetaSchema",
         "type": "object"
       },
@@ -15045,9 +14029,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "RichTextFieldWithFeaturesPagePatchSchema",
         "type": "object"
       },
@@ -15065,11 +14047,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "RichTextFieldWithFeaturesPageSchema",
         "type": "object"
       },
@@ -15097,10 +14075,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "RoutablePageTestCreateMetaSchema",
         "type": "object"
       },
@@ -15129,10 +14104,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "RoutablePageTestCreateSchema",
         "type": "object"
       },
@@ -15193,10 +14165,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "RoutablePageTestMetaSchema",
         "type": "object"
       },
@@ -15227,9 +14196,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "RoutablePageTestPatchMetaSchema",
         "type": "object"
       },
@@ -15265,9 +14232,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "RoutablePageTestPatchSchema",
         "type": "object"
       },
@@ -15285,11 +14250,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "RoutablePageTestSchema",
         "type": "object"
       },
@@ -15317,10 +14278,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema",
         "type": "object"
       },
@@ -15349,10 +14307,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "RoutablePageWithOverriddenIndexRouteTestCreateSchema",
         "type": "object"
       },
@@ -15413,10 +14368,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "RoutablePageWithOverriddenIndexRouteTestMetaSchema",
         "type": "object"
       },
@@ -15447,9 +14399,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "RoutablePageWithOverriddenIndexRouteTestPatchMetaSchema",
         "type": "object"
       },
@@ -15485,9 +14435,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "RoutablePageWithOverriddenIndexRouteTestPatchSchema",
         "type": "object"
       },
@@ -15505,11 +14453,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "RoutablePageWithOverriddenIndexRouteTestSchema",
         "type": "object"
       },
@@ -15537,10 +14481,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SamplePageCreateMetaSchema",
         "type": "object"
       },
@@ -15569,10 +14510,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SamplePageCreateSchema",
         "type": "object"
       },
@@ -15633,10 +14571,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SamplePageMetaSchema",
         "type": "object"
       },
@@ -15667,9 +14602,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SamplePagePatchMetaSchema",
         "type": "object"
       },
@@ -15705,9 +14638,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SamplePagePatchSchema",
         "type": "object"
       },
@@ -15725,11 +14656,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SamplePageSchema",
         "type": "object"
       },
@@ -15799,10 +14726,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SecretPageCreateMetaSchema",
         "type": "object"
       },
@@ -15831,10 +14755,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SecretPageCreateSchema",
         "type": "object"
       },
@@ -15895,10 +14816,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SecretPageMetaSchema",
         "type": "object"
       },
@@ -15929,9 +14847,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SecretPagePatchMetaSchema",
         "type": "object"
       },
@@ -15967,9 +14883,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SecretPagePatchSchema",
         "type": "object"
       },
@@ -15987,11 +14901,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SecretPageSchema",
         "type": "object"
       },
@@ -16019,10 +14929,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SectionedRichTextPageCreateMetaSchema",
         "type": "object"
       },
@@ -16051,10 +14958,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SectionedRichTextPageCreateSchema",
         "type": "object"
       },
@@ -16115,10 +15019,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SectionedRichTextPageMetaSchema",
         "type": "object"
       },
@@ -16149,9 +15050,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SectionedRichTextPagePatchMetaSchema",
         "type": "object"
       },
@@ -16187,9 +15086,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SectionedRichTextPagePatchSchema",
         "type": "object"
       },
@@ -16207,11 +15104,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SectionedRichTextPageSchema",
         "type": "object"
       },
@@ -16239,10 +15132,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SimpleChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -16271,10 +15161,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SimpleChildPageCreateSchema",
         "type": "object"
       },
@@ -16335,10 +15222,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SimpleChildPageMetaSchema",
         "type": "object"
       },
@@ -16369,9 +15253,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SimpleChildPagePatchMetaSchema",
         "type": "object"
       },
@@ -16407,9 +15289,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SimpleChildPagePatchSchema",
         "type": "object"
       },
@@ -16427,11 +15307,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SimpleChildPageSchema",
         "type": "object"
       },
@@ -16459,10 +15335,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SimplePageCreateMetaSchema",
         "type": "object"
       },
@@ -16491,10 +15364,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SimplePageCreateSchema",
         "type": "object"
       },
@@ -16555,10 +15425,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SimplePageMetaSchema",
         "type": "object"
       },
@@ -16589,9 +15456,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SimplePagePatchMetaSchema",
         "type": "object"
       },
@@ -16627,9 +15492,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SimplePagePatchSchema",
         "type": "object"
       },
@@ -16647,11 +15510,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SimplePageSchema",
         "type": "object"
       },
@@ -16679,10 +15538,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SimpleParentPageCreateMetaSchema",
         "type": "object"
       },
@@ -16711,10 +15567,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SimpleParentPageCreateSchema",
         "type": "object"
       },
@@ -16775,10 +15628,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SimpleParentPageMetaSchema",
         "type": "object"
       },
@@ -16809,9 +15659,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SimpleParentPagePatchMetaSchema",
         "type": "object"
       },
@@ -16847,9 +15695,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SimpleParentPagePatchSchema",
         "type": "object"
       },
@@ -16867,11 +15713,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SimpleParentPageSchema",
         "type": "object"
       },
@@ -16899,10 +15741,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SingleEventPageCreateMetaSchema",
         "type": "object"
       },
@@ -16931,10 +15770,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SingleEventPageCreateSchema",
         "type": "object"
       },
@@ -16995,10 +15831,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SingleEventPageMetaSchema",
         "type": "object"
       },
@@ -17029,9 +15862,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SingleEventPagePatchMetaSchema",
         "type": "object"
       },
@@ -17067,9 +15898,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SingleEventPagePatchSchema",
         "type": "object"
       },
@@ -17087,11 +15916,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SingleEventPageSchema",
         "type": "object"
       },
@@ -17119,10 +15944,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SingletonPageCreateMetaSchema",
         "type": "object"
       },
@@ -17151,10 +15973,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SingletonPageCreateSchema",
         "type": "object"
       },
@@ -17215,10 +16034,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SingletonPageMetaSchema",
         "type": "object"
       },
@@ -17249,9 +16065,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SingletonPagePatchMetaSchema",
         "type": "object"
       },
@@ -17287,9 +16101,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SingletonPagePatchSchema",
         "type": "object"
       },
@@ -17307,11 +16119,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SingletonPageSchema",
         "type": "object"
       },
@@ -17339,10 +16147,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "SingletonPageViaMaxCountCreateMetaSchema",
         "type": "object"
       },
@@ -17371,10 +16176,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "SingletonPageViaMaxCountCreateSchema",
         "type": "object"
       },
@@ -17435,10 +16237,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "SingletonPageViaMaxCountMetaSchema",
         "type": "object"
       },
@@ -17469,9 +16268,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "SingletonPageViaMaxCountPatchMetaSchema",
         "type": "object"
       },
@@ -17507,9 +16304,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "SingletonPageViaMaxCountPatchSchema",
         "type": "object"
       },
@@ -17527,11 +16322,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "SingletonPageViaMaxCountSchema",
         "type": "object"
       },
@@ -17561,10 +16352,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "hostname",
-          "root_page_id"
-        ],
+        "required": ["hostname", "root_page_id"],
         "title": "SiteInputSchema",
         "type": "object"
       },
@@ -17630,10 +16418,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "StandardChildCreateMetaSchema",
         "type": "object"
       },
@@ -17662,10 +16447,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardChildCreateSchema",
         "type": "object"
       },
@@ -17726,10 +16508,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "StandardChildMetaSchema",
         "type": "object"
       },
@@ -17760,9 +16539,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardChildPatchMetaSchema",
         "type": "object"
       },
@@ -17798,9 +16575,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StandardChildPatchSchema",
         "type": "object"
       },
@@ -17818,11 +16593,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "StandardChildSchema",
         "type": "object"
       },
@@ -17850,10 +16621,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "StandardIndexCreateMetaSchema",
         "type": "object"
       },
@@ -17882,10 +16650,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardIndexCreateSchema",
         "type": "object"
       },
@@ -17946,10 +16711,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "StandardIndexMetaSchema",
         "type": "object"
       },
@@ -17977,10 +16739,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "StandardIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -18009,10 +16768,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardIndexPageCreateSchema",
         "type": "object"
       },
@@ -18073,10 +16829,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "StandardIndexPageMetaSchema",
         "type": "object"
       },
@@ -18107,9 +16860,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardIndexPagePatchMetaSchema",
         "type": "object"
       },
@@ -18145,9 +16896,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StandardIndexPagePatchSchema",
         "type": "object"
       },
@@ -18159,9 +16908,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardIndexPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -18222,10 +16969,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardIndexPageRelatedLinkSchema",
         "type": "object"
       },
@@ -18272,11 +17016,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "StandardIndexPageSchema",
         "type": "object"
       },
@@ -18307,9 +17047,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardIndexPatchMetaSchema",
         "type": "object"
       },
@@ -18345,9 +17083,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StandardIndexPatchSchema",
         "type": "object"
       },
@@ -18365,11 +17101,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "StandardIndexSchema",
         "type": "object"
       },
@@ -18381,9 +17113,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardPageCarouselItemMetaSchema",
         "type": "object"
       },
@@ -18471,9 +17201,7 @@
             "$ref": "#/components/schemas/StandardPageCarouselItemMetaSchema"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StandardPageCarouselItemSchema",
         "type": "object"
       },
@@ -18501,10 +17229,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "StandardPageCreateMetaSchema",
         "type": "object"
       },
@@ -18533,10 +17258,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardPageCreateSchema",
         "type": "object"
       },
@@ -18597,10 +17319,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "StandardPageMetaSchema",
         "type": "object"
       },
@@ -18631,9 +17350,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardPagePatchMetaSchema",
         "type": "object"
       },
@@ -18669,9 +17386,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StandardPagePatchSchema",
         "type": "object"
       },
@@ -18683,9 +17398,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StandardPageRelatedLinkMetaSchema",
         "type": "object"
       },
@@ -18746,10 +17459,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StandardPageRelatedLinkSchema",
         "type": "object"
       },
@@ -18815,11 +17525,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "StandardPageSchema",
         "type": "object"
       },
@@ -18847,10 +17553,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "StreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -18885,10 +17588,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "StreamPageCreateSchema",
         "type": "object"
       },
@@ -18949,10 +17649,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "StreamPageMetaSchema",
         "type": "object"
       },
@@ -18983,9 +17680,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "StreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -19027,9 +17722,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "StreamPagePatchSchema",
         "type": "object"
       },
@@ -19053,11 +17746,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "StreamPageSchema",
         "type": "object"
       },
@@ -19085,10 +17774,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "TableBlockStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -19117,10 +17803,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "TableBlockStreamPageCreateSchema",
         "type": "object"
       },
@@ -19181,10 +17864,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "TableBlockStreamPageMetaSchema",
         "type": "object"
       },
@@ -19215,9 +17895,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "TableBlockStreamPagePatchMetaSchema",
         "type": "object"
       },
@@ -19253,9 +17931,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "TableBlockStreamPagePatchSchema",
         "type": "object"
       },
@@ -19273,11 +17949,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "TableBlockStreamPageSchema",
         "type": "object"
       },
@@ -19305,10 +17977,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "TaggedChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -19337,10 +18006,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "TaggedChildPageCreateSchema",
         "type": "object"
       },
@@ -19401,10 +18067,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "TaggedChildPageMetaSchema",
         "type": "object"
       },
@@ -19435,9 +18098,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "TaggedChildPagePatchMetaSchema",
         "type": "object"
       },
@@ -19473,9 +18134,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "TaggedChildPagePatchSchema",
         "type": "object"
       },
@@ -19493,11 +18152,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "TaggedChildPageSchema",
         "type": "object"
       },
@@ -19525,10 +18180,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "TaggedGrandchildPageCreateMetaSchema",
         "type": "object"
       },
@@ -19557,10 +18209,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "TaggedGrandchildPageCreateSchema",
         "type": "object"
       },
@@ -19621,10 +18270,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "TaggedGrandchildPageMetaSchema",
         "type": "object"
       },
@@ -19655,9 +18301,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "TaggedGrandchildPagePatchMetaSchema",
         "type": "object"
       },
@@ -19693,9 +18337,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "TaggedGrandchildPagePatchSchema",
         "type": "object"
       },
@@ -19713,11 +18355,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "TaggedGrandchildPageSchema",
         "type": "object"
       },
@@ -19745,10 +18383,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "TaggedPageCreateMetaSchema",
         "type": "object"
       },
@@ -19777,10 +18412,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "TaggedPageCreateSchema",
         "type": "object"
       },
@@ -19841,10 +18473,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "TaggedPageMetaSchema",
         "type": "object"
       },
@@ -19875,9 +18504,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "TaggedPagePatchMetaSchema",
         "type": "object"
       },
@@ -19913,9 +18540,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "TaggedPagePatchSchema",
         "type": "object"
       },
@@ -19933,11 +18558,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "TaggedPageSchema",
         "type": "object"
       },
@@ -19965,10 +18586,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "TestPageCreateMetaSchema",
         "type": "object"
       },
@@ -19997,10 +18615,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "TestPageCreateSchema",
         "type": "object"
       },
@@ -20061,10 +18676,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "TestPageMetaSchema",
         "type": "object"
       },
@@ -20095,9 +18707,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "TestPagePatchMetaSchema",
         "type": "object"
       },
@@ -20133,9 +18743,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "TestPagePatchSchema",
         "type": "object"
       },
@@ -20153,11 +18761,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "TestPageSchema",
         "type": "object"
       },
@@ -20185,10 +18789,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "ValidatedPageCreateMetaSchema",
         "type": "object"
       },
@@ -20217,10 +18818,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "ValidatedPageCreateSchema",
         "type": "object"
       },
@@ -20281,10 +18879,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "ValidatedPageMetaSchema",
         "type": "object"
       },
@@ -20315,9 +18910,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "ValidatedPagePatchMetaSchema",
         "type": "object"
       },
@@ -20353,9 +18946,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "ValidatedPagePatchSchema",
         "type": "object"
       },
@@ -20373,11 +18964,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "ValidatedPageSchema",
         "type": "object"
       },
@@ -20438,10 +19025,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "BasePageMetaSchema",
         "type": "object"
       },
@@ -20453,9 +19037,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "BasePageMetaSchema",
         "type": "object"
       },
@@ -20483,10 +19065,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -20514,10 +19093,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -20546,10 +19122,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "EventPageCreateSchema",
         "type": "object"
       },
@@ -20760,10 +19333,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "EventPageMetaSchema",
         "type": "object"
       },
@@ -20824,10 +19394,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "EventPageMetaSchema",
         "type": "object"
       },
@@ -20858,9 +19425,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventPagePatchMetaSchema",
         "type": "object"
       },
@@ -20891,9 +19456,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "EventPagePatchMetaSchema",
         "type": "object"
       },
@@ -20929,9 +19492,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventPagePatchSchema",
         "type": "object"
       },
@@ -21106,9 +19667,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "EventPagePatchSchema",
         "type": "object"
       },
@@ -21126,11 +19685,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "EventPageSchema",
         "type": "object"
       },
@@ -21297,10 +19852,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -21328,10 +19880,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -21360,10 +19909,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageCreateSchema",
         "type": "object"
       },
@@ -21392,10 +19938,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "FormPageCreateSchema",
         "type": "object"
       },
@@ -21456,10 +19999,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageMetaSchema",
         "type": "object"
       },
@@ -21520,10 +20060,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "FormPageMetaSchema",
         "type": "object"
       },
@@ -21554,9 +20091,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPagePatchMetaSchema",
         "type": "object"
       },
@@ -21587,9 +20122,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "FormPagePatchMetaSchema",
         "type": "object"
       },
@@ -21625,9 +20158,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPagePatchSchema",
         "type": "object"
       },
@@ -21663,9 +20194,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "FormPagePatchSchema",
         "type": "object"
       },
@@ -21683,11 +20212,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -21713,11 +20238,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -21745,10 +20266,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -21776,10 +20294,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "parent_id",
-          "type"
-        ],
+        "required": ["parent_id", "type"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -21808,10 +20323,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PersonPageCreateSchema",
         "type": "object"
       },
@@ -21840,10 +20352,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "meta",
-          "title"
-        ],
+        "required": ["meta", "title"],
         "title": "PersonPageCreateSchema",
         "type": "object"
       },
@@ -21904,10 +20413,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PersonPageMetaSchema",
         "type": "object"
       },
@@ -21968,10 +20474,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "slug"
-        ],
+        "required": ["type", "slug"],
         "title": "PersonPageMetaSchema",
         "type": "object"
       },
@@ -22002,9 +20505,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PersonPagePatchMetaSchema",
         "type": "object"
       },
@@ -22035,9 +20536,7 @@
             "title": "Type"
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "title": "PersonPagePatchMetaSchema",
         "type": "object"
       },
@@ -22073,9 +20572,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PersonPagePatchSchema",
         "type": "object"
       },
@@ -22111,9 +20608,7 @@
             "title": "Title"
           }
         },
-        "required": [
-          "meta"
-        ],
+        "required": ["meta"],
         "title": "PersonPagePatchSchema",
         "type": "object"
       },
@@ -22131,11 +20626,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta"
-        ],
+        "required": ["id", "title", "meta"],
         "title": "PersonPageSchema",
         "type": "object"
       },
@@ -22297,13 +20788,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "meta",
-          "first_name",
-          "last_name"
-        ],
+        "required": ["id", "title", "meta", "first_name", "last_name"],
         "title": "PersonPageSchema",
         "type": "object"
       }
@@ -22421,6 +20906,27 @@
           },
           {
             "in": "query",
+            "name": "child_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "const": "root",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Child Of"
+            }
+          },
+          {
+            "in": "query",
             "name": "limit",
             "required": false,
             "schema": {
@@ -22455,9 +20961,7 @@
           }
         },
         "summary": "List pages",
-        "tags": [
-          "pages"
-        ]
+        "tags": ["pages"]
       },
       "post": {
         "operationId": "pages_create",
@@ -22993,9 +21497,7 @@
           }
         },
         "summary": "Create page",
-        "tags": [
-          "pages"
-        ]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/": {
@@ -23279,9 +21781,7 @@
           }
         },
         "summary": "Page detail",
-        "tags": [
-          "pages"
-        ]
+        "tags": ["pages"]
       },
       "patch": {
         "operationId": "pages_update",
@@ -23827,9 +22327,7 @@
           }
         },
         "summary": "Update page",
-        "tags": [
-          "pages"
-        ]
+        "tags": ["pages"]
       }
     },
     "/api/v3/redirects/": {
@@ -23872,9 +22370,7 @@
           }
         },
         "summary": "List redirects",
-        "tags": [
-          "redirects"
-        ]
+        "tags": ["redirects"]
       },
       "post": {
         "operationId": "redirects_create",
@@ -23902,9 +22398,7 @@
           }
         },
         "summary": "Create redirect",
-        "tags": [
-          "redirects"
-        ]
+        "tags": ["redirects"]
       }
     },
     "/api/v3/redirects/{redirect_id}/": {
@@ -23927,9 +22421,7 @@
           }
         },
         "summary": "Delete redirect",
-        "tags": [
-          "redirects"
-        ]
+        "tags": ["redirects"]
       },
       "get": {
         "operationId": "redirects_detail",
@@ -23957,9 +22449,7 @@
           }
         },
         "summary": "Redirect detail",
-        "tags": [
-          "redirects"
-        ]
+        "tags": ["redirects"]
       },
       "put": {
         "operationId": "redirects_update",
@@ -23997,9 +22487,7 @@
           }
         },
         "summary": "Update redirect",
-        "tags": [
-          "redirects"
-        ]
+        "tags": ["redirects"]
       }
     },
     "/api/v3/schema/": {
@@ -24019,9 +22507,7 @@
           }
         },
         "summary": "List registered content types",
-        "tags": [
-          "schema"
-        ]
+        "tags": ["schema"]
       }
     },
     "/api/v3/schema/{type_name}/": {
@@ -24051,9 +22537,7 @@
           }
         },
         "summary": "Schemas for a content type",
-        "tags": [
-          "schema"
-        ]
+        "tags": ["schema"]
       }
     },
     "/api/v3/sites/": {
@@ -24096,9 +22580,7 @@
           }
         },
         "summary": "List sites",
-        "tags": [
-          "sites"
-        ]
+        "tags": ["sites"]
       },
       "post": {
         "operationId": "sites_create",
@@ -24126,9 +22608,7 @@
           }
         },
         "summary": "Create site",
-        "tags": [
-          "sites"
-        ]
+        "tags": ["sites"]
       }
     },
     "/api/v3/sites/{site_id}/": {
@@ -24151,9 +22631,7 @@
           }
         },
         "summary": "Delete site",
-        "tags": [
-          "sites"
-        ]
+        "tags": ["sites"]
       },
       "get": {
         "operationId": "sites_detail",
@@ -24181,9 +22659,7 @@
           }
         },
         "summary": "Site detail",
-        "tags": [
-          "sites"
-        ]
+        "tags": ["sites"]
       },
       "put": {
         "operationId": "sites_update",
@@ -24221,9 +22697,7 @@
           }
         },
         "summary": "Update site",
-        "tags": [
-          "sites"
-        ]
+        "tags": ["sites"]
       }
     }
   },
