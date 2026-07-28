@@ -19,7 +19,7 @@ def get_total_page_count():
     )
 
 
-class TestV3PageListing(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+class TestV3PageListingBase(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -33,6 +33,8 @@ class TestV3PageListing(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCas
             content = self.get_response(limit=100_000).json()
         return self.get_page_id_list(content)
 
+
+class TestV3PageListing(TestV3PageListingBase):
     def test_basic(self):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
@@ -156,6 +158,64 @@ class TestV3PageListing(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCas
     def test_limit_within_max(self):
         content = self.get_response(limit=5).json()
         self.assertLessEqual(len(content["items"]), 5)
+
+
+class TestV3PageListingFilters(TestV3PageListingBase):
+    def test_type_filter_items_are_all_blog_entries(self):
+        response = self.get_response(type="demosite.BlogEntryPage")
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertGreater(len(content["items"]), 0)
+        for page in content["items"]:
+            self.assertEqual(page["meta"]["type"], "demosite.BlogEntryPage")
+
+    def test_type_filter_total_count(self):
+        expected_count = models.BlogEntryPage.objects.live().public().count()
+        response = self.get_response(type="demosite.BlogEntryPage")
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["count"], expected_count)
+
+    def test_type_filter_multiple(self):
+        response = self.client.get(
+            reverse("wagtailapi_v3:list_pages"),
+            {"type": ["demosite.BlogEntryPage", "demosite.EventPage"]},
+        )
+        content = response.json()
+
+        expected_count = (
+            models.BlogEntryPage.objects.live().public().count()
+            + models.EventPage.objects.live().public().count()
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["count"], expected_count)
+
+        seen_types = {page["meta"]["type"] for page in content["items"]}
+        self.assertEqual(seen_types, {"demosite.BlogEntryPage", "demosite.EventPage"})
+
+    def test_type_filter_base_page_type_matches_everything(self):
+        response = self.get_response(type=Page._meta.label)
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["count"], get_total_page_count())
+
+    def test_non_existent_type_gives_error(self):
+        response = self.get_response(type="demosite.IDontExist")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "literal_error", "loc": ["query", "filters", "type", 0]}],
+        )
+
+    def test_non_page_type_gives_error(self):
+        response = self.get_response(type="auth.User")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "literal_error", "loc": ["query", "filters", "type", 0]}],
+        )
 
 
 class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
