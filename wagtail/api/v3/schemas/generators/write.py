@@ -257,7 +257,12 @@ class InputSchemaGenerator:
         name = f"{model._meta.object_name}{self.name_suffix}Schema"
         schema = create_schema(
             model,
-            name=f"{name}Base",
+            # ninja's create_schema() caches globally by (model, name, fields,
+            # optional_fields, ...) - notably not base_class - so two calls for
+            # the same model/fields under different base classes would
+            # otherwise collide and silently reuse the first one's base_class.
+            # Folding base_class into the name keeps those calls distinct.
+            name=f"{name}Base_{base_class.__name__}",
             fields=field_names,
             optional_fields=[n for n in field_names if n not in required_fields],
             base_class=base_class,
