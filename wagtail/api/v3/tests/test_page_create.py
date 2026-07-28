@@ -494,6 +494,26 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assert_problem_response(response, status_code=404)
 
+    def test_missing_type_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk},
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "union_tag_not_found",
+                    "loc": ["body", "data"],
+                }
+            ],
+        )
+
     def test_unknown_type_returns_422(self):
         response = self.post(
             {
@@ -502,11 +522,18 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "new-page",
             }
         )
-        content = self.assert_problem_response(response, status_code=422)
-        self.assertEqual(len(content["errors"]), 1)
+        content = self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "union_tag_invalid",
+                    "loc": ["body", "data"],
+                }
+            ],
+        )
         error = content["errors"][0]
-        self.assertEqual(error["type"], "union_tag_invalid")
-        self.assertEqual(error["loc"], ["body", "data"])
         self.assertIn("'not.AType'", error["msg"])
 
     def test_non_page_type_returns_422(self):
@@ -517,11 +544,18 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 "slug": "new-page",
             }
         )
-        content = self.assert_problem_response(response, status_code=422)
-        self.assertEqual(len(content["errors"]), 1)
+        content = self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "union_tag_invalid",
+                    "loc": ["body", "data"],
+                }
+            ],
+        )
         error = content["errors"][0]
-        self.assertEqual(error["type"], "union_tag_invalid")
-        self.assertEqual(error["loc"], ["body", "data"])
         self.assertIn("'auth.User'", error["msg"])
 
     def test_user_without_add_permission_gets_403(self):
