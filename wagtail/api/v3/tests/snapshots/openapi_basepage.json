@@ -12199,6 +12199,18 @@
       },
       "PageFilterSchema": {
         "properties": {
+          "ancestor_of": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ancestor Of"
+          },
           "child_of": {
             "anyOf": [
               {
@@ -20918,6 +20930,23 @@
               },
               "title": "Type",
               "type": "array"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ancestor_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ancestor Of"
             }
           },
           {

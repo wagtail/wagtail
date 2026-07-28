@@ -89,6 +89,7 @@ def custom_filter(self, value):
 
 class PageFilterSchema(FilterSchema):
     type: list[PageTypeLiteral] = []
+    ancestor_of: IntPKFilter = None
     child_of: DescendantOfFilter = None
     descendant_of: DescendantOfFilter = None
 
@@ -113,8 +114,22 @@ class PageFilterSchema(FilterSchema):
             )
         return self
 
+    filter_ancestor_of = custom_filter
     filter_child_of = custom_filter
     filter_descendant_of = custom_filter
+
+    def apply_ancestor_of(
+        self,
+        request: HttpRequest,
+        queryset: PageQuerySet,
+    ) -> PageQuerySet:
+        if self.ancestor_of is None:
+            return queryset
+        relative_to = get_object_or_404(
+            _public_pages_queryset(request, Page),
+            pk=self.ancestor_of,
+        )
+        return queryset.ancestor_of(relative_to)
 
     def apply_descendant_of(
         self,
@@ -152,6 +167,7 @@ def list_pages(
     model = models[0] if len(models) == 1 else Page
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset)
+    queryset = filters.apply_ancestor_of(request, queryset)
     queryset = filters.apply_descendant_of(request, queryset)
     return queryset
 
