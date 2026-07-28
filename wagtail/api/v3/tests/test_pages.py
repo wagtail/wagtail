@@ -443,6 +443,19 @@ class TestV3PageListingFilters(TestV3PageListingBase):
             detail_contains="No Page matches the given query.",
         )
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = Page.objects.get(id=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(locale="fr")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [french_homepage.id])
+
 
 class TestV3PageDetail(WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
