@@ -1,14 +1,16 @@
 import functools
 import json
+from typing import Literal, cast
 
 import swapper
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Model, Q
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import Body, Router, Status
+from ninja import Body, FilterSchema, Query, Router, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
-from pydantic import ValidationError
+from pydantic import ValidationError, field_validator
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -26,16 +28,19 @@ from wagtail.utils.forms import FormValidationError
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
 
-
-_page_schemas = build_union_schemas(get_page_models())
+page_models = get_page_models()
+PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
+_page_schemas = build_union_schemas(page_models)
 PageDetailSchema = _page_schemas.detail
 PageCreateSchema = _page_schemas.create
 PageUpdateSchema = _page_schemas.update
 
 
-def _public_pages_queryset(request: HttpRequest):
+def _public_pages_queryset(request: HttpRequest, model=Page):
     # Stable ordering so offset/limit pagination is deterministic (v2 parity).
-    return get_pages_queryset(request, tier=AccessTier.PUBLIC).order_by("id")
+    return get_pages_queryset(request, tier=AccessTier.PUBLIC, model=model).order_by(
+        "id"
+    )
 
 
 def default_meta_type(func):
@@ -72,6 +77,23 @@ def default_meta_type(func):
     return wrapper
 
 
+class PageFilterSchema(FilterSchema):
+    type: list[PageTypeLiteral] = []
+
+    @field_validator("type", mode="after")
+    @classmethod
+    def parse_type(cls, value: list[PageTypeLiteral]) -> list:
+        return [resolve_model_string(model) for model in value]
+
+    def filter_type(self, value: list) -> Q:
+        if len(value) <= 1:
+            return Q()
+        content_types = [
+            ct.pk for ct in ContentType.objects.get_for_models(*value).values()
+        ]
+        return Q(content_type__in=content_types)
+
+
 @router.get(
     "/",
     response=list[BasePageSchema],
@@ -80,8 +102,15 @@ def default_meta_type(func):
     operation_id="pages_list",
 )
 @paginate(WagtailLimitOffsetPagination)
-def list_pages(request: HttpRequest):
-    return _public_pages_queryset(request)
+def list_pages(
+    request: HttpRequest,
+    filters: PageFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+):
+    models = cast(list[type[Model]], filters.type)
+    model = models[0] if len(models) == 1 else Page
+    queryset = _public_pages_queryset(request, model)
+    queryset = filters.filter(queryset)
+    return queryset
 
 
 @router.get(
