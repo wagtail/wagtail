@@ -15790,6 +15790,22 @@
       },
       "PageFilterSchema": {
         "properties": {
+          "child_of": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "const": "root",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Child Of"
+          },
           "type": {
             "default": [],
             "items": {
@@ -27288,6 +27304,27 @@
               },
               "title": "Type",
               "type": "array"
+            }
+          },
+          {
+            "in": "query",
+            "name": "child_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "const": "root",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Child Of"
             }
           },
           {

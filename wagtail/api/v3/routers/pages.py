@@ -1,6 +1,6 @@
 import functools
 import json
-from typing import Literal, cast
+from typing import Literal, TypeAlias, cast
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Q
@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from ninja import Body, FilterSchema, Query, Router, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
-from pydantic import ValidationError, field_validator
+from pydantic import PositiveInt, ValidationError, field_validator
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -21,7 +21,8 @@ from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import PageUpdateBaseSchema
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page, get_page_models
+from wagtail.models import Page, Site, get_page_models
+from wagtail.query import PageQuerySet
 from wagtail.utils.forms import FormValidationError
 
 router = Router(tags=["pages"])
@@ -75,8 +76,17 @@ def default_meta_type(func):
     return wrapper
 
 
+ChildOfFilter: TypeAlias = PositiveInt | Literal["root"] | None
+
+
+# A no-op so that Ninja does not try to do a default exact lookup with the value
+def custom_filter(self, value):
+    return Q()
+
+
 class PageFilterSchema(FilterSchema):
     type: list[PageTypeLiteral] = []
+    child_of: ChildOfFilter = None
 
     @field_validator("type", mode="after")
     @classmethod
@@ -90,6 +100,25 @@ class PageFilterSchema(FilterSchema):
             ct.pk for ct in ContentType.objects.get_for_models(*value).values()
         ]
         return Q(content_type__in=content_types)
+
+    filter_child_of = custom_filter
+
+    @staticmethod
+    def apply_child_of(
+        request: HttpRequest,
+        queryset: PageQuerySet,
+        child_of: ChildOfFilter,
+    ) -> PageQuerySet:
+        if child_of is None:
+            return queryset
+        if child_of == "root":
+            parent = Site.find_for_request(request).root_page
+        else:
+            parent = get_object_or_404(
+                _public_pages_queryset(request, Page),
+                pk=child_of,
+            )
+        return queryset.child_of(parent)
 
 
 @router.get(
@@ -108,6 +137,7 @@ def list_pages(
     model = models[0] if len(models) == 1 else Page
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset)
+    queryset = PageFilterSchema.apply_child_of(request, queryset, filters.child_of)
     return queryset
 
 
