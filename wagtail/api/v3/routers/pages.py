@@ -1,6 +1,6 @@
 import functools
 import json
-from typing import Literal, TypeAlias, cast
+from typing import Literal, Optional, TypeAlias, cast
 
 import swapper
 from django.contrib.contenttypes.models import ContentType
@@ -78,8 +78,8 @@ def default_meta_type(func):
     return wrapper
 
 
-IntPKFilter: TypeAlias = PositiveInt | None
-DescendantOfFilter: TypeAlias = IntPKFilter | Literal["root"]
+IntPKFilter: TypeAlias = PositiveInt
+RootRelativeFilter: TypeAlias = IntPKFilter | Literal["root"]
 
 
 # A no-op so that Ninja does not try to do a default exact lookup with the value
@@ -89,9 +89,10 @@ def custom_filter(self, value):
 
 class PageFilterSchema(FilterSchema):
     type: list[PageTypeLiteral] = []
-    ancestor_of: IntPKFilter = None
-    child_of: DescendantOfFilter = None
-    descendant_of: DescendantOfFilter = None
+    ancestor_of: Optional[IntPKFilter] = None
+    child_of: Optional[RootRelativeFilter] = None
+    descendant_of: Optional[RootRelativeFilter] = None
+    translation_of: Optional[RootRelativeFilter] = None
 
     @field_validator("type", mode="after")
     @classmethod
@@ -117,6 +118,24 @@ class PageFilterSchema(FilterSchema):
     filter_ancestor_of = custom_filter
     filter_child_of = custom_filter
     filter_descendant_of = custom_filter
+    filter_translation_of = custom_filter
+
+    @staticmethod
+    def get_request_root_page(request: HttpRequest) -> Page:
+        return Site.find_for_request(request).root_page
+
+    @staticmethod
+    def get_public_page(request: HttpRequest, page_id: int) -> Page:
+        return get_object_or_404(_public_pages_queryset(request), pk=page_id)
+
+    @staticmethod
+    def get_public_page_or_root(
+        request: HttpRequest,
+        page_id: RootRelativeFilter,
+    ) -> Page:
+        if page_id == "root":
+            return PageFilterSchema.get_request_root_page(request)
+        return PageFilterSchema.get_public_page(request, page_id)
 
     def apply_ancestor_of(
         self,
@@ -125,10 +144,7 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.ancestor_of is None:
             return queryset
-        relative_to = get_object_or_404(
-            _public_pages_queryset(request, Page),
-            pk=self.ancestor_of,
-        )
+        relative_to = self.get_public_page(request, self.ancestor_of)
         return queryset.ancestor_of(relative_to)
 
     def apply_descendant_of(
@@ -139,16 +155,20 @@ class PageFilterSchema(FilterSchema):
         relative_to = self.child_of or self.descendant_of
         if relative_to is None:
             return queryset
-        if relative_to == "root":
-            relative_to = Site.find_for_request(request).root_page
-        else:
-            relative_to = get_object_or_404(
-                _public_pages_queryset(request, Page),
-                pk=relative_to,
-            )
+        relative_to = self.get_public_page_or_root(request, relative_to)
         if self.child_of:
             return queryset.child_of(relative_to)
         return queryset.descendant_of(relative_to)
+
+    def apply_translation_of(
+        self,
+        request: HttpRequest,
+        queryset: PageQuerySet,
+    ) -> PageQuerySet:
+        if self.translation_of is None:
+            return queryset
+        relative_to = self.get_public_page_or_root(request, self.translation_of)
+        return queryset.translation_of(relative_to)
 
 
 @router.get(
@@ -169,6 +189,7 @@ def list_pages(
     queryset = filters.filter(queryset)
     queryset = filters.apply_ancestor_of(request, queryset)
     queryset = filters.apply_descendant_of(request, queryset)
+    queryset = filters.apply_translation_of(request, queryset)
     return queryset
 
 

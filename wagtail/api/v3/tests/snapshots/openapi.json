@@ -15834,6 +15834,22 @@
             ],
             "title": "Descendant Of"
           },
+          "translation_of": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "const": "root",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translation Of"
+          },
           "type": {
             "default": [],
             "items": {
@@ -27391,6 +27407,27 @@
                 }
               ],
               "title": "Descendant Of"
+            }
+          },
+          {
+            "in": "query",
+            "name": "translation_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "const": "root",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Translation Of"
             }
           },
           {
