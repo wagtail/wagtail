@@ -23,7 +23,6 @@ from wagtail.api.v3.schemas.pages import PageUpdateBaseSchema
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page, Site, get_page_models
 from wagtail.query import PageQuerySet
-from wagtail.utils.forms import FormValidationError
 
 router = Router(tags=["pages"])
 
@@ -259,19 +258,8 @@ def update_page(
     page_id: int,
     data: PageUpdateSchema = Body(...),  # ty: ignore[call-non-callable]
 ):
-    page = get_object_or_404(Page.objects.all(), pk=page_id).specific
-    if data.meta.type != type(page)._meta.label:
-        raise FormValidationError(
-            {
-                ("meta", "type"): [
-                    (
-                        f"Page type cannot be changed: expected "
-                        f"{type(page)._meta.label!r}, got {data.meta.type!r}",
-                        "invalid",
-                    )
-                ]
-            }
-        )
+    model = resolve_model_string(data.meta.type)
+    page = get_object_or_404(model, pk=page_id)
     form = build_page_update_form(page, data, request.user)
     action = EditPageAction(
         form.instance,

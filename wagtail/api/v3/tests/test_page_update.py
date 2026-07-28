@@ -534,6 +534,32 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page.refresh_from_db()
         self.assertEqual(page.title, "New title")
 
+    def test_non_page_type_returns_422(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        user_type = self.user._meta.label
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": user_type},
+                "title": "New title",
+            },
+        )
+        data = self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
+        )
+        self.assertEqual(len(data["errors"]), 1)
+        self.assertIn(
+            f"Input tag '{user_type}' found using discriminate_schema() does "
+            "not match any of the expected tags: ",
+            data["errors"][0]["msg"],
+        )
+        self.assertIn("demosite.BlogIndexPage", data["errors"][0]["msg"])
+
     def test_page_type_mismatch_returns_422(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
@@ -545,7 +571,11 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
                 "title": "New title",
             },
         )
-        self.assert_problem_response(response, status_code=422)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No EventPage matches the given query.",
+        )
 
     def test_unknown_page_id_returns_404(self):
         response = self.client.patch(
