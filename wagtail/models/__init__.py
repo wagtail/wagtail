@@ -56,6 +56,7 @@ from .pages import (  # noqa: F401
     BasePageManager,
     Comment,
     CommentReply,
+    DefaultBasePageMixin,
     GroupPagePermission,
     GroupPagePermissionManager,
     Page,

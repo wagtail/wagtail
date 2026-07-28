@@ -2214,7 +2214,7 @@ class ShowInMenusMixin(models.Model):
         abstract = True
 
 
-class Page(AbstractPage, ShowInMenusMixin):
+class DefaultBasePageMixin(ShowInMenusMixin):
     seo_title = models.CharField(
         verbose_name=_("title tag"),
         max_length=255,
@@ -2232,8 +2232,6 @@ class Page(AbstractPage, ShowInMenusMixin):
         ),
     )
 
-    search_fields = AbstractPage.search_fields + ShowInMenusMixin.search_fields
-
     promote_panels = [
         PanelPlaceholder(
             "wagtail.admin.panels.MultiFieldPanel",
@@ -2248,6 +2246,14 @@ class Page(AbstractPage, ShowInMenusMixin):
             {},
         )
     ] + ShowInMenusMixin.promote_panels
+
+    class Meta:
+        abstract = True
+
+
+class Page(AbstractPage, DefaultBasePageMixin):
+    search_fields = AbstractPage.search_fields + DefaultBasePageMixin.search_fields
+    promote_panels = DefaultBasePageMixin.promote_panels
 
     class Meta(AbstractPageMeta):
         swappable = swapper.swappable_setting("wagtailcore", "Page")
