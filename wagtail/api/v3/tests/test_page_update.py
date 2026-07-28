@@ -74,7 +74,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         """
         page = self.root_page.add_child(
             instance=BlogIndexPage(
-                title="Original", slug="original", show_in_menus=True, live=False
+                title="Original", slug="original", intro="this is the intro", live=False
             )
         )
         response = self.patch(
@@ -86,7 +86,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         page.refresh_from_db()
-        self.assertTrue(page.show_in_menus)
+        self.assertEqual(page.intro, "this is the intro")
 
     def test_omitted_non_blank_extra_field_does_not_fail_validation(self):
         """
