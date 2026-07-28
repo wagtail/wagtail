@@ -293,6 +293,83 @@ class TestV3PageListingFilters(TestV3PageListingBase):
             detail_contains="No Page matches the given query.",
         )
 
+    def test_descendant_of_filter(self):
+        response = self.get_response(descendant_of=6)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [10, 15, 17, 21, 22, 23])
+
+    def test_descendant_of_root(self):
+        # "root" gets descendants of the homepage of the current site
+        # Basically returns every page except the homepage
+        response = self.get_response(descendant_of="root")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.get_page_id_list(content),
+            [4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        )
+
+    def test_descendant_of_with_type(self):
+        response = self.get_response(type="demosite.EventIndexPage", descendant_of=2)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [4])
+
+    def test_descendant_of_unknown_page_gives_error(self):
+        response = self.get_response(descendant_of=1000)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_descendant_of_not_positive_integer_gives_error(self):
+        response = self.get_response(descendant_of="abc")
+        literal_error = {
+            "type": "literal_error",
+            "loc": ["query", "filters", "descendant_of", "literal['root']"],
+        }
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "int_parsing",
+                    "loc": ["query", "filters", "descendant_of", "constrained-int"],
+                    "msg": "Input should be a valid integer, unable to parse string as an integer",
+                },
+                literal_error,
+            ],
+        )
+
+    def test_descendant_of_page_thats_not_in_same_site_gives_error(self):
+        # Root page is not in any site, so pretend it doesn't exist
+        response = self.get_response(descendant_of=1)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_descendant_of_when_filtering_by_child_of_gives_error(self):
+        response = self.get_response(descendant_of=6, child_of=5)
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, filtering by descendant_of with child_of is not supported.",
+                }
+            ],
+        )
+
 
 class TestV3PageDetail(WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
