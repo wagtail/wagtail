@@ -1,13 +1,13 @@
 import functools
 import json
-from typing import Literal, Optional, TypeAlias, cast
+from typing import Annotated, Literal, Optional, TypeAlias, cast
 
 import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Q
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import Body, FilterSchema, Query, Router, Status
+from ninja import Body, FilterLookup, FilterSchema, Query, Router, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
 from pydantic import PositiveInt, ValidationError, field_validator, model_validator
@@ -93,6 +93,7 @@ class PageFilterSchema(FilterSchema):
     child_of: Optional[RootRelativeFilter] = None
     descendant_of: Optional[RootRelativeFilter] = None
     translation_of: Optional[RootRelativeFilter] = None
+    locale: Annotated[Optional[str], FilterLookup("locale__language_code")] = None
 
     @field_validator("type", mode="after")
     @classmethod
