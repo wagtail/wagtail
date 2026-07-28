@@ -402,7 +402,6 @@ class AbstractPage(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
-    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _revisions = GenericRelation(
         "wagtailcore.Revision",
         content_type_field="content_type",
@@ -416,7 +415,6 @@ class AbstractPage(
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
-    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _workflow_states = GenericRelation(
         "wagtailcore.WorkflowState",
         content_type_field="base_content_type",
@@ -431,7 +429,6 @@ class AbstractPage(
     # as the content type of the specific queryset. To work around this, we define
     # a second GenericRelation that uses the specific content_type to be used
     # when working with specific querysets.
-    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _specific_workflow_states = GenericRelation(
         "wagtailcore.WorkflowState",
         content_type_field="content_type",
