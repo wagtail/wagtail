@@ -26,8 +26,10 @@ from .content_types import get_default_page_content_type  # noqa: F401
 from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
 from .draft_state import DraftStateMixin  # noqa: F401
 from .i18n import (  # noqa: F401
+    BootstrapLocaleField,
     BootstrapTranslatableMixin,
     BootstrapTranslatableModel,
+    BootstrapTranslationKeyField,
     Locale,
     LocaleManager,
     TranslatableMixin,
