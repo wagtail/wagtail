@@ -2,7 +2,7 @@ from enum import Enum
 
 from django.http import HttpRequest
 
-from wagtail.api.v2.querysets import get_public_pages_queryset
+from wagtail.api.querysets import get_public_pages_queryset
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 
