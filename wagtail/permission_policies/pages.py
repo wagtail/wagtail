@@ -24,6 +24,10 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             model = Page
         super().__init__(model=model, auth_model=Page)
 
+    @classmethod
+    def for_model(cls, model):
+        return cls(model=model)
+
     def get_all_permissions_for_user(self, user):
         if not user.is_active or user.is_anonymous or user.is_superuser:
             return GroupPagePermission.objects.none()
