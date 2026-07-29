@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
+from wagtail.api.querysets import get_public_pages_queryset
 from wagtail.models import Site
 
 from .filters import (
@@ -28,7 +29,6 @@ from .filters import (
     TranslationOfFilter,
 )
 from .pagination import WagtailPagination
-from .querysets import get_public_pages_queryset
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
     BadRequestError,

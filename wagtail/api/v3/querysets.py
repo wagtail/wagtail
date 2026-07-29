@@ -4,7 +4,7 @@ from typing import cast
 import swapper
 from django.http import HttpRequest
 
-from wagtail.api.v2.querysets import get_public_pages_queryset
+from wagtail.api.querysets import get_public_pages_queryset
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import policy_registry
 
