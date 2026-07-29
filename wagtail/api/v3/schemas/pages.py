@@ -63,6 +63,11 @@ BASE_PAGE_FIELDS = (
     "search_description",
     "show_in_menus",
 )
+BASE_PAGE_READ_FIELDS = BASE_PAGE_FIELDS + (
+    "pk",
+    "first_published_at",
+    "locale",
+)
 
 
 class PageCreateMetaSchema(Schema):
