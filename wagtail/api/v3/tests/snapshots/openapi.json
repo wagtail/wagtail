@@ -15867,6 +15867,17 @@
             ],
             "title": "Locale"
           },
+          "site": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Site"
+          },
           "translation_of": {
             "anyOf": [
               {
@@ -27477,6 +27488,22 @@
                 }
               ],
               "title": "Locale"
+            }
+          },
+          {
+            "in": "query",
+            "name": "site",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Site"
             }
           },
           {

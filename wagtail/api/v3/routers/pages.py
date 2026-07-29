@@ -94,6 +94,7 @@ class PageFilterSchema(FilterSchema):
     descendant_of: Optional[RootRelativeFilter] = None
     translation_of: Optional[RootRelativeFilter] = None
     locale: Annotated[Optional[str], FilterLookup("locale__language_code")] = None
+    site: Optional[str] = None
 
     @field_validator("type", mode="after")
     @classmethod
@@ -120,6 +121,7 @@ class PageFilterSchema(FilterSchema):
     filter_child_of = custom_filter
     filter_descendant_of = custom_filter
     filter_translation_of = custom_filter
+    filter_site = custom_filter  # Handled via get_public_pages_queryset
 
     @staticmethod
     def get_request_root_page(request: HttpRequest) -> Page:
