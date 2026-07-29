@@ -536,7 +536,10 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        return get_public_pages_queryset(self.request)
+        try:
+            return get_public_pages_queryset(self.request)
+        except ValueError as e:
+            raise BadRequestError(str(e)) from e
 
     def get_queryset(self):
         request = self.request
