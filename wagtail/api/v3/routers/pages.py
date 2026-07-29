@@ -4,10 +4,10 @@ from typing import Annotated, Literal, Optional, TypeAlias, cast
 
 import swapper
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Model, Q
+from django.db.models import Model, Q, QuerySet
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import Body, FilterLookup, FilterSchema, Query, Router, Status
+from ninja import Body, FilterLookup, FilterSchema, Query, Router, Schema, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
 from pydantic import PositiveInt, ValidationError, field_validator, model_validator
@@ -20,7 +20,8 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
-from wagtail.api.v3.schemas.pages import PageUpdateBaseSchema
+from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
+from wagtail.api.validators import OrderingValidator
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Site, get_page_models
 from wagtail.query import PageQuerySet
@@ -192,6 +193,28 @@ class PageFilterSchema(FilterSchema):
         return queryset
 
 
+class OrderingSchema(Schema):
+    # Ninja query params always result in a list if the union type has a list,
+    # but we use "random" literal (not ["random"]) for better OpenAPI spec.
+    order: Literal["random"] | list[str] = []
+
+    def order_queryset(
+        self,
+        queryset: QuerySet,
+        pagination_info: WagtailLimitOffsetPagination.Input,
+    ) -> QuerySet:
+        validated_fields = OrderingValidator(
+            model=queryset.model,
+            fields=self.order,
+            base_fields=BASE_PAGE_READ_FIELDS,
+            db_fields_only=True,
+            has_offset=bool(pagination_info.offset),
+        )
+        if validated_fields.fields:
+            return queryset.order_by(*validated_fields.fields)
+        return queryset
+
+
 @router.get(
     "/",
     response=list[BasePageSchema],
@@ -199,15 +222,25 @@ class PageFilterSchema(FilterSchema):
     summary="List pages",
     operation_id="pages_list",
 )
-@paginate(WagtailLimitOffsetPagination)
+@paginate(
+    WagtailLimitOffsetPagination,
+    pass_parameter="pagination_info",  # noqa: S106 not a password
+)
 def list_pages(
     request: HttpRequest,
     filters: PageFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
+    **kwargs,
 ):
+    pagination_info = cast(
+        WagtailLimitOffsetPagination.Input,
+        kwargs.get("pagination_info"),
+    )
     models = cast(list[type[Model]], filters.type)
     model = models[0] if len(models) == 1 else Page
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset, request)
+    queryset = ordering.order_queryset(queryset, pagination_info)
     return queryset
 
 

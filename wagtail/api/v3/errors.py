@@ -4,9 +4,10 @@ from typing import Any
 from django.core.exceptions import PermissionDenied
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.http import Http404, HttpRequest, HttpResponse
-from ninja import Schema
+from ninja import NinjaAPI, Schema
 from ninja.errors import HttpError
 from ninja.errors import ValidationError as NinjaValidationError
+from pydantic import ValidationError as PydanticValidationError
 
 from wagtail.utils.forms import FormValidationError
 
@@ -62,24 +63,29 @@ def problem_response(
         type_uri=type_uri,
     )
     return HttpResponse(
-        payload.model_dump_json(exclude_none=True),
+        # Use str fallback when errors contain non-serializable objects
+        payload.model_dump_json(exclude_none=True, fallback=str),
         status=status,
         content_type=PROBLEM_JSON,
     )
 
 
-def register_exception_handlers(api):
+def register_exception_handlers(api: NinjaAPI):
     """Map API exceptions to RFC 7807 ``application/problem+json`` responses.
 
     Validation errors use status 422 (Unprocessable Entity), which is the usual
     RFC 7807 choice for request validation failures.
     """
 
+    @api.exception_handler(PydanticValidationError)
     @api.exception_handler(NinjaValidationError)
     @api.exception_handler(DjangoValidationError)
     def validation_error_handler(
         request: HttpRequest,
-        exc: FormValidationError | DjangoValidationError | NinjaValidationError,
+        exc: FormValidationError
+        | DjangoValidationError
+        | NinjaValidationError
+        | PydanticValidationError,
     ):
         if isinstance(exc, FormValidationError):
             errors = [
@@ -89,8 +95,17 @@ def register_exception_handlers(api):
             ]
         elif isinstance(exc, DjangoValidationError):
             errors = [{"message": msg} for msg in exc.messages]
-        else:
+        elif isinstance(exc, NinjaValidationError):
             errors = exc.errors
+        else:  # PydanticValidationError
+            # Ninja's validation error replaces Pydantic's input hints with a
+            # more user-friendly version, and is already handled above. We use
+            # Pydantic directly for internal validation logic, and its "input"
+            # hints may be irrelevant to API consumers, so remove them.
+            errors = [
+                {key: value for key, value in error.items() if key != "input"}
+                for error in exc.errors()
+            ]
         return problem_response(
             status=422,
             detail="Validation failed",

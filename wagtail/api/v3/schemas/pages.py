@@ -72,6 +72,12 @@ for field in ["seo_title", "search_description", "show_in_menus"]:
     else:
         BASE_PAGE_FIELDS.append(field)
 
+BASE_PAGE_READ_FIELDS = BASE_PAGE_FIELDS + [
+    "pk",
+    "first_published_at",
+    "locale",
+]
+
 
 class PageCreateMetaSchema(Schema):
     parent_id: int

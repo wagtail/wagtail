@@ -455,6 +455,146 @@ class TestV3PageListingFilters(TestV3PageListingBase):
         self.assertEqual(self.get_page_id_list(content), [french_homepage.id])
 
 
+class TestV3PageListingOrdering(TestV3PageListingBase):
+    def test_ordering_default(self):
+        response = self.get_response()
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        # v3 orders by id rather than treebeard path (v2 parity does not
+        # apply to ordering here).
+        self.assertEqual(
+            self.get_page_id_list(content),
+            [2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        )
+
+    def test_ordering_by_title(self):
+        response = self.get_response(order="title")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.get_page_id_list(content),
+            [21, 22, 19, 23, 5, 16, 18, 12, 14, 8, 9, 4, 2, 13, 20, 17, 6, 10, 15],
+        )
+
+    def test_ordering_by_title_backwards(self):
+        response = self.get_response(order="-title")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.get_page_id_list(content),
+            [15, 10, 6, 17, 20, 13, 2, 4, 9, 8, 14, 12, 18, 16, 5, 23, 19, 22, 21],
+        )
+
+    def test_ordering_by_random(self):
+        content_1 = self.get_response(order="random").json()
+        page_id_list_1 = self.get_page_id_list(content_1)
+
+        content_2 = self.get_response(order="random").json()
+        page_id_list_2 = self.get_page_id_list(content_2)
+
+        self.assertNotEqual(page_id_list_1, page_id_list_2)
+
+    def test_ordering_by_random_backwards_gives_error(self):
+        response = self.get_response(order="-random")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, invalid fields for model Page: ['-random'].",
+                }
+            ],
+        )
+
+    def test_ordering_by_random_with_offset_gives_error(self):
+        response = self.get_response(order="random", offset=10)
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, random ordering with offset is not supported.",
+                }
+            ],
+        )
+
+    def test_ordering_default_with_type(self):
+        response = self.get_response(type="demosite.BlogEntryPage")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
+
+    def test_ordering_by_title_with_type(self):
+        response = self.get_response(type="demosite.BlogEntryPage", order="title")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [19, 16, 18])
+
+    def test_ordering_by_specific_field_with_type(self):
+        response = self.get_response(type="demosite.BlogEntryPage", order="date")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
+
+    def test_ordering_by_unknown_field_gives_error(self):
+        response = self.get_response(order="not_a_field")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, invalid fields for model Page: ['not_a_field'].",
+                }
+            ],
+        )
+
+    def test_random_ordering_with_unknown_field_gives_error(self):
+        response = self.get_response(order=["random", "id"])
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, random ordering cannot be combined with other fields.",
+                }
+            ],
+        )
+
+    def test_ordering_by_id_and_slug(self):
+        response = self.get_response(order=["id", "slug"])
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.get_page_id_list(content),
+            [2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        )
+
+    def test_ordering_by_title_and_id_backwards(self):
+        response = self.get_response(order=["title", "-id"])
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.get_page_id_list(content)[:5],
+            [21, 22, 19, 23, 5],
+        )
+
+
 class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
