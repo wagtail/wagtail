@@ -456,6 +456,30 @@ class TestV3PageListingFilters(TestV3PageListingBase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [french_homepage.id])
 
+    def test_site_filter_nonexistent_site_gives_error(self):
+        response = self.get_response(site="not-a-site")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Site matches the given query.",
+        )
+
+    def test_site_filter_same_hostname_returns_error(self):
+        response = self.get_response(site="localhost")
+        self.assert_problem_response(
+            response,
+            status_code=400,
+            detail_contains="Your query returned multiple sites. Try adding a port number to your site filter.",
+        )
+
+    def test_site_filter(self):
+        response = self.get_response(site="localhost:8001")
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [24, 25])
+
 
 class TestV3PageListingOrdering(TestV3PageListingBase):
     def test_ordering_default(self):

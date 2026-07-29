@@ -1,6 +1,8 @@
 from enum import Enum
+from http import HTTPStatus
 
 from django.http import HttpRequest
+from ninja.errors import HttpError
 
 from wagtail.api.querysets import get_public_pages_queryset
 from wagtail.models import Page
@@ -23,7 +25,10 @@ def get_pages_queryset(
     AUTHENTICATED: pages the current user can explore in the admin (for admin API tier; not wired to public endpoints yet).
     """
     if tier == AccessTier.PUBLIC:
-        return get_public_pages_queryset(request, model)
+        try:
+            return get_public_pages_queryset(request, model)
+        except ValueError as e:  # ?site= filter returned multiple sites
+            raise HttpError(HTTPStatus.BAD_REQUEST, str(e)) from e
 
     if tier == AccessTier.AUTHENTICATED:
         queryset = page_permission_policy.explorable_instances(request.user)

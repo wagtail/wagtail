@@ -851,6 +851,12 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
     # SITE FILTER
 
+    def test_site_filter_nonexistent_site_gives_error(self):
+        response = self.get_response(site="not-a-site")
+        content = response.json()
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(content, {"message": "No Site matches the given query."})
+
     def test_site_filter_same_hostname_returns_error(self):
         response = self.get_response(site="localhost")
         content = json.loads(response.content.decode("UTF-8"))

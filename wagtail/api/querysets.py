@@ -1,6 +1,6 @@
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
-from wagtail.api.v2.utils import BadRequestError
 from wagtail.models import Page, PageViewRestriction, Site
 
 
@@ -38,9 +38,9 @@ def get_public_pages_queryset(request, model=Page):
                 "hostname": request.GET["site"],
             }
         try:
-            site = Site.objects.get(**query)
+            site = get_object_or_404(Site, **query)
         except Site.MultipleObjectsReturned as e:
-            raise BadRequestError(
+            raise ValueError(
                 "Your query returned multiple sites. Try adding a port number to your site filter."
             ) from e
     else:

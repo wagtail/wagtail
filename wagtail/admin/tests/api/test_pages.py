@@ -660,6 +660,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         self.assertTrue(event_page_seen, msg="No event pages were found in the items")
 
     # Not applicable to the admin API
+    test_site_filter_nonexistent_site_gives_error = None
     test_site_filter_same_hostname_returns_error = None
     test_site_filter = None
 
