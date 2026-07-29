@@ -30,7 +30,7 @@ def get_pages_queryset(
     """
     if tier == AccessTier.PUBLIC:
         try:
-            return get_public_pages_queryset(request, model)
+            queryset = get_public_pages_queryset(request, model)
         except ValueError as e:  # ?site= filter returned multiple sites
             raise HttpError(HTTPStatus.BAD_REQUEST, str(e)) from e
 
@@ -39,12 +39,19 @@ def get_pages_queryset(
             PagePermissionPolicy,
             policy_registry.get_by_type(Page),
         )
+
+        if model is not Page and model is not permission_policy.model:
+            # A single page type has been specified, and the registered policy
+            # is not specific to that page type (e.g. the default policy or a
+            # custom one registered for the base page model). Re-instantiate the
+            # policy with the specific page type so we can get the specific
+            # queryset to use for filtering.
+
+            # Alternatively, we could use the base page's policy to get
+            # explorable_instances(), and use it as a pk__in= filter for the
+            # specific queryset (i.e. V2 behavior), but that is inefficient.
+            permission_policy = permission_policy.for_model(model)
+
         queryset = permission_policy.explorable_instances(request.user)
-        if model is not Page:
-            # If a single page type has been specified, swap out the Page-based
-            # queryset for one based on the specific page model so that we can
-            # filter on any custom APIFields defined on that model.
-            queryset = model._default_manager.filter(
-                pk__in=queryset.values_list("pk", flat=True)
-            )
-        return queryset
+
+    return queryset.select_related("content_type", "locale")

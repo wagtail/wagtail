@@ -38,7 +38,7 @@ class BasePageSchema(Schema):
             detail_url = None
 
         try:
-            html_url = obj.full_url
+            html_url = obj.get_full_url(request)
         except NoReverseMatch:
             html_url = None
 
