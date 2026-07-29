@@ -737,8 +737,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
           a :ref:`page_slug_changed` signal is sent
 
         New pages should be saved by passing the unsaved page instance to the
-        :meth:`~treebeard.mp_tree.MP_Node.add_child`
-        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling` method of an existing page, which will correctly update
+        :meth:`~treebeard.mp_tree.MP_NodeManager.add_child`
+        or :meth:`~treebeard.mp_tree.MP_NodeManager.add_sibling` method of an existing page, which will correctly update
         the fields responsible for tracking the page's location in the tree.
 
         If ``clean=False`` is passed, the page is saved without validation. This is appropriate for updates that only
