@@ -12197,6 +12197,28 @@
         "title": "OneToOnePageSchema",
         "type": "object"
       },
+      "OrderingSchema": {
+        "properties": {
+          "order": {
+            "anyOf": [
+              {
+                "const": "random",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "default": [],
+            "title": "Order"
+          }
+        },
+        "title": "OrderingSchema",
+        "type": "object"
+      },
       "PageFilterSchema": {
         "properties": {
           "ancestor_of": {
@@ -21053,6 +21075,27 @@
                 }
               ],
               "title": "Locale"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "random",
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "default": [],
+              "title": "Order"
             }
           },
           {
