@@ -253,18 +253,18 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
     def _content_type(self):
         return ContentType.objects.get_for_model(self.auth_model)
 
+    def _get_permission_codename(self, action):
+        return get_permission_codename(action, self.auth_model._meta)
+
     def _get_permission_codenames(self, actions):
-        return {get_permission_codename(action, self.model._meta) for action in actions}
+        return {self._get_permission_codename(action) for action in actions}
 
     def _get_permission_name(self, action):
         """
         Get the full app-label-qualified permission name (as required by
         user.has_perm(...) ) for the given action on this model
         """
-        return "{}.{}".format(
-            self.app_label,
-            get_permission_codename(action, self.model._meta),
-        )
+        return "{}.{}".format(self.app_label, self._get_permission_codename(action))
 
     def _get_permission_objects_for_actions(self, actions):
         """
