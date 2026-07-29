@@ -6,7 +6,7 @@ from ninja.errors import HttpError
 
 from wagtail.api.querysets import get_public_pages_queryset
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 class AccessTier(str, Enum):
@@ -26,17 +26,17 @@ def get_pages_queryset(
     """
     if tier == AccessTier.PUBLIC:
         try:
-            return get_public_pages_queryset(request, model)
+            queryset = get_public_pages_queryset(request, model)
         except ValueError as e:  # ?site= filter returned multiple sites
             raise HttpError(HTTPStatus.BAD_REQUEST, str(e)) from e
 
     if tier == AccessTier.AUTHENTICATED:
-        queryset = page_permission_policy.explorable_instances(request.user)
-        if model is not Page:
-            # If a single page type has been specified, swap out the Page-based
-            # queryset for one based on the specific page model so that we can
-            # filter on any custom APIFields defined on that model.
-            queryset = model._default_manager.filter(
-                pk__in=queryset.values_list("pk", flat=True)
-            )
-        return queryset
+        # FIXME: When the registry is used, and a specific page model is passed,
+        # how do we ensure the policy returns a queryset of that model (not Page)?
+        # If the registered policy's model is not the same as the passed model
+        # (e.g. the default), we may have to resort to instantiating a new instance.
+        # Alternatively, we could use the base page's policy to get
+        # explorable_instances(), and then use it as a pk__in= filter using the
+        # specific model's queryset (i.e. V2 behavior), but this is inefficient.
+        queryset = PagePermissionPolicy(model).explorable_instances(request.user)
+    return queryset.select_related("content_type", "locale")
