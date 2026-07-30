@@ -23,6 +23,11 @@ from pydantic_core import PydanticCustomError
 from taggit.managers import TaggableManager
 
 from wagtail.actions import action_registry
+from wagtail.actions.convert_alias import ConvertAliasPageError
+from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.actions.copy_page import CopyPageIntegrityError
+from wagtail.actions.create_alias import CreatePageAliasIntegrityError
+from wagtail.actions.publish_page_revision import PublishPagePermissionError
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
@@ -37,7 +42,11 @@ from wagtail.api.validators import (
     SiteFilterValidator,
     bool_adapter,
 )
-from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
+from wagtail.coreutils import (
+    camelcase_to_underscore,
+    find_available_slug,
+    resolve_model_string,
+)
 from wagtail.models import Locale, Site, get_page_models
 from wagtail.query import PageQuerySet
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
@@ -45,6 +54,7 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
+actions_router = Router(tags=["pages"])
 
 page_models = get_page_models()
 PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
@@ -493,3 +503,279 @@ def update_page(
     )
     action.execute()
     return form.instance
+
+
+@actions_router.post(
+    "/{page_id}/actions/publish/",
+    response=PageDetailSchema,
+    url_name="pages_actions_publish",
+    summary="Publish page",
+    operation_id="pages_actions_publish",
+)
+def publish(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    revision = page.get_latest_revision()
+
+    # If the page has no revision, create one only if the user has permission.
+    if revision is None:
+        if not page.permissions_for_user(request.user).can_publish():
+            raise PublishPagePermissionError(
+                "You do not have permission to publish this page."
+            )
+        revision = page.save_revision(user=request.user)
+
+    action_class = action_registry.get_action_class(Page, "publish")
+    action = action_class(revision, user=request.user)
+    action.execute()
+    return page.specific_class.objects.get(pk=page.pk)
+
+
+class PageUnpublishSchema(Schema):
+    recursive: bool = False
+
+
+@actions_router.post(
+    "/{page_id}/actions/unpublish/",
+    response=PageDetailSchema,
+    url_name="pages_actions_unpublish",
+    summary="Unpublish page",
+    operation_id="pages_actions_unpublish",
+)
+def unpublish(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageUnpublishSchema = Body(PageUnpublishSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "unpublish")
+    action = action_class(page, user=request.user, include_descendants=data.recursive)
+    action.execute()
+    return page
+
+
+class PageCopySchema(Schema):
+    destination_id: Optional[PositiveInt] = None
+    recursive: bool = False
+    keep_live: bool = True
+    slug: Optional[str] = None
+    title: Optional[str] = None
+
+
+@actions_router.post(
+    "/{page_id}/actions/copy/",
+    response={201: PageDetailSchema},
+    url_name="pages_actions_copy",
+    summary="Copy page",
+    operation_id="pages_actions_copy",
+)
+def copy(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageCopySchema = Body(PageCopySchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id)
+    if data.destination_id is None:
+        destination = page.get_parent()
+    else:
+        destination = get_object_or_404(Page, pk=data.destination_id)
+
+    update_attrs = {}
+    if data.slug:
+        update_attrs["slug"] = data.slug
+    else:
+        available_slug = find_available_slug(destination, page.slug)
+        if available_slug != page.slug:
+            update_attrs["slug"] = available_slug
+
+    if data.title:
+        update_attrs["title"] = data.title
+
+    action_class = action_registry.get_action_class(Page, "copy")
+    action = action_class(
+        page=page,
+        to=destination,
+        recursive=data.recursive,
+        keep_live=data.keep_live,
+        update_attrs=update_attrs,
+        user=request.user,
+    )
+    try:
+        new_page = action.execute()
+    except CopyPageIntegrityError as e:
+        raise as_validation_error(e) from e
+    return Status(201, new_page)
+
+
+PagePositionLiteral = Literal[
+    "first-child",
+    "last-child",
+    "left",
+    "right",
+    "first-sibling",
+    "last-sibling",
+]
+
+
+class PageMoveSchema(Schema):
+    destination_id: PositiveInt
+    position: Optional[PagePositionLiteral] = None
+
+
+@actions_router.post(
+    "/{page_id}/actions/move/",
+    response=PageDetailSchema,
+    url_name="pages_actions_move",
+    summary="Move page",
+    operation_id="pages_actions_move",
+)
+def move(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageMoveSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id)
+    target = get_object_or_404(Page, pk=data.destination_id)
+    action_class = action_registry.get_action_class(Page, "move")
+    action = action_class(page, target, pos=data.position, user=request.user)
+    action.execute()
+    page.refresh_from_db()
+    return page.specific
+
+
+@actions_router.delete(
+    "/{page_id}/actions/delete/",
+    response={204: None},
+    url_name="pages_actions_delete",
+    summary="Delete page",
+    operation_id="pages_actions_delete",
+)
+def delete(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "delete")
+    action = action_class(page, user=request.user)
+    action.execute()
+    return Status(204, None)
+
+
+class PageRevertSchema(Schema):
+    revision_id: PositiveInt
+
+
+@actions_router.post(
+    "/{page_id}/actions/revert/",
+    response=PageDetailSchema,
+    url_name="pages_actions_revert",
+    summary="Revert page to a previous revision",
+    operation_id="pages_actions_revert",
+)
+def revert(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageRevertSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    revision = get_object_or_404(page.revisions, id=data.revision_id)
+    action_class = action_registry.get_action_class(Page, "revert")
+    action = action_class(page=page, revision=revision, user=request.user)
+    new_revision = action.execute()
+    return new_revision.as_object()
+
+
+@actions_router.post(
+    "/{page_id}/actions/convert_alias/",
+    response=PageDetailSchema,
+    url_name="pages_actions_convert_alias",
+    summary="Convert alias page to a regular page",
+    operation_id="pages_actions_convert_alias",
+)
+def convert_alias(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "convert_alias")
+    action = action_class(page, user=request.user)
+    try:
+        new_page = action.execute()
+    except ConvertAliasPageError as e:
+        raise as_validation_error(e) from e
+    return new_page
+
+
+class PageCreateAliasSchema(Schema):
+    destination_id: Optional[PositiveInt] = None
+    recursive: bool = False
+    update_slug: Optional[str] = None
+
+
+@actions_router.post(
+    "/{page_id}/actions/create_alias/",
+    response={201: PageDetailSchema},
+    url_name="pages_actions_create_alias",
+    summary="Create an alias of a page",
+    operation_id="pages_actions_create_alias",
+)
+def create_alias(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageCreateAliasSchema = Body(PageCreateAliasSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    parent = None
+    if data.destination_id is not None:
+        parent = get_object_or_404(Page, pk=data.destination_id)
+
+    action_class = action_registry.get_action_class(Page, "create_alias")
+    action = action_class(
+        page,
+        recursive=data.recursive,
+        parent=parent,
+        update_slug=data.update_slug,
+        user=request.user,
+    )
+    try:
+        new_page = action.execute()
+    except CreatePageAliasIntegrityError as e:
+        raise as_validation_error(e) from e
+    return Status(201, new_page)
+
+
+class PageCopyForTranslationSchema(Schema):
+    locale: str
+    copy_parents: bool = False
+    alias: bool = False
+    recursive: bool = False
+
+
+@actions_router.post(
+    "/{page_id}/actions/copy_for_translation/",
+    response={201: PageDetailSchema},
+    url_name="pages_actions_copy_for_translation",
+    summary="Copy page for translation",
+    operation_id="pages_actions_copy_for_translation",
+)
+def copy_for_translation(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageCopyForTranslationSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        raise Http404("Internationalization is not enabled.")
+
+    page = get_object_or_404(Page, pk=page_id).specific
+    locale = get_object_or_404(Locale, language_code=data.locale)
+
+    action_class = action_registry.get_action_class(Page, "copy_for_translation")
+    action = action_class(
+        page=page,
+        locale=locale,
+        copy_parents=data.copy_parents,
+        alias=data.alias,
+        user=request.user,
+        include_subtree=data.recursive,
+    )
+    try:
+        new_page = action.execute()
+    except ParentNotTranslatedError as e:
+        raise as_validation_error(e) from e
+    return Status(201, new_page)
+
+
+router.add_router("/", actions_router)

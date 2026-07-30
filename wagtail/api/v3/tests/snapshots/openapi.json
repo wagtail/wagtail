@@ -15715,6 +15715,116 @@
         "title": "OrderingSchema",
         "type": "object"
       },
+      "PageCopyForTranslationSchema": {
+        "properties": {
+          "alias": {
+            "default": false,
+            "title": "Alias",
+            "type": "boolean"
+          },
+          "copy_parents": {
+            "default": false,
+            "title": "Copy Parents",
+            "type": "boolean"
+          },
+          "locale": {
+            "title": "Locale",
+            "type": "string"
+          },
+          "recursive": {
+            "default": false,
+            "title": "Recursive",
+            "type": "boolean"
+          }
+        },
+        "required": ["locale"],
+        "title": "PageCopyForTranslationSchema",
+        "type": "object"
+      },
+      "PageCopySchema": {
+        "properties": {
+          "destination_id": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination Id"
+          },
+          "keep_live": {
+            "default": true,
+            "title": "Keep Live",
+            "type": "boolean"
+          },
+          "recursive": {
+            "default": false,
+            "title": "Recursive",
+            "type": "boolean"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slug"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "title": "PageCopySchema",
+        "type": "object"
+      },
+      "PageCreateAliasSchema": {
+        "properties": {
+          "destination_id": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination Id"
+          },
+          "recursive": {
+            "default": false,
+            "title": "Recursive",
+            "type": "boolean"
+          },
+          "update_slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Update Slug"
+          }
+        },
+        "title": "PageCreateAliasSchema",
+        "type": "object"
+      },
       "PageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -16080,6 +16190,37 @@
         "title": "PageMetaSchema",
         "type": "object"
       },
+      "PageMoveSchema": {
+        "properties": {
+          "destination_id": {
+            "exclusiveMinimum": 0,
+            "title": "Destination Id",
+            "type": "integer"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "enum": [
+                  "first-child",
+                  "last-child",
+                  "left",
+                  "right",
+                  "first-sibling",
+                  "last-sibling"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          }
+        },
+        "required": ["destination_id"],
+        "title": "PageMoveSchema",
+        "type": "object"
+      },
       "PagePatchMetaSchema": {
         "properties": {
           "action": {
@@ -16185,6 +16326,18 @@
         "title": "PagePatchSchema",
         "type": "object"
       },
+      "PageRevertSchema": {
+        "properties": {
+          "revision_id": {
+            "exclusiveMinimum": 0,
+            "title": "Revision Id",
+            "type": "integer"
+          }
+        },
+        "required": ["revision_id"],
+        "title": "PageRevertSchema",
+        "type": "object"
+      },
       "PageSchema": {
         "properties": {
           "id": {
@@ -16208,6 +16361,17 @@
         },
         "required": ["title", "meta"],
         "title": "PageSchema",
+        "type": "object"
+      },
+      "PageUnpublishSchema": {
+        "properties": {
+          "recursive": {
+            "default": false,
+            "title": "Recursive",
+            "type": "boolean"
+          }
+        },
+        "title": "PageUnpublishSchema",
         "type": "object"
       },
       "PageWithExcludedCopyFieldCreateMetaSchema": {
@@ -29316,6 +29480,2397 @@
         },
         "summary": "Update page",
         "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/convert_alias/": {
+      "post": {
+        "operationId": "pages_actions_convert_alias",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Convert alias page to a regular page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/copy/": {
+      "post": {
+        "operationId": "pages_actions_copy",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PageCopySchema"
+                  }
+                ],
+                "default": {
+                  "destination_id": null,
+                  "keep_live": true,
+                  "recursive": false,
+                  "slug": null,
+                  "title": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Copy page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/copy_for_translation/": {
+      "post": {
+        "operationId": "pages_actions_copy_for_translation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageCopyForTranslationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Copy page for translation",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/create_alias/": {
+      "post": {
+        "operationId": "pages_actions_create_alias",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PageCreateAliasSchema"
+                  }
+                ],
+                "default": {
+                  "destination_id": null,
+                  "recursive": false,
+                  "update_slug": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create an alias of a page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/delete/": {
+      "delete": {
+        "operationId": "pages_actions_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/move/": {
+      "post": {
+        "operationId": "pages_actions_move",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageMoveSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Move page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/publish/": {
+      "post": {
+        "operationId": "pages_actions_publish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Publish page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/revert/": {
+      "post": {
+        "operationId": "pages_actions_revert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRevertSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Revert page to a previous revision",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/unpublish/": {
+      "post": {
+        "operationId": "pages_actions_unpublish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PageUnpublishSchema"
+                  }
+                ],
+                "default": {
+                  "recursive": false
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Unpublish page",
+        "tags": ["pages", "pages"]
       }
     },
     "/api/v3/redirects/": {
