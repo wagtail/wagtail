@@ -4,8 +4,9 @@ from typing import Annotated, Literal, Optional, TypeAlias, cast
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Q, QuerySet
-from django.http import HttpRequest
-from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpRequest
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from ninja import Body, FilterLookup, FilterSchema, Query, Router, Schema, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
@@ -242,6 +243,44 @@ def list_pages(
     queryset = filters.filter(queryset, request)
     queryset = ordering.order_queryset(queryset, pagination_info)
     return queryset
+
+
+@router.get(
+    "/find/",
+    response=PageDetailSchema,
+    url_name="find_page",
+    summary="Find page",
+    operation_id="pages_find",
+)
+def find_page(
+    request: HttpRequest,
+    id: Optional[PositiveInt] = None,
+    html_path: Optional[str] = None,
+    site: Optional[str] = None,  # processed via get_public_pages_queryset
+):
+    page = None
+
+    if html_path and (site := Site.find_for_request(request)):
+        path_components = [component for component in html_path.split("/") if component]
+        try:
+            page, _, _ = site.root_page.specific.route(request, path_components)
+        except Http404:
+            page = None
+        else:
+            if not _public_pages_queryset(request).filter(id=page.id).exists():
+                page = None
+
+    if page is None and id:
+        page = get_object_or_404(_public_pages_queryset(request), pk=id)
+
+    if page is None:
+        raise Http404("No Page matches the given query.")
+
+    url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.pk})
+    query = request.GET.copy()
+    query.pop("id", None)
+    query.pop("html_path", None)
+    return redirect(f"{url}?{query.urlencode()}")
 
 
 @router.get(

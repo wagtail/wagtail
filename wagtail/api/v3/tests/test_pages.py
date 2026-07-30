@@ -674,3 +674,180 @@ class TestV3PageDetail(WagtailTestUtils, TestCase):
             reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 999999})
         )
         self.assertEqual(response.status_code, 404)
+
+
+class TestV3PageFind(TestV3Base, TestCase):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v3:find_page"), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 5}),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_find_by_html_path(self):
+        response = self.get_response(html_path="/events-index/event-1/")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_with_start_and_end_slashes_removed(self):
+        response = self.get_response(html_path="events-index/event-1")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_nonexistent(self):
+        response = self.get_response(html_path="/foo")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_find_by_html_path_takes_precedence_over_id(self):
+        response = self.get_response(id=1234, html_path="/events-index/event-1/")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_id_with_page_in_default_site(self):
+        # id=8 belongs to the default site's tree.
+        # Without ?site=, it is found.
+        response = self.get_response(id=8)
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+        # With site= for the default site, it is found.
+        response = self.get_response(id=8, site="localhost:80")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8})
+            + "?site=localhost%3A80",
+            fetch_redirect_response=False,
+        )
+        # With ?site= for a different site, it is not found.
+        response = self.get_response(id=8, site="localhost:8001")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_find_by_id_with_page_in_non_default_site(self):
+        # id=24 is in a different (non-default) site tree.
+        # Without ?site=, we look for it based on the request's site, 404.
+        response = self.get_response(id=24)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+        # With the correct ?site=, it is found.
+        response = self.get_response(id=24, site="localhost:8001")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 24})
+            + "?site=localhost%3A8001",
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_with_page_in_default_site(self):
+        # /events-index/event-1/ belongs to the default site's tree.
+        # Without ?site=, it is found.
+        response = self.get_response(html_path="/events-index/event-1/")
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+        # With site= for the default site, it is found.
+        response = self.get_response(
+            html_path="/events-index/event-1/",
+            site="localhost:80",
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8})
+            + "?site=localhost%3A80",
+            fetch_redirect_response=False,
+        )
+        # With ?site= for a different site, it is not found.
+        response = self.get_response(
+            html_path="/events-index/event-1/",
+            site="localhost:8001",
+        )
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+    def test_find_by_html_path_matching_only_in_site_param_tree(self):
+        # A fresh site+page whose html_path only exists in the new tree,
+        # not in the tree of the site the request actually arrives on.
+        root = Page.objects.get(pk=1)
+        new_site_root = models.HomePage(title="New site root", slug="new-site-root")
+        root.add_child(instance=new_site_root)
+        new_site = Site.objects.create(
+            hostname="othersite.new",
+            port=80,
+            root_page=new_site_root,
+        )
+        page_in_new_site = models.StandardIndexPage(
+            title="Only on new site",
+            slug="only-on-new-site",
+            live=True,
+        )
+        new_site_root.add_child(instance=page_in_new_site)
+
+        # Without ?site=, the page is not found.
+        response = self.get_response(html_path="/only-on-new-site/")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
+
+        # With ?site= for the new site, the page should've been found.
+        # However, the current implementation does not find it, because it only
+        # routes the path through the site of the request.
+        # FIXME: Is this the desired behaviour?
+        response = self.get_response(
+            html_path="/only-on-new-site/",
+            site=new_site.hostname,
+        )
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Page matches the given query.",
+        )
