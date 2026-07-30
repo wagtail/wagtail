@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.messages import get_messages
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
@@ -3161,11 +3162,12 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         https://github.com/wagtail/wagtail/issues/13856
 
         Approving a workflow that has been cancelled after the page was loaded
-        should result in a normal save instead of an error or a publish action.
+        should not save or publish, and should keep the edits in the form.
         """
         workflow_state = self.object.current_workflow_state
         workflow_state.cancel(user=self.superuser)
         self.object.refresh_from_db()
+        revisions_before = self.object.revisions.count()
 
         response = self.post(
             "workflow-action",
@@ -3176,13 +3178,32 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             },
         )
 
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Edited Title")
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
         self.object.refresh_from_db()
         self.assertFalse(self.object.live)
-        self.assertEqual(
-            getattr(self.object.get_latest_revision_as_object(), self.title_field),
-            "Edited Title",
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def test_duplicate_workflow_action_after_workflow_finished(self):
+        self.object.current_workflow_state.current_task_state.approve(
+            user=self.moderator
         )
+        revisions_before = self.object.revisions.count()
+
+        response = self.post("workflow-action", {"workflow-action-name": "approve"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
+        self.object.refresh_from_db()
+        self.assertTrue(self.object.live)
+        self.assertEqual(self.object.revisions.count(), revisions_before)
 
 
 class TestApproveRejectSnippetWorkflow(

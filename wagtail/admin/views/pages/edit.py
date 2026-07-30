@@ -558,7 +558,11 @@ class EditView(
         if self.action_name == "save":
             self.form.defer_required_fields()
 
-        if self.form.is_valid() and not self.locked_for_user:
+        if (
+            self.form.is_valid()
+            and not self.locked_for_user
+            and not self.workflow_action_unavailable
+        ):
             return self.form_valid(self.form)
         else:
             self.form.restore_required_fields()
@@ -575,6 +579,14 @@ class EditView(
             name for name, verbose_name, modal in available_actions
         ]
         return self.workflow_action in available_action_names
+
+    @property
+    def workflow_action_unavailable(self):
+        # The workflow might have been cancelled/ended after the page was loaded
+        return (
+            bool(self.request.POST.get("action-workflow-action"))
+            and self.action_name == "save"
+        )
 
     @cached_property
     def action_name_and_method(self):
@@ -969,6 +981,14 @@ class EditView(
                 messages.error(
                     self.request, _("The page could not be saved as it is locked.")
                 )
+        elif self.workflow_action_unavailable:
+            messages.error(
+                self.request,
+                _(
+                    "The workflow action could not be performed "
+                    "as the workflow state has changed."
+                ),
+            )
         else:
             if self.expects_json_response:
                 return self.json_error_response(

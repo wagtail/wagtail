@@ -856,6 +856,15 @@ class CreateEditViewOptionalFeaturesMixin:
             )
             return False
 
+        # The workflow might have been cancelled/ended after the object was loaded
+        if self.request.POST.get("action-workflow-action") and self.action == "edit":
+            self.produced_error_code = "workflow_action_unavailable"
+            self.produced_error_message = _(
+                "The workflow action could not be performed "
+                "as the workflow state has changed."
+            )
+            return False
+
         # If saving as draft, do not enforce full validation
         if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
             form.defer_required_fields()

@@ -1009,6 +1009,7 @@
 * Damien Meur
 * Ayush Kumar
 * Vignesh Komma
+* Jakub Mastalerz
 
 ## Translators
 
