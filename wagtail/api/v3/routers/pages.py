@@ -21,8 +21,12 @@ from pydantic import (
 from pydantic_core import PydanticCustomError
 from taggit.managers import TaggableManager
 
+from wagtail.actions.copy_page import CopyPageAction
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
+from wagtail.actions.move_page import MovePageAction
+from wagtail.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -43,6 +47,7 @@ from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 router = Router(tags=["pages"])
+actions_router = Router(tags=["pages"])
 
 page_models = get_page_models()
 PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
@@ -498,3 +503,98 @@ def update_page(
     )
     action.execute()
     return form.instance
+
+
+@actions_router.post(
+    "/{page_id}/actions/publish/",
+    response=PageDetailSchema,
+    url_name="pages_actions_publish",
+    summary="Publish page",
+    operation_id="pages_actions_publish",
+)
+@require_any_permission(Page, ("publish",))
+def publish(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    revision = page.get_latest_revision() or page.save_revision(user=request.user)
+    action = PublishPageRevisionAction(revision, user=request.user)
+    action.execute()
+    return page.specific_class.objects.get(pk=page.pk)
+
+
+@actions_router.post(
+    "/{page_id}/actions/unpublish/",
+    response=PageDetailSchema,
+    url_name="pages_actions_unpublish",
+    summary="Unpublish page",
+    operation_id="pages_actions_unpublish",
+)
+@require_any_permission(Page, ("publish",))
+def unpublish(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action = UnpublishPageAction(page, user=request.user)
+    action.execute()
+    return page
+
+
+class PageCopySchema(Schema):
+    destination: PositiveInt
+    recursive: bool = True
+    keep_live: bool = True
+
+
+@actions_router.post(
+    "/{page_id}/actions/copy/",
+    response={201: PageDetailSchema},
+    url_name="pages_actions_copy",
+    summary="Copy page",
+    operation_id="pages_actions_copy",
+)
+@require_any_permission(Page, ("add",))
+def copy(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageCopySchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id)
+    destination = get_object_or_404(Page, pk=data.destination)
+    action = CopyPageAction(
+        page=page,
+        to=destination,
+        recursive=data.recursive,
+        keep_live=data.keep_live,
+        user=request.user,
+    )
+    new_page = action.execute()
+    return Status(201, new_page)
+
+
+PagePositionLiteral = Literal["first-child", "last-child", "left", "right"]
+
+
+class PageMoveSchema(Schema):
+    destination: PositiveInt
+    position: PagePositionLiteral
+
+
+@actions_router.post(
+    "/{page_id}/actions/move/",
+    response=PageDetailSchema,
+    url_name="pages_actions_move",
+    summary="Move page",
+    operation_id="pages_actions_move",
+)
+@require_any_permission(Page, ("publish", "add"))
+def move(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageMoveSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id)
+    target = get_object_or_404(Page, pk=data.destination)
+    action = MovePageAction(page, target, pos=data.position, user=request.user)
+    action.execute()
+    page.refresh_from_db()
+    return page.specific
+
+
+router.add_router("/", actions_router)
