@@ -79,6 +79,9 @@ autodoc_type_aliases = {
 }
 autodoc_member_order = "groupwise"
 
+# Warn about all references where the target cannot be found.
+nitpicky = True
+
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
     # Sphinx currently cannot resolve type hint names, warns "target not found":
