@@ -1,8 +1,7 @@
 from functools import cached_property
-from typing import Optional
+from typing import Any, Optional
 
 from django.db.models import Model
-from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from pydantic import BaseModel, computed_field, model_validator
 
@@ -65,7 +64,7 @@ class OrderingValidator(APIFieldValidator):
 
 class SiteFilterValidator(BaseModel, arbitrary_types_allowed=True):
     site: Optional[str] = None
-    request: HttpRequest
+    request: Any  # DRF Request or Django HttpRequest
 
     @computed_field
     @cached_property
