@@ -1,7 +1,13 @@
+from functools import cached_property
+from typing import Optional
+
 from django.db.models import Model
-from pydantic import BaseModel, model_validator
+from django.http import HttpRequest
+from django.shortcuts import get_object_or_404
+from pydantic import BaseModel, computed_field, model_validator
 
 from wagtail.api import APIField
+from wagtail.models import Site
 
 
 class APIFieldValidator(BaseModel):
@@ -55,3 +61,32 @@ class OrderingValidator(APIFieldValidator):
                 raise ValueError("random ordering with offset is not supported.")
             self.fields = ["?"]
         return self
+
+
+class SiteFilterValidator(BaseModel, arbitrary_types_allowed=True):
+    site: Optional[str] = None
+    request: HttpRequest
+
+    @computed_field
+    @cached_property
+    def query(self) -> dict[str, str] | None:
+        if not self.site:
+            return None
+        # Optionally allow querying by port
+        if ":" in self.site:
+            (hostname, port) = self.site.split(":", 1)
+            return {"hostname": hostname, "port": port}
+        return {"hostname": self.site}
+
+    @computed_field
+    @cached_property
+    def site_obj(self) -> Site:
+        if not self.query:
+            return Site.find_for_request(self.request)
+        try:
+            return get_object_or_404(Site, **self.query)
+        except Site.MultipleObjectsReturned as e:
+            raise ValueError(
+                "Your query returned multiple sites. "
+                "Try adding a port number to your site filter."
+            ) from e

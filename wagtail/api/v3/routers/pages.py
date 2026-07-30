@@ -21,7 +21,7 @@ from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
-from wagtail.api.validators import OrderingValidator
+from wagtail.api.validators import OrderingValidator, SiteFilterValidator
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page, Site, get_page_models
 from wagtail.query import PageQuerySet
@@ -256,14 +256,17 @@ def find_page(
     request: HttpRequest,
     id: Optional[PositiveInt] = None,
     html_path: Optional[str] = None,
-    site: Optional[str] = None,  # processed via get_public_pages_queryset
+    site: Optional[str] = None,
 ):
     page = None
 
-    if html_path and (site := Site.find_for_request(request)):
+    if html_path:
         path_components = [component for component in html_path.split("/") if component]
         try:
-            page, _, _ = site.root_page.specific.route(request, path_components)
+            site_obj = SiteFilterValidator(site=site, request=request).site_obj
+            if site_obj is None:  # No Site records
+                raise Http404
+            page, _, _ = site_obj.root_page.specific.route(request, path_components)
         except Http404:
             page = None
         else:
@@ -271,6 +274,7 @@ def find_page(
                 page = None
 
     if page is None and id:
+        # _public_pages_queryset() already does site filtering
         page = get_object_or_404(_public_pages_queryset(request), pk=id)
 
     if page is None:
