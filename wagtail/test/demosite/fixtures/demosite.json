@@ -783,6 +783,13 @@
     }
   },
   {
+    "pk": 25,
+    "model": "demosite.eventindexpage",
+    "fields": {
+      "intro": "<p>Three species are poly- or paraphyletic in the present taxonomical arrangement and either subspecies need to be reassigned and/or species split up. The Blue-headed Wagtail (AKA Yellow Wagtail and many other names), especially, has always been a taxonomical nightmare with over a dozen currently accepted subspecies and many more invalid ones. The two remaining \"monochrome\" species, Mekong and African Pied Wagtail may be closely related, or a most striking example of convergent evolution.</p>"
+    }
+  },
+  {
     "pk": 8,
     "model": "demosite.eventpage",
     "fields": {
@@ -844,6 +851,13 @@
   },
   {
     "pk": 2,
+    "model": "demosite.homepage",
+    "fields": {
+      "body": "<p>Wagtails are slender, often colourful, ground-feeding insectivores of open country in the Old World. They are ground nesters, laying up to six speckled eggs at a time. Among their most conspicuous behaviours is a near constant tail wagging, a trait that has given the birds their common name. In spite of the ubiquity of the behaviour and observations of it, the reasons for it are poorly understood. It has been suggested that it may flush up prey, or that it may signal submissiveness to other wagtails. Recent studies have suggested instead that it is a signal of vigilance that may aid to deter potential predators.</p>"
+    }
+  },
+  {
+    "pk": 24,
     "model": "demosite.homepage",
     "fields": {
       "body": "<p>Wagtails are slender, often colourful, ground-feeding insectivores of open country in the Old World. They are ground nesters, laying up to six speckled eggs at a time. Among their most conspicuous behaviours is a near constant tail wagging, a trait that has given the birds their common name. In spite of the ubiquity of the behaviour and observations of it, the reasons for it are poorly understood. It has been suggested that it may flush up prey, or that it may signal submissiveness to other wagtails. Recent studies have suggested instead that it is a signal of vigilance that may aid to deter potential predators.</p>"
