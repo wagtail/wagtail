@@ -836,14 +836,24 @@ class TestV3PageFind(TestV3Base, TestCase):
             detail_contains="No Page matches the given query.",
         )
 
-        # With ?site= for the new site, the page should've been found.
-        # However, the current implementation does not find it, because it only
-        # routes the path through the site of the request.
-        # FIXME: Is this the desired behaviour?
+        # With ?site= for the new site, the page is found.
         response = self.get_response(
             html_path="/only-on-new-site/",
             site=new_site.hostname,
         )
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_page",
+                kwargs={"page_id": page_in_new_site.pk},
+            )
+            + "?site=othersite.new",
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_with_no_sites(self):
+        Site.objects.all().delete()
+        response = self.get_response(html_path="/events-index/event-1/")
         self.assert_problem_response(
             response,
             status_code=404,
