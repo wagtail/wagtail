@@ -4,15 +4,22 @@ from typing import Literal, Optional, TypeAlias, cast
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.db.models import Model, Q, QuerySet
-from django.http import Http404, HttpRequest
+from django.http import Http404, HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from ninja import Body, FilterSchema, Query, Router, Schema, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
-from pydantic import PositiveInt, ValidationError, field_validator, model_validator
+from pydantic import (
+    PositiveInt,
+    ValidationError,
+    field_validator,
+    model_validator,
+)
 from pydantic_core import PydanticCustomError
+from taggit.managers import TaggableManager
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -23,7 +30,12 @@ from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
-from wagtail.api.validators import OrderingValidator, SiteFilterValidator
+from wagtail.api.validators import (
+    APIFieldValidator,
+    OrderingValidator,
+    SiteFilterValidator,
+    bool_adapter,
+)
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.models import Locale, Page, Site, get_page_models
 from wagtail.query import PageQuerySet
@@ -205,6 +217,75 @@ class PageFilterSchema(FilterSchema):
         return queryset
 
 
+class APIFieldFilterSchema(Schema, arbitrary_types_allowed=True):
+    raw_params: QueryDict
+    base_fields: list[str]
+    ignore_fields: set[str] = set()
+
+    @classmethod
+    def with_exclude_schemas(cls, schemas: tuple[type[Schema], ...], **kwargs):
+        return cls(
+            ignore_fields=set().union(
+                *(schema.model_fields.keys() for schema in schemas)
+            ),
+            **kwargs,
+        )
+
+    def get_validated_fields(self, queryset: QuerySet) -> list[str]:
+        return APIFieldValidator(
+            model=queryset.model,
+            fields=set(self.raw_params.keys()) - self.ignore_fields,
+            base_fields=self.base_fields,
+            db_fields_only=True,
+            skip_invalid=True,
+        ).fields
+
+    def filter_queryset(self, queryset: QuerySet) -> QuerySet:
+        if not (fields := set(self.get_validated_fields(queryset))):
+            return queryset
+        for field_name in fields:
+            # FieldDoesNotExist already handled by APIFieldValidator.
+            field = queryset.model._meta.get_field(field_name)
+            value = self.raw_params.get(field_name)
+
+            # Convert value into python
+            try:
+                if "\x00" in str(value):
+                    raise ValueError("null characters are not allowed")
+                if isinstance(field, models.ForeignKey):
+                    value = field.target_field.get_prep_value(value)
+                elif isinstance(field, models.BooleanField):
+                    # Use Pydantic as it's more lenient than get_prep_value,
+                    # matches more closely to v2 API.
+                    value = bool_adapter.validate_python(value)
+                elif hasattr(field, "get_prep_value"):
+                    value = field.get_prep_value(value)
+
+                if isinstance(field, TaggableManager):
+                    # Use repeated query params standard for multiple tags
+                    for tag in self.raw_params.getlist(field_name):
+                        queryset = queryset.filter(**{field_name + "__name": tag})
+                else:
+                    queryset = queryset.filter(**{field_name: value})
+            except ValueError as e:
+                raise ValidationError.from_exception_data(
+                    "Validation error",
+                    [
+                        {
+                            "type": PydanticCustomError(
+                                camelcase_to_underscore(e.__class__.__name__),
+                                f"Field filter error, '{value}' is not a valid value "
+                                f"for {field_name}. ({e})",  # type: ignore (LiteralString requirement)
+                            ),
+                            "loc": (field_name,),
+                            "input": value,
+                        }
+                    ],
+                    hide_input=True,
+                ) from e
+        return queryset
+
+
 class OrderingSchema(Schema):
     # Ninja query params always result in a list if the union type has a list,
     # but we use "random" literal (not ["random"]) for better OpenAPI spec.
@@ -302,8 +383,14 @@ def list_pages(
     )
     models = cast(list[type[Model]], filters.type)
     model = models[0] if len(models) == 1 else Page
+    field_filter = APIFieldFilterSchema.with_exclude_schemas(
+        raw_params=request.GET,
+        schemas=(PageFilterSchema, OrderingSchema, SearchSchema),
+        base_fields=BASE_PAGE_READ_FIELDS,
+    )
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset, request)
+    queryset = field_filter.filter_queryset(queryset)
     queryset = ordering.order_queryset(queryset, pagination_info)
     queryset = search.search_queryset(request, queryset)
     return queryset
