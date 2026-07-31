@@ -1,6 +1,6 @@
 import functools
 import json
-from typing import Annotated, Literal, Optional, TypeAlias, cast
+from typing import Literal, Optional, TypeAlias, cast
 
 import swapper
 from django.conf import settings
@@ -9,7 +9,7 @@ from django.db.models import Model, Q, QuerySet
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from ninja import Body, FilterLookup, FilterSchema, Query, Router, Schema, Status
+from ninja import Body, FilterSchema, Query, Router, Schema, Status
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
 from pydantic import PositiveInt, ValidationError, field_validator, model_validator
@@ -26,7 +26,7 @@ from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
 from wagtail.api.validators import OrderingValidator, SiteFilterValidator
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
-from wagtail.models import Site, get_page_models
+from wagtail.models import Locale, Site, get_page_models
 from wagtail.query import PageQuerySet
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -98,7 +98,7 @@ class PageFilterSchema(FilterSchema):
     child_of: Optional[RootRelativeFilter] = None
     descendant_of: Optional[RootRelativeFilter] = None
     translation_of: Optional[RootRelativeFilter] = None
-    locale: Annotated[Optional[str], FilterLookup("locale__language_code")] = None
+    locale: Optional[str] = None
     site: Optional[str] = None
 
     @field_validator("type", mode="after")
@@ -113,6 +113,13 @@ class PageFilterSchema(FilterSchema):
             ct.pk for ct in ContentType.objects.get_for_models(*value).values()
         ]
         return Q(content_type__in=content_types)
+
+    def filter_locale(self, value: str) -> Q:
+        if not value:
+            return Q()
+        # Fetch locale separately so it doesn't have to be indexed when searching
+        locale = get_object_or_404(Locale, language_code=value)
+        return Q(locale=locale)
 
     @model_validator(mode="after")
     def validate_child_of_or_descendant_of(self):
