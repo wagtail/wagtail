@@ -23,6 +23,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.actions.copy_page import CopyPageAction
 from wagtail.actions.create_page import CreatePageAction
+from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.edit_page import EditPageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
@@ -595,6 +596,21 @@ def move(
     action.execute()
     page.refresh_from_db()
     return page.specific
+
+
+@actions_router.delete(
+    "/{page_id}/actions/delete/",
+    response={204: None},
+    url_name="pages_actions_delete",
+    summary="Delete page",
+    operation_id="pages_actions_delete",
+)
+@require_any_permission(Page, ("change", "add"))
+def delete(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action = DeletePageAction(page, user=request.user)
+    action.execute()
+    return Status(204, None)
 
 
 router.add_router("/", actions_router)

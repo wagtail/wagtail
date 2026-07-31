@@ -379,3 +379,93 @@ class TestV3PageMove(TestV3PageActionsBase):
             section, {"destination": child.pk, "position": "last-child"}
         )
         self.assert_problem_response(response, status_code=403)
+
+
+class TestV3PageDelete(TestV3PageActionsBase):
+    # Deleting a leaf, non-live page owned by the user only requires "add"
+    # (mirrors can_delete()'s "add"-only branch for non-bulk deletes).
+    permission_matrix = [
+        (None, 401),
+        ([], 403),
+        (["add_page"], 204),
+    ]
+
+    def delete(self, page):
+        return self.client.delete(
+            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": page.pk})
+        )
+
+    def test_permission_matrix(self):
+        for i, (codenames, expected_status) in enumerate(self.permission_matrix):
+            with self.subTest(codenames=codenames):
+                if codenames is None:
+                    self.client.logout()
+                    owner = None
+                else:
+                    owner = self.login_with_permissions(*codenames, index=i)
+
+                page = self.add_simple_page(
+                    self.home_page,
+                    title="Deletable",
+                    slug=f"deletable-{i}",
+                    live=False,
+                    owner=owner,
+                )
+
+                response = self.delete(page)
+
+                self.assertEqual(response.status_code, expected_status)
+                self.assertEqual(
+                    Page.objects.filter(pk=page.pk).exists(), expected_status != 204
+                )
+
+    def test_superuser_can_delete_page(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Live", slug="live")
+        response = self.delete(page)
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Page.objects.filter(pk=page.pk).exists())
+
+    def test_delete_logs_action(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Live", slug="live")
+        response = self.delete(page)
+        self.assertEqual(response.status_code, 204)
+        self.assert_log_actions(page, ["wagtail.create", "wagtail.delete"])
+
+    def test_delete_removes_descendants(self):
+        self.login()
+        section = self.add_simple_page(self.home_page, title="Section", slug="section")
+        child = self.add_simple_page(section, title="Child", slug="child")
+        response = self.delete(section)
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Page.objects.filter(pk=section.pk).exists())
+        self.assertFalse(Page.objects.filter(pk=child.pk).exists())
+
+    def test_unknown_page_returns_404(self):
+        self.login()
+        response = self.client.delete(
+            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": 999999})
+        )
+        self.assert_problem_response(response, status_code=404)
+
+    def test_cannot_delete_root_page(self):
+        self.login()
+        response = self.client.delete(
+            reverse(
+                "wagtailapi_v3:pages_actions_delete",
+                kwargs={"page_id": self.root_page.pk},
+            )
+        )
+        self.assert_problem_response(response, status_code=403)
+
+    def test_non_leaf_page_requires_bulk_delete_permission(self):
+        owner = self.login_with_permissions("add_page")
+        section = self.add_simple_page(
+            self.home_page, title="Section", slug="section", live=False, owner=owner
+        )
+        self.add_simple_page(
+            section, title="Child", slug="child", live=False, owner=owner
+        )
+        response = self.delete(section)
+        self.assert_problem_response(response, status_code=403)

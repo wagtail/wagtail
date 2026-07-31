@@ -29652,6 +29652,30 @@
         "tags": ["pages", "pages"]
       }
     },
+    "/api/v3/pages/{page_id}/actions/delete/": {
+      "delete": {
+        "operationId": "pages_actions_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete page",
+        "tags": ["pages", "pages"]
+      }
+    },
     "/api/v3/pages/{page_id}/actions/move/": {
       "post": {
         "operationId": "pages_actions_move",
