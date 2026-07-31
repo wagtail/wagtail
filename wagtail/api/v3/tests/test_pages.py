@@ -1,4 +1,7 @@
-from django.test import TestCase, override_settings
+from io import StringIO
+
+from django.core import management
+from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
@@ -19,7 +22,7 @@ def get_total_page_count():
     )
 
 
-class TestV3PageListingBase(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
+class TestV3PageListingBase(PageFixturesMixin, TestV3Base, WagtailTestUtils):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -34,7 +37,7 @@ class TestV3PageListingBase(PageFixturesMixin, TestV3Base, WagtailTestUtils, Tes
         return self.get_page_id_list(content)
 
 
-class TestV3PageListing(TestV3PageListingBase):
+class TestV3PageListing(TestV3PageListingBase, TestCase):
     def test_basic(self):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
@@ -160,7 +163,7 @@ class TestV3PageListing(TestV3PageListingBase):
         self.assertLessEqual(len(content["items"]), 5)
 
 
-class TestV3PageListingFilters(TestV3PageListingBase):
+class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
     def test_type_filter_items_are_all_blog_entries(self):
         response = self.get_response(type="demosite.BlogEntryPage")
         content = response.json()
@@ -479,7 +482,7 @@ class TestV3PageListingFilters(TestV3PageListingBase):
         self.assertEqual(page_id_list, [24, 25])
 
 
-class TestV3PageListingOrdering(TestV3PageListingBase):
+class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
     def test_ordering_default(self):
         response = self.get_response()
         content = response.json()
@@ -617,6 +620,151 @@ class TestV3PageListingOrdering(TestV3PageListingBase):
             self.get_page_id_list(content)[:5],
             [21, 22, 19, 23, 5],
         )
+
+
+@tag("transaction")
+class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
+    fixtures = ["demosite.json"]
+
+    def setUp(self):
+        super().setUp()
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+        events_index = Page.objects.get(url_path="/home-page/events-index/")
+        french_events_index = events_index.copy_for_translation(french)
+        french_events_index.get_latest_revision().publish()
+
+        response = self.get_response(locale="fr", search="events")
+        # Known gap: language_code is not in the search index, so combining
+        # locale with search currently errors instead of narrowing results
+        # (v2 parity does not apply here).
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "filter_field_error",
+                    "msg": "Cannot filter by 'language_code' while searching "
+                    "(field is not indexed).",
+                }
+            ],
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id, search="home")
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [french_homepage.id])
+
+        response = self.get_response(translation_of=homepage.id, search="gnome")
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
+
+    def test_search_for_blog(self):
+        response = self.get_response(search="blog")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        # Check that the items are the blog index and three blog pages
+        self.assertEqual(set(self.get_page_id_list(content)), {5, 16, 18, 19})
+
+    def test_search_with_type(self):
+        response = self.get_response(type="demosite.BlogEntryPage", search="blog")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), {16, 18, 19})
+
+    def test_search_with_order(self):
+        response = self.get_response(search="blog", order="title")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [19, 5, 16, 18])
+
+    def test_search_with_order_on_non_indexed_field_gives_error(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage", search="blog", order="body"
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "order_by_field_error",
+                    "msg": "Cannot order by 'body' while searching "
+                    "(field is not indexed).",
+                }
+            ],
+        )
+
+    @override_settings(WAGTAILAPI_SEARCH_ENABLED=False)
+    def test_search_when_disabled_gives_error(self):
+        response = self.get_response(search="blog")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "assertion_error",
+                    "msg": "Assertion failed, search is disabled.",
+                }
+            ],
+        )
+
+    def test_search_operator_and(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage",
+            search="blog elephants",
+            search_operator="and",
+        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), {18})
+
+    def test_search_operator_or(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage",
+            search="blog elephants",
+            search_operator="or",
+        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), {16, 18, 19})
+
+    def test_empty_searches_work(self):
+        response = self.get_response(search="")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), set())
+        self.assertEqual(content["count"], 0)
 
 
 class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):

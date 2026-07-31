@@ -19292,6 +19292,35 @@
         "title": "SchemaDetailResponse",
         "type": "object"
       },
+      "SearchSchema": {
+        "properties": {
+          "search": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search"
+          },
+          "search_operator": {
+            "anyOf": [
+              {
+                "enum": ["and", "or"],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search Operator"
+          }
+        },
+        "title": "SearchSchema",
+        "type": "object"
+      },
       "SecretPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -27525,6 +27554,39 @@
               ],
               "default": [],
               "title": "Order"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search_operator",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["and", "or"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Operator"
             }
           },
           {
