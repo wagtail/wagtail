@@ -2,6 +2,7 @@ import functools
 import json
 from typing import Annotated, Literal, Optional, TypeAlias, cast
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Q, QuerySet
 from django.http import Http404, HttpRequest
@@ -11,6 +12,7 @@ from ninja import Body, FilterLookup, FilterSchema, Query, Router, Schema, Statu
 from ninja.decorators import decorate_view
 from ninja.pagination import paginate
 from pydantic import PositiveInt, ValidationError, field_validator, model_validator
+from pydantic_core import PydanticCustomError
 
 from wagtail.actions.create_page import CreatePageAction
 from wagtail.actions.edit_page import EditPageAction
@@ -22,9 +24,11 @@ from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
 from wagtail.api.validators import OrderingValidator, SiteFilterValidator
-from wagtail.coreutils import resolve_model_string
+from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.models import Page, Site, get_page_models
 from wagtail.query import PageQuerySet
+from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 router = Router(tags=["pages"])
 
@@ -216,6 +220,57 @@ class OrderingSchema(Schema):
         return queryset
 
 
+class SearchSchema(Schema):
+    search: Optional[str] = None
+    search_operator: Optional[Literal["and", "or"]] = None
+
+    @model_validator(mode="after")
+    def validate_settings(self):
+        if self.search and not getattr(settings, "WAGTAILAPI_SEARCH_ENABLED", True):
+            raise AssertionError("search is disabled.")
+        return self
+
+    def search_queryset(
+        self,
+        request: HttpRequest,
+        queryset: QuerySet,
+    ) -> QuerySet:
+        if self.search is None:
+            return queryset
+        try:
+            return cast(SearchableQuerySetMixin, queryset).search(
+                self.search,
+                operator=self.search_operator,
+                order_by_relevance="order" not in request.GET,
+            )
+        except FilterFieldError as e:
+            msg = (
+                f"Cannot filter by '{e.field_name}' while searching "
+                "(field is not indexed)."
+            )
+            error = e
+        except OrderByFieldError as e:
+            msg = (
+                f"Cannot order by '{e.field_name}' while searching "
+                "(field is not indexed)."
+            )
+            error = e
+        raise ValidationError.from_exception_data(
+            "Validation error",
+            [
+                {
+                    "type": PydanticCustomError(
+                        camelcase_to_underscore(error.__class__.__name__),
+                        msg,  # type: ignore (LiteralString requirement)
+                    ),
+                    "loc": (cast(str, error.field_name),),
+                    "input": self.search,
+                }
+            ],
+            hide_input=True,
+        ) from error
+
+
 @router.get(
     "/",
     response=list[BasePageSchema],
@@ -231,6 +286,7 @@ def list_pages(
     request: HttpRequest,
     filters: PageFilterSchema = Query(...),  # ty: ignore[call-non-callable]
     ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -242,6 +298,7 @@ def list_pages(
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset, request)
     queryset = ordering.order_queryset(queryset, pagination_info)
+    queryset = search.search_queryset(request, queryset)
     return queryset
 
 
