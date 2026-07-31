@@ -71,6 +71,22 @@ Wagtail is designed to take advantage of Django's [cache framework](inv:django#t
 
 Wagtail supports any of Django's cache backend, however we recommend against using one tied to the specific process or environment Django is running (eg `FileBasedCache` or `LocMemCache`).
 
+(time_zone_data)=
+
+### Time zone data
+
+Wagtail stores per-user time zone preferences and uses Python's [`zoneinfo`](https://docs.python.org/3/library/zoneinfo.html) module (via Django) to resolve them. By default, `zoneinfo` reads time zone data from the system's tz database.
+
+Some hosting environments don't ship with system time zone data — for example, minimal Linux containers (such as `python:*-slim` Docker images), Windows hosts, and certain PaaS buildpacks. In those environments, looking up a time zone raises `zoneinfo.ZoneInfoNotFoundError`, which can break the Wagtail admin.
+
+To provide time zone data on those environments, install the [`tzdata`](https://pypi.org/project/tzdata/) package from PyPI:
+
+```sh
+pip install tzdata
+```
+
+Wagtail registers a Django [system check](inv:django#topics/checks) (`wagtailadmin.W005`) that runs on startup and warns when time zone data is unavailable, so issues are surfaced before they reach end users. Running `python manage.py check --deploy` as part of your deployment pipeline will surface this warning.
+
 ## Deployment tips
 
 Wagtail, and by extension Django, can be deployed in many different ways on many different platforms. There is no "best" way to deploy it, however here are some tips to ensure your site is as stable and maintainable as possible:
