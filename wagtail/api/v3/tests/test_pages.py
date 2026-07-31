@@ -622,6 +622,151 @@ class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
         )
 
 
+class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
+    fixtures = ["demosite.json"]
+
+    def test_filtering_exact_filter(self):
+        response = self.get_response(title="Home page")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [2])
+
+    def test_filtering_exact_filter_on_specific_field(self):
+        response = self.get_response(type="demosite.BlogEntryPage", date="2013-12-02")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [16])
+
+    def test_filtering_on_id(self):
+        response = self.get_response(id=16)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [16])
+
+    def test_filtering_on_foreign_key(self):
+        response = self.get_response(type="demosite.ContactPage", feed_image=7)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [12])
+
+    def test_filtering_on_boolean(self):
+        response = self.get_response(show_in_menus="false")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [8, 9, 16, 17, 18, 19])
+
+    def test_filtering_doesnt_work_on_specific_fields_without_type(self):
+        # Unlike v2, filtering by a field not recognised for the current
+        # queryset's model is silently ignored rather than an error.
+        response = self.get_response(date="2013-12-02")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["count"], get_total_page_count())
+
+    def test_filtering_tags(self):
+        response = self.get_response(type="demosite.BlogEntryPage", tags="wagtail")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), {16, 18})
+
+    def test_filtering_multiple_tags(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage", tags=["wagtail", "bird"]
+        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(set(self.get_page_id_list(content)), {16})
+
+    def test_filtering_unknown_field_gives_error(self):
+        # Unlike v2, an unrecognised query parameter is silently ignored
+        # rather than an error.
+        response = self.get_response(not_a_field="abc")
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["count"], get_total_page_count())
+
+    def test_filtering_id_int_validation(self):
+        response = self.get_response(id="abc")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": ["id"],
+                    "msg": (
+                        "Field filter error, 'abc' is not a valid value for id. "
+                        "(Field 'id' expected a number but got 'abc'.)"
+                    ),
+                }
+            ],
+        )
+
+    def test_filtering_foreign_key_int_validation(self):
+        response = self.get_response(type="demosite.ContactPage", feed_image="abc")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": ["feed_image"],
+                    "msg": (
+                        "Field filter error, 'abc' is not a valid value for feed_image. "
+                        "(Field 'id' expected a number but got 'abc'.)"
+                    ),
+                }
+            ],
+        )
+
+    def test_filtering_boolean_validation(self):
+        response = self.get_response(show_in_menus="abc")
+        content = self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "validation_error",
+                    "loc": ["show_in_menus"],
+                }
+            ],
+        )
+        self.assertIn(
+            "Field filter error, 'abc' is not a valid value for show_in_menus.",
+            content["errors"][0]["msg"],
+        )
+
+    def test_slug_field_containing_null_bytes_gives_error(self):
+        response = self.get_response(slug="\0")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": ["slug"],
+                    "msg": (
+                        "Field filter error, '\x00' is not a valid value for "
+                        "slug. (null characters are not allowed)"
+                    ),
+                }
+            ],
+        )
+
+
 @tag("transaction")
 class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
     fixtures = ["demosite.json"]
@@ -753,6 +898,71 @@ class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(set(self.get_page_id_list(content)), set())
         self.assertEqual(content["count"], 0)
+
+    def test_search_with_invalid_type(self):
+        response = self.get_response(type="demosite.InvalidPageType", search="blog")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "literal_error", "loc": ["query", "filters", "type", 0]}],
+        )
+
+    def test_search_with_filter(self):
+        response = self.get_response(
+            title="Another blog post",
+            search="blog",
+            order="title",
+        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [19])
+
+    def test_search_with_filter_on_non_filterable_field(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage",
+            body="foo",
+            search="blog",
+            order="title",
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "filter_field_error",
+                    "loc": ["body"],
+                    "msg": (
+                        "Cannot filter by 'body' while searching "
+                        "(field is not indexed)."
+                    ),
+                }
+            ],
+        )
+
+    def test_search_when_filtering_by_tag_gives_error(self):
+        response = self.get_response(
+            type="demosite.BlogEntryPage",
+            search="blog",
+            tags="wagtail",
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "filter_field_error",
+                    "loc": ["name"],
+                    "msg": (
+                        "Cannot filter by 'name' while searching "
+                        "(field is not indexed)."
+                    ),
+                }
+            ],
+        )
 
 
 class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
