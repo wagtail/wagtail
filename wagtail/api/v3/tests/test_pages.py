@@ -651,21 +651,9 @@ class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
         french_events_index.get_latest_revision().publish()
 
         response = self.get_response(locale="fr", search="events")
-        # Known gap: language_code is not in the search index, so combining
-        # locale with search currently errors instead of narrowing results
-        # (v2 parity does not apply here).
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "filter_field_error",
-                    "msg": "Cannot filter by 'language_code' while searching "
-                    "(field is not indexed).",
-                }
-            ],
-        )
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [french_events_index.id])
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_translation_of_filter_with_search(self):
