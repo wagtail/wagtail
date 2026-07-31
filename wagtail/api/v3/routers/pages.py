@@ -27,6 +27,7 @@ from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.edit_page import EditPageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.actions.revert_to_page_revision import RevertToPageRevisionAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
@@ -611,6 +612,30 @@ def delete(request: HttpRequest, page_id: PositiveInt):
     action = DeletePageAction(page, user=request.user)
     action.execute()
     return Status(204, None)
+
+
+class PageRevertSchema(Schema):
+    revision_id: PositiveInt
+
+
+@actions_router.post(
+    "/{page_id}/actions/revert/",
+    response=PageDetailSchema,
+    url_name="pages_actions_revert",
+    summary="Revert page to a previous revision",
+    operation_id="pages_actions_revert",
+)
+@require_any_permission(Page, ("change",))
+def revert(
+    request: HttpRequest,
+    page_id: PositiveInt,
+    data: PageRevertSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    revision = get_object_or_404(page.revisions, id=data.revision_id)
+    action = RevertToPageRevisionAction(page=page, revision=revision, user=request.user)
+    new_revision = action.execute()
+    return new_revision.as_object()
 
 
 router.add_router("/", actions_router)

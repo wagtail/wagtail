@@ -469,3 +469,88 @@ class TestV3PageDelete(TestV3PageActionsBase):
         )
         response = self.delete(section)
         self.assert_problem_response(response, status_code=403)
+
+
+class TestV3PageRevert(TestV3PageActionsBase):
+    # Reverting only requires "change" (or "add" on a page you own).
+    permission_matrix = [
+        (None, 401),
+        ([], 403),
+        (["add_page"], 200),
+        (["change_page"], 200),
+    ]
+
+    def post(self, page, revision_id):
+        return self.client.post(
+            reverse("wagtailapi_v3:pages_actions_revert", kwargs={"page_id": page.pk}),
+            data=json.dumps({"revision_id": revision_id}),
+            content_type="application/json",
+        )
+
+    def test_permission_matrix(self):
+        for i, (codenames, expected_status) in enumerate(self.permission_matrix):
+            with self.subTest(codenames=codenames):
+                if codenames is None:
+                    self.client.logout()
+                    owner = None
+                else:
+                    owner = self.login_with_permissions(*codenames, index=i)
+
+                page = self.add_simple_page(
+                    self.home_page,
+                    title="Original",
+                    slug=f"revert-{i}",
+                    owner=owner,
+                )
+                original_revision = page.save_revision(user=owner)
+                page.title = "Changed"
+                page.save_revision(user=owner)
+                page.save()
+
+                response = self.post(page, original_revision.pk)
+
+                self.assertEqual(response.status_code, expected_status)
+                if expected_status == 200:
+                    content = response.json()
+                    self.assertEqual(content["title"], "Original")
+
+    def test_revert_creates_new_revision_without_publishing(self):
+        self.login()
+        page = self.add_simple_page(
+            self.home_page, title="Original", slug="revert", live=False
+        )
+        original_revision = page.save_revision()
+        page.title = "Changed"
+        page.save_revision()
+        page.save()
+
+        response = self.post(page, original_revision.pk)
+
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertEqual(page.title, "Changed")
+        self.assertEqual(page.get_latest_revision().as_object().title, "Original")
+        self.assert_log_actions(page, ["wagtail.create", "wagtail.revert"])
+
+    def test_unknown_page_returns_404(self):
+        self.login()
+        response = self.client.post(
+            reverse("wagtailapi_v3:pages_actions_revert", kwargs={"page_id": 999999}),
+            data=json.dumps({"revision_id": 1}),
+            content_type="application/json",
+        )
+        self.assert_problem_response(response, status_code=404)
+
+    def test_unknown_revision_returns_404(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Original", slug="revert")
+        response = self.post(page, 999999)
+        self.assert_problem_response(response, status_code=404)
+
+    def test_revision_belonging_to_another_page_returns_404(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Page", slug="page")
+        other_page = self.add_simple_page(self.home_page, title="Other", slug="other")
+        other_revision = other_page.save_revision()
+        response = self.post(page, other_revision.pk)
+        self.assert_problem_response(response, status_code=404)

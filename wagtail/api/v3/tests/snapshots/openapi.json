@@ -16224,6 +16224,18 @@
         "title": "PagePatchSchema",
         "type": "object"
       },
+      "PageRevertSchema": {
+        "properties": {
+          "revision_id": {
+            "exclusiveMinimum": 0,
+            "title": "Revision Id",
+            "type": "integer"
+          }
+        },
+        "required": ["revision_id"],
+        "title": "PageRevertSchema",
+        "type": "object"
+      },
       "PageSchema": {
         "properties": {
           "id": {
@@ -30253,6 +30265,301 @@
           }
         },
         "summary": "Publish page",
+        "tags": ["pages", "pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/revert/": {
+      "post": {
+        "operationId": "pages_actions_revert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRevertSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EarlyPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimplePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoPromotePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MultiPreviewModesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPreviewSizesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithExcludedCopyFieldSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithGenericRelationSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PageWithOldStyleRouteMethodSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FilePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormClassAdditionalFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingleEventPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JadeFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithRedirectSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FormPageWithCustomFormBuilderSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromotionalPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessSubIndexSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessChildSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessNowherePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomCopyFormPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TaggedGrandchildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SingletonPageViaMaxCountSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComplexDefaultStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIBasePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MTIChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoCreatableSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoSubpageTypesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManyToManyBlogPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OneToOnePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomManagerPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MyCustomPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ValidatedPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DefaultRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichTextFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RichTextFieldWithFeaturesPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SectionedRichTextPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InlineStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TableBlockStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlwaysShowInMenusPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SecretPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleParentPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SimpleChildPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RestaurantPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DeadlyStreamPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GalleryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomPermissionPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredDatePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HomePageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StandardIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogEntryPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BlogIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__EventPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/EventIndexPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__PersonPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ContactPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/abc__FormPageSchema__2"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TestPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SamplePageSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Revert page to a previous revision",
         "tags": ["pages", "pages"]
       }
     },
