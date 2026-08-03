@@ -30,7 +30,7 @@ class BasePage(AbstractPage):
 
 `AbstractPage` provides all of the standard fields from {class}`~wagtail.models.Page` with the exception of `show_in_menus`, `seo_title` and `search_description`.
 
-Add the setting `WAGTAIL_PAGE_MODEL` to your project's settings file, giving the dotted path to the base page model:
+Add the setting `WAGTAIL_PAGE_MODEL` to your project's settings file, giving the dotted {attr}`~django.db.models.Options.label` of the base page model qualified by the app name:
 
 ```python
 WAGTAIL_PAGE_MODEL = "basepage.BasePage"
@@ -79,7 +79,18 @@ We now create a final migration to add the remaining fields and constraints to t
 python manage.py makemigrations basepage
 ```
 
-and rename the created migration file to `0003_finalize_page_model.py`.
+This will produce a prompt asking how to handle the `locale` field becoming non-null:
+
+```console
+It is impossible to change a nullable field 'locale' on basepage to non-nullable without providing a default. This is because the database needs something to populate existing rows.
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Ignore for now. Existing rows that contain NULL values will have to be handled manually, for example with a RunPython or RunSQL operation.
+ 3) Quit and manually define a default value in models.py.
+Select an option:
+```
+
+Select option 2 ("Ignore for now"), as ths has been handled by the previous migration. Rename the created migration file to `0003_finalize_page_model.py`.
 
 We are now ready to update any existing apps that define page models, such as the `home` app in the default project template, to extend the new `BasePage` model. First, uncomment the app's entry in the `INSTALLED_APPS` list. Next, update the app's `models.py` to replace all references to the default `Page` model with `BasePage`:
 
@@ -185,3 +196,7 @@ class FormPage(EmailFormMixin, FormMixin, BasePage)
 ```
 
 Likewise, the [`wagtail.contrib.routable_page`](routable_page_mixin) app provides a `RoutablePage` class which inherits from the default `Page` model and is unavailable when using a custom base page model; however, `RoutablePageMixin` can still be used.
+
+## See also
+
+[](reusable_app_base_page)

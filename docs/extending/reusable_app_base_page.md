@@ -1,3 +1,4 @@
+(reusable_app_base_page)=
 # Adapting reusable apps to support custom base page models
 
 Wagtail 8.0 introduces support for [custom base page models](custom_page_models), allowing site implementers to define their own project-specific page class to be used in place of the standard {class}`~wagtail.models.Page` model. This presents additional challenges for the developers of reusable packages, as the package can no longer rely on a known static import path for the page model.
