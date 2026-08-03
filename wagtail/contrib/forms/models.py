@@ -328,9 +328,6 @@ def validate_to_address(value):
 class AbstractForm(FormMixin, Page):
     """A Form Page. Pages implementing a form should inherit from it."""
 
-    # TODO: document that AbstractForm and AbstractEmailForm will not work with custom page models,
-    # and that you should use FormMixin and EmailFormMixin instead.
-
     class Meta:
         abstract = True
 
