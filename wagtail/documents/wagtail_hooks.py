@@ -24,6 +24,10 @@ from wagtail.documents.rich_text.contentstate import (
     ContentstateDocumentLinkConversionRule,
 )
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
+from wagtail.documents.rich_text.markdown import (
+    MarkdownDocumentLinkConversionRule,
+    MarkdownInternalDocumentLinkConversionRule,
+)
 from wagtail.documents.views.bulk_actions import (
     AddTagsBulkAction,
     AddToCollectionBulkAction,
@@ -89,6 +93,14 @@ def register_document_feature(features):
     )
     features.register_converter_rule(
         "contentstate", "document-link", ContentstateDocumentLinkConversionRule
+    )
+    features.register_converter_rule(
+        "markdown", "document-link", MarkdownDocumentLinkConversionRule
+    )
+    features.register_converter_rule(
+        "markdown_internal",
+        "document-link",
+        MarkdownInternalDocumentLinkConversionRule,
     )
 
     features.default_features.append("document-link")

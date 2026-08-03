@@ -19,6 +19,10 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
 from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
 from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
+from wagtail.images.rich_text.markdown import (
+    MarkdownImageConversionRule,
+    MarkdownInternalImageConversionRule,
+)
 from wagtail.images.views.bulk_actions import (
     AddTagsBulkAction,
     AddToCollectionBulkAction,
@@ -98,6 +102,12 @@ def register_image_feature(features):
     # the database representation
     features.register_converter_rule(
         "contentstate", "image", ContentstateImageConversionRule
+    )
+
+    # define how to render images as Markdown (public and internal)
+    features.register_converter_rule("markdown", "image", MarkdownImageConversionRule)
+    features.register_converter_rule(
+        "markdown_internal", "image", MarkdownInternalImageConversionRule
     )
 
     # add 'image' to the set of on-by-default rich text features
