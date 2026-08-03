@@ -45,4 +45,17 @@ Beyond direct references to the `Page` class, there are various places where the
 
 * The permission codenames that govern access to the page tree are derived from the class name - for example, if the base page model is `BasePage` then the permissions will be named `"add_basepage"`, `"change_basepage"`, `"publish_basepage"` and so on, rather than `"add_page"`, `"change_page"`, `"publish_page"`. The `django.contrib.auth.get_permission_codename` function can be used to obtain the correct codename; for example, if `Page` refers to the active page model (via the use of `swapper.load_model` as above), then `get_permission_codename("add", Page)` will return the appropriate codename.
 * The `ContentType` record for pages (as used by permissions, the audit log and the reference index) corresponds to the active base page model, not necessarily `wagtailcore.Page`. Code such as `ContentType.objects.get(app_label="wagtailcore", model="page")` should now become `ContentType.objects.get(app_label=Page._meta.app_label, model=Page._meta.model_name)` (where `Page` has been obtained through `swapper.load_model` as before).
-* The foreign key relation conventionally named `page_ptr`, created internally by Django to link from a specific page instance to its base page model counterpart, matches the name of the base class - for example, it will be `basepage_ptr` for a base page model named `BasePage`.
+* The foreign key relation conventionally named `page_ptr`, created internally by Django to link from a specific page instance to its base page model counterpart, matches the name of the base class - for example, it will be `basepage_ptr` for a base page model named `BasePage`. This can be obtained using the following code:
+
+```python
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
+base_page = getattr(specific_page, parent_rel_name)
+```
+
+Or if the base page model has been retrieved as `Page` via `swapper.load_model`:
+
+```python
+parent_rel_name = f"{Page._meta.object_name.lower()}_ptr"
+base_page = getattr(specific_page, parent_rel_name)
+```
