@@ -628,14 +628,6 @@ class FormPage(EmailFormMixin, FormMixin, Page):
         context["greeting"] = "hello world"
         return context
 
-    # FIXME: replace the recipe at
-    # https://docs.wagtail.org/en/stable/reference/contrib/forms/customization.html#customise-form-submissions-listing-in-wagtail-admin
-    # which no longer works because wagtail.contrib.forms.views cannot be imported before models are loaded.
-    # Overriding get_submissions_list_view_class is the quick fix, but a registry mapping form page models to viewsets
-    # would be cleaner.
-    #
-    # submissions_list_view_class = SubmissionsListView
-
     def get_submissions_list_view_class(self):
         from wagtail.contrib.forms.views import SubmissionsListView
 
