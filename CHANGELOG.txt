@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Support for custom base page models (Matt Westcott)
+ * Create a global registry for permission policies (Sage Abdullah)
  * Add customizability for all remaining page views to `PageViewSet` (Sage Abdullah)
  * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
  * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
