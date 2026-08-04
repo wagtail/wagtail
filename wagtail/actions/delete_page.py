@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
 
 
@@ -11,10 +12,13 @@ class DeletePagePermissionError(PermissionDenied):
     pass
 
 
-class DeletePageAction:
-    def __init__(self, page, user):
+class DeletePageAction(BaseAction):
+    action_name = "delete"
+    permission_error_class = DeletePagePermissionError
+
+    def __init__(self, page, user=None):
+        super().__init__(page, user=user)
         self.page = page
-        self.user = user
 
     def check(self, skip_permission_checks=False):
         if (
