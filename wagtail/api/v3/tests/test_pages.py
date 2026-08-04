@@ -1,5 +1,7 @@
+import unittest
 from io import StringIO
 
+import swapper
 from django.core import management
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
@@ -24,6 +26,7 @@ def get_total_page_count():
 
 class TestV3PageListingBase(PageFixturesMixin, TestV3Base, WagtailTestUtils):
     fixtures = ["demosite.json"]
+    page_name = Page._meta.object_name
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_pages"), params)
@@ -239,7 +242,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_ancestor_of_not_positive_integer_gives_error(self):
@@ -291,7 +294,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_child_of_not_positive_integer_gives_error(self):
@@ -336,7 +339,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_descendant_of_filter(self):
@@ -370,7 +373,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_descendant_of_not_positive_integer_gives_error(self):
@@ -399,7 +402,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_descendant_of_when_filtering_by_child_of_gives_error(self):
@@ -441,7 +444,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -533,7 +536,7 @@ class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
             errors=[
                 {
                     "type": "value_error",
-                    "msg": "Value error, invalid fields for model Page: ['-random'].",
+                    "msg": f"Value error, invalid fields for model {self.page_name}: ['-random'].",
                 }
             ],
         )
@@ -582,7 +585,7 @@ class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
             errors=[
                 {
                     "type": "value_error",
-                    "msg": "Value error, invalid fields for model Page: ['not_a_field'].",
+                    "msg": f"Value error, invalid fields for model {self.page_name}: ['not_a_field'].",
                 }
             ],
         )
@@ -623,8 +626,6 @@ class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
 
 
 class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
-    fixtures = ["demosite.json"]
-
     def test_filtering_exact_filter(self):
         response = self.get_response(title="Home page")
         content = response.json()
@@ -653,6 +654,10 @@ class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [12])
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus="false")
         content = response.json()
@@ -730,6 +735,10 @@ class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
             ],
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus="abc")
         content = self.assert_problem_response(
@@ -769,8 +778,6 @@ class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
 
 @tag("transaction")
 class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
-    fixtures = ["demosite.json"]
-
     def setUp(self):
         super().setUp()
         management.call_command(
@@ -1020,8 +1027,9 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestV3PageFind(TestV3Base, TestCase):
+class TestV3PageFind(PageFixturesMixin, TestV3Base, TestCase):
     fixtures = ["demosite.json"]
+    page_name = Page._meta.object_name
 
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:find_page"), params)
@@ -1031,7 +1039,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_id(self):
@@ -1047,7 +1055,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_html_path(self):
@@ -1071,7 +1079,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_html_path_takes_precedence_over_id(self):
@@ -1104,7 +1112,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_id_with_page_in_non_default_site(self):
@@ -1114,7 +1122,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
         # With the correct ?site=, it is found.
         response = self.get_response(id=24, site="localhost:8001")
@@ -1153,7 +1161,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_html_path_matching_only_in_site_param_tree(self):
@@ -1179,7 +1187,7 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
         # With ?site= for the new site, the page is found.
@@ -1203,5 +1211,5 @@ class TestV3PageFind(TestV3Base, TestCase):
         self.assert_problem_response(
             response,
             status_code=404,
-            detail_contains="No Page matches the given query.",
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
