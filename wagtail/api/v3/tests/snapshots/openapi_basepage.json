@@ -785,21 +785,166 @@
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
+      "BasePageCreateMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "parent_id": {
+            "title": "Parent Id",
+            "type": "integer"
+          },
+          "type": {
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["parent_id", "type"],
+        "title": "BasePageCreateMetaSchema",
+        "type": "object"
+      },
+      "BasePageCreateSchema": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/BasePageCreateMetaSchema"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
+            "title": "Slug"
+          },
+          "title": {
+            "description": "The page title as you'd like it to be seen by the public",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "title"],
+        "title": "BasePageCreateSchema",
+        "type": "object"
+      },
+      "BasePageForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__BasePageMetaSchema__2"
+          }
+        },
+        "required": ["meta"],
+        "title": "BasePageForeignKeySchema",
+        "type": "object"
+      },
+      "BasePagePatchMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "BasePagePatchMetaSchema",
+        "type": "object"
+      },
+      "BasePagePatchSchema": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/BasePagePatchMetaSchema"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
+            "title": "Slug"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The page title as you'd like it to be seen by the public",
+            "title": "Title"
+          }
+        },
+        "required": ["meta"],
+        "title": "BasePagePatchSchema",
+        "type": "object"
+      },
       "BasePageSchema": {
         "properties": {
           "id": {
-            "title": "Id",
-            "type": "integer"
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/PageMetaSchema"
+            "$ref": "#/components/schemas/abc__BasePageMetaSchema__1"
           },
           "title": {
             "title": "Title",
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["title", "meta"],
         "title": "BasePageSchema",
         "type": "object"
       },
@@ -11709,84 +11854,6 @@
         "title": "OneToOnePageSchema",
         "type": "object"
       },
-      "BasePageCreateMetaSchema": {
-        "properties": {
-          "action": {
-            "anyOf": [
-              {
-                "const": "publish",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Action"
-          },
-          "parent_id": {
-            "title": "Parent Id",
-            "type": "integer"
-          },
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["parent_id", "type"],
-        "title": "BasePageCreateMetaSchema",
-        "type": "object"
-      },
-      "BasePageCreateSchema": {
-        "properties": {
-          "meta": {
-            "$ref": "#/components/schemas/BasePageCreateMetaSchema"
-          },
-          "slug": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
-            "title": "Slug"
-          },
-          "title": {
-            "description": "The page title as you'd like it to be seen by the public",
-            "maxLength": 255,
-            "title": "Title",
-            "type": "string"
-          }
-        },
-        "required": ["meta", "title"],
-        "title": "BasePageCreateSchema",
-        "type": "object"
-      },
-      "BasePageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/abc__BasePageMetaSchema__2"
-          }
-        },
-        "required": ["meta"],
-        "title": "BasePageForeignKeySchema",
-        "type": "object"
-      },
       "PageMetaSchema": {
         "properties": {
           "detail_url": {
@@ -11852,91 +11919,6 @@
         },
         "required": ["slug"],
         "title": "PageMetaSchema",
-        "type": "object"
-      },
-      "BasePagePatchMetaSchema": {
-        "properties": {
-          "action": {
-            "anyOf": [
-              {
-                "const": "publish",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Action"
-          },
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "BasePagePatchMetaSchema",
-        "type": "object"
-      },
-      "BasePagePatchSchema": {
-        "properties": {
-          "meta": {
-            "$ref": "#/components/schemas/BasePagePatchMetaSchema"
-          },
-          "slug": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
-            "title": "Slug"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The page title as you'd like it to be seen by the public",
-            "title": "Title"
-          }
-        },
-        "required": ["meta"],
-        "title": "BasePagePatchSchema",
-        "type": "object"
-      },
-      "BasePageSchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/abc__BasePageMetaSchema__1"
-          },
-          "title": {
-            "title": "Title",
-            "type": "string"
-          }
-        },
-        "required": ["title", "meta"],
-        "title": "BasePageSchema",
         "type": "object"
       },
       "PageWithExcludedCopyFieldCreateMetaSchema": {
@@ -18324,6 +18306,79 @@
         "title": "ValidatedPageSchema",
         "type": "object"
       },
+      "abc__BasePageMetaSchema__1": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type", "slug"],
+        "title": "BasePageMetaSchema",
+        "type": "object"
+      },
+      "abc__BasePageMetaSchema__2": {
+        "properties": {
+          "type": {
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "BasePageMetaSchema",
+        "type": "object"
+      },
       "abc__EventPageCreateMetaSchema__1": {
         "properties": {
           "action": {
@@ -19495,79 +19550,6 @@
         },
         "required": ["id", "title", "meta"],
         "title": "FormPageSchema",
-        "type": "object"
-      },
-      "abc__BasePageMetaSchema__1": {
-        "properties": {
-          "detail_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Detail Url"
-          },
-          "first_published_at": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "First Published At"
-          },
-          "html_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Html Url"
-          },
-          "locale": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Locale"
-          },
-          "slug": {
-            "title": "Slug",
-            "type": "string"
-          },
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type", "slug"],
-        "title": "BasePageMetaSchema",
-        "type": "object"
-      },
-      "abc__BasePageMetaSchema__2": {
-        "properties": {
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type"],
-        "title": "BasePageMetaSchema",
         "type": "object"
       },
       "abc__PersonPageCreateMetaSchema__1": {
