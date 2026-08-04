@@ -4,9 +4,8 @@ import uuid
 import swapper
 from django.core.exceptions import PermissionDenied
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
-from wagtail.models.copying import _copy, _copy_m2m_relations
-from wagtail.models.i18n import TranslatableMixin
 
 logger = logging.getLogger("wagtail")
 
@@ -27,7 +26,7 @@ class CreatePageAliasPermissionError(PermissionDenied):
     pass
 
 
-class CreatePageAliasAction:
+class CreatePageAliasAction(BaseAction):
     """
     Creates an alias of the given page.
 
@@ -53,6 +52,9 @@ class CreatePageAliasAction:
     :type reset_translation_key: boolean, optional
     """
 
+    action_name = "create_alias"
+    permission_error_class = CreatePageAliasPermissionError
+
     def __init__(
         self,
         page,
@@ -66,12 +68,12 @@ class CreatePageAliasAction:
         reset_translation_key=True,
         _mpnode_attrs=None,
     ):
+        super().__init__(page, user=user)
         self.page = page
         self.recursive = recursive
         self.parent = parent
         self.update_slug = update_slug
         self.update_locale = update_locale
-        self.user = user
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
         self._mpnode_attrs = _mpnode_attrs
@@ -116,6 +118,9 @@ class CreatePageAliasAction:
         reset_translation_key,
         _mpnode_attrs,
     ):
+        from wagtail.models.copying import _copy, _copy_m2m_relations
+        from wagtail.models.i18n import TranslatableMixin
+
         specific_page = page.specific
 
         # FIXME: Switch to the same fields that are excluded from copy
