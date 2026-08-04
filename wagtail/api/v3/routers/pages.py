@@ -431,7 +431,7 @@ def find_page(
         page = get_object_or_404(_public_pages_queryset(request), pk=id)
 
     if page is None:
-        raise Http404("No Page matches the given query.")
+        raise Http404(f"No {Page._meta.object_name} matches the given query.")
 
     url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.pk})
     query = request.GET.copy()
