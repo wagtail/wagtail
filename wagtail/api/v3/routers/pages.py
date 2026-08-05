@@ -23,6 +23,7 @@ from pydantic_core import PydanticCustomError
 from taggit.managers import TaggableManager
 
 from wagtail.actions import action_registry
+from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -269,20 +270,11 @@ class APIFieldFilterSchema(Schema, arbitrary_types_allowed=True):
                 else:
                     queryset = queryset.filter(**{field_name: value})
             except ValueError as e:
-                raise ValidationError.from_exception_data(
-                    "Validation error",
-                    [
-                        {
-                            "type": PydanticCustomError(
-                                camelcase_to_underscore(e.__class__.__name__),
-                                f"Field filter error, '{value}' is not a valid value "
-                                f"for {field_name}. ({e})",  # type: ignore (LiteralString requirement)
-                            ),
-                            "loc": (field_name,),
-                            "input": value,
-                        }
-                    ],
-                    hide_input=True,
+                raise as_validation_error(
+                    e,
+                    message=f"Field filter error, '{value}' is not a valid value "
+                    f"for {field_name}. ({e})",
+                    loc=(field_name,),
                 ) from e
         return queryset
 
