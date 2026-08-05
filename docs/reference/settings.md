@@ -492,7 +492,7 @@ Change the global default for HEIC image encoding quality (default: 80).
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {}
 ```
 
-See [](customizing_output_formats).
+Set fallback image format conversion rules applied to the whole project. For more information, see [](customizing_output_formats).
 
 ## Documents
 
