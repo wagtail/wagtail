@@ -1116,7 +1116,7 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
-class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
+class AdvertWithCustomUUIDPrimaryKey(index.Indexed, PreviewableMixin, ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -1134,6 +1134,9 @@ class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
 
     def __str__(self):
         return self.text
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_model.html"
 
 
 register_snippet(AdvertWithCustomUUIDPrimaryKey)
