@@ -143,7 +143,7 @@ class FormStateQuerySet(models.QuerySet):
             content_type=ContentType.objects.get_for_model(
                 instance, for_concrete_model=False
             ),
-            object_id=str(instance.pk or ""),
+            object_id="" if instance._state.adding else str(instance.pk),
         )
 
     def for_preview(self, user, instance, parent_object_id=""):
@@ -166,7 +166,7 @@ class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
             content_type=ContentType.objects.get_for_model(
                 instance, for_concrete_model=False
             ),
-            object_id=str(instance.pk or ""),
+            object_id="" if instance._state.adding else str(instance.pk),
             parent_object_id=parent_object_id,
             **kwargs,
         )

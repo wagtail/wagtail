@@ -1,6 +1,12 @@
 Changelog
 =========
 
+7.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure models with a UUID primary key can be previewed when creating a new instance (Sébastien Corbin)
+
+
 7.4.2 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
