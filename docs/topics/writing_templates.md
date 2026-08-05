@@ -323,7 +323,7 @@ The user bar is also available as a [template component](template_components), w
 
 ## Varying output between preview and live
 
-Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:
+Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides the `request.is_preview` variable. The `is_preview` flag is used to distinguish between preview and live content:
 
 ```html+django
 {% if not request.is_preview %}
@@ -336,6 +336,20 @@ Sometimes you may wish to vary the template output depending on whether the page
 
 If the page is being previewed, `request.preview_mode` can be used to determine the specific preview mode being used,
 if the page supports [multiple preview modes](wagtail.models.AbstractPage.preview_modes).
+
+(custom_rendering_in_preview_panel)=
+
+### Customizing rendering in the preview panel
+
+Wagtail provides a `request.in_preview_panel` variable to customize rendering specifically within the preview panel. The `in_preview_panel` attribute indicates that the page is being rendered inside the panel. The live preview panel uses an iframe to display the preview in the editor page. It is help for editors to configure the rendered page so links open outside of the iframe. To achieve this, add a `<base>` tag within your `<head>` element:
+
+```html+django
+{% if request.in_preview_panel %}
+    <base target="_blank">
+{% endif %}
+```
+
+This will make all links in the live preview panel open in a new tab. New Wagtail projects created through the `wagtail start` command already include this change in the base template.
 
 (template_fragment_caching)=
 
