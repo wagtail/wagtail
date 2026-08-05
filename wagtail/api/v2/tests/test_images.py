@@ -84,6 +84,29 @@ class TestImageListing(TestCase):
             content["meta"]["total_count"], get_image_model().objects.count() - 1
         )
 
+    def test_excludes_restricted_image_in_descendant_collection(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_image.collection = restricted_collection_descendant
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_image.id, self.get_image_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_image_model().objects.count() - 1
+        )
+
     #  FIELDS
 
     def test_fields_default(self):
@@ -489,6 +512,37 @@ class TestImageDetail(TestCase):
 
         self.assertIn("tags", content["meta"])
         self.assertEqual(content["meta"]["tags"], ["hello", "world"])
+
+    def test_excludes_restricted_image(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_image.collection = restricted_collection
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_image.id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_excludes_restricted_image_in_descendant_collection(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_image.collection = restricted_collection_descendant
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_image.id)
+        self.assertEqual(response.status_code, 404)
 
     # FIELDS
 

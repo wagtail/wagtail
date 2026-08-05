@@ -91,6 +91,29 @@ class TestDocumentListing(TestCase):
             content["meta"]["total_count"], get_document_model().objects.count() - 1
         )
 
+    def test_excludes_restricted_document_in_descendant_collection(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_document.collection = restricted_collection_descendant
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_document.id, self.get_document_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_document_model().objects.count() - 1
+        )
+
     # FIELDS
 
     def test_fields_default(self):
@@ -497,6 +520,37 @@ class TestDocumentDetail(TestCase):
             content["meta"]["download_url"],
             "http://api.example.com/documents/1/wagtail_by_markyharky.jpg",
         )
+
+    def test_excludes_restricted_document(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_document.collection = restricted_collection
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_document.id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_excludes_restricted_document_in_descendant_collection(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_document.collection = restricted_collection_descendant
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_document.id)
+        self.assertEqual(response.status_code, 404)
 
     # FIELDS
 

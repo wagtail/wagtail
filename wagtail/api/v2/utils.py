@@ -1,10 +1,11 @@
 from urllib.parse import urlsplit
 
 from django.conf import settings
+from django.db.models import Q
 from django.utils.encoding import force_str
 
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page, Site
+from wagtail.models import Collection, CollectionViewRestriction, Page, Site
 
 
 class BadRequestError(Exception):
@@ -268,3 +269,31 @@ def parse_boolean(value):
         return False
     else:
         raise ValueError("expected 'true' or 'false', got '%s'" % value)
+
+
+def get_restricted_collection_ids(request):
+    """
+    Returns a set of collection IDs that are restricted for the given request.
+    """
+    restricted_root_collection_ids = {
+        restriction.collection_id
+        for restriction in CollectionViewRestriction.objects.all()
+        if not restriction.accept_request(request)
+    }
+
+    if not restricted_root_collection_ids:
+        return set()
+
+    restricted_collection_paths = Collection.objects.filter(
+        id__in=restricted_root_collection_ids
+    ).values_list("path", flat=True)
+
+    restricted_collection_filters = Q()
+    for path in restricted_collection_paths:
+        restricted_collection_filters |= Q(path__startswith=path)
+
+    return set(
+        Collection.objects.filter(restricted_collection_filters).values_list(
+            "id", flat=True
+        )
+    )
