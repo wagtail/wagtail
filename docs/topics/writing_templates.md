@@ -337,6 +337,8 @@ Sometimes you may wish to vary the template output depending on whether the page
 If the page is being previewed, `request.preview_mode` can be used to determine the specific preview mode being used,
 if the page supports [multiple preview modes](wagtail.models.AbstractPage.preview_modes).
 
+(custom_rendering_in_preview_panel)=
+
 ### Customizing rendering in the preview panel
 
 Wagtail provides a `request.in_preview_panel` variable to customize rendering specifically within the preview panel. The `in_preview_panel` attribute indicates that the page is being rendered inside the panel. The live preview panel uses an iframe to display the preview in the editor page. It is help for editors to configure the rendered page so links open outside of the iframe. To achieve this, add a `<base>` tag within your `<head>` element:
