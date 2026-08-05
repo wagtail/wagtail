@@ -12,6 +12,27 @@ from wagtail.models import AbstractPage
 
 Page = swapper.load_model("wagtailcore", "Page")
 
+#: Page's own fields that every concrete page type can accept on creation,
+#: beyond whatever extra fields a model declares through ``api_fields``.
+BASE_PAGE_FIELDS = [
+    "title",
+    "slug",
+]
+for field in ["seo_title", "search_description", "show_in_menus"]:
+    try:
+        Page._meta.get_field(field)
+    except FieldDoesNotExist:
+        pass
+    else:
+        BASE_PAGE_FIELDS.append(field)
+
+BASE_PAGE_READ_FIELDS = BASE_PAGE_FIELDS + [
+    "pk",
+    "first_published_at",
+    "locale",
+]
+BASE_PAGE_READ_FIELDS_SET = set(BASE_PAGE_READ_FIELDS)
+
 
 class SimpleBasePageMetaSchema(Schema):
     type: str | None = None
@@ -66,6 +87,15 @@ class BasePageSchema(SimpleBasePageSchema):
 
 
 class PageMetaSchema(BasePageMetaSchema):
+    if "show_in_menus" in BASE_PAGE_READ_FIELDS_SET:
+        show_in_menus: bool | None = None
+
+    if "seo_title" in BASE_PAGE_READ_FIELDS_SET:
+        seo_title: str | None = None
+
+    if "search_description" in BASE_PAGE_READ_FIELDS_SET:
+        search_description: str | None = None
+
     alias_of: SimpleBasePageSchema | None = None
     parent: SimpleBasePageSchema | None = None
 
@@ -76,27 +106,6 @@ class PageMetaSchema(BasePageMetaSchema):
 
 class PageSchema(BasePageSchema):
     meta: PageMetaSchema
-
-
-#: Page's own fields that every concrete page type can accept on creation,
-#: beyond whatever extra fields a model declares through ``api_fields``.
-BASE_PAGE_FIELDS = [
-    "title",
-    "slug",
-]
-for field in ["seo_title", "search_description", "show_in_menus"]:
-    try:
-        Page._meta.get_field(field)
-    except FieldDoesNotExist:
-        pass
-    else:
-        BASE_PAGE_FIELDS.append(field)
-
-BASE_PAGE_READ_FIELDS = BASE_PAGE_FIELDS + [
-    "pk",
-    "first_published_at",
-    "locale",
-]
 
 
 class PageCreateMetaSchema(Schema):

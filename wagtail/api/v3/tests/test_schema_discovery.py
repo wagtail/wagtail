@@ -1,3 +1,4 @@
+import swapper
 from django.test import TestCase
 from django.urls import reverse
 
@@ -14,6 +15,8 @@ PAGE_READ_META_SCHEMA_FIELDS = {
     "parent",
     "alias_of",
 }
+if not swapper.is_swapped("wagtailcore", "Page"):
+    PAGE_READ_META_SCHEMA_FIELDS |= {"show_in_menus", "seo_title", "search_description"}
 
 
 class TestV3SchemaDiscovery(TestV3Base, TestCase):

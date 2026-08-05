@@ -993,6 +993,10 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
         )
         content = response.json()
 
+        extra_meta = set()
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            extra_meta = {"show_in_menus", "seo_title", "search_description"}
+
         self.assertEqual(
             set(content["meta"].keys()),
             {
@@ -1004,7 +1008,8 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
                 "locale",
                 "parent",
                 "alias_of",
-            },
+            }
+            | extra_meta,
         )
         self.assertEqual(content["meta"]["slug"], blog_index.slug)
         self.assertEqual(content["meta"]["type"], "demosite.BlogIndexPage")
