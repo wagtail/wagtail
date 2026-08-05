@@ -22,8 +22,7 @@ from pydantic import (
 from pydantic_core import PydanticCustomError
 from taggit.managers import TaggableManager
 
-from wagtail.actions.create_page import CreatePageAction
-from wagtail.actions.edit_page import EditPageAction
+from wagtail.actions import action_registry
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -464,7 +463,8 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     model = resolve_model_string(data.meta.type)
     parent = get_object_or_404(Page, id=data.meta.parent_id).specific
     form = build_page_form(model, parent, data, request.user)
-    action = CreatePageAction(
+    action_class = action_registry.get_action_class(model, "create")
+    action = action_class(
         form.instance,
         parent,
         user=request.user,
@@ -492,7 +492,8 @@ def update_page(
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
     form = build_page_update_form(page, data, request.user)
-    action = EditPageAction(
+    action_class = action_registry.get_action_class(model, "edit")
+    action = action_class(
         form.instance,
         user=request.user,
         form=form,
