@@ -560,6 +560,24 @@ class PageCopySchema(Schema):
     slug: Optional[str] = None
     title: Optional[str] = None
 
+    def get_destination(self) -> Page:
+        if self.destination_id is None:
+            return None
+        return get_object_or_404(Page, pk=self.destination_id)
+
+    def get_update_attrs(self, page: Page, destination: Page | None) -> dict:
+        update_attrs = {}
+        if self.slug:
+            update_attrs["slug"] = self.slug
+        else:
+            destination = destination or page.get_parent()
+            available_slug = find_available_slug(destination, page.slug)
+            if available_slug != page.slug:
+                update_attrs["slug"] = available_slug
+        if self.title:
+            update_attrs["title"] = self.title
+        return update_attrs
+
 
 @actions_router.post(
     "/{page_id}/actions/copy/",
@@ -574,22 +592,8 @@ def copy(
     data: PageCopySchema = Body(PageCopySchema()),  # ty: ignore[call-non-callable]
 ):
     page = get_object_or_404(Page, pk=page_id)
-    if data.destination_id is None:
-        destination = page.get_parent()
-    else:
-        destination = get_object_or_404(Page, pk=data.destination_id)
-
-    update_attrs = {}
-    if data.slug:
-        update_attrs["slug"] = data.slug
-    else:
-        available_slug = find_available_slug(destination, page.slug)
-        if available_slug != page.slug:
-            update_attrs["slug"] = available_slug
-
-    if data.title:
-        update_attrs["title"] = data.title
-
+    destination = data.get_destination()
+    update_attrs = data.get_update_attrs(page, destination)
     action_class = action_registry.get_action_class(Page, "copy")
     action = action_class(
         page=page,
@@ -704,6 +708,11 @@ class PageCreateAliasSchema(Schema):
     recursive: bool = False
     update_slug: Optional[str] = None
 
+    def get_destination(self) -> Page | None:
+        if self.destination_id is None:
+            return None
+        return get_object_or_404(Page, pk=self.destination_id)
+
 
 @actions_router.post(
     "/{page_id}/actions/create_alias/",
@@ -718,10 +727,7 @@ def create_alias(
     data: PageCreateAliasSchema = Body(PageCreateAliasSchema()),  # ty: ignore[call-non-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
-    parent = None
-    if data.destination_id is not None:
-        parent = get_object_or_404(Page, pk=data.destination_id)
-
+    parent = data.get_destination()
     action_class = action_registry.get_action_class(Page, "create_alias")
     action = action_class(
         page,
