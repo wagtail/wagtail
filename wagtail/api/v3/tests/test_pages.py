@@ -987,9 +987,9 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAILAPI_BASE_URL="https://api.example.com")
     def test_detail_meta_values(self):
-        homepage = Page.objects.get(id=2).specific
+        blog_index = models.BlogIndexPage.objects.first()
         response = self.client.get(
-            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": homepage.id})
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": blog_index.id})
         )
         content = response.json()
 
@@ -1002,15 +1002,32 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
                 "slug",
                 "first_published_at",
                 "locale",
+                "parent",
+                "alias_of",
             },
         )
-        self.assertEqual(content["meta"]["slug"], homepage.slug)
-        self.assertEqual(content["meta"]["type"], "demosite.HomePage")
+        self.assertEqual(content["meta"]["slug"], blog_index.slug)
+        self.assertEqual(content["meta"]["type"], "demosite.BlogIndexPage")
         self.assertTrue(
             content["meta"]["detail_url"].startswith("https://api.example.com")
         )
-        self.assertIn(f"/api/v3/pages/{homepage.id}/", content["meta"]["detail_url"])
+        self.assertIn(f"/api/v3/pages/{blog_index.id}/", content["meta"]["detail_url"])
         self.assertIsNotNone(content["meta"]["html_url"])
+        parent = blog_index.get_parent()
+        self.assertEqual(
+            content["meta"]["parent"],
+            {
+                "id": parent.id,
+                "meta": {
+                    "type": parent.specific_class._meta.label,
+                    "detail_url": (
+                        f"https://api.example.com/api/v3/pages/{parent.id}/"
+                    ),
+                    "html_url": "http://localhost/",
+                },
+                "title": parent.title,
+            },
+        )
 
     def test_detail_meta_type_uses_specific_class(self):
         blog_entry = models.BlogEntryPage.objects.get(id=16)

@@ -13,49 +13,69 @@ from wagtail.models import AbstractPage
 Page = swapper.load_model("wagtailcore", "Page")
 
 
-class PageMetaSchema(Schema):
+class SimpleBasePageMetaSchema(Schema):
     type: str | None = None
     detail_url: str | None = None
     html_url: str | None = None
+
+    @staticmethod
+    def resolve_type(obj: AbstractPage, context: dict) -> str | None:
+        return (obj.specific_class or Page)._meta.label
+
+    @staticmethod
+    def resolve_detail_url(obj: AbstractPage, context: dict) -> str | None:
+        request = context["request"]
+        try:
+            path = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": obj.pk})
+            return get_full_url(request, path)
+        except NoReverseMatch:
+            return None
+
+    @staticmethod
+    def resolve_html_url(obj: AbstractPage, context: dict) -> str | None:
+        request = context["request"]
+        try:
+            return obj.get_full_url(request)
+        except NoReverseMatch:
+            return None
+
+
+class SimpleBasePageSchema(Schema):
+    id: int
+    title: str
+    meta: SimpleBasePageMetaSchema
+
+    @staticmethod
+    def resolve_meta(obj: AbstractPage, context: dict) -> AbstractPage:
+        # Pass through so resolve_* methods on meta schema works with the page
+        return obj
+
+
+class BasePageMetaSchema(SimpleBasePageMetaSchema):
     locale: str | None = None
     slug: str
     first_published_at: datetime | None = None
 
+    @staticmethod
+    def resolve_locale(obj: AbstractPage, context: dict) -> str | None:
+        return obj.locale.language_code if obj.locale else None
 
-class BasePageSchema(Schema):
-    id: int
-    title: str
-    meta: PageMetaSchema
+
+class BasePageSchema(SimpleBasePageSchema):
+    meta: BasePageMetaSchema
+
+
+class PageMetaSchema(BasePageMetaSchema):
+    alias_of: SimpleBasePageSchema | None = None
+    parent: SimpleBasePageSchema | None = None
 
     @staticmethod
-    def resolve_meta(obj: AbstractPage, context: dict) -> PageMetaSchema:
-        request = context["request"]
+    def resolve_parent(obj: AbstractPage, context: dict) -> AbstractPage | None:
+        return obj.get_parent()
 
-        try:
-            path = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": obj.pk})
-            detail_url = get_full_url(request, path)
-        except NoReverseMatch:
-            detail_url = None
 
-        try:
-            html_url = obj.get_full_url(request)
-        except NoReverseMatch:
-            html_url = None
-
-        return PageMetaSchema(
-            # specific_class reflects obj's real content type even when obj
-            # itself hasn't been upcast via .specific (e.g. in a listing).
-            # If the content type's model class is missing entirely,
-            # specific_class is None - get_specific() would then fall back
-            # to returning the page as a plain Page instance, so Page's own
-            # label is the correct fallback here too, rather than None.
-            type=(obj.specific_class or Page)._meta.label,
-            detail_url=detail_url,
-            html_url=html_url,
-            locale=obj.locale and obj.locale.language_code,
-            slug=obj.slug,
-            first_published_at=obj.first_published_at,
-        )
+class PageSchema(BasePageSchema):
+    meta: PageMetaSchema
 
 
 #: Page's own fields that every concrete page type can accept on creation,

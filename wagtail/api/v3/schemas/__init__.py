@@ -12,6 +12,7 @@ from .pages import (
     PageCreateBaseSchema,
     PageCreateMetaSchema,
     PageMetaSchema,
+    PageSchema,
     PageUpdateBaseSchema,
     PageUpdateMetaSchema,
 )
@@ -28,6 +29,7 @@ __all__ = [
     "create_generator",
     "patch_generator",
     "BasePageSchema",
+    "PageSchema",
     "PageCreateBaseSchema",
     "PageCreateMetaSchema",
     "PageMetaSchema",
