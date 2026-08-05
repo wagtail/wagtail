@@ -98,6 +98,16 @@
       },
       "AddedStreamFieldWithEmptyListDefaultPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -142,6 +152,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -377,6 +397,16 @@
       },
       "AddedStreamFieldWithEmptyStringDefaultPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -421,6 +451,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -656,6 +696,16 @@
       },
       "AddedStreamFieldWithoutDefaultPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -700,6 +750,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -935,6 +995,16 @@
       },
       "AlwaysShowInMenusPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -979,6 +1049,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -1117,6 +1197,73 @@
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
+      "BasePageMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["slug"],
+        "title": "BasePageMetaSchema",
+        "type": "object"
+      },
       "BasePageSchema": {
         "properties": {
           "id": {
@@ -1124,7 +1271,7 @@
             "type": "integer"
           },
           "meta": {
-            "$ref": "#/components/schemas/PageMetaSchema"
+            "$ref": "#/components/schemas/BasePageMetaSchema"
           },
           "title": {
             "title": "Title",
@@ -1533,6 +1680,16 @@
       },
       "BlogEntryPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -1577,6 +1734,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -2097,6 +2264,16 @@
       },
       "BlogIndexPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -2141,6 +2318,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -2468,6 +2655,16 @@
       },
       "BusinessChildMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -2512,6 +2709,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -2747,6 +2954,16 @@
       },
       "BusinessIndexMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -2791,6 +3008,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -3026,6 +3253,16 @@
       },
       "BusinessNowherePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -3070,6 +3307,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -3305,6 +3552,16 @@
       },
       "BusinessSubIndexMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -3349,6 +3606,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -3584,6 +3851,16 @@
       },
       "CommentableJSONPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -3628,6 +3905,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -3863,6 +4150,16 @@
       },
       "ComplexDefaultStreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -3907,6 +4204,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -4142,6 +4449,16 @@
       },
       "ContactPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -4186,6 +4503,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -4555,6 +4882,16 @@
       },
       "CustomCopyFormPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -4599,6 +4936,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -4834,6 +5181,16 @@
       },
       "CustomManagerPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -4878,6 +5235,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -5113,6 +5480,16 @@
       },
       "CustomPermissionPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -5157,6 +5534,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -5392,6 +5779,16 @@
       },
       "CustomPreviewSizesPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -5436,6 +5833,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -5671,6 +6078,16 @@
       },
       "CustomRichBlockFieldPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -5715,6 +6132,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -5950,6 +6377,16 @@
       },
       "CustomRichTextFieldPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -5994,6 +6431,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -6229,6 +6676,16 @@
       },
       "DeadlyStreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -6273,6 +6730,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -6508,6 +6975,16 @@
       },
       "DefaultRichBlockFieldPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -6552,6 +7029,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -6787,6 +7274,16 @@
       },
       "DefaultRichTextFieldPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -6831,6 +7328,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -7066,6 +7573,16 @@
       },
       "DefaultStreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -7110,6 +7627,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -7378,6 +7905,16 @@
       },
       "EarlyPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -7422,6 +7959,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -7657,6 +8204,16 @@
       },
       "EventIndexMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -7701,6 +8258,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -7813,6 +8380,16 @@
       },
       "EventIndexPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -7857,6 +8434,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -8983,6 +9570,16 @@
       },
       "FilePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -9027,6 +9624,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -9262,6 +9869,16 @@
       },
       "FormClassAdditionalFieldPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -9306,6 +9923,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -9640,6 +10267,16 @@
       },
       "FormPageWithCustomFormBuilderMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -9684,6 +10321,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -10014,6 +10661,16 @@
       },
       "FormPageWithCustomSubmissionListViewMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -10058,6 +10715,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -10198,6 +10865,16 @@
       },
       "FormPageWithCustomSubmissionMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -10242,6 +10919,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -10477,6 +11164,16 @@
       },
       "FormPageWithRedirectMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -10521,6 +11218,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -10756,6 +11463,16 @@
       },
       "GalleryPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -10800,6 +11517,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -11035,6 +11762,16 @@
       },
       "GenericSnippetNoFieldIndexPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -11079,6 +11816,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -11314,6 +12061,16 @@
       },
       "GenericSnippetNoIndexPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -11358,6 +12115,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -11593,6 +12360,16 @@
       },
       "GenericSnippetPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -11637,6 +12414,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -12156,6 +12943,16 @@
       },
       "HomePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -12200,6 +12997,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -12703,6 +13510,16 @@
       },
       "InlineStreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -12747,6 +13564,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -13000,6 +13827,16 @@
       },
       "JadeFormPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -13044,6 +13881,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -13279,6 +14126,16 @@
       },
       "MTIBasePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -13323,6 +14180,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -13558,6 +14425,16 @@
       },
       "MTIChildPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -13602,6 +14479,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -13837,6 +14724,16 @@
       },
       "ManyToManyBlogPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -13881,6 +14778,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -14116,6 +15023,16 @@
       },
       "MultiPreviewModesPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -14160,6 +15077,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -14395,6 +15322,16 @@
       },
       "MyCustomPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -14439,6 +15376,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -14674,6 +15621,16 @@
       },
       "NoCreatableSubpageTypesPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -14718,6 +15675,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -14953,6 +15920,16 @@
       },
       "NoPromotePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -14997,6 +15974,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -15232,6 +16219,16 @@
       },
       "NoSubpageTypesPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -15276,6 +16273,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -15511,6 +16518,16 @@
       },
       "OneToOnePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -15555,6 +16572,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -16123,73 +17150,6 @@
         "title": "PageForeignKeySchema",
         "type": "object"
       },
-      "PageMetaSchema": {
-        "properties": {
-          "detail_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Detail Url"
-          },
-          "first_published_at": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "First Published At"
-          },
-          "html_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Html Url"
-          },
-          "locale": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Locale"
-          },
-          "slug": {
-            "title": "Slug",
-            "type": "string"
-          },
-          "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Type"
-          }
-        },
-        "required": ["slug"],
-        "title": "PageMetaSchema",
-        "type": "object"
-      },
       "PageMoveSchema": {
         "properties": {
           "destination_id": {
@@ -16471,6 +17431,16 @@
       },
       "PageWithExcludedCopyFieldMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -16515,6 +17485,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -16750,6 +17730,16 @@
       },
       "PageWithGenericRelationMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -16794,6 +17784,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -17029,6 +18029,16 @@
       },
       "PageWithOldStyleRouteMethodMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -17073,6 +18083,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -17435,6 +18455,16 @@
       },
       "PromotionalPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -17479,6 +18509,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -17837,6 +18877,16 @@
       },
       "RequiredDatePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -17881,6 +18931,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -18116,6 +19176,16 @@
       },
       "RestaurantPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -18160,6 +19230,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -18395,6 +19475,16 @@
       },
       "RichTextFieldWithFeaturesPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -18439,6 +19529,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -18674,6 +19774,16 @@
       },
       "RoutablePageTestMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -18718,6 +19828,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -18953,6 +20073,16 @@
       },
       "RoutablePageWithOverriddenIndexRouteTestMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -18997,6 +20127,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -19232,6 +20372,16 @@
       },
       "SamplePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -19276,6 +20426,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -19582,6 +20742,16 @@
       },
       "SecretPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -19626,6 +20796,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -19861,6 +21041,16 @@
       },
       "SectionedRichTextPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -19905,6 +21095,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -20043,6 +21243,63 @@
         "title": "SectionedRichTextPageSchema",
         "type": "object"
       },
+      "SimpleBasePageMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "title": "SimpleBasePageMetaSchema",
+        "type": "object"
+      },
+      "SimpleBasePageSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SimpleBasePageMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "meta"],
+        "title": "SimpleBasePageSchema",
+        "type": "object"
+      },
       "SimpleChildPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -20140,6 +21397,16 @@
       },
       "SimpleChildPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -20184,6 +21451,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -20419,6 +21696,16 @@
       },
       "SimplePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -20463,6 +21750,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -20698,6 +21995,16 @@
       },
       "SimpleParentPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -20742,6 +22049,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -20977,6 +22294,16 @@
       },
       "SingleEventPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -21021,6 +22348,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -21256,6 +22593,16 @@
       },
       "SingletonPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -21300,6 +22647,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -21535,6 +22892,16 @@
       },
       "SingletonPageViaMaxCountMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -21579,6 +22946,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -21882,6 +23259,16 @@
       },
       "StandardChildMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -21926,6 +23313,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -22161,6 +23558,16 @@
       },
       "StandardIndexMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -22205,6 +23612,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -22317,6 +23734,16 @@
       },
       "StandardIndexPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -22361,6 +23788,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -22921,6 +24358,16 @@
       },
       "StandardPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -22965,6 +24412,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -23327,6 +24784,16 @@
       },
       "StreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -23371,6 +24838,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -23618,6 +25095,16 @@
       },
       "TableBlockStreamPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -23662,6 +25149,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -23897,6 +25394,16 @@
       },
       "TaggedChildPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -23941,6 +25448,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -24176,6 +25693,16 @@
       },
       "TaggedGrandchildPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -24220,6 +25747,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -24455,6 +25992,16 @@
       },
       "TaggedPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -24499,6 +26046,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -24734,6 +26291,16 @@
       },
       "TestPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -24778,6 +26345,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -25013,6 +26590,16 @@
       },
       "ValidatedPageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -25057,6 +26644,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -25508,6 +27105,16 @@
       },
       "abc__EventPageMetaSchema__1": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -25552,6 +27159,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -25569,6 +27186,16 @@
       },
       "abc__EventPageMetaSchema__2": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -25613,6 +27240,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -26326,6 +27963,16 @@
       },
       "abc__FormPageMetaSchema__1": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -26370,6 +28017,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -26387,6 +28044,16 @@
       },
       "abc__FormPageMetaSchema__2": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -26431,6 +28098,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -26702,6 +28379,16 @@
       },
       "abc__PageMetaSchema__1": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -26746,6 +28433,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -26965,6 +28662,16 @@
       },
       "abc__PersonPageMetaSchema__1": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -27009,6 +28716,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",
@@ -27026,6 +28743,16 @@
       },
       "abc__PersonPageMetaSchema__2": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -27070,6 +28797,16 @@
               }
             ],
             "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "slug": {
             "title": "Slug",

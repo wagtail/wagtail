@@ -11,6 +11,8 @@ PAGE_READ_META_SCHEMA_FIELDS = {
     "slug",
     "first_published_at",
     "locale",
+    "parent",
+    "alias_of",
 }
 
 
