@@ -36,10 +36,11 @@ class TestServeView(TestCase):
         self.document.file.delete()
         self.pdf_document.file.delete()
 
-    def get(self, document=None):
+    def get(self, document=None, headers=None):
         document = document or self.document
         self.response = self.client.get(
-            reverse("wagtaildocs_serve", args=(document.id, document.filename))
+            reverse("wagtaildocs_serve", args=(document.id, document.filename)),
+            headers=headers,
         )
         return self.response
 
@@ -78,6 +79,7 @@ class TestServeView(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -109,6 +111,7 @@ class TestServeView(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -169,6 +172,48 @@ class TestServeView(TestCase):
 
     def test_has_etag_header(self):
         self.assertEqual(self.get()["ETag"], '"123456"')
+
+    def test_respects_if_match_header(self):
+        self.assertEqual(
+            self.get(headers={"If-Match": '"123456"'}).status_code, 200
+        )  # ETag matches
+
+        self.assertEqual(
+            self.get(headers={"If-Match": '"654321"'}).status_code, 412
+        )  # ETag does not match
+
+    def test_respects_if_none_match_header(self):
+        self.assertEqual(
+            self.get(headers={"If-None-Match": '"123456"'}).status_code, 304
+        )  # ETag matches
+
+        self.assertEqual(
+            self.get(headers={"If-None-Match": '"654321"'}).status_code, 200
+        )  # ETag does not match
+
+    def test_ignores_if_match_header_with_incorrect_filename(self):
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-Match": '"123456"'},
+        )
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-Match": '"654321"'},
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_ignores_if_none_match_header_with_incorrect_filename(self):
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-None-Match": '"123456"'},
+        )
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-None-Match": '"654321"'},
+        )
+        self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -397,6 +442,7 @@ class TestServeWithUnicodeFilename(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks

@@ -28,16 +28,17 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         )
         self.event_editors_group = Group.objects.get(name="Event editors")
 
-    def get_document(self, collection):
+    def get_document(self, collection, headers=None):
         secret_document = Document.objects.create(
             title="Test document",
             file=self.fake_file,
             collection=collection,
+            file_hash="123456",
         )
         url = reverse(
             "wagtaildocs_serve", args=(secret_document.id, secret_document.filename)
         )
-        response = self.client.get(url)
+        response = self.client.get(url, headers=headers)
         return response, quote(url)
 
     def test_anonymous_user_must_authenticate(self):
@@ -132,6 +133,27 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     def test_group_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.group_collection)
         self.assertRedirects(response, f"/_util/login/?next={url}")
+        self.assertNotIn("ETag", response.headers)
+
+    def test_unauthenticated_response_ignores_if_match_header(self):
+        response, url = self.get_document(
+            self.group_collection, headers={"If-Match": '"123456"'}
+        )
+        self.assertRedirects(response, f"/_util/login/?next={url}")
+        response, url = self.get_document(
+            self.group_collection, headers={"If-Match": '"654321"'}
+        )
+        self.assertRedirects(response, f"/_util/login/?next={url}")
+
+    def test_unauthenticated_response_ignores_if_none_match_header(self):
+        response, url = self.get_document(
+            self.group_collection, headers={"If-None-Match": '"123456"'}
+        )
+        self.assertRedirects(response, f"/_util/login/?next={url}")
+        response, url = self.get_document(
+            self.group_collection, headers={"If-None-Match": '"654321"'}
+        )
+        self.assertRedirects(response, f"/_util/login/?next={url}")
 
     def test_group_restriction_with_unpermitted_user(self):
         self.login(username="eventmoderator", password="password")
@@ -141,6 +163,29 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     def test_group_restriction_with_permitted_user(self):
         self.login(username="eventeditor", password="password")
         response, url = self.get_document(self.group_collection)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers["ETag"], '"123456"')
+
+    def test_authenticated_response_respects_if_match_header(self):
+        self.login(username="eventeditor", password="password")
+        response, url = self.get_document(
+            self.group_collection, headers={"If-Match": '"123456"'}
+        )
+        self.assertEqual(response.status_code, 200)
+        response, url = self.get_document(
+            self.group_collection, headers={"If-Match": '"654321"'}
+        )
+        self.assertEqual(response.status_code, 412)
+
+    def test_authenticated_response_respects_if_none_match_header(self):
+        self.login(username="eventeditor", password="password")
+        response, url = self.get_document(
+            self.group_collection, headers={"If-None-Match": '"123456"'}
+        )
+        self.assertEqual(response.status_code, 304)
+        response, url = self.get_document(
+            self.group_collection, headers={"If-None-Match": '"654321"'}
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_group_restriction_with_superuser(self):
