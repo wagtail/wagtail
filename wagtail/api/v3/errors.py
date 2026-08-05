@@ -8,7 +8,9 @@ from ninja import NinjaAPI, Schema
 from ninja.errors import HttpError
 from ninja.errors import ValidationError as NinjaValidationError
 from pydantic import ValidationError as PydanticValidationError
+from pydantic_core import PydanticCustomError
 
+from wagtail.coreutils import camelcase_to_underscore
 from wagtail.utils.forms import FormValidationError
 
 PROBLEM_JSON = "application/problem+json"
@@ -20,6 +22,34 @@ def _status_title(status: int) -> str:
         return HTTPStatus(status).phrase
     except ValueError:
         return "Error"
+
+
+def as_validation_error(
+    exc: Exception,
+    message: str | None = None,
+    loc=(),
+) -> PydanticValidationError:
+    """
+    Adapt a domain error into a Pydantic validation error (HTTP 422).
+
+    Useful for converting exceptions raised in code that is normally caught
+    via other mechanisms e.g. Django form validation or prevented by normal
+    user interface.
+    """
+    return PydanticValidationError.from_exception_data(
+        "Validation error",
+        [
+            {
+                "type": PydanticCustomError(
+                    camelcase_to_underscore(exc.__class__.__name__),
+                    message or str(exc),  # type: ignore (LiteralString requirement)
+                ),
+                "loc": loc,
+                "input": None,
+            }
+        ],
+        hide_input=True,
+    )
 
 
 class ProblemDetail(Schema):
