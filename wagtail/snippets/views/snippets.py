@@ -48,7 +48,11 @@ from wagtail.models import (
 )
 from wagtail.permissions import policy_registry
 from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
+from wagtail.snippets.models import (
+    SNIPPET_MODELS,
+    SnippetAdminURLFinder,
+    get_snippet_models,
+)
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.utils.decorators import cached_classmethod
@@ -1239,13 +1243,15 @@ class SnippetViewSet(ModelViewSet):
         checks.register(snippets_model_check, "panels")
 
     def register_snippet_model(self):
-        snippet_models = get_snippet_models()
-        if self.model in snippet_models:
+        # Do not use get_snippet_models here to avoid searching for hooks. We
+        # only care if the model is already registered, not any other models
+        # that may be registered later.
+        if self.model in SNIPPET_MODELS:
             raise ImproperlyConfigured(
                 f"The {self.model.__name__} model is already registered as a snippet"
             )
-        snippet_models.append(self.model)
-        snippet_models.sort(key=lambda x: x._meta.verbose_name)
+        SNIPPET_MODELS.append(self.model)
+        SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
 
     def attach_model_edit_handler(self):
         @cached_classmethod
