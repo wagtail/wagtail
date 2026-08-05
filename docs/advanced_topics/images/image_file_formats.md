@@ -16,8 +16,9 @@ Wagtail provides the [`picture` template tag](multiple_formats) to render a [pic
 
 ### Customizing output formats
 
-By default, all `avif`, `bmp` and `webp` images are converted to the `png` format
-when no image output format is given, and `heic` images are converted to `jpeg`.
+By default, `bmp` images are converted to the `png` format and `heic` images
+are converted to `jpeg` when no image output format is given. `avif` and `webp`
+images are served as-is, as these formats are widely supported by browsers.
 
 The default conversion mapping can be changed by setting the
 `WAGTAILIMAGES_FORMAT_CONVERSIONS` to a dictionary, which maps the input type
@@ -27,11 +28,10 @@ For example:
 
 ```python
     WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-        'avif': 'avif',
+        'avif': 'png',
         'bmp': 'jpeg',
-        'webp': 'webp',
+        'webp': 'png',
     }
 ```
 
-will convert `bmp` images to `jpeg` and disable the default `avif` and `webp`
-to `png` conversion.
+will convert `avif` and `webp` images to `png` and `bmp` images to `jpeg`.
