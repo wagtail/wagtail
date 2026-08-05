@@ -706,12 +706,17 @@ def convert_alias(request: HttpRequest, page_id: PositiveInt):
 class PageCreateAliasSchema(Schema):
     destination_id: Optional[PositiveInt] = None
     recursive: bool = False
-    update_slug: Optional[str] = None
+    slug: Optional[str] = None
 
     def get_destination(self) -> Page | None:
         if self.destination_id is None:
             return None
         return get_object_or_404(Page, pk=self.destination_id)
+
+    def get_update_slug(self, page: Page, destination: Page | None) -> str:
+        if self.slug:
+            return self.slug
+        return find_available_slug(destination or page.get_parent(), page.slug)
 
 
 @actions_router.post(
@@ -727,13 +732,13 @@ def create_alias(
     data: PageCreateAliasSchema = Body(PageCreateAliasSchema()),  # ty: ignore[call-non-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
-    parent = data.get_destination()
+    destination = data.get_destination()
     action_class = action_registry.get_action_class(Page, "create_alias")
     action = action_class(
         page,
         recursive=data.recursive,
-        parent=parent,
-        update_slug=data.update_slug,
+        parent=destination,
+        update_slug=data.get_update_slug(page, destination),
         user=request.user,
     )
     try:

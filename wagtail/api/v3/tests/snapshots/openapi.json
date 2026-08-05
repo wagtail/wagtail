@@ -15810,7 +15810,7 @@
             "title": "Recursive",
             "type": "boolean"
           },
-          "update_slug": {
+          "slug": {
             "anyOf": [
               {
                 "type": "string"
@@ -15819,7 +15819,7 @@
                 "type": "null"
               }
             ],
-            "title": "Update Slug"
+            "title": "Slug"
           }
         },
         "title": "PageCreateAliasSchema",
@@ -30395,7 +30395,7 @@
                 "default": {
                   "destination_id": null,
                   "recursive": false,
-                  "update_slug": null
+                  "slug": null
                 }
               }
             }

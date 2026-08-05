@@ -806,9 +806,7 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
                     self.home_page, title="Src", slug=f"src-{i}", owner=owner
                 )
 
-                response = self.post(
-                    page, {"update_slug": f"alias-{i}", **extra_payload}
-                )
+                response = self.post(page, extra_payload)
 
                 self.assertEqual(response.status_code, expected_status)
                 if expected_status == 201:
@@ -819,10 +817,18 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
     def test_create_alias_defaults_to_sibling_of_source(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
-        response = self.post(page, {"update_slug": "src-alias"})
+        response = self.post(page)
         self.assertEqual(response.status_code, 201)
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.get_parent().pk, self.home_page.pk)
+
+    def test_create_alias_finds_available_slug(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        response = self.post(page)
+        self.assertEqual(response.status_code, 201)
+        new_page = Page.objects.get(pk=response.json()["id"])
+        self.assertNotEqual(new_page.slug, "src")
 
     def test_create_alias_under_destination(self):
         self.login()
@@ -834,20 +840,21 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
         self.assertEqual(response.status_code, 201)
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.get_parent().pk, destination.pk)
+        self.assertEqual(new_page.slug, "src")
 
     def test_create_alias_recursive_includes_descendants(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
         self.add_simple_page(page, title="Child", slug="child")
-        response = self.post(page, {"recursive": True, "update_slug": "src-alias"})
+        response = self.post(page, {"recursive": True})
         self.assertEqual(response.status_code, 201)
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.get_children().count(), 1)
 
-    def test_create_alias_update_slug(self):
+    def test_create_alias_slug_override(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
-        response = self.post(page, {"update_slug": "custom-alias-slug"})
+        response = self.post(page, {"slug": "custom-alias-slug"})
         self.assertEqual(response.status_code, 201)
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.slug, "custom-alias-slug")
