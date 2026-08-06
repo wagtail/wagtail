@@ -52,6 +52,10 @@ class ContentTypeRegistry:
             for reg in self._registry.values()
         ]
 
+    def has(self, name: str) -> bool:
+        """Return ``True`` if ``name`` is registered, ``False`` otherwise."""
+        return name in self._registry
+
     def get(self, name: str) -> ContentTypeRegistration | None:
         """Return the registration for ``name``, or ``None`` if unknown."""
         return self._registry.get(name)

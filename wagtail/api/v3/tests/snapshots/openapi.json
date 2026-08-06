@@ -997,6 +997,179 @@
         "title": "AddedStreamFieldWithoutDefaultPageSchema",
         "type": "object"
       },
+      "AdvertCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.Advert",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertCreateMetaSchema",
+        "type": "object"
+      },
+      "AdvertCreateSchema": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/AdvertCreateMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertCreateSchema",
+        "type": "object"
+      },
+      "AdvertMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.Advert",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertMetaSchema",
+        "type": "object"
+      },
+      "AdvertPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.Advert",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertPatchMetaSchema",
+        "type": "object"
+      },
+      "AdvertPatchSchema": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/AdvertPatchMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta"],
+        "title": "AdvertPatchSchema",
+        "type": "object"
+      },
+      "AdvertSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertSchema",
+        "type": "object"
+      },
       "AlwaysShowInMenusPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -12422,6 +12595,195 @@
         "title": "FormPageWithRedirectSchema",
         "type": "object"
       },
+      "FullFeaturedSnippetCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.FullFeaturedSnippet",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetCreateMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetCreateSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/FullFeaturedSnippetCreateMetaSchema"
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "FullFeaturedSnippetCreateSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.FullFeaturedSnippet",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.FullFeaturedSnippet",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetPatchMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetPatchSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/FullFeaturedSnippetPatchMetaSchema"
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "required": ["meta"],
+        "title": "FullFeaturedSnippetPatchSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/FullFeaturedSnippetMetaSchema"
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "FullFeaturedSnippetSchema",
+        "type": "object"
+      },
       "GalleryPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -19912,6 +20274,34 @@
         },
         "required": ["meta", "id", "title"],
         "title": "PageWithOldStyleRouteMethodSchema",
+        "type": "object"
+      },
+      "PagedAnnotated": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AdvertSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                }
+              ]
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedAnnotated",
         "type": "object"
       },
       "PagedBasePageSchema": {
@@ -29001,6 +29391,414 @@
         "title": "TestPageSchema",
         "type": "object"
       },
+      "UUIDSnippetWithRelationsCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.UUIDSnippetWithRelations",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsCreateMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsCreateSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "feed_image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsCreateMetaSchema"
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionCreateSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "UUIDSnippetWithRelationsCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.UUIDSnippetWithRelations",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.UUIDSnippetWithRelations",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsPatchMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsPatchSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "feed_image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsPatchMetaSchema"
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionPatchSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "required": ["meta"],
+        "title": "UUIDSnippetWithRelationsPatchSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "display_text": {
+            "title": "Display Text"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsMetaSchema"
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "subtitle": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtitle"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "UUIDSnippetWithRelationsSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionCreateSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsSectionCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.UUIDSnippetWithRelationsSection",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsSectionMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionPatchSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsSectionPatchSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "internal_note": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Internal Note"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "UUIDSnippetWithRelationsSectionSchema",
+        "type": "object"
+      },
       "ValidatedPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -36772,6 +37570,292 @@
         },
         "summary": "Update site",
         "tags": ["sites"]
+      }
+    },
+    "/api/v3/snippets/{type}/": {
+      "get": {
+        "operationId": "snippets_list",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedAnnotated"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List snippets",
+        "tags": ["snippets"]
+      },
+      "post": {
+        "operationId": "snippets_create",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AdvertCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/FullFeaturedSnippetCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UUIDSnippetWithRelationsCreateSchema"
+                  }
+                ],
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create snippet",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/": {
+      "delete": {
+        "operationId": "snippets_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete snippet",
+        "tags": ["snippets"]
+      },
+      "get": {
+        "operationId": "snippets_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Snippet detail",
+        "tags": ["snippets"]
+      },
+      "patch": {
+        "operationId": "snippets_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AdvertPatchSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/FullFeaturedSnippetPatchSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UUIDSnippetWithRelationsPatchSchema"
+                  }
+                ],
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update snippet",
+        "tags": ["snippets"]
       }
     }
   },
