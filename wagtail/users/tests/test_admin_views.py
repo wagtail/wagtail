@@ -48,6 +48,7 @@ from wagtail.utils.deprecation import RemovedInWagtail80Warning
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
+view_user_perm_codename = f"view_{AUTH_USER_MODEL_NAME.lower()}"
 
 User = get_user_model()
 
@@ -1461,6 +1462,10 @@ class TestUserCopyView(WagtailTestUtils, TestCase):
             Permission.objects.get(
                 content_type__app_label=AUTH_USER_APP_LABEL,
                 codename=add_user_perm_codename,
+            ),
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename=view_user_perm_codename,
             ),
         )
 
