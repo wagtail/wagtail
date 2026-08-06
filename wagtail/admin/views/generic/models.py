@@ -768,9 +768,17 @@ class CreateView(
 
 class CopyViewMixin:
     def get_object(self, queryset=None):
-        return get_object_or_404(
+        obj = get_object_or_404(
             self.model, pk=unquote(str(self.kwargs[self.pk_url_kwarg]))
         )
+        if (
+            self.permission_policy
+            and not self.permission_policy.user_has_any_permission_for_instance(
+                self.request.user, ["change", "view"], obj
+            )
+        ):
+            raise PermissionDenied
+        return obj
 
     def get_initial_form_instance(self):
         return self.get_object()
