@@ -495,69 +495,39 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assert_problem_response(response, status_code=404)
 
-    def test_missing_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_not_found",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-
-    def test_unknown_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk, "type": "not.AType"},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        content = self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_invalid",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-        error = content["errors"][0]
-        self.assertIn("'not.AType'", error["msg"])
-
-    def test_non_page_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk, "type": "auth.User"},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        content = self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_invalid",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-        error = content["errors"][0]
-        self.assertIn("'auth.User'", error["msg"])
+    def test_malformed_meta_type_returns_422(self):
+        problem_metas = [
+            (123, "123"),
+            ("not a dict", "not a dict"),
+            (["not", "a", "dict"], "['not', 'a', 'dict']"),
+            ({"type": 123}, "123"),
+            ({"type": ["not", "a", "string"]}, "['not', 'a', 'string']"),
+            ({"parent_id": self.root_page.pk}, ""),
+            ({"parent_id": self.root_page.pk, "type": 123}, "123"),
+            (
+                {"parent_id": self.root_page.pk, "type": ["not", "a", "string"]},
+                "['not', 'a', 'string']",
+            ),
+            ({"parent_id": self.root_page.pk, "type": "not.AType"}, "not.AType"),
+            ({"parent_id": self.root_page.pk, "type": "auth.User"}, "auth.User"),
+        ]
+        for meta, extracted in problem_metas:
+            with self.subTest(meta=meta):
+                data = {"meta": meta, "title": "New page", "slug": "new-page"}
+                response = self.post(data)
+                data = self.assert_problem_response(
+                    response,
+                    status_code=422,
+                    detail_contains="Validation failed",
+                    errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
+                )
+                self.assertEqual(len(data["errors"]), 1)
+                self.assertIn(
+                    f"Input tag '{extracted}' found using "
+                    "discriminate_meta_type() does not match any of the expected "
+                    "tags: ",
+                    data["errors"][0]["msg"],
+                )
 
     def test_user_without_add_permission_gets_403(self):
         self.create_user(username="noperms", password="password")
