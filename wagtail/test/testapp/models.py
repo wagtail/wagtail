@@ -96,7 +96,11 @@ else:
 
 from ...locks import WorkflowLock
 from .fields import CommentableJSONField
-from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
+from .forms import (
+    FormClassAdditionalFieldPageForm,
+    UUIDSnippetWithRelationsAPIForm,
+    ValidatedPageForm,
+)
 
 EVENT_AUDIENCE_CHOICES = (
     ("public", _("Public")),
@@ -1092,6 +1096,12 @@ class Advert(ClusterableModel):
         FieldPanel("tags"),
     ]
 
+    api_fields = (
+        APIField("url", writable=True),
+        APIField("text", writable=True),
+        APIField("tags", writable=True),
+    )
+
     def __str__(self):
         return self.text
 
@@ -1137,6 +1147,97 @@ class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
 
 
 register_snippet(AdvertWithCustomUUIDPrimaryKey)
+
+
+class UUIDSnippetWithRelationsSection(models.Model):
+    snippet = ParentalKey(
+        "UUIDSnippetWithRelations", related_name="sections", on_delete=models.CASCADE
+    )
+    caption = models.CharField(max_length=255, blank=True)
+    link_external = models.URLField(blank=True)
+    link_document = models.ForeignKey(
+        "wagtaildocs.Document", null=True, blank=True, on_delete=models.CASCADE
+    )
+    internal_note = models.CharField(max_length=255, blank=True)
+
+    def clean(self):
+        if not self.link_external and not self.link_document:
+            raise ValidationError(
+                "You must provide a related document or an external URL"
+            )
+
+    api_fields = (
+        APIField("caption", writable=True),
+        APIField("link_external", writable=True),
+        APIField("link_document", writable=True),
+        APIField("internal_note"),  # listed but not writable
+    )
+
+    panels = [
+        FieldPanel("caption"),
+        FieldPanel("link_external"),
+        FieldPanel("link_document"),
+    ]
+
+
+class UUIDSnippetWithRelations(index.Indexed, ClusterableModel):
+    """FK, StreamField, rich text, and child-relation coverage, with a UUID PK."""
+
+    api_base_form_class = UUIDSnippetWithRelationsAPIForm
+
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    text = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255, blank=True)
+    intro = models.CharField(max_length=255, blank=True)
+    rich_body = RichTextField(blank=True)
+    feed_image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        blank=True,
+    )
+
+    @property
+    def display_text(self):
+        return f"{self.text} ({self.subtitle})" if self.subtitle else self.text
+
+    # `intro` is a real field deliberately left out of api_fields entirely.
+    api_fields = (
+        APIField("text", writable=True),
+        APIField("subtitle"),  # listed but not writable
+        APIField("display_text"),  # a property, not a real field
+        APIField("rich_body", writable=True),
+        APIField("feed_image", writable=True),
+        APIField("body", writable=True),
+        APIField("sections", writable=True),
+    )
+
+    panels = [
+        FieldPanel("text"),
+        FieldPanel("subtitle"),
+        FieldPanel("rich_body"),
+        FieldPanel("feed_image"),
+        FieldPanel("body"),
+        InlinePanel("sections", label="section"),
+    ]
+
+    search_fields = [
+        index.SearchField("text"),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(UUIDSnippetWithRelations)
 
 
 class AdvertWithTabbedInterface(models.Model):
@@ -1369,6 +1470,12 @@ class FullFeaturedSnippet(
     )
 
     panels = ["text", "country_code", "some_number"]
+
+    api_fields = (
+        APIField("text", writable=True),
+        APIField("country_code", writable=True),
+        APIField("some_number", writable=True),
+    )
 
     search_fields = [
         index.SearchField("text"),
