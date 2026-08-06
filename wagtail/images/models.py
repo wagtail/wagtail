@@ -1080,11 +1080,9 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert avif, bmp and webp to png, and heic to jpg, by default
+                # Convert bmp to png, and heic to jpg, by default
                 default_conversions = {
-                    "avif": "png",
                     "bmp": "png",
-                    "webp": "png",
                     "heic": "jpeg",
                 }
 
