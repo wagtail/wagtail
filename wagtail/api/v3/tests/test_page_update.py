@@ -534,33 +534,50 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page.refresh_from_db()
         self.assertEqual(page.title, "New title")
 
-    def test_non_page_type_returns_422(self):
+    def test_falsy_meta_type_defaults_to_pages_own_type(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
         )
-        user_type = self.user._meta.label
-        response = self.patch(
-            page,
-            {
-                "meta": {"type": user_type},
-                "title": "New title",
-            },
-        )
-        data = self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
-        )
-        self.assertEqual(len(data["errors"]), 1)
-        self.assertIn(
-            f"Input tag '{user_type}' found using discriminate_schema() does "
-            "not match any of the expected tags: ",
-            data["errors"][0]["msg"],
-        )
-        self.assertIn("demosite.BlogIndexPage", data["errors"][0]["msg"])
+        falsy_values = [None, "", 0, [], {}]
+        falsy_metas = falsy_values + [{"type": value} for value in falsy_values]
+        for meta in falsy_metas:
+            with self.subTest(meta=meta):
+                response = self.patch(page, {"meta": meta, "title": "New title"})
+                self.assertEqual(response.status_code, 200)
+                page.refresh_from_db()
+                self.assertEqual(page.title, "New title")
 
-    def test_page_type_mismatch_returns_422(self):
+    def test_malformed_meta_type_returns_422(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        problem_metas = [
+            (123, "123"),
+            ("not a dict", "not a dict"),
+            (["not", "a", "dict"], "['not', 'a', 'dict']"),
+            ({"type": 123}, "123"),
+            ({"type": ["not", "a", "string"]}, "['not', 'a', 'string']"),
+            ({"type": self.user._meta.label}, self.user._meta.label),
+        ]
+        for meta, extracted in problem_metas:
+            with self.subTest(meta=meta):
+                response = self.patch(page, {"meta": meta, "title": "New title"})
+                data = self.assert_problem_response(
+                    response,
+                    status_code=422,
+                    detail_contains="Validation failed",
+                    errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
+                )
+                self.assertEqual(len(data["errors"]), 1)
+                self.assertIn(
+                    f"Input tag '{extracted}' found using "
+                    "discriminate_meta_type() does not match any of the expected "
+                    "tags: ",
+                    data["errors"][0]["msg"],
+                )
+                self.assertIn("demosite.BlogIndexPage", data["errors"][0]["msg"])
+
+    def test_page_type_mismatch_returns_404(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
         )
