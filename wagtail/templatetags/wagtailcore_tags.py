@@ -111,7 +111,7 @@ def wagtail_feature_release_whats_new_link():
 def wagtail_feature_release_editor_guide_link():
     major, minor, patch, release, num = VERSION
     if release == "final":
-        return f"https://guide.wagtail.org/en-{major}.{minor}.x/"
+        return f"https://guide.wagtail.org/en/?target_version={major}.{minor}.x"
     return "https://guide.wagtail.org/"
 
 
