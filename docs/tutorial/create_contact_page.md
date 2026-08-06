@@ -119,7 +119,7 @@ To add contact information to your portfolio site, follow these steps:
 
     a. Restart your server.
     b. Go to your admin interface.
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/#the-sidebar).
     d. Click `Home`.
     e. Click the `+` icon (Add child page) at the top of the resulting page.
     f. Click `Form page`.

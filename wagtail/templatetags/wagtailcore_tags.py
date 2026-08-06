@@ -103,15 +103,15 @@ def wagtail_release_notes_path():
 def wagtail_feature_release_whats_new_link():
     major, minor, patch, release, num = VERSION
     if release == "final":
-        return f"https://guide.wagtail.org/en-{major}.{minor}.x/releases/new-in-wagtail-{major}-{minor}/"
-    return "https://guide.wagtail.org/en-latest/releases/latest/"
+        return f"https://guide.wagtail.org/en/releases/new-in-wagtail-{major}-{minor}/"
+    return "https://guide.wagtail.org/en/releases/"
 
 
 @register.simple_tag
 def wagtail_feature_release_editor_guide_link():
     major, minor, patch, release, num = VERSION
     if release == "final":
-        return f"https://guide.wagtail.org/en-{major}.{minor}.x/"
+        return f"https://guide.wagtail.org/en/?target_version={major}.{minor}.x"
     return "https://guide.wagtail.org/"
 
 
