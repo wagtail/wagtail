@@ -589,16 +589,13 @@ class FormPage(AbstractEmailForm):
 
 ## Customize form submissions listing in Wagtail Admin
 
-The Admin listing of form submissions can be customized by setting the attribute `submissions_list_view_class` on your FormPage model.
-
-The list view class must be a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a subclass of `wagtail.admin.views.generic.base.BaseListingView` and Django's class based {class}`~django.views.generic.list.ListView`.
+The Admin listing of form submissions can be customized by overriding the `get_submissions_list_view_class` method on your FormPage model. This method must return a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a subclass of `wagtail.admin.views.generic.base.BaseListingView` and Django's class based {class}`~django.views.generic.list.ListView`.
 
 Example:
 
 ```python
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+# myapp/views.py
 from wagtail.contrib.forms.views import SubmissionsListView
-
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50  # show more submissions per page, default is 20
@@ -610,7 +607,11 @@ class CustomSubmissionsListView(SubmissionsListView):
         """ Returns the filename for CSV file with page slug at start"""
         filename = super().get_csv_filename()
         return self.form_page.slug + '-' + filename
+```
 
+```python
+# myapp/models.py
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
@@ -619,8 +620,9 @@ class FormField(AbstractFormField):
 class FormPage(AbstractEmailForm):
     """Form Page with customized submissions listing view"""
 
-    # set custom view class as class attribute
-    submissions_list_view_class = CustomSubmissionsListView
+    def get_submissions_list_view_class(self):
+        from myapp.views import CustomSubmissionsListView
+        return CustomSubmissionsListView
 
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
