@@ -22,6 +22,7 @@ from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
+    ModelLogEntry,
     ReferenceIndex,
     UploadedFile,
 )
@@ -1433,6 +1434,29 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         # form should not contain a collection chooser
         self.assertNotIn("Collection", response_json["form"])
 
+    def test_add_post_logs_create_action(self):
+        """
+        A POST request to the add view logs a "wagtail.create" action, so that the
+        upload shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtaildocs:add_multiple"),
+            {
+                "files[]": SimpleUploadedFile("test.png", b"Simple text document"),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        doc = get_document_model().objects.get(title="test.png")
+        log_entries = ModelLogEntry.objects.for_instance(doc).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
+
     def test_add_post_with_title(self):
         """
         This tests that a POST request to the add view saves the document with a supplied title and returns an edit form
@@ -1593,6 +1617,48 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
 
         self.check_doc_after_edit()
 
+    def test_edit_post_logs_edit_action(self):
+        """
+        A POST request to the edit view logs a "wagtail.edit" action, so that the
+        change shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtaildocs:edit_multiple", args=(self.doc.id,)),
+            {
+                "doc-%d-%s" % (self.doc.id, field): data
+                for field, data in self.edit_post_data.items()
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        log_entries = ModelLogEntry.objects.for_instance(self.doc).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
+
+    def test_edit_post_validation_error_does_not_log(self):
+        """
+        A POST request to the edit view that fails validation must not log an action
+        """
+        response = self.client.post(
+            reverse("wagtaildocs:edit_multiple", args=(self.doc.id,)),
+            {
+                ("doc-%d-title" % self.doc.id): "",  # Required
+                ("doc-%d-tags" % self.doc.id): "",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(
+            ModelLogEntry.objects.for_instance(self.doc)
+            .filter(action="wagtail.edit")
+            .exists()
+        )
+
     def test_edit_post_validation_error(self):
         """
         This tests that a POST request to the edit page returns a json document with "success=False"
@@ -1661,6 +1727,26 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertIn("success", response_json)
         self.assertEqual(response_json["doc_id"], self.doc.id)
         self.assertTrue(response_json["success"])
+
+    def test_delete_post_logs_delete_action(self):
+        """
+        A POST request to the delete view logs a "wagtail.delete" action, so that the
+        deletion shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtaildocs:delete_multiple", args=(self.doc.id,))
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # self.doc is a separate in-memory copy, so its pk is still available for lookup
+        log_entries = ModelLogEntry.objects.for_instance(self.doc).filter(
+            action="wagtail.delete"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.deleted)
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
@@ -1765,6 +1851,26 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # form should not contain a collection chooser
         self.assertNotIn("Collection", response_json["form"])
+
+    def test_add_post_logs_create_action(self):
+        """
+        A POST request to the add view only creates an UploadedFile, so there is no
+        document to log a "wagtail.create" action against yet
+        """
+        response = self.client.post(
+            reverse("wagtaildocs:add_multiple"),
+            {
+                "files[]": SimpleUploadedFile("test.png", b"Simple text document"),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(
+            ModelLogEntry.objects.filter(
+                content_type=ContentType.objects.get_for_model(get_document_model()),
+                action="wagtail.create",
+            ).exists()
+        )
 
     def test_add_post_with_title(self):
         """
@@ -1969,6 +2075,42 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         self.assertTrue(doc.file_hash)
         self.assertTrue(doc.file_size)
         self.assertIn("donkey", doc.tags.names())
+
+    def test_create_from_upload_logs_create_action(self):
+        """
+        Creating a document from an UploadedFile logs a "wagtail.create" action, so
+        that the upload shows up in the site history report
+        """
+        response = self.client.post(
+            reverse(
+                "wagtaildocs:create_multiple_from_uploaded_document",
+                args=(self.uploaded_document.id,),
+            ),
+            {
+                (
+                    "uploaded-document-%d-title" % self.uploaded_document.id
+                ): "New title!",
+                (
+                    "uploaded-document-%d-tags" % self.uploaded_document.id
+                ): "fairies, donkey",
+                (
+                    "uploaded-document-%d-author" % self.uploaded_document.id
+                ): "William Shakespeare",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertTrue(response_json["success"])
+
+        doc = CustomDocumentWithAuthor.objects.get(id=response_json["doc_id"])
+        log_entries = ModelLogEntry.objects.for_instance(doc).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
 
     def test_delete_uploaded_document(self):
         """

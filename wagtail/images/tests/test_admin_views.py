@@ -39,6 +39,7 @@ from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
+    ModelLogEntry,
     UploadedFile,
     get_root_collection_id,
 )
@@ -3201,6 +3202,32 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertTrue(response_json["success"])
         self.assertFalse(response_json["duplicate"])
 
+    def test_add_post_logs_create_action(self):
+        """
+        A POST request to the add view logs a "wagtail.create" action, so that the
+        upload shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "title": "test title",
+                "files[]": SimpleUploadedFile(
+                    "test.png", get_test_image_file().file.getvalue()
+                ),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        image = get_image_model().objects.get(title="test title")
+        log_entries = ModelLogEntry.objects.for_instance(image).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
+
     def test_add_post_no_title(self):
         """
         A POST request to the add view without the title value saves the image and uses file title if needed
@@ -3477,6 +3504,48 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(image.title, "New title!")
         self.assertIn("cromarty", image.tags.names())
 
+    def test_edit_post_logs_edit_action(self):
+        """
+        A POST request to the edit view logs a "wagtail.edit" action, so that the
+        change shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtailimages:edit_multiple", args=(self.image.id,)),
+            {
+                ("image-%d-title" % self.image.id): "New title!",
+                ("image-%d-tags" % self.image.id): "cromarty, finisterre",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        log_entries = ModelLogEntry.objects.for_instance(self.image).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
+
+    def test_edit_post_validation_error_does_not_log(self):
+        """
+        A POST request to the edit view that fails validation must not log an action
+        """
+        response = self.client.post(
+            reverse("wagtailimages:edit_multiple", args=(self.image.id,)),
+            {
+                ("image-%d-title" % self.image.id): "",  # Required
+                ("image-%d-tags" % self.image.id): "",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(
+            ModelLogEntry.objects.for_instance(self.image)
+            .filter(action="wagtail.edit")
+            .exists()
+        )
+
     def test_edit_post_validation_error(self):
         """
         This tests that a POST request to the edit page returns a json document with "success=False"
@@ -3545,6 +3614,26 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertIn("success", response_json)
         self.assertEqual(response_json["image_id"], self.image.id)
         self.assertTrue(response_json["success"])
+
+    def test_delete_post_logs_delete_action(self):
+        """
+        A POST request to the delete view logs a "wagtail.delete" action, so that the
+        deletion shows up in the site history report
+        """
+        response = self.client.post(
+            reverse("wagtailimages:delete_multiple", args=(self.image.id,))
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # self.image is a separate in-memory copy, so its pk is still available for lookup
+        log_entries = ModelLogEntry.objects.for_instance(self.image).filter(
+            action="wagtail.delete"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.deleted)
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
@@ -4041,6 +4130,38 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
         self.assertIn("abstract", image.tags.names())
+
+    def test_create_from_upload_logs_create_action(self):
+        """
+        Creating an image from an UploadedFile logs a "wagtail.create" action, so that
+        the upload shows up in the site history report
+        """
+        response = self.client.post(
+            reverse(
+                "wagtailimages:create_multiple_from_uploaded_image",
+                args=(self.uploaded_image.id,),
+            ),
+            {
+                ("uploaded-image-%d-title" % self.uploaded_image.id): "New title!",
+                (
+                    "uploaded-image-%d-tags" % self.uploaded_image.id
+                ): "abstract, squares",
+                ("uploaded-image-%d-author" % self.uploaded_image.id): "Piet Mondrian",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertTrue(response_json["success"])
+
+        image = CustomImageWithAuthor.objects.get(id=response_json["image_id"])
+        log_entries = ModelLogEntry.objects.for_instance(image).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        log_entry = log_entries.first()
+        self.assertEqual(log_entry.user, self.user)
+        self.assertTrue(log_entry.content_changed)
 
     def test_delete_uploaded_image(self):
         """
