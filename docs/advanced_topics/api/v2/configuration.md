@@ -244,6 +244,94 @@ This adds two fields to the API (other fields omitted for brevity):
     "published_date_display": "Thursday 06 April 2017"
 }
 ```
+### Customising StreamField block API output
+
+When a `StreamField` is serialized for the API, Wagtail calls
+`get_api_representation(value, context)` on each block. You can
+override this method in your own block classes to control exactly
+what gets included in the JSON response.
+
+By default, blocks that reference other objects (such as `ImageChooserBlock`)
+return just the related object's primary key, an integer. For example, a page
+with this model:
+
+```python
+# blog/models.py
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.blocks import CharBlock, ImageChooserBlock
+
+class BlogPage(Page):
+    body = StreamField([
+        ("heading", CharBlock()),
+        ("photo",   ImageChooserBlock()),
+    ])
+```
+
+produces this API output by default:
+
+```json
+{
+    "body": [
+        {"type": "heading", "value": "Hello world", "id": "abc123"},
+        {"type": "photo",   "value": 42,            "id": "def456"}
+    ]
+}
+```
+
+The `"value": 42` is only the image's database ID. To return richer data,
+subclass the block and override `get_api_representation`:
+
+```python
+# blog/blocks.py
+from wagtail.images.blocks import ImageChooserBlock
+
+class APIImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        # value is the fully-loaded Image object, not just the integer ID
+        return {
+            "id":    value.id,
+            "title": value.title,
+            "url":   value.file.url,
+        }
+```
+
+Use this block in your page model:
+
+```python
+# blog/models.py
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.blocks import CharBlock
+from .blocks import APIImageChooserBlock
+
+class BlogPage(Page):
+    body = StreamField([
+        ("heading", CharBlock()),
+        ("photo",   APIImageChooserBlock()),
+    ])
+```
+
+The API now returns the full image data inline, with no second request needed:
+
+```json
+{
+    "body": [
+        {"type": "heading", "value": "Hello world", "id": "abc123"},
+        {"type": "photo", "value": {
+            "id":    42,
+            "title": "Sunset over the mountains",
+            "url":   "/media/images/sunset.jpg"
+        }, "id": "def456"}
+    ]
+}
+```
+
+This approach works for any block type. `StreamBlock`, `StructBlock`, and
+`ListBlock` all recursively call `get_api_representation` on their children,
+so overriding it on a leaf block applies automatically everywhere that block
+is used.
+
 
 ### Rich text in the API
 
