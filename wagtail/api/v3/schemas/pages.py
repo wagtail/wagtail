@@ -1,9 +1,11 @@
 from datetime import datetime
-from typing import Literal, cast
+from typing import ClassVar, Literal, cast
 
 import swapper
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 
@@ -15,6 +17,10 @@ from wagtail.api.v3.schemas.base import (
     BaseSchema,
     BaseUpdateMetaSchema,
     BaseUpdateSchema,
+)
+from wagtail.api.v3.schemas.params import (
+    TypeInjectingBody,
+    TypeInjectingBodyModel,
 )
 from wagtail.models import AbstractPage
 
@@ -129,3 +135,19 @@ class PageUpdateMetaSchema(BaseUpdateMetaSchema):
 
 class PageUpdateBaseSchema(BaseUpdateSchema):
     meta: PageUpdateMetaSchema = PageUpdateMetaSchema()
+
+
+class PageTypeInjectingBodyModel(TypeInjectingBodyModel):
+    page_id_param: ClassVar[str] = "page_id"
+
+    @classmethod
+    def get_meta_type(cls, request, api, path_params) -> str:
+        page_id = path_params.get(cls.page_id_param)
+        ct_ids = Page.objects.values_list("content_type_id", flat=True)
+        content_type_id = get_object_or_404(ct_ids, pk=page_id)
+        content_type = ContentType.objects.get_for_id(content_type_id)
+        return (content_type.model_class() or Page)._meta.label
+
+
+class PageTypeInjectingBody(TypeInjectingBody):
+    _model = PageTypeInjectingBodyModel
