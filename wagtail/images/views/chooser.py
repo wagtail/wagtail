@@ -344,8 +344,18 @@ class ImageUploadView(
 class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin, View):
     model = None
 
+    def get_object(self, pk):
+        image = get_object_or_404(self.model, id=pk)
+        permission_policy = policy_registry.get_by_type(self.model)
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", image
+        ):
+            raise PermissionDenied
+
+        return image
+
     def get(self, request, image_id):
-        image = get_object_or_404(self.model, id=image_id)
+        image = self.get_object(image_id)
         initial = {"alt_text": image.default_alt_text}
         initial.update(request.GET.dict())
         # If you edit an existing image, and there is no alt text, ensure that
@@ -371,7 +381,7 @@ class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin,
         return response_data
 
     def post(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+        image = self.get_object(image_id)
 
         self.form = ImageInsertionForm(
             request.POST,
