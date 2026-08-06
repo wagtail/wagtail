@@ -261,18 +261,24 @@ class InputSchemaGenerator:
             if name in {f.name for f in model._meta.get_fields()}
         ]
         name = f"{model._meta.object_name}{self.name_suffix}Schema"
-        schema = create_schema(
-            model,
-            # ninja's create_schema() caches globally by (model, name, fields,
-            # optional_fields, ...) - notably not base_class - so two calls for
-            # the same model/fields under different base classes would
-            # otherwise collide and silently reuse the first one's base_class.
-            # Folding base_class into the name keeps those calls distinct.
-            name=f"{name}Base_{base_class.__name__}",
-            fields=field_names,
-            optional_fields=[n for n in field_names if n not in required_fields],
-            base_class=base_class,
-        )
+        if field_names:
+            schema = create_schema(
+                model,
+                name=f"{name}Base_{base_class.__name__}",
+                fields=field_names,
+                optional_fields=[n for n in field_names if n not in required_fields],
+                base_class=base_class,
+            )
+        else:
+            # ninja's create_schema() treats an empty `fields` list as "no
+            # restriction" and includes every model field, so build an empty
+            # base schema directly instead - every field here is a
+            # relation/StreamField/etc handled below via _build_extra_fields.
+            schema = type(base_class)(
+                f"{name}Base_{base_class.__name__}",
+                (base_class,),
+                {},
+            )
 
         extra_fields = self._build_extra_fields(model)
         namespace: dict[str, Any] = {"__annotations__": {}}
