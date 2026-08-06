@@ -25,7 +25,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -329,7 +329,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageSchema",
         "type": "object"
       },
@@ -357,7 +357,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -661,7 +661,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageSchema",
         "type": "object"
       },
@@ -689,7 +689,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithoutDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -993,7 +993,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithoutDefaultPageSchema",
         "type": "object"
       },
@@ -1021,7 +1021,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AlwaysShowInMenusPageCreateMetaSchema",
         "type": "object"
       },
@@ -1325,7 +1325,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
@@ -1410,7 +1410,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BasePageSchema",
         "type": "object"
       },
@@ -1695,7 +1695,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BlogEntryPageCreateMetaSchema",
         "type": "object"
       },
@@ -2328,7 +2328,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta", "body", "date"],
+        "required": ["meta", "id", "title", "body", "date"],
         "title": "BlogEntryPageSchema",
         "type": "object"
       },
@@ -2356,7 +2356,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BlogIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -2752,7 +2752,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BlogIndexPageSchema",
         "type": "object"
       },
@@ -2780,7 +2780,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessChildCreateMetaSchema",
         "type": "object"
       },
@@ -3084,7 +3084,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessChildSchema",
         "type": "object"
       },
@@ -3112,7 +3112,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessIndexCreateMetaSchema",
         "type": "object"
       },
@@ -3416,7 +3416,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessIndexSchema",
         "type": "object"
       },
@@ -3444,7 +3444,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessNowherePageCreateMetaSchema",
         "type": "object"
       },
@@ -3748,7 +3748,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessNowherePageSchema",
         "type": "object"
       },
@@ -3776,7 +3776,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessSubIndexCreateMetaSchema",
         "type": "object"
       },
@@ -4080,7 +4080,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
@@ -4108,7 +4108,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CommentableJSONPageCreateMetaSchema",
         "type": "object"
       },
@@ -4412,7 +4412,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CommentableJSONPageSchema",
         "type": "object"
       },
@@ -4440,7 +4440,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ComplexDefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -4744,7 +4744,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ComplexDefaultStreamPageSchema",
         "type": "object"
       },
@@ -4772,7 +4772,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ContactPageCreateMetaSchema",
         "type": "object"
       },
@@ -5181,7 +5181,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ContactPageSchema",
         "type": "object"
       },
@@ -5238,7 +5238,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomCopyFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -5542,7 +5542,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomCopyFormPageSchema",
         "type": "object"
       },
@@ -5570,7 +5570,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomManagerPageCreateMetaSchema",
         "type": "object"
       },
@@ -5874,7 +5874,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomManagerPageSchema",
         "type": "object"
       },
@@ -5902,7 +5902,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomPermissionPageCreateMetaSchema",
         "type": "object"
       },
@@ -6206,7 +6206,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomPermissionPageSchema",
         "type": "object"
       },
@@ -6234,7 +6234,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomPreviewSizesPageCreateMetaSchema",
         "type": "object"
       },
@@ -6538,7 +6538,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
@@ -6566,7 +6566,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -6870,7 +6870,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -6898,7 +6898,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -7202,7 +7202,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomRichTextFieldPageSchema",
         "type": "object"
       },
@@ -7230,7 +7230,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DeadlyStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -7534,7 +7534,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
@@ -7562,7 +7562,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -7866,7 +7866,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -7894,7 +7894,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -8198,7 +8198,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultRichTextFieldPageSchema",
         "type": "object"
       },
@@ -8226,7 +8226,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -8530,7 +8530,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultStreamPageSchema",
         "type": "object"
       },
@@ -8591,7 +8591,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EarlyPageCreateMetaSchema",
         "type": "object"
       },
@@ -8895,7 +8895,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EarlyPageSchema",
         "type": "object"
       },
@@ -8923,7 +8923,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventIndexCreateMetaSchema",
         "type": "object"
       },
@@ -9132,7 +9132,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -9528,7 +9528,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventIndexPageSchema",
         "type": "object"
       },
@@ -9651,7 +9651,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventIndexSchema",
         "type": "object"
       },
@@ -10355,7 +10355,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FilePageCreateMetaSchema",
         "type": "object"
       },
@@ -10659,7 +10659,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FilePageSchema",
         "type": "object"
       },
@@ -10687,7 +10687,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormClassAdditionalFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -10991,7 +10991,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormClassAdditionalFieldPageSchema",
         "type": "object"
       },
@@ -11118,7 +11118,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomFormBuilderCreateMetaSchema",
         "type": "object"
       },
@@ -11422,7 +11422,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomFormBuilderSchema",
         "type": "object"
       },
@@ -11450,7 +11450,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomSubmissionCreateMetaSchema",
         "type": "object"
       },
@@ -11545,7 +11545,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomSubmissionListViewCreateMetaSchema",
         "type": "object"
       },
@@ -11849,7 +11849,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomSubmissionListViewSchema",
         "type": "object"
       },
@@ -12086,7 +12086,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomSubmissionSchema",
         "type": "object"
       },
@@ -12114,7 +12114,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithRedirectCreateMetaSchema",
         "type": "object"
       },
@@ -12418,7 +12418,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithRedirectSchema",
         "type": "object"
       },
@@ -12446,7 +12446,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GalleryPageCreateMetaSchema",
         "type": "object"
       },
@@ -12750,7 +12750,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GalleryPageSchema",
         "type": "object"
       },
@@ -12778,7 +12778,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetNoFieldIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -13082,7 +13082,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetNoFieldIndexPageSchema",
         "type": "object"
       },
@@ -13110,7 +13110,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetNoIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -13414,7 +13414,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetNoIndexPageSchema",
         "type": "object"
       },
@@ -13442,7 +13442,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetPageCreateMetaSchema",
         "type": "object"
       },
@@ -13746,7 +13746,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
@@ -14031,7 +14031,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "HomePageCreateMetaSchema",
         "type": "object"
       },
@@ -14597,7 +14597,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "HomePageSchema",
         "type": "object"
       },
@@ -14658,7 +14658,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "InlineStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -14962,7 +14962,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "InlineStreamPageSchema",
         "type": "object"
       },
@@ -15008,7 +15008,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "JadeFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -15312,7 +15312,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "JadeFormPageSchema",
         "type": "object"
       },
@@ -15340,7 +15340,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MTIBasePageCreateMetaSchema",
         "type": "object"
       },
@@ -15644,7 +15644,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MTIBasePageSchema",
         "type": "object"
       },
@@ -15672,7 +15672,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MTIChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -15976,7 +15976,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MTIChildPageSchema",
         "type": "object"
       },
@@ -16004,7 +16004,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ManyToManyBlogPageCreateMetaSchema",
         "type": "object"
       },
@@ -16308,7 +16308,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
@@ -16336,7 +16336,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MultiPreviewModesPageCreateMetaSchema",
         "type": "object"
       },
@@ -16640,7 +16640,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MultiPreviewModesPageSchema",
         "type": "object"
       },
@@ -16668,7 +16668,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MyCustomPageCreateMetaSchema",
         "type": "object"
       },
@@ -16972,7 +16972,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MyCustomPageSchema",
         "type": "object"
       },
@@ -17000,7 +17000,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoCreatableSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -17304,7 +17304,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoCreatableSubpageTypesPageSchema",
         "type": "object"
       },
@@ -17332,7 +17332,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoPromotePageCreateMetaSchema",
         "type": "object"
       },
@@ -17636,7 +17636,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoPromotePageSchema",
         "type": "object"
       },
@@ -17664,7 +17664,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -17968,7 +17968,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoSubpageTypesPageSchema",
         "type": "object"
       },
@@ -17996,7 +17996,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "OneToOnePageCreateMetaSchema",
         "type": "object"
       },
@@ -18300,7 +18300,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "OneToOnePageSchema",
         "type": "object"
       },
@@ -18460,7 +18460,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageCreateMetaSchema",
         "type": "object"
       },
@@ -18903,7 +18903,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageSchema",
         "type": "object"
       },
@@ -18942,7 +18942,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithExcludedCopyFieldCreateMetaSchema",
         "type": "object"
       },
@@ -19246,7 +19246,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithExcludedCopyFieldSchema",
         "type": "object"
       },
@@ -19274,7 +19274,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithGenericRelationCreateMetaSchema",
         "type": "object"
       },
@@ -19578,7 +19578,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithGenericRelationSchema",
         "type": "object"
       },
@@ -19606,7 +19606,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithOldStyleRouteMethodCreateMetaSchema",
         "type": "object"
       },
@@ -19910,7 +19910,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithOldStyleRouteMethodSchema",
         "type": "object"
       },
@@ -20065,7 +20065,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PromotionalPageCreateMetaSchema",
         "type": "object"
       },
@@ -20369,7 +20369,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PromotionalPageSchema",
         "type": "object"
       },
@@ -20520,7 +20520,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RequiredDatePageCreateMetaSchema",
         "type": "object"
       },
@@ -20824,7 +20824,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RequiredDatePageSchema",
         "type": "object"
       },
@@ -20852,7 +20852,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RestaurantPageCreateMetaSchema",
         "type": "object"
       },
@@ -21156,7 +21156,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RestaurantPageSchema",
         "type": "object"
       },
@@ -21184,7 +21184,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RichTextFieldWithFeaturesPageCreateMetaSchema",
         "type": "object"
       },
@@ -21488,7 +21488,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RichTextFieldWithFeaturesPageSchema",
         "type": "object"
       },
@@ -21516,7 +21516,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RoutablePageTestCreateMetaSchema",
         "type": "object"
       },
@@ -21820,7 +21820,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RoutablePageTestSchema",
         "type": "object"
       },
@@ -21848,7 +21848,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema",
         "type": "object"
       },
@@ -22152,7 +22152,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RoutablePageWithOverriddenIndexRouteTestSchema",
         "type": "object"
       },
@@ -22180,7 +22180,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SamplePageCreateMetaSchema",
         "type": "object"
       },
@@ -22484,7 +22484,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SamplePageSchema",
         "type": "object"
       },
@@ -22583,7 +22583,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SecretPageCreateMetaSchema",
         "type": "object"
       },
@@ -22887,7 +22887,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SecretPageSchema",
         "type": "object"
       },
@@ -22915,7 +22915,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SectionedRichTextPageCreateMetaSchema",
         "type": "object"
       },
@@ -23219,7 +23219,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SectionedRichTextPageSchema",
         "type": "object"
       },
@@ -23276,7 +23276,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleBasePageSchema",
         "type": "object"
       },
@@ -23304,7 +23304,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimpleChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -23608,7 +23608,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleChildPageSchema",
         "type": "object"
       },
@@ -23636,7 +23636,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimplePageCreateMetaSchema",
         "type": "object"
       },
@@ -23940,7 +23940,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimplePageSchema",
         "type": "object"
       },
@@ -23968,7 +23968,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimpleParentPageCreateMetaSchema",
         "type": "object"
       },
@@ -24272,7 +24272,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleParentPageSchema",
         "type": "object"
       },
@@ -24300,7 +24300,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingleEventPageCreateMetaSchema",
         "type": "object"
       },
@@ -24604,7 +24604,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingleEventPageSchema",
         "type": "object"
       },
@@ -24632,7 +24632,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingletonPageCreateMetaSchema",
         "type": "object"
       },
@@ -24936,7 +24936,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingletonPageSchema",
         "type": "object"
       },
@@ -24964,7 +24964,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingletonPageViaMaxCountCreateMetaSchema",
         "type": "object"
       },
@@ -25268,7 +25268,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingletonPageViaMaxCountSchema",
         "type": "object"
       },
@@ -25364,7 +25364,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardChildCreateMetaSchema",
         "type": "object"
       },
@@ -25668,7 +25668,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardChildSchema",
         "type": "object"
       },
@@ -25696,7 +25696,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardIndexCreateMetaSchema",
         "type": "object"
       },
@@ -25905,7 +25905,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -26311,7 +26311,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardIndexPageSchema",
         "type": "object"
       },
@@ -26434,7 +26434,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardIndexSchema",
         "type": "object"
       },
@@ -26562,7 +26562,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardPageCreateMetaSchema",
         "type": "object"
       },
@@ -26987,7 +26987,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardPageSchema",
         "type": "object"
       },
@@ -27015,7 +27015,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -27337,7 +27337,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StreamPageSchema",
         "type": "object"
       },
@@ -27365,7 +27365,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TableBlockStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -27669,7 +27669,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TableBlockStreamPageSchema",
         "type": "object"
       },
@@ -27697,7 +27697,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -28001,7 +28001,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedChildPageSchema",
         "type": "object"
       },
@@ -28029,7 +28029,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedGrandchildPageCreateMetaSchema",
         "type": "object"
       },
@@ -28333,7 +28333,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedGrandchildPageSchema",
         "type": "object"
       },
@@ -28361,7 +28361,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedPageCreateMetaSchema",
         "type": "object"
       },
@@ -28665,7 +28665,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedPageSchema",
         "type": "object"
       },
@@ -28693,7 +28693,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TestPageCreateMetaSchema",
         "type": "object"
       },
@@ -28997,7 +28997,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TestPageSchema",
         "type": "object"
       },
@@ -29025,7 +29025,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ValidatedPageCreateMetaSchema",
         "type": "object"
       },
@@ -29329,7 +29329,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ValidatedPageSchema",
         "type": "object"
       },
@@ -29357,7 +29357,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -29385,7 +29385,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -30235,7 +30235,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventPageSchema",
         "type": "object"
       },
@@ -30367,9 +30367,9 @@
           }
         },
         "required": [
+          "meta",
           "id",
           "title",
-          "meta",
           "date_from",
           "audience",
           "location",
@@ -30402,7 +30402,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -30430,7 +30430,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -31020,7 +31020,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -31046,7 +31046,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -31200,7 +31200,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -31228,7 +31228,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -31818,7 +31818,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PersonPageSchema",
         "type": "object"
       },
@@ -31980,7 +31980,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta", "first_name", "last_name"],
+        "required": ["meta", "id", "title", "first_name", "last_name"],
         "title": "PersonPageSchema",
         "type": "object"
       }

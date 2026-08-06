@@ -9,15 +9,36 @@ from pydantic import Discriminator, Tag
 
 
 class BaseMetaSchema(Schema):
-    type: str | None = None
+    type: str
+
+    @staticmethod
+    def resolve_type(obj: Model, context: dict) -> str:
+        return obj._meta.label
 
 
 class BaseSchema(Schema):
     meta: BaseMetaSchema
 
     @staticmethod
-    def resolve_meta(obj: Model) -> BaseMetaSchema:
-        return BaseMetaSchema(type=obj._meta.label)
+    def resolve_meta(obj: Model) -> Model:
+        # Pass through so resolve_* methods on meta schema works with the model
+        return obj
+
+
+class BaseCreateMetaSchema(Schema):
+    type: str
+
+
+class BaseCreateSchema(Schema):
+    meta: BaseCreateMetaSchema
+
+
+class BaseUpdateMetaSchema(Schema):
+    type: str | None = None
+
+
+class BaseUpdateSchema(Schema):
+    meta: BaseUpdateMetaSchema = BaseUpdateMetaSchema()
 
 
 class ContentTypeSummarySchema(Schema):

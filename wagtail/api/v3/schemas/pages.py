@@ -1,13 +1,21 @@
 from datetime import datetime
-from typing import Literal
+from typing import Literal, cast
 
 import swapper
 from django.core.exceptions import FieldDoesNotExist
+from django.db.models import Model
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from ninja import Schema
 
 from wagtail.api.v2.utils import get_full_url
+from wagtail.api.v3.schemas.base import (
+    BaseCreateMetaSchema,
+    BaseCreateSchema,
+    BaseMetaSchema,
+    BaseSchema,
+    BaseUpdateMetaSchema,
+    BaseUpdateSchema,
+)
 from wagtail.models import AbstractPage
 
 Page = swapper.load_model("wagtailcore", "Page")
@@ -34,14 +42,14 @@ BASE_PAGE_READ_FIELDS = BASE_PAGE_FIELDS + [
 BASE_PAGE_READ_FIELDS_SET = set(BASE_PAGE_READ_FIELDS)
 
 
-class SimpleBasePageMetaSchema(Schema):
+class SimpleBasePageMetaSchema(BaseMetaSchema):
     type: str | None = None
     detail_url: str | None = None
     html_url: str | None = None
 
     @staticmethod
-    def resolve_type(obj: AbstractPage, context: dict) -> str | None:
-        return (obj.specific_class or Page)._meta.label
+    def resolve_type(obj: Model, context: dict) -> str:
+        return (cast(AbstractPage, obj).specific_class or Page)._meta.label
 
     @staticmethod
     def resolve_detail_url(obj: AbstractPage, context: dict) -> str | None:
@@ -61,15 +69,11 @@ class SimpleBasePageMetaSchema(Schema):
             return None
 
 
-class SimpleBasePageSchema(Schema):
+# Used for nested schemas e.g. alias_of and parent
+class SimpleBasePageSchema(BaseSchema):
     id: int
     title: str
     meta: SimpleBasePageMetaSchema
-
-    @staticmethod
-    def resolve_meta(obj: AbstractPage, context: dict) -> AbstractPage:
-        # Pass through so resolve_* methods on meta schema works with the page
-        return obj
 
 
 class BasePageMetaSchema(SimpleBasePageMetaSchema):
@@ -82,6 +86,7 @@ class BasePageMetaSchema(SimpleBasePageMetaSchema):
         return obj.locale.language_code if obj.locale else None
 
 
+# Used for listing view
 class BasePageSchema(SimpleBasePageSchema):
     meta: BasePageMetaSchema
 
@@ -104,24 +109,23 @@ class PageMetaSchema(BasePageMetaSchema):
         return obj.get_parent()
 
 
+# Used for detail view
 class PageSchema(BasePageSchema):
     meta: PageMetaSchema
 
 
-class PageCreateMetaSchema(Schema):
+class PageCreateMetaSchema(BaseCreateMetaSchema):
     parent_id: int
-    type: str
     action: Literal["publish"] | None = None
 
 
-class PageCreateBaseSchema(Schema):
+class PageCreateBaseSchema(BaseCreateSchema):
     meta: PageCreateMetaSchema
 
 
-class PageUpdateMetaSchema(Schema):
-    type: str | None = None
+class PageUpdateMetaSchema(BaseUpdateMetaSchema):
     action: Literal["publish"] | None = None
 
 
-class PageUpdateBaseSchema(Schema):
+class PageUpdateBaseSchema(BaseUpdateSchema):
     meta: PageUpdateMetaSchema = PageUpdateMetaSchema()
