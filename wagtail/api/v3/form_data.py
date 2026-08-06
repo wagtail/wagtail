@@ -74,8 +74,8 @@ def get_api_form_class(model: type[Model], field_names: Iterable[str] | None = N
     if it were included but unbound).
     """
     try:
-        # Page.get_edit_handler is monkey-patched onto the class by
-        # wagtail.admin.panels.page_utils, so it isn't visible statically.
+        # Page and snippets .get_edit_handler() is monkey-patched to the class,
+        # so it isn't visible statically.
         edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
     except AttributeError:
         edit_handler = get_edit_handler(model)
