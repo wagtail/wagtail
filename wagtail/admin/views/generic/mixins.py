@@ -590,6 +590,11 @@ class CreateEditViewOptionalFeaturesMixin:
         return None
 
     def workflow_action_action(self):
+        # Guard against duplicate POSTs racing the view: if the workflow task
+        # has been completed by a concurrent request, skip gracefully.
+        if not self.current_workflow_task:
+            return None
+
         extra_workflow_data_json = self.request.POST.get(
             "workflow-action-extra-data", "{}"
         )

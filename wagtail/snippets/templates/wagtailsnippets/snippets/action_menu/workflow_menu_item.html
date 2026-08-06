@@ -1,4 +1,18 @@
-{% load wagtailadmin_tags %}
-<button class="button" data-workflow-action-name="{{ name }}" {% if launch_modal %}data-workflow-action-modal-url="{{ url }}"{% endif %}>
-    {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
-</button>
+{% load i18n wagtailadmin_tags %}
+{% if launch_modal %}
+    <button class="button" data-workflow-action-name="{{ name }}" data-workflow-action-modal-url="{{ url }}">
+        {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
+    </button>
+{% else %}
+    <button
+        type="submit"
+        class="button button-longrunning"
+        data-workflow-action-name="{{ name }}"
+        data-controller="w-progress"
+        data-action="w-progress#activate"
+    >
+        {% if icon_name %}{% icon name=icon_name classname="button-longrunning__icon" %}{% endif %}
+        {% icon name="spinner" %}
+        <em data-w-progress-target="label">{{ label }}</em>
+    </button>
+{% endif %}

@@ -869,6 +869,17 @@ class EditView(
         return self.redirect_away()
 
     def perform_workflow_action(self):
+        # Guard against duplicate POSTs racing EditView: if the workflow task
+        # is already gone (the concurrent winning request already completed the
+        # workflow), redirect gracefully rather than reverting the just-published
+        # page to draft or raising AttributeError on current_workflow_task.
+        if not self.page.current_workflow_task:
+            messages.info(
+                self.request,
+                _("This page has already been moderated."),
+            )
+            return self.redirect_away()
+
         self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
