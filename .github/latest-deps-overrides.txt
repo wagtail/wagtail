@@ -16,7 +16,7 @@ django-ninja
 pydantic
 draftjs_exporter
 beautifulsoup4
-Willow[heif]
+Willow[heif,jxl]
 requests
 openpyxl
 telepath

@@ -1069,7 +1069,7 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "file",
-            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, JXL, PNG, WEBP.",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["svg"])
@@ -2075,10 +2075,11 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
 
-        # upload file field should have an explicit 'accept' case for image/avif
+        # upload file field should have an explicit 'accept' case for image/avif and image/jxl
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
-            soup.select_one('input[type="file"]').get("accept"), "image/*, image/avif"
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/*, image/avif, image/jxl",
         )
         form = soup.select_one("form[data-chooser-modal-creation-form]")
         self.assertIsNotNone(form)
@@ -2868,7 +2869,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "file",
-            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, JXL, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter
@@ -3044,7 +3045,7 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         soup = self.get_soup(response.content)
         self.assertEqual(
             soup.select_one("input[type='file'][multiple]").get("accept"),
-            "image/*, image/avif",
+            "image/*, image/avif, image/jxl"
         )
 
         # draftail should NOT be a standard JS include on this page

@@ -17,6 +17,7 @@ from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_avif,
     get_test_image_file_jpeg,
+    get_test_image_file_jxl,
     get_test_image_file_tiff,
     get_test_image_file_webp,
 )
@@ -654,6 +655,28 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, "jpeg")
 
+    def test_jxl(self):
+        fil = Filter(spec="width-400|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "jxl")
+
+    def test_jxl_lossless(self):
+        fil = Filter(spec="width-400|format-jxl-lossless")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        f = BytesIO()
+        with patch("willow.plugins.pillow.PillowImage.save_as_jxl") as save_as_jxl:
+            fil.run(image, f)
+
+        save_as_jxl.assert_called_with(f, lossless=True)
+
     def test_png(self):
         fil = Filter(spec="width-400|format-png")
         image = Image.objects.create(
@@ -908,6 +931,86 @@ class TestJPEGQualityFilter(TestCase):
             fil.run(image, f)
 
         save.assert_called_with(f, "JPEG", quality=40, optimize=True, progressive=True)
+
+
+class TestJXLQualityFilter(TestCase):
+    def test_default_quality(self):
+        fil = Filter(spec="width-400|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "JXL", quality=76)
+
+    def test_jxl_quality_filter(self):
+        fil = Filter(spec="width-400|jxlquality-40|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "JXL", quality=40)
+
+    def test_jxl_quality_filter_invalid(self):
+        fil = Filter(spec="width-400|jxlquality-abc|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jxl_quality_filter_no_value(self):
+        fil = Filter(spec="width-400|jxlquality")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jxl_quality_filter_too_big(self):
+        fil = Filter(spec="width-400|jxlquality-101|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    @override_settings(WAGTAILIMAGES_JXL_QUALITY=50)
+    def test_jxl_quality_setting(self):
+        fil = Filter(spec="width-400|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "JXL", quality=50)
+
+    @override_settings(WAGTAILIMAGES_JXL_QUALITY=50)
+    def test_jxl_quality_filter_overrides_setting(self):
+        fil = Filter(spec="width-400|jxlquality-40|format-jxl")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jxl(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "JXL", quality=40)
 
 
 class TestWebPQualityFilter(TestCase):
