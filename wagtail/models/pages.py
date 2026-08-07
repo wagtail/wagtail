@@ -52,6 +52,7 @@ from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
+    find_available_slug,
     get_supported_content_language_variant,
     resolve_model_string,
     safe_md5,
@@ -1200,6 +1201,11 @@ class AbstractPage(
                 target=alias_updated, exclude=exclude_fields
             )
 
+            # A translation of the page will have the same translation key
+            # An alias of a translation (which is also an alias) will have a
+            # different translation key
+            alias_is_translation = alias.translation_key == self.translation_key
+
             # Process child objects
             # This has two jobs:
             #  - If the alias is in a different locale, this updates the
@@ -1208,7 +1214,6 @@ class AbstractPage(
             #    changes the translation_key field of all child objects
             #    so they do not clash
             if child_object_map:
-                alias_is_translation = alias.translation_key == self.translation_key
 
                 def process_child_object(child_object):
                     if isinstance(child_object, TranslatableMixin):
@@ -1233,9 +1238,15 @@ class AbstractPage(
                 specific_self, alias_updated, exclude_fields=exclude_fields
             )
 
-            # Don't change the aliases slug
+            # Don't change the aliases slug if it is not a translation
             # Aliases can have their own slugs so they can be siblings of the original
-            alias_updated.slug = alias.slug
+            # Translations should have their slug updated to match the original
+            if not alias_is_translation:
+                alias_updated.slug = alias.slug
+            elif alias.slug != self.slug:
+                alias_updated.slug = find_available_slug(
+                    alias_updated.get_parent(), self.slug
+                )
             alias_updated.set_url_path(alias_updated.get_parent())
 
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision
