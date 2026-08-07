@@ -205,6 +205,109 @@ class TestV3SnippetDeleteAction(TestV3SnippetActionsBase):
         self.assert_problem_response(response, status_code=404)
 
 
+class TestV3SnippetRevert(TestV3SnippetActionsBase):
+    # Reverting only requires "change" (or "add" on a snippet you own - not
+    # applicable to snippets, which have no owner field, so just "change").
+    permission_matrix = [
+        (None, 401),
+        ([], 403),
+        (["change_fullfeaturedsnippet"], 200),
+    ]
+
+    def post(self, snippet, revision_id):
+        return self.client.post(
+            reverse(
+                "wagtailapi_v3:snippets_actions_revert",
+                kwargs={"type": self.model._meta.label, "pk": snippet.pk},
+            ),
+            data=json.dumps({"revision_id": revision_id}),
+            content_type="application/json",
+        )
+
+    def test_permission_matrix(self):
+        for i, (codenames, expected_status) in enumerate(self.permission_matrix):
+            with self.subTest(codenames=codenames):
+                snippet = FullFeaturedSnippet.objects.create(
+                    text="Original", live=False
+                )
+                original_revision = snippet.save_revision()
+                snippet.text = "Changed"
+                snippet.save_revision()
+                snippet.save()
+
+                if codenames is None:
+                    self.client.logout()
+                else:
+                    self.login_with_permissions(*codenames, index=i)
+
+                response = self.post(snippet, original_revision.pk)
+
+                self.assertEqual(response.status_code, expected_status)
+                if expected_status == 200:
+                    content = response.json()
+                    self.assertEqual(content["text"], "Original")
+
+    def test_revert_creates_new_revision_without_publishing(self):
+        self.login()
+        snippet = FullFeaturedSnippet.objects.create(text="Original", live=False)
+        original_revision = snippet.save_revision()
+        snippet.text = "Changed"
+        snippet.save_revision()
+        snippet.save()
+
+        response = self.post(snippet, original_revision.pk)
+
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(snippet.text, "Changed")
+        self.assertEqual(snippet.get_latest_revision().as_object().text, "Original")
+        self.assert_log_actions(snippet, ["wagtail.revert"])
+
+    def test_unknown_snippet_returns_404(self):
+        self.login()
+        response = self.client.post(
+            reverse(
+                "wagtailapi_v3:snippets_actions_revert",
+                kwargs={"type": self.model._meta.label, "pk": 999999},
+            ),
+            data=json.dumps({"revision_id": 1}),
+            content_type="application/json",
+        )
+        self.assert_problem_response(response, status_code=404)
+
+    def test_unknown_revision_returns_404(self):
+        self.login()
+        snippet = FullFeaturedSnippet.objects.create(text="Original", live=False)
+        response = self.post(snippet, 999999)
+        self.assert_problem_response(response, status_code=404)
+
+    def test_revision_belonging_to_another_snippet_returns_404(self):
+        self.login()
+        snippet = FullFeaturedSnippet.objects.create(text="Snippet", live=False)
+        other_snippet = FullFeaturedSnippet.objects.create(text="Other", live=False)
+        other_revision = other_snippet.save_revision()
+        response = self.post(snippet, other_revision.pk)
+        self.assert_problem_response(response, status_code=404)
+
+    def test_non_revisable_type_is_rejected(self):
+        self.login()
+        advert = Advert.objects.create(text="Hi")
+        response = self.client.post(
+            reverse(
+                "wagtailapi_v3:snippets_actions_revert",
+                kwargs={"type": "tests.Advert", "pk": advert.pk},
+            ),
+            data=json.dumps({"revision_id": 1}),
+            content_type="application/json",
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "literal_error", "loc": ["path", "type"]}],
+        )
+
+
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestV3SnippetCopyForTranslation(TestV3SnippetActionsBase):
     def setUp(self):

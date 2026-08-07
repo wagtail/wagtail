@@ -5,6 +5,7 @@ from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Schema, Status
 from ninja.pagination import paginate
+from pydantic import PositiveInt
 
 from wagtail.actions import action_registry
 from wagtail.actions.publish_revision import PublishPermissionError
@@ -14,7 +15,7 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.registry import registry
 from wagtail.api.v3.schemas.base import build_discriminated_union, build_union_schemas
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import DraftStateMixin, Locale, TranslatableMixin
+from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 from wagtail.permissions import policy_registry
 from wagtail.snippets.api.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
@@ -56,7 +57,7 @@ else:
         _NoSnippetModelsSchema
     )
 
-mixins = (DraftStateMixin, TranslatableMixin)
+mixins = (RevisionMixin, DraftStateMixin, TranslatableMixin)
 literals_by_mixin = {}
 schemas_by_mixin = {}
 for mixin in mixins:
@@ -233,6 +234,32 @@ def unpublish_snippet(
     action = action_class(instance, user=request.user)
     action.execute()
     return instance
+
+
+class SnippetRevertSchema(Schema):
+    revision_id: PositiveInt
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/revert/",
+    response=(schemas_by_mixin[RevisionMixin]),
+    url_name="snippets_actions_revert",
+    summary="Revert snippet to a previous revision",
+    operation_id="snippets_actions_revert",
+)
+def revert_snippet(
+    request: HttpRequest,
+    type: literals_by_mixin[RevisionMixin],
+    pk: str,
+    data: SnippetRevertSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    revision = get_object_or_404(instance.revisions, id=data.revision_id)
+    action_class = action_registry.get_action_class(model, "revert")
+    action = action_class(instance=instance, revision=revision, user=request.user)
+    new_revision = action.execute()
+    return new_revision.as_object()
 
 
 class SnippetCopyForTranslationSchema(Schema):
