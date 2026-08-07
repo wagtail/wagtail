@@ -1,32 +1,45 @@
 from typing import Any, Literal
 
-from django.http import HttpRequest
+from django.conf import settings
+from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import Router, Schema, Status
+from ninja import Body, Router, Schema, Status
 from ninja.pagination import paginate
 
-from wagtail.actions.create import CreateAction
-from wagtail.actions.delete import DeleteAction
-from wagtail.actions.edit import EditAction
+from wagtail.actions import action_registry
+from wagtail.actions.publish_revision import PublishPermissionError
 from wagtail.api.v3.form_data import build_model_form, build_model_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.registry import registry
-from wagtail.api.v3.schemas.base import build_union_schemas
+from wagtail.api.v3.schemas.base import build_discriminated_union, build_union_schemas
 from wagtail.coreutils import resolve_model_string
+from wagtail.models import DraftStateMixin, Locale, TranslatableMixin
+from wagtail.permissions import policy_registry
 from wagtail.snippets.api.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
 
 router = Router(tags=["snippets"])
+actions_router = Router(tags=["snippets"])
 
 enabled_models = [
     model for model in get_snippet_models() if registry.has(model._meta.label)
 ]
 
 
+def _type_literal(models):
+    # A Literal[] of no options isn't valid, so fall back to a type/schema
+    # that can never match a real request when no snippet model has the
+    # relevant mixin - the router still imports (and the OpenAPI schema
+    # still generates) with nothing to build a union from.
+    if not models:
+        return Literal[""]
+    return Literal[tuple(model._meta.label for model in models)]  # ty: ignore[invalid-type-form]
+
+
+SnippetTypeLiteral = _type_literal(enabled_models)
+
 if enabled_models:
-    _snippet_type_labels = tuple(model._meta.label for model in enabled_models)
-    SnippetTypeLiteral = Literal[_snippet_type_labels]  # ty: ignore[invalid-type-form]
     _snippet_schemas = build_union_schemas(enabled_models)
     SnippetDetailSchema = _snippet_schemas.detail
     SnippetCreateSchema = _snippet_schemas.create
@@ -36,13 +49,26 @@ else:
     # never match a real request, so the router still imports (and the
     # OpenAPI schema still generates) with no snippet models to build a
     # union from.
-    SnippetTypeLiteral = Literal[""]
-
     class _NoSnippetModelsSchema(Schema):
         meta: Any = None
 
     SnippetDetailSchema = SnippetCreateSchema = SnippetUpdateSchema = (
         _NoSnippetModelsSchema
+    )
+
+mixins = (DraftStateMixin, TranslatableMixin)
+literals_by_mixin = {}
+schemas_by_mixin = {}
+for mixin in mixins:
+    models = [model for model in enabled_models if issubclass(model, mixin)]
+    literals_by_mixin[mixin] = _type_literal(models)
+    schemas_by_mixin[mixin] = (
+        build_discriminated_union(
+            models,
+            lambda model: registry.get(model._meta.label).read_schema,
+        )
+        if models
+        else SnippetDetailSchema
     )
 
 
@@ -92,7 +118,8 @@ def create_snippet(
 ):
     model = resolve_model_string(type)
     form = build_model_form(model, data)
-    action = CreateAction(
+    action_class = action_registry.get_action_class(model, "create")
+    action = action_class(
         form.instance,
         user=request.user,
         form=form,
@@ -119,7 +146,8 @@ def update_snippet(
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=pk)
     form = build_model_update_form(instance, data)
-    action = EditAction(
+    action_class = action_registry.get_action_class(model, "edit")
+    action = action_class(
         form.instance,
         user=request.user,
         form=form,
@@ -136,10 +164,106 @@ def update_snippet(
     summary="Delete snippet",
     operation_id="snippets_delete",
 )
+@actions_router.delete(
+    "/{type}/{pk}/actions/delete/",
+    response={204: None},
+    url_name="snippets_actions_delete",
+    summary="Delete snippet",
+    operation_id="snippets_actions_delete",
+)
 @require_any_permission(get_model_from_params, ("delete",))
 def delete_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=pk)
-    action = DeleteAction(instance, user=request.user)
+    action_class = action_registry.get_action_class(model, "delete")
+    action = action_class(instance, user=request.user)
     action.execute()
     return Status(204, None)
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/publish/",
+    response=(schemas_by_mixin[DraftStateMixin]),
+    url_name="snippets_actions_publish",
+    summary="Publish snippet",
+    operation_id="snippets_actions_publish",
+)
+def publish_snippet(
+    request: HttpRequest,
+    type: literals_by_mixin[DraftStateMixin],
+    pk: str,
+):
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    revision = instance.get_latest_revision()
+
+    # If the object has no revision, create one only if the user has
+    # permission - matching the equivalent check in the pages router.
+    if revision is None:
+        permission_policy = policy_registry.get(instance)
+        if not permission_policy.user_has_permission_for_instance(
+            request.user, "publish", instance
+        ):
+            raise PublishPermissionError(
+                "You do not have permission to publish this object."
+            )
+        revision = instance.save_revision(user=request.user)
+
+    action_class = action_registry.get_action_class(model, "publish")
+    action = action_class(revision, user=request.user)
+    action.execute()
+    return model.objects.get(pk=instance.pk)
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/unpublish/",
+    response=(schemas_by_mixin[DraftStateMixin]),
+    url_name="snippets_actions_unpublish",
+    summary="Unpublish snippet",
+    operation_id="snippets_actions_unpublish",
+)
+def unpublish_snippet(
+    request: HttpRequest,
+    type: literals_by_mixin[DraftStateMixin],
+    pk: str,
+):
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    action_class = action_registry.get_action_class(model, "unpublish")
+    action = action_class(instance, user=request.user)
+    action.execute()
+    return instance
+
+
+class SnippetCopyForTranslationSchema(Schema):
+    locale: str
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/copy_for_translation/",
+    response={201: schemas_by_mixin[TranslatableMixin]},
+    url_name="snippets_actions_copy_for_translation",
+    summary="Copy snippet for translation",
+    operation_id="snippets_actions_copy_for_translation",
+)
+def copy_for_translation(
+    request: HttpRequest,
+    type: literals_by_mixin[TranslatableMixin],
+    pk: str,
+    data: SnippetCopyForTranslationSchema = Body(...),  # ty: ignore[call-non-callable]
+):
+    if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        raise Http404("Internationalization is not enabled.")
+
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    locale = get_object_or_404(Locale, language_code=data.locale)
+
+    action_class = action_registry.get_action_class(model, "copy_for_translation")
+    action = action_class(instance, locale, user=request.user)
+    new_instance = action.execute()
+    new_instance.save()
+    return Status(201, new_instance)
+
+
+router.add_router("/", actions_router)

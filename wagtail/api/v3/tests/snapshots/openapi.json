@@ -26196,6 +26196,17 @@
         "title": "SiteSchema",
         "type": "object"
       },
+      "SnippetCopyForTranslationSchema": {
+        "properties": {
+          "locale": {
+            "title": "Locale",
+            "type": "string"
+          }
+        },
+        "required": ["locale"],
+        "title": "SnippetCopyForTranslationSchema",
+        "type": "object"
+      },
       "StandardChildCreateMetaSchema": {
         "properties": {
           "action": {
@@ -38444,6 +38455,173 @@
         },
         "summary": "Update snippet",
         "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/copy_for_translation/": {
+      "post": {
+        "operationId": "snippets_actions_copy_for_translation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnippetCopyForTranslationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Copy snippet for translation",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/delete/": {
+      "delete": {
+        "operationId": "snippets_actions_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete snippet",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/publish/": {
+      "post": {
+        "operationId": "snippets_actions_publish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Publish snippet",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/unpublish/": {
+      "post": {
+        "operationId": "snippets_actions_unpublish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Unpublish snippet",
+        "tags": ["snippets", "snippets"]
       }
     }
   },
