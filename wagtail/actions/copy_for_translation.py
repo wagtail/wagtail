@@ -72,7 +72,10 @@ class CopyPageForTranslationAction:
         if (
             self.user
             and not skip_permission_checks
-            and not self.user.has_perms(["simple_translation.submit_translation"])
+            and not (
+                self.user.has_perms(["simple_translation.submit_translation"])
+                and self.page.permissions_for_user(self.user).can_edit()
+            )
         ):
             raise CopyPageForTranslationPermissionError(
                 "You do not have permission to submit a translation for this page."

@@ -1886,6 +1886,59 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
         ][0]
         assert new_post_page.title == new_page_title
 
+    def test_without_translate_permission(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.root_page.id, permission_type="change"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_without_edit_permission(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="simple_translation",
+                codename="submit_translation",
+            )
+        )
+        # Grant edit permission over a page that is not the one being copied
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.en_eventindex.id, permission_type="change"
+        )
+
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_with_translate_and_edit_permissions(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="simple_translation",
+                codename="submit_translation",
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.root_page.id, permission_type="change"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 201)
+
 
 class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
