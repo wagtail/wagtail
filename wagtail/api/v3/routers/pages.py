@@ -29,6 +29,7 @@ from wagtail.api.v3.schemas.params import (
     APIFieldFilterSchema,
     OrderingSchema,
     SearchSchema,
+    locale_filter_q,
 )
 from wagtail.api.validators import SiteFilterValidator
 from wagtail.coreutils import find_available_slug, resolve_model_string
@@ -88,9 +89,7 @@ class PageFilterSchema(FilterSchema):
     def filter_locale(self, value: str) -> Q:
         if not value:
             return Q()
-        # Fetch locale separately so it doesn't have to be indexed when searching
-        locale = get_object_or_404(Locale, language_code=value)
-        return Q(locale=locale)
+        return locale_filter_q(value)
 
     @model_validator(mode="after")
     def validate_child_of_or_descendant_of(self):
