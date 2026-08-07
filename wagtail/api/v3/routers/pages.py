@@ -646,6 +646,13 @@ def move(
     return page.specific
 
 
+@router.delete(
+    "/{page_id}/",
+    response={204: None},
+    url_name="delete_page",
+    summary="Delete page",
+    operation_id="pages_delete",
+)
 @actions_router.delete(
     "/{page_id}/actions/delete/",
     response={204: None},

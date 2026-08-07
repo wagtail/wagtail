@@ -33162,6 +33162,28 @@
       }
     },
     "/api/v3/pages/{page_id}/": {
+      "delete": {
+        "operationId": "pages_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete page",
+        "tags": ["pages"]
+      },
       "get": {
         "operationId": "pages_detail",
         "parameters": [
