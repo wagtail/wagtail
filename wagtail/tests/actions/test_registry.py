@@ -10,8 +10,10 @@ from wagtail.actions import (
     EditAction,
 )
 from wagtail.actions.base import BaseAction
+from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.registry import ActionRegistry, action_registry
-from wagtail.models import TranslatableMixin
+from wagtail.actions.unpublish import UnpublishAction
+from wagtail.models import DraftStateMixin, TranslatableMixin
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
@@ -124,6 +126,9 @@ class TestDefaultActions(TestCase):
                     "edit": EditAction,
                     "delete": DeleteAction,
                 }
+                if issubclass(model, DraftStateMixin):
+                    actions["publish"] = PublishRevisionAction
+                    actions["unpublish"] = UnpublishAction
                 if issubclass(model, TranslatableMixin):
                     actions["copy_for_translation"] = CopyForTranslationAction
                 self.assertEqual(action_registry.get_actions_for_model(model), actions)
