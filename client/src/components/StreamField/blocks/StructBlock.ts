@@ -454,8 +454,9 @@ export class StructBlockDefinition {
   declare name: string;
   declare childBlockDefs: any[];
   declare meta: StructBlockDefinitionMeta;
-  declare childBlockDefsByName: Record<string, any>;
   declare collapsible: boolean;
+  // Backing field for the lazy ``childBlockDefsByName`` getter below.
+  private childBlockDefsByNameCache?: Record<string, any>;
 
   constructor(
     name: string,
@@ -464,16 +465,28 @@ export class StructBlockDefinition {
   ) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
-    this.childBlockDefsByName = childBlockDefs.reduce((map, blockDef) => {
-      map[blockDef.name] = blockDef;
-      return map;
-    }, {});
     this.meta = meta;
 
     // Always collapsible by default, but can be overridden e.g. when used in a
     // StreamBlock or ListBlock, in which case the collapsible behavior is
     // controlled by the parent block.
     this.collapsible = true;
+  }
+
+  /**
+   * Lazy map of child block definitions keyed by name. Built on first
+   * access so this can be constructed while children are still
+   * placeholders with unset `.name` (cyclic reconstruction via telepath _ref).
+   */
+  get childBlockDefsByName(): Record<string, any> {
+    if (this.childBlockDefsByNameCache === undefined) {
+      const map: Record<string, any> = {};
+      this.childBlockDefs.forEach((blockDef) => {
+        map[blockDef.name] = blockDef;
+      });
+      this.childBlockDefsByNameCache = map;
+    }
+    return this.childBlockDefsByNameCache;
   }
 
   render(
