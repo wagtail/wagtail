@@ -55,18 +55,19 @@
                 </div>
                 <div class="w-col-span-1">
                     {% image image original as original_image %}
+                    {% block image_stats %}
+                        <dl>
+                            <dt>{% trans "Max dimensions" %}</dt>
+                            <dd>{{ original_image.width|unlocalize }}x{{ original_image.height|unlocalize }}</dd>
+                            <dt>{% trans "Filesize" %}</dt>
+                            <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
 
-                    <dl>
-                        <dt>{% trans "Max dimensions" %}</dt>
-                        <dd>{{ original_image.width|unlocalize }}x{{ original_image.height|unlocalize }}</dd>
-                        <dt>{% trans "Filesize" %}</dt>
-                        <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
-
-                        <dt>{% trans "Usage" %}</dt>
-                        <dd>
-                            <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                        </dd>
-                    </dl>
+                            <dt>{% trans "Usage" %}</dt>
+                            <dd>
+                                <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                            </dd>
+                        </dl>
+                    {% endblock %}
                 </div>
             </div>
         </div>
