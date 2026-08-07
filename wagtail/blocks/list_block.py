@@ -455,6 +455,7 @@ class ListBlock(Block):
         min_num = None
         max_num = None
         collapsed = False
+        label_format = None
 
     MUTABLE_META_ATTRIBUTES = ["min_num", "max_num"]
 
@@ -483,6 +484,10 @@ class ListBlockAdapter(Adapter):
 
         if block.meta.max_num is not None:
             meta["maxNum"] = block.meta.max_num
+
+        # Check specifically for None to allow for empty string
+        if block.meta.label_format is not None:
+            meta["labelFormat"] = block.meta.label_format
 
         return [
             block.name,

@@ -20,6 +20,7 @@ import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
 import { LocaleController } from './LocaleController';
 import { OrderableController } from './OrderableController';
+import { PanelLabelController } from './PanelLabelController';
 import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
@@ -62,6 +63,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
   { controllerConstructor: LocaleController, identifier: 'w-locale' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
+  { controllerConstructor: PanelLabelController, identifier: 'w-panel-label' },
   { controllerConstructor: PreviewController, identifier: 'w-preview' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
