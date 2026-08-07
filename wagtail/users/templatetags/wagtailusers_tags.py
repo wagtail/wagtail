@@ -134,6 +134,11 @@ def format_permissions(permission_bound_field):
         ct_id for ct_id in content_type_ids if ct_id != admin_content_type.pk
     ]
 
+    from django.contrib.auth import get_user_model
+
+    User = get_user_model()
+    user_content_type = ContentType.objects.get_for_model(User)
+
     # Permissions for all other content types, to be displayed under the
     # "Object permissions" section.
     object_perms = []
@@ -141,7 +146,7 @@ def format_permissions(permission_bound_field):
     # Iterate using the sorted content_type_ids
     for ct_id in content_type_ids:
         content_perms = content_perms_by_ct_id[ct_id]
-        content_perms_dict = {}
+        content_perms_dict = {"is_user_model": ct_id == user_content_type.id}
         custom_perms = []
 
         for perm in content_perms:
