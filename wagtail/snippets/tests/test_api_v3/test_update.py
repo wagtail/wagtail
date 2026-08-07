@@ -8,7 +8,11 @@ from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.documents.models import Document
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.test.testapp.models import Advert, UUIDSnippetWithRelations
+from wagtail.test.testapp.models import (
+    Advert,
+    FullFeaturedSnippet,
+    UUIDSnippetWithRelations,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -148,6 +152,16 @@ class TestV3SnippetUpdate(TestV3SnippetUpdateBase):
                     )
                 self.advert.refresh_from_db()
                 self.assertEqual(self.advert.text, "Advert 1")
+
+    def test_action_is_silently_ignored(self):
+        response = self.patch(
+            self.advert.pk,
+            {"meta": {"action": "publish"}, "text": "Updated"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.advert.refresh_from_db()
+        self.assert_log_actions(self.advert, ["wagtail.edit"])
+        self.assertEqual(self.advert.text, "Updated")
 
 
 class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
@@ -310,3 +324,86 @@ class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
             status_code=404,
             detail_contains="No UUIDSnippetWithRelations matches the given query.",
         )
+
+
+class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
+    """meta.action support for DraftStateMixin snippets."""
+
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.snippet = FullFeaturedSnippet.objects.create(
+            text="Original", some_number=1, live=False
+        )
+
+    def test_update_with_publish_action_publishes(self):
+        response = self.patch(
+            self.snippet.pk, {"meta": {"action": "publish"}, "text": "Updated"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+        self.assertEqual(self.snippet.text, "Updated")
+        self.assertIsNotNone(self.snippet.live_revision)
+        self.assertEqual(
+            self.snippet.live_revision_id, self.snippet.get_latest_revision().pk
+        )
+
+    def test_update_without_action_does_not_publish(self):
+        response = self.patch(self.snippet.pk, {"text": "Updated"})
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertFalse(self.snippet.live)
+        self.assertIsNone(self.snippet.live_revision)
+
+    def test_update_with_invalid_action_returns_422(self):
+        response = self.patch(
+            self.snippet.pk,
+            {"meta": {"action": "not_a_real_action"}, "text": "Updated"},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.FullFeaturedSnippet",
+                        "meta",
+                        "action",
+                    ],
+                    "msg": "Input should be 'publish'",
+                }
+            ],
+        )
+
+    def test_update_saves_one_revision_and_logs_edit(self):
+        response = self.patch(self.snippet.pk, {"text": "Updated"})
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.revisions.count(), 1)
+        self.assert_log_actions(self.snippet, ["wagtail.edit"])
+
+    def test_update_of_live_snippet_does_not_touch_live_row_until_published(self):
+        self.snippet.live = True
+        self.snippet.save()
+        self.snippet.save_revision().publish()
+
+        response = self.patch(self.snippet.pk, {"text": "New Draft Text"})
+        self.assertEqual(response.status_code, 200)
+
+        snippet = FullFeaturedSnippet.objects.get(pk=self.snippet.pk)
+        self.assertTrue(snippet.live)
+        self.assertEqual(snippet.text, "Original")
+
+        latest_revision = snippet.get_latest_revision()
+        self.assertNotEqual(snippet.live_revision_id, latest_revision.pk)
+        self.assertEqual(latest_revision.content["text"], "New Draft Text")
+
+        latest_revision.publish()
+        snippet.refresh_from_db()
+        self.assertEqual(snippet.text, "New Draft Text")

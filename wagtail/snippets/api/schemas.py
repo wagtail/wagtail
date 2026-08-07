@@ -1,4 +1,4 @@
-from typing import ClassVar
+from typing import ClassVar, Literal
 
 from django.db.models import Model
 from django.urls import reverse
@@ -10,6 +10,8 @@ from wagtail.api.v3.schemas.base import (
     BaseCreateSchema,
     BaseMetaSchema,
     BaseSchema,
+    BaseUpdateMetaSchema,
+    BaseUpdateSchema,
 )
 from wagtail.api.v3.schemas.params import TypeInjectingBody, TypeInjectingBodyModel
 
@@ -44,6 +46,17 @@ class BaseSnippetCreateMetaSchema(BaseCreateMetaSchema):
 
 class BaseSnippetCreateSchema(BaseCreateSchema):
     meta: BaseSnippetCreateMetaSchema | None = BaseSnippetCreateMetaSchema()
+
+
+class BaseSnippetUpdateMetaSchema(BaseUpdateMetaSchema):
+    pass
+
+
+class BaseSnippetUpdateSchema(BaseUpdateSchema):
+    meta: BaseSnippetUpdateMetaSchema | None = BaseSnippetUpdateMetaSchema()
+
+
+PUBLISH_ACTION_META_FIELD = {"action": (Literal["publish"] | None, None)}
 
 
 class ParamTypeInjectingBodyModel(TypeInjectingBodyModel):

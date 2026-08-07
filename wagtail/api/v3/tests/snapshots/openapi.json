@@ -12809,6 +12809,18 @@
       },
       "FullFeaturedSnippetCreateMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "type": {
             "anyOf": [
               {
@@ -12897,6 +12909,18 @@
       },
       "FullFeaturedSnippetPatchMetaSchema": {
         "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
           "type": {
             "anyOf": [
               {

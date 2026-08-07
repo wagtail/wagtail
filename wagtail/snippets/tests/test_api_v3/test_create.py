@@ -8,7 +8,11 @@ from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.documents.models import Document
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.test.testapp.models import Advert, UUIDSnippetWithRelations
+from wagtail.test.testapp.models import (
+    Advert,
+    FullFeaturedSnippet,
+    UUIDSnippetWithRelations,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -149,6 +153,11 @@ class TestV3SnippetCreate(TestV3SnippetCreateBase):
                             }
                         ],
                     )
+
+    def test_action_is_silently_ignored(self):
+        response = self.post({"meta": {"action": "publish"}, "text": "New advert"})
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Advert.objects.get(text="New advert").text, "New advert")
 
 
 class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
@@ -321,6 +330,86 @@ class TestV3SnippetCreateWithRelationsFieldFiltering(TestV3SnippetCreateBase):
                     "type": "invalid",
                     "loc": ["feed_image"],
                     "message": "This field is required when body is given.",
+                }
+            ],
+        )
+
+
+class TestV3SnippetCreateWithDraftState(TestV3SnippetCreateBase):
+    """meta.action support for DraftStateMixin snippets."""
+
+    model = FullFeaturedSnippet
+
+    def test_create_with_publish_action_publishes(self):
+        response = self.post(
+            {"meta": {"action": "publish"}, "text": "Hello", "some_number": 1}
+        )
+        self.assertEqual(response.status_code, 201)
+        snippet = FullFeaturedSnippet.objects.get(text="Hello")
+        self.assertTrue(snippet.live)
+        self.assertIsNotNone(snippet.live_revision)
+
+    def test_create_without_action_does_not_publish(self):
+        response = self.post({"text": "Hello", "some_number": 1})
+        self.assertEqual(response.status_code, 201)
+        snippet = FullFeaturedSnippet.objects.get(text="Hello")
+        self.assertFalse(snippet.live)
+        self.assertIsNone(snippet.live_revision)
+
+    def test_create_saves_one_revision_and_logs_create(self):
+        response = self.post({"text": "Hello", "some_number": 1})
+        self.assertEqual(response.status_code, 201)
+        snippet = FullFeaturedSnippet.objects.get(text="Hello")
+        self.assertEqual(snippet.revisions.count(), 1)
+        self.assert_log_actions(snippet, ["wagtail.create"])
+
+    def test_required_field_can_be_blank_when_saved_as_draft(self):
+        response = self.post({"text": "", "some_number": 1})
+        self.assertEqual(response.status_code, 201)
+        snippet = FullFeaturedSnippet.objects.get(some_number=1)
+        self.assertFalse(snippet.live)
+        self.assertEqual(snippet.text, "")
+
+    def test_missing_required_field_returns_422_on_publish(self):
+        response = self.post(
+            {"meta": {"action": "publish"}, "text": "", "some_number": 1}
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "required",
+                    "loc": ["text"],
+                    "message": "This field is required.",
+                }
+            ],
+        )
+
+    def test_create_with_invalid_action_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"action": "not_a_real_action"},
+                "text": "Hello",
+                "some_number": 1,
+            }
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.FullFeaturedSnippet",
+                        "meta",
+                        "action",
+                    ],
+                    "msg": "Input should be 'publish'",
                 }
             ],
         )
