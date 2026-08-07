@@ -13945,6 +13945,7 @@
         "type": "object"
       },
       "OrderingSchema": {
+        "description": "Order a queryset by one or more of its own APIFields.\n\nGeneric across content types: ``base_fields`` (passed to\n``order_queryset``) names the fields every model of this kind always\nallows to order by, on top of the queryset's own ``api_fields``.",
         "properties": {
           "order": {
             "anyOf": [
@@ -16923,6 +16924,7 @@
         "type": "object"
       },
       "SearchSchema": {
+        "description": "Full-text search a queryset, generic across content types.",
         "properties": {
           "search": {
             "anyOf": [
@@ -29025,6 +29027,60 @@
               ],
               "title": "Type",
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "random",
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "default": [],
+              "title": "Order"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search_operator",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["and", "or"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Operator"
             }
           },
           {

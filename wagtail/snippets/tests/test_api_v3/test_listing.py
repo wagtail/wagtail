@@ -1,9 +1,11 @@
 from django.contrib.auth.models import Permission
-from django.test import TestCase, override_settings
+from django.core.management import call_command
+from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.testapp.models import Advert
+from wagtail.models import Locale
+from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -115,3 +117,199 @@ class TestV3SnippetListingPagination(TestV3SnippetListingBase):
     def test_limit_within_max(self):
         content = self.get_response(limit=5).json()
         self.assertLessEqual(len(content["items"]), 5)
+
+
+class TestV3SnippetListingFieldFilter(TestV3SnippetListingBase):
+    def setUp(self):
+        super().setUp()
+        self.zebra = Advert.objects.create(text="Zebra", url="https://a.example.com")
+        self.apple = Advert.objects.create(text="Apple", url="https://b.example.com")
+        self.mango = Advert.objects.create(text="Mango", url="https://a.example.com")
+
+    def get_id_list(self, content):
+        return [item["id"] for item in content["items"]]
+
+    def test_filtering_exact_filter(self):
+        content = self.get_response(text="Apple").json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+
+    def test_filtering_on_pk(self):
+        content = self.get_response(id=self.apple.pk).json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+
+    def test_filtering_multiple_fields(self):
+        content = self.get_response(url="https://a.example.com").json()
+        self.assertEqual(set(self.get_id_list(content)), {self.zebra.pk, self.mango.pk})
+
+    def test_filtering_unknown_field_ignored(self):
+        # Unlike v2, an unrecognised query parameter is silently ignored
+        # rather than an error.
+        content = self.get_response(not_a_field="abc").json()
+        self.assertEqual(content["count"], 3)
+
+    def test_filtering_id_int_validation(self):
+        response = self.get_response(id="abc")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": ["id"],
+                    "msg": (
+                        "Field filter error, 'abc' is not a valid value for id. "
+                        "(Field 'id' expected a number but got 'abc'.)"
+                    ),
+                }
+            ],
+        )
+
+    def test_text_field_containing_null_bytes_gives_error(self):
+        response = self.get_response(text="\0")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": ["text"],
+                    "msg": (
+                        "Field filter error, '\x00' is not a valid value for "
+                        "text. (null characters are not allowed)"
+                    ),
+                }
+            ],
+        )
+
+
+class TestV3SnippetListingOrdering(TestV3SnippetListingBase):
+    def setUp(self):
+        super().setUp()
+        self.zebra = Advert.objects.create(text="Zebra")
+        self.apple = Advert.objects.create(text="Apple")
+        self.mango = Advert.objects.create(text="Mango")
+
+    def get_id_list(self, content):
+        return [item["id"] for item in content["items"]]
+
+    def test_ordering_by_field(self):
+        content = self.get_response(order="text").json()
+        self.assertEqual(
+            self.get_id_list(content),
+            [self.apple.pk, self.mango.pk, self.zebra.pk],
+        )
+
+    def test_ordering_by_field_backwards(self):
+        content = self.get_response(order="-text").json()
+        self.assertEqual(
+            self.get_id_list(content),
+            [self.zebra.pk, self.mango.pk, self.apple.pk],
+        )
+
+    def test_ordering_by_unknown_field_gives_error(self):
+        response = self.get_response(order="not_a_field")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, invalid fields for model Advert: ['not_a_field'].",
+                }
+            ],
+        )
+
+    def test_ordering_by_random(self):
+        content_1 = self.get_response(order="random").json()
+        content_2 = self.get_response(order="random").json()
+        # Not a reliable assertion on its own, but combined with the fixed
+        # seed data this at least exercises the "random" branch without error.
+        self.assertEqual(content_1["count"], content_2["count"])
+
+    def test_random_ordering_with_unknown_field_gives_error(self):
+        response = self.get_response(order=["random", "id"])
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, random ordering cannot be combined with other fields.",
+                }
+            ],
+        )
+
+    def test_ordering_by_random_with_offset_gives_error(self):
+        response = self.get_response(order="random", offset=1)
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "msg": "Value error, random ordering with offset is not supported.",
+                }
+            ],
+        )
+
+
+@tag("transaction")
+class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        Locale.objects.get_or_create(language_code="en")
+        self.apple = FullFeaturedSnippet.objects.create(text="Apple pie")
+        self.zebra = FullFeaturedSnippet.objects.create(text="Zebra crossing")
+        call_command("update_index", backend_name="default", verbosity=0, chunk_size=50)
+
+    def get_id_list(self, content):
+        return [item["id"] for item in content["items"]]
+
+    def test_search_for_text(self):
+        content = self.get_response(search="Apple").json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+
+    def test_empty_search_returns_no_results(self):
+        content = self.get_response(search="").json()
+        self.assertEqual(content["items"], [])
+        self.assertEqual(content["count"], 0)
+
+    def test_search_on_non_indexed_model_gives_error(self):
+        Advert.objects.create(text="Apple")
+        response = self.client.get(
+            reverse("wagtailapi_v3:list_snippets", kwargs={"type": "tests.Advert"}),
+            {"search": "Apple"},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "assertion_error",
+                    "msg": "Advert is not indexed for search.",
+                }
+            ],
+        )
+
+    @override_settings(WAGTAILAPI_SEARCH_ENABLED=False)
+    def test_search_when_disabled_gives_error(self):
+        response = self.get_response(search="Apple")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "assertion_error",
+                    "msg": "Assertion failed, search is disabled.",
+                }
+            ],
+        )

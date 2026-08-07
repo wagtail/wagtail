@@ -1,11 +1,22 @@
 from typing import ClassVar, Literal, Optional
 
-from django.http import HttpRequest
-from ninja import NinjaAPI
+from django.conf import settings
+from django.db import models
+from django.db.models import QuerySet
+from django.http import HttpRequest, QueryDict
+from ninja import NinjaAPI, Schema
 from ninja.params.models import Body, BodyModel
 from ninja.types import DictStrAny
-from pydantic import TypeAdapter
+from pydantic import TypeAdapter, model_validator
+from taggit.managers import TaggableManager
 from typing_extensions import NotRequired, TypedDict
+
+from wagtail.api.v3.errors import as_validation_error
+from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
+from wagtail.api.validators import APIFieldValidator, OrderingValidator, bool_adapter
+from wagtail.search.backends import get_search_backend
+from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
+from wagtail.search.index import class_is_indexed
 
 
 def validate_type(data: dict, meta_type: str):
@@ -68,3 +79,146 @@ class TypeInjectingBody(Body):
     def _param_source(cls) -> str:
         # Match Body's param source instead of the default cls.__name__.lower()
         return Body._param_source()
+
+
+class APIFieldFilterSchema(Schema, arbitrary_types_allowed=True):
+    """Filter a queryset by arbitrary query params matching writable APIFields.
+
+    Generic across content types: ``base_fields`` names the fields every
+    model of this kind always allows (e.g. a page's core fields, or a
+    model's own primary key), on top of whatever ``queryset.model``'s own
+    ``api_fields`` declare.
+    """
+
+    raw_params: QueryDict
+    base_fields: list[str]
+    ignore_fields: set[str] = set()
+
+    @classmethod
+    def with_exclude_schemas(cls, schemas: tuple[type[Schema], ...], **kwargs):
+        return cls(
+            ignore_fields=set().union(
+                *(schema.model_fields.keys() for schema in schemas)
+            ),
+            **kwargs,
+        )
+
+    def get_validated_fields(self, queryset: QuerySet) -> list[str]:
+        return APIFieldValidator(
+            model=queryset.model,
+            fields=set(self.raw_params.keys()) - self.ignore_fields,
+            base_fields=self.base_fields,
+            db_fields_only=True,
+            skip_invalid=True,
+        ).fields
+
+    def filter_queryset(self, queryset: QuerySet) -> QuerySet:
+        if not (fields := set(self.get_validated_fields(queryset))):
+            return queryset
+        for field_name in fields:
+            # FieldDoesNotExist already handled by APIFieldValidator.
+            field = queryset.model._meta.get_field(field_name)
+            value = self.raw_params.get(field_name)
+
+            # Convert value into python
+            try:
+                if "\x00" in str(value):
+                    raise ValueError("null characters are not allowed")
+                if isinstance(field, models.ForeignKey):
+                    value = field.target_field.get_prep_value(value)
+                elif isinstance(field, models.BooleanField):
+                    # Use Pydantic as it's more lenient than get_prep_value,
+                    # matches more closely to v2 API.
+                    value = bool_adapter.validate_python(value)
+                elif hasattr(field, "get_prep_value"):
+                    value = field.get_prep_value(value)
+
+                if isinstance(field, TaggableManager):
+                    # Use repeated query params standard for multiple tags
+                    for tag in self.raw_params.getlist(field_name):
+                        queryset = queryset.filter(**{field_name + "__name": tag})
+                else:
+                    queryset = queryset.filter(**{field_name: value})
+            except ValueError as e:
+                raise as_validation_error(
+                    e,
+                    message=f"Field filter error, '{value}' is not a valid value "
+                    f"for {field_name}. ({e})",
+                    loc=(field_name,),
+                ) from e
+        return queryset
+
+
+class OrderingSchema(Schema):
+    """Order a queryset by one or more of its own APIFields.
+
+    Generic across content types: ``base_fields`` (passed to
+    ``order_queryset``) names the fields every model of this kind always
+    allows to order by, on top of the queryset's own ``api_fields``.
+    """
+
+    # Ninja query params always result in a list if the union type has a list,
+    # but we use "random" literal (not ["random"]) for better OpenAPI spec.
+    order: Literal["random"] | list[str] = []
+
+    def order_queryset(
+        self,
+        queryset: QuerySet,
+        pagination_info: WagtailLimitOffsetPagination.Input,
+        base_fields: list[str] | tuple[str] | tuple[()] = (),
+    ) -> QuerySet:
+        validated_fields = OrderingValidator(
+            model=queryset.model,
+            fields=self.order,
+            base_fields=list(base_fields),
+            db_fields_only=True,
+            has_offset=bool(pagination_info.offset),
+        )
+        if validated_fields.fields:
+            return queryset.order_by(*validated_fields.fields)
+        return queryset
+
+
+class SearchSchema(Schema):
+    """Full-text search a queryset, generic across content types."""
+
+    search: Optional[str] = None
+    search_operator: Optional[Literal["and", "or"]] = None
+
+    @model_validator(mode="after")
+    def validate_settings(self):
+        if self.search and not getattr(settings, "WAGTAILAPI_SEARCH_ENABLED", True):
+            raise AssertionError("search is disabled.")
+        return self
+
+    def search_queryset(
+        self,
+        request: HttpRequest,
+        queryset: QuerySet,
+    ) -> QuerySet:
+        if self.search is None:
+            return queryset
+        if not class_is_indexed(queryset.model):
+            error = AssertionError(
+                f"{queryset.model._meta.object_name} is not indexed for search."
+            )
+            raise as_validation_error(error, str(error)) from error
+        try:
+            return get_search_backend().search(
+                self.search,
+                queryset,
+                operator=self.search_operator,
+                order_by_relevance="order" not in request.GET,
+            )
+        except FilterFieldError as e:
+            msg = (
+                f"Cannot filter by '{e.field_name}' while searching "
+                "(field is not indexed)."
+            )
+            raise as_validation_error(e, msg, loc=(e.field_name,)) from e
+        except OrderByFieldError as e:
+            msg = (
+                f"Cannot order by '{e.field_name}' while searching "
+                "(field is not indexed)."
+            )
+            raise as_validation_error(e, msg, loc=(e.field_name,)) from e
