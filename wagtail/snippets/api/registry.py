@@ -1,8 +1,8 @@
 from wagtail.api import APIField
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator, patch_generator, read_generator
-from wagtail.api.v3.schemas.base import BaseCreateSchema, BaseUpdateSchema
-from wagtail.snippets.api.schemas import BaseSnippetSchema
+from wagtail.api.v3.schemas.base import BaseUpdateSchema
+from wagtail.snippets.api.schemas import BaseSnippetCreateSchema, BaseSnippetSchema
 from wagtail.snippets.models import get_snippet_models
 
 
@@ -24,7 +24,7 @@ def register_content_types() -> None:
                 ),
                 create_schema=create_generator.generate_schema(
                     model,
-                    base_class=BaseCreateSchema,
+                    base_class=BaseSnippetCreateSchema,
                 ),
                 patch_schema=patch_generator.generate_schema(
                     model,

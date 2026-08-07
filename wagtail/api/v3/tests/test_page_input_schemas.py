@@ -1,3 +1,4 @@
+from types import UnionType
 from typing import Literal
 
 from django.db import models
@@ -119,13 +120,19 @@ class TestSchemaMetaNamespacing(TestSchemaGenerator):
 
         home_meta = home_schema.model_fields["meta"].annotation
         simple_meta = simple_schema.model_fields["meta"].annotation
+        self.assertIsInstance(home_meta, UnionType)
+        self.assertIsInstance(simple_meta, UnionType)
+        home_meta_schema, home_meta_none = home_meta.__args__
+        simple_meta_schema, simple_meta_none = simple_meta.__args__
+        self.assertIs(home_meta_none, type(None))
+        self.assertIs(simple_meta_none, type(None))
 
         self.assertEqual(
-            home_meta.model_fields["type"].annotation.__args__,
+            home_meta_schema.model_fields["type"].annotation.__args__,
             (Literal["demosite.HomePage"], type(None)),
         )
         self.assertEqual(
-            simple_meta.model_fields["type"].annotation.__args__,
+            simple_meta_schema.model_fields["type"].annotation.__args__,
             (Literal["tests.SimplePage"], type(None)),
         )
 
