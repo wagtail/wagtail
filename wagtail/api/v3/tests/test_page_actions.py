@@ -525,11 +525,10 @@ class TestV3PageDelete(TestV3PageActionsBase):
         ([], 403),
         ([Page.PERMISSION_CODENAMES.ADD], 204),
     ]
+    url_name = "wagtailapi_v3:delete_page"
 
     def delete(self, page):
-        return self.client.delete(
-            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": page.pk})
-        )
+        return self.client.delete(reverse(self.url_name, kwargs={"page_id": page.pk}))
 
     def test_permission_matrix(self):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
@@ -581,17 +580,14 @@ class TestV3PageDelete(TestV3PageActionsBase):
     def test_unknown_page_returns_404(self):
         self.login()
         response = self.client.delete(
-            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": 999999})
+            reverse(self.url_name, kwargs={"page_id": 999999})
         )
         self.assert_problem_response(response, status_code=404)
 
     def test_cannot_delete_root_page(self):
         self.login()
         response = self.client.delete(
-            reverse(
-                "wagtailapi_v3:pages_actions_delete",
-                kwargs={"page_id": self.root_page.pk},
-            )
+            reverse(self.url_name, kwargs={"page_id": self.root_page.pk})
         )
         self.assert_problem_response(response, status_code=403)
 
@@ -605,6 +601,12 @@ class TestV3PageDelete(TestV3PageActionsBase):
         )
         response = self.delete(section)
         self.assert_problem_response(response, status_code=403)
+
+
+class TestV3PageDeleteAction(TestV3PageDelete):
+    # The delete action is exposed both on the /{page_id}/ endpoint and the
+    # discrete /{page_id}/actions/delete/ endpoint.
+    url_name = "wagtailapi_v3:pages_actions_delete"
 
 
 class TestV3PageRevert(TestV3PageActionsBase):
