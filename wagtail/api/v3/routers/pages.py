@@ -649,7 +649,7 @@ def revert(
     page = get_object_or_404(Page, pk=page_id).specific
     revision = get_object_or_404(page.revisions, id=data.revision_id)
     action_class = action_registry.get_action_class(Page, "revert")
-    action = action_class(page=page, revision=revision, user=request.user)
+    action = action_class(instance=page, revision=revision, user=request.user)
     new_revision = action.execute()
     return new_revision.as_object()
 
