@@ -1,9 +1,9 @@
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from django.conf import settings
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import Body, Router, Schema, Status
+from ninja import Body, Query, Router, Schema, Status
 from ninja.pagination import paginate
 from pydantic import PositiveInt
 
@@ -14,6 +14,11 @@ from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.registry import registry
 from wagtail.api.v3.schemas.base import build_discriminated_union, build_union_schemas
+from wagtail.api.v3.schemas.params import (
+    APIFieldFilterSchema,
+    OrderingSchema,
+    SearchSchema,
+)
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 from wagtail.permissions import policy_registry
@@ -84,11 +89,36 @@ def get_model_from_params(request, *args, type: SnippetTypeLiteral, **kwargs):
     summary="List snippets",
     operation_id="snippets_list",
 )
-@paginate(WagtailLimitOffsetPagination)
+@paginate(
+    WagtailLimitOffsetPagination,
+    pass_parameter="pagination_info",  # noqa: S106 not a password
+)
 @require_any_permission(get_model_from_params, ("add", "change", "delete", "view"))
-def list_snippets(request: HttpRequest, type: SnippetTypeLiteral):
+def list_snippets(
+    request: HttpRequest,
+    type: SnippetTypeLiteral,
+    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
+    **kwargs,
+):
+    pagination_info = cast(
+        WagtailLimitOffsetPagination.Input,
+        kwargs.get("pagination_info"),
+    )
     model = resolve_model_string(type)
-    return model._default_manager.order_by("pk")
+    base_fields = [model._meta.pk.name]
+    field_filter = APIFieldFilterSchema.with_exclude_schemas(
+        raw_params=request.GET,
+        schemas=(OrderingSchema, SearchSchema),
+        base_fields=base_fields,
+    )
+    queryset = model._default_manager.order_by(model._meta.pk.name)
+    queryset = field_filter.filter_queryset(queryset)
+    queryset = ordering.order_queryset(
+        queryset, pagination_info, base_fields=base_fields
+    )
+    queryset = search.search_queryset(request, queryset)
+    return queryset
 
 
 @router.get(
