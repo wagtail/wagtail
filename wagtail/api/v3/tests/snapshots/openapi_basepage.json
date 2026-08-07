@@ -21564,6 +21564,34 @@
         "title": "TestPageSchema",
         "type": "object"
       },
+      "TranslationFilterSchema": {
+        "properties": {
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "translation_of": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translation Of"
+          }
+        },
+        "title": "TranslationFilterSchema",
+        "type": "object"
+      },
       "UUIDSnippetWithRelationsCreateMetaSchema": {
         "properties": {
           "type": {
@@ -29027,6 +29055,38 @@
               ],
               "title": "Type",
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Locale"
+            }
+          },
+          {
+            "in": "query",
+            "name": "translation_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Translation Of"
             }
           },
           {

@@ -258,6 +258,93 @@ class TestV3SnippetListingOrdering(TestV3SnippetListingBase):
         )
 
 
+class TestV3SnippetListingTranslationFilter(TestV3SnippetListingBase):
+    model = FullFeaturedSnippet
+
+    def setUp(self):
+        super().setUp()
+        self.en = Locale.objects.get_or_create(language_code="en")[0]
+        self.fr = Locale.objects.get_or_create(language_code="fr")[0]
+
+    def get_id_list(self, content):
+        return [item["id"] for item in content["items"]]
+
+    def test_locale_filter(self):
+        english = FullFeaturedSnippet.objects.create(text="English", locale=self.en)
+        french = FullFeaturedSnippet.objects.create(text="French", locale=self.fr)
+        content = self.get_response(locale="fr").json()
+        self.assertEqual(self.get_id_list(content), [french.pk])
+        self.assertNotIn(english.pk, self.get_id_list(content))
+
+    def test_locale_omitted_returns_all(self):
+        FullFeaturedSnippet.objects.create(text="English", locale=self.en)
+        FullFeaturedSnippet.objects.create(text="French", locale=self.fr)
+        content = self.get_response().json()
+        self.assertEqual(content["count"], 2)
+
+    def test_unknown_locale_returns_404(self):
+        FullFeaturedSnippet.objects.create(text="English", locale=self.en)
+        response = self.get_response(locale="de")
+        self.assert_problem_response(response, status_code=404)
+
+    def test_locale_on_non_translatable_type_gives_error(self):
+        Advert.objects.create(text="Hi")
+        response = self.client.get(
+            reverse("wagtailapi_v3:list_snippets", kwargs={"type": "tests.Advert"}),
+            {"locale": "fr"},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "assertion_error",
+                    "loc": ["locale"],
+                    "msg": "Advert is not translatable.",
+                }
+            ],
+        )
+
+    def test_translation_of_filter(self):
+        english = FullFeaturedSnippet.objects.create(text="English", locale=self.en)
+        french = FullFeaturedSnippet.objects.create(
+            text="French",
+            locale=self.fr,
+            translation_key=english.translation_key,
+        )
+        content = self.get_response(translation_of=english.pk).json()
+        self.assertEqual(self.get_id_list(content), [french.pk])
+        self.assertNotIn(english.pk, self.get_id_list(content))
+
+    def test_translation_of_unknown_snippet_gives_404(self):
+        response = self.get_response(translation_of=100000)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No FullFeaturedSnippet matches the given query.",
+        )
+
+    def test_translation_of_on_non_translatable_type_gives_error(self):
+        advert = Advert.objects.create(text="Hi")
+        response = self.client.get(
+            reverse("wagtailapi_v3:list_snippets", kwargs={"type": "tests.Advert"}),
+            {"translation_of": advert.pk},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "assertion_error",
+                    "loc": ["translation_of"],
+                    "msg": "Advert is not translatable.",
+                }
+            ],
+        )
+
+
 @tag("transaction")
 class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
     model = FullFeaturedSnippet
@@ -265,8 +352,13 @@ class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
     def setUp(self):
         super().setUp()
         Locale.objects.get_or_create(language_code="en")
-        self.apple = FullFeaturedSnippet.objects.create(text="Apple pie")
-        self.zebra = FullFeaturedSnippet.objects.create(text="Zebra crossing")
+        self.apple = FullFeaturedSnippet.objects.create(text="Apple pie", some_number=1)
+        self.apple_tart = FullFeaturedSnippet.objects.create(
+            text="Apple tart", some_number=2
+        )
+        self.zebra = FullFeaturedSnippet.objects.create(
+            text="Zebra crossing", some_number=3
+        )
         call_command("update_index", backend_name="default", verbosity=0, chunk_size=50)
 
     def get_id_list(self, content):
@@ -274,7 +366,9 @@ class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
 
     def test_search_for_text(self):
         content = self.get_response(search="Apple").json()
-        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+        self.assertEqual(
+            set(self.get_id_list(content)), {self.apple.pk, self.apple_tart.pk}
+        )
 
     def test_empty_search_returns_no_results(self):
         content = self.get_response(search="").json()
@@ -313,3 +407,81 @@ class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
                 }
             ],
         )
+
+    def test_search_operator_and(self):
+        content = self.get_response(search="Apple pie", search_operator="and").json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+
+    def test_search_operator_or(self):
+        content = self.get_response(search="Apple pie", search_operator="or").json()
+        self.assertEqual(
+            set(self.get_id_list(content)), {self.apple.pk, self.apple_tart.pk}
+        )
+
+    def test_search_with_order(self):
+        content = self.get_response(search="Apple", order="text").json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk, self.apple_tart.pk])
+
+    def test_search_with_order_on_non_indexed_field_gives_error(self):
+        response = self.get_response(search="Apple", order="some_number")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "order_by_field_error",
+                    "loc": ["some_number"],
+                    "msg": "Cannot order by 'some_number' while searching "
+                    "(field is not indexed).",
+                }
+            ],
+        )
+
+    def test_search_with_filter(self):
+        content = self.get_response(search="Apple", text="Apple pie").json()
+        self.assertEqual(self.get_id_list(content), [self.apple.pk])
+
+    def test_search_with_filter_on_non_indexed_field_gives_error(self):
+        response = self.get_response(search="Apple", some_number=1)
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "filter_field_error",
+                    "loc": ["some_number"],
+                    "msg": "Cannot filter by 'some_number' while searching "
+                    "(field is not indexed).",
+                }
+            ],
+        )
+
+    def test_locale_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        french_apple = FullFeaturedSnippet.objects.create(
+            text="Apple baguette", locale=french
+        )
+        call_command("update_index", backend_name="default", verbosity=0)
+
+        content = self.get_response(locale="fr", search="Apple").json()
+
+        self.assertEqual(self.get_id_list(content), [french_apple.pk])
+
+    def test_translation_of_filter_with_search(self):
+        french = Locale.objects.create(language_code="fr")
+        french_apple = FullFeaturedSnippet.objects.create(
+            text="Apple baguette",
+            locale=french,
+            translation_key=self.apple.translation_key,
+        )
+        call_command("update_index", backend_name="default", verbosity=0)
+
+        content = self.get_response(
+            translation_of=self.apple.pk, search="baguette"
+        ).json()
+        self.assertEqual(self.get_id_list(content), [french_apple.pk])
+
+        content = self.get_response(translation_of=self.apple.pk, search="zebra").json()
+        self.assertEqual(self.get_id_list(content), [])
