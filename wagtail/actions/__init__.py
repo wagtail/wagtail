@@ -17,8 +17,10 @@ from wagtail.actions.edit import EditAction, EditPermissionError
 from wagtail.actions.edit_page import EditPageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.registry import ActionRegistry, action_registry
 from wagtail.actions.revert_to_page_revision import RevertToPageRevisionAction
+from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 
 __all__ = [
@@ -47,6 +49,7 @@ __all__ = [
 
 
 def register_default_actions():
+    from wagtail.models.draft_state import DraftStateMixin
     from wagtail.models.i18n import TranslatableMixin
 
     Page = swapper.load_model("wagtailcore", "Page")
@@ -54,6 +57,9 @@ def register_default_actions():
     action_registry.register(models.Model, CreateAction)
     action_registry.register(models.Model, EditAction)
     action_registry.register(models.Model, DeleteAction)
+
+    action_registry.register(DraftStateMixin, PublishRevisionAction)
+    action_registry.register(DraftStateMixin, UnpublishAction)
 
     action_registry.register(TranslatableMixin, CopyForTranslationAction)
 
