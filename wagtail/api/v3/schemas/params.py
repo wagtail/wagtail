@@ -2,8 +2,9 @@ from typing import ClassVar, Literal, Optional
 
 from django.conf import settings
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from django.http import HttpRequest, QueryDict
+from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI, Schema
 from ninja.params.models import Body, BodyModel
 from ninja.types import DictStrAny
@@ -14,6 +15,7 @@ from typing_extensions import NotRequired, TypedDict
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.validators import APIFieldValidator, OrderingValidator, bool_adapter
+from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 from wagtail.search.index import class_is_indexed
@@ -222,3 +224,40 @@ class SearchSchema(Schema):
                 "(field is not indexed)."
             )
             raise as_validation_error(e, msg, loc=(e.field_name,)) from e
+
+
+def locale_filter_q(language_code: str) -> Q:
+    # Fetch locale separately so it doesn't have to be indexed when searching
+    locale = get_object_or_404(Locale, language_code=language_code)
+    return Q(locale=locale)
+
+
+def translation_of_q(instance: TranslatableMixin, inclusive: bool = False) -> Q:
+    q = Q(translation_key=instance.translation_key)
+    if not inclusive:
+        q &= ~Q(pk=instance.pk)
+    return q
+
+
+class TranslationFilterSchema(Schema):
+    locale: Optional[str] = None
+    translation_of: Optional[str] = None
+
+    def _check_translatable(self, queryset: QuerySet, loc: str) -> None:
+        if not issubclass(queryset.model, TranslatableMixin):
+            error = AssertionError(
+                f"{queryset.model._meta.object_name} is not translatable."
+            )
+            raise as_validation_error(error, str(error), loc=(loc,)) from error
+
+    def filter_queryset(self, queryset: QuerySet) -> QuerySet:
+        if self.locale:
+            self._check_translatable(queryset, "locale")
+            queryset = queryset.filter(locale_filter_q(self.locale))
+
+        if self.translation_of:
+            self._check_translatable(queryset, "translation_of")
+            instance = get_object_or_404(queryset.model, pk=self.translation_of)
+            queryset = queryset.filter(translation_of_q(instance))
+
+        return queryset

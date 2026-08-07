@@ -18,6 +18,7 @@ from wagtail.api.v3.schemas.params import (
     APIFieldFilterSchema,
     OrderingSchema,
     SearchSchema,
+    TranslationFilterSchema,
 )
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
@@ -97,6 +98,7 @@ def get_model_from_params(request, *args, type: SnippetTypeLiteral, **kwargs):
 def list_snippets(
     request: HttpRequest,
     type: SnippetTypeLiteral,
+    translation_filter: TranslationFilterSchema = Query(...),  # ty: ignore[call-non-callable]
     ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
     search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
     **kwargs,
@@ -109,10 +111,11 @@ def list_snippets(
     base_fields = [model._meta.pk.name]
     field_filter = APIFieldFilterSchema.with_exclude_schemas(
         raw_params=request.GET,
-        schemas=(OrderingSchema, SearchSchema),
+        schemas=(TranslationFilterSchema, OrderingSchema, SearchSchema),
         base_fields=base_fields,
     )
     queryset = model._default_manager.order_by(model._meta.pk.name)
+    queryset = translation_filter.filter_queryset(queryset)
     queryset = field_filter.filter_queryset(queryset)
     queryset = ordering.order_queryset(
         queryset, pagination_info, base_fields=base_fields

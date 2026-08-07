@@ -1482,6 +1482,9 @@ class FullFeaturedSnippet(
         index.AutocompleteField("text"),
         index.FilterField("text"),
         index.FilterField("country_code"),
+        index.FilterField("locale"),
+        index.FilterField("translation_key"),
+        index.FilterField("id"),
     ]
 
     def __str__(self):
