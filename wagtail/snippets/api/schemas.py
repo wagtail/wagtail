@@ -5,7 +5,12 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.api.v2.utils import get_full_url
-from wagtail.api.v3.schemas.base import BaseMetaSchema, BaseSchema
+from wagtail.api.v3.schemas.base import (
+    BaseCreateMetaSchema,
+    BaseCreateSchema,
+    BaseMetaSchema,
+    BaseSchema,
+)
 from wagtail.api.v3.schemas.params import TypeInjectingBody, TypeInjectingBodyModel
 
 
@@ -33,8 +38,17 @@ class BaseSnippetSchema(BaseSchema):
     meta: SnippetMetaSchema
 
 
+class BaseSnippetCreateMetaSchema(BaseCreateMetaSchema):
+    type: str | None = None
+
+
+class BaseSnippetCreateSchema(BaseCreateSchema):
+    meta: BaseSnippetCreateMetaSchema | None = BaseSnippetCreateMetaSchema()
+
+
 class ParamTypeInjectingBodyModel(TypeInjectingBodyModel):
     type_param: ClassVar[str] = "type"
+    validate = True
 
     @classmethod
     def get_meta_type(cls, request, api, path_params):

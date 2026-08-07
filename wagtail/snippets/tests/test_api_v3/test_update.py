@@ -91,6 +91,64 @@ class TestV3SnippetUpdate(TestV3SnippetUpdateBase):
         response = self.patch(self.advert.pk, {"not_a_real_field": "ignored"})
         self.assertEqual(response.status_code, 200)
 
+    def test_meta_type_can_be_omitted(self):
+        empty_metas = [
+            {},
+            {"meta": None},
+            {"meta": {}},
+            {"meta": {"type": "tests.Advert"}},
+        ]
+        for meta in empty_metas:
+            with self.subTest(meta=meta):
+                payload = {"text": "Updated", **meta}
+                response = self.patch(self.advert.pk, payload)
+                self.assertEqual(response.status_code, 200)
+                self.advert.refresh_from_db()
+                self.assertEqual(self.advert.text, "Updated")
+
+    def test_malformed_meta_type_returns_422(self):
+        problem_metas = [
+            123,
+            "not a dict",
+            ["not", "a", "dict"],
+            {"type": 123},
+            {"type": ["not", "a", "string"]},
+            {"type": "auth.User"},
+            {"type": "tests.UUIDSnippetWithRelations"},
+        ]
+        for meta in problem_metas:
+            with self.subTest(meta=meta):
+                data = {"meta": meta, "text": "Updated"}
+                response = self.patch(self.advert.pk, data)
+                if isinstance(meta, dict):
+                    self.assert_problem_response(
+                        response,
+                        status_code=422,
+                        detail_contains="Validation failed",
+                        errors=[
+                            {
+                                "type": "literal_error",
+                                "loc": ["body", "meta", "type"],
+                                "msg": "Input should be 'tests.Advert'",
+                            }
+                        ],
+                    )
+                else:
+                    self.assert_problem_response(
+                        response,
+                        status_code=422,
+                        detail_contains="Validation failed",
+                        errors=[
+                            {
+                                "type": "dict_type",
+                                "loc": ["body", "meta"],
+                                "msg": "Input should be a valid dictionary",
+                            }
+                        ],
+                    )
+                self.advert.refresh_from_db()
+                self.assertEqual(self.advert.text, "Advert 1")
+
 
 class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
     model = UUIDSnippetWithRelations

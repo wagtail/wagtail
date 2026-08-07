@@ -38,7 +38,7 @@ class BaseUpdateMetaSchema(Schema):
 
 
 class BaseUpdateSchema(Schema):
-    meta: BaseUpdateMetaSchema = BaseUpdateMetaSchema()
+    meta: BaseUpdateMetaSchema | None = BaseUpdateMetaSchema()
 
 
 class ContentTypeSummarySchema(Schema):
