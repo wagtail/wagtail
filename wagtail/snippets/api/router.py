@@ -92,7 +92,12 @@ def create_snippet(
 ):
     model = resolve_model_string(type)
     form = build_model_form(model, data)
-    action = CreateAction(form.instance, user=request.user, form=form)
+    action = CreateAction(
+        form.instance,
+        user=request.user,
+        form=form,
+        publish=getattr(data.meta, "action", None) == "publish",
+    )
     action.execute()
     return Status(201, form.instance)
 
@@ -114,7 +119,12 @@ def update_snippet(
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=pk)
     form = build_model_update_form(instance, data)
-    action = EditAction(form.instance, user=request.user, form=form)
+    action = EditAction(
+        form.instance,
+        user=request.user,
+        form=form,
+        publish=getattr(data.meta, "action", None) == "publish",
+    )
     action.execute()
     return form.instance
 

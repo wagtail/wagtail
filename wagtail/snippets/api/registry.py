@@ -1,8 +1,13 @@
 from wagtail.api import APIField
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator, patch_generator, read_generator
-from wagtail.api.v3.schemas.base import BaseUpdateSchema
-from wagtail.snippets.api.schemas import BaseSnippetCreateSchema, BaseSnippetSchema
+from wagtail.models import DraftStateMixin
+from wagtail.snippets.api.schemas import (
+    PUBLISH_ACTION_META_FIELD,
+    BaseSnippetCreateSchema,
+    BaseSnippetSchema,
+    BaseSnippetUpdateSchema,
+)
 from wagtail.snippets.models import get_snippet_models
 
 
@@ -13,6 +18,12 @@ def register_content_types() -> None:
         # be meaningfully used.
         if not APIField.get_fields_for_model(model):
             continue
+
+        # DraftStateMixin models get an extra meta.action field on create/
+        # update, letting a request publish the revision in the same call.
+        extra_meta_fields = None
+        if issubclass(model, DraftStateMixin):
+            extra_meta_fields = PUBLISH_ACTION_META_FIELD
 
         registry.register(
             ContentTypeRegistration(
@@ -25,10 +36,12 @@ def register_content_types() -> None:
                 create_schema=create_generator.generate_schema(
                     model,
                     base_class=BaseSnippetCreateSchema,
+                    extra_meta_fields=extra_meta_fields,
                 ),
                 patch_schema=patch_generator.generate_schema(
                     model,
-                    base_class=BaseUpdateSchema,
+                    base_class=BaseSnippetUpdateSchema,
+                    extra_meta_fields=extra_meta_fields,
                 ),
             )
         )
