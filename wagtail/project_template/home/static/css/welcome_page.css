@@ -2,6 +2,21 @@ html {
     box-sizing: border-box;
 }
 
+@keyframes egg-break {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 *,
 *:before,
 *:after {
@@ -79,22 +94,74 @@ svg:not(:root) {
 
 .figure-space {
     max-width: 265px;
+    cursor: pointer;
 }
 
-@keyframes pos {
-    0%, 100% {
-        transform: rotate(-6deg);
-    }
-    50% {
-        transform: rotate(6deg);
-    }
+.figure-space:focus-visible {
+    outline: 3px solid #ea1b10;
+    outline-offset: 4px;
+}
+
+.figure {
+    position: relative;
+    display: block;
 }
 
 .egg {
     fill: #43b1b0;
-    animation: pos 3s ease infinite;
-    transform: translateY(50px);
-    transform-origin: 50% 80%;
+    animation: egg-bounce 2s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes egg-bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.egg-top, .egg-bottom {
+    fill: #43b1b0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.egg-message {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,1.3,.4,1);
+    pointer-events: none;
+}
+
+
+#egg-crack-toggle:checked ~ #egg-svg-container .egg {
+    animation: none;
+}
+
+#egg-crack-toggle:checked ~ #egg-svg-container .egg-top {
+    transform: translateY(-40px) scale(1.05);
+    opacity: 0;
+}
+
+#egg-crack-toggle:checked ~ #egg-svg-container .egg-bottom {
+    transform: translateY(40px) scale(1.05);
+    opacity: 0;
+}
+
+#egg-crack-toggle:checked ~ #egg-svg-container ellipse {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+#egg-crack-toggle:checked ~ .egg-message {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .main-text {
