@@ -18919,6 +18919,18 @@
         "title": "SnippetCopyForTranslationSchema",
         "type": "object"
       },
+      "SnippetRevertSchema": {
+        "properties": {
+          "revision_id": {
+            "exclusiveMinimum": 0,
+            "title": "Revision Id",
+            "type": "integer"
+          }
+        },
+        "required": ["revision_id"],
+        "title": "SnippetRevertSchema",
+        "type": "object"
+      },
       "StandardChildCreateMetaSchema": {
         "properties": {
           "action": {
@@ -29407,6 +29419,56 @@
           }
         },
         "summary": "Publish snippet",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/revert/": {
+      "post": {
+        "operationId": "snippets_actions_revert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnippetRevertSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Revert snippet to a previous revision",
         "tags": ["snippets", "snippets"]
       }
     },
