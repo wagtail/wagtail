@@ -185,6 +185,7 @@ class InputSchemaGenerator:
         base_meta_schema: type[Any],
         model: type[Model],
         name_suffix: str,
+        extra_fields: dict[str, tuple[Any, Any]] | None = None,
     ) -> type[Schema] | UnionType:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -194,6 +195,11 @@ class InputSchemaGenerator:
         its own content type label instead, so the OpenAPI schema (and
         validation) reflects the actual, constant value rather than an
         open-ended string.
+
+        ``extra_fields``, if given, adds further ``{name: (annotation, default)}``
+        entries to this same per-model subclass - e.g. an ``action`` field only
+        some concrete models support, without needing a whole separate hierarchy
+        of named meta-schema classes per capability/mixin combination.
 
         ``name_suffix`` (e.g. ``"Create"`` or ``"Patch"``) keeps this
         distinct from another schema generated for the same model under a
@@ -220,12 +226,17 @@ class InputSchemaGenerator:
             meta_type = meta_type | None  # type: ignore[assignment]
 
         # Build the narrowed meta schema class
+        namespace: dict[str, Any] = {"__annotations__": {"type": meta_type}}
+        for field_name, (annotation, default) in (extra_fields or {}).items():
+            namespace["__annotations__"][field_name] = annotation
+            namespace[field_name] = default
+
         narrowed_meta = cast(
             type[Schema],
             type(base_meta)(
                 f"{model._meta.object_name}{name_suffix}MetaSchema",
                 (base_meta,),
-                {"__annotations__": {"type": meta_type}},
+                namespace,
             ),
         )
 
@@ -268,6 +279,7 @@ class InputSchemaGenerator:
         base_class: type[Schema],
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
+        extra_meta_fields: dict[str, tuple[Any, Any]] | None = None,
     ) -> type[Schema]:
         """Build an input (create/patch) schema for the concrete model ``model``.
 
@@ -283,6 +295,13 @@ class InputSchemaGenerator:
         :class:`wagtail.api.v3.schemas.pages.PageCreateBaseSchema`), it's
         narrowed to a ``Literal`` matching this specific model, the same way
         the read-side generator narrows ``meta.type`` for read schemas.
+
+        ``extra_meta_fields``, if given, adds further ``{name: (annotation,
+        default)}`` fields to that same narrowed ``meta`` schema - for a
+        capability only some concrete models support (e.g. ``action`` for
+        ``DraftStateMixin``), letting the caller decide per model rather than
+        needing a dedicated meta-schema subclass for every mixin/capability
+        combination.
         """
         field_names = [
             name
@@ -316,7 +335,10 @@ class InputSchemaGenerator:
         if meta_field is not None:
             meta_schema = namespace["__annotations__"]["meta"] = (
                 self._narrowed_meta_schema(
-                    meta_field.annotation, model, self.name_suffix
+                    meta_field.annotation,
+                    model,
+                    self.name_suffix,
+                    extra_fields=extra_meta_fields,
                 )
             )
             if InputSchemaGenerator._is_optional(meta_schema):
