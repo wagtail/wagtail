@@ -134,7 +134,7 @@ class PageUpdateMetaSchema(BaseUpdateMetaSchema):
 
 
 class PageUpdateBaseSchema(BaseUpdateSchema):
-    meta: PageUpdateMetaSchema = PageUpdateMetaSchema()
+    meta: PageUpdateMetaSchema | None = PageUpdateMetaSchema()
 
 
 class PageTypeInjectingBodyModel(TypeInjectingBodyModel):

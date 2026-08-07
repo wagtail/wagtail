@@ -1,5 +1,6 @@
 from collections.abc import Iterable
-from typing import Any, Callable, Literal, cast
+from types import UnionType
+from typing import Any, Callable, Literal, Union, cast, get_args, get_origin
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Field, ForeignKey, Model
@@ -8,6 +9,7 @@ from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
 from ninja.orm.fields import get_schema_field
+from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
@@ -171,12 +173,19 @@ class InputSchemaGenerator:
         return extra_fields
 
     @staticmethod
+    def _is_optional(annotation: type[Any] | UnionType) -> bool:
+        return (
+            # Union: Optional[T] or Union[T, None]. UnionType: T | None.
+            get_origin(annotation) in (Union, UnionType)
+            and type(None) in get_args(annotation)
+        )
+
+    @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema],
+        base_meta_schema: type[Any],
         model: type[Model],
         name_suffix: str,
-        for_update: bool = False,
-    ) -> type[Schema]:
+    ) -> type[Schema] | UnionType:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
         A shared base class's ``meta`` field types ``type`` generically
@@ -194,16 +203,36 @@ class InputSchemaGenerator:
         shadow the other in the generated docs.
         """
         meta_type = Literal[model._meta.label]  # ty: ignore[invalid-type-form]
-        if for_update:
-            meta_type = meta_type | None
-        return cast(
+        is_optional = InputSchemaGenerator._is_optional
+        base_meta = base_meta_schema
+
+        # If the meta is optional, get the first Pydantic model in the union.
+        if meta_is_optional := is_optional(base_meta):
+            for args in get_args(base_meta):
+                if issubclass(args, BaseModel):
+                    base_meta = args
+                    break
+
+        # Check if existing meta type is optional, and if so, make the new meta
+        # type optional as well.
+        existing = base_meta.model_fields.get("type")
+        if existing and is_optional(existing.annotation):
+            meta_type = meta_type | None  # type: ignore[assignment]
+
+        # Build the narrowed meta schema class
+        narrowed_meta = cast(
             type[Schema],
-            type(base_meta_schema)(
+            type(base_meta)(
                 f"{model._meta.object_name}{name_suffix}MetaSchema",
-                (base_meta_schema,),
+                (base_meta,),
                 {"__annotations__": {"type": meta_type}},
             ),
         )
+
+        # Make the narrowed meta schema optional if the base meta was too.
+        if meta_is_optional:
+            narrowed_meta = narrowed_meta | None
+        return narrowed_meta
 
     @staticmethod
     def _make_optional(field_schema: tuple[Any, Any]) -> tuple[Any, Any]:
@@ -285,9 +314,13 @@ class InputSchemaGenerator:
 
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
-            namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
-                meta_field.annotation, model, self.name_suffix, self.for_update
+            meta_schema = namespace["__annotations__"]["meta"] = (
+                self._narrowed_meta_schema(
+                    meta_field.annotation, model, self.name_suffix
+                )
             )
+            if InputSchemaGenerator._is_optional(meta_schema):
+                namespace["meta"] = None
 
         for field_name, (annotation, default) in extra_fields.items():
             namespace["__annotations__"][field_name] = annotation

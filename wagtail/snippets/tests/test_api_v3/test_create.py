@@ -72,10 +72,6 @@ class TestV3SnippetCreate(TestV3SnippetCreateBase):
         response = self.post(self.valid_payload)
         self.assertEqual(response.status_code, 201)
 
-    def test_meta_type_can_be_omitted(self):
-        response = self.post(self.valid_payload)
-        self.assertEqual(response.status_code, 201)
-
     def test_missing_required_field_returns_422(self):
         response = self.post({"url": "https://wagtail.org"})
         self.assert_problem_response(
@@ -100,33 +96,59 @@ class TestV3SnippetCreate(TestV3SnippetCreateBase):
         response = self.post({**self.valid_payload, "not_a_real_field": "ignored"})
         self.assertEqual(response.status_code, 201)
 
+    def test_meta_type_can_be_omitted(self):
+        empty_metas = [
+            {},
+            {"meta": None},
+            {"meta": {}},
+            {"meta": {"type": "tests.Advert"}},
+        ]
+        for meta in empty_metas:
+            with self.subTest(meta=meta):
+                payload = {**self.valid_payload, **meta}
+                response = self.post(payload)
+                self.assertEqual(response.status_code, 201)
+
     def test_malformed_meta_type_returns_422(self):
         problem_metas = [
-            (123, "123"),
-            ("not a dict", "not a dict"),
-            (["not", "a", "dict"], "['not', 'a', 'dict']"),
-            ({"type": 123}, "123"),
-            ({"type": ["not", "a", "string"]}, "['not', 'a', 'string']"),
-            ({"type": "not.AType"}, "not.AType"),
-            ({"type": "auth.User"}, "auth.User"),
+            123,
+            "not a dict",
+            ["not", "a", "dict"],
+            {"type": 123},
+            {"type": ["not", "a", "string"]},
+            {"type": "auth.User"},
+            {"type": "tests.UUIDSnippetWithRelations"},
         ]
-        for meta, extracted in problem_metas:
+        for meta in problem_metas:
             with self.subTest(meta=meta):
                 data = {**self.valid_payload, "meta": meta}
                 response = self.post(data)
-                content = self.assert_problem_response(
-                    response,
-                    status_code=422,
-                    detail_contains="Validation failed",
-                    errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
-                )
-                self.assertEqual(len(content["errors"]), 1)
-                self.assertIn(
-                    f"Input tag '{extracted}' found using "
-                    "discriminate_meta_type() does not match any of the expected "
-                    "tags: ",
-                    content["errors"][0]["msg"],
-                )
+                if isinstance(meta, dict):
+                    self.assert_problem_response(
+                        response,
+                        status_code=422,
+                        detail_contains="Validation failed",
+                        errors=[
+                            {
+                                "type": "literal_error",
+                                "loc": ["body", "meta", "type"],
+                                "msg": "Input should be 'tests.Advert'",
+                            }
+                        ],
+                    )
+                else:
+                    self.assert_problem_response(
+                        response,
+                        status_code=422,
+                        detail_contains="Validation failed",
+                        errors=[
+                            {
+                                "type": "dict_type",
+                                "loc": ["body", "meta"],
+                                "msg": "Input should be a valid dictionary",
+                            }
+                        ],
+                    )
 
 
 class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
