@@ -1,26 +1,15 @@
-import functools
-import json
 from typing import Literal, Optional, TypeAlias, cast
 
 import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
-from django.db.models import Model, Q, QuerySet
-from django.http import Http404, HttpRequest, QueryDict
+from django.db.models import Model, Q
+from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from ninja import Body, FilterSchema, Query, Router, Schema, Status
-from ninja.decorators import decorate_view
 from ninja.pagination import paginate
-from pydantic import (
-    PositiveInt,
-    ValidationError,
-    field_validator,
-    model_validator,
-)
-from pydantic_core import PydanticCustomError
-from taggit.managers import TaggableManager
+from pydantic import PositiveInt, field_validator, model_validator
 
 from wagtail.actions import action_registry
 from wagtail.actions.convert_alias import ConvertAliasPageError
@@ -35,22 +24,17 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
-from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageUpdateBaseSchema
-from wagtail.api.validators import (
-    APIFieldValidator,
-    OrderingValidator,
-    SiteFilterValidator,
-    bool_adapter,
+from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageTypeInjectingBody
+from wagtail.api.v3.schemas.params import (
+    APIFieldFilterSchema,
+    OrderingSchema,
+    SearchSchema,
+    locale_filter_q,
 )
-from wagtail.coreutils import (
-    camelcase_to_underscore,
-    find_available_slug,
-    resolve_model_string,
-)
+from wagtail.api.validators import SiteFilterValidator
+from wagtail.coreutils import find_available_slug, resolve_model_string
 from wagtail.models import Locale, Site, get_page_models
 from wagtail.query import PageQuerySet
-from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
-from wagtail.search.queryset import SearchableQuerySetMixin
 
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
@@ -69,40 +53,6 @@ def _public_pages_queryset(request: HttpRequest, model=Page):
     return get_pages_queryset(request, tier=AccessTier.PUBLIC, model=model).order_by(
         "id"
     )
-
-
-def default_meta_type(func):
-    """
-    A decorator to fill in a missing ``meta.type`` on the request body from the
-    page being updated, so callers can omit it.
-
-    This must run in VIEW mode to fill in the type before the request body is
-    parsed into a Pydantic model with the discriminated union schema.
-    """
-
-    @functools.wraps(func)
-    def wrapper(request, *args, **kwargs):
-        try:
-            parsed = PageUpdateBaseSchema.model_validate_json(request.body)
-        except ValidationError:
-            parsed = None
-
-        # Only do this when the type is not supplied, as it impacts performance.
-        if parsed is not None and not parsed.meta.type:
-            page_id = kwargs.get("page_id")
-            ct_ids = Page.objects.values_list("content_type_id", flat=True)
-            content_type_id = get_object_or_404(ct_ids, pk=page_id)
-            content_type = ContentType.objects.get_for_id(content_type_id)
-            # HACK: deserialize, fill in the type, and reserialize. Unoptimal,
-            # but the only way to do it currently.
-            body = json.loads(request.body)
-            body.setdefault("meta", {})
-            body["meta"]["type"] = (content_type.model_class() or Page)._meta.label
-            request._body = json.dumps(body).encode()
-
-        return func(request, *args, **kwargs)
-
-    return wrapper
 
 
 IntPKFilter: TypeAlias = PositiveInt
@@ -139,9 +89,7 @@ class PageFilterSchema(FilterSchema):
     def filter_locale(self, value: str) -> Q:
         if not value:
             return Q()
-        # Fetch locale separately so it doesn't have to be indexed when searching
-        locale = get_object_or_404(Locale, language_code=value)
-        return Q(locale=locale)
+        return locale_filter_q(value)
 
     @model_validator(mode="after")
     def validate_child_of_or_descendant_of(self):
@@ -229,139 +177,6 @@ class PageFilterSchema(FilterSchema):
         return queryset
 
 
-class APIFieldFilterSchema(Schema, arbitrary_types_allowed=True):
-    raw_params: QueryDict
-    base_fields: list[str]
-    ignore_fields: set[str] = set()
-
-    @classmethod
-    def with_exclude_schemas(cls, schemas: tuple[type[Schema], ...], **kwargs):
-        return cls(
-            ignore_fields=set().union(
-                *(schema.model_fields.keys() for schema in schemas)
-            ),
-            **kwargs,
-        )
-
-    def get_validated_fields(self, queryset: QuerySet) -> list[str]:
-        return APIFieldValidator(
-            model=queryset.model,
-            fields=set(self.raw_params.keys()) - self.ignore_fields,
-            base_fields=self.base_fields,
-            db_fields_only=True,
-            skip_invalid=True,
-        ).fields
-
-    def filter_queryset(self, queryset: QuerySet) -> QuerySet:
-        if not (fields := set(self.get_validated_fields(queryset))):
-            return queryset
-        for field_name in fields:
-            # FieldDoesNotExist already handled by APIFieldValidator.
-            field = queryset.model._meta.get_field(field_name)
-            value = self.raw_params.get(field_name)
-
-            # Convert value into python
-            try:
-                if "\x00" in str(value):
-                    raise ValueError("null characters are not allowed")
-                if isinstance(field, models.ForeignKey):
-                    value = field.target_field.get_prep_value(value)
-                elif isinstance(field, models.BooleanField):
-                    # Use Pydantic as it's more lenient than get_prep_value,
-                    # matches more closely to v2 API.
-                    value = bool_adapter.validate_python(value)
-                elif hasattr(field, "get_prep_value"):
-                    value = field.get_prep_value(value)
-
-                if isinstance(field, TaggableManager):
-                    # Use repeated query params standard for multiple tags
-                    for tag in self.raw_params.getlist(field_name):
-                        queryset = queryset.filter(**{field_name + "__name": tag})
-                else:
-                    queryset = queryset.filter(**{field_name: value})
-            except ValueError as e:
-                raise as_validation_error(
-                    e,
-                    message=f"Field filter error, '{value}' is not a valid value "
-                    f"for {field_name}. ({e})",
-                    loc=(field_name,),
-                ) from e
-        return queryset
-
-
-class OrderingSchema(Schema):
-    # Ninja query params always result in a list if the union type has a list,
-    # but we use "random" literal (not ["random"]) for better OpenAPI spec.
-    order: Literal["random"] | list[str] = []
-
-    def order_queryset(
-        self,
-        queryset: QuerySet,
-        pagination_info: WagtailLimitOffsetPagination.Input,
-    ) -> QuerySet:
-        validated_fields = OrderingValidator(
-            model=queryset.model,
-            fields=self.order,
-            base_fields=BASE_PAGE_READ_FIELDS,
-            db_fields_only=True,
-            has_offset=bool(pagination_info.offset),
-        )
-        if validated_fields.fields:
-            return queryset.order_by(*validated_fields.fields)
-        return queryset
-
-
-class SearchSchema(Schema):
-    search: Optional[str] = None
-    search_operator: Optional[Literal["and", "or"]] = None
-
-    @model_validator(mode="after")
-    def validate_settings(self):
-        if self.search and not getattr(settings, "WAGTAILAPI_SEARCH_ENABLED", True):
-            raise AssertionError("search is disabled.")
-        return self
-
-    def search_queryset(
-        self,
-        request: HttpRequest,
-        queryset: QuerySet,
-    ) -> QuerySet:
-        if self.search is None:
-            return queryset
-        try:
-            return cast(SearchableQuerySetMixin, queryset).search(
-                self.search,
-                operator=self.search_operator,
-                order_by_relevance="order" not in request.GET,
-            )
-        except FilterFieldError as e:
-            msg = (
-                f"Cannot filter by '{e.field_name}' while searching "
-                "(field is not indexed)."
-            )
-            error = e
-        except OrderByFieldError as e:
-            msg = (
-                f"Cannot order by '{e.field_name}' while searching "
-                "(field is not indexed)."
-            )
-            error = e
-        raise ValidationError.from_exception_data(
-            "Validation error",
-            [
-                {
-                    "type": PydanticCustomError(
-                        camelcase_to_underscore(error.__class__.__name__),
-                        msg,  # type: ignore (LiteralString requirement)
-                    ),
-                    "loc": (cast(str, error.field_name),),
-                    "input": self.search,
-                }
-            ],
-            hide_input=True,
-        ) from error
-
-
 @router.get(
     "/",
     response=list[BasePageSchema],
@@ -394,7 +209,11 @@ def list_pages(
     queryset = _public_pages_queryset(request, model)
     queryset = filters.filter(queryset, request)
     queryset = field_filter.filter_queryset(queryset)
-    queryset = ordering.order_queryset(queryset, pagination_info)
+    queryset = ordering.order_queryset(
+        queryset,
+        pagination_info,
+        base_fields=BASE_PAGE_READ_FIELDS,
+    )
     queryset = search.search_queryset(request, queryset)
     return queryset
 
@@ -485,11 +304,10 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     operation_id="pages_update",
 )
 @require_any_permission(Page, ("change",))
-@decorate_view(default_meta_type)
 def update_page(
     request: HttpRequest,
     page_id: int,
-    data: PageUpdateSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: PageUpdateSchema = PageTypeInjectingBody(...),
 ):
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
@@ -646,6 +464,13 @@ def move(
     return page.specific
 
 
+@router.delete(
+    "/{page_id}/",
+    response={204: None},
+    url_name="delete_page",
+    summary="Delete page",
+    operation_id="pages_delete",
+)
 @actions_router.delete(
     "/{page_id}/actions/delete/",
     response={204: None},
@@ -680,7 +505,7 @@ def revert(
     page = get_object_or_404(Page, pk=page_id).specific
     revision = get_object_or_404(page.revisions, id=data.revision_id)
     action_class = action_registry.get_action_class(Page, "revert")
-    action = action_class(page=page, revision=revision, user=request.user)
+    action = action_class(instance=page, revision=revision, user=request.user)
     new_revision = action.execute()
     return new_revision.as_object()
 

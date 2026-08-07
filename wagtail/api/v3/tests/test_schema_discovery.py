@@ -73,14 +73,18 @@ class TestV3SchemaDiscovery(TestV3Base, TestCase):
         self.assertIn("slug", content["patch"]["properties"])
         # Unlike create, the update/patch schema has no parent_id in its
         # meta - a page's parent can't be changed via this endpoint - and
-        # title isn't required, since this is a partial update (only
-        # `meta` itself, which every request needs to name the page type,
-        # is required at the top level).
-        meta_ref = content["patch"]["properties"]["meta"]["$ref"]
+        # title isn't required, since this is a partial update.
+        # meta and meta.type are also optional, as they can be inferred from
+        # the page ID.
+        meta_any_of = content["patch"]["properties"]["meta"].get("anyOf")
+        self.assertIsNotNone(meta_any_of)
+        self.assertEqual(len(meta_any_of), 2)
+        self.assertEqual(meta_any_of[1], {"type": "null"})
+        meta_ref = meta_any_of[0]["$ref"]
         meta_def_name = meta_ref.rsplit("/", 1)[-1]
         meta_schema = content["patch"]["$defs"][meta_def_name]
         self.assertNotIn("parent_id", meta_schema["properties"])
-        self.assertEqual(content["patch"]["required"], ["meta"])
+        self.assertNotIn("meta", content["patch"].get("required", []))
 
     def test_unknown_type_returns_404(self):
         response = self.client.get(

@@ -25,7 +25,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -244,7 +244,14 @@
       "AddedStreamFieldWithEmptyListDefaultPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AddedStreamFieldWithEmptyListDefaultPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -311,7 +318,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "AddedStreamFieldWithEmptyListDefaultPagePatchSchema",
         "type": "object"
       },
@@ -329,7 +335,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithEmptyListDefaultPageSchema",
         "type": "object"
       },
@@ -357,7 +363,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -576,7 +582,14 @@
       "AddedStreamFieldWithEmptyStringDefaultPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AddedStreamFieldWithEmptyStringDefaultPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -643,7 +656,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPagePatchSchema",
         "type": "object"
       },
@@ -661,7 +673,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithEmptyStringDefaultPageSchema",
         "type": "object"
       },
@@ -689,7 +701,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AddedStreamFieldWithoutDefaultPageCreateMetaSchema",
         "type": "object"
       },
@@ -908,7 +920,14 @@
       "AddedStreamFieldWithoutDefaultPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AddedStreamFieldWithoutDefaultPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -975,7 +994,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "AddedStreamFieldWithoutDefaultPagePatchSchema",
         "type": "object"
       },
@@ -993,8 +1011,201 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AddedStreamFieldWithoutDefaultPageSchema",
+        "type": "object"
+      },
+      "AdvertCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.Advert",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertCreateMetaSchema",
+        "type": "object"
+      },
+      "AdvertCreateSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdvertCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["text"],
+        "title": "AdvertCreateSchema",
+        "type": "object"
+      },
+      "AdvertMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.Advert",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertMetaSchema",
+        "type": "object"
+      },
+      "AdvertPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.Advert",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertPatchMetaSchema",
+        "type": "object"
+      },
+      "AdvertPatchSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdvertPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "title": "AdvertPatchSchema",
+        "type": "object"
+      },
+      "AdvertSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertSchema",
         "type": "object"
       },
       "AlwaysShowInMenusPageCreateMetaSchema": {
@@ -1021,7 +1232,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "AlwaysShowInMenusPageCreateMetaSchema",
         "type": "object"
       },
@@ -1240,7 +1451,14 @@
       "AlwaysShowInMenusPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/AlwaysShowInMenusPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlwaysShowInMenusPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -1307,7 +1525,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "AlwaysShowInMenusPagePatchSchema",
         "type": "object"
       },
@@ -1325,7 +1542,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
@@ -1410,7 +1627,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BasePageSchema",
         "type": "object"
       },
@@ -1695,7 +1912,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BlogEntryPageCreateMetaSchema",
         "type": "object"
       },
@@ -2000,7 +2217,14 @@
             "title": "Feed Image"
           },
           "meta": {
-            "$ref": "#/components/schemas/BlogEntryPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BlogEntryPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "related_links": {
             "default": [],
@@ -2083,7 +2307,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BlogEntryPagePatchSchema",
         "type": "object"
       },
@@ -2328,7 +2551,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta", "body", "date"],
+        "required": ["meta", "id", "title", "body", "date"],
         "title": "BlogEntryPageSchema",
         "type": "object"
       },
@@ -2356,7 +2579,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BlogIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -2575,7 +2798,14 @@
       "BlogIndexPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BlogIndexPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BlogIndexPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -2642,7 +2872,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BlogIndexPagePatchSchema",
         "type": "object"
       },
@@ -2752,7 +2981,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BlogIndexPageSchema",
         "type": "object"
       },
@@ -2780,7 +3009,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessChildCreateMetaSchema",
         "type": "object"
       },
@@ -2999,7 +3228,14 @@
       "BusinessChildPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessChildPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessChildPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -3066,7 +3302,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BusinessChildPatchSchema",
         "type": "object"
       },
@@ -3084,7 +3319,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessChildSchema",
         "type": "object"
       },
@@ -3112,7 +3347,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessIndexCreateMetaSchema",
         "type": "object"
       },
@@ -3331,7 +3566,14 @@
       "BusinessIndexPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessIndexPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessIndexPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -3398,7 +3640,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BusinessIndexPatchSchema",
         "type": "object"
       },
@@ -3416,7 +3657,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessIndexSchema",
         "type": "object"
       },
@@ -3444,7 +3685,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessNowherePageCreateMetaSchema",
         "type": "object"
       },
@@ -3663,7 +3904,14 @@
       "BusinessNowherePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessNowherePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessNowherePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -3730,7 +3978,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BusinessNowherePagePatchSchema",
         "type": "object"
       },
@@ -3748,7 +3995,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessNowherePageSchema",
         "type": "object"
       },
@@ -3776,7 +4023,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "BusinessSubIndexCreateMetaSchema",
         "type": "object"
       },
@@ -3995,7 +4242,14 @@
       "BusinessSubIndexPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/BusinessSubIndexPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessSubIndexPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -4062,7 +4316,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "BusinessSubIndexPatchSchema",
         "type": "object"
       },
@@ -4080,7 +4333,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
@@ -4108,7 +4361,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CommentableJSONPageCreateMetaSchema",
         "type": "object"
       },
@@ -4327,7 +4580,14 @@
       "CommentableJSONPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CommentableJSONPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CommentableJSONPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -4394,7 +4654,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CommentableJSONPagePatchSchema",
         "type": "object"
       },
@@ -4412,7 +4671,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CommentableJSONPageSchema",
         "type": "object"
       },
@@ -4440,7 +4699,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ComplexDefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -4659,7 +4918,14 @@
       "ComplexDefaultStreamPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ComplexDefaultStreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ComplexDefaultStreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -4726,7 +4992,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "ComplexDefaultStreamPagePatchSchema",
         "type": "object"
       },
@@ -4744,7 +5009,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ComplexDefaultStreamPageSchema",
         "type": "object"
       },
@@ -4772,7 +5037,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ContactPageCreateMetaSchema",
         "type": "object"
       },
@@ -4991,7 +5256,14 @@
       "ContactPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ContactPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ContactPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -5058,7 +5330,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "ContactPagePatchSchema",
         "type": "object"
       },
@@ -5181,7 +5452,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ContactPageSchema",
         "type": "object"
       },
@@ -5238,7 +5509,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomCopyFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -5457,7 +5728,14 @@
       "CustomCopyFormPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomCopyFormPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomCopyFormPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -5524,7 +5802,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomCopyFormPagePatchSchema",
         "type": "object"
       },
@@ -5542,7 +5819,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomCopyFormPageSchema",
         "type": "object"
       },
@@ -5570,7 +5847,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomManagerPageCreateMetaSchema",
         "type": "object"
       },
@@ -5789,7 +6066,14 @@
       "CustomManagerPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomManagerPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomManagerPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -5856,7 +6140,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomManagerPagePatchSchema",
         "type": "object"
       },
@@ -5874,7 +6157,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomManagerPageSchema",
         "type": "object"
       },
@@ -5902,7 +6185,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomPermissionPageCreateMetaSchema",
         "type": "object"
       },
@@ -6121,7 +6404,14 @@
       "CustomPermissionPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomPermissionPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomPermissionPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -6188,7 +6478,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomPermissionPagePatchSchema",
         "type": "object"
       },
@@ -6206,7 +6495,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomPermissionPageSchema",
         "type": "object"
       },
@@ -6234,7 +6523,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomPreviewSizesPageCreateMetaSchema",
         "type": "object"
       },
@@ -6453,7 +6742,14 @@
       "CustomPreviewSizesPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomPreviewSizesPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomPreviewSizesPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -6520,7 +6816,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomPreviewSizesPagePatchSchema",
         "type": "object"
       },
@@ -6538,7 +6833,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
@@ -6566,7 +6861,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -6785,7 +7080,14 @@
       "CustomRichBlockFieldPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomRichBlockFieldPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomRichBlockFieldPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -6852,7 +7154,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomRichBlockFieldPagePatchSchema",
         "type": "object"
       },
@@ -6870,7 +7171,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -6898,7 +7199,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "CustomRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -7117,7 +7418,14 @@
       "CustomRichTextFieldPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/CustomRichTextFieldPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomRichTextFieldPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -7184,7 +7492,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "CustomRichTextFieldPagePatchSchema",
         "type": "object"
       },
@@ -7202,7 +7509,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "CustomRichTextFieldPageSchema",
         "type": "object"
       },
@@ -7230,7 +7537,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DeadlyStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -7449,7 +7756,14 @@
       "DeadlyStreamPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DeadlyStreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DeadlyStreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -7516,7 +7830,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "DeadlyStreamPagePatchSchema",
         "type": "object"
       },
@@ -7534,7 +7847,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
@@ -7562,7 +7875,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultRichBlockFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -7781,7 +8094,14 @@
       "DefaultRichBlockFieldPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultRichBlockFieldPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DefaultRichBlockFieldPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -7848,7 +8168,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "DefaultRichBlockFieldPagePatchSchema",
         "type": "object"
       },
@@ -7866,7 +8185,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultRichBlockFieldPageSchema",
         "type": "object"
       },
@@ -7894,7 +8213,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultRichTextFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -8113,7 +8432,14 @@
       "DefaultRichTextFieldPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultRichTextFieldPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DefaultRichTextFieldPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -8180,7 +8506,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "DefaultRichTextFieldPagePatchSchema",
         "type": "object"
       },
@@ -8198,7 +8523,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultRichTextFieldPageSchema",
         "type": "object"
       },
@@ -8226,7 +8551,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "DefaultStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -8445,7 +8770,14 @@
       "DefaultStreamPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/DefaultStreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DefaultStreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -8512,7 +8844,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "DefaultStreamPagePatchSchema",
         "type": "object"
       },
@@ -8530,7 +8861,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "DefaultStreamPageSchema",
         "type": "object"
       },
@@ -8591,7 +8922,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EarlyPageCreateMetaSchema",
         "type": "object"
       },
@@ -8810,7 +9141,14 @@
       "EarlyPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EarlyPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EarlyPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -8877,7 +9215,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "EarlyPagePatchSchema",
         "type": "object"
       },
@@ -8895,7 +9232,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EarlyPageSchema",
         "type": "object"
       },
@@ -8923,7 +9260,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventIndexCreateMetaSchema",
         "type": "object"
       },
@@ -9132,7 +9469,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -9351,7 +9688,14 @@
       "EventIndexPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EventIndexPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EventIndexPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -9418,7 +9762,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "EventIndexPagePatchSchema",
         "type": "object"
       },
@@ -9528,7 +9871,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventIndexPageSchema",
         "type": "object"
       },
@@ -9566,7 +9909,14 @@
       "EventIndexPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/EventIndexPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EventIndexPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -9633,7 +9983,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "EventIndexPatchSchema",
         "type": "object"
       },
@@ -9651,7 +10000,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventIndexSchema",
         "type": "object"
       },
@@ -10355,7 +10704,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FilePageCreateMetaSchema",
         "type": "object"
       },
@@ -10574,7 +10923,14 @@
       "FilePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FilePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FilePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -10641,7 +10997,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FilePagePatchSchema",
         "type": "object"
       },
@@ -10659,7 +11014,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FilePageSchema",
         "type": "object"
       },
@@ -10687,7 +11042,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormClassAdditionalFieldPageCreateMetaSchema",
         "type": "object"
       },
@@ -10906,7 +11261,14 @@
       "FormClassAdditionalFieldPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormClassAdditionalFieldPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FormClassAdditionalFieldPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -10973,7 +11335,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormClassAdditionalFieldPagePatchSchema",
         "type": "object"
       },
@@ -10991,7 +11352,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormClassAdditionalFieldPageSchema",
         "type": "object"
       },
@@ -11118,7 +11479,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomFormBuilderCreateMetaSchema",
         "type": "object"
       },
@@ -11337,7 +11698,14 @@
       "FormPageWithCustomFormBuilderPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomFormBuilderPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FormPageWithCustomFormBuilderPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -11404,7 +11772,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPageWithCustomFormBuilderPatchSchema",
         "type": "object"
       },
@@ -11422,7 +11789,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomFormBuilderSchema",
         "type": "object"
       },
@@ -11450,7 +11817,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomSubmissionCreateMetaSchema",
         "type": "object"
       },
@@ -11545,7 +11912,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithCustomSubmissionListViewCreateMetaSchema",
         "type": "object"
       },
@@ -11764,7 +12131,14 @@
       "FormPageWithCustomSubmissionListViewPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FormPageWithCustomSubmissionListViewPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -11831,7 +12205,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPageWithCustomSubmissionListViewPatchSchema",
         "type": "object"
       },
@@ -11849,7 +12222,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomSubmissionListViewSchema",
         "type": "object"
       },
@@ -12001,7 +12374,14 @@
       "FormPageWithCustomSubmissionPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithCustomSubmissionPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FormPageWithCustomSubmissionPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -12068,7 +12448,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPageWithCustomSubmissionPatchSchema",
         "type": "object"
       },
@@ -12086,7 +12465,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithCustomSubmissionSchema",
         "type": "object"
       },
@@ -12114,7 +12493,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageWithRedirectCreateMetaSchema",
         "type": "object"
       },
@@ -12333,7 +12712,14 @@
       "FormPageWithRedirectPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/FormPageWithRedirectPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FormPageWithRedirectPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -12400,7 +12786,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPageWithRedirectPatchSchema",
         "type": "object"
       },
@@ -12418,8 +12803,241 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageWithRedirectSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetCreateMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.FullFeaturedSnippet",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetCreateMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetCreateSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FullFeaturedSnippetCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["text"],
+        "title": "FullFeaturedSnippetCreateSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.FullFeaturedSnippet",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetPatchMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.FullFeaturedSnippet",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "FullFeaturedSnippetPatchMetaSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetPatchSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FullFeaturedSnippetPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "title": "FullFeaturedSnippetPatchSchema",
+        "type": "object"
+      },
+      "FullFeaturedSnippetSchema": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "UK",
+            "title": "Country Code"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/FullFeaturedSnippetMetaSchema"
+          },
+          "some_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "title": "Some Number"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "FullFeaturedSnippetSchema",
         "type": "object"
       },
       "GalleryPageCreateMetaSchema": {
@@ -12446,7 +13064,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GalleryPageCreateMetaSchema",
         "type": "object"
       },
@@ -12665,7 +13283,14 @@
       "GalleryPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GalleryPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GalleryPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -12732,7 +13357,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "GalleryPagePatchSchema",
         "type": "object"
       },
@@ -12750,7 +13374,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GalleryPageSchema",
         "type": "object"
       },
@@ -12778,7 +13402,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetNoFieldIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -12997,7 +13621,14 @@
       "GenericSnippetNoFieldIndexPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenericSnippetNoFieldIndexPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -13064,7 +13695,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "GenericSnippetNoFieldIndexPagePatchSchema",
         "type": "object"
       },
@@ -13082,7 +13712,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetNoFieldIndexPageSchema",
         "type": "object"
       },
@@ -13110,7 +13740,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetNoIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -13329,7 +13959,14 @@
       "GenericSnippetNoIndexPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetNoIndexPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenericSnippetNoIndexPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -13396,7 +14033,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "GenericSnippetNoIndexPagePatchSchema",
         "type": "object"
       },
@@ -13414,7 +14050,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetNoIndexPageSchema",
         "type": "object"
       },
@@ -13442,7 +14078,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "GenericSnippetPageCreateMetaSchema",
         "type": "object"
       },
@@ -13661,7 +14297,14 @@
       "GenericSnippetPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/GenericSnippetPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenericSnippetPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -13728,7 +14371,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "GenericSnippetPagePatchSchema",
         "type": "object"
       },
@@ -13746,7 +14388,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
@@ -14031,7 +14673,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "HomePageCreateMetaSchema",
         "type": "object"
       },
@@ -14296,7 +14938,14 @@
             "type": "array"
           },
           "meta": {
-            "$ref": "#/components/schemas/HomePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HomePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "related_links": {
             "default": [],
@@ -14371,7 +15020,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "HomePagePatchSchema",
         "type": "object"
       },
@@ -14597,7 +15245,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "HomePageSchema",
         "type": "object"
       },
@@ -14658,7 +15306,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "InlineStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -14877,7 +15525,14 @@
       "InlineStreamPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/InlineStreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InlineStreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -14944,7 +15599,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "InlineStreamPagePatchSchema",
         "type": "object"
       },
@@ -14962,7 +15616,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "InlineStreamPageSchema",
         "type": "object"
       },
@@ -15008,7 +15662,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "JadeFormPageCreateMetaSchema",
         "type": "object"
       },
@@ -15227,7 +15881,14 @@
       "JadeFormPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/JadeFormPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JadeFormPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -15294,7 +15955,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "JadeFormPagePatchSchema",
         "type": "object"
       },
@@ -15312,7 +15972,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "JadeFormPageSchema",
         "type": "object"
       },
@@ -15340,7 +16000,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MTIBasePageCreateMetaSchema",
         "type": "object"
       },
@@ -15559,7 +16219,14 @@
       "MTIBasePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MTIBasePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MTIBasePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -15626,7 +16293,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "MTIBasePagePatchSchema",
         "type": "object"
       },
@@ -15644,7 +16310,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MTIBasePageSchema",
         "type": "object"
       },
@@ -15672,7 +16338,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MTIChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -15891,7 +16557,14 @@
       "MTIChildPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MTIChildPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MTIChildPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -15958,7 +16631,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "MTIChildPagePatchSchema",
         "type": "object"
       },
@@ -15976,7 +16648,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MTIChildPageSchema",
         "type": "object"
       },
@@ -16004,7 +16676,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ManyToManyBlogPageCreateMetaSchema",
         "type": "object"
       },
@@ -16223,7 +16895,14 @@
       "ManyToManyBlogPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ManyToManyBlogPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManyToManyBlogPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -16290,7 +16969,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "ManyToManyBlogPagePatchSchema",
         "type": "object"
       },
@@ -16308,7 +16986,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
@@ -16336,7 +17014,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MultiPreviewModesPageCreateMetaSchema",
         "type": "object"
       },
@@ -16555,7 +17233,14 @@
       "MultiPreviewModesPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MultiPreviewModesPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MultiPreviewModesPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -16622,7 +17307,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "MultiPreviewModesPagePatchSchema",
         "type": "object"
       },
@@ -16640,7 +17324,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MultiPreviewModesPageSchema",
         "type": "object"
       },
@@ -16668,7 +17352,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "MyCustomPageCreateMetaSchema",
         "type": "object"
       },
@@ -16887,7 +17571,14 @@
       "MyCustomPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/MyCustomPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MyCustomPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -16954,7 +17645,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "MyCustomPagePatchSchema",
         "type": "object"
       },
@@ -16972,7 +17662,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "MyCustomPageSchema",
         "type": "object"
       },
@@ -17000,7 +17690,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoCreatableSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -17219,7 +17909,14 @@
       "NoCreatableSubpageTypesPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoCreatableSubpageTypesPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NoCreatableSubpageTypesPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -17286,7 +17983,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "NoCreatableSubpageTypesPagePatchSchema",
         "type": "object"
       },
@@ -17304,7 +18000,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoCreatableSubpageTypesPageSchema",
         "type": "object"
       },
@@ -17332,7 +18028,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoPromotePageCreateMetaSchema",
         "type": "object"
       },
@@ -17551,7 +18247,14 @@
       "NoPromotePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoPromotePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NoPromotePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -17618,7 +18321,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "NoPromotePagePatchSchema",
         "type": "object"
       },
@@ -17636,7 +18338,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoPromotePageSchema",
         "type": "object"
       },
@@ -17664,7 +18366,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "NoSubpageTypesPageCreateMetaSchema",
         "type": "object"
       },
@@ -17883,7 +18585,14 @@
       "NoSubpageTypesPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/NoSubpageTypesPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NoSubpageTypesPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -17950,7 +18659,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "NoSubpageTypesPagePatchSchema",
         "type": "object"
       },
@@ -17968,7 +18676,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "NoSubpageTypesPageSchema",
         "type": "object"
       },
@@ -17996,7 +18704,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "OneToOnePageCreateMetaSchema",
         "type": "object"
       },
@@ -18215,7 +18923,14 @@
       "OneToOnePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/OneToOnePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OneToOnePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -18282,7 +18997,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "OneToOnePagePatchSchema",
         "type": "object"
       },
@@ -18300,11 +19014,12 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "OneToOnePageSchema",
         "type": "object"
       },
       "OrderingSchema": {
+        "description": "Order a queryset by one or more of its own APIFields.\n\nGeneric across content types: ``base_fields`` (passed to\n``order_queryset``) names the fields every model of this kind always\nallows to order by, on top of the queryset's own ``api_fields``.",
         "properties": {
           "order": {
             "anyOf": [
@@ -18460,7 +19175,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageCreateMetaSchema",
         "type": "object"
       },
@@ -18799,7 +19514,14 @@
       "PagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -18866,7 +19588,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PagePatchSchema",
         "type": "object"
       },
@@ -18903,7 +19624,7 @@
             "type": "string"
           }
         },
-        "required": ["title", "meta"],
+        "required": ["meta", "title"],
         "title": "PageSchema",
         "type": "object"
       },
@@ -18942,7 +19663,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithExcludedCopyFieldCreateMetaSchema",
         "type": "object"
       },
@@ -19161,7 +19882,14 @@
       "PageWithExcludedCopyFieldPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithExcludedCopyFieldPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageWithExcludedCopyFieldPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -19228,7 +19956,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PageWithExcludedCopyFieldPatchSchema",
         "type": "object"
       },
@@ -19246,7 +19973,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithExcludedCopyFieldSchema",
         "type": "object"
       },
@@ -19274,7 +20001,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithGenericRelationCreateMetaSchema",
         "type": "object"
       },
@@ -19493,7 +20220,14 @@
       "PageWithGenericRelationPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithGenericRelationPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageWithGenericRelationPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -19560,7 +20294,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PageWithGenericRelationPatchSchema",
         "type": "object"
       },
@@ -19578,7 +20311,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithGenericRelationSchema",
         "type": "object"
       },
@@ -19606,7 +20339,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PageWithOldStyleRouteMethodCreateMetaSchema",
         "type": "object"
       },
@@ -19825,7 +20558,14 @@
       "PageWithOldStyleRouteMethodPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PageWithOldStyleRouteMethodPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PageWithOldStyleRouteMethodPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -19892,7 +20632,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PageWithOldStyleRouteMethodPatchSchema",
         "type": "object"
       },
@@ -19910,8 +20649,36 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PageWithOldStyleRouteMethodSchema",
+        "type": "object"
+      },
+      "PagedAnnotated": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AdvertSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                }
+              ]
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedAnnotated",
         "type": "object"
       },
       "PagedBasePageSchema": {
@@ -20065,7 +20832,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PromotionalPageCreateMetaSchema",
         "type": "object"
       },
@@ -20284,7 +21051,14 @@
       "PromotionalPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/PromotionalPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PromotionalPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -20351,7 +21125,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PromotionalPagePatchSchema",
         "type": "object"
       },
@@ -20369,7 +21142,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PromotionalPageSchema",
         "type": "object"
       },
@@ -20520,7 +21293,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RequiredDatePageCreateMetaSchema",
         "type": "object"
       },
@@ -20739,7 +21512,14 @@
       "RequiredDatePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RequiredDatePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RequiredDatePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -20806,7 +21586,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "RequiredDatePagePatchSchema",
         "type": "object"
       },
@@ -20824,7 +21603,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RequiredDatePageSchema",
         "type": "object"
       },
@@ -20852,7 +21631,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RestaurantPageCreateMetaSchema",
         "type": "object"
       },
@@ -21071,7 +21850,14 @@
       "RestaurantPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RestaurantPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RestaurantPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -21138,7 +21924,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "RestaurantPagePatchSchema",
         "type": "object"
       },
@@ -21156,7 +21941,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RestaurantPageSchema",
         "type": "object"
       },
@@ -21184,7 +21969,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RichTextFieldWithFeaturesPageCreateMetaSchema",
         "type": "object"
       },
@@ -21403,7 +22188,14 @@
       "RichTextFieldWithFeaturesPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RichTextFieldWithFeaturesPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RichTextFieldWithFeaturesPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -21470,7 +22262,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "RichTextFieldWithFeaturesPagePatchSchema",
         "type": "object"
       },
@@ -21488,7 +22279,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RichTextFieldWithFeaturesPageSchema",
         "type": "object"
       },
@@ -21516,7 +22307,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RoutablePageTestCreateMetaSchema",
         "type": "object"
       },
@@ -21735,7 +22526,14 @@
       "RoutablePageTestPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RoutablePageTestPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoutablePageTestPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -21802,7 +22600,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "RoutablePageTestPatchSchema",
         "type": "object"
       },
@@ -21820,7 +22617,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RoutablePageTestSchema",
         "type": "object"
       },
@@ -21848,7 +22645,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "RoutablePageWithOverriddenIndexRouteTestCreateMetaSchema",
         "type": "object"
       },
@@ -22067,7 +22864,14 @@
       "RoutablePageWithOverriddenIndexRouteTestPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoutablePageWithOverriddenIndexRouteTestPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -22134,7 +22938,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "RoutablePageWithOverriddenIndexRouteTestPatchSchema",
         "type": "object"
       },
@@ -22152,7 +22955,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "RoutablePageWithOverriddenIndexRouteTestSchema",
         "type": "object"
       },
@@ -22180,7 +22983,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SamplePageCreateMetaSchema",
         "type": "object"
       },
@@ -22399,7 +23202,14 @@
       "SamplePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SamplePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SamplePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -22466,7 +23276,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SamplePagePatchSchema",
         "type": "object"
       },
@@ -22484,7 +23293,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SamplePageSchema",
         "type": "object"
       },
@@ -22531,6 +23340,7 @@
         "type": "object"
       },
       "SearchSchema": {
+        "description": "Full-text search a queryset, generic across content types.",
         "properties": {
           "search": {
             "anyOf": [
@@ -22583,7 +23393,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SecretPageCreateMetaSchema",
         "type": "object"
       },
@@ -22802,7 +23612,14 @@
       "SecretPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SecretPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SecretPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -22869,7 +23686,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SecretPagePatchSchema",
         "type": "object"
       },
@@ -22887,7 +23703,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SecretPageSchema",
         "type": "object"
       },
@@ -22915,7 +23731,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SectionedRichTextPageCreateMetaSchema",
         "type": "object"
       },
@@ -23134,7 +23950,14 @@
       "SectionedRichTextPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SectionedRichTextPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SectionedRichTextPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -23201,7 +24024,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SectionedRichTextPagePatchSchema",
         "type": "object"
       },
@@ -23219,7 +24041,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SectionedRichTextPageSchema",
         "type": "object"
       },
@@ -23276,7 +24098,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleBasePageSchema",
         "type": "object"
       },
@@ -23304,7 +24126,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimpleChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -23523,7 +24345,14 @@
       "SimpleChildPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimpleChildPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleChildPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -23590,7 +24419,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SimpleChildPagePatchSchema",
         "type": "object"
       },
@@ -23608,7 +24436,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleChildPageSchema",
         "type": "object"
       },
@@ -23636,7 +24464,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimplePageCreateMetaSchema",
         "type": "object"
       },
@@ -23855,7 +24683,14 @@
       "SimplePagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimplePagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimplePagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -23922,7 +24757,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SimplePagePatchSchema",
         "type": "object"
       },
@@ -23940,7 +24774,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimplePageSchema",
         "type": "object"
       },
@@ -23968,7 +24802,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SimpleParentPageCreateMetaSchema",
         "type": "object"
       },
@@ -24187,7 +25021,14 @@
       "SimpleParentPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SimpleParentPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleParentPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -24254,7 +25095,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SimpleParentPagePatchSchema",
         "type": "object"
       },
@@ -24272,7 +25112,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SimpleParentPageSchema",
         "type": "object"
       },
@@ -24300,7 +25140,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingleEventPageCreateMetaSchema",
         "type": "object"
       },
@@ -24519,7 +25359,14 @@
       "SingleEventPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingleEventPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SingleEventPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -24586,7 +25433,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SingleEventPagePatchSchema",
         "type": "object"
       },
@@ -24604,7 +25450,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingleEventPageSchema",
         "type": "object"
       },
@@ -24632,7 +25478,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingletonPageCreateMetaSchema",
         "type": "object"
       },
@@ -24851,7 +25697,14 @@
       "SingletonPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingletonPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SingletonPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -24918,7 +25771,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SingletonPagePatchSchema",
         "type": "object"
       },
@@ -24936,7 +25788,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingletonPageSchema",
         "type": "object"
       },
@@ -24964,7 +25816,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "SingletonPageViaMaxCountCreateMetaSchema",
         "type": "object"
       },
@@ -25183,7 +26035,14 @@
       "SingletonPageViaMaxCountPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/SingletonPageViaMaxCountPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SingletonPageViaMaxCountPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -25250,7 +26109,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "SingletonPageViaMaxCountPatchSchema",
         "type": "object"
       },
@@ -25268,7 +26126,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "SingletonPageViaMaxCountSchema",
         "type": "object"
       },
@@ -25340,6 +26198,29 @@
         "title": "SiteSchema",
         "type": "object"
       },
+      "SnippetCopyForTranslationSchema": {
+        "properties": {
+          "locale": {
+            "title": "Locale",
+            "type": "string"
+          }
+        },
+        "required": ["locale"],
+        "title": "SnippetCopyForTranslationSchema",
+        "type": "object"
+      },
+      "SnippetRevertSchema": {
+        "properties": {
+          "revision_id": {
+            "exclusiveMinimum": 0,
+            "title": "Revision Id",
+            "type": "integer"
+          }
+        },
+        "required": ["revision_id"],
+        "title": "SnippetRevertSchema",
+        "type": "object"
+      },
       "StandardChildCreateMetaSchema": {
         "properties": {
           "action": {
@@ -25364,7 +26245,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardChildCreateMetaSchema",
         "type": "object"
       },
@@ -25583,7 +26464,14 @@
       "StandardChildPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardChildPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StandardChildPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -25650,7 +26538,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "StandardChildPatchSchema",
         "type": "object"
       },
@@ -25668,7 +26555,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardChildSchema",
         "type": "object"
       },
@@ -25696,7 +26583,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardIndexCreateMetaSchema",
         "type": "object"
       },
@@ -25905,7 +26792,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardIndexPageCreateMetaSchema",
         "type": "object"
       },
@@ -26124,7 +27011,14 @@
       "StandardIndexPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardIndexPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StandardIndexPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -26191,7 +27085,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "StandardIndexPagePatchSchema",
         "type": "object"
       },
@@ -26311,7 +27204,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardIndexPageSchema",
         "type": "object"
       },
@@ -26349,7 +27242,14 @@
       "StandardIndexPatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardIndexPatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StandardIndexPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -26416,7 +27316,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "StandardIndexPatchSchema",
         "type": "object"
       },
@@ -26434,7 +27333,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardIndexSchema",
         "type": "object"
       },
@@ -26562,7 +27461,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StandardPageCreateMetaSchema",
         "type": "object"
       },
@@ -26781,7 +27680,14 @@
       "StandardPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/StandardPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StandardPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -26848,7 +27754,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "StandardPagePatchSchema",
         "type": "object"
       },
@@ -26987,7 +27892,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StandardPageSchema",
         "type": "object"
       },
@@ -27015,7 +27920,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "StreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -27246,7 +28151,14 @@
             "type": "array"
           },
           "meta": {
-            "$ref": "#/components/schemas/StreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -27313,7 +28225,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "StreamPagePatchSchema",
         "type": "object"
       },
@@ -27337,7 +28248,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "StreamPageSchema",
         "type": "object"
       },
@@ -27365,7 +28276,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TableBlockStreamPageCreateMetaSchema",
         "type": "object"
       },
@@ -27584,7 +28495,14 @@
       "TableBlockStreamPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TableBlockStreamPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TableBlockStreamPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -27651,7 +28569,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "TableBlockStreamPagePatchSchema",
         "type": "object"
       },
@@ -27669,7 +28586,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TableBlockStreamPageSchema",
         "type": "object"
       },
@@ -27697,7 +28614,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedChildPageCreateMetaSchema",
         "type": "object"
       },
@@ -27916,7 +28833,14 @@
       "TaggedChildPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedChildPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TaggedChildPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -27983,7 +28907,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "TaggedChildPagePatchSchema",
         "type": "object"
       },
@@ -28001,7 +28924,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedChildPageSchema",
         "type": "object"
       },
@@ -28029,7 +28952,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedGrandchildPageCreateMetaSchema",
         "type": "object"
       },
@@ -28248,7 +29171,14 @@
       "TaggedGrandchildPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedGrandchildPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TaggedGrandchildPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -28315,7 +29245,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "TaggedGrandchildPagePatchSchema",
         "type": "object"
       },
@@ -28333,7 +29262,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedGrandchildPageSchema",
         "type": "object"
       },
@@ -28361,7 +29290,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TaggedPageCreateMetaSchema",
         "type": "object"
       },
@@ -28580,7 +29509,14 @@
       "TaggedPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TaggedPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TaggedPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -28647,7 +29583,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "TaggedPagePatchSchema",
         "type": "object"
       },
@@ -28665,7 +29600,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TaggedPageSchema",
         "type": "object"
       },
@@ -28693,7 +29628,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "TestPageCreateMetaSchema",
         "type": "object"
       },
@@ -28912,7 +29847,14 @@
       "TestPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/TestPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TestPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -28979,7 +29921,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "TestPagePatchSchema",
         "type": "object"
       },
@@ -28997,8 +29938,464 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "TestPageSchema",
+        "type": "object"
+      },
+      "TranslationFilterSchema": {
+        "properties": {
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "translation_of": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translation Of"
+          }
+        },
+        "title": "TranslationFilterSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.UUIDSnippetWithRelations",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsCreateMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsCreateSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "feed_image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionCreateSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["text"],
+        "title": "UUIDSnippetWithRelationsCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.UUIDSnippetWithRelations",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.UUIDSnippetWithRelations",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsPatchMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsPatchSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "feed_image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionPatchSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsPatchSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSchema": {
+        "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
+          "display_text": {
+            "title": "Display Text"
+          },
+          "feed_image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsMetaSchema"
+          },
+          "rich_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rich Body"
+          },
+          "sections": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionSchema"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "subtitle": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtitle"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "UUIDSnippetWithRelationsSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionCreateSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsSectionCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.UUIDSnippetWithRelationsSection",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "UUIDSnippetWithRelationsSectionMetaSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionPatchSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsSectionPatchSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionSchema": {
+        "properties": {
+          "caption": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "internal_note": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Internal Note"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link External"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "UUIDSnippetWithRelationsSectionSchema",
         "type": "object"
       },
       "ValidatedPageCreateMetaSchema": {
@@ -29025,7 +30422,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "ValidatedPageCreateMetaSchema",
         "type": "object"
       },
@@ -29244,7 +30641,14 @@
       "ValidatedPagePatchSchema": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/ValidatedPagePatchMetaSchema"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ValidatedPagePatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -29311,7 +30715,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "ValidatedPagePatchSchema",
         "type": "object"
       },
@@ -29329,7 +30732,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "ValidatedPageSchema",
         "type": "object"
       },
@@ -29357,7 +30760,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -29385,7 +30788,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "EventPageCreateMetaSchema",
         "type": "object"
       },
@@ -29937,7 +31340,14 @@
       "abc__EventPagePatchSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__EventPagePatchMetaSchema__1"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__EventPagePatchMetaSchema__1"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -30004,7 +31414,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "EventPagePatchSchema",
         "type": "object"
       },
@@ -30099,7 +31508,14 @@
             "title": "Location"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__EventPagePatchMetaSchema__2"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__EventPagePatchMetaSchema__2"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "related_links": {
             "default": [],
@@ -30217,7 +31633,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "EventPagePatchSchema",
         "type": "object"
       },
@@ -30235,7 +31650,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "EventPageSchema",
         "type": "object"
       },
@@ -30367,9 +31782,9 @@
           }
         },
         "required": [
+          "meta",
           "id",
           "title",
-          "meta",
           "date_from",
           "audience",
           "location",
@@ -30402,7 +31817,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -30430,7 +31845,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "FormPageCreateMetaSchema",
         "type": "object"
       },
@@ -30861,7 +32276,14 @@
       "abc__FormPagePatchSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__FormPagePatchMetaSchema__1"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__FormPagePatchMetaSchema__1"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -30928,14 +32350,20 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPagePatchSchema",
         "type": "object"
       },
       "abc__FormPagePatchSchema__2": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__FormPagePatchMetaSchema__2"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__FormPagePatchMetaSchema__2"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -31002,7 +32430,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "FormPagePatchSchema",
         "type": "object"
       },
@@ -31020,7 +32447,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -31046,7 +32473,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "FormPageSchema",
         "type": "object"
       },
@@ -31200,7 +32627,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -31228,7 +32655,7 @@
             "type": "string"
           }
         },
-        "required": ["parent_id", "type"],
+        "required": ["type", "parent_id"],
         "title": "PersonPageCreateMetaSchema",
         "type": "object"
       },
@@ -31659,7 +33086,14 @@
       "abc__PersonPagePatchSchema__1": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__PersonPagePatchMetaSchema__1"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__PersonPagePatchMetaSchema__1"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -31726,14 +33160,20 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PersonPagePatchSchema",
         "type": "object"
       },
       "abc__PersonPagePatchSchema__2": {
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/abc__PersonPagePatchMetaSchema__2"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/abc__PersonPagePatchMetaSchema__2"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "search_description": {
             "anyOf": [
@@ -31800,7 +33240,6 @@
             "title": "Title"
           }
         },
-        "required": ["meta"],
         "title": "PersonPagePatchSchema",
         "type": "object"
       },
@@ -31818,7 +33257,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta"],
+        "required": ["meta", "id", "title"],
         "title": "PersonPageSchema",
         "type": "object"
       },
@@ -31980,7 +33419,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "title", "meta", "first_name", "last_name"],
+        "required": ["meta", "id", "title", "first_name", "last_name"],
         "title": "PersonPageSchema",
         "type": "object"
       }
@@ -33162,6 +34601,28 @@
       }
     },
     "/api/v3/pages/{page_id}/": {
+      "delete": {
+        "operationId": "pages_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete page",
+        "tags": ["pages"]
+      },
       "get": {
         "operationId": "pages_detail",
         "parameters": [
@@ -36750,6 +38211,595 @@
         },
         "summary": "Update site",
         "tags": ["sites"]
+      }
+    },
+    "/api/v3/snippets/{type}/": {
+      "get": {
+        "operationId": "snippets_list",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Locale"
+            }
+          },
+          {
+            "in": "query",
+            "name": "translation_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Translation Of"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "random",
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "default": [],
+              "title": "Order"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search_operator",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["and", "or"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Operator"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedAnnotated"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List snippets",
+        "tags": ["snippets"]
+      },
+      "post": {
+        "operationId": "snippets_create",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AdvertCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/FullFeaturedSnippetCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UUIDSnippetWithRelationsCreateSchema"
+                  }
+                ],
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create snippet",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/": {
+      "delete": {
+        "operationId": "snippets_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete snippet",
+        "tags": ["snippets"]
+      },
+      "get": {
+        "operationId": "snippets_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Snippet detail",
+        "tags": ["snippets"]
+      },
+      "patch": {
+        "operationId": "snippets_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AdvertPatchSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/FullFeaturedSnippetPatchSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UUIDSnippetWithRelationsPatchSchema"
+                  }
+                ],
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update snippet",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/copy_for_translation/": {
+      "post": {
+        "operationId": "snippets_actions_copy_for_translation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnippetCopyForTranslationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Copy snippet for translation",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/delete/": {
+      "delete": {
+        "operationId": "snippets_actions_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "tests.Advert",
+                "tests.FullFeaturedSnippet",
+                "tests.UUIDSnippetWithRelations"
+              ],
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete snippet",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/publish/": {
+      "post": {
+        "operationId": "snippets_actions_publish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Publish snippet",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/revert/": {
+      "post": {
+        "operationId": "snippets_actions_revert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnippetRevertSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Revert snippet to a previous revision",
+        "tags": ["snippets", "snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/unpublish/": {
+      "post": {
+        "operationId": "snippets_actions_unpublish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Unpublish snippet",
+        "tags": ["snippets", "snippets"]
       }
     }
   },

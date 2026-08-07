@@ -4,7 +4,7 @@ from .base import (
     ContentTypeSummarySchema,
     DiscriminatedUnionSchemas,
     build_union_schemas,
-    discriminate_schema,
+    discriminate_meta_type,
 )
 from .generators import create_generator, patch_generator, read_generator
 from .pages import (
@@ -24,7 +24,7 @@ __all__ = [
     "ContentTypeSummarySchema",
     "DiscriminatedUnionSchemas",
     "build_union_schemas",
-    "discriminate_schema",
+    "discriminate_meta_type",
     "read_generator",
     "create_generator",
     "patch_generator",
@@ -33,10 +33,8 @@ __all__ = [
     "PageCreateBaseSchema",
     "PageCreateMetaSchema",
     "PageMetaSchema",
-    "PageSchemaUnions",
     "PageUpdateBaseSchema",
     "PageUpdateMetaSchema",
-    "build_page_schema_unions",
     "SiteInputSchema",
     "SiteSchema",
 ]

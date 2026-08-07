@@ -9,15 +9,36 @@ from pydantic import Discriminator, Tag
 
 
 class BaseMetaSchema(Schema):
-    type: str | None = None
+    type: str
+
+    @staticmethod
+    def resolve_type(obj: Model, context: dict) -> str:
+        return obj._meta.label
 
 
 class BaseSchema(Schema):
     meta: BaseMetaSchema
 
     @staticmethod
-    def resolve_meta(obj: Model) -> BaseMetaSchema:
-        return BaseMetaSchema(type=obj._meta.label)
+    def resolve_meta(obj: Model) -> Model:
+        # Pass through so resolve_* methods on meta schema works with the model
+        return obj
+
+
+class BaseCreateMetaSchema(Schema):
+    type: str
+
+
+class BaseCreateSchema(Schema):
+    meta: BaseCreateMetaSchema
+
+
+class BaseUpdateMetaSchema(Schema):
+    type: str | None = None
+
+
+class BaseUpdateSchema(Schema):
+    meta: BaseUpdateMetaSchema | None = BaseUpdateMetaSchema()
 
 
 class ContentTypeSummarySchema(Schema):
@@ -25,7 +46,7 @@ class ContentTypeSummarySchema(Schema):
     label: str
 
 
-def discriminate_schema(value: Any) -> str | None:
+def discriminate_meta_type(value: Any) -> str | None:
     """Pick the union member matching ``value``'s content type.
 
     A plain ``Union`` of every schema isn't safe here: Pydantic's smart
@@ -44,7 +65,7 @@ def discriminate_schema(value: Any) -> str | None:
     """
     if isinstance(value, dict):
         meta = value.get("meta") or {}
-        return meta.get("type")
+        return meta.get("type", "") if isinstance(meta, dict) else str(meta)
 
     meta = getattr(value, "meta", None)
     if meta is not None:
@@ -70,7 +91,7 @@ def build_discriminated_union(
     )
     return Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
-        Discriminator(discriminate_schema),
+        Discriminator(discriminate_meta_type),
     ]
 
 
@@ -88,7 +109,7 @@ def build_union_schemas(models: Iterable[type[Model]]) -> DiscriminatedUnionSche
 
     The detail union tags each model's schema, generated fresh here, with
     its content type label and resolves it through
-    :func:`discriminate_schema` - Pydantic's smart union mode can't be
+    :func:`discriminate_meta_type` - Pydantic's smart union mode can't be
     trusted to guess the right member from field overlap alone, since most
     of our generated extra fields default to ``None``.
     """
