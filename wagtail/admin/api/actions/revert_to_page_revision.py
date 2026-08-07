@@ -25,7 +25,7 @@ class RevertToPageRevisionAPIAction(APIAction):
         revision = get_object_or_404(instance.revisions, id=data["revision_id"])
 
         return RevertToPageRevisionAction(
-            page=instance, revision=revision, user=self.request.user
+            instance=instance, revision=revision, user=self.request.user
         )
 
     def execute(self, instance, data):
