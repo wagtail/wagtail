@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from wagtail.documents.models import Document
 from wagtail.models import Collection, CollectionViewRestriction
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 try:
     from urllib.parse import quote
@@ -13,7 +13,7 @@ except ImportError:
     from urllib import quote
 
 
-class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
+class TestCollectionPrivacyDocument(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

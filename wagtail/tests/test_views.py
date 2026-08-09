@@ -4,13 +4,13 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.views import serve
 
 
-class TestLoginView(WagtailTestUtils, TestCase):
+class TestLoginView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -55,7 +55,7 @@ class TestLoginView(WagtailTestUtils, TestCase):
 
 
 @mock.patch("wagtail.hooks.get_hooks", mock.Mock(return_value=[]))
-class TestServeView(TestCase):
+class TestServeView(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_serve_query_count(self):

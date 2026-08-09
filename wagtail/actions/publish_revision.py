@@ -7,8 +7,8 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
-from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.signals import published
 from wagtail.utils.timestamps import ensure_utc
 
@@ -26,7 +26,7 @@ class PublishPermissionError(PermissionDenied):
     pass
 
 
-class PublishRevisionAction:
+class PublishRevisionAction(BaseAction):
     """
     Publish or schedule revision for publishing.
 
@@ -41,6 +41,10 @@ class PublishRevisionAction:
     :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
     """
 
+    action_name = "publish"
+    permission_policy_action = "publish"
+    permission_error_class = PublishPermissionError
+
     def __init__(
         self,
         revision: Revision,
@@ -49,10 +53,12 @@ class PublishRevisionAction:
         log_action: bool = True,
         previous_revision: Revision | None = None,
     ):
+        from wagtail.permissions import policy_registry
+
         self.revision = revision
         self.object = self.revision.as_object()
-        self.permission_policy = ModelPermissionPolicy(type(self.object))
-        self.user = user
+        super().__init__(self.object, user=user)
+        self.permission_policy = policy_registry.get(self.object)
         self.changed = changed
         self.log_action = log_action
         self.previous_revision = previous_revision

@@ -54,8 +54,8 @@ from wagtail.coreutils import (
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
+    AbstractPage,
     Locale,
-    Page,
     PageViewRestriction,
 )
 from wagtail.users.utils import get_gravatar_url
@@ -175,7 +175,7 @@ def is_page(obj):
     False otherwise. Useful in shared templates that accept both Page and
     non-Page objects (e.g. snippets with the optional features enabled).
     """
-    return isinstance(obj, Page)
+    return isinstance(obj, AbstractPage)
 
 
 @register.simple_tag(takes_context=True)
@@ -203,7 +203,7 @@ def admin_url_name(obj, action):
     'wagtailadmin_pages:edit' for a Page object and 'edit' action.
     Works with pages and snippets only.
     """
-    if isinstance(obj, Page):
+    if isinstance(obj, AbstractPage):
         return f"wagtailadmin_pages:{action}"
     return obj.snippet_viewset.get_url_name(action)
 

@@ -1,6 +1,6 @@
+import swapper
 from django.db import migrations
 from django.db.models import Count, Q
-from wagtail.models import Page as RealPage
 
 
 def ancestor_of_q(page):
@@ -20,11 +20,11 @@ def create_default_workflows(apps, schema_editor):
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
     WorkflowPage = apps.get_model("wagtailcore.WorkflowPage")
     WorkflowTask = apps.get_model("wagtailcore.WorkflowTask")
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
     Group = apps.get_model("auth.Group")
 
     # Get this from real page model just in case it has been overridden
-    Page.steplen = RealPage.steplen
+    Page.steplen = swapper.load_model("wagtailcore", "Page").steplen
 
     # Create content type for GroupApprovalTask model
     group_approval_content_type, __ = ContentType.objects.get_or_create(

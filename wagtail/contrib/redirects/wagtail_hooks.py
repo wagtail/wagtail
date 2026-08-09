@@ -9,7 +9,7 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.redirects import urls
-from wagtail.contrib.redirects.permissions import permission_policy
+from wagtail.permissions import policy_registry
 
 from .models import Redirect
 
@@ -23,7 +23,7 @@ def register_admin_urls():
 
 class RedirectsMenuItem(MenuItem):
     def is_shown(self, request):
-        return permission_policy.user_has_any_permission(
+        return policy_registry.get_by_type(Redirect).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -49,7 +49,6 @@ def register_permissions():
 
 class RedirectAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailredirects:edit"
-    permission_policy = permission_policy
 
 
 register_admin_url_finder(Redirect, RedirectAdminURLFinder)

@@ -1,8 +1,9 @@
 from django.test import TestCase
 
 from wagtail.contrib.settings.forms import SiteSwitchForm
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.testapp.models import TestSiteSetting
+from wagtail.test.utils import Page
 
 
 class TestSiteSwitchFormOrdering(TestCase):

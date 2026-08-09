@@ -28,7 +28,8 @@ from wagtail.coreutils import (
     safe_snake_case,
     string_to_ascii,
 )
-from wagtail.models import Page, Site
+from wagtail.models import Site
+from wagtail.test.utils import Page
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.templates import template_is_overridden
 from wagtail.utils.utils import deep_update, flatten_choices

@@ -2,6 +2,7 @@ import io
 import os
 import warnings
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -15,9 +16,10 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.admin.widgets import SwitchInput
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policy_registry
 from wagtail.users.models import UserProfile
 
+Page = swapper.load_model("wagtailcore", "Page")
 User = get_user_model()
 
 
@@ -25,7 +27,7 @@ class NotificationPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        permission_policy = page_permission_policy
+        permission_policy = policy_registry.get_by_type(Page)
         if not permission_policy.user_has_permission(self.instance.user, "publish"):
             del self.fields["submitted_notifications"]
         if not permission_policy.user_has_permission(self.instance.user, "change"):

@@ -22,7 +22,6 @@ from wagtail.models import (
     CommentReply,
     GroupPagePermission,
     Locale,
-    Page,
     PageLogEntry,
     PageSubscription,
     Revision,
@@ -48,7 +47,7 @@ from wagtail.test.testapp.models import (
     StreamPage,
     TaggedPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
@@ -2669,9 +2668,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
-
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug">'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug" />'
+        soup = self.get_soup(response.content)
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2679,8 +2676,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # Editing input for slug should be the draft revision
-        self.assertContains(response, input_field_for_draft_slug, html=True)
-        self.assertNotContains(response, input_field_for_live_slug, html=True)
+        self.assertIsNotNone(
+            soup.select_one('input[name="slug"][value="revised-slug-in-draft-only"]')
+        )
+        self.assertIsNone(soup.select_one('input[name="slug"][value="hello-world"]'))
 
     def test_editor_page_shows_custom_live_url_in_status_when_draft_edits_exist(self):
         # When showing a live URL in the status button that differs from the draft one,
@@ -2695,9 +2694,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
-
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
+        soup = self.get_soup(response.content)
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2705,8 +2702,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # Editing input for slug should be the draft revision
-        self.assertContains(response, input_field_for_draft_slug, html=True)
-        self.assertNotContains(response, input_field_for_live_slug, html=True)
+        self.assertIsNotNone(
+            soup.select_one('input[name="slug"][value="revised-slug-in-draft-only"]')
+        )
+        self.assertIsNone(soup.select_one('input[name="slug"][value="mars-landing"]'))
 
     def test_before_edit_page_hook(self):
         def hook_func(request, page):
@@ -3340,7 +3339,7 @@ class TestIssue197(WagtailTestUtils, TestCase):
         self.assertIn("world", page.tags.slugs())
 
 
-class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
+class TestChildRelationsOnSuperclass(PageFixturesMixin, WagtailTestUtils, TestCase):
     # In our test models we define AdvertPlacement as a child relation on the Page model.
     # Here we check that this behaves correctly when exposed on the edit form of a Page
     # subclass (StandardIndex here).
@@ -3680,7 +3679,7 @@ class TestIssue3982(WagtailTestUtils, TestCase):
         )
 
 
-class TestParentalM2M(WagtailTestUtils, TestCase):
+class TestParentalM2M(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3858,7 +3857,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationerror_messages(WagtailTestUtils, TestCase):
+class TestValidationerror_messages(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -4080,7 +4079,7 @@ class TestValidationerror_messages(WagtailTestUtils, TestCase):
         self.assertIn("This field is required.", error_message.get_text())
 
 
-class TestNestedInlinePanel(WagtailTestUtils, TestCase):
+class TestNestedInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -4250,7 +4249,7 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -4569,7 +4568,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4639,7 +4638,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4694,7 +4693,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4817,7 +4816,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.resolve")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4878,7 +4877,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -4959,7 +4958,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.create_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -5022,7 +5021,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)
@@ -5085,7 +5084,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
 
         # Check audit log
         log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete_reply")
-        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.page, self.child_page.get_base_page())
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data["comment"]["id"], comment.id)

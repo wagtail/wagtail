@@ -30,7 +30,7 @@ When using `FileSystemStorage`, documents are stored in a `documents` subdirecto
 
 When using the `serve_view` method:
 
--   You must block direct access to the `documents` subdirectory of `MEDIA_ROOT` within your web server configuration. This prevents users from bypassing [collection privacy settings](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings) by accessing documents at their direct URL.
+-   You must block direct access to the `documents` subdirectory of `MEDIA_ROOT` within your web server configuration. This prevents users from bypassing [collection privacy settings](https://guide.wagtail.org/en/how-to-guides/manage-collections/#privacy-settings) by accessing documents at their direct URL.
 -   Documents are served as downloads rather than displayed in the browser (unless specified explicitly via [](wagtaildocs_inline_content_types)) - this ensures that if the document is a type that can contain scripts (such as HTML or SVG), the browser is prevented from executing them.
 -   However, since the document is served through the Django application server, this may consume more server resources than serving the document directly from the web server.
 

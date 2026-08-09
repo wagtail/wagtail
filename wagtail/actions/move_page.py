@@ -1,9 +1,11 @@
 import logging
 
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from treebeard.mp_tree import MP_MoveHandler
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
 from wagtail.signals import post_page_move, pre_page_move
 
@@ -18,8 +20,12 @@ class MovePagePermissionError(PermissionDenied):
     pass
 
 
-class MovePageAction:
+class MovePageAction(BaseAction):
+    action_name = "move"
+    permission_error_class = MovePagePermissionError
+
     def __init__(self, page, target, pos=None, user=None):
+        super().__init__(page, user=user)
         self.page = page
         self.target = target
         self.pos = pos
@@ -33,7 +39,7 @@ class MovePageAction:
                 )
 
     def _move_page(self, page, target, parent_after):
-        from wagtail.models import Page
+        Page = swapper.load_model("wagtailcore", "Page")
 
         # Determine old and new url_paths
         # Fetching new object to avoid affecting `page`

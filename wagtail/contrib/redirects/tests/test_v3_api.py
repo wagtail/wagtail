@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.models import Page, Site
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import Site
+from wagtail.test.utils import Page, WagtailTestUtils
 
 REDIRECT_FIELDS = {
     "id",

@@ -1,3 +1,5 @@
+import warnings
+
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -19,7 +21,8 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permissions import policy_registry, register_permission_policy
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import ViewSet, ViewSetGroup
 
@@ -120,9 +123,20 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         ):
             self.sort_order_field = self.model.sort_order_field
 
-    @property
+    @cached_property
     def permission_policy(self):
-        return ModelPermissionPolicy(self.model)
+        """
+        The permission policy for the model.
+
+        .. versionchanged:: 8.0
+
+            This property is deprecated and will be removed in a future release.
+            Register the permission policy for the model via
+            :func:`wagtail.permissions.register_permission_policy()` instead.
+        """
+        # Upon access, this will either return an explicitly registered policy
+        # for the model, or create and register a fallback policy for the model.
+        return policy_registry.get_by_type(self.model)
 
     @cached_property
     def pk_path_converter(self):
@@ -155,7 +169,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         view_kwargs = super().get_common_view_kwargs(
             **{
                 "model": self.model,
-                "permission_policy": self.permission_policy,
                 "index_url_name": self.get_url_name("index"),
                 "index_results_url_name": self.get_url_name("index_results"),
                 "history_url_name": self.get_url_name("history"),
@@ -463,7 +476,8 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         from wagtail.admin.menu import MenuItem
 
         def is_shown(_self, request):
-            return self.permission_policy.user_has_any_permission(
+            permission_policy = policy_registry.get_by_type(self.model)
+            return permission_policy.user_has_any_permission(
                 request.user, self.index_view_class.any_permission_required
             )
 
@@ -550,7 +564,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
             "_ModelAdminURLFinder",
             (ModelAdminURLFinder,),
             {
-                "permission_policy": self.permission_policy,
                 "edit_url_name": self.get_url_name("edit"),
             },
         )
@@ -581,6 +594,37 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
 
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)
+
+        registered_policy = policy_registry.get_by_type(self.model, fallback=False)
+        if not registered_policy:
+            # If no explicit policy was registered by now, accessing
+            # self.permission_policy will create and register a fallback policy
+            # for the model...
+            permission_policy = self.permission_policy
+            # unless the cached property was overridden with a custom one, thus
+            # it is not the same as the fallback policy for the model.
+            has_custom_policy = (
+                permission_policy is not policy_registry.get_fallback_policy(self.model)
+            )
+
+            if has_custom_policy:
+                register_permission_policy(
+                    self.model,
+                    self.permission_policy,
+                    # Use exact_class so that subclasses of the model don't inherit
+                    # the ModelPermissionPolicy of its parents, as each concrete
+                    # model has its own set of Permission records, and historically
+                    # we've created a ModelPermissionPolicy for each concrete model.
+                    exact_class=True,
+                )
+
+                warnings.warn(
+                    f"A permission policy for {self.model.__name__} was registered "
+                    f"via {self.__class__.__name__}. Please register the policy with "
+                    f"wagtail.permissions.register_permission_policy("
+                    f"{self.model.__name__}, <policy_instance>) instead.",
+                    RemovedInWagtail90Warning,
+                )
 
     def get_urlpatterns(self):
         conv = self.pk_path_converter

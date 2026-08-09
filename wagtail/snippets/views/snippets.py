@@ -43,7 +43,7 @@ from wagtail.models import (
     RevisionMixin,
     WorkflowMixin,
 )
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
@@ -111,7 +111,7 @@ class ModelIndexView(generic.BaseListingView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_list_url(self, model):
-        if model.snippet_viewset.permission_policy.user_has_any_permission(
+        if policy_registry.get_by_type(model).user_has_any_permission(
             self.request.user,
             {"add", "change", "delete", "view"},
         ):
@@ -661,10 +661,6 @@ class SnippetViewSet(ModelViewSet):
         )
         return revisions_revert_view_class
 
-    @property
-    def permission_policy(self):
-        return ModelPermissionPolicy(self.model)
-
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
@@ -1086,7 +1082,12 @@ class SnippetViewSet(ModelViewSet):
     @property
     def url_finder_class(self):
         return type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+            "_SnippetAdminURLFinder",
+            (SnippetAdminURLFinder,),
+            {
+                "model": self.model,
+                "edit_url_name": self.get_url_name("edit"),
+            },
         )
 
     def get_urlpatterns(self):

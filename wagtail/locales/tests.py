@@ -7,8 +7,8 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.models import Locale, Page
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import Locale
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 

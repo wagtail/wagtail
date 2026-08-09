@@ -9,6 +9,12 @@ class WagtailRedirectsAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
+        from wagtail.permissions import register_permission_policy
+
+        from .models import Redirect
+
+        register_permission_policy(Redirect)
+
         from wagtail.signals import page_slug_changed, post_page_move
 
         from .signal_handlers import (

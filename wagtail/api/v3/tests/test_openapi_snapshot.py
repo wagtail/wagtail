@@ -1,12 +1,16 @@
 import json
 from pathlib import Path
 
+import swapper
 from ninja.responses import NinjaJSONEncoder
 
 from wagtail.api.v3.api import api
 from wagtail.api.v3.tests.base import TestV3Base
 
-SNAPSHOT_PATH = Path(__file__).parent / "snapshots" / "openapi.json"
+if swapper.is_swapped("wagtailcore", "Page"):
+    SNAPSHOT_PATH = Path(__file__).parent / "snapshots" / "openapi_basepage.json"
+else:
+    SNAPSHOT_PATH = Path(__file__).parent / "snapshots" / "openapi.json"
 
 
 class TestOpenAPISnapshot(TestV3Base):

@@ -79,6 +79,9 @@ autodoc_type_aliases = {
 }
 autodoc_member_order = "groupwise"
 
+# Warn about all references where the target cannot be found.
+nitpicky = True
+
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
     # Sphinx currently cannot resolve type hint names, warns "target not found":
@@ -190,7 +193,7 @@ intersphinx_mapping = {
         None,
     ),
     "treebeard": (
-        "https://django-treebeard.readthedocs.io/en/stable/",
+        "https://django-treebeard.readthedocs.io/en/5.3.0/",
         None,
     ),
     "sphinx": (
@@ -437,6 +440,7 @@ def setup(app):
         indextemplate="pair: %s; field lookup type",
     )
 
+    from django.db.models import Model
     from django.http import HttpRequest
 
     from wagtail.admin.ui.components import Component
@@ -445,6 +449,7 @@ def setup(app):
         # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
         # type annotations - see https://github.com/wagtail/wagtail/pull/12777
         HttpRequest: "django.http",
+        Model: "django.db.models",
         # Document `Component` as part of our own API instead of Laces for
         # cross-linking, as the latter does not use Sphinx for docs.
         Component: "wagtail.admin.ui.components",

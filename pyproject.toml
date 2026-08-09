@@ -52,6 +52,7 @@ dependencies = [
   "laces>=0.1,<0.2",
   "django-tasks>=0.9,<0.13",
   "modelsearch>=1.3,<1.4",
+  "swapper>=1.4,<2",
 ]
 
 [project.urls]
@@ -68,19 +69,21 @@ testing = [
   "Jinja2>=3.0,<3.2",
   "boto3>=1.28,<2",
   "freezegun>=0.3.8",
-  "azure-mgmt-cdn>=12.0,<13.0",
-  "azure-mgmt-frontdoor>=1.0,<1.1",
+  "azure-identity>=1,<2",
+  "azure-mgmt-cdn>=12,<15",
+  "azure-mgmt-frontdoor>=1,<3",
+  "azure-mgmt-subscription>=2,<4",
   "django-pattern-library>=0.7",
   "responses>=0.25,<1",
   # For coverage and PEP8 linting
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.15.20",
-  "ty==0.0.56",
-  "django-stubs==6.0.6",
+  "ruff==0.15.22",
+  "ty==0.0.64",
+  "django-stubs==6.0.7",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.168.0",
+  "semgrep==1.171.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting

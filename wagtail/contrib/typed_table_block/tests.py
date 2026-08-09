@@ -418,7 +418,12 @@ class TestTableBlock(TestCase):
 
     def test_extract_references(self):
         """Test that extract_references extracts references from RichTextBlock and PageChooserBlock cells"""
-        from wagtail.models import Page
+        import swapper
+
+        if swapper.is_swapped("wagtailcore", "Page"):
+            from wagtail.test.basepage.models import BasePage as Page
+        else:
+            from wagtail.models import Page
         from wagtail.test.testapp.models import SimplePage
 
         # Create actual test pages for the PageChooserBlock

@@ -35,7 +35,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
     .. attribute:: FieldPanel.disable_comments (optional)
 
-        This allows you to prevent a field-level comment button from showing for this panel if set to ``True``. See `Create and edit comments <https://guide.wagtail.org/en-latest/how-to-guides/manage-pages/#create-and-edit-comments>`_.
+        This allows you to prevent a field-level comment button from showing for this panel if set to ``True``. See `Create and edit comments <https://guide.wagtail.org/en/how-to-guides/manage-pages/#create-and-edit-comments>`_.
 
     .. attribute:: FieldPanel.permission (optional)
 

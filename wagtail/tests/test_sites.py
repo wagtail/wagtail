@@ -2,7 +2,8 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
+from wagtail.test.utils import Page
 
 
 class TestSiteNaturalKey(TestCase):

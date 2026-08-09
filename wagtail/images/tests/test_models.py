@@ -32,7 +32,7 @@ from wagtail.images.models import (
     get_rendition_storage,
 )
 from wagtail.images.rect import Rect
-from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
+from wagtail.models import Collection, GroupCollectionPermission, ReferenceIndex
 from wagtail.search.backends import get_search_backend
 from wagtail.test.dummy_external_storage import (
     DummyExternalStorage,
@@ -44,7 +44,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 from .utils import (
     Image,
@@ -205,7 +205,7 @@ class TestImage(TestCase):
 
 
 @tag("transaction")
-class TestImageQuerySet(TransactionTestCase):
+class TestImageQuerySet(PageFixturesMixin, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
     def test_search_method(self):
@@ -1119,7 +1119,7 @@ class TestRenditions(TestCase):
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 )
-class TestPrefetchRenditions(TestCase):
+class TestPrefetchRenditions(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1174,7 +1174,7 @@ class TestPrefetchRenditions(TestCase):
         self.assertListEqual(self.large_renditions, large_renditions)
 
 
-class TestUsageCount(TestCase):
+class TestUsageCount(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1196,7 +1196,7 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
-class TestGetUsage(TestCase):
+class TestGetUsage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1222,7 +1222,7 @@ class TestGetUsage(TestCase):
         self.assertIsInstance(self.image.get_usage()[0][1][0], ReferenceIndex)
 
 
-class TestGetWillowImage(TestCase):
+class TestGetWillowImage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

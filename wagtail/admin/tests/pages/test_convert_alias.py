@@ -2,9 +2,9 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import PageLogEntry
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestConvertAlias(WagtailTestUtils, TestCase):
@@ -84,6 +84,6 @@ class TestConvertAlias(WagtailTestUtils, TestCase):
                 }
             },
         )
-        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.page, self.alias_page.get_base_page())
         self.assertEqual(log.revision, revision)
         self.assertEqual(log.user, self.user)

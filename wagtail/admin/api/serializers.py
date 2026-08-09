@@ -1,10 +1,12 @@
 from collections import OrderedDict
 
+import swapper
 from rest_framework.fields import Field, ReadOnlyField
 
 from wagtail.api.v2.serializers import PageSerializer, get_serializer_class
 from wagtail.api.v2.utils import get_full_url
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_model_listing_url(context, model):

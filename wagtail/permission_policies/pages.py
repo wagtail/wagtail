@@ -1,16 +1,32 @@
-from django.contrib.auth import get_permission_codename, get_user_model
+import swapper
+from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.permission_policies.base import OwnershipPermissionPolicy
 
 
 class PagePermissionPolicy(OwnershipPermissionPolicy):
+    """
+    A permission policy for page objects, which are arranged in a tree structure.
+    Permissions may be defined at any node of the tree, through the
+    ``GroupPagePermission`` model, and propagate downwards. These permissions are
+    applied to objects according to the 'ownership' permission model (see
+    :class:`~wagtail.permission_policies.OwnershipPermissionPolicy`).
+    """
+
     permission_cache_name = "_page_permission_cache"
     _explorable_root_instance_cache_name = "_explorable_root_page_cache"
 
-    def __init__(self, model=Page):
-        super().__init__(model=model)
+    def __init__(self, model=None):
+        Page = swapper.get_model_name("wagtailcore", "Page")
+        if model is None:
+            model = Page
+        super().__init__(model=model, auth_model=Page)
+
+    @classmethod
+    def for_model(cls, model):
+        return cls(model=model)
 
     def get_all_permissions_for_user(self, user):
         if not user.is_active or user.is_anonymous or user.is_superuser:
@@ -89,11 +105,10 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             if instance.pk == perm.page_id or instance.is_descendant_of(perm.page):
                 permissions.add(perm.permission.codename)
                 if (
-                    perm.permission.codename
-                    == get_permission_codename("add", self.model._meta)
+                    perm.permission.codename == self._get_permission_codename("add")
                     and instance.owner_id == user.pk
                 ):
-                    permissions.add(get_permission_codename("change", self.model._meta))
+                    permissions.add(self._get_permission_codename("change"))
 
         return bool(self._get_permission_codenames(actions) & permissions)
 
@@ -105,8 +120,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         pages = self.model._default_manager.none()
         for perm in self.get_cached_permissions_for_user(user):
             if (
-                perm.permission.codename
-                == get_permission_codename("add", self.model._meta)
+                perm.permission.codename == self._get_permission_codename("add")
                 and "add" not in actions
                 and "change" in actions
             ):
@@ -139,7 +153,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         # owner of the instance
         if "change" in actions and "add" not in actions:
             add_groups = GroupPagePermission.objects.filter(
-                permission__codename=get_permission_codename("add", self.model._meta),
+                permission__codename=self._get_permission_codename("add"),
                 page__in=ancestors,
             ).values_list("group", flat=True)
 
@@ -163,7 +177,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         # Get all pages that the user has direct add/change/publish/lock permission on
         if user.is_superuser:
             # superuser has implicit permission on the root node
-            return Page.objects.filter(depth=1)
+            return self.model.base_page_model.objects.filter(depth=1)
         else:
             codenames = self._get_permission_codenames(
                 {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
@@ -181,10 +195,10 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             return getattr(user, self._explorable_root_instance_cache_name)
         pages = self.instances_with_direct_explore_permission(user)
         try:
-            root_page = Page.objects.first_common_ancestor_of(
+            root_page = self.model.base_page_model.objects.first_common_ancestor_of(
                 pages, include_self=True, strict=True
             )
-        except Page.DoesNotExist:
+        except self.model.base_page_model.DoesNotExist:
             root_page = None
         setattr(user, self._explorable_root_instance_cache_name, root_page)
         return root_page
@@ -207,9 +221,11 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             perm.page for perm in self.get_cached_permissions_for_user(user)
         ]
         for page in page_permissions:
-            explorable_pages |= page.get_ancestors()
+            explorable_pages |= self.model._default_manager.ancestor_of(page)
 
         # Remove unnecessary top-level ancestors that the user has no access to
-        fca_page = Page.objects.first_common_ancestor_of(page_permissions)
+        fca_page = self.model.base_page_model.objects.first_common_ancestor_of(
+            page_permissions
+        )
         explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
         return explorable_pages

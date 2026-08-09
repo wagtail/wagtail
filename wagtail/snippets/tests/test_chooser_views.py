@@ -17,10 +17,10 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetChoose(WagtailTestUtils, TestCase):
+class TestSnippetChoose(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -117,7 +117,7 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["results"][0].text, "English snippet")
 
 
-class TestSnippetChooseResults(WagtailTestUtils, TestCase):
+class TestSnippetChooseResults(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -283,7 +283,7 @@ class TestSnippetChooseWithNonAutocompleteSearchableSnippet(
         self.assertIn(self.snippet_c, items)
 
 
-class TestSnippetChosen(WagtailTestUtils, TestCase):
+class TestSnippetChosen(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -305,7 +305,9 @@ class TestSnippetChosen(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
+class TestSnippetChooseWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -335,7 +337,9 @@ class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["results"][0].text, "advert 1")
 
 
-class TestSnippetChosenWithCustomPrimaryKey(WagtailTestUtils, TestCase):
+class TestSnippetChosenWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -356,7 +360,9 @@ class TestSnippetChosenWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
 
 
-class TestSnippetChosenWithCustomUUIDPrimaryKey(WagtailTestUtils, TestCase):
+class TestSnippetChosenWithCustomUUIDPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

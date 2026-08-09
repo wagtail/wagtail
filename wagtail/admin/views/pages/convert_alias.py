@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
@@ -9,7 +10,8 @@ from wagtail import hooks
 from wagtail.actions.convert_alias import ConvertAliasPageAction
 from wagtail.admin import messages
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class ConvertAliasView(TemplateView):

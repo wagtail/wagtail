@@ -8,7 +8,7 @@ from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.utils import get_admin_base_url
 from wagtail.models import Revision
-from wagtail.models.pages import Page
+from wagtail.models.pages import AbstractPage
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import (
     RemovedInWagtail90Warning,
@@ -358,7 +358,7 @@ class Userbar(Component):
                 items = [
                     AccessibilityItem(),
                 ]
-            elif isinstance(self.object, Page) and self.object.pk:
+            elif isinstance(self.object, AbstractPage) and self.object.pk:
                 if revision_id:
                     revision = Revision.page_revisions.get(id=revision_id)
                     items = [

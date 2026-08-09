@@ -68,7 +68,7 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 
 Firstly, it is important to be able to understand how to **build with** Wagtail before you can understand how to contribute **to** Wagtail. Take the time to do the full [Wagtail getting started tutorial](../getting_started/index) without focusing yet on how to contribute code but instead on how to use Wagtail to build your own basic demo website. This will require you to have Python and other dependencies installed on your machine and may not be easy the first time, but keep at it and ask questions if you get stuck.
 
-Remember that there are many other ways to contribute, such as answering questions in StackOverflow or `#support`, contributing to one of the [other packages](https://github.com/wagtail/) or even the [Wagtail user guide](https://guide.wagtail.org/en-latest/contributing/). Sometimes, it's best to get started with a non-code contribution to get a feel for Wagtail's code or the CMS interface.
+Remember that there are many other ways to contribute, such as answering questions in StackOverflow or `#support`, contributing to one of the [other packages](https://github.com/wagtail/) or even the [Wagtail user guide](https://guide.wagtail.org/en/contributing/). Sometimes, it's best to get started with a non-code contribution to get a feel for Wagtail's code or the CMS interface.
 
 Issue tracking, reading and triage is a critical part of contributing code and it is recommended that you read the [issue tracking guide](issue_tracking) in full. This will help you understand how to find issues to work on and how to support the team with triaging issues.
 

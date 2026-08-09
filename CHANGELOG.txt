@@ -4,6 +4,8 @@ Changelog
 8.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support for custom base page models (Matt Westcott)
+ * Create a global registry for permission policies (Sage Abdullah)
  * Add customizability for all remaining page views to `PageViewSet` (Sage Abdullah)
  * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
  * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
@@ -25,6 +27,7 @@ Changelog
  * Fix: Prevent stale content types from breaking audit log message formatting (Thibaud Colas)
  * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
  * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
+ * Docs: Add docs for `request.in_preview_panel` to explain its use (Raghad Dahi)
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
@@ -35,6 +38,8 @@ Changelog
  * Maintenance: Add renovate configuration to automate Python dependencies management (Sage Abdullah)
  * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
  * Maintenance: Enable flake8-bandit security-focused linting rules (Storm Heg)
+ * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
+ * Maintenance: Update guide.wagtail.org links to new versioning scheme (Raghad Dahi)
 
 
 7.4.2 (15.06.2026)
@@ -136,6 +141,7 @@ Changelog
  * Docs: Clarify default value for for `WAGTAILDOCS_SERVE_METHOD` (Thibaud Colas)
  * Docs: Document security reporting policy about runtime vs. development dependencies (Thibaud Colas)
  * Docs: Add reference documentation for `wagtail.admin.ui.tables` (Sage Abdullah)
+ * Docs: Update django-ninja code examples to use new Meta class implemented in django-ninja V1 (Jack Whitworth)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)

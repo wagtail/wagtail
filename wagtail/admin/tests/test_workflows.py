@@ -3,6 +3,7 @@ import json
 import logging
 from unittest import expectedFailure, mock, skip
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -30,7 +31,6 @@ from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
-    Page,
     PageViewRestriction,
     Task,
     TaskState,
@@ -51,7 +51,7 @@ from wagtail.test.testapp.models import (
     SimpleTask,
     UserApprovalTask,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
@@ -1001,7 +1001,7 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertFalse(self.workflow.workflow_content_types.exists())
 
 
-class TestRemoveWorkflow(WagtailTestUtils, TestCase):
+class TestRemoveWorkflow(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -4206,7 +4206,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_get_with_non_task_create_model_selected(self):
         response = self.client.get(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page"
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page")
         )
 
         self.assertEqual(response.status_code, 404)
@@ -4321,7 +4322,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_post_with_non_task_create_model_selected(self):
         response = self.client.post(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page",
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page"),
             self.get_post_data(),
         )
 

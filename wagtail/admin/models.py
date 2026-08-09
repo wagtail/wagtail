@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -7,13 +8,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
-
-# The panels module extends Page with some additional attributes required by
-# wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
-# wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
-# system checks.
-from wagtail.admin import panels  # NOQA: F401
-from wagtail.models import Page
 
 
 # A dummy model that exists purely to attach the access_admin permission type to, so that it
@@ -30,6 +24,7 @@ class Admin(models.Model):
 def get_object_usage(obj):
     """Returns a queryset of pages that link to a particular object"""
 
+    Page = swapper.load_model("wagtailcore", "Page")
     pages = Page.objects.none()
 
     # get all the relation objects for obj

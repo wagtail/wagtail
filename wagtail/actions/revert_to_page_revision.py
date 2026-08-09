@@ -1,5 +1,7 @@
 from django.core.exceptions import PermissionDenied
 
+from wagtail.actions.base import BaseAction
+
 
 class RevertToPageRevisionError(RuntimeError):
     """
@@ -17,7 +19,10 @@ class RevertToPageRevisionPermissionError(PermissionDenied):
     pass
 
 
-class RevertToPageRevisionAction:
+class RevertToPageRevisionAction(BaseAction):
+    action_name = "revert"
+    permission_error_class = RevertToPageRevisionPermissionError
+
     def __init__(
         self,
         page,
@@ -28,9 +33,9 @@ class RevertToPageRevisionAction:
         changed=True,
         clean=True,
     ):
+        super().__init__(page, user=user)
         self.page = page
         self.revision = revision
-        self.user = user
         self.log_action = log_action
         self.approved_go_live_at = approved_go_live_at
         self.changed = changed

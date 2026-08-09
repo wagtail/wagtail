@@ -12,10 +12,10 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class Utils(WagtailTestUtils, TestCase):

@@ -9,7 +9,6 @@ from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.coreutils import get_content_languages
 from wagtail.models import Locale
-from wagtail.permissions import locale_permission_policy
 
 from .forms import LocaleForm
 from .utils import get_locale_usage
@@ -127,7 +126,6 @@ class DeleteView(generic.DeleteView):
 class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
-    permission_policy = locale_permission_policy
     add_to_reference_index = False
 
     index_view_class = IndexView

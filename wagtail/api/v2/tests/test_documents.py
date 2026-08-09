@@ -8,10 +8,11 @@ from django.urls import reverse
 from wagtail.api.v2 import signal_handlers
 from wagtail.documents import get_document_model
 from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils import PageFixturesMixin
 from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
-class TestDocumentListing(TestCase):
+class TestDocumentListing(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -383,7 +384,7 @@ class TestDocumentListing(TestCase):
 
 
 @tag("transaction")
-class TestDocumentListingSearch(TransactionTestCase):
+class TestDocumentListingSearch(PageFixturesMixin, TransactionTestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -427,7 +428,7 @@ class TestDocumentListingSearch(TransactionTestCase):
         )
 
 
-class TestDocumentDetail(TestCase):
+class TestDocumentDetail(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
@@ -566,7 +567,7 @@ class TestDocumentDetail(TestCase):
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
 
 
-class TestDocumentFind(TestCase):
+class TestDocumentFind(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -614,7 +615,7 @@ class TestDocumentFind(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestDocumentCacheInvalidation(TestCase):
+class TestDocumentCacheInvalidation(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     @classmethod

@@ -10,11 +10,12 @@ from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import 
     routablefullpageurl,
     routablepageurl,
 )
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.routablepage.models import (
     RoutablePageTest,
     RoutablePageWithOverriddenIndexRouteTest,
 )
+from wagtail.test.utils import Page
 
 
 class TestRoutablePage(TestCase):

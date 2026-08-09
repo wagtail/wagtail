@@ -1,7 +1,10 @@
 import logging
+import warnings
 from urllib.parse import urlsplit, urlunsplit
 
 from django.core.exceptions import ImproperlyConfigured
+
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import BaseBackend
 
@@ -12,6 +15,10 @@ __all__ = ["AzureBaseBackend", "AzureFrontDoorBackend", "AzureCdnBackend"]
 
 
 class AzureBaseBackend(BaseBackend):
+    _package_name = ""
+    _required_version = ""
+    _installed_version = ""
+
     def __init__(self, params):
         super().__init__(params)
         self._credentials = params.pop("CREDENTIALS", None)
@@ -23,6 +30,22 @@ class AzureBaseBackend(BaseBackend):
                 "The setting 'WAGTAILFRONTENDCACHE' requires 'RESOURCE_GROUP_NAME' to be specified."
             ) from e
         self._custom_headers = params.pop("CUSTOM_HEADERS", None)
+        self._legacy_azure_library = self._is_legacy_azure_library(
+            required=self._required_version,
+            installed=self._installed_version,
+        )
+        if self._legacy_azure_library:
+            warnings.warn(
+                f"Support for {self._package_name} {self._installed_version} "
+                f"will be dropped in a future release. Please upgrade to "
+                f"{self._package_name} >= {self._required_version}.",
+                RemovedInWagtail90Warning,
+            )
+
+    def _is_legacy_azure_library(self, *, required, installed):
+        required_ver = [int(part) for part in required.split(".")]
+        version_ver = [int(part) for part in installed.split(".")]
+        return version_ver < required_ver
 
     def purge_batch(self, urls):
         self._purge_content([self._get_path(url) for url in urls])
@@ -52,9 +75,20 @@ class AzureBaseBackend(BaseBackend):
         Obtain subscription ID directly from Azure.
         """
         try:
-            from azure.mgmt.resource import SubscriptionClient
+            from azure.mgmt.subscription import SubscriptionClient
         except ImportError:
-            return ""
+            # Old versions
+            try:
+                from azure.mgmt.resource import SubscriptionClient
+            except ImportError:
+                return ""
+            else:
+                warnings.warn(
+                    "Support for getting the default Azure subscription from "
+                    "azure-mgmt-resource is deprecated. "
+                    "Please install azure-mgmt-subscription instead.",
+                    RemovedInWagtail90Warning,
+                )
         credential = self._get_credentials()
         subscription_client = SubscriptionClient(credential)
         subscription = next(subscription_client.subscriptions.list())
@@ -93,34 +127,49 @@ class AzureBaseBackend(BaseBackend):
         kwargs = self._get_client_kwargs()
         return klass(**kwargs)
 
-    def _get_purge_kwargs(self, paths):
+    def _get_purge_kwargs(self, paths, **kwargs):
         """
         Get keyword arguments passes to Azure purge content calls.
         """
+        if self._is_legacy_azure_library:
+            return {
+                "resource_group_name": self._resource_group_name,
+                "custom_headers": self._custom_headers,
+                "content_paths": set(paths),
+            }
         return {
             "resource_group_name": self._resource_group_name,
-            "custom_headers": self._custom_headers,
-            "content_paths": set(paths),
+            **kwargs,
         }
 
     def _purge_content(self, paths):
-        from msrest.exceptions import HttpOperationError
+        if self._legacy_azure_library:
+            from msrest.exceptions import HttpOperationError as HttpError
+        else:
+            from azure.core.exceptions import HttpResponseError as HttpError
 
         client = self._get_client()
         try:
             self._make_purge_call(client, paths)
-        except HttpOperationError as exception:
+        except HttpError as exception:
             for path in paths:
                 logger.exception(
-                    "Couldn't purge '%s' from %s cache. HttpOperationError: %r",
+                    "Couldn't purge '%s' from %s cache. %s: %r",
                     path,
                     type(self).__name__,
+                    type(exception).__name__,
                     exception.response,
                 )
 
 
 class AzureFrontDoorBackend(AzureBaseBackend):
     def __init__(self, params):
+        from azure.mgmt.frontdoor import __version__
+
+        self._package_name = "azure-mgmt-frontdoor"
+        self._required_version = "1.1.0"
+        self._installed_version = __version__
+
         super().__init__(params)
         try:
             self._front_door_name = params.pop("FRONT_DOOR_NAME")
@@ -137,19 +186,41 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._front_door_service_url)
+        if self._front_door_service_url:
+            kwargs.setdefault("base_url", self._front_door_service_url)
 
         return kwargs
 
+    def _get_purge_kwargs(self, paths, **kwargs):
+        if self._is_legacy_azure_library:
+            return super()._get_purge_kwargs(paths, **kwargs)
+
+        from azure.mgmt.frontdoor.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
+        )
+
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        if self._is_legacy_azure_library:
+            return client.endpoints.purge_content(
+                **self._get_purge_kwargs(paths),
+                front_door_name=self._front_door_name,
+            )
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             front_door_name=self._front_door_name,
         )
 
 
 class AzureCdnBackend(AzureBaseBackend):
     def __init__(self, params):
+        from azure.mgmt.cdn import __version__
+
+        self._package_name = "azure-mgmt-cdn"
+        self._required_version = "13.0.0"
+        self._installed_version = __version__
+
         super().__init__(params)
         try:
             self._cdn_profile_name = params.pop("CDN_PROFILE_NAME")
@@ -167,13 +238,30 @@ class AzureCdnBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._cdn_service_url)
+        if self._cdn_service_url:
+            kwargs.setdefault("base_url", self._cdn_service_url)
 
         return kwargs
 
+    def _get_purge_kwargs(self, paths, **kwargs):
+        if self._is_legacy_azure_library:
+            return super()._get_purge_kwargs(paths, **kwargs)
+
+        from azure.mgmt.cdn.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
+        )
+
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        if self._is_legacy_azure_library:
+            return client.endpoints.purge_content(
+                **self._get_purge_kwargs(paths),
+                profile_name=self._cdn_profile_name,
+                endpoint_name=self._cdn_endpoint_name,
+            )
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             profile_name=self._cdn_profile_name,
             endpoint_name=self._cdn_endpoint_name,
         )

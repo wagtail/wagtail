@@ -95,6 +95,16 @@ Because the considerations needed for remote storage are already documented, we 
 
 Wagtail does not take any measures to block the execution of JavaScript within PDF documents. To the extent that browsers allow this, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
 
+### Privilege escalation by users with user management roles
+
+A user with "add" or "change" permission over users has the unrestricted ability to create or modify user accounts with any access level, including administrator (superuser) status, even if the user does not have those permissions themselves. This behaviour is by design, and follows logically from the permission model implemented by Wagtail and Django.
+
+At the present time, the Wagtail team takes the position that user management permissions should only be assigned to users who are fully trusted. This is because many of the tasks that such a user would reasonably be expected to perform are ones that can inherently be exploited to gain additional access. For example, a site owner might reasonably assign "change user" permission to a member of staff in a junior support role so that they can handle password reset requests; however, the ability to reset a password is by itself sufficient to gain access to other accounts.
+
+Securing the user management interface against all avenues for privilege escalation, while not locking down its functionality to the point of non-administrator-level users not being able to do anything meaningful, is an open design question that Wagtail does not - currently - attempt to solve. Any security reports involving a user with user management permissions performing unauthorized actions are considered out of scope.
+
+Developers interested in revising the user management interface to accommodate untrusted users are invited to contribute to the open issue [#14100 - Prevent privilege escalation via user management features](https://github.com/wagtail/wagtail/issues/14100).
+
 ### CVEs in third-party dependencies
 
 Many of the reports we receive originate from automated dependency scanners flagging a CVE in a library Wagtail depends on, transitively includes, or vendors. Wagtail's security policy covers vulnerabilities in our runtime / production dependencies in Python, and any third-party JavaScript libraries loaded into the Wagtail admin. We focus on scenarios where the vulnerability is reachable from a code path that is actually used in Wagtail.

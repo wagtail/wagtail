@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
@@ -7,9 +8,11 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.ui.menus import MenuItem
-from wagtail.models import Locale, Page, TranslatableMixin
+from wagtail.models import Locale, TranslatableMixin
 
 from .views import SubmitPageTranslationView, SubmitSnippetTranslationView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 @hooks.register("register_admin_urls")

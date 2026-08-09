@@ -17,16 +17,17 @@ concurrency:
 # - at least one test run for each older supported version of Python and Django
 # - at least one test run for each supported Elasticsearch version
 # - a test run against Django's git main and active stable branch (allowing failures)
-# - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - test runs with USE_EMAIL_USER_MODEL=yes, USE_CUSTOM_PAGE_MODEL=yes,
+#   DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel
+# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel, USE_CUSTOM_PAGE_MODEL=yes
 # - django 5.2, python 3.10, mysql:8.0
 # - django 5.2, python 3.11, mariadb:10.5
 # - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
-# - django 6.0, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mariadb:11.4, USE_CUSTOM_PAGE_MODEL=yes
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 6.0, python 3.13, sqlite, parallel, USE_CUSTOM_PAGE_MODEL=yes
 # - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
@@ -56,19 +57,19 @@ jobs:
             parallel: '--parallel'
           - python: '3.13'
             django: 'Django>=6.0,<6.1'
-            check_template_number_format: '1'
+            custompage: 'yes'
             parallel: '--parallel'
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -81,6 +82,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
           WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -101,6 +104,7 @@ jobs:
             psycopg: 'psycopg2>=2.8.4'
             experimental: false
             parallel: '--parallel'
+            custompage: 'yes'
           - python: '3.14'
             django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
@@ -131,16 +135,16 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
           allow-prereleases: true
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -158,6 +162,7 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -203,7 +208,7 @@ jobs:
             django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mariadb:11.4'
-            emailuser: emailuser
+            custompage: 'yes'
           - python: '3.12'
             django: 'Django>=6.0,<6.1'
             experimental: false
@@ -223,15 +228,15 @@ jobs:
         options: --health-cmd=$HEALTH_CMD --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -248,6 +253,7 @@ jobs:
           DATABASE_USER: root
           DATABASE_PASSWORD: root
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -280,15 +286,15 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -302,6 +308,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -341,16 +349,16 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -368,6 +376,8 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -396,15 +406,15 @@ jobs:
       - uses: ankane/setup-opensearch@b73d8d2d65eaa5da2add094872f12f3ae6ef1eea # v1
         with:
           opensearch-version: 2
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Install dependencies
         run: |
           uv sync --locked --extra testing --config-setting editable_mode=strict
@@ -418,6 +428,8 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -437,17 +449,17 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out the repo
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.14'
 
       - name: Install uv
-        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
 
       - name: Install dependencies
         run: |

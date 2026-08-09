@@ -106,7 +106,7 @@ Django supports [template fragment caching](<inv:django:std:label#topics/cache:t
 
 ## Page cache key
 
-It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.Page.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
+It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.AbstractPage.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
 
 ```python
 from django.core.cache import cache
@@ -118,7 +118,7 @@ cache.set("expensive_result_" + page.cache_key, result, 3600)
 cache.get("expensive_result_" + page.cache_key)
 ```
 
-To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.Page.get_cache_key_components`:
+To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.AbstractPage.get_cache_key_components`:
 
 ```python
 def get_cache_key_components(self):

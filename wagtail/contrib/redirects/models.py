@@ -1,12 +1,13 @@
 from urllib.parse import urlparse
 
+import swapper
 from django.db import models
 from django.urls import Resolver404
 from django.utils.encoding import uri_to_iri
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import Page, Site
+from wagtail.models import AbstractPage, Site
 
 
 class Redirect(models.Model):
@@ -31,7 +32,7 @@ class Redirect(models.Model):
         ),
     )
     redirect_page = models.ForeignKey(
-        "wagtailcore.Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("redirect to a page"),
         null=True,
         blank=True,
@@ -134,7 +135,7 @@ class Redirect(models.Model):
         redirect.site = site
 
         # Check whether redirect to is string or Page
-        if isinstance(redirect_to, Page):
+        if isinstance(redirect_to, AbstractPage):
             # Set redirect page
             redirect.redirect_page = redirect_to
             # Set redirect page route

@@ -29,12 +29,11 @@ from wagtail.blocks.struct_block import (
     StructBlockAdapter,
     StructBlockValidationError,
 )
-from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -729,7 +728,7 @@ class TestRegexBlock(TestCase):
             block.clean("bar")
 
 
-class TestRichTextBlock(TestCase):
+class TestRichTextBlock(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_get_default_with_fallback_value(self):
@@ -4084,7 +4083,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             self.assert_eq_list_values(normalized[0], [1, 2, 3])
 
 
-class TestListBlockWithFixtures(TestCase):
+class TestListBlockWithFixtures(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_calls_child_bulk_to_python_when_available(self):
@@ -5692,7 +5691,7 @@ class TestNormalizeStreamBlock(SimpleTestCase):
                 )
 
 
-class TestStructBlockWithFixtures(TestCase):
+class TestStructBlockWithFixtures(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_bulk_to_python(self):
@@ -5754,7 +5753,7 @@ class TestStructBlockWithFixtures(TestCase):
         )
 
 
-class TestStreamBlockWithFixtures(TestCase):
+class TestStreamBlockWithFixtures(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_bulk_to_python(self):
@@ -5865,7 +5864,7 @@ class TestStreamBlockWithFixtures(TestCase):
         )
 
 
-class TestPageChooserBlock(TestCase):
+class TestPageChooserBlock(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_serialize(self):

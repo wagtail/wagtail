@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.test.testapp.models import (
     CustomCopyFormPage,
     EventPage,
@@ -11,7 +11,7 @@ from wagtail.test.testapp.models import (
     PageWithExcludedCopyField,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestPageCopy(WagtailTestUtils, TestCase):
@@ -903,7 +903,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         page_copy = self.root_page.get_children().get(slug="hello-world-2")
 
         # Check the copy is an alias of the original
-        self.assertEqual(page_copy.alias_of, self.test_page.page_ptr)
+        self.assertEqual(page_copy.alias_of, self.test_page.get_base_page())
 
         # Check that the copy is live
         # Note: publish_copies is ignored. Alias pages always keep the same state as their original
@@ -943,7 +943,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         page_copy = self.root_page.get_children().get(slug="hello-world-2")
 
         # Check the copy is an alias of the original
-        self.assertEqual(page_copy.alias_of, self.test_page.page_ptr)
+        self.assertEqual(page_copy.alias_of, self.test_page.get_base_page())
 
         # Check that the copy is live
         # Note: publish_copies is ignored. Alias pages always keep the same state as their original
@@ -960,7 +960,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug="child-page").first()
         self.assertIsNotNone(child_copy)
-        self.assertEqual(child_copy.alias_of, self.test_child_page.page_ptr)
+        self.assertEqual(child_copy.alias_of, self.test_child_page.get_base_page())
         self.assertTrue(child_copy.live)
         self.assertFalse(child_copy.has_unpublished_changes)
 
@@ -969,7 +969,8 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(unpublished_child_copy)
         self.assertEqual(
-            unpublished_child_copy.alias_of, self.test_unpublished_child_page.page_ptr
+            unpublished_child_copy.alias_of,
+            self.test_unpublished_child_page.get_base_page(),
         )
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
@@ -998,9 +999,9 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.user.is_superuser = False
         self.user.groups.add(Group.objects.get(name="Moderators"))
         self.user.save()
-        GroupPagePermission.objects.filter(permission__codename="publish_page").update(
-            page=self.destination_page
-        )
+        GroupPagePermission.objects.filter(
+            permission__codename=Page.PERMISSION_CODENAMES.PUBLISH
+        ).update(page=self.destination_page)
 
         post_data = {
             "new_title": self.test_child_page.title,

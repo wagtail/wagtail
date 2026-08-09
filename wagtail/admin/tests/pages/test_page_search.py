@@ -8,14 +8,14 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.test.testapp.models import EventIndex, SimplePage, SingleEventPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
 @tag("transaction")
-class TestPageSearch(WagtailTestUtils, TransactionTestCase):
+class TestPageSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
     def setUp(self):

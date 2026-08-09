@@ -1,9 +1,11 @@
+import swapper
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic import workflow
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class WorkflowPageViewMixin:

@@ -5,8 +5,9 @@ from django.utils.safestring import mark_safe
 
 from wagtail import __version__, blocks
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.testapp.blocks import SectionBlock
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 class TestCoreGlobalsAndFilters(TestCase):
@@ -60,7 +61,7 @@ class TestCoreGlobalsAndFilters(TestCase):
         self.assertEqual(self.render("{{ wagtail_version() }}"), __version__)
 
 
-class TestJinjaEscaping(TestCase):
+class TestJinjaEscaping(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_block_render_result_is_safe(self):

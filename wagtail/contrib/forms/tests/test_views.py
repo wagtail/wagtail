@@ -21,7 +21,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_custom_submission,
 )
 from wagtail.contrib.forms.utils import get_form_types
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.test.demosite.models import FormPage as FormPageDemo
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
@@ -36,7 +36,7 @@ from wagtail.test.testapp.models import (
     FormPageWithRedirect,
     JadeFormPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 
 
@@ -156,7 +156,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
         self.assertFalse(self.panel.is_shown())
 
 
-class TestFormsIndex(WagtailTestUtils, TestCase):
+class TestFormsIndex(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -342,7 +342,9 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
+class TestFormsIndexWithLocalisationEnabled(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1393,7 +1395,7 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
 
-class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
+class TestDeleteFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1562,7 +1564,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.assertRedirects(response, next_url)
 
 
-class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
+class TestDeleteCustomFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1893,7 +1895,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(WagtailTestUtils, TestCase):
         self.assertContains(response, "192.0.2.15")
 
 
-class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
+class TestDuplicateFormFieldLabels(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585

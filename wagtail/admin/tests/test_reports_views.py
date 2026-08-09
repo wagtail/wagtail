@@ -21,7 +21,6 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     ModelLogEntry,
-    Page,
     PageLogEntry,
     Site,
 )
@@ -31,7 +30,7 @@ from wagtail.test.testapp.models import (
     EventPageSpeaker,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
@@ -322,7 +321,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
-class TestFilteredLockedPagesView(BaseReportViewTestCase):
+class TestFilteredLockedPagesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:locked_pages"
 
@@ -371,7 +370,7 @@ class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
     results_only = True
 
 
-class TestFilteredLogEntriesView(BaseReportViewTestCase):
+class TestFilteredLogEntriesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:site_history"
 
@@ -1067,7 +1066,7 @@ class TestAgingPagesViewPermissions(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestFilteredAgingPagesView(BaseReportViewTestCase):
+class TestFilteredAgingPagesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:aging_pages"
 
@@ -1123,7 +1122,7 @@ class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
     results_only = True
 
 
-class PageTypesUsageReportViewTest(BaseReportViewTestCase):
+class PageTypesUsageReportViewTest(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
@@ -1425,7 +1424,9 @@ class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
     results_only = True
 
 
-class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
+class TestPageTypesUsageReportViewPermissions(
+    PageFixturesMixin, BaseReportViewTestCase
+):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 

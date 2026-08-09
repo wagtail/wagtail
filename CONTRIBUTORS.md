@@ -986,6 +986,7 @@
 * alanturing881
 * Marquis Nobles
 * Eesh Saxena
+* Jack Whitworth
 * Thomas Herman
 
 ## Translators

@@ -8,7 +8,12 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.coreutils import camelcase_to_underscore
-from wagtail.models import AbstractGroupApprovalTask, Page, TaskState, WorkflowState
+from wagtail.models import (
+    AbstractGroupApprovalTask,
+    AbstractPage,
+    TaskState,
+    WorkflowState,
+)
 from wagtail.users.models import UserProfile
 
 logger = logging.getLogger("wagtail.admin")
@@ -292,7 +297,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
         context["workflow"] = workflow_state.workflow
         context["object"] = workflow_state.content_object
         context["model_name"] = context["object"]._meta.verbose_name
-        if isinstance(context["object"], Page):
+        if isinstance(context["object"], AbstractPage):
             context["page"] = context["object"].specific
         return context
 
@@ -377,7 +382,7 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
         context["task"] = task_state.task.specific
         context["object"] = task_state.workflow_state.content_object
         context["model_name"] = context["object"]._meta.verbose_name
-        if isinstance(context["object"], Page):
+        if isinstance(context["object"], AbstractPage):
             context["page"] = context["object"].specific
         return context
 

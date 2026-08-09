@@ -24,7 +24,8 @@ from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.utils import set_query_params
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import register_permission_policy
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
@@ -334,7 +335,6 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     # Ensure that the menu item is placed last
     menu_order = 999999
     inspect_view_enabled = True
-    permission_policy = FullFeaturedPermissionPolicy(FullFeaturedSnippet)
 
     class IndexView(SnippetViewSet.index_view_class):
         def get_add_url(self):
@@ -430,6 +430,18 @@ class SnippetChooserModelViewSet(SnippetViewSet):
     exclude_form_fields = []
 
 
+# Ensure custom permission policies are registered before the snippet models are
+# registered, so that the viewsets do not try to register a default viewset.
+# This can also be done in the app's AppConfig.ready() method, but having it
+# alongside the viewset registration makes the order more explicit.
+# RemovedInWagtail90Warning: Remove this comment. The default permission policy
+# for a snippet will no longer be registered automatically in Wagtail 9.0. The
+# policy will be retrieved at request time from the policies registry, so the
+# ordering of registration will no longer be important.
+register_permission_policy(
+    FullFeaturedSnippet,
+    FullFeaturedPermissionPolicy(FullFeaturedSnippet),
+)
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 # Works with both classes and instances

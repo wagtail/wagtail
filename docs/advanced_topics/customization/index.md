@@ -9,4 +9,5 @@ custom_page_listings
 admin_templates
 custom_user_models
 streamfield_blocks
+custom_base_page_models
 ```
