@@ -10,6 +10,7 @@ The v2 read API remains available. v3 is mounted separately at `/api/v3/`.
 ---
 maxdepth: 1
 ---
+authentication
 reference
 ```
 
