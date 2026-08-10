@@ -9,7 +9,7 @@ from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestV3SnippetListingBase(TestV3Base, WagtailTestUtils, TestCase):
+class TestV3SnippetListingBase(TestV3Base, WagtailTestUtils):
     model = Advert
 
     def setUp(self):
@@ -26,7 +26,7 @@ class TestV3SnippetListingBase(TestV3Base, WagtailTestUtils, TestCase):
         )
 
 
-class TestV3SnippetListing(TestV3SnippetListingBase):
+class TestV3SnippetListing(TestV3SnippetListingBase, TestCase):
     def setUp(self):
         super().setUp()
         Advert.objects.create(text="Advert 1")
@@ -85,7 +85,7 @@ class TestV3SnippetListing(TestV3SnippetListingBase):
         )
 
 
-class TestV3SnippetListingPagination(TestV3SnippetListingBase):
+class TestV3SnippetListingPagination(TestV3SnippetListingBase, TestCase):
     def setUp(self):
         super().setUp()
         self.adverts = [Advert.objects.create(text=f"Advert {i}") for i in range(25)]
@@ -119,7 +119,7 @@ class TestV3SnippetListingPagination(TestV3SnippetListingBase):
         self.assertLessEqual(len(content["items"]), 5)
 
 
-class TestV3SnippetListingFieldFilter(TestV3SnippetListingBase):
+class TestV3SnippetListingFieldFilter(TestV3SnippetListingBase, TestCase):
     def setUp(self):
         super().setUp()
         self.zebra = Advert.objects.create(text="Zebra", url="https://a.example.com")
@@ -184,7 +184,7 @@ class TestV3SnippetListingFieldFilter(TestV3SnippetListingBase):
         )
 
 
-class TestV3SnippetListingOrdering(TestV3SnippetListingBase):
+class TestV3SnippetListingOrdering(TestV3SnippetListingBase, TestCase):
     def setUp(self):
         super().setUp()
         self.zebra = Advert.objects.create(text="Zebra")
@@ -258,7 +258,7 @@ class TestV3SnippetListingOrdering(TestV3SnippetListingBase):
         )
 
 
-class TestV3SnippetListingTranslationFilter(TestV3SnippetListingBase):
+class TestV3SnippetListingTranslationFilter(TestV3SnippetListingBase, TestCase):
     model = FullFeaturedSnippet
 
     def setUp(self):
