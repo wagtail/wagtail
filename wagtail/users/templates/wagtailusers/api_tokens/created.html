@@ -16,8 +16,7 @@
     {% panel id="token" %}
         <p>
             {% blocktrans trimmed with name=object.name %}
-                The API token "{{ name }}" has been created. Copy it now —
-                for security reasons it will never be shown again.
+                The token "{{ name }}" has been created, copy it now, it will never be shown again.
             {% endblocktrans %}
         </p>
         <div data-controller="w-clipboard w-clone" data-w-clone-auto-clear-value="5_000" data-action="w-clipboard:copy->w-clone#clear w-clipboard:copied->w-clone#add w-clipboard:error->w-clone#add">
