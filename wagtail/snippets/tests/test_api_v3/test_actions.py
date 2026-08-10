@@ -57,7 +57,7 @@ class TestV3SnippetPublish(TestV3SnippetActionsBase):
                     text=f"Draft {i}", live=False
                 )
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -135,7 +135,7 @@ class TestV3SnippetUnpublish(TestV3SnippetActionsBase):
             with self.subTest(codenames=codenames):
                 snippet = self.make_live_snippet(text=f"Live {i}")
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -182,7 +182,7 @@ class TestV3SnippetDeleteAction(TestV3SnippetActionsBase):
             with self.subTest(codenames=codenames):
                 advert = Advert.objects.create(text=f"Deletable {i}")
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -236,7 +236,7 @@ class TestV3SnippetRevert(TestV3SnippetActionsBase):
                 snippet.save()
 
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 

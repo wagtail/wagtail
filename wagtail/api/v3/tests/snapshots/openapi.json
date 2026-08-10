@@ -34138,6 +34138,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List locales",
         "tags": ["locales"]
       },
@@ -34166,6 +34171,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create locale",
         "tags": ["locales"]
       }
@@ -34189,6 +34199,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete locale",
         "tags": ["locales"]
       },
@@ -34217,6 +34232,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Locale detail",
         "tags": ["locales"]
       },
@@ -34255,6 +34275,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Update locale",
         "tags": ["locales"]
       }
@@ -35462,6 +35487,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete page",
         "tags": ["pages"]
       },
@@ -38891,6 +38921,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List page revisions",
         "tags": ["pages"]
       }
@@ -38931,6 +38966,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Page revision detail",
         "tags": ["pages"]
       }
@@ -39504,6 +39544,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List snippets",
         "tags": ["snippets"]
       },
@@ -39569,6 +39614,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create snippet",
         "tags": ["snippets"]
       }
@@ -39606,6 +39656,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete snippet",
         "tags": ["snippets"]
       },
@@ -39659,6 +39714,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Snippet detail",
         "tags": ["snippets"]
       },
@@ -39733,6 +39793,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Update snippet",
         "tags": ["snippets"]
       }
@@ -39783,6 +39848,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Copy snippet for translation",
         "tags": ["snippets"]
       }
@@ -39820,6 +39890,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete snippet",
         "tags": ["snippets"]
       }
@@ -39860,6 +39935,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Publish snippet",
         "tags": ["snippets"]
       }
@@ -39910,6 +39990,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Revert snippet to a previous revision",
         "tags": ["snippets"]
       }
@@ -39950,6 +40035,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Unpublish snippet",
         "tags": ["snippets"]
       }
@@ -40115,6 +40205,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List snippet revisions",
         "tags": ["snippets"]
       }
@@ -40165,6 +40260,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Snippet revision detail",
         "tags": ["snippets"]
       }
