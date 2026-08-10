@@ -1794,7 +1794,13 @@ class TestCopyForTranslationAction(PageFixturesMixin, AdminAPITestCase, TestCase
 
         self.assertEqual(response.status_code, 400)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "Parent page is not translated."})
+        self.assertEqual(
+            content,
+            {
+                "message": "Parent page 'Welcome to the Wagtail test site!' "
+                "is not translated."
+            },
+        )
 
     def test_copy_childpage_with_copy_parents(self):
         response = self.get_response(
