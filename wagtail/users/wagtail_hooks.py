@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
 from wagtail import hooks
+from wagtail.users.views.apitokens import APITokenViewSet
 from wagtail.users.views.bulk_actions import (
     AssignRoleBulkAction,
     DeleteBulkAction,
@@ -28,6 +29,7 @@ def register_viewset():
     return [
         user_viewset_cls("wagtailusers_users", url_prefix="users"),
         group_viewset_cls("wagtailusers_groups", url_prefix="groups"),
+        APITokenViewSet("wagtailusers_apitokens", url_prefix="api-tokens"),
     ]
 
 

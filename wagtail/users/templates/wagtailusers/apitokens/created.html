@@ -1,0 +1,28 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% trans "API token created" %}{% endblock %}
+
+{% block content %}
+    {% trans "API token created" as heading %}
+    {% include "wagtailadmin/shared/header.html" with title=heading icon="key" %}
+
+    <div class="nice-padding">
+        {% panel id="token" heading=heading %}
+            <p>
+                {% blocktrans trimmed with name=object.name %}
+                    The API token "{{ name }}" has been created. Copy it now —
+                    for security reasons it will never be shown again.
+                {% endblocktrans %}
+            </p>
+            <p>
+                <code class="w-break-all" data-controller="w-clipboard">{{ token }}</code>
+            </p>
+            <p>
+                <a href="{% url 'wagtailusers_apitokens:index' %}" class="button">
+                    {% trans "Back to API tokens" %}
+                </a>
+            </p>
+        {% endpanel %}
+    </div>
+{% endblock %}
