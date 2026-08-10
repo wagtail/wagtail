@@ -42,7 +42,6 @@ from wagtail.query import PageQuerySet
 
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
-# All action endpoints require a bearer token; see wagtail.api.v3.auth.
 actions_router = Router(auth=BearerTokenAuth())
 
 page_models = get_page_models()
