@@ -30,6 +30,7 @@ Changelog
  * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
  * Docs: Add docs for `request.in_preview_panel` to explain its use (Raghad Dahi)
  * Docs: Update image format docs to encourage more intentional conversions (Thibaud Colas)
+ * Docs: Clarify Wagtail XSS protections for uploaded documents (Thibaud Colas)
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
