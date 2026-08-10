@@ -11,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
@@ -197,8 +199,34 @@ class Created(WagtailAdminTemplateMixin, View):
         )
 
 
+class APITokenStatusSidePanel(StatusSidePanel):
+    """Replace the default Live/Draft workflow status with Active/Revoked."""
+
+    def get_status_templates(self, context):
+        templates = ["wagtailusers/api_tokens/status.html"]
+        if self.usage_url is not None:
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/usage.html"
+            )
+        return templates
+
+
 class Edit(TokenManagementQuerysetMixin, EditView):
-    pass
+    def get_side_panels(self):
+        side_panels = []
+        usage_url = self.get_usage_url()
+        history_url = self.get_history_url()
+        if usage_url or history_url:
+            side_panels.append(
+                APITokenStatusSidePanel(
+                    self.object,
+                    self.request,
+                    usage_url=usage_url,
+                    history_url=history_url,
+                    last_updated_info=self.get_last_updated_info(),
+                )
+            )
+        return MediaContainer(side_panels)
 
 
 class Revoke(TokenManagementQuerysetMixin, DeleteView):
