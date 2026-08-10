@@ -1,6 +1,7 @@
 from typing import Any, Literal, cast
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Query, Router, Schema, Status
@@ -17,9 +18,11 @@ from wagtail.api.v3.schemas.base import build_discriminated_union, build_union_s
 from wagtail.api.v3.schemas.params import (
     APIFieldFilterSchema,
     OrderingSchema,
+    RevisionFilterSchema,
     SearchSchema,
     TranslationFilterSchema,
 )
+from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 from wagtail.permissions import policy_registry
@@ -81,6 +84,14 @@ for mixin in mixins:
 
 def get_model_from_params(request, *args, type: SnippetTypeLiteral, **kwargs):
     return resolve_model_string(type)
+
+
+def _check_can_view_revisions(request: HttpRequest, instance) -> None:
+    permission_policy = policy_registry.get(instance)
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", instance
+    ):
+        raise PermissionDenied
 
 
 @router.get(
@@ -213,6 +224,47 @@ def delete_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
     action = action_class(instance, user=request.user)
     action.execute()
     return Status(204, None)
+
+
+@router.get(
+    "/{type}/{pk}/revisions/",
+    response=list[RevisionSchema],
+    url_name="list_snippet_revisions",
+    summary="List snippet revisions",
+    operation_id="snippets_revisions_list",
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_snippet_revisions(
+    request: HttpRequest,
+    type: literals_by_mixin[RevisionMixin],
+    pk: str,
+    filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+):
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    _check_can_view_revisions(request, instance)
+    queryset = instance.revisions.order_by("-created_at", "-id")
+    return filters.filter(queryset)
+
+
+@router.get(
+    "/{type}/{pk}/revisions/{revision_id}/",
+    response=RevisionDetailSchema,
+    url_name="detail_snippet_revision",
+    summary="Snippet revision detail",
+    operation_id="snippets_revisions_detail",
+)
+def get_snippet_revision(
+    request: HttpRequest,
+    type: literals_by_mixin[RevisionMixin],
+    pk: str,
+    revision_id: PositiveInt,
+):
+    model = resolve_model_string(type)
+    instance = get_object_or_404(model, pk=pk)
+    _check_can_view_revisions(request, instance)
+    revisions = instance.revisions.select_related("content_type", "base_content_type")
+    return get_object_or_404(revisions, pk=revision_id)
 
 
 @actions_router.post(
