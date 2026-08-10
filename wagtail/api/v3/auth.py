@@ -4,7 +4,6 @@ from django.utils import timezone
 from ninja.security import HttpBearer
 
 from wagtail.models import APIToken
-from wagtail.models.api import candidate_key_hashes
 
 
 class BearerTokenAuth(HttpBearer):
@@ -17,7 +16,7 @@ class BearerTokenAuth(HttpBearer):
     def authenticate(self, request, token: str):
         try:
             api_token = APIToken.objects.select_related("user").get(
-                key_hash__in=candidate_key_hashes(token),
+                key_hash__in=APIToken.candidate_key_hashes(token),
                 revoked_at__isnull=True,
             )
         except APIToken.DoesNotExist:
