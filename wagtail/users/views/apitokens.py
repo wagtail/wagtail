@@ -3,6 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.forms import CharField, Form, ModelChoiceField
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
@@ -92,6 +93,22 @@ class Created(WagtailAdminTemplateMixin, View):
     """Displays a newly-created token's secret exactly once."""
 
     template_name = "wagtailusers/apitokens/created.html"
+    page_title = _("API token created")
+    model = None
+    index_url_name = None
+    header_icon = ""
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name and self.model:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append({"url": "", "label": self.get_page_title()})
+        return self.breadcrumbs_items + items
 
     def get(self, request, pk):
         # Peek before consuming: a stale link or prefetch must not wipe the
@@ -110,7 +127,9 @@ class Created(WagtailAdminTemplateMixin, View):
             request.session[CREATED_SESSION_KEY] = stash
         else:
             del request.session[CREATED_SESSION_KEY]
-        return self.render_to_response({"object": self.object, "token": plaintext})
+        return self.render_to_response(
+            self.get_context_data(object=self.object, token=plaintext)
+        )
 
 
 class Edit(TokenManagementQuerysetMixin, EditView):
