@@ -1,28 +1,14 @@
 import json
 from io import StringIO
-from typing import Any
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.models import APIToken
-from wagtail.models.api import CHECKSUM_LENGTH, SECRET_LENGTH, TOKEN_PREFIX
-
-User: Any = get_user_model()
-
-
-def make_user(username_value, *, superuser=True):
-    """Create a user without assuming which field is USERNAME_FIELD."""
-    kwargs = {"password": "password"}
-    kwargs[User.USERNAME_FIELD] = username_value
-    if User.USERNAME_FIELD != "email":
-        kwargs["email"] = f"{username_value}@example.com"
-    if superuser:
-        return User.objects.create_superuser(**kwargs)
-    return User.objects.create_user(**kwargs)
+from wagtail.models.api import KEY_CHECKSUM_LENGTH, KEY_SECRET_LENGTH, TOKEN_PREFIX
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestTokenFormat(SimpleTestCase):
@@ -30,7 +16,7 @@ class TestTokenFormat(SimpleTestCase):
         token = APIToken.generate_token()
         self.assertTrue(token.startswith(TOKEN_PREFIX))
         self.assertEqual(
-            len(token), len(TOKEN_PREFIX) + SECRET_LENGTH + CHECKSUM_LENGTH
+            len(token), len(TOKEN_PREFIX) + KEY_SECRET_LENGTH + KEY_CHECKSUM_LENGTH
         )
         self.assertTrue(APIToken.validate_token_format(token))
 
@@ -46,7 +32,7 @@ class TestTokenFormat(SimpleTestCase):
 class TestTokenStorage(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = make_user("tokenuser")
+        cls.user = WagtailTestUtils.create_superuser("tokenuser")
 
     def test_create_token_stores_digest_not_plaintext(self):
         instance, plaintext = APIToken.create_token(user=self.user, name="deploy")
@@ -87,7 +73,7 @@ class TestTokenStorage(TestCase):
 class TestApiTokensCommand(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = make_user("cliuser")
+        cls.user = WagtailTestUtils.create_superuser("cliuser")
         cls.username = cls.user.get_username()
 
     def call_command(self, *args, **kwargs):

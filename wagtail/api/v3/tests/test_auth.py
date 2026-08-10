@@ -1,7 +1,4 @@
-from typing import Any
-
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.test.client import RequestFactory
 from django.urls import reverse
@@ -9,18 +6,13 @@ from django.urls import reverse
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth, get_api_user
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import APIToken
-
-User: Any = get_user_model()
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestBearerTokenAuth(TestCase):
     @classmethod
     def setUpTestData(cls):
-        kwargs = {"password": "password"}
-        kwargs[User.USERNAME_FIELD] = "apiuser"
-        if User.USERNAME_FIELD != "email":
-            kwargs["email"] = "api@example.com"
-        cls.user = User.objects.create_superuser(**kwargs)
+        cls.user = WagtailTestUtils.create_superuser("apiuser")
         cls.token, cls.plaintext = APIToken.create_token(user=cls.user, name="t")
 
     def authenticate(self, header):
@@ -151,11 +143,7 @@ class TestAuthWiring(TestV3Base, TestCase):
                 )
 
     def test_session_cookies_do_not_authenticate(self):
-        kwargs = {"password": "password"}
-        kwargs[User.USERNAME_FIELD] = "sessionuser"
-        if User.USERNAME_FIELD != "email":
-            kwargs["email"] = "s@example.com"
-        user = User.objects.create_superuser(**kwargs)
+        user = WagtailTestUtils.create_superuser("sessionuser")
         self.client.force_login(user)  # session only, no token
         response = self.client.get(reverse("wagtailapi_v3:list_sites"))
         self.assert_problem_response(response, status_code=401)
