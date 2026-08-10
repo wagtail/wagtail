@@ -34084,6 +34084,12 @@
         "title": "PersonPageSchema",
         "type": "object"
       }
+    },
+    "securitySchemes": {
+      "BearerTokenAuth": {
+        "scheme": "bearer",
+        "type": "http"
+      }
     }
   },
   "info": {
@@ -34557,6 +34563,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List pages",
         "tags": ["pages"]
       },
@@ -35093,6 +35104,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create page",
         "tags": ["pages"]
       }
@@ -35417,6 +35433,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Find page",
         "tags": ["pages"]
       }
@@ -35723,6 +35744,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Page detail",
         "tags": ["pages"]
       },
@@ -36269,6 +36295,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Update page",
         "tags": ["pages"]
       }
@@ -36554,6 +36585,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Convert alias page to a regular page",
         "tags": ["pages"]
       }
@@ -36860,6 +36896,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Copy page",
         "tags": ["pages"]
       }
@@ -37155,6 +37196,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Copy page for translation",
         "tags": ["pages"]
       }
@@ -37459,6 +37505,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create an alias of a page",
         "tags": ["pages"]
       }
@@ -37483,6 +37534,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete page",
         "tags": ["pages"]
       }
@@ -37778,6 +37834,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Move page",
         "tags": ["pages"]
       }
@@ -38063,6 +38124,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Publish page",
         "tags": ["pages"]
       }
@@ -38358,6 +38424,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Revert page to a previous revision",
         "tags": ["pages"]
       }
@@ -38660,6 +38731,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Unpublish page",
         "tags": ["pages"]
       }
@@ -38898,6 +38974,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List redirects",
         "tags": ["redirects"]
       },
@@ -38926,6 +39007,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create redirect",
         "tags": ["redirects"]
       }
@@ -38949,6 +39035,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete redirect",
         "tags": ["redirects"]
       },
@@ -38977,6 +39068,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Redirect detail",
         "tags": ["redirects"]
       },
@@ -39015,6 +39111,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Update redirect",
         "tags": ["redirects"]
       }
@@ -39035,6 +39136,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List registered content types",
         "tags": ["schema"]
       }
@@ -39065,6 +39171,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Schemas for a content type",
         "tags": ["schema"]
       }
@@ -39108,6 +39219,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "List sites",
         "tags": ["sites"]
       },
@@ -39136,6 +39252,11 @@
             "description": "Created"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Create site",
         "tags": ["sites"]
       }
@@ -39159,6 +39280,11 @@
             "description": "No Content"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Delete site",
         "tags": ["sites"]
       },
@@ -39187,6 +39313,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Site detail",
         "tags": ["sites"]
       },
@@ -39225,6 +39356,11 @@
             "description": "OK"
           }
         },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
         "summary": "Update site",
         "tags": ["sites"]
       }

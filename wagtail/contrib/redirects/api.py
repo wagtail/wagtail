@@ -12,6 +12,7 @@ from wagtail.actions.edit import EditAction
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
 from wagtail.api.v2.serializers import BaseSerializer
 from wagtail.api.v2.views import BaseAPIViewSet
+from wagtail.api.v3.auth import BearerTokenAuth, get_api_user
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.contrib.redirects.forms import RedirectForm
@@ -19,7 +20,8 @@ from wagtail.contrib.redirects.middleware import get_redirect
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.permissions import policy_registry
 
-router = Router(tags=["redirects"])
+# All redirects endpoints require a bearer token; see wagtail.api.v3.auth.
+router = Router(tags=["redirects"], auth=BearerTokenAuth())
 
 
 class RedirectSchema(Schema):
@@ -57,7 +59,7 @@ class RedirectInputSchema(Schema):
 def list_redirects(request: HttpRequest):
     permission_policy = policy_registry.get_by_type(Redirect)
     return permission_policy.instances_user_has_any_permission_for(
-        request.user,
+        get_api_user(request),
         ("add", "change", "delete", "view"),
     )
 
@@ -74,7 +76,7 @@ def get_redirect_detail(request: HttpRequest, redirect_id: int):
     permission_policy = policy_registry.get_by_type(Redirect)
     return get_object_or_404(
         permission_policy.instances_user_has_any_permission_for(
-            request.user,
+            get_api_user(request),
             ("add", "change", "delete", "view"),
         ),
         pk=redirect_id,
@@ -91,7 +93,7 @@ def get_redirect_detail(request: HttpRequest, redirect_id: int):
 @require_any_permission(Redirect, ("add",))
 def create_redirect(request: HttpRequest, data: RedirectInputSchema):
     form = RedirectForm(data.dict())
-    CreateAction(form.instance, user=request.user, form=form).execute(
+    CreateAction(form.instance, user=get_api_user(request), form=form).execute(
         skip_permission_checks=True
     )
     return Status(201, form.instance)
@@ -107,7 +109,7 @@ def create_redirect(request: HttpRequest, data: RedirectInputSchema):
 def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputSchema):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     form = RedirectForm(data.dict(), instance=redirect)
-    EditAction(form.instance, user=request.user, form=form).execute()
+    EditAction(form.instance, user=get_api_user(request), form=form).execute()
     return form.instance
 
 
@@ -120,7 +122,7 @@ def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputS
 )
 def delete_redirect(request: HttpRequest, redirect_id: int):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
-    DeleteAction(redirect, user=request.user).execute()
+    DeleteAction(redirect, user=get_api_user(request)).execute()
     return Status(204, None)
 
 

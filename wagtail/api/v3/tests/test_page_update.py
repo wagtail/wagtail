@@ -36,7 +36,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
         )
-        self.client.logout()
+        self.unauthorize()
         response = self.patch(
             page,
             {

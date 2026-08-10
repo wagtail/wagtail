@@ -1,10 +1,44 @@
+from typing import Any
+
+from django.contrib.auth import get_user_model
 from django.test import SimpleTestCase
 
 from wagtail.api.v3.errors import PROBLEM_JSON
 from wagtail.log_actions import registry as log_registry
+from wagtail.models import APIToken
 
 
 class TestV3Base(SimpleTestCase):
+    def authorize(self, user, *, name="test token"):
+        """Authenticate subsequent self.client calls with a bearer token."""
+        token, plaintext = APIToken.create_token(user=user, name=name)
+        self.client.defaults["HTTP_AUTHORIZATION"] = f"Bearer {plaintext}"
+        return token
+
+    def login(self, user=None, username=None, password="password"):  # noqa: S107 - usage in tests allowed
+        """v3 API requests authenticate with bearer tokens, not sessions.
+
+        Overrides WagtailTestUtils.login so existing call sites exercise
+        token auth: creates (or resolves) the user and authorizes a token.
+        """
+        user_model: Any = get_user_model()
+        if user is None:
+            if username is None:
+                # Provided by WagtailTestUtils on the concrete test class.
+                user = self.create_test_user()  # ty: ignore[unresolved-attribute]
+            else:
+                if user_model.USERNAME_FIELD == "email" and "@" not in username:
+                    username = "%s@example.com" % username
+                user = user_model._default_manager.get(
+                    **{user_model.USERNAME_FIELD: username}
+                )
+        self.authorize(user)
+        return user
+
+    def unauthorize(self):
+        """Stop sending the Authorization header (the token-auth logout)."""
+        self.client.defaults.pop("HTTP_AUTHORIZATION", None)
+
     def assert_problem_response(
         self,
         response,
