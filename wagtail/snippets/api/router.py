@@ -10,6 +10,7 @@ from pydantic import PositiveInt
 
 from wagtail.actions import action_registry
 from wagtail.actions.publish_revision import PublishPermissionError
+from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.form_data import build_model_form, build_model_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -29,8 +30,8 @@ from wagtail.permissions import policy_registry
 from wagtail.snippets.api.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
 
-router = Router(tags=["snippets"])
-actions_router = Router()
+router = Router(tags=["snippets"], auth=BearerTokenAuth())
+actions_router = Router(auth=BearerTokenAuth())
 
 enabled_models = [
     model for model in get_snippet_models() if registry.has(model._meta.label)
@@ -242,6 +243,7 @@ def delete_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
     operation_id="snippets_revisions_list",
 )
 @paginate(WagtailLimitOffsetPagination)
+@require_any_permission(get_model_from_params, ("add", "change", "delete"))
 def list_snippet_revisions(
     request: HttpRequest,
     type: literals_by_mixin[RevisionMixin],
@@ -262,6 +264,7 @@ def list_snippet_revisions(
     summary="Snippet revision detail",
     operation_id="snippets_revisions_detail",
 )
+@require_any_permission(get_model_from_params, ("add", "change", "delete"))
 def get_snippet_revision(
     request: HttpRequest,
     type: literals_by_mixin[RevisionMixin],

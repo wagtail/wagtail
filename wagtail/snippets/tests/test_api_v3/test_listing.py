@@ -33,12 +33,12 @@ class TestV3SnippetListing(TestV3SnippetListingBase, TestCase):
         Advert.objects.create(text="Advert 2")
 
     def test_anonymous_returns_401(self):
-        self.client.logout()
+        self.unauthorize()
         response = self.get_response()
         self.assert_problem_response(
             response,
             status_code=401,
-            detail_contains="Authentication required",
+            detail_contains="Unauthorized",
         )
 
     def test_authenticated_returns_200(self):

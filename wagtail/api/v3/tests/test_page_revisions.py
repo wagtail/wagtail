@@ -63,7 +63,7 @@ class TestV3PageRevisionsList(TestV3PageRevisionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -113,6 +113,7 @@ class TestV3PageRevisionsList(TestV3PageRevisionsBase):
         self.assertEqual(content["items"], [])
 
     def test_unknown_page_returns_404(self):
+        self.login()
         response = self.client.get(
             reverse("wagtailapi_v3:list_page_revisions", kwargs={"page_id": 999999})
         )
@@ -197,7 +198,7 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -251,6 +252,7 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
         self.assertEqual(content["content_object"]["title"], self.home_page.title)
 
     def test_unknown_page_returns_404(self):
+        self.login()
         revision = self.home_page.save_revision()
         response = self.client.get(
             reverse(

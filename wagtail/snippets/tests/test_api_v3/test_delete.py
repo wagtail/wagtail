@@ -31,12 +31,12 @@ class TestV3SnippetDelete(TestV3SnippetDeleteBase):
         self.advert = Advert.objects.create(text="To delete")
 
     def test_anonymous_returns_401(self):
-        self.client.logout()
+        self.unauthorize()
         response = self.delete(self.advert.pk)
         self.assert_problem_response(
             response,
             status_code=401,
-            detail_contains="Authentication required",
+            detail_contains="Unauthorized",
         )
 
     def test_superuser_can_delete(self):

@@ -24,7 +24,7 @@ class TestV3SnippetDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(
             response,
             status_code=401,
-            detail_contains="Authentication required",
+            detail_contains="Unauthorized",
         )
 
     def test_detail_returns_correct_fields(self):

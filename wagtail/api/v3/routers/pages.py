@@ -357,6 +357,7 @@ def _check_can_view_revisions(request: HttpRequest, page: Page) -> None:
     url_name="list_page_revisions",
     summary="List page revisions",
     operation_id="pages_revisions_list",
+    auth=BearerTokenAuth(),
 )
 @paginate(WagtailLimitOffsetPagination)
 def list_page_revisions(
@@ -377,6 +378,7 @@ def list_page_revisions(
     url_name="detail_page_revision",
     summary="Page revision detail",
     operation_id="pages_revisions_detail",
+    auth=BearerTokenAuth(),
 )
 def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveInt):
     page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
@@ -532,6 +534,7 @@ def move(
     url_name="delete_page",
     summary="Delete page",
     operation_id="pages_delete",
+    auth=BearerTokenAuth(),
 )
 @actions_router.delete(
     "/{page_id}/actions/delete/",

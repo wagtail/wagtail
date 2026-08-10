@@ -6,6 +6,7 @@ from ninja.pagination import paginate
 from pydantic import PositiveInt
 
 from wagtail.actions import action_registry
+from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.schemas import BaseSchema
@@ -14,7 +15,7 @@ from wagtail.locales.utils import get_locale_usage
 from wagtail.models import Locale
 from wagtail.permissions import policy_registry
 
-router = Router(tags=["locales"])
+router = Router(tags=["locales"], auth=BearerTokenAuth())
 
 
 class LocaleSchema(BaseSchema):

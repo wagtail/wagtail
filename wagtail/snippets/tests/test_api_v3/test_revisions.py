@@ -62,7 +62,7 @@ class TestV3SnippetRevisionsList(TestV3SnippetRevisionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -214,7 +214,7 @@ class TestV3SnippetRevisionsDetail(TestV3SnippetRevisionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
