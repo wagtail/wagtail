@@ -1,3 +1,4 @@
+import math
 import secrets
 import zlib
 
@@ -8,12 +9,14 @@ from django.utils.crypto import salted_hmac
 from django.utils.translation import gettext_lazy as _
 
 BASE62_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+BASE62_CHARS = frozenset(BASE62_ALPHABET)
 TOKEN_PREFIX = "wagtail_"  # noqa: S105 - not a credential, a public format prefix
-SECRET_BYTES = 20  # 160 bits of entropy
-SECRET_LENGTH = 27  # base62 characters needed to represent 160 bits
-CHECKSUM_LENGTH = 6
+KEY_SECRET_BYTES = 20
+KEY_SECRET_LENGTH = math.ceil(KEY_SECRET_BYTES * 8 * math.log(2) / math.log(62))
+KEY_CHECKSUM_LENGTH = math.ceil(32 * math.log(2) / math.log(62))
 KEY_SALT = "wagtail.apitoken"
-DISPLAY_PREFIX_LENGTH = 12  # "wagtail_" + first 4 secret chars, safe to display
+# Display the prefx and first 4 secret chars, safe to display.
+DISPLAY_PREFIX_LENGTH = len(TOKEN_PREFIX) + 4
 
 
 def _base62_encode(value, length):
@@ -24,47 +27,10 @@ def _base62_encode(value, length):
     return "".join(reversed(chars))
 
 
-def generate_token():
-    """Return a new plaintext API token: ``wagtail_<secret><checksum>``."""
-    secret = _base62_encode(
-        int.from_bytes(secrets.token_bytes(SECRET_BYTES)), SECRET_LENGTH
+def _token_checksum(secret):
+    return _base62_encode(
+        zlib.crc32(f"{TOKEN_PREFIX}{secret}".encode()), KEY_CHECKSUM_LENGTH
     )
-    checksum = _base62_encode(
-        zlib.crc32(f"{TOKEN_PREFIX}{secret}".encode()), CHECKSUM_LENGTH
-    )
-    return f"{TOKEN_PREFIX}{secret}{checksum}"
-
-
-def validate_token_format(token):
-    """
-    Offline format check (prefix, length, charset, CRC32 checksum). Validation
-    failure means the token cannot exist; validity does not imply it does.
-    """
-    body = token.removeprefix(TOKEN_PREFIX)
-    if body == token or len(body) != SECRET_LENGTH + CHECKSUM_LENGTH:
-        return False
-    if any(c not in BASE62_ALPHABET for c in body):
-        return False
-    expected = _base62_encode(
-        zlib.crc32(f"{TOKEN_PREFIX}{body[:SECRET_LENGTH]}".encode()), CHECKSUM_LENGTH
-    )
-    return secrets.compare_digest(body[SECRET_LENGTH:], expected)
-
-
-def hash_token(token, secret_key=None):
-    """Return the stored digest for a plaintext token (HMAC-SHA-256 hex)."""
-    return salted_hmac(
-        KEY_SALT, token, secret=secret_key, algorithm="sha256"
-    ).hexdigest()
-
-
-def candidate_key_hashes(token):
-    """
-    Digests to look up for a presented token: one per current secret key and
-    configured SECRET_KEY_FALLBACKS, so tokens survive a rotation window.
-    """
-    keys = [settings.SECRET_KEY, *getattr(settings, "SECRET_KEY_FALLBACKS", [])]
-    return [hash_token(token, secret_key=key) for key in keys]
 
 
 class APIToken(models.Model):
@@ -102,14 +68,52 @@ class APIToken(models.Model):
         return f"{self.name} ({self.prefix}…)"
 
     @classmethod
+    def generate_token(cls):
+        """Return a new plaintext API token: ``wagtail_<secret><checksum>``."""
+        secret = _base62_encode(
+            int.from_bytes(secrets.token_bytes(KEY_SECRET_BYTES)), KEY_SECRET_LENGTH
+        )
+        return f"{TOKEN_PREFIX}{secret}{_token_checksum(secret)}"
+
+    @classmethod
+    def validate_token_format(cls, token):
+        """
+        Offline format check (prefix, length, charset, CRC32 checksum). Validation
+        failure means the token cannot exist; validity does not imply it does.
+        """
+        body = token.removeprefix(TOKEN_PREFIX)
+        if body == token or len(body) != KEY_SECRET_LENGTH + KEY_CHECKSUM_LENGTH:
+            return False
+        if not BASE62_CHARS.issuperset(body):
+            return False
+        secret, checksum = body[:KEY_SECRET_LENGTH], body[KEY_SECRET_LENGTH:]
+        return secrets.compare_digest(checksum, _token_checksum(secret))
+
+    @classmethod
+    def hash_token(cls, token, secret_key=None):
+        """Return the stored digest for a plaintext token (HMAC-SHA-256 hex)."""
+        return salted_hmac(
+            KEY_SALT, token, secret=secret_key, algorithm="sha256"
+        ).hexdigest()
+
+    @classmethod
+    def candidate_key_hashes(cls, token):
+        """
+        Digests to look up for a presented token: one per current secret key and
+        configured SECRET_KEY_FALLBACKS, so tokens survive a rotation window.
+        """
+        keys = [settings.SECRET_KEY, *settings.SECRET_KEY_FALLBACKS]
+        return [cls.hash_token(token, secret_key=key) for key in keys]
+
+    @classmethod
     def create_token(cls, *, user, name):
         """Create a token, returning ``(instance, plaintext)``. The plaintext
         is only available from this return value — never stored or logged."""
-        plaintext = generate_token()
+        plaintext = cls.generate_token()
         instance = cls(
             user=user,
             name=name,
-            key_hash=hash_token(plaintext),
+            key_hash=cls.hash_token(plaintext),
             prefix=plaintext[:DISPLAY_PREFIX_LENGTH],
         )
         instance.save()

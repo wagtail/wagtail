@@ -9,12 +9,7 @@ from django.core.management.base import CommandError
 from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.models import APIToken
-from wagtail.models.api import (
-    candidate_key_hashes,
-    generate_token,
-    hash_token,
-    validate_token_format,
-)
+from wagtail.models.api import CHECKSUM_LENGTH, SECRET_LENGTH, TOKEN_PREFIX
 
 User: Any = get_user_model()
 
@@ -32,18 +27,20 @@ def make_user(username_value, *, superuser=True):
 
 class TestTokenFormat(SimpleTestCase):
     def test_format(self):
-        token = generate_token()
-        self.assertTrue(token.startswith("wagtail_"))
-        self.assertEqual(len(token), len("wagtail_") + 27 + 6)
-        self.assertTrue(validate_token_format(token))
+        token = APIToken.generate_token()
+        self.assertTrue(token.startswith(TOKEN_PREFIX))
+        self.assertEqual(
+            len(token), len(TOKEN_PREFIX) + SECRET_LENGTH + CHECKSUM_LENGTH
+        )
+        self.assertTrue(APIToken.validate_token_format(token))
 
     def test_checksum_detects_tampering(self):
-        token = generate_token()
+        token = APIToken.generate_token()
         tampered = token[:-1] + ("0" if token[-1] != "0" else "1")
-        self.assertFalse(validate_token_format(tampered))
+        self.assertFalse(APIToken.validate_token_format(tampered))
 
     def test_uniqueness(self):
-        self.assertNotEqual(generate_token(), generate_token())
+        self.assertNotEqual(APIToken.generate_token(), APIToken.generate_token())
 
 
 class TestTokenStorage(TestCase):
@@ -53,7 +50,7 @@ class TestTokenStorage(TestCase):
 
     def test_create_token_stores_digest_not_plaintext(self):
         instance, plaintext = APIToken.create_token(user=self.user, name="deploy")
-        self.assertEqual(instance.key_hash, hash_token(plaintext))
+        self.assertEqual(instance.key_hash, APIToken.hash_token(plaintext))
         self.assertNotEqual(instance.key_hash, plaintext)
         self.assertNotIn(plaintext, str(instance))
         self.assertEqual(instance.prefix, plaintext[:12])
@@ -66,20 +63,24 @@ class TestTokenStorage(TestCase):
         self.assertIsNotNone(instance.revoked_at)
 
     def test_candidate_hashes_include_fallback_keys(self):
-        token = generate_token()
+        token = APIToken.generate_token()
         with override_settings(SECRET_KEY="new-key", SECRET_KEY_FALLBACKS=["old-key"]):
-            candidates = candidate_key_hashes(token)
+            candidates = APIToken.candidate_key_hashes(token)
         self.assertEqual(len(candidates), 2)
-        self.assertEqual(candidates[0], hash_token(token, secret_key="new-key"))
-        self.assertEqual(candidates[1], hash_token(token, secret_key="old-key"))
+        self.assertEqual(
+            candidates[0], APIToken.hash_token(token, secret_key="new-key")
+        )
+        self.assertEqual(
+            candidates[1], APIToken.hash_token(token, secret_key="old-key")
+        )
 
     def test_current_secret_key_is_first_candidate(self):
-        token = generate_token()
-        candidates = candidate_key_hashes(token)
-        self.assertEqual(candidates[0], hash_token(token))
+        token = APIToken.generate_token()
+        candidates = APIToken.candidate_key_hashes(token)
+        self.assertEqual(candidates[0], APIToken.hash_token(token))
         self.assertEqual(
             candidates[0],
-            hash_token(token, secret_key=settings.SECRET_KEY),
+            APIToken.hash_token(token, secret_key=settings.SECRET_KEY),
         )
 
 
@@ -97,15 +98,15 @@ class TestApiTokensCommand(TestCase):
     def test_create_prints_bare_token(self):
         out, _ = self.call_command("create", "--user", self.username, "--name", "ci")
         token = out.strip()
-        self.assertTrue(validate_token_format(token))
-        self.assertEqual(APIToken.objects.get().key_hash, hash_token(token))
+        self.assertTrue(APIToken.validate_token_format(token))
+        self.assertEqual(APIToken.objects.get().key_hash, APIToken.hash_token(token))
 
     def test_create_json(self):
         out, _ = self.call_command(
             "create", "--user", self.username, "--name", "ci", "--json"
         )
         payload = json.loads(out)
-        self.assertTrue(validate_token_format(payload["token"]))
+        self.assertTrue(APIToken.validate_token_format(payload["token"]))
         self.assertEqual(payload["name"], "ci")
         self.assertEqual(payload["user"], self.username)
 
