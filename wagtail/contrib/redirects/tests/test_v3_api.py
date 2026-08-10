@@ -40,9 +40,13 @@ class TestV3RedirectListing(TestV3Base, WagtailTestUtils, TestCase):
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_redirects"), params)
 
-    def test_anonymous_returns_401(self):
+    def test_anonymous_can_list_redirects(self):
+        # v2 parity: redirects are public data, readable without a token
+        # (they are resolved publicly by the redirect middleware anyway).
         response = self.get_response()
-        self.assert_problem_response(response, status_code=401)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["count"], Redirect.objects.count())
 
     def test_authenticated_returns_200(self):
         self.login()
@@ -74,11 +78,15 @@ class TestV3RedirectListing(TestV3Base, WagtailTestUtils, TestCase):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
 
-    def test_user_without_any_redirect_permission_gets_403(self):
+    def test_user_without_redirect_permission_can_still_list(self):
+        # Reads are public: a token user without redirect permissions gets
+        # the same public data as an anonymous caller.
         self.create_user(username="noperms", password="password")
         self.login(username="noperms", password="password")
         response = self.get_response()
-        self.assert_problem_response(response, status_code=403)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["count"], Redirect.objects.count())
 
 
 class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
@@ -95,9 +103,11 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
             )
         )
 
-    def test_anonymous_returns_401(self):
+    def test_anonymous_can_get_redirect_detail(self):
+        # v2 parity: redirect details are public data.
         response = self.get_response(self.redirect.pk)
-        self.assert_problem_response(response, status_code=401)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["id"], self.redirect.pk)
 
     def test_detail_returns_correct_fields(self):
         self.login()
@@ -111,11 +121,11 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assertIsNone(content["site_id"])
         self.assertTrue(content["is_permanent"])
 
-    def test_user_without_any_redirect_permission_gets_403(self):
+    def test_user_without_redirect_permission_can_still_get_detail(self):
         self.create_user(username="noperms", password="password")
         self.login(username="noperms", password="password")
         response = self.get_response(self.redirect.pk)
-        self.assert_problem_response(response, status_code=403)
+        self.assertEqual(response.status_code, 200)
 
     def test_unknown_id_returns_404(self):
         self.login()

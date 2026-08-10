@@ -12,13 +12,12 @@ from wagtail.actions.edit import EditAction
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
 from wagtail.api.v2.serializers import BaseSerializer
 from wagtail.api.v2.views import BaseAPIViewSet
-from wagtail.api.v3.auth import BearerTokenAuth, get_api_user
+from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth, get_api_user
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.middleware import get_redirect
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.permissions import policy_registry
 
 # All redirects endpoints require a bearer token; see wagtail.api.v3.auth.
 router = Router(tags=["redirects"], auth=BearerTokenAuth())
@@ -53,15 +52,13 @@ class RedirectInputSchema(Schema):
     url_name="list_redirects",
     summary="List redirects",
     operation_id="redirects_list",
+    # v2 parity: redirects are public data (the redirect middleware resolves
+    # them publicly), so reads allow anonymous access like the v2 API.
+    auth=[BearerTokenAuth(), AllowAnonymous()],
 )
 @paginate(WagtailLimitOffsetPagination)
-@require_any_permission(Redirect)
 def list_redirects(request: HttpRequest):
-    permission_policy = policy_registry.get_by_type(Redirect)
-    return permission_policy.instances_user_has_any_permission_for(
-        get_api_user(request),
-        ("add", "change", "delete", "view"),
-    )
+    return Redirect.objects.all()
 
 
 @router.get(
@@ -70,17 +67,11 @@ def list_redirects(request: HttpRequest):
     url_name="detail_redirect",
     summary="Redirect detail",
     operation_id="redirects_detail",
+    # Public read, like the list view and the v2 API.
+    auth=[BearerTokenAuth(), AllowAnonymous()],
 )
-@require_any_permission(Redirect)
 def get_redirect_detail(request: HttpRequest, redirect_id: int):
-    permission_policy = policy_registry.get_by_type(Redirect)
-    return get_object_or_404(
-        permission_policy.instances_user_has_any_permission_for(
-            get_api_user(request),
-            ("add", "change", "delete", "view"),
-        ),
-        pk=redirect_id,
-    )
+    return get_object_or_404(Redirect, pk=redirect_id)
 
 
 @router.post(
