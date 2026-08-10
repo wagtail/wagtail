@@ -241,8 +241,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(ancestor_of=1000)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["ancestor_of"],
+                    "msg": f"No {self.page_name} matches the given ancestor_of value.",
+                }
+            ],
         )
 
     def test_ancestor_of_not_positive_integer_gives_error(self):
@@ -293,8 +300,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(child_of=1000)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["child_of"],
+                    "msg": f"No {self.page_name} matches the given child_of value.",
+                }
+            ],
         )
 
     def test_child_of_not_positive_integer_gives_error(self):
@@ -338,8 +352,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(child_of=1)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["child_of"],
+                    "msg": f"No {self.page_name} matches the given child_of value.",
+                }
+            ],
         )
 
     def test_descendant_of_filter(self):
@@ -372,8 +393,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(descendant_of=1000)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["descendant_of"],
+                    "msg": f"No {self.page_name} matches the given descendant_of value.",
+                }
+            ],
         )
 
     def test_descendant_of_not_positive_integer_gives_error(self):
@@ -401,8 +429,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(descendant_of=1)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["descendant_of"],
+                    "msg": f"No {self.page_name} matches the given descendant_of value.",
+                }
+            ],
         )
 
     def test_descendant_of_when_filtering_by_child_of_gives_error(self):
@@ -443,8 +478,15 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         response = self.get_response(translation_of=1000)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains=f"No {self.page_name} matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["translation_of"],
+                    "msg": f"No {self.page_name} matches the given translation_of value.",
+                }
+            ],
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
