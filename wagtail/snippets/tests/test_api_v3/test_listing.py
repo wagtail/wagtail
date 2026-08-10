@@ -317,12 +317,20 @@ class TestV3SnippetListingTranslationFilter(TestV3SnippetListingBase, TestCase):
         self.assertEqual(self.get_id_list(content), [french.pk])
         self.assertNotIn(english.pk, self.get_id_list(content))
 
-    def test_translation_of_unknown_snippet_gives_404(self):
+    def test_translation_of_unknown_snippet_gives_422(self):
         response = self.get_response(translation_of=100000)
         self.assert_problem_response(
             response,
-            status_code=404,
-            detail_contains="No FullFeaturedSnippet matches the given query.",
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "does_not_exist",
+                    "loc": ["translation_of"],
+                    "msg": "No FullFeaturedSnippet matches the given "
+                    "translation_of value.",
+                }
+            ],
         )
 
     def test_translation_of_on_non_translatable_type_gives_error(self):
