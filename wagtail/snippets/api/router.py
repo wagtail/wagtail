@@ -27,7 +27,7 @@ from wagtail.snippets.api.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
 
 router = Router(tags=["snippets"])
-actions_router = Router(tags=["snippets"])
+actions_router = Router()
 
 enabled_models = [
     model for model in get_snippet_models() if registry.has(model._meta.label)
