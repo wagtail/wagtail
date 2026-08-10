@@ -14,7 +14,6 @@ from wagtail.models import Site
 from wagtail.permissions import policy_registry
 from wagtail.sites.forms import SiteForm
 
-# All sites endpoints require a bearer token; see wagtail.api.v3.auth.
 router = Router(tags=["sites"], auth=BearerTokenAuth())
 
 

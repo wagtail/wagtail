@@ -7,7 +7,6 @@ from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.registry import registry
 from wagtail.api.v3.schemas import ContentTypeSummarySchema
 
-# Schema discovery exposes internal CMS structure: bearer token required.
 router = Router(tags=["schema"], auth=BearerTokenAuth())
 
 
