@@ -26560,7 +26560,7 @@
           }
         },
         "summary": "Convert alias page to a regular page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/copy/": {
@@ -26866,7 +26866,7 @@
           }
         },
         "summary": "Copy page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/copy_for_translation/": {
@@ -27161,7 +27161,7 @@
           }
         },
         "summary": "Copy page for translation",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/create_alias/": {
@@ -27465,7 +27465,7 @@
           }
         },
         "summary": "Create an alias of a page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/delete/": {
@@ -27489,7 +27489,7 @@
           }
         },
         "summary": "Delete page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/move/": {
@@ -27784,7 +27784,7 @@
           }
         },
         "summary": "Move page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/publish/": {
@@ -28069,7 +28069,7 @@
           }
         },
         "summary": "Publish page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/revert/": {
@@ -28364,7 +28364,7 @@
           }
         },
         "summary": "Revert page to a previous revision",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/pages/{page_id}/actions/unpublish/": {
@@ -28666,7 +28666,7 @@
           }
         },
         "summary": "Unpublish page",
-        "tags": ["pages", "pages"]
+        "tags": ["pages"]
       }
     },
     "/api/v3/redirects/": {
@@ -29458,7 +29458,7 @@
           }
         },
         "summary": "Copy snippet for translation",
-        "tags": ["snippets", "snippets"]
+        "tags": ["snippets"]
       }
     },
     "/api/v3/snippets/{type}/{pk}/actions/delete/": {
@@ -29495,7 +29495,7 @@
           }
         },
         "summary": "Delete snippet",
-        "tags": ["snippets", "snippets"]
+        "tags": ["snippets"]
       }
     },
     "/api/v3/snippets/{type}/{pk}/actions/publish/": {
@@ -29535,7 +29535,7 @@
           }
         },
         "summary": "Publish snippet",
-        "tags": ["snippets", "snippets"]
+        "tags": ["snippets"]
       }
     },
     "/api/v3/snippets/{type}/{pk}/actions/revert/": {
@@ -29585,7 +29585,7 @@
           }
         },
         "summary": "Revert snippet to a previous revision",
-        "tags": ["snippets", "snippets"]
+        "tags": ["snippets"]
       }
     },
     "/api/v3/snippets/{type}/{pk}/actions/unpublish/": {
@@ -29625,7 +29625,7 @@
           }
         },
         "summary": "Unpublish snippet",
-        "tags": ["snippets", "snippets"]
+        "tags": ["snippets"]
       }
     }
   },
