@@ -38,7 +38,7 @@ from wagtail.query import PageQuerySet
 
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
-actions_router = Router(tags=["pages"])
+actions_router = Router()
 
 page_models = get_page_models()
 PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
