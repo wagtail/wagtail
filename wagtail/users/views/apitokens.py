@@ -77,11 +77,11 @@ class Create(CreateView):
         log(self.object, "wagtail.apitoken.create", user=self.request.user)
         # Stash the secret in the session for a single display on the
         # redirected-to page (POST/redirect/GET, so a refresh cannot
-        # re-submit and mint a duplicate token).
-        self.request.session[CREATED_SESSION_KEY] = {
-            "pk": self.object.pk,
-            "token": plaintext,
-        }
+        # re-submit and mint a duplicate token). Keyed by pk so multiple
+        # pending secrets can coexist.
+        stash = self.request.session.get(CREATED_SESSION_KEY, {})
+        stash[str(self.object.pk)] = plaintext
+        self.request.session[CREATED_SESSION_KEY] = stash
         return redirect(self.get_success_url())
 
     def get_success_url(self):
@@ -94,15 +94,23 @@ class Created(WagtailAdminTemplateMixin, View):
     template_name = "wagtailusers/apitokens/created.html"
 
     def get(self, request, pk):
-        stash = request.session.pop(CREATED_SESSION_KEY, None)
-        if not stash or stash["pk"] != pk:
+        # Peek before consuming: a stale link or prefetch must not wipe the
+        # one-time secret.
+        stash = request.session.get(CREATED_SESSION_KEY, {})
+        plaintext = stash.get(str(pk))
+        if plaintext is None:
             messages.warning(
                 request,
                 _("Token secrets are only displayed once, immediately after creation."),
             )
             return redirect("wagtailusers_apitokens:index")
         self.object = get_object_or_404(APIToken, pk=pk)
-        return self.render_to_response({"object": self.object, "token": stash["token"]})
+        del stash[str(pk)]
+        if stash:
+            request.session[CREATED_SESSION_KEY] = stash
+        else:
+            del request.session[CREATED_SESSION_KEY]
+        return self.render_to_response({"object": self.object, "token": plaintext})
 
 
 class Edit(TokenManagementQuerysetMixin, EditView):
