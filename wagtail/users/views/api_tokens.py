@@ -1,4 +1,6 @@
+import django_filters
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.forms import CharField, Form, ModelChoiceField
 from django.shortcuts import get_object_or_404, redirect
@@ -7,7 +9,9 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column
+from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.models import (
     CreateView,
@@ -16,6 +20,7 @@ from wagtail.admin.views.generic.models import (
     IndexView,
 )
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.log_actions import log
 from wagtail.models import APIToken
 from wagtail.users.utils import get_manageable_token_owners, user_can_manage_token
@@ -32,6 +37,55 @@ class APITokenForm(Form):
         self.fields["user"].queryset = manageable_users
 
 
+class UserModelChoiceField(django_filters.fields.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return get_user_display_name(obj)
+
+
+class UserModelChoiceFilter(django_filters.ModelChoiceFilter):
+    field_class = UserModelChoiceField
+
+
+class APITokenFilterSet(WagtailFilterSet):
+    user = UserModelChoiceFilter(
+        label=_("User"),
+        empty_label=_("All"),
+        field_name="user",
+        queryset=get_user_model().objects.none(),
+    )
+    created = django_filters.DateFromToRangeFilter(
+        label=_("Created"),
+        widget=DateRangePickerWidget,
+    )
+    last_used_at = django_filters.DateFromToRangeFilter(
+        label=_("Last used"),
+        widget=DateRangePickerWidget,
+    )
+    revoked = django_filters.BooleanFilter(
+        label=_("Revoked"),
+        method="filter_revoked",
+        widget=BooleanRadioSelect,
+    )
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        if request is not None:
+            self.filters["user"].field.queryset = get_manageable_token_owners(
+                request.user
+            )
+
+    def filter_revoked(self, queryset, name, value):
+        if value is True:
+            return queryset.filter(revoked_at__isnull=False)
+        if value is False:
+            return queryset.filter(revoked_at__isnull=True)
+        return queryset
+
+    class Meta:
+        model = APIToken
+        fields = []
+
+
 class TokenManagementQuerysetMixin:
     """Scope object lookups to tokens the current user may manage."""
 
@@ -43,7 +97,8 @@ class TokenManagementQuerysetMixin:
         )
 
 
-class Index(IndexView):
+class Index(TokenManagementQuerysetMixin, IndexView):
+    filterset_class = APITokenFilterSet
     columns = [
         Column("prefix", label=_("Token")),
         Column("name", label=_("Name")),
@@ -54,8 +109,7 @@ class Index(IndexView):
     ]
 
     def get_queryset(self):
-        qs = super().get_queryset().select_related("user")
-        return qs.filter(user__in=get_manageable_token_owners(self.request.user))
+        return super().get_queryset().select_related("user")
 
 
 class Create(CreateView):

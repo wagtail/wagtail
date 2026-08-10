@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import APIToken
@@ -38,8 +39,9 @@ class TestAPITokenAdmin(TestCase):
     def setUpTestData(cls):
         cls.root = make_user("root", superuser=True)
 
-    def get(self, url_name, **kwargs):
-        return self.client.get(reverse(f"wagtailusers_api_tokens:{url_name}", **kwargs))
+    def get(self, url_name, params=None, **kwargs):
+        url = reverse(f"wagtailusers_api_tokens:{url_name}", **kwargs)
+        return self.client.get(url, params or {})
 
     def test_index_requires_permission(self):
         self.client.force_login(self.root)
@@ -161,6 +163,97 @@ class TestAPITokenAdmin(TestCase):
         response = self.get("index")
         self.assertContains(response, "root token")
         self.assertContains(response, "plain token")
+
+    def test_index_unfiltered_self_service_scope(self):
+        plain = make_user("plain", admin_perms=["view_apitoken"])
+        other = make_user("other")
+        APIToken.create_token(user=plain, name="mine")
+        APIToken.create_token(user=other, name="theirs")
+        self.client.force_login(plain)
+        response = self.get("index")
+        self.assertContains(response, "mine")
+        self.assertNotContains(response, "theirs")
+
+    def test_filter_by_user(self):
+        plain = make_user("plain")
+        other = make_user("other")
+        APIToken.create_token(user=plain, name="plain token")
+        APIToken.create_token(user=other, name="other token")
+        manager = make_user(
+            "mgr",
+            admin_perms=["view_apitoken", f"change_{User._meta.model_name}"],
+        )
+        self.client.force_login(manager)
+        response = self.get("index", params={"user": str(plain.pk)})
+        self.assertContains(response, "plain token")
+        self.assertNotContains(response, "other token")
+
+    def test_filter_created_range(self):
+        token, _ = APIToken.create_token(user=self.root, name="dated token")
+        APIToken.objects.filter(pk=token.pk).update(
+            created=timezone.now() - timezone.timedelta(days=10)
+        )
+        today = timezone.localdate()
+        self.client.force_login(self.root)
+        response = self.get(
+            "index",
+            params={
+                "created_from": str(today - timezone.timedelta(days=30)),
+                "created_to": str(today - timezone.timedelta(days=5)),
+            },
+        )
+        self.assertContains(response, "dated token")
+        response = self.get(
+            "index",
+            params={
+                "created_from": str(today),
+                "created_to": str(today),
+            },
+        )
+        self.assertNotContains(response, "dated token")
+
+    def test_filter_last_used_at_range(self):
+        token, _ = APIToken.create_token(user=self.root, name="used token")
+        used_at = timezone.now() - timezone.timedelta(days=3)
+        APIToken.objects.filter(pk=token.pk).update(last_used_at=used_at)
+        today = timezone.localdate()
+        self.client.force_login(self.root)
+        response = self.get(
+            "index",
+            params={
+                "last_used_at_from": str(today - timezone.timedelta(days=7)),
+                "last_used_at_to": str(today),
+            },
+        )
+        self.assertContains(response, "used token")
+        response = self.get(
+            "index",
+            params={
+                "last_used_at_from": str(today - timezone.timedelta(days=2)),
+                "last_used_at_to": str(today - timezone.timedelta(days=1)),
+            },
+        )
+        self.assertNotContains(response, "used token")
+
+    def test_filter_revoked(self):
+        APIToken.create_token(user=self.root, name="active token")
+        revoked, _ = APIToken.create_token(user=self.root, name="revoked token")
+        revoked.revoke()
+        self.client.force_login(self.root)
+        response = self.get("index", params={"revoked": "True"})
+        self.assertContains(response, "revoked token")
+        self.assertNotContains(response, "active token")
+        response = self.get("index", params={"revoked": "False"})
+        self.assertContains(response, "active token")
+        self.assertNotContains(response, "revoked token")
+
+    def test_crafted_user_filter_cannot_bypass_scope(self):
+        plain = make_user("plain", admin_perms=["view_apitoken"])
+        other = make_user("other")
+        APIToken.create_token(user=other, name="secret token")
+        self.client.force_login(plain)
+        response = self.get("index", params={"user": str(other.pk)})
+        self.assertNotContains(response, "secret token")
 
     def test_edit_scoped_to_manageable_tokens(self):
         token, _ = APIToken.create_token(user=self.root, name="root token")
