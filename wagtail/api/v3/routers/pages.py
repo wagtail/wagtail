@@ -51,6 +51,10 @@ PageCreateSchema = _page_schemas.create
 PageUpdateSchema = _page_schemas.update
 
 
+class PageRevisionDetailSchema(RevisionDetailSchema):
+    content_object: PageDetailSchema
+
+
 def _public_pages_queryset(request: HttpRequest, model=Page):
     # Stable ordering so offset/limit pagination is deterministic (v2 parity).
     return get_pages_queryset(request, tier=AccessTier.PUBLIC, model=model).order_by(
@@ -362,7 +366,7 @@ def list_page_revisions(
 
 @router.get(
     "/{page_id}/revisions/{revision_id}/",
-    response=RevisionDetailSchema,
+    response=PageRevisionDetailSchema,
     url_name="detail_page_revision",
     summary="Page revision detail",
     operation_id="pages_revisions_detail",
