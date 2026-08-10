@@ -3,6 +3,7 @@ from typing import Literal, Optional, TypeAlias, cast
 import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.db.models import Model, Q
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -31,6 +32,7 @@ from wagtail.api.v3.schemas.params import (
     SearchSchema,
     locale_filter_q,
 )
+from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
 from wagtail.api.validators import SiteFilterValidator
 from wagtail.coreutils import find_available_slug, resolve_model_string
 from wagtail.models import Locale, Site, get_page_models
@@ -329,6 +331,40 @@ def update_page(
     )
     action.execute()
     return form.instance
+
+
+def _check_can_view_revisions(request: HttpRequest, page: Page) -> None:
+    perms = page.permissions_for_user(request.user)
+    if not (perms.can_publish() or perms.can_edit()):
+        raise PermissionDenied
+
+
+@router.get(
+    "/{page_id}/revisions/",
+    response=list[RevisionSchema],
+    url_name="list_page_revisions",
+    summary="List page revisions",
+    operation_id="pages_revisions_list",
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_page_revisions(request: HttpRequest, page_id: int, **kwargs):
+    page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
+    _check_can_view_revisions(request, page)
+    return page.revisions.order_by("-created_at", "-id")
+
+
+@router.get(
+    "/{page_id}/revisions/{revision_id}/",
+    response=RevisionDetailSchema,
+    url_name="detail_page_revision",
+    summary="Page revision detail",
+    operation_id="pages_revisions_detail",
+)
+def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveInt):
+    page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
+    _check_can_view_revisions(request, page)
+    revisions = page.revisions.select_related("content_type", "base_content_type")
+    return get_object_or_404(revisions, pk=revision_id)
 
 
 @actions_router.post(

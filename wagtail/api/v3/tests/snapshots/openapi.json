@@ -5481,6 +5481,28 @@
         "title": "ContentTypeListSchema",
         "type": "object"
       },
+      "ContentTypeSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "id", "name", "label"],
+        "title": "ContentTypeSchema",
+        "type": "object"
+      },
       "ContentTypeSummarySchema": {
         "properties": {
           "label": {
@@ -20795,6 +20817,24 @@
         "title": "PagedRedirectSchema",
         "type": "object"
       },
+      "PagedRevisionSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RevisionSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedRevisionSchema",
+        "type": "object"
+      },
       "PagedSiteSchema": {
         "properties": {
           "count": {
@@ -22021,6 +22061,134 @@
         },
         "required": ["meta", "id", "title"],
         "title": "RestaurantPageSchema",
+        "type": "object"
+      },
+      "RevisionDetailSchema": {
+        "properties": {
+          "approved_go_live_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved Go Live At"
+          },
+          "base_content_type": {
+            "$ref": "#/components/schemas/ContentTypeSchema"
+          },
+          "content": {
+            "additionalProperties": true,
+            "title": "Content",
+            "type": "object"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeSchema"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "exclusiveMinimum": 0,
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "object_id": {
+            "title": "Object Id",
+            "type": "string"
+          },
+          "object_str": {
+            "title": "Object Str",
+            "type": "string"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          }
+        },
+        "required": [
+          "meta",
+          "id",
+          "object_id",
+          "created_at",
+          "object_str",
+          "content_type",
+          "base_content_type",
+          "content"
+        ],
+        "title": "RevisionDetailSchema",
+        "type": "object"
+      },
+      "RevisionSchema": {
+        "properties": {
+          "approved_go_live_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved Go Live At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "exclusiveMinimum": 0,
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "object_id": {
+            "title": "Object Id",
+            "type": "string"
+          },
+          "object_str": {
+            "title": "Object Str",
+            "type": "string"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          }
+        },
+        "required": ["meta", "id", "object_id", "created_at", "object_str"],
+        "title": "RevisionSchema",
         "type": "object"
       },
       "RichTextFieldWithFeaturesPageCreateMetaSchema": {
@@ -38078,6 +38246,98 @@
           }
         },
         "summary": "Unpublish page",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/revisions/": {
+      "get": {
+        "operationId": "pages_revisions_list",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "title": "Page Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedRevisionSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List page revisions",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/revisions/{revision_id}/": {
+      "get": {
+        "operationId": "pages_revisions_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "title": "Page Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "revision_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Revision Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevisionDetailSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Page revision detail",
         "tags": ["pages"]
       }
     },
