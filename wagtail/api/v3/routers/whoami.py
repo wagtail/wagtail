@@ -47,7 +47,7 @@ def whoami(request):
             "email": getattr(user, "email", "") or "",
             "first_name": getattr(user, "first_name", "") or "",
             "last_name": getattr(user, "last_name", "") or "",
-            "is_superuser": getattr(user, "is_superuser", False),
+            "is_superuser": bool(getattr(user, "is_superuser", False)),
         },
         "profile": {
             "avatar_url": profile.avatar.url if profile and profile.avatar else None,
