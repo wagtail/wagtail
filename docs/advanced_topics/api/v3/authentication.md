@@ -22,7 +22,7 @@ curl -H "Authorization: Bearer wagtail_…" https://example.com/api/v3/whoami/
 
 ### In the admin
 
-Users with the relevant permission can manage tokens under **Settings → API tokens**. The token secret is displayed exactly once at creation — copy it somewhere safe. It cannot be retrieved later.
+Users with the relevant permission can manage tokens under **Settings → API tokens** (shown when `wagtail.api.v3` is in `INSTALLED_APPS`). The token secret is displayed exactly once at creation — copy it somewhere safe. It cannot be retrieved later.
 
 ### On the command line
 

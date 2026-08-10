@@ -86,13 +86,13 @@ class Create(CreateView):
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse("wagtailusers_apitokens:created", args=[self.object.pk])
+        return reverse("wagtailusers_api_tokens:created", args=[self.object.pk])
 
 
 class Created(WagtailAdminTemplateMixin, View):
     """Displays a newly-created token's secret exactly once."""
 
-    template_name = "wagtailusers/apitokens/created.html"
+    template_name = "wagtailusers/api_tokens/created.html"
     page_title = _("API token created")
     model = None
     index_url_name = None
@@ -120,7 +120,7 @@ class Created(WagtailAdminTemplateMixin, View):
                 request,
                 _("Token secrets are only displayed once, immediately after creation."),
             )
-            return redirect("wagtailusers_apitokens:index")
+            return redirect("wagtailusers_api_tokens:index")
         self.object = get_object_or_404(APIToken, pk=pk)
         del stash[str(pk)]
         if stash:
@@ -157,13 +157,13 @@ class APITokenViewSet(ModelViewSet):
     model = APIToken
     icon = "key"
     menu_label = _("API tokens")
-    menu_name = "apitokens"
+    menu_name = "api_tokens"
     menu_order = 602
     add_to_settings_menu = True
     add_to_reference_index = False
     copy_view_enabled = False
     inspect_view_enabled = False
-    template_prefix = "wagtailusers/apitokens/"
+    template_prefix = "wagtailusers/api_tokens/"
     form_fields = ["name"]  # edit view: rename only
     index_view_class = Index
     add_view_class = Create
