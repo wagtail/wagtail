@@ -910,6 +910,14 @@ WAGTAILAPI_RICH_TEXT_FORMAT = 'html'
 
 Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)). Set to `html` to use display-ready HTML instead. This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
 
+### `WAGTAILAPI_TOKEN_LAST_USED_INTERVAL`
+
+```python
+WAGTAILAPI_TOKEN_LAST_USED_INTERVAL = 60
+```
+
+How often an API token's `last_used_at` timestamp is updated, in seconds (default `60`). Successful authenticated requests update the timestamp at most once per this interval per token, limiting database writes on busy APIs. Set to `None` to disable these updates entirely, for example on sites running with a read-only production database. See [](api_v3_authentication).
+
 ## Frontend cache
 
 For full documentation on frontend cache invalidation, including these settings, see [](frontend_cache_purging).
