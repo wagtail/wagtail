@@ -1110,6 +1110,17 @@
         "title": "AlwaysShowInMenusPageSchema",
         "type": "object"
       },
+      "BaseMetaSchema": {
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "BaseMetaSchema",
+        "type": "object"
+      },
       "BasePageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -11883,6 +11894,55 @@
         "title": "JadeFormPageSchema",
         "type": "object"
       },
+      "LocaleInputSchema": {
+        "properties": {
+          "language_code": {
+            "title": "Language Code",
+            "type": "string"
+          }
+        },
+        "required": ["language_code"],
+        "title": "LocaleInputSchema",
+        "type": "object"
+      },
+      "LocaleSchema": {
+        "properties": {
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "id": {
+            "exclusiveMinimum": 0,
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_bidi": {
+            "title": "Is Bidi",
+            "type": "boolean"
+          },
+          "is_default": {
+            "title": "Is Default",
+            "type": "boolean"
+          },
+          "language_code": {
+            "title": "Language Code",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          }
+        },
+        "required": [
+          "meta",
+          "id",
+          "language_code",
+          "display_name",
+          "is_bidi",
+          "is_default"
+        ],
+        "title": "LocaleSchema",
+        "type": "object"
+      },
       "MTIBasePageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -15044,6 +15104,24 @@
         },
         "required": ["items", "count"],
         "title": "PagedBasePageSchema",
+        "type": "object"
+      },
+      "PagedLocaleSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/LocaleSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedLocaleSchema",
         "type": "object"
       },
       "PagedRedirectSchema": {
@@ -24258,6 +24336,166 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v3/locales/": {
+      "get": {
+        "operationId": "locales_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedLocaleSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List locales",
+        "tags": ["locales"]
+      },
+      "post": {
+        "operationId": "locales_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocaleInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocaleSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create locale",
+        "tags": ["locales"]
+      }
+    },
+    "/api/v3/locales/{locale_id}/": {
+      "delete": {
+        "operationId": "locales_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "locale_id",
+            "required": true,
+            "schema": {
+              "title": "Locale Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete locale",
+        "tags": ["locales"]
+      },
+      "get": {
+        "operationId": "locales_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "locale_id",
+            "required": true,
+            "schema": {
+              "title": "Locale Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocaleSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Locale detail",
+        "tags": ["locales"]
+      },
+      "put": {
+        "operationId": "locales_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "locale_id",
+            "required": true,
+            "schema": {
+              "title": "Locale Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocaleInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocaleSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update locale",
+        "tags": ["locales"]
+      }
+    },
     "/api/v3/pages/": {
       "get": {
         "operationId": "pages_list",
