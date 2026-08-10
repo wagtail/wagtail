@@ -81,7 +81,8 @@ class Command(BaseCommand):
             tokens = tokens.filter(revoked_at__isnull=True)
         for token in tokens:
             self.stdout.write(
-                f"{token.pk}\t{token.prefix}…\t{token.name}\t"
+                # The space before the ellipsis keeps it out of copy-pasted prefixes.
+                f"{token.pk}\t{token.prefix} …\t{token.name}\t"
                 f"{token.user.get_username()}\t{token.created:%Y-%m-%d %H:%M}\t"
                 f"last_used={token.last_used_at or 'never'}\t"
                 f"revoked={token.revoked_at or 'no'}"
@@ -99,9 +100,13 @@ class Command(BaseCommand):
         else:
             raise CommandError("Provide --id, or --user and --prefix")
         matches = list(matches)
-        if len(matches) != 1:
+        if not matches:
             raise CommandError(
-                f"Expected exactly one active token, found {len(matches)}. "
+                "No active token found; it may not exist or may already be revoked."
+            )
+        if len(matches) > 1:
+            raise CommandError(
+                f"Expected one active token, found {len(matches)}. "
                 "Use a longer --prefix or --id."
             )
         token = matches[0]

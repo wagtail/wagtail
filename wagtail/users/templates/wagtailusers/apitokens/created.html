@@ -15,14 +15,27 @@
                     for security reasons it will never be shown again.
                 {% endblocktrans %}
             </p>
-            <p>
-                <code class="w-break-all" data-controller="w-clipboard">{{ token }}</code>
-            </p>
-            <p>
-                <a href="{% url 'wagtailusers_apitokens:index' %}" class="button">
-                    {% trans "Back to API tokens" %}
-                </a>
-            </p>
+            <div class="w-relative" data-controller="w-clipboard">
+                <label class="w-sr-only" for="api-token-value">{% trans "API token" %}</label>
+                <input
+                    type="text"
+                    readonly
+                    class="w-w-full"
+                    id="api-token-value"
+                    value="{{ token }}"
+                    data-controller="w-action"
+                    data-action="focus->w-action#select"
+                    data-w-clipboard-target="value"
+                />
+                <p>
+                    <button type="button" class="button button-secondary" data-action="w-clipboard#copy">
+                        {% trans "Copy token" %}
+                    </button>
+                    <a href="{% url 'wagtailusers_apitokens:index' %}" class="button">
+                        {% trans "Back to API tokens" %}
+                    </a>
+                </p>
+            </div>
         {% endpanel %}
     </div>
 {% endblock %}

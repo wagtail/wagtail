@@ -1,16 +1,25 @@
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.forms import CharField, Form, ModelChoiceField
-from django.shortcuts import redirect
-from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
+from django.views import View
 
 from wagtail.admin.ui.tables import Column
-from wagtail.admin.views.generic.models import CreateView, DeleteView, IndexView
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
+from wagtail.admin.views.generic.models import (
+    CreateView,
+    DeleteView,
+    EditView,
+    IndexView,
+)
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import log
 from wagtail.models import APIToken
 from wagtail.users.utils import get_manageable_token_owners, user_can_manage_token
+
+CREATED_SESSION_KEY = "wagtail_apitoken_created"
 
 
 class APITokenForm(Form):
@@ -20,6 +29,17 @@ class APITokenForm(Form):
     def __init__(self, *args, manageable_users, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["user"].queryset = manageable_users
+
+
+class TokenManagementQuerysetMixin:
+    """Scope object lookups to tokens the current user may manage."""
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .filter(user__in=get_manageable_token_owners(self.request.user))
+        )
 
 
 class Index(IndexView):
@@ -55,15 +75,41 @@ class Create(CreateView):
             user=owner, name=form.cleaned_data["name"]
         )
         log(self.object, "wagtail.apitoken.create", user=self.request.user)
-        # Show the secret exactly once; it is never retrievable afterwards.
-        return TemplateResponse(
-            self.request,
-            "wagtailusers/apitokens/created.html",
-            {"object": self.object, "token": plaintext},
-        )
+        # Stash the secret in the session for a single display on the
+        # redirected-to page (POST/redirect/GET, so a refresh cannot
+        # re-submit and mint a duplicate token).
+        self.request.session[CREATED_SESSION_KEY] = {
+            "pk": self.object.pk,
+            "token": plaintext,
+        }
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse("wagtailusers_apitokens:created", args=[self.object.pk])
 
 
-class Revoke(DeleteView):
+class Created(WagtailAdminTemplateMixin, View):
+    """Displays a newly-created token's secret exactly once."""
+
+    template_name = "wagtailusers/apitokens/created.html"
+
+    def get(self, request, pk):
+        stash = request.session.pop(CREATED_SESSION_KEY, None)
+        if not stash or stash["pk"] != pk:
+            messages.warning(
+                request,
+                _("Token secrets are only displayed once, immediately after creation."),
+            )
+            return redirect("wagtailusers_apitokens:index")
+        self.object = get_object_or_404(APIToken, pk=pk)
+        return self.render_to_response({"object": self.object, "token": stash["token"]})
+
+
+class Edit(TokenManagementQuerysetMixin, EditView):
+    pass
+
+
+class Revoke(TokenManagementQuerysetMixin, DeleteView):
     """Soft-delete: revoking keeps the row for the audit trail."""
 
     def post(self, request, *args, **kwargs):
@@ -94,7 +140,17 @@ class APITokenViewSet(ModelViewSet):
     form_fields = ["name"]  # edit view: rename only
     index_view_class = Index
     add_view_class = Create
+    edit_view_class = Edit
     delete_view_class = Revoke
+
+    @property
+    def created_view(self):
+        return self.construct_view(Created)
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path("created/<int:pk>/", self.created_view, name="created"),
+        ]
 
     def get_form_class(self, for_update=False):
         if for_update:

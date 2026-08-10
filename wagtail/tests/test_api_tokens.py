@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.models import APIToken
 from wagtail.models.api import (
@@ -30,7 +30,7 @@ def make_user(username_value, *, superuser=True):
     return User.objects.create_user(**kwargs)
 
 
-class TestTokenFormat(TestCase):
+class TestTokenFormat(SimpleTestCase):
     def test_format(self):
         token = generate_token()
         self.assertTrue(token.startswith("wagtail_"))

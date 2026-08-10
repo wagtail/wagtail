@@ -52,13 +52,16 @@ class TestAPITokenAdmin(TestCase):
         editor = make_user("editor", admin_perms=["access_admin"])
         self.client.force_login(editor)
         response = self.get("index")
-        self.assertIn(response.status_code, (302, 403))
+        # redirected with a permission error (Wagtail's default for users
+        # with admin access but without the view permission)
+        self.assertEqual(response.status_code, 302)
 
     def test_get_add_form(self):
         self.client.force_login(self.root)
         response = self.get("add")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "name")
+        self.assertContains(response, 'name="name"')
+        self.assertContains(response, 'name="user"')
 
     def test_create_shows_secret_exactly_once(self):
         self.client.force_login(self.root)
@@ -66,14 +69,25 @@ class TestAPITokenAdmin(TestCase):
             reverse("wagtailusers_apitokens:add"),
             {"user": self.root.pk, "name": "deploy bot"},
         )
-        self.assertEqual(response.status_code, 200)
         token = APIToken.objects.get()
-        self.assertContains(response, token.prefix)
-        match = TOKEN_RE.search(response.content.decode())
-        self.assertIsNotNone(match)
-        plaintext = match.group()
+        # POST/redirect/GET to the one-time secret page
+        self.assertRedirects(
+            response,
+            reverse("wagtailusers_apitokens:created", args=[token.pk]),
+            fetch_redirect_response=False,
+        )
+        created = self.client.get(response["Location"])
+        self.assertEqual(created.status_code, 200)
+        self.assertContains(created, token.prefix)
+        matches = TOKEN_RE.findall(created.content.decode())
+        self.assertEqual(len(matches), 1)
+        plaintext = matches[0]
 
-        # The full secret is never shown again.
+        # The one-time page does not serve the secret twice.
+        second = self.client.get(response["Location"])
+        self.assertEqual(second.status_code, 302)
+
+        # The full secret is never shown anywhere else.
         self.assertNotContains(self.get("index"), plaintext)
         self.assertContains(self.get("index"), token.prefix)
 
@@ -96,7 +110,7 @@ class TestAPITokenAdmin(TestCase):
             reverse("wagtailusers_apitokens:add"),
             {"user": plain.pk, "name": "my token"},
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(APIToken.objects.get().user, plain)
 
     def test_create_for_other_user_requires_change_user_perm(self):
@@ -145,6 +159,40 @@ class TestAPITokenAdmin(TestCase):
         response = self.get("index")
         self.assertContains(response, "root token")
         self.assertContains(response, "plain token")
+
+    def test_edit_scoped_to_manageable_tokens(self):
+        token, _ = APIToken.create_token(user=self.root, name="root token")
+        manager = make_user(
+            "mgr",
+            admin_perms=["change_apitoken", f"change_{User._meta.model_name}"],
+        )
+        self.client.force_login(manager)
+        # managers may not open the rename view for a superuser's token
+        response = self.client.get(
+            reverse("wagtailusers_apitokens:edit", args=[token.pk])
+        )
+        self.assertEqual(response.status_code, 404)
+        # but can rename their own
+        own, _ = APIToken.create_token(user=manager, name="mgr token")
+        response = self.client.post(
+            reverse("wagtailusers_apitokens:edit", args=[own.pk]),
+            {"name": "renamed"},
+        )
+        self.assertEqual(response.status_code, 302)
+        own.refresh_from_db()
+        self.assertEqual(own.name, "renamed")
+
+    def test_revoke_confirmation_scoped_to_manageable_tokens(self):
+        token, _ = APIToken.create_token(user=self.root, name="root token")
+        manager = make_user(
+            "mgr",
+            admin_perms=["delete_apitoken", f"change_{User._meta.model_name}"],
+        )
+        self.client.force_login(manager)
+        response = self.client.get(
+            reverse("wagtailusers_apitokens:delete", args=[token.pk])
+        )
+        self.assertEqual(response.status_code, 404)
 
     def test_revoke_soft_deletes_and_logs(self):
         token, _ = APIToken.create_token(user=self.root, name="deploy bot")
