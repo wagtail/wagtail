@@ -245,6 +245,8 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+(api_v2_rich_text)=
+
 ### Rich text in the API
 
 By default, `RichTextField` values are serialized in Wagtail's database HTML format, described in [](rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
