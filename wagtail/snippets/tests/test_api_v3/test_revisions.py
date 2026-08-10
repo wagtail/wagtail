@@ -242,7 +242,7 @@ class TestV3SnippetRevisionsDetail(TestV3SnippetRevisionsBase):
                 "approved_go_live_at",
                 "content_type",
                 "base_content_type",
-                "content",
+                "content_object",
             },
         )
         self.assertEqual(content["meta"], {"type": "wagtailcore.Revision"})
@@ -265,7 +265,8 @@ class TestV3SnippetRevisionsDetail(TestV3SnippetRevisionsBase):
                 "label": "full-featured snippet",
             },
         )
-        self.assertEqual(content["content"], revision.content)
+        self.assertEqual(content["content_object"]["id"], self.snippet.pk)
+        self.assertEqual(content["content_object"]["text"], self.snippet.text)
 
     def test_unknown_snippet_returns_404(self):
         self.login()

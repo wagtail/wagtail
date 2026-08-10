@@ -224,7 +224,7 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
                 "approved_go_live_at",
                 "content_type",
                 "base_content_type",
-                "content",
+                "content_object",
             },
         )
         self.assertEqual(content["meta"]["type"], "wagtailcore.Revision")
@@ -247,7 +247,8 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
                 "label": "page",
             },
         )
-        self.assertEqual(content["content"], revision.content)
+        self.assertEqual(content["content_object"]["id"], self.home_page.pk)
+        self.assertEqual(content["content_object"]["title"], self.home_page.title)
 
     def test_unknown_page_returns_404(self):
         revision = self.home_page.save_revision()

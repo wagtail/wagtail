@@ -94,6 +94,14 @@ def _check_can_view_revisions(request: HttpRequest, instance) -> None:
         raise PermissionDenied
 
 
+class SnippetRevisionDetailSchema(RevisionDetailSchema):
+    content_object: schemas_by_mixin[RevisionMixin]
+
+    @staticmethod
+    def resolve_content_object(obj):
+        return obj.as_object()
+
+
 @router.get(
     "/{type}/",
     response=list[SnippetDetailSchema],
@@ -249,7 +257,7 @@ def list_snippet_revisions(
 
 @router.get(
     "/{type}/{pk}/revisions/{revision_id}/",
-    response=RevisionDetailSchema,
+    response=SnippetRevisionDetailSchema,
     url_name="detail_snippet_revision",
     summary="Snippet revision detail",
     operation_id="snippets_revisions_detail",

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Optional
+from typing import Optional
 
 from django.contrib.contenttypes.models import ContentType
 from pydantic import PositiveInt
@@ -35,4 +35,9 @@ class RevisionSchema(BaseSchema):
 class RevisionDetailSchema(RevisionSchema):
     content_type: ContentTypeSchema
     base_content_type: ContentTypeSchema
-    content: dict[str, Any]
+    # Subclasses must define the type of content_object, which is a schema of
+    # the model instance that the revision is for.
+
+    @staticmethod
+    def resolve_content_object(obj):
+        return obj.as_object()
