@@ -3,7 +3,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
 from wagtail import hooks
-from wagtail.users.views.apitokens import APITokenViewSet
 from wagtail.users.views.bulk_actions import (
     AssignRoleBulkAction,
     DeleteBulkAction,
@@ -26,11 +25,18 @@ def register_viewset():
     app_config = apps.get_app_config("wagtailusers")
     user_viewset_cls = get_viewset_cls(app_config, "user_viewset")
     group_viewset_cls = get_viewset_cls(app_config, "group_viewset")
-    return [
+    viewsets = [
         user_viewset_cls("wagtailusers_users", url_prefix="users"),
         group_viewset_cls("wagtailusers_groups", url_prefix="groups"),
-        APITokenViewSet("wagtailusers_apitokens", url_prefix="api-tokens"),
     ]
+    # Only register if the relevant app is installed.
+    if apps.is_installed("wagtail.api.v3"):
+        from wagtail.users.views.apitokens import APITokenViewSet
+
+        viewsets.append(
+            APITokenViewSet("wagtailusers_apitokens", url_prefix="api-tokens")
+        )
+    return viewsets
 
 
 for action_class in [AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction]:

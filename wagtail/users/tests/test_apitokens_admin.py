@@ -1,12 +1,14 @@
 import re
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import APIToken
+from wagtail.users.wagtail_hooks import register_viewset
 
 User = get_user_model()
 
@@ -209,3 +211,15 @@ class TestAPITokenAdmin(TestCase):
             "action", flat=True
         )
         self.assertIn("wagtail.apitoken.revoke", actions)
+
+
+class TestAPITokenViewSetRegistration(SimpleTestCase):
+    def test_registered_when_v3_installed(self):
+        with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=True):
+            names = [vs.name for vs in register_viewset()]
+        self.assertIn("wagtailusers_apitokens", names)
+
+    def test_omitted_when_v3_not_installed(self):
+        with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=False):
+            names = [vs.name for vs in register_viewset()]
+        self.assertNotIn("wagtailusers_apitokens", names)
