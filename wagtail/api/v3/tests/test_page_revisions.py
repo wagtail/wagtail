@@ -119,6 +119,69 @@ class TestV3PageRevisionsList(TestV3PageRevisionsBase):
         self.assert_problem_response(response, status_code=404)
 
 
+class TestV3PageRevisionsListFilters(TestV3PageRevisionsBase):
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+        self.other_user = self.create_superuser(username="other")
+
+        self.old_revision = self.home_page.save_revision(user=self.user)
+        self.old_revision.created_at = "2020-01-01T00:00:00Z"
+        self.old_revision.object_str = "Old title"
+        self.old_revision.save()
+
+        self.new_revision = self.home_page.save_revision(user=self.other_user)
+        self.new_revision.created_at = "2024-06-01T00:00:00Z"
+        self.new_revision.object_str = "New Title"
+        self.new_revision.approved_go_live_at = "2024-06-02T00:00:00Z"
+        self.new_revision.save()
+
+    def get_ids(self, **params):
+        response = self.client.get(self.list_url(self.home_page), params)
+        self.assertEqual(response.status_code, 200)
+        return {item["id"] for item in response.json()["items"]}
+
+    def test_filter_created_at_from(self):
+        self.assertEqual(
+            self.get_ids(created_at_from="2022-01-01T00:00:00Z"),
+            {self.new_revision.pk},
+        )
+
+    def test_filter_created_at_to(self):
+        self.assertEqual(
+            self.get_ids(created_at_to="2022-01-01T00:00:00Z"),
+            {self.old_revision.pk},
+        )
+
+    def test_filter_user_id(self):
+        self.assertEqual(
+            self.get_ids(user_id=self.other_user.pk),
+            {self.new_revision.pk},
+        )
+
+    def test_filter_approved_go_live_at_from(self):
+        self.assertEqual(
+            self.get_ids(approved_go_live_at_from="2024-01-01T00:00:00Z"),
+            {self.new_revision.pk},
+        )
+
+    def test_filter_approved_go_live_at_to(self):
+        self.assertEqual(
+            self.get_ids(approved_go_live_at_to="2024-12-31T00:00:00Z"),
+            {self.new_revision.pk},
+        )
+
+    def test_filter_object_str_icontains(self):
+        self.assertEqual(
+            self.get_ids(object_str="title"),
+            {self.old_revision.pk, self.new_revision.pk},
+        )
+        self.assertEqual(
+            self.get_ids(object_str="New"),
+            {self.new_revision.pk},
+        )
+
+
 class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
     # Viewing a revision requires "publish" or "change" and nothing less.
     permission_matrix = [

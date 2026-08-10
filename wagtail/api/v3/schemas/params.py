@@ -1,11 +1,13 @@
-from typing import ClassVar, Literal, Optional
+from datetime import datetime
+from typing import Annotated, ClassVar, Literal, Optional
 
 from django.conf import settings
 from django.db import models
 from django.db.models import Q, QuerySet
 from django.http import HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404
-from ninja import NinjaAPI, Schema
+from ninja import FilterSchema, NinjaAPI, Schema
+from ninja.filter_schema import FilterLookup
 from ninja.params.models import Body, BodyModel
 from ninja.types import DictStrAny
 from pydantic import TypeAdapter, model_validator
@@ -268,3 +270,20 @@ class TranslationFilterSchema(Schema):
             queryset = queryset.filter(translation_of_q(instance))
 
         return queryset
+
+
+class RevisionFilterSchema(FilterSchema):
+    created_at_from: Annotated[Optional[datetime], FilterLookup("created_at__gte")] = (
+        None
+    )
+    created_at_to: Annotated[Optional[datetime], FilterLookup("created_at__lte")] = None
+    user_id: Optional[int | str] = None
+    approved_go_live_at_from: Annotated[
+        Optional[datetime],
+        FilterLookup("approved_go_live_at__gte"),
+    ] = None
+    approved_go_live_at_to: Annotated[
+        Optional[datetime],
+        FilterLookup("approved_go_live_at__lte"),
+    ] = None
+    object_str: Annotated[Optional[str], FilterLookup("object_str__icontains")] = None

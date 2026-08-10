@@ -29,6 +29,7 @@ from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageTypeInjectin
 from wagtail.api.v3.schemas.params import (
     APIFieldFilterSchema,
     OrderingSchema,
+    RevisionFilterSchema,
     SearchSchema,
     locale_filter_q,
 )
@@ -347,10 +348,16 @@ def _check_can_view_revisions(request: HttpRequest, page: Page) -> None:
     operation_id="pages_revisions_list",
 )
 @paginate(WagtailLimitOffsetPagination)
-def list_page_revisions(request: HttpRequest, page_id: int, **kwargs):
+def list_page_revisions(
+    request: HttpRequest,
+    page_id: int,
+    filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+    **kwargs,
+):
     page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
     _check_can_view_revisions(request, page)
-    return page.revisions.order_by("-created_at", "-id")
+    queryset = page.revisions.order_by("-created_at", "-id")
+    return filters.filter(queryset)
 
 
 @router.get(
