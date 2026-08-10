@@ -1,8 +1,7 @@
 import django_filters
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.forms import CharField, Form, ModelChoiceField
+from django.forms import CharField, CheckboxSelectMultiple, Form, ModelChoiceField
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from django.utils.functional import cached_property
@@ -10,12 +9,15 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleUserFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.templatetags.wagtailadmin_tags import timesince_simple
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn
-from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.models import (
     CreateView,
@@ -41,21 +43,12 @@ class APITokenForm(Form):
         self.fields["user"].queryset = manageable_users
 
 
-class UserModelChoiceField(django_filters.fields.ModelChoiceField):
-    def label_from_instance(self, obj):
-        return get_user_display_name(obj)
-
-
-class UserModelChoiceFilter(django_filters.ModelChoiceFilter):
-    field_class = UserModelChoiceField
-
-
 class APITokenFilterSet(WagtailFilterSet):
-    user = UserModelChoiceFilter(
+    user = MultipleUserFilter(
         label=_("User"),
-        empty_label=_("All"),
         field_name="user",
-        queryset=get_user_model().objects.none(),
+        queryset=lambda request: get_manageable_token_owners(request.user),
+        widget=CheckboxSelectMultiple,
     )
     created = django_filters.DateFromToRangeFilter(
         label=_("Created"),
@@ -70,13 +63,6 @@ class APITokenFilterSet(WagtailFilterSet):
         method="filter_revoked",
         widget=BooleanRadioSelect,
     )
-
-    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
-        super().__init__(data, queryset, request=request, prefix=prefix)
-        if request is not None:
-            self.filters["user"].field.queryset = get_manageable_token_owners(
-                request.user
-            )
 
     def filter_revoked(self, queryset, name, value):
         if value is True:
