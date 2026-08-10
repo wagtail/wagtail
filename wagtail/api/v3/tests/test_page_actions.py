@@ -960,7 +960,8 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
             errors=[
                 {
                     "type": "parent_not_translated_error",
-                    "msg": "Parent page is not translated.",
+                    "msg": "Parent page 'Welcome to your new Wagtail site!' "
+                    "is not translated.",
                 }
             ],
         )
