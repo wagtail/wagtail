@@ -133,6 +133,23 @@ class TestAuthWiring(TestV3Base, TestCase):
                         "router-level auth counts for fully-protected routers)",
                     )
 
+    def test_every_served_operation_has_bearer_security(self):
+        # The internals-based test above misses operations from nested
+        # routers (flattened at api.urls build time); the built OpenAPI
+        # schema is the comprehensive source of truth for what is served.
+        from wagtail.api.v3.api import api
+
+        schema = api.get_openapi_schema()
+        for path, operations in schema["paths"].items():
+            for method, operation in operations.items():
+                security = operation.get("security") or []
+                schemes = [scheme for entry in security for scheme in entry]
+                self.assertIn(
+                    "BearerTokenAuth",
+                    schemes,
+                    f"{method.upper()} {path} has no bearer security scheme",
+                )
+
     def test_session_cookies_do_not_authenticate(self):
         kwargs = {"password": "password"}
         kwargs[User.USERNAME_FIELD] = "sessionuser"
