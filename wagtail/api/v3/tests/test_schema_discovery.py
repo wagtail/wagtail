@@ -25,7 +25,7 @@ class TestV3SchemaDiscovery(TestV3Base, WagtailTestUtils, TestCase):
         self.login()
 
     def test_anonymous_returns_401(self):
-        del self.client.defaults["HTTP_AUTHORIZATION"]
+        self.unauthorize()
         response = self.client.get(reverse("wagtailapi_v3:list_schemas"))
         self.assert_problem_response(response, status_code=401)
 

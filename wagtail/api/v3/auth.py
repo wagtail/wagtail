@@ -19,9 +19,12 @@ class BearerTokenAuth(HttpBearer):
             api_token = APIToken.objects.select_related("user").get(
                 key_hash__in=candidate_key_hashes(token),
                 revoked_at__isnull=True,
-                user__is_active=True,
             )
         except APIToken.DoesNotExist:
+            return None
+        # is_active may be a plain class attribute (AbstractBaseUser) rather
+        # than a database field, so check in Python instead of the queryset.
+        if not getattr(api_token.user, "is_active", True):
             return None
         self._touch_last_used(api_token)
         # Ninja assigns request.auth from the return value; set it here too
@@ -47,10 +50,14 @@ class AllowAnonymous:
 
     Use after BearerTokenAuth on public-read endpoints:
     ``auth=[BearerTokenAuth(), AllowAnonymous()]``.
+
+    Like BearerTokenAuth, this also normalizes ``request.user`` so a Django
+    session cookie cannot elevate the request.
     """
 
     def __call__(self, request):
-        return AnonymousUser()
+        request.user = AnonymousUser()
+        return request.user
 
 
 def get_api_user(request):

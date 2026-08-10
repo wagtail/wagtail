@@ -42,11 +42,12 @@ def whoami(request):
         "user": {
             "id": str(user.pk),
             "username": user.get_username(),
-            # Custom user models are not required to define these fields.
-            "email": getattr(user, "email", ""),
-            "first_name": getattr(user, "first_name", ""),
-            "last_name": getattr(user, "last_name", ""),
-            "is_superuser": user.is_superuser,
+            # Custom user models are not required to define these fields,
+            # and may define them as nullable.
+            "email": getattr(user, "email", "") or "",
+            "first_name": getattr(user, "first_name", "") or "",
+            "last_name": getattr(user, "last_name", "") or "",
+            "is_superuser": getattr(user, "is_superuser", False),
         },
         "profile": {
             "avatar_url": profile.avatar.url if profile and profile.avatar else None,

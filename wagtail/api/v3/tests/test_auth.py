@@ -97,6 +97,13 @@ class TestBearerTokenAuth(TestCase):
     def test_allow_anonymous_always_truthy(self):
         self.assertTrue(AllowAnonymous()(RequestFactory().get("/")))
 
+    def test_allow_anonymous_clears_session_user(self):
+        request = RequestFactory().get("/")
+        request.user = self.user  # as session middleware would set it
+        result = AllowAnonymous()(request)
+        self.assertTrue(result)
+        self.assertFalse(request.user.is_authenticated)
+
 
 class TestAuthWiring(TestV3Base, TestCase):
     def test_every_operation_declares_auth_explicitly(self):
@@ -108,13 +115,20 @@ class TestAuthWiring(TestV3Base, TestCase):
             for path_view in router.path_operations.values():
                 for operation in path_view.operations:
                     declared = (
-                        operation.auth_param is not NOT_SET
-                        or router.auth is not NOT_SET
+                        operation.auth_param
+                        if operation.auth_param is not NOT_SET
+                        else router.auth
                     )
+                    if declared is NOT_SET:
+                        callbacks = []
+                    elif isinstance(declared, (list, tuple)):
+                        callbacks = declared
+                    else:
+                        callbacks = [declared]
                     self.assertTrue(
-                        declared,
-                        f"{operation.operation_id} must declare auth explicitly "
-                        "(BearerTokenAuth() for protected endpoints, "
+                        any(isinstance(cb, BearerTokenAuth) for cb in callbacks),
+                        f"{operation.operation_id} must declare bearer auth "
+                        "explicitly (BearerTokenAuth() for protected endpoints, "
                         "[BearerTokenAuth(), AllowAnonymous()] for public reads; "
                         "router-level auth counts for fully-protected routers)",
                     )
