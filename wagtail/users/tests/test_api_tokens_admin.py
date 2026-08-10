@@ -2,13 +2,13 @@ import re
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import APIToken
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.wagtail_hooks import register_viewset
 
 User = get_user_model()
@@ -16,28 +16,10 @@ User = get_user_model()
 TOKEN_RE = re.compile(r"wagtail_[0-9A-Za-z]{33}")
 
 
-def make_user(username_value, *, superuser=False, admin_perms=()):
-    """Create a user, optionally with admin access and extra permissions."""
-    kwargs = {"password": "password"}
-    kwargs[User.USERNAME_FIELD] = username_value
-    if User.USERNAME_FIELD != "email":
-        kwargs["email"] = f"{username_value}@example.com"
-    if superuser:
-        return User.objects.create_superuser(**kwargs)
-    user = User.objects.create_user(**kwargs)
-    if admin_perms:
-        group = Group.objects.create(name=f"group-{username_value}")
-        group.permissions.set(
-            Permission.objects.filter(codename__in=["access_admin", *admin_perms])
-        )
-        user.groups.add(group)
-    return user
-
-
 class TestAPITokenAdmin(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.root = make_user("root", superuser=True)
+        cls.root = WagtailTestUtils.create_superuser("root")
 
     def get(self, url_name, params=None, **kwargs):
         url = reverse(f"wagtailusers_api_tokens:{url_name}", **kwargs)
@@ -47,13 +29,15 @@ class TestAPITokenAdmin(TestCase):
         self.client.force_login(self.root)
         self.assertEqual(self.get("index").status_code, 200)
 
-        editor = make_user("editor", admin_perms=[])
+        editor = WagtailTestUtils.create_user("editor")
         self.client.force_login(editor)
         # no admin access at all: redirected to the admin login
         self.assertEqual(self.get("index").status_code, 302)
 
     def test_index_requires_apitoken_permission(self):
-        editor = make_user("editor", admin_perms=["access_admin"])
+        editor = WagtailTestUtils.create_user(
+            "editor", permissions=["access_admin", "access_admin"]
+        )
         self.client.force_login(editor)
         response = self.get("index")
         # redirected with a permission error (Wagtail's default for users
@@ -108,7 +92,9 @@ class TestAPITokenAdmin(TestCase):
         self.assertIn("wagtail.apitoken.create", actions)
 
     def test_self_service_create_without_cross_user_perm(self):
-        plain = make_user("plain", admin_perms=["add_apitoken"])
+        plain = WagtailTestUtils.create_user(
+            "plain", permissions=["access_admin", "add_apitoken"]
+        )
         self.client.force_login(plain)
         response = self.client.post(
             reverse("wagtailusers_api_tokens:add"),
@@ -118,8 +104,10 @@ class TestAPITokenAdmin(TestCase):
         self.assertEqual(APIToken.objects.get().user, plain)
 
     def test_create_for_other_user_requires_change_user_perm(self):
-        plain = make_user("plain", admin_perms=["add_apitoken"])
-        other = make_user("other")
+        plain = WagtailTestUtils.create_user(
+            "plain", permissions=["access_admin", "add_apitoken"]
+        )
+        other = WagtailTestUtils.create_user("other")
         self.client.force_login(plain)
         response = self.client.post(
             reverse("wagtailusers_api_tokens:add"),
@@ -131,9 +119,13 @@ class TestAPITokenAdmin(TestCase):
         self.assertFalse(APIToken.objects.exists())
 
     def test_manager_cannot_create_token_for_superuser(self):
-        manager = make_user(
+        manager = WagtailTestUtils.create_user(
             "mgr",
-            admin_perms=["add_apitoken", f"change_{User._meta.model_name}"],
+            permissions=[
+                "access_admin",
+                "add_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
         )
         self.client.force_login(manager)
         response = self.client.post(
@@ -145,13 +137,29 @@ class TestAPITokenAdmin(TestCase):
         self.assertIn("user", response.context["form"].errors)
         self.assertFalse(APIToken.objects.exists())
 
+    def test_index_links_to_edit_and_revoke(self):
+        token, _ = APIToken.create_token(user=self.root, name="deploy bot")
+        self.client.force_login(self.root)
+        response = self.get("index")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(
+            response, reverse("wagtailusers_api_tokens:delete", args=[token.pk])
+        )
+
     def test_index_scoping(self):
         APIToken.create_token(user=self.root, name="root token")
-        plain = make_user("plain")
+        plain = WagtailTestUtils.create_user("plain")
         APIToken.create_token(user=plain, name="plain token")
-        manager = make_user(
+        manager = WagtailTestUtils.create_user(
             "mgr",
-            admin_perms=["view_apitoken", f"change_{User._meta.model_name}"],
+            permissions=[
+                "access_admin",
+                "view_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
         )
         self.client.force_login(manager)
         response = self.get("index")
@@ -165,8 +173,10 @@ class TestAPITokenAdmin(TestCase):
         self.assertContains(response, "plain token")
 
     def test_index_unfiltered_self_service_scope(self):
-        plain = make_user("plain", admin_perms=["view_apitoken"])
-        other = make_user("other")
+        plain = WagtailTestUtils.create_user(
+            "plain", permissions=["access_admin", "view_apitoken"]
+        )
+        other = WagtailTestUtils.create_user("other")
         APIToken.create_token(user=plain, name="mine")
         APIToken.create_token(user=other, name="theirs")
         self.client.force_login(plain)
@@ -175,13 +185,17 @@ class TestAPITokenAdmin(TestCase):
         self.assertNotContains(response, "theirs")
 
     def test_filter_by_user(self):
-        plain = make_user("plain")
-        other = make_user("other")
+        plain = WagtailTestUtils.create_user("plain")
+        other = WagtailTestUtils.create_user("other")
         APIToken.create_token(user=plain, name="plain token")
         APIToken.create_token(user=other, name="other token")
-        manager = make_user(
+        manager = WagtailTestUtils.create_user(
             "mgr",
-            admin_perms=["view_apitoken", f"change_{User._meta.model_name}"],
+            permissions=[
+                "access_admin",
+                "view_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
         )
         self.client.force_login(manager)
         response = self.get("index", params={"user": str(plain.pk)})
@@ -248,18 +262,40 @@ class TestAPITokenAdmin(TestCase):
         self.assertNotContains(response, "revoked token")
 
     def test_crafted_user_filter_cannot_bypass_scope(self):
-        plain = make_user("plain", admin_perms=["view_apitoken"])
-        other = make_user("other")
+        plain = WagtailTestUtils.create_user(
+            "plain", permissions=["access_admin", "view_apitoken"]
+        )
+        other = WagtailTestUtils.create_user("other")
         APIToken.create_token(user=other, name="secret token")
         self.client.force_login(plain)
         response = self.get("index", params={"user": str(other.pk)})
         self.assertNotContains(response, "secret token")
 
+    def test_edit_status_reflects_active_and_revoked(self):
+        token, _ = APIToken.create_token(user=self.root, name="deploy bot")
+        self.client.force_login(self.root)
+        response = self.client.get(
+            reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(response, "Active")
+        self.assertNotContains(response, "Status: Live")
+
+        token.revoke()
+        response = self.client.get(
+            reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(response, "Revoked")
+        self.assertNotContains(response, "Active")
+
     def test_edit_scoped_to_manageable_tokens(self):
         token, _ = APIToken.create_token(user=self.root, name="root token")
-        manager = make_user(
+        manager = WagtailTestUtils.create_user(
             "mgr",
-            admin_perms=["change_apitoken", f"change_{User._meta.model_name}"],
+            permissions=[
+                "access_admin",
+                "change_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
         )
         self.client.force_login(manager)
         # managers may not open the rename view for a superuser's token
@@ -279,9 +315,13 @@ class TestAPITokenAdmin(TestCase):
 
     def test_revoke_confirmation_scoped_to_manageable_tokens(self):
         token, _ = APIToken.create_token(user=self.root, name="root token")
-        manager = make_user(
+        manager = WagtailTestUtils.create_user(
             "mgr",
-            admin_perms=["delete_apitoken", f"change_{User._meta.model_name}"],
+            permissions=[
+                "access_admin",
+                "delete_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
         )
         self.client.force_login(manager)
         response = self.client.get(
