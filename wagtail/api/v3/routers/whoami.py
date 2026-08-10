@@ -22,8 +22,7 @@ class WhoAmISchema(Schema):
     user: WhoAmIUserSchema
     profile: WhoAmIProfileSchema
     groups: list[str]
-    # Django-level permission strings ("app.codename"). A richer Wagtail
-    # permission-policy summary will extend this with #14299.
+    # Django-level permission strings ("app.codename").
     permissions: list[str]
 
 
@@ -42,8 +41,7 @@ def whoami(request):
         "user": {
             "id": str(user.pk),
             "username": user.get_username(),
-            # Custom user models are not required to define these fields,
-            # and may define them as nullable.
+            # Fields may not exist on custom user models.
             "email": getattr(user, "email", "") or "",
             "first_name": getattr(user, "first_name", "") or "",
             "last_name": getattr(user, "last_name", "") or "",

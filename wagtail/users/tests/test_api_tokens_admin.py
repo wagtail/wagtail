@@ -148,6 +148,28 @@ class TestAPITokenAdmin(TestCase):
         self.assertContains(
             response, reverse("wagtailusers_api_tokens:delete", args=[token.pk])
         )
+        self.assertContains(response, "Revoke")
+        self.assertNotContains(response, ">Delete<")
+
+    def test_revoke_confirmation_uses_revoke_labels(self):
+        token, _ = APIToken.create_token(user=self.root, name="deploy bot")
+        self.client.force_login(self.root)
+        response = self.client.get(
+            reverse("wagtailusers_api_tokens:delete", args=[token.pk])
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Revoke")
+        self.assertContains(response, "Are you sure you want to revoke this API token?")
+        self.assertContains(response, "Yes, revoke")
+        self.assertContains(response, "No, don't revoke")
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, "No, don't delete")
+
+        edit_response = self.client.get(
+            reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(edit_response, "Revoke")
+        self.assertNotContains(edit_response, ">Delete<")
 
     def test_index_scoping(self):
         APIToken.create_token(user=self.root, name="root token")
@@ -286,6 +308,26 @@ class TestAPITokenAdmin(TestCase):
         )
         self.assertContains(response, "Revoked")
         self.assertNotContains(response, "Active")
+
+    def test_edit_usage_shows_last_used(self):
+        token, _ = APIToken.create_token(user=self.root, name="deploy bot")
+        self.client.force_login(self.root)
+        response = self.client.get(
+            reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(response, "Never")
+        self.assertNotContains(response, "Used 0 times")
+        self.assertNotContains(
+            response, reverse("wagtailusers_api_tokens:usage", args=[token.pk])
+        )
+
+        token.last_used_at = timezone.now()
+        token.save(update_fields=["last_used_at"])
+        response = self.client.get(
+            reverse("wagtailusers_api_tokens:edit", args=[token.pk])
+        )
+        self.assertContains(response, "just now")
+        self.assertNotContains(response, "Never")
 
     def test_edit_scoped_to_manageable_tokens(self):
         token, _ = APIToken.create_token(user=self.root, name="root token")
