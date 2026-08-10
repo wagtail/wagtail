@@ -257,7 +257,14 @@ class TranslationFilterSchema(Schema):
 
         if self.translation_of:
             self._check_translatable(queryset, "translation_of")
-            instance = get_object_or_404(queryset.model, pk=self.translation_of)
+            try:
+                instance = queryset.model._default_manager.get(pk=self.translation_of)
+            except queryset.model.DoesNotExist as e:
+                message = (
+                    f"No {queryset.model._meta.object_name} matches the given "
+                    f"translation_of value."
+                )
+                raise as_validation_error(e, message, loc=("translation_of",)) from e
             queryset = queryset.filter(translation_of_q(instance))
 
         return queryset
