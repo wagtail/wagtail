@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
@@ -8,7 +10,7 @@ from wagtail.users.utils import (
     user_can_manage_token,
 )
 
-User = get_user_model()
+User: Any = get_user_model()
 
 
 def make_user(username_value, *, superuser=False, perms=()):

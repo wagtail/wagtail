@@ -1,5 +1,6 @@
 import json
 from io import StringIO
+from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -15,7 +16,7 @@ from wagtail.models.api import (
     validate_token_format,
 )
 
-User = get_user_model()
+User: Any = get_user_model()
 
 
 def make_user(username_value, *, superuser=True):
