@@ -31397,6 +31397,89 @@
         "title": "ValidatedPageSchema",
         "type": "object"
       },
+      "WhoAmIProfileSchema": {
+        "properties": {
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          }
+        },
+        "required": ["avatar_url"],
+        "title": "WhoAmIProfileSchema",
+        "type": "object"
+      },
+      "WhoAmISchema": {
+        "properties": {
+          "groups": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Groups",
+            "type": "array"
+          },
+          "permissions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Permissions",
+            "type": "array"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/WhoAmIProfileSchema"
+          },
+          "user": {
+            "$ref": "#/components/schemas/WhoAmIUserSchema"
+          }
+        },
+        "required": ["user", "profile", "groups", "permissions"],
+        "title": "WhoAmISchema",
+        "type": "object"
+      },
+      "WhoAmIUserSchema": {
+        "properties": {
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "first_name": {
+            "title": "First Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_superuser": {
+            "title": "Is Superuser",
+            "type": "boolean"
+          },
+          "last_name": {
+            "title": "Last Name",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "email",
+          "first_name",
+          "last_name",
+          "is_superuser"
+        ],
+        "title": "WhoAmIUserSchema",
+        "type": "object"
+      },
       "abc__EventPageCreateMetaSchema__1": {
         "properties": {
           "action": {
@@ -40267,6 +40350,31 @@
         ],
         "summary": "Snippet revision detail",
         "tags": ["snippets"]
+      }
+    },
+    "/api/v3/whoami/": {
+      "get": {
+        "operationId": "whoami",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhoAmISchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Current API user",
+        "tags": ["auth"]
       }
     }
   },
