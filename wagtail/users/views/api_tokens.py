@@ -5,12 +5,13 @@ from django.core.exceptions import PermissionDenied
 from django.forms import CharField, Form, ModelChoiceField
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.ui.tables import Column
+from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.models import (
@@ -99,14 +100,24 @@ class TokenManagementQuerysetMixin:
 
 class Index(TokenManagementQuerysetMixin, IndexView):
     filterset_class = APITokenFilterSet
-    columns = [
-        Column("prefix", label=_("Token")),
-        Column("name", label=_("Name")),
-        Column("user", label=_("User")),
-        Column("created", label=_("Created")),
-        Column("last_used_at", label=_("Last used")),
-        Column("revoked_at", label=_("Revoked")),
-    ]
+
+    @cached_property
+    def columns(self):
+        # TitleColumn (+ ButtonsColumnMixin) links each row to edit and
+        # exposes the actions menu (including revoke/delete). Plain Column
+        # instances render text only, with no way into those views.
+        return [
+            self._get_title_column_class(TitleColumn)(
+                "prefix",
+                label=_("Token"),
+                get_url=self.get_edit_url,
+            ),
+            Column("name", label=_("Name")),
+            Column("user", label=_("User")),
+            Column("created", label=_("Created")),
+            Column("last_used_at", label=_("Last used")),
+            Column("revoked_at", label=_("Revoked")),
+        ]
 
     def get_queryset(self):
         return super().get_queryset().select_related("user")
