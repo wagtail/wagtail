@@ -18,6 +18,7 @@ Changelog
  * Use a more accessible label for blank values of dropdowns in locked page report filters (Sage Abdullah)
  * Make audit log messages for scheduling/unscheduling generic (Sage Abdullah)
  * Stop converting AVIF and WebP images to PNG by default (Thibaud Colas)
+ * Add rich text serializing to HTML support in the v2 API (Thibaud Colas)
  * Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
  * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
  * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
