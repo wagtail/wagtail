@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.templatetags.wagtailadmin_tags import timesince_simple
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn
@@ -106,7 +107,7 @@ class Index(TokenManagementQuerysetMixin, IndexView):
     @cached_property
     def columns(self):
         # TitleColumn (+ ButtonsColumnMixin) links each row to edit and
-        # exposes the actions menu (including revoke/delete). Plain Column
+        # exposes the actions menu (including revoke). Plain Column
         # instances render text only, with no way into those views.
         return [
             self._get_title_column_class(TitleColumn)(
@@ -123,6 +124,15 @@ class Index(TokenManagementQuerysetMixin, IndexView):
 
     def get_queryset(self):
         return super().get_queryset().select_related("user")
+
+    def get_list_more_buttons(self, instance):
+        buttons = super().get_list_more_buttons(instance)
+        delete_url = self.get_delete_url(instance)
+        for button in buttons:
+            if delete_url and button.url == delete_url:
+                button.label = _("Revoke")
+                break
+        return buttons
 
 
 class Create(CreateView):
@@ -210,8 +220,22 @@ class APITokenStatusSidePanel(StatusSidePanel):
             )
         return templates
 
+    def get_usage_context(self):
+        # Reference-index "Used N times" is meaningless for tokens; show
+        # last_used_at instead. Empty usage_url renders plain text, not a link.
+        if self.object.last_used_at:
+            usage_url_text = timesince_simple(self.object.last_used_at)
+        else:
+            usage_url_text = _("Never")
+        return {
+            "usage_url": "",
+            "usage_url_text": usage_url_text,
+        }
+
 
 class Edit(TokenManagementQuerysetMixin, EditView):
+    delete_item_label = _("Revoke")
+
     def get_side_panels(self):
         side_panels = []
         usage_url = self.get_usage_url()
@@ -231,6 +255,13 @@ class Edit(TokenManagementQuerysetMixin, EditView):
 
 class Revoke(TokenManagementQuerysetMixin, DeleteView):
     """Soft-delete: revoking keeps the row for the audit trail."""
+
+    page_title = _("Revoke")
+    template_name = "wagtailusers/api_tokens/confirm_revoke.html"
+
+    @property
+    def confirmation_message(self):
+        return _("Are you sure you want to revoke this API token?")
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
