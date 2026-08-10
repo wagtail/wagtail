@@ -1,5 +1,10 @@
+import json
+from io import StringIO
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import TestCase, override_settings
 
 from wagtail.models import APIToken
@@ -75,3 +80,69 @@ class TestTokenStorage(TestCase):
             candidates[0],
             hash_token(token, secret_key=settings.SECRET_KEY),
         )
+
+
+class TestApiTokensCommand(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = make_user("cliuser")
+        cls.username = cls.user.get_username()
+
+    def call_command(self, *args, **kwargs):
+        out, err = StringIO(), StringIO()
+        call_command("api_tokens", *args, stdout=out, stderr=err, **kwargs)
+        return out.getvalue(), err.getvalue()
+
+    def test_create_prints_bare_token(self):
+        out, _ = self.call_command("create", "--user", self.username, "--name", "ci")
+        token = out.strip()
+        self.assertTrue(validate_token_format(token))
+        self.assertEqual(APIToken.objects.get().key_hash, hash_token(token))
+
+    def test_create_json(self):
+        out, _ = self.call_command(
+            "create", "--user", self.username, "--name", "ci", "--json"
+        )
+        payload = json.loads(out)
+        self.assertTrue(validate_token_format(payload["token"]))
+        self.assertEqual(payload["name"], "ci")
+        self.assertEqual(payload["user"], self.username)
+
+    def test_create_unknown_user_errors(self):
+        with self.assertRaises(CommandError):
+            self.call_command("create", "--user", "ghost", "--name", "ci")
+
+    def test_list_and_revoke(self):
+        instance, plaintext = APIToken.create_token(user=self.user, name="old")
+        out, _ = self.call_command("list", "--user", self.username)
+        self.assertIn("old", out)
+        self.assertIn(instance.prefix, out)
+        self.assertNotIn(instance.key_hash, out)
+        self.assertNotIn(plaintext, out)
+
+        out, _ = self.call_command("revoke", "--id", str(instance.pk))
+        instance.refresh_from_db()
+        self.assertIsNotNone(instance.revoked_at)
+
+        out, _ = self.call_command("list", "--user", self.username)
+        self.assertNotIn("old", out)
+        out, _ = self.call_command("list", "--user", self.username, "--include-revoked")
+        self.assertIn("old", out)
+
+    def test_revoke_by_user_and_prefix(self):
+        instance, _ = APIToken.create_token(user=self.user, name="mine")
+        self.call_command(
+            "revoke", "--user", self.username, "--prefix", instance.prefix
+        )
+        instance.refresh_from_db()
+        self.assertIsNotNone(instance.revoked_at)
+
+    def test_revoke_ambiguous_prefix_errors(self):
+        APIToken.create_token(user=self.user, name="a")
+        APIToken.create_token(user=self.user, name="b")
+        with self.assertRaises(CommandError):
+            self.call_command("revoke", "--user", self.username, "--prefix", "wagtail_")
+
+    def test_revoke_requires_identifier(self):
+        with self.assertRaises(CommandError):
+            self.call_command("revoke")
