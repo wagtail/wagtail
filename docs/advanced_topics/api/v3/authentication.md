@@ -16,7 +16,7 @@ Send the token in the `Authorization` header of every request:
 curl -H "Authorization: Bearer wagtail_…" https://example.com/api/v3/whoami/
 ```
 
-`GET /api/v3/whoami/` returns the authenticated user, profile, groups, and permission summary — useful to validate a token and configuration.
+`GET /api/v3/whoami/` returns the authenticated user, profile, and groups — useful to validate a token and configuration.
 
 ## Creating tokens
 

@@ -31424,13 +31424,6 @@
             "title": "Groups",
             "type": "array"
           },
-          "permissions": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Permissions",
-            "type": "array"
-          },
           "profile": {
             "$ref": "#/components/schemas/WhoAmIProfileSchema"
           },
@@ -31438,7 +31431,7 @@
             "$ref": "#/components/schemas/WhoAmIUserSchema"
           }
         },
-        "required": ["user", "profile", "groups", "permissions"],
+        "required": ["user", "profile", "groups"],
         "title": "WhoAmISchema",
         "type": "object"
       },

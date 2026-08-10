@@ -22,8 +22,6 @@ class WhoAmISchema(Schema):
     user: WhoAmIUserSchema
     profile: WhoAmIProfileSchema
     groups: list[str]
-    # Django-level permission strings ("app.codename").
-    permissions: list[str]
 
 
 @router.get(
@@ -51,5 +49,4 @@ def whoami(request):
             "avatar_url": profile.avatar.url if profile and profile.avatar else None,
         },
         "groups": [group.name for group in user.groups.all()],
-        "permissions": sorted(user.get_all_permissions()),
     }

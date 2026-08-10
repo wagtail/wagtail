@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
 
@@ -19,11 +19,9 @@ class TestWhoAmI(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["user"]["username"], user.get_username())
         self.assertTrue(content["user"]["is_superuser"])
         self.assertEqual(content["groups"], [])
-        self.assertIn("wagtailcore.add_apitoken", content["permissions"])
 
     def test_editor_role(self):
         group = Group.objects.create(name="API editors")
-        group.permissions.set(Permission.objects.filter(codename="add_apitoken"))
         user = WagtailTestUtils.create_user("editor")
         user.groups.add(group)
         self.authorize(user)
@@ -31,7 +29,6 @@ class TestWhoAmI(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["user"]["username"], user.get_username())
         self.assertFalse(content["user"]["is_superuser"])
         self.assertEqual(content["groups"], ["API editors"])
-        self.assertEqual(content["permissions"], ["wagtailcore.add_apitoken"])
         self.assertIn("avatar_url", content["profile"])
 
     def test_revoked_token_401(self):

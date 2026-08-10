@@ -23,7 +23,7 @@ class BearerTokenAuth(HttpBearer):
             return None
         # is_active may be a plain class attribute (AbstractBaseUser) rather
         # than a database field, so check in Python instead of the queryset.
-        if not getattr(api_token.user, "is_active", True):
+        if not api_token.user.is_active:
             return None
         self._touch_last_used(api_token)
         # Ninja assigns request.auth from the return value; set it here too
