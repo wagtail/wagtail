@@ -72,7 +72,7 @@ class TestV3PagePublish(TestV3PageActionsBase):
                     live=False,
                 )
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -133,7 +133,7 @@ class TestV3PageUnpublish(TestV3PageActionsBase):
                     self.home_page, title="Live", slug=f"live-{i}"
                 )
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -224,7 +224,7 @@ class TestV3PageCopy(TestV3PageActionsBase):
         ):
             with self.subTest(codenames=codenames, extra_payload=extra_payload):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = AnonymousUser()
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -389,7 +389,7 @@ class TestV3PageMove(TestV3PageActionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -534,7 +534,7 @@ class TestV3PageDelete(TestV3PageActionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -629,7 +629,7 @@ class TestV3PageRevert(TestV3PageActionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -720,7 +720,7 @@ class TestV3PageConvertAlias(TestV3PageActionsBase):
             with self.subTest(codenames=codenames):
                 alias = self.make_alias(index=i)
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -799,7 +799,7 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
         ):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)

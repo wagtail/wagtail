@@ -3,10 +3,12 @@ from typing import Any
 from django.http import Http404, HttpRequest
 from ninja import Router, Schema
 
+from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.registry import registry
 from wagtail.api.v3.schemas import ContentTypeSummarySchema
 
-router = Router(tags=["schema"])
+# Schema discovery exposes internal CMS structure: bearer token required.
+router = Router(tags=["schema"], auth=BearerTokenAuth())
 
 
 class ContentTypeListSchema(Schema):

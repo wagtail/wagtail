@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
+from wagtail.test.utils import WagtailTestUtils
 
 PAGE_READ_SCHEMA_FIELDS = {"id", "title", "meta"}
 PAGE_READ_META_SCHEMA_FIELDS = {
@@ -19,7 +20,15 @@ if not swapper.is_swapped("wagtailcore", "Page"):
     PAGE_READ_META_SCHEMA_FIELDS |= {"show_in_menus", "seo_title", "search_description"}
 
 
-class TestV3SchemaDiscovery(TestV3Base, TestCase):
+class TestV3SchemaDiscovery(TestV3Base, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+    def test_anonymous_returns_401(self):
+        del self.client.defaults["HTTP_AUTHORIZATION"]
+        response = self.client.get(reverse("wagtailapi_v3:list_schemas"))
+        self.assert_problem_response(response, status_code=401)
+
     def test_list_content_types(self):
         response = self.client.get(reverse("wagtailapi_v3:list_schemas"))
         self.assertEqual(response.status_code, 200)

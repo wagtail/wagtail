@@ -34,7 +34,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_anonymous_returns_401(self):
-        self.client.logout()
+        self.unauthorize()
         response = self.post(
             {
                 "meta": {

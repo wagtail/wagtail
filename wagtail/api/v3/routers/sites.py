@@ -6,6 +6,7 @@ from ninja.pagination import paginate
 from wagtail.actions.create import CreateAction
 from wagtail.actions.delete import DeleteAction
 from wagtail.actions.edit import EditAction
+from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.schemas import SiteInputSchema, SiteSchema
@@ -13,7 +14,8 @@ from wagtail.models import Site
 from wagtail.permissions import policy_registry
 from wagtail.sites.forms import SiteForm
 
-router = Router(tags=["sites"])
+# All sites endpoints require a bearer token; see wagtail.api.v3.auth.
+router = Router(tags=["sites"], auth=BearerTokenAuth())
 
 
 @router.get(

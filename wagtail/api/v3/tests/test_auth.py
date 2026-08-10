@@ -4,8 +4,10 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.test.client import RequestFactory
+from django.urls import reverse
 
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth, get_api_user
+from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import APIToken
 
 User: Any = get_user_model()
@@ -94,3 +96,35 @@ class TestBearerTokenAuth(TestCase):
 
     def test_allow_anonymous_always_truthy(self):
         self.assertTrue(AllowAnonymous()(RequestFactory().get("/")))
+
+
+class TestAuthWiring(TestV3Base, TestCase):
+    def test_every_operation_declares_auth_explicitly(self):
+        from ninja.constants import NOT_SET
+
+        from wagtail.api.v3.api import api
+
+        for _prefix, router in api._routers:
+            for path_view in router.path_operations.values():
+                for operation in path_view.operations:
+                    declared = (
+                        operation.auth_param is not NOT_SET
+                        or router.auth is not NOT_SET
+                    )
+                    self.assertTrue(
+                        declared,
+                        f"{operation.operation_id} must declare auth explicitly "
+                        "(BearerTokenAuth() for protected endpoints, "
+                        "[BearerTokenAuth(), AllowAnonymous()] for public reads; "
+                        "router-level auth counts for fully-protected routers)",
+                    )
+
+    def test_session_cookies_do_not_authenticate(self):
+        kwargs = {"password": "password"}
+        kwargs[User.USERNAME_FIELD] = "sessionuser"
+        if User.USERNAME_FIELD != "email":
+            kwargs["email"] = "s@example.com"
+        user = User.objects.create_superuser(**kwargs)
+        self.client.force_login(user)  # session only, no token
+        response = self.client.get(reverse("wagtailapi_v3:list_sites"))
+        self.assert_problem_response(response, status_code=401)

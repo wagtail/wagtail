@@ -7,6 +7,7 @@ from django.http import HttpRequest
 from ninja.errors import HttpError
 
 from wagtail.api.querysets import get_public_pages_queryset
+from wagtail.api.v3.auth import get_api_user
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import policy_registry
 
@@ -28,6 +29,10 @@ def get_pages_queryset(
 
     AUTHENTICATED: pages the current user can explore in the admin (for admin API tier; not wired to public endpoints yet).
     """
+    # v3 never trusts Django session auth: normalize request.user to the
+    # bearer-token user (or anonymous) before shared code reads it.
+    request.user = get_api_user(request)
+
     if tier == AccessTier.PUBLIC:
         try:
             queryset = get_public_pages_queryset(request, model)

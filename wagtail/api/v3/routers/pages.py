@@ -18,6 +18,7 @@ from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.actions.copy_page import CopyPageIntegrityError
 from wagtail.actions.create_alias import CreatePageAliasIntegrityError
 from wagtail.actions.publish_page_revision import PublishPagePermissionError
+from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
@@ -41,7 +42,8 @@ from wagtail.query import PageQuerySet
 
 Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
-actions_router = Router()
+# All action endpoints require a bearer token; see wagtail.api.v3.auth.
+actions_router = Router(auth=BearerTokenAuth())
 
 page_models = get_page_models()
 PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
@@ -198,6 +200,7 @@ class PageFilterSchema(FilterSchema):
     url_name="list_pages",
     summary="List pages",
     operation_id="pages_list",
+    auth=[BearerTokenAuth(), AllowAnonymous()],
 )
 @paginate(
     WagtailLimitOffsetPagination,
@@ -239,6 +242,7 @@ def list_pages(
     url_name="find_page",
     summary="Find page",
     operation_id="pages_find",
+    auth=[BearerTokenAuth(), AllowAnonymous()],
 )
 def find_page(
     request: HttpRequest,
@@ -281,6 +285,7 @@ def find_page(
     url_name="detail_page",
     summary="Page detail",
     operation_id="pages_detail",
+    auth=[BearerTokenAuth(), AllowAnonymous()],
 )
 def get_page(request: HttpRequest, page_id: int):
     page = get_object_or_404(_public_pages_queryset(request), pk=page_id)
@@ -293,6 +298,7 @@ def get_page(request: HttpRequest, page_id: int):
     url_name="create_page",
     summary="Create page",
     operation_id="pages_create",
+    auth=BearerTokenAuth(),
 )
 @require_any_permission(Page, ("add",))
 def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
@@ -317,6 +323,7 @@ def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty
     url_name="update_page",
     summary="Update page",
     operation_id="pages_update",
+    auth=BearerTokenAuth(),
 )
 @require_any_permission(Page, ("change",))
 def update_page(
