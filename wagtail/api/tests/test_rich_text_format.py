@@ -57,3 +57,62 @@ class TestRichTextFieldSerializer(SimpleTestCase):
     def test_accepts_text_field_kwargs(self):
         field = RichTextFieldSerializer(max_length=120)
         self.assertEqual(field.max_length, 120)
+
+
+class TestParseInput(SimpleTestCase):
+    def test_plain_string_is_db_html(self):
+        self.assertEqual(APIRichText.parse_input("<p>x</p>"), ("db_html", "<p>x</p>"))
+
+    def test_envelope(self):
+        self.assertEqual(
+            APIRichText.parse_input({"format": "db_html", "content": "<p>x</p>"}),
+            ("db_html", "<p>x</p>"),
+        )
+
+    def test_envelope_format_defaults_to_db_html(self):
+        self.assertEqual(
+            APIRichText.parse_input({"content": "<p>x</p>"}), ("db_html", "<p>x</p>")
+        )
+
+    def test_unknown_format_raises(self):
+        with self.assertRaises(RichTextFormatError) as cm:
+            APIRichText.parse_input({"format": "markdown", "content": "# Hi"})
+        self.assertIn("markdown", str(cm.exception))
+        self.assertIn("db_html", str(cm.exception))
+
+    def test_missing_content_raises(self):
+        with self.assertRaises(RichTextFormatError):
+            APIRichText.parse_input({"format": "db_html"})
+
+    def test_non_string_content_raises(self):
+        with self.assertRaises(RichTextFormatError):
+            APIRichText.parse_input({"format": "db_html", "content": 42})
+
+    def test_other_types_raise(self):
+        with self.assertRaises(RichTextFormatError):
+            APIRichText.parse_input(["<p>x</p>"])
+
+
+class TestConvertInput(SimpleTestCase):
+    def test_plain_string_is_sanitised(self):
+        cleaned, removals = APIRichText.convert_input(
+            "<p><b>x</b></p><script>alert(1)</script>", features=["bold"]
+        )
+        self.assertEqual(cleaned, "<p><b>x</b></p>alert(1)")
+        self.assertEqual([r.tag for r in removals], ["script"])
+
+    def test_envelope_is_sanitised(self):
+        cleaned, removals = APIRichText.convert_input(
+            {"format": "db_html", "content": "<h1>T</h1>"}, features=["bold"]
+        )
+        self.assertEqual(cleaned, "T")
+        self.assertEqual(len(removals), 1)
+
+    def test_unknown_format_raises(self):
+        with self.assertRaises(RichTextFormatError):
+            APIRichText.convert_input({"format": "html", "content": "<p>x</p>"})
+
+    def test_features_none_uses_registry_defaults(self):
+        cleaned, removals = APIRichText.convert_input("<p><b>x</b></p>")
+        self.assertEqual(cleaned, "<p><b>x</b></p>")
+        self.assertEqual(removals, [])

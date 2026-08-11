@@ -13,15 +13,22 @@ class RichTextFormatError(Exception):
 
 class APIRichText:
     """
-    Resolves and applies rich text output formats for API responses.
+    Resolves and applies rich text output formats for API responses, and
+    converts/sanitises rich text input for API writes.
 
-    Built-in formats:
+    Built-in output formats:
 
     - ``db_html``: Wagtail database HTML (default)
     - ``html``: display HTML via ``expand_db_html()``
 
-    To add formats (for example ``markdown`` or ``content_state``), extend
-    :meth:`_serializers` and add a corresponding ``_serialize_*`` method.
+    To add output formats (for example ``markdown`` or ``content_state``),
+    extend :meth:`_serializers` and add a corresponding ``_serialize_*``
+    method.
+
+    On the input side, :meth:`convert_input` accepts a plain string
+    (database HTML) or a ``{"format": ..., "content": ...}`` envelope and
+    returns sanitised database HTML, enforcing a rich text feature list.
+    Input formats are registered separately in :meth:`_input_converters`.
     """
 
     FORMAT_DB_HTML = "db_html"
@@ -78,6 +85,73 @@ class APIRichText:
             return None
 
         return cls._serializers()[format](value)
+
+    @classmethod
+    def parse_input(cls, value: str | dict) -> tuple[str, str]:
+        """
+        Normalise a rich text input value to a ``(format, content)`` pair.
+
+        A plain string is database HTML; a dict is the
+        ``{"format": ..., "content": ...}`` envelope, where ``format``
+        defaults to ``db_html``. Raises :class:`RichTextFormatError` for
+        anything else.
+        """
+        if isinstance(value, str):
+            return cls.FORMAT_DB_HTML, value
+
+        if isinstance(value, dict):
+            rich_text_format = value.get("format", cls.FORMAT_DB_HTML)
+            content = value.get("content")
+            if not isinstance(content, str):
+                raise RichTextFormatError(
+                    "Rich text input objects must provide a string 'content'"
+                )
+            if rich_text_format not in cls._input_converters():
+                allowed = ", ".join(
+                    f"'{name}'" for name in sorted(cls._input_converters())
+                )
+                raise RichTextFormatError(
+                    f"Rich text input format must be one of {allowed}, "
+                    f"got '{rich_text_format}'"
+                )
+            return rich_text_format, content
+
+        raise RichTextFormatError(
+            f"Rich text input must be a string or an object, got {type(value).__name__}"
+        )
+
+    @classmethod
+    def sanitize_db_html(
+        cls, content: str, *, features: list[str] | None = None
+    ) -> tuple[str, list]:
+        """
+        Sanitise database-HTML rich text against ``features`` (registry
+        defaults when ``None``). Returns ``(cleaned_html, removals)``.
+        """
+        # Lazy import: wagtail.api must stay importable without wagtail.admin.
+        from wagtail.admin.rich_text.converters.db_html import DbHTMLConverter
+
+        return DbHTMLConverter(features).clean(content)
+
+    @classmethod
+    def convert_input(
+        cls, value: str | dict, *, features: list[str] | None = None
+    ) -> tuple[str, list]:
+        """
+        Convert any accepted rich text input shape to database HTML,
+        enforcing ``features``. Returns ``(db_html, removals)``.
+        """
+        rich_text_format, content = cls.parse_input(value)
+        return cls._input_converters()[rich_text_format](content, features=features)
+
+    @classmethod
+    def _input_converters(cls) -> dict[str, Callable]:
+        """
+        Input format converters, keyed by format name. Deliberately separate
+        from ``_serializers`` — e.g. ``html`` is a valid output format but
+        not a valid input format.
+        """
+        return {cls.FORMAT_DB_HTML: cls.sanitize_db_html}
 
     @classmethod
     def _serializers(cls) -> dict[str, Callable[[str], Any]]:
