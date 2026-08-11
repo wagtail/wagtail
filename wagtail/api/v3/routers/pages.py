@@ -23,7 +23,7 @@ from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
-from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
+from wagtail.api.v3.querysets import get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS, PageTypeInjectingBody
@@ -54,13 +54,6 @@ PageUpdateSchema = _page_schemas.update
 
 class PageRevisionDetailSchema(RevisionDetailSchema):
     content_object: PageDetailSchema
-
-
-def _public_pages_queryset(request: HttpRequest, model=Page):
-    # Stable ordering so offset/limit pagination is deterministic (v2 parity).
-    return get_pages_queryset(request, tier=AccessTier.PUBLIC, model=model).order_by(
-        "id"
-    )
 
 
 IntPKFilter: TypeAlias = PositiveInt
@@ -111,7 +104,7 @@ class PageFilterSchema(FilterSchema):
     filter_child_of = custom_filter
     filter_descendant_of = custom_filter
     filter_translation_of = custom_filter
-    filter_site = custom_filter  # Handled via get_public_pages_queryset
+    filter_site = custom_filter  # Handled via get_pages_queryset
 
     @staticmethod
     def get_request_root_page(request: HttpRequest) -> Page:
@@ -120,7 +113,7 @@ class PageFilterSchema(FilterSchema):
     @staticmethod
     def get_public_page(request: HttpRequest, page_id: int, loc: str) -> Page:
         try:
-            return _public_pages_queryset(request).get(pk=page_id)
+            return get_pages_queryset(request).get(pk=page_id)
         except Page.DoesNotExist as e:
             message = f"No {Page._meta.object_name} matches the given {loc} value."
             raise as_validation_error(e, message, loc=(loc,)) from e
@@ -223,7 +216,7 @@ def list_pages(
         schemas=(PageFilterSchema, OrderingSchema, SearchSchema),
         base_fields=BASE_PAGE_READ_FIELDS,
     )
-    queryset = _public_pages_queryset(request, model)
+    queryset = get_pages_queryset(request, model)
     queryset = filters.filter(queryset, request)
     queryset = field_filter.filter_queryset(queryset)
     queryset = ordering.order_queryset(
@@ -261,12 +254,12 @@ def find_page(
         except Http404:
             page = None
         else:
-            if not _public_pages_queryset(request).filter(id=page.id).exists():
+            if not get_pages_queryset(request).filter(id=page.id).exists():
                 page = None
 
     if page is None and id:
-        # _public_pages_queryset() already does site filtering
-        page = get_object_or_404(_public_pages_queryset(request), pk=id)
+        # get_pages_queryset() already does site filtering
+        page = get_object_or_404(get_pages_queryset(request), pk=id)
 
     if page is None:
         raise Http404(f"No {Page._meta.object_name} matches the given query.")
@@ -287,7 +280,7 @@ def find_page(
     auth=[BearerTokenAuth(), AllowAnonymous()],
 )
 def get_page(request: HttpRequest, page_id: int):
-    page = get_object_or_404(_public_pages_queryset(request), pk=page_id)
+    page = get_object_or_404(get_pages_queryset(request), pk=page_id)
     return page.specific
 
 
@@ -366,7 +359,7 @@ def list_page_revisions(
     filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
     **kwargs,
 ):
-    page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
+    page = get_object_or_404(get_pages_queryset(request), pk=page_id).specific
     _check_can_view_revisions(request, page)
     queryset = page.revisions.order_by("-created_at", "-id")
     return filters.filter(queryset)
@@ -382,7 +375,7 @@ def list_page_revisions(
 )
 @require_any_permission(Page, ("add", "change", "publish"))
 def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveInt):
-    page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
+    page = get_object_or_404(get_pages_queryset(request), pk=page_id).specific
     _check_can_view_revisions(request, page)
     revisions = page.revisions.select_related("content_type", "base_content_type")
     return get_object_or_404(revisions, pk=revision_id)

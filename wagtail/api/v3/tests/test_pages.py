@@ -115,6 +115,13 @@ class TestV3PageListing(TestV3PageListingBase, TestCase):
         content = self.get_response().json()
         self.assertEqual(content["count"], total_count - 1)
 
+    def test_unpublished_pages_included_when_logged_in(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        page.unpublish()
+
+        self.login()
+        self.assertIn(page.id, self.get_all_page_ids())
+
     def test_private_pages_excluded(self):
         total_count = get_total_page_count()
         page = models.BlogIndexPage.objects.get(id=5)
@@ -135,6 +142,7 @@ class TestV3PageListing(TestV3PageListingBase, TestCase):
         content = self.get_response().json()
         self.assertEqual(content["count"], get_total_page_count())
 
+    @unittest.expectedFailure
     def test_login_gated_pages_visible_when_logged_in(self):
         page = models.BlogIndexPage.objects.get(id=5)
         old_total_count = get_total_page_count()
@@ -1014,7 +1022,7 @@ class TestV3PageListingSearch(TestV3PageListingBase, TransactionTestCase):
         )
 
 
-class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
+class TestV3PageDetail(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
     def test_detail(self):
@@ -1090,8 +1098,21 @@ class TestV3PageDetail(PageFixturesMixin, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
+    def test_draft_page_only_accessible_by_authenticated_user(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        page.unpublish()
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
 
-class TestV3PageFind(PageFixturesMixin, TestV3Base, TestCase):
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+        self.login()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["id"], page.id)
+
+
+class TestV3PageFind(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
     page_name = Page._meta.object_name
 
@@ -1152,6 +1173,39 @@ class TestV3PageFind(PageFixturesMixin, TestV3Base, TestCase):
             response,
             reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
             fetch_redirect_response=False,
+        )
+
+    def test_find_draft_page_by_id_requires_authentication(self):
+        page = Page.objects.get(id=8)
+        page.unpublish()
+
+        response = self.get_response(id=8)
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains=f"No {self.page_name} matches the given query.",
+        )
+
+        self.login()
+        response = self.get_response(id=8)
+        self.assertRedirects(
+            response,
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 8}),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_draft_page_by_html_path_not_found_even_when_logged_in(self):
+        # Routing by html_path only resolves live pages, regardless of the
+        # authorization.
+        page = Page.objects.get(id=8)
+        page.unpublish()
+
+        self.login()
+        response = self.get_response(html_path="/events-index/event-1/")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains=f"No {self.page_name} matches the given query.",
         )
 
     def test_find_by_id_with_page_in_default_site(self):

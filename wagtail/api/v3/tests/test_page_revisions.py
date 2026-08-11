@@ -119,6 +119,16 @@ class TestV3PageRevisionsList(TestV3PageRevisionsBase):
         )
         self.assert_problem_response(response, status_code=404)
 
+    def test_draft_page_revisions_require_authentication(self):
+        self.home_page.unpublish()
+
+        response = self.client.get(self.list_url(self.home_page))
+        self.assert_problem_response(response, status_code=401)
+
+        self.login()
+        response = self.client.get(self.list_url(self.home_page))
+        self.assertEqual(response.status_code, 200)
+
 
 class TestV3PageRevisionsListFilters(TestV3PageRevisionsBase):
     def setUp(self):
@@ -281,3 +291,16 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
 
         response = self.client.get(self.detail_url(self.home_page, other_revision))
         self.assert_problem_response(response, status_code=404)
+
+    def test_draft_page_revision_requires_authentication(self):
+        user = self.login()
+        revision = self.home_page.save_revision()
+        self.home_page.unpublish()
+
+        self.unauthorize()
+        response = self.client.get(self.detail_url(self.home_page, revision))
+        self.assert_problem_response(response, status_code=401)
+
+        self.authorize(user)
+        response = self.client.get(self.detail_url(self.home_page, revision))
+        self.assertEqual(response.status_code, 200)
