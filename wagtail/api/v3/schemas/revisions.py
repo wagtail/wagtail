@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+from uuid import UUID
 
 from django.contrib.contenttypes.models import ContentType
 from pydantic import PositiveInt
@@ -27,7 +28,7 @@ class RevisionSchema(BaseSchema):
     id: PositiveInt
     object_id: str
     created_at: datetime
-    user_id: Optional[int | str] = None
+    user_id: Optional[int | str | UUID] = None
     object_str: str
     approved_go_live_at: Optional[datetime] = None
 
