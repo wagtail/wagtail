@@ -78,6 +78,11 @@ class DbHtmlInputWhitelister(DbWhitelister):
             return
         if link_type is not None and link_type not in self.link_handlers:
             self._record(tag, "unwrapped", "unknown_linktype")
+            # Keep in sync with DbWhitelister's link branch (editor_html.py):
+            # children must be cleaned BEFORE unwrapping, or markup nested
+            # inside the link (e.g. <script>) would bypass the whitelister.
+            for child in list(tag.contents):
+                self.clean_node(doc, child)
             tag.unwrap()
             return
 
