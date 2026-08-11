@@ -59,3 +59,32 @@ All error responses use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807
     "errors": []
 }
 ```
+
+## Images
+
+Images are available at `/api/v3/images/`:
+
+- `GET /images/`: list images. Anonymous access, excluding images in restricted collections. Supports `?search=`, `?order=`, and filtering on the image's own fields (`title`, `width`, `height`, plus any `api_fields` the project declares) via query parameters.
+- `GET /images/{id}/`: image detail.
+- `POST /images/`: create an image. This endpoint uses `multipart/form-data`: the `file` field carries the image binary, and writable metadata (title, description, collection, focal point) is sent as individual form fields.
+- `PATCH /images/{id}/`: update the same writable metadata as JSON. Does not support changing the image file itself.
+
+Tags are returned in image responses under `meta.tags`, but are not writable through the images API yet.
+- `DELETE /images/{id}/`: delete an image.
+
+Image writes enforce the same validation (max upload size, max pixels, extensions) and collection permissions as the admin.
+
+### Image renditions
+
+Renditions are exposed per-project through `api_fields`, the same mechanism as [in the v2 API](api_v2_images):
+
+```python
+from wagtail.images.api.fields import ImageRenditionField
+
+class BlogPage(Page):
+    ...
+
+    api_fields = [
+        APIField("thumbnail", serializer=ImageRenditionField("fill-300x300")),
+    ]
+```
