@@ -8,6 +8,7 @@ from django.db.models import Model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from ninja import Schema
 
 from wagtail.api.v2.utils import get_full_url
 from wagtail.api.v3.schemas.base import (
@@ -97,6 +98,16 @@ class BasePageSchema(SimpleBasePageSchema):
     meta: BasePageMetaSchema
 
 
+class RichTextWarningSchema(Schema):
+    """One out-of-features / unresolvable rich text construct stripped on write."""
+
+    field: str
+    tag: str
+    action: str
+    reason: str
+    detail: str | None = None
+
+
 class PageMetaSchema(BasePageMetaSchema):
     if "show_in_menus" in BASE_PAGE_READ_FIELDS_SET:
         show_in_menus: bool | None = None
@@ -109,10 +120,18 @@ class PageMetaSchema(BasePageMetaSchema):
 
     alias_of: SimpleBasePageSchema | None = None
     parent: SimpleBasePageSchema | None = None
+    warnings: list[RichTextWarningSchema] | None = None
 
     @staticmethod
     def resolve_parent(obj: AbstractPage, context: dict) -> AbstractPage | None:
         return obj.get_parent()
+
+    @staticmethod
+    def resolve_warnings(obj: AbstractPage, context: dict) -> list[dict] | None:
+        # Stashed on the request by write endpoints after sanitising rich
+        # text input; None on reads (key serialises as null, matching the
+        # other optional meta fields).
+        return getattr(context["request"], "_rich_text_warnings", None)
 
 
 # Used for detail view
