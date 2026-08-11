@@ -229,7 +229,7 @@ class TestAPITokenAdmin(TestCase):
         APIToken.objects.filter(pk=token.pk).update(
             created=timezone.now() - timezone.timedelta(days=10)
         )
-        today = timezone.localdate()
+        today = timezone.now().date()
         self.client.force_login(self.root)
         response = self.get(
             "index",
@@ -252,7 +252,7 @@ class TestAPITokenAdmin(TestCase):
         token, _ = APIToken.create_token(user=self.root, name="used token")
         used_at = timezone.now() - timezone.timedelta(days=3)
         APIToken.objects.filter(pk=token.pk).update(last_used_at=used_at)
-        today = timezone.localdate()
+        today = timezone.now().date()
         self.client.force_login(self.root)
         response = self.get(
             "index",
