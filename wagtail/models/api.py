@@ -71,7 +71,8 @@ class APIToken(models.Model):
     def generate_token(cls):
         """Return a new plaintext API token: ``wagtail_<secret><checksum>``."""
         secret = _base62_encode(
-            int.from_bytes(secrets.token_bytes(KEY_SECRET_BYTES)), KEY_SECRET_LENGTH
+            int.from_bytes(secrets.token_bytes(KEY_SECRET_BYTES), byteorder="big"),
+            KEY_SECRET_LENGTH,
         )
         return f"{TOKEN_PREFIX}{secret}{_token_checksum(secret)}"
 
