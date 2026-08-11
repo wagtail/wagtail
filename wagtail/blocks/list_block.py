@@ -104,7 +104,7 @@ class ListValue(MutableSequence):
             }
 
         def render(self, context=None):
-            context = context or {}
+            context = dict(context or {})
             if "id" not in context:
                 context["id"] = self.id
             return super().render(context)

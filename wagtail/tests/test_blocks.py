@@ -3571,6 +3571,32 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         html = value.bound_blocks[0].render(context={"id": "from-context"})
         self.assertEqual('<h1 id="from-context">Hello world!</h1>', html)
 
+    def test_list_child_render_does_not_leak_id_across_siblings(self):
+        """
+        Rendering sibling ListChild blocks through the same context dict must
+        not leak one child's `id` onto the others. Regression test for the
+        context mutation bug where the first child's `id` was written into the
+        shared context and reused by every subsequent child.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template="tests/blocks/heading_block.html")
+        )
+        value = block.to_python(
+            [
+                {"type": "item", "value": "First", "id": "aaa111"},
+                {"type": "item", "value": "Second", "id": "bbb222"},
+                {"type": "item", "value": "Third", "id": "ccc333"},
+            ]
+        )
+
+        context = {"language": "fr"}
+        html = "".join(child.render(context=context) for child in value.bound_blocks)
+        self.assertIn('<h1 id="aaa111" lang="fr">First</h1>', html)
+        self.assertIn('<h1 id="bbb222" lang="fr">Second</h1>', html)
+        self.assertIn('<h1 id="ccc333" lang="fr">Third</h1>', html)
+        # the caller's context dict must not be mutated with a stray `id`
+        self.assertNotIn("id", context)
+
     def test_get_api_representation_calls_same_method_on_children_with_context(self):
         """
         The get_api_representation method of a ListBlock should invoke
@@ -4577,6 +4603,38 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         html = value[0].render(context={"id": "from-context"})
         self.assertEqual('<h1 id="from-context">Hello</h1>', html)
+
+    def test_stream_child_render_does_not_leak_id_across_siblings(self):
+        """
+        Rendering sibling StreamChild blocks through the same context dict must
+        not leak one child's `id` onto the others. Regression test for the
+        context mutation bug where the first child's `id` was written into the
+        shared context and reused by every subsequent child.
+        """
+        block = blocks.StreamBlock(
+            [
+                (
+                    "heading",
+                    blocks.CharBlock(template="tests/blocks/heading_block.html"),
+                ),
+            ]
+        )
+        value = block.to_python(
+            [
+                {"type": "heading", "value": "First", "id": "aaa111"},
+                {"type": "heading", "value": "Second", "id": "bbb222"},
+                {"type": "heading", "value": "Third", "id": "ccc333"},
+            ]
+        )
+
+        # rendering the whole stream passes the same context to each child
+        context = {"language": "fr"}
+        html = block.render(value, context=context)
+        self.assertIn('<h1 id="aaa111" lang="fr">First</h1>', html)
+        self.assertIn('<h1 id="bbb222" lang="fr">Second</h1>', html)
+        self.assertIn('<h1 id="ccc333" lang="fr">Third</h1>', html)
+        # the caller's context dict must not be mutated with a stray `id`
+        self.assertNotIn("id", context)
 
     def test_adapt(self):
         class ArticleBlock(blocks.StreamBlock):
