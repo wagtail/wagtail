@@ -344,7 +344,7 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
         return APIRichText.serialize(value, format=rich_text_format)
 
     default = FieldInfo(default=None, json_schema_extra={"features": resolved_features})
-    return str | None, default, staticmethod(resolve)
+    return cast(type, str | None), default, staticmethod(resolve)
 
 
 read_generator = SchemaGenerator()

@@ -59,7 +59,7 @@ class PageRevisionDetailSchema(RevisionDetailSchema):
 
 def _attach_rich_text_warnings(request: HttpRequest, removals) -> None:
     if removals:
-        request._rich_text_warnings = [
+        request._rich_text_warnings = [  # ty: ignore[unresolved-attribute]
             {
                 "field": field_name,
                 "tag": removal.tag,
@@ -299,7 +299,7 @@ def get_page(
     request: HttpRequest,
     page_id: int,
     version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
-    rich_text_format: str | None = Query(None),
+    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     page = get_object_or_404(get_pages_queryset(request), pk=page_id)
@@ -320,7 +320,7 @@ def get_page(
 def create_page(
     request: HttpRequest,
     data: PageCreateSchema = Body(...),  # ty: ignore[call-non-callable]
-    rich_text_format: str | None = Query(None),
+    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
@@ -352,7 +352,7 @@ def update_page(
     request: HttpRequest,
     page_id: int,
     data: PageUpdateSchema = PageTypeInjectingBody(...),
-    rich_text_format: str | None = Query(None),
+    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
