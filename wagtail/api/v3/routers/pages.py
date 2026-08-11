@@ -303,7 +303,7 @@ def get_page(
 def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
     model = resolve_model_string(data.meta.type)
     parent = get_object_or_404(Page, id=data.meta.parent_id).specific
-    form = build_page_form(model, parent, data, request.user)
+    form, _removals = build_page_form(model, parent, data, request.user)
     action_class = action_registry.get_action_class(model, "create")
     action = action_class(
         form.instance,
@@ -332,7 +332,7 @@ def update_page(
 ):
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
-    form = build_page_update_form(page, data, request.user)
+    form, _removals = build_page_update_form(page, data, request.user)
     action_class = action_registry.get_action_class(model, "edit")
     action = action_class(
         form.instance,
