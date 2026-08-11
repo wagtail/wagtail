@@ -48,6 +48,10 @@ for collection in Collection.objects.all():
     collection.get_view_restrictions().filter(restriction_type="password").delete()
 ```
 
+```{note}
+Privacy settings on collections only apply to documents, not images. See [](documents_security_considerations) for directions for securing documents at the server level to prevent access checks from being bypassed.
+```
+
 (login_page)=
 
 ## Setting up a login page
