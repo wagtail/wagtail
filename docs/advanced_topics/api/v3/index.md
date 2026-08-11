@@ -93,6 +93,7 @@ Constructs outside the feature set are removed rather than rejected, and every r
 `reason` is one of `"feature_disabled"` (the element isn't in the field's feature set), `"unknown_linktype"`, `"unknown_embedtype"`, or `"missing_attribute"` (an internal reference missing its required attribute, such as `<a linktype="page">` without an `id`).
 `detail` is a short snippet of the affected source markup — it is raw input content, and clients must treat it as untrusted.
 `meta.warnings` is `null` when nothing was stripped.
+This sanitisation runs independently of the rich text editor widget: for projects whose widget is not Draftail, it is the sole sanitisation pass on the API write path.
 
 Internal references must use the database HTML idioms: `<a linktype="page" id="3">`, `<a linktype="document" id="5">`, `<embed embedtype="image" id="42" alt="..." format="left"/>`, `<embed embedtype="media" url="..."/>`.
 External links are plain `<a href="https://...">`.
@@ -106,7 +107,7 @@ On create, omitting a rich text field stores the field's empty representation ra
 
 On the page detail endpoint and on create/update responses, use the `?rich_text_format=` query parameter to choose the output format: `db_html` (the default) returns the database HTML as stored, while `html` returns display-ready HTML with internal references expanded, equivalent to the `|richtext` template filter.
 An invalid value returns a 400 error.
-The project-wide default can be changed with the `WAGTAILAPI_RICH_TEXT_FORMAT` setting — see the v2 documentation section on [rich text in the API](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
+The project-wide default can be changed with the `WAGTAILAPI_RICH_TEXT_FORMAT` setting — see the v2 documentation section on [rich text in the API](api_v2_rich_text) and the [API settings reference](wagtailapi_settings).
 List endpoints do not include rich text fields, so they do not accept `rich_text_format`.
 
 Schema responses (and the OpenAPI document) list each rich text field's allowed `features`, so clients can adapt their input up front instead of relying on `meta.warnings` after the fact.

@@ -204,3 +204,68 @@ class TestDbHTMLConverterDefaults(SimpleTestCase):
         # bold is a default feature; h1 is not
         self.assertEqual(cleaned, "<p><b>x</b></p>y")
         self.assertEqual([r.tag for r in removals], ["h1"])
+
+
+class TestDbHTMLConverterNestedContent(SimpleTestCase):
+    """Regression tests: unwrapped elements must still have their children cleaned."""
+
+    def clean(self, html, features=FEATURES):
+        return DbHTMLConverter(features).clean(html)
+
+    def test_script_inside_unknown_linktype_link_is_stripped(self):
+        cleaned, removals = self.clean(
+            '<p><a linktype="evil"><script>alert(1)</script></a></p>'
+        )
+        self.assertEqual(cleaned, "<p>alert(1)</p>")
+        self.assertNotIn("<script", cleaned)
+        self.assertEqual(
+            [(r.tag, r.action, r.reason) for r in removals],
+            [
+                ("a", "unwrapped", "unknown_linktype"),
+                ("script", "unwrapped", "feature_disabled"),
+            ],
+        )
+
+    def test_img_onerror_inside_unknown_linktype_link_is_stripped(self):
+        # img is out-of-features in this feature set (the "image" feature only
+        # whitelists <embed embedtype="image">), so the whole tag is unwrapped.
+        cleaned, removals = self.clean(
+            '<p><a linktype="evil"><img src=x onerror=alert(1)></a></p>'
+        )
+        self.assertEqual(cleaned, "<p></p>")
+        self.assertNotIn("onerror", cleaned)
+        self.assertEqual(
+            [(r.tag, r.reason) for r in removals],
+            [("a", "unknown_linktype"), ("img", "feature_disabled")],
+        )
+
+    def test_unknown_linktype_inside_feature_disabled_element(self):
+        cleaned, removals = self.clean(
+            '<h1><a linktype="evil"><script>alert(1)</script></a></h1>'
+        )
+        self.assertEqual(cleaned, "alert(1)")
+        self.assertNotIn("<script", cleaned)
+        self.assertEqual(
+            [(r.tag, r.reason) for r in removals],
+            [
+                ("h1", "feature_disabled"),
+                ("a", "unknown_linktype"),
+                ("script", "feature_disabled"),
+            ],
+        )
+
+    def test_embed_without_embedtype_unwrapped_and_reported(self):
+        cleaned, removals = self.clean("<p>x</p><embed/>")
+        self.assertEqual(cleaned, "<p>x</p>")
+        self.assertEqual(
+            [(r.tag, r.action, r.reason) for r in removals],
+            [("embed", "unwrapped", "feature_disabled")],
+        )
+
+    def test_repeated_clean_does_not_accumulate_removals(self):
+        converter = DbHTMLConverter(FEATURES)
+        converter.clean("<h1>first</h1>")
+        cleaned, removals = converter.clean("<h1>second</h1>")
+        self.assertEqual(cleaned, "second")
+        self.assertEqual(len(removals), 1)
+        self.assertEqual(removals[0].detail, "<h1>second</h1>")
