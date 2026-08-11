@@ -2,8 +2,9 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from django.test.client import RequestFactory
 from django.urls import reverse
+from ninja.constants import NOT_SET
 
-from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth, get_api_user
+from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import APIToken
 from wagtail.test.utils import WagtailTestUtils
@@ -23,7 +24,6 @@ class TestBearerTokenAuth(TestCase):
         request, result = self.authenticate(f"Bearer {self.plaintext}")
         self.assertEqual(result, self.token)
         self.assertEqual(request.user, self.user)
-        self.assertEqual(get_api_user(request), self.user)
 
     def test_no_header(self):
         request = RequestFactory().get("/")
@@ -81,11 +81,6 @@ class TestBearerTokenAuth(TestCase):
         self.token.refresh_from_db()
         self.assertIsNone(self.token.last_used_at)
 
-    def test_get_api_user_ignores_session_user(self):
-        request = RequestFactory().get("/")
-        request.user = self.user  # as session middleware would set it
-        self.assertFalse(get_api_user(request).is_authenticated)
-
     def test_allow_anonymous_always_truthy(self):
         self.assertTrue(AllowAnonymous()(RequestFactory().get("/")))
 
@@ -99,7 +94,6 @@ class TestBearerTokenAuth(TestCase):
 
 class TestAuthWiring(TestV3Base, TestCase):
     def test_every_operation_declares_auth_explicitly(self):
-        from ninja.constants import NOT_SET
 
         from wagtail.api.v3.api import api
 

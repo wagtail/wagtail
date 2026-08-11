@@ -12,7 +12,7 @@ from wagtail.actions.edit import EditAction
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
 from wagtail.api.v2.serializers import BaseSerializer
 from wagtail.api.v2.views import BaseAPIViewSet
-from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth, get_api_user
+from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.contrib.redirects.forms import RedirectForm
@@ -84,7 +84,7 @@ def get_redirect_detail(request: HttpRequest, redirect_id: int):
 @require_any_permission(Redirect, ("add",))
 def create_redirect(request: HttpRequest, data: RedirectInputSchema):
     form = RedirectForm(data.dict())
-    CreateAction(form.instance, user=get_api_user(request), form=form).execute(
+    CreateAction(form.instance, user=request.user, form=form).execute(
         skip_permission_checks=True
     )
     return Status(201, form.instance)
@@ -100,7 +100,7 @@ def create_redirect(request: HttpRequest, data: RedirectInputSchema):
 def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputSchema):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     form = RedirectForm(data.dict(), instance=redirect)
-    EditAction(form.instance, user=get_api_user(request), form=form).execute()
+    EditAction(form.instance, user=request.user, form=form).execute()
     return form.instance
 
 
@@ -113,7 +113,7 @@ def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputS
 )
 def delete_redirect(request: HttpRequest, redirect_id: int):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
-    DeleteAction(redirect, user=get_api_user(request)).execute()
+    DeleteAction(redirect, user=request.user).execute()
     return Status(204, None)
 
 

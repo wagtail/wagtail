@@ -20,16 +20,22 @@ class BearerTokenAuth(HttpBearer):
                 revoked_at__isnull=True,
             )
         except APIToken.DoesNotExist:
-            return None
+            user = None
+        else:
+            user = api_token.user
+
         # is_active may be a plain class attribute (AbstractBaseUser) rather
         # than a database field, so check in Python instead of the queryset.
-        if not api_token.user.is_active:
+        if not (user and user.is_active):
+            user = AnonymousUser()
+
+        # Normalize request.user to an anonymous user if the token is invalid or
+        # the user is inactive, overwriting Django auth backends e.g. session.
+        request.user = user
+        if not request.user.is_authenticated:
             return None
+
         self._touch_last_used(api_token)
-        # Ninja assigns request.auth from the return value; set it here too
-        # so direct callers get consistent behavior.
-        request.auth = api_token
-        request.user = api_token.user
         return api_token
 
     def _touch_last_used(self, api_token):
@@ -57,15 +63,3 @@ class AllowAnonymous:
     def __call__(self, request):
         request.user = AnonymousUser()
         return request.user
-
-
-def get_api_user(request):
-    """The user authenticated by a v3 bearer token, or an anonymous user.
-
-    v3 never trusts Django session auth: identity derives only from
-    ``request.auth`` (an APIToken), so session cookies cannot elevate
-    a request.
-    """
-    if isinstance(getattr(request, "auth", None), APIToken):
-        return request.auth.user
-    return AnonymousUser()
