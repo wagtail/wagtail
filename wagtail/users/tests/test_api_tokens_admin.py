@@ -72,8 +72,14 @@ class TestAPITokenAdmin(TestCase):
         plaintext = matches[0]
 
         # The one-time page does not serve the secret twice.
-        second = self.client.get(response["Location"])
-        self.assertEqual(second.status_code, 302)
+        second = self.client.get(response["Location"], follow=True)
+        self.assertEqual(len(second.redirect_chain), 1)
+        self.assertEqual(second.redirect_chain[0][1], 302)
+        self.assertContains(
+            second,
+            "Token secrets are only displayed once, immediately after creation.",
+        )
+        self.assertNotContains(second, plaintext)
 
         # The full secret is never shown anywhere else.
         self.assertNotContains(self.get("index"), plaintext)
