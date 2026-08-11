@@ -58,6 +58,7 @@ endef
 openapi-snapshot:
 	$(call OPENAPI_SNAPSHOT_SCRIPT,$(OPENAPI_SNAPSHOT))
 	USE_CUSTOM_PAGE_MODEL=1 $(call OPENAPI_SNAPSHOT_SCRIPT,$(OPENAPI_SNAPSHOT_CUSTOM_PAGE_MODEL))
+    npm run format
 
 coverage:
 	coverage run --source wagtail runtests.py
