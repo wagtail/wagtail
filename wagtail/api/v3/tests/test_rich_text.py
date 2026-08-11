@@ -1,6 +1,6 @@
 import json
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
@@ -140,3 +140,85 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         warnings = response.json()["meta"]["warnings"]
         self.assertEqual(len(warnings), 1)
         self.assertEqual(warnings[0]["field"], "body")
+
+
+class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.root_page = Page.objects.get(depth=1)
+        self.user = self.login()
+        self.home_page = Page.objects.get(depth=2)
+        self.page = DefaultRichTextFieldPage(
+            title="Rich",
+            slug="rich",
+            body=f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
+        )
+        # The detail endpoint serves the public queryset: live pages under
+        # the default site's root (the depth-2 home page).
+        self.home_page.add_child(instance=self.page)
+        self.page.save_revision().publish()
+
+    def get_detail(self, **params):
+        return self.client.get(
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": self.page.pk}),
+            data=params,
+        )
+
+    def test_default_output_is_db_html(self):
+        response = self.get_detail()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json()["body"],
+            f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
+        )
+
+    def test_html_output_expands_references(self):
+        response = self.get_detail(rich_text_format="html")
+        self.assertEqual(response.status_code, 200)
+        body = response.json()["body"]
+        self.assertIn("<a href=", body)
+        self.assertNotIn("linktype", body)
+
+    def test_invalid_format_is_400_problem_json(self):
+        response = self.get_detail(rich_text_format="nope")
+        self.assert_problem_response(response, status_code=400, detail_contains="nope")
+
+    def test_write_response_honours_format(self):
+        # Write endpoints return the detail schema, so the format applies
+        # there too. (The list endpoint serialises BasePageSchema only — no
+        # api_fields extras like body — so it takes no rich_text_format param.)
+        response = self.client.post(
+            reverse("wagtailapi_v3:create_page") + "?rich_text_format=html",
+            data=json.dumps(
+                {
+                    "meta": {
+                        "parent_id": self.root_page.pk,
+                        "type": "tests.DefaultRichTextFieldPage",
+                    },
+                    "title": "Rich html",
+                    "slug": "rich-html",
+                    "body": f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+        self.assertIn("<a href=", response.json()["body"])
+
+    @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html")
+    def test_project_wide_default_setting(self):
+        response = self.get_detail()
+        self.assertIn("<a href=", response.json()["body"])
+
+    def test_features_in_schema_discovery(self):
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:get_schema_for_type",
+                kwargs={"type_name": "tests.DefaultRichTextFieldPage"},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        read_schema = response.json()["read"]
+        body_schema = read_schema["properties"]["body"]
+        self.assertIn("features", body_schema)
+        self.assertIn("bold", body_schema["features"])

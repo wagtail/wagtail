@@ -18,6 +18,7 @@ from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.actions.copy_page import CopyPageIntegrityError
 from wagtail.actions.create_alias import CreatePageAliasIntegrityError
 from wagtail.actions.publish_page_revision import PublishPagePermissionError
+from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
@@ -298,7 +299,9 @@ def get_page(
     request: HttpRequest,
     page_id: int,
     version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
+    rich_text_format: str | None = Query(None),
 ):
+    APIRichText.resolve_format(rich_text_format)
     page = get_object_or_404(get_pages_queryset(request), pk=page_id)
     if version == "draft" and request.user.is_authenticated:
         return page.get_latest_revision_as_object()
@@ -314,7 +317,12 @@ def get_page(
     auth=BearerTokenAuth(),
 )
 @require_any_permission(Page, ("add",))
-def create_page(request: HttpRequest, data: PageCreateSchema = Body(...)):  # ty: ignore[call-non-callable]
+def create_page(
+    request: HttpRequest,
+    data: PageCreateSchema = Body(...),  # ty: ignore[call-non-callable]
+    rich_text_format: str | None = Query(None),
+):
+    APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
     parent = get_object_or_404(Page, id=data.meta.parent_id).specific
     form, removals = build_page_form(model, parent, data, request.user)
@@ -344,7 +352,9 @@ def update_page(
     request: HttpRequest,
     page_id: int,
     data: PageUpdateSchema = PageTypeInjectingBody(...),
+    rich_text_format: str | None = Query(None),
 ):
+    APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
     form, removals = build_page_update_form(page, data, request.user)
