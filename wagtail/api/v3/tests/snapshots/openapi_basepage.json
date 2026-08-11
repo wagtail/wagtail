@@ -139,6 +139,20 @@
             "const": "tests.AddedStreamFieldWithEmptyListDefaultPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -383,6 +397,20 @@
             "const": "tests.AddedStreamFieldWithEmptyStringDefaultPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -627,6 +655,20 @@
             "const": "tests.AddedStreamFieldWithoutDefaultPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -1075,6 +1117,20 @@
             "const": "tests.AlwaysShowInMenusPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -1918,6 +1974,20 @@
             "const": "demosite.BlogEntryPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -2471,6 +2541,20 @@
             "const": "demosite.BlogIndexPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -2812,6 +2896,20 @@
             "const": "tests.BusinessChild",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -3056,6 +3154,20 @@
             "const": "tests.BusinessIndex",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -3300,6 +3412,20 @@
             "const": "tests.BusinessNowherePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -3544,6 +3670,20 @@
             "const": "tests.BusinessSubIndex",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -3821,6 +3961,20 @@
             "const": "tests.CommentableJSONPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -4065,6 +4219,20 @@
             "const": "tests.ComplexDefaultStreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -4309,6 +4477,20 @@
             "const": "demosite.ContactPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -4714,6 +4896,20 @@
             "const": "tests.CustomCopyFormPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -4958,6 +5154,20 @@
             "const": "tests.CustomManagerPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -5202,6 +5412,20 @@
             "const": "tests.CustomPermissionPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -5446,6 +5670,20 @@
             "const": "tests.CustomPreviewSizesPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -5690,6 +5928,20 @@
             "const": "tests.CustomRichBlockFieldPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -5934,6 +6186,20 @@
             "const": "tests.CustomRichTextFieldPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -6178,6 +6444,20 @@
             "const": "tests.DeadlyStreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -6422,6 +6702,20 @@
             "const": "tests.DefaultRichBlockFieldPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -6692,6 +6986,20 @@
             "const": "tests.DefaultRichTextFieldPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -6967,6 +7275,20 @@
             "const": "tests.DefaultStreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -7248,6 +7570,20 @@
             "const": "earlypage.EarlyPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -7492,6 +7828,20 @@
             "const": "tests.EventIndex",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -7639,6 +7989,20 @@
             "const": "demosite.EventIndexPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -8768,6 +9132,20 @@
             "const": "tests.FilePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -9012,6 +9390,20 @@
             "const": "tests.FormClassAdditionalFieldPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -9361,6 +9753,20 @@
             "const": "tests.FormPageWithCustomFormBuilder",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -9668,6 +10074,20 @@
             "const": "tests.FormPageWithCustomSubmissionListView",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -9849,6 +10269,20 @@
             "const": "tests.FormPageWithCustomSubmission",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -10093,6 +10527,20 @@
             "const": "tests.FormPageWithRedirect",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -10581,6 +11029,20 @@
             "const": "tests.GalleryPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -10825,6 +11287,20 @@
             "const": "tests.GenericSnippetNoFieldIndexPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -11069,6 +11545,20 @@
             "const": "tests.GenericSnippetNoIndexPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -11313,6 +11803,20 @@
             "const": "tests.GenericSnippetPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -11860,6 +12364,20 @@
             "const": "demosite.HomePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -12697,6 +13215,20 @@
             "const": "tests.InlineStreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -12959,6 +13491,20 @@
             "const": "tests.JadeFormPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -13254,6 +13800,20 @@
             "const": "tests.MTIBasePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -13498,6 +14058,20 @@
             "const": "tests.MTIChildPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -13742,6 +14316,20 @@
             "const": "tests.ManyToManyBlogPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -13986,6 +14574,20 @@
             "const": "tests.MultiPreviewModesPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -14230,6 +14832,20 @@
             "const": "tests.MyCustomPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -14474,6 +15090,20 @@
             "const": "tests.NoCreatableSubpageTypesPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -14718,6 +15348,20 @@
             "const": "tests.NoPromotePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -14962,6 +15606,20 @@
             "const": "tests.NoSubpageTypesPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -15206,6 +15864,20 @@
             "const": "tests.OneToOnePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -16155,6 +16827,20 @@
             "const": "tests.PageWithExcludedCopyField",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -16399,6 +17085,20 @@
             "const": "tests.PageWithGenericRelation",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -16643,6 +17343,20 @@
             "const": "tests.PageWithOldStyleRouteMethod",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -17116,6 +17830,20 @@
             "const": "tests.PromotionalPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -17485,6 +18213,20 @@
             "const": "tests.RequiredDatePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -17729,6 +18471,20 @@
             "const": "tests.RestaurantPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -18127,6 +18883,20 @@
             "const": "tests.RichTextFieldWithFeaturesPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -18275,6 +19045,46 @@
         "title": "RichTextInputSchema",
         "type": "object"
       },
+      "RichTextWarningSchema": {
+        "description": "One out-of-features / unresolvable rich text construct stripped on write.",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "tag": {
+            "title": "Tag",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "tag",
+          "action",
+          "reason"
+        ],
+        "title": "RichTextWarningSchema",
+        "type": "object"
+      },
       "RoutablePageTestCreateMetaSchema": {
         "properties": {
           "action": {
@@ -18413,6 +19223,20 @@
             "const": "routablepagetests.RoutablePageTest",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -18657,6 +19481,20 @@
             "const": "routablepagetests.RoutablePageWithOverriddenIndexRouteTest",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -18901,6 +19739,20 @@
             "const": "streamfield_migration_tests.SamplePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -19220,6 +20072,20 @@
             "const": "tests.SecretPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -19464,6 +20330,20 @@
             "const": "tests.SectionedRichTextPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -19769,6 +20649,20 @@
             "const": "tests.SimpleChildPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -20013,6 +20907,20 @@
             "const": "tests.SimplePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -20257,6 +21165,20 @@
             "const": "tests.SimpleParentPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -20501,6 +21423,20 @@
             "const": "tests.SingleEventPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -20745,6 +21681,20 @@
             "const": "tests.SingletonPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -20989,6 +21939,20 @@
             "const": "tests.SingletonPageViaMaxCount",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -21407,6 +22371,20 @@
             "const": "tests.StandardChild",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -21651,6 +22629,20 @@
             "const": "tests.StandardIndex",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -21798,6 +22790,20 @@
             "const": "demosite.StandardIndexPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -22350,6 +23356,20 @@
             "const": "demosite.StandardPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -22726,6 +23746,20 @@
             "const": "tests.StreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -22982,6 +24016,20 @@
             "const": "tests.TableBlockStreamPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -23226,6 +24274,20 @@
             "const": "tests.TaggedChildPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -23470,6 +24532,20 @@
             "const": "tests.TaggedGrandchildPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -23714,6 +24790,20 @@
             "const": "tests.TaggedPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -23958,6 +25048,20 @@
             "const": "i18n.TestPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -24703,6 +25807,20 @@
             "const": "tests.ValidatedPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -24960,6 +26078,20 @@
             "const": "basepage.BasePage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -25317,6 +26449,20 @@
             "const": "tests.EventPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -25401,6 +26547,20 @@
             "const": "demosite.EventPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -26076,6 +27236,20 @@
             "const": "tests.FormPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -26160,6 +27334,20 @@
             "const": "demosite.FormPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -26572,6 +27760,20 @@
             "const": "tests.PersonPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
@@ -26656,6 +27858,20 @@
             "const": "demosite.PersonPage",
             "title": "Type",
             "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RichTextWarningSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
           }
         },
         "required": [
