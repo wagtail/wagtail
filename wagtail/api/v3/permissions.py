@@ -2,7 +2,6 @@ import functools
 
 from django.core.exceptions import PermissionDenied
 
-from wagtail.api.v3.auth import get_api_user
 from wagtail.permissions import policy_registry
 
 
@@ -31,9 +30,7 @@ def require_any_permission(model, actions=("add", "change", "delete", "view")):
                 resolved_model = model(request, *args, **kwargs)
 
             permission_policy = policy_registry.get_by_type(resolved_model)
-            if not permission_policy.user_has_any_permission(
-                get_api_user(request), actions
-            ):
+            if not permission_policy.user_has_any_permission(request.user, actions):
                 raise PermissionDenied
             return view_func(request, *args, **kwargs)
 

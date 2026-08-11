@@ -10,7 +10,6 @@ from ninja.errors import ValidationError as NinjaValidationError
 from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
-from wagtail.api.v3.auth import get_api_user
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.utils.forms import FormValidationError
 
@@ -146,7 +145,7 @@ def register_exception_handlers(api: NinjaAPI):
     @api.exception_handler(PermissionDenied)
     def permission_denied_handler(request: HttpRequest, exc: PermissionDenied):
         # v3 never trusts session auth: 401 unless a bearer token resolved.
-        if not get_api_user(request).is_authenticated:
+        if not request.user.is_authenticated:
             return problem_response(status=401, detail="Authentication required")
         return problem_response(status=403, detail="Permission denied")
 
