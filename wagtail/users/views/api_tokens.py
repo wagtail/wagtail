@@ -18,13 +18,8 @@ from wagtail.admin.templatetags.wagtailadmin_tags import timesince_simple
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.admin.views.generic.models import (
-    CreateView,
-    DeleteView,
-    EditView,
-    IndexView,
-)
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.log_actions import log
@@ -87,7 +82,7 @@ class TokenManagementQuerysetMixin:
         )
 
 
-class Index(TokenManagementQuerysetMixin, IndexView):
+class IndexView(TokenManagementQuerysetMixin, generic.IndexView):
     filterset_class = APITokenFilterSet
 
     @cached_property
@@ -121,7 +116,7 @@ class Index(TokenManagementQuerysetMixin, IndexView):
         return buttons
 
 
-class Create(CreateView):
+class CreateView(generic.CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         # APITokenForm is a plain Form, not a ModelForm.
@@ -152,7 +147,7 @@ class Create(CreateView):
         return reverse("wagtailusers_api_tokens:created", args=[self.object.pk])
 
 
-class Created(WagtailAdminTemplateMixin, View):
+class CreatedView(WagtailAdminTemplateMixin, View):
     """Displays a newly-created token's secret exactly once."""
 
     template_name = "wagtailusers/api_tokens/created.html"
@@ -219,7 +214,7 @@ class APITokenStatusSidePanel(StatusSidePanel):
         }
 
 
-class Edit(TokenManagementQuerysetMixin, EditView):
+class EditView(TokenManagementQuerysetMixin, generic.EditView):
     delete_item_label = _("Revoke")
 
     def get_side_panels(self):
@@ -239,7 +234,7 @@ class Edit(TokenManagementQuerysetMixin, EditView):
         return MediaContainer(side_panels)
 
 
-class Revoke(TokenManagementQuerysetMixin, DeleteView):
+class RevokeView(TokenManagementQuerysetMixin, generic.DeleteView):
     """Soft-delete: revoking keeps the row for the audit trail."""
 
     page_title = _("Revoke")
@@ -275,14 +270,14 @@ class APITokenViewSet(ModelViewSet):
     inspect_view_enabled = False
     template_prefix = "wagtailusers/api_tokens/"
     form_fields = ["name"]  # edit view: rename only
-    index_view_class = Index
-    add_view_class = Create
-    edit_view_class = Edit
-    delete_view_class = Revoke
+    index_view_class = IndexView
+    add_view_class = CreateView
+    edit_view_class = EditView
+    delete_view_class = RevokeView
 
     @property
     def created_view(self):
-        return self.construct_view(Created)
+        return self.construct_view(CreatedView)
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
