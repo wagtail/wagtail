@@ -152,19 +152,17 @@ class CreatedView(WagtailAdminTemplateMixin, View):
 
     template_name = "wagtailusers/api_tokens/created.html"
     page_title = _("API token created")
-    model = None
+    model = APIToken
     index_url_name = None
     header_icon = ""
 
     def get_breadcrumbs_items(self):
-        items = []
-        if self.index_url_name and self.model:
-            items.append(
-                {
-                    "url": reverse(self.index_url_name),
-                    "label": capfirst(self.model._meta.verbose_name_plural),
-                }
-            )
+        items = [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+        ]
         items.append({"url": "", "label": self.get_page_title()})
         return self.breadcrumbs_items + items
 
@@ -194,11 +192,10 @@ class APITokenStatusSidePanel(StatusSidePanel):
     """Replace the default Live/Draft workflow status with Active/Revoked."""
 
     def get_status_templates(self, context):
-        templates = ["wagtailusers/api_tokens/status.html"]
-        if self.usage_url is not None:
-            templates.append(
-                "wagtailadmin/shared/side_panels/includes/status/usage.html"
-            )
+        templates = [
+            "wagtailusers/api_tokens/status.html",
+            "wagtailadmin/shared/side_panels/includes/status/usage.html",
+        ]
         return templates
 
     def get_usage_context(self):
@@ -221,16 +218,15 @@ class EditView(TokenManagementQuerysetMixin, generic.EditView):
         side_panels = []
         usage_url = self.get_usage_url()
         history_url = self.get_history_url()
-        if usage_url or history_url:
-            side_panels.append(
-                APITokenStatusSidePanel(
-                    self.object,
-                    self.request,
-                    usage_url=usage_url,
-                    history_url=history_url,
-                    last_updated_info=self.get_last_updated_info(),
-                )
+        side_panels.append(
+            APITokenStatusSidePanel(
+                self.object,
+                self.request,
+                usage_url=usage_url,
+                history_url=history_url,
+                last_updated_info=self.get_last_updated_info(),
             )
+        )
         return MediaContainer(side_panels)
 
 
