@@ -74,6 +74,7 @@ def create_site(request: HttpRequest, data: SiteInputSchema):
     summary="Update site",
     operation_id="sites_update",
 )
+@require_any_permission(Site, ("change",))
 def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     site = get_object_or_404(Site, pk=site_id)
     form = SiteForm(data.dict(), instance=site)
@@ -88,6 +89,7 @@ def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     summary="Delete site",
     operation_id="sites_delete",
 )
+@require_any_permission(Site, ("delete",))
 def delete_site(request: HttpRequest, site_id: int):
     site = get_object_or_404(Site, pk=site_id)
     DeleteAction(site, user=request.user).execute()

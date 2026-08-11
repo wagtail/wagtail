@@ -359,6 +359,7 @@ def _check_can_view_revisions(request: HttpRequest, page: Page) -> None:
     auth=BearerTokenAuth(),
 )
 @paginate(WagtailLimitOffsetPagination)
+@require_any_permission(Page, ("add", "change", "publish"))
 def list_page_revisions(
     request: HttpRequest,
     page_id: int,
@@ -379,6 +380,7 @@ def list_page_revisions(
     operation_id="pages_revisions_detail",
     auth=BearerTokenAuth(),
 )
+@require_any_permission(Page, ("add", "change", "publish"))
 def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveInt):
     page = get_object_or_404(_public_pages_queryset(request), pk=page_id).specific
     _check_can_view_revisions(request, page)
@@ -393,6 +395,7 @@ def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveI
     summary="Publish page",
     operation_id="pages_actions_publish",
 )
+@require_any_permission(Page, ("publish",))
 def publish(request: HttpRequest, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     revision = page.get_latest_revision()
@@ -422,6 +425,7 @@ class PageUnpublishSchema(Schema):
     summary="Unpublish page",
     operation_id="pages_actions_unpublish",
 )
+@require_any_permission(Page, ("publish",))
 def unpublish(
     request: HttpRequest,
     page_id: PositiveInt,
@@ -467,6 +471,7 @@ class PageCopySchema(Schema):
     summary="Copy page",
     operation_id="pages_actions_copy",
 )
+@require_any_permission(Page, ("add",))
 def copy(
     request: HttpRequest,
     page_id: PositiveInt,
@@ -513,6 +518,7 @@ class PageMoveSchema(Schema):
     summary="Move page",
     operation_id="pages_actions_move",
 )
+@require_any_permission(Page, ("change",))
 def move(
     request: HttpRequest,
     page_id: PositiveInt,
@@ -542,6 +548,7 @@ def move(
     summary="Delete page",
     operation_id="pages_actions_delete",
 )
+@require_any_permission(Page, ("change",))
 def delete(request: HttpRequest, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     action_class = action_registry.get_action_class(Page, "delete")
@@ -561,6 +568,7 @@ class PageRevertSchema(Schema):
     summary="Revert page to a previous revision",
     operation_id="pages_actions_revert",
 )
+@require_any_permission(Page, ("change",))
 def revert(
     request: HttpRequest,
     page_id: PositiveInt,
@@ -581,6 +589,7 @@ def revert(
     summary="Convert alias page to a regular page",
     operation_id="pages_actions_convert_alias",
 )
+@require_any_permission(Page, ("change",))
 def convert_alias(request: HttpRequest, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     action_class = action_registry.get_action_class(Page, "convert_alias")
@@ -615,6 +624,7 @@ class PageCreateAliasSchema(Schema):
     summary="Create an alias of a page",
     operation_id="pages_actions_create_alias",
 )
+@require_any_permission(Page, ("add",))
 def create_alias(
     request: HttpRequest,
     page_id: PositiveInt,
@@ -651,6 +661,7 @@ class PageCopyForTranslationSchema(Schema):
     summary="Copy page for translation",
     operation_id="pages_actions_copy_for_translation",
 )
+@require_any_permission(Page, ("add",))
 def copy_for_translation(
     request: HttpRequest,
     page_id: PositiveInt,

@@ -97,6 +97,7 @@ def create_redirect(request: HttpRequest, data: RedirectInputSchema):
     summary="Update redirect",
     operation_id="redirects_update",
 )
+@require_any_permission(Redirect, ("change",))
 def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputSchema):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     form = RedirectForm(data.dict(), instance=redirect)
@@ -111,6 +112,7 @@ def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputS
     summary="Delete redirect",
     operation_id="redirects_delete",
 )
+@require_any_permission(Redirect, ("delete",))
 def delete_redirect(request: HttpRequest, redirect_id: int):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     DeleteAction(redirect, user=request.user).execute()
