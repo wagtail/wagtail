@@ -44,7 +44,72 @@ List endpoints use Django Ninja's limit/offset pagination:
 
 `count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](wagtailapi_settings)).
 
-Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of `WAGTAILAPI_RICH_TEXT_FORMAT`.
+## Rich text
+
+Rich text fields are stored in Wagtail's database HTML format, described in [](rich_text_internals), and the v3 API uses that format as its rich text interchange representation.
+
+### Writing rich text
+
+On write endpoints, a rich text field accepts either a plain string, interpreted as database HTML:
+
+```json
+{
+    "body": "<p>Hello <a linktype=\"page\" id=\"3\">world</a></p>"
+}
+```
+
+or an envelope with an explicit format:
+
+```json
+{
+    "body": {"format": "db_html", "content": "<p>Hello world</p>"}
+}
+```
+
+`db_html` is the only supported input format, and is the default when `format` is omitted.
+Anything else is rejected with a 422 validation error.
+
+All input is sanitised against the field's declared `features`, including plain strings.
+Constructs outside the feature set are removed rather than rejected, and every removal is itemised in `meta.warnings` on create and update responses:
+
+```json
+{
+    "meta": {
+        "type": "blog.BlogPage",
+        "warnings": [
+            {
+                "field": "body",
+                "tag": "h1",
+                "action": "unwrapped",
+                "reason": "feature_disabled",
+                "detail": "<h1>Title</h1>"
+            }
+        ]
+    }
+}
+```
+
+`action` is `"unwrapped"` when the element was removed but its text content kept, or `"removed"` when the element and its content were removed.
+`reason` is one of `"feature_disabled"` (the element isn't in the field's feature set), `"unknown_linktype"`, `"unknown_embedtype"`, or `"missing_attribute"` (an internal reference missing its required attribute, such as `<a linktype="page">` without an `id`).
+`detail` is a short snippet of the affected source markup — it is raw input content, and clients must treat it as untrusted.
+`meta.warnings` is `null` when nothing was stripped.
+
+Internal references must use the database HTML idioms: `<a linktype="page" id="3">`, `<a linktype="document" id="5">`, `<embed embedtype="image" id="42" alt="..." format="left"/>`, `<embed embedtype="media" url="..."/>`.
+External links are plain `<a href="https://...">`.
+The API does not resolve `href` or `src` URLs back to CMS objects, and unknown link or embed types are stripped.
+References to missing pages, images, or documents are preserved as-is, matching how the rich text editor handles broken references.
+
+On create, omitting a rich text field stores the field's empty representation rather than failing validation, even for required fields — matching what the admin editor submits for an untouched field.
+(On update, unmentioned fields are left unchanged, as with any other field.)
+
+### Reading rich text
+
+On the page detail endpoint and on create/update responses, use the `?rich_text_format=` query parameter to choose the output format: `db_html` (the default) returns the database HTML as stored, while `html` returns display-ready HTML with internal references expanded, equivalent to the `|richtext` template filter.
+An invalid value returns a 400 error.
+The project-wide default can be changed with the `WAGTAILAPI_RICH_TEXT_FORMAT` setting — see the v2 documentation section on [rich text in the API](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
+List endpoints do not include rich text fields, so they do not accept `rich_text_format`.
+
+Schema responses (and the OpenAPI document) list each rich text field's allowed `features`, so clients can adapt their input up front instead of relying on `meta.warnings` after the fact.
 
 ## Error format
 
