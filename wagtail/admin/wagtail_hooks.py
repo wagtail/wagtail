@@ -449,6 +449,12 @@ def register_core_features(features):
         ],
     )
 
+    features.register_converter_rule(
+        "editorhtml",
+        "hr",
+        [WhitelistRule("hr", allow_without_attributes)],
+    )
+
     # Draftail
     features.register_editor_plugin(
         "draftail", "hr", draftail_features.BooleanFeature("enableHorizontalRule")
