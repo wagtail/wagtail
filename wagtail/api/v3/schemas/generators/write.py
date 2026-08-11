@@ -14,7 +14,8 @@ from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
+from wagtail.rich_text import features as feature_registry
 
 #: (annotation, default), or None if the field has no defined writable shape.
 InputFieldSchema = tuple[Any, Any] | None
@@ -352,6 +353,20 @@ class InputSchemaGenerator:
         return cast(type[Schema], metaclass(name, (schema,), namespace))
 
 
+class RichTextInputSchema(Schema):
+    """Envelope form of rich text input. A plain string means DB HTML."""
+
+    format: Literal["db_html"] = "db_html"
+    content: str
+
+
+def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
+    field = cast(RichTextField, field)
+    resolved_features = field.features or feature_registry.get_default_features()
+    default = FieldInfo(default="", json_schema_extra={"features": resolved_features})
+    return str | RichTextInputSchema, default
+
+
 def streamfield_schema(
     generator: InputSchemaGenerator, field: Field
 ) -> InputFieldSchema:
@@ -385,6 +400,7 @@ def foreign_key_schema(
 
 def register_default_field_schemas(generator: InputSchemaGenerator) -> None:
     """Register the default field-schema functions for ``generator``."""
+    generator.register_field_schema(RichTextField, rich_text_schema)
     generator.register_field_schema(StreamField, streamfield_schema)
     generator.register_field_schema(TaggableManager, tags_schema)
     generator.register_field_schema(ForeignObjectRel, child_relation_schema)

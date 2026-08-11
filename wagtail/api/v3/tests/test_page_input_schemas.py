@@ -229,3 +229,61 @@ class TestPatchSchemaPreservesRequiredForeignKeyAlias(TestSchemaGenerator):
             patch_json_schema["properties"]["related_thing_id"]["title"],
             "Related Thing",
         )
+
+
+class TestRichTextFieldInputSchema(TestSchemaGenerator):
+    @isolate_apps("wagtail.test.testapp", "wagtail")
+    def make_model(self, **field_kwargs):
+        from wagtail.fields import RichTextField
+
+        class RichTextModel(models.Model):
+            body = RichTextField(**field_kwargs)
+
+            api_fields = (APIField("body", writable=True),)
+
+            class Meta:
+                app_label = "tests"
+
+        return RichTextModel
+
+    def generate(self, model):
+        return self.create_generator.generate_schema(
+            model, base_class=Schema, fields=()
+        )
+
+    def test_annotation_is_str_or_envelope(self):
+        from wagtail.api.v3.schemas.generators.write import RichTextInputSchema
+
+        schema = self.generate(self.make_model())
+        annotation = schema.model_fields["body"].annotation
+        self.assertIn(str, annotation.__args__)
+        self.assertIn(RichTextInputSchema, annotation.__args__)
+
+    def test_plain_string_validates(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body="<p>x</p>")
+        self.assertEqual(instance.body, "<p>x</p>")
+
+    def test_envelope_validates(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body={"format": "db_html", "content": "<p>x</p>"})
+        self.assertEqual(instance.body.content, "<p>x</p>")
+
+    def test_unknown_format_rejected(self):
+        from pydantic import ValidationError as PydanticValidationError
+
+        schema = self.generate(self.make_model())
+        with self.assertRaises(PydanticValidationError):
+            schema(body={"format": "markdown", "content": "# Hi"})
+
+    def test_features_in_json_schema_extra(self):
+        schema = self.generate(self.make_model(features=["bold", "link"]))
+        extra = schema.model_fields["body"].json_schema_extra
+        self.assertEqual(extra, {"features": ["bold", "link"]})
+
+    def test_features_default_to_registry_defaults(self):
+        from wagtail.rich_text import features as feature_registry
+
+        schema = self.generate(self.make_model())
+        extra = schema.model_fields["body"].json_schema_extra
+        self.assertEqual(extra, {"features": feature_registry.get_default_features()})

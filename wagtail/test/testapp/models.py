@@ -2321,6 +2321,8 @@ class DefaultRichTextFieldPage(Page):
         FieldPanel("body"),
     ]
 
+    api_fields = (APIField("body", writable=True),)
+
 
 class DefaultRichBlockFieldPage(Page):
     body = StreamField(
@@ -2361,6 +2363,8 @@ class RichTextFieldWithFeaturesPage(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
+
+    api_fields = (APIField("body", writable=True),)
 
 
 # a page that only contains RichTextField within an InlinePanel,
