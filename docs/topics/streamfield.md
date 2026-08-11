@@ -449,6 +449,7 @@ Within the template, the block value is accessible as the variable `value`:
 </div>
 ```
 
+
 Since `first_name`, `surname`, `photo`, and `biography` are defined as blocks in their own right, this could also be written as:
 
 ```html+django
@@ -523,7 +524,33 @@ Like Django's `{% include %}` tag, `{% include_block %}` also allows passing add
 
 The syntax `{% include_block my_block with foo="bar" only %}` is also supported, to specify that no variables from the parent template other than `foo` will be passed to the child template.
 
+
+(streamfield_block_id_context_variable)=
+
+### Stable block identifiers
+
+As well as `value`, a block rendered as a child of a {class}`~wagtail.blocks.StreamBlock` or {class}`~wagtail.blocks.ListBlock` has its block `id` available as the template variable `id`. This is a stable identifier (stored as part of the stream or list data) that is unique within its parent, and can be used to generate unique `id` HTML attributes when the same block type appears more than once on a page. For example, for Q&A entries:
+
+```html+django
+<div class="faq" id="{{ id }}">
+    <h3>{{ value.question }}</h3>
+    {{ value.answer }}
+</div>
+```
+
+The `id` variable is only populated when the block is rendered as a stream or list child. An `id` that is already present in the render context (for example, passed explicitly through `{% include_block block with id="..." %}`) takes precedence over the block's own id.
+
+When rendering a {class}`~wagtail.blocks.ListBlock` through its default `<ul><li>` markup (for example, `{% include_block my_list_block %}`), the `id` is not passed to the child templates. To access the id of each list item, iterate over the block's `bound_blocks` and render each child through `{% include_block %}`:
+
+```html+django
+{% for child_block in my_list_block.value.bound_blocks %}
+    {% include_block child_block %}
+{% endfor %}
+```
+
 (streamfield_get_context)=
+
+### StreamField `get_context`
 
 As well as passing variables from the parent template, block subclasses can pass additional template variables of their own by overriding the `get_context` method:
 
@@ -546,6 +573,8 @@ class EventBlock(blocks.StructBlock):
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
 
 (streamfield_get_template)=
+
+### StreamField `get_template`
 
 Similarly, a `get_template` method can be defined to dynamically select a template based on the block value:
 
