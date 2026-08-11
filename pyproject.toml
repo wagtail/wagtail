@@ -139,4 +139,4 @@ version = { attr = "wagtail.__version__" }
 
 [tool.ty.src]
 # Scoped to specific modules for gradual adoption.
-include = ["wagtail/api/v3"]
+include = ["wagtail/api/v3", "wagtail/*/api/v3"]
