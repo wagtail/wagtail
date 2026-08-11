@@ -16,7 +16,7 @@ class Vector:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return f"Vector(x:{self.x} y:{self.y})"
+        return f"Vector(x: {self.x}, y: {self.y})"
 
 
 class Rect:
