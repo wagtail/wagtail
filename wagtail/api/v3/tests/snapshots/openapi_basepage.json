@@ -3416,6 +3416,39 @@
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
+      "CollectionForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/CollectionMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "CollectionForeignKeySchema",
+        "type": "object"
+      },
+      "CollectionMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "wagtailcore.Collection",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "CollectionMetaSchema",
+        "type": "object"
+      },
       "CommentableJSONPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -11407,6 +11440,128 @@
         "title": "HomePageSchema",
         "type": "object"
       },
+      "ImageCreateSchema": {
+        "properties": {
+          "collection_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Collection"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "title": "Description"
+          },
+          "focal_point_height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Height"
+          },
+          "focal_point_width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Width"
+          },
+          "focal_point_x": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point X"
+          },
+          "focal_point_y": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Y"
+          },
+          "title": {
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "ImageCreateSchema",
+        "type": "object"
+      },
+      "ImageDetailMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "download_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Download Url"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "type": {
+            "const": "wagtailimages.Image",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "ImageDetailMetaSchema",
+        "type": "object"
+      },
       "ImageForeignKeySchema": {
         "properties": {
           "id": {
@@ -11438,6 +11593,183 @@
         },
         "required": ["type"],
         "title": "ImageMetaSchema",
+        "type": "object"
+      },
+      "ImagePatchSchema": {
+        "properties": {
+          "collection_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Collection"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "title": "Description"
+          },
+          "focal_point_height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Height"
+          },
+          "focal_point_width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Width"
+          },
+          "focal_point_x": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point X"
+          },
+          "focal_point_y": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Y"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "title": "ImagePatchSchema",
+        "type": "object"
+      },
+      "ImageSchema": {
+        "properties": {
+          "collection": {
+            "$ref": "#/components/schemas/CollectionForeignKeySchema"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "focal_point_height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Height"
+          },
+          "focal_point_width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Width"
+          },
+          "focal_point_x": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point X"
+          },
+          "focal_point_y": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focal Point Y"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ImageDetailMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": ["meta", "title", "width", "height", "collection"],
+        "title": "ImageSchema",
         "type": "object"
       },
       "InlineStreamPageCreateMetaSchema": {
@@ -15456,6 +15788,24 @@
         },
         "required": ["items", "count"],
         "title": "PagedBasePageSchema",
+        "type": "object"
+      },
+      "PagedImageSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ImageSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedImageSchema",
         "type": "object"
       },
       "PagedLocaleSchema": {
@@ -25001,6 +25351,327 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v3/images/": {
+      "get": {
+        "operationId": "images_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "random",
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "default": [],
+              "title": "Order"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search_operator",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["and", "or"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Operator"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedImageSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "List images",
+        "tags": ["images"]
+      },
+      "post": {
+        "operationId": "images_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "collection_id": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Collection"
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "maxLength": 255,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": "",
+                    "title": "Description"
+                  },
+                  "file": {
+                    "format": "binary",
+                    "title": "File",
+                    "type": "string"
+                  },
+                  "focal_point_height": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Focal Point Height"
+                  },
+                  "focal_point_width": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Focal Point Width"
+                  },
+                  "focal_point_x": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Focal Point X"
+                  },
+                  "focal_point_y": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Focal Point Y"
+                  },
+                  "title": {
+                    "maxLength": 255,
+                    "title": "Title",
+                    "type": "string"
+                  }
+                },
+                "required": ["file", "title"],
+                "title": "MultiPartBodyParams",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Create image",
+        "tags": ["images"]
+      }
+    },
+    "/api/v3/images/{image_id}/": {
+      "delete": {
+        "operationId": "images_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_id",
+            "required": true,
+            "schema": {
+              "title": "Image Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Delete image",
+        "tags": ["images"]
+      },
+      "get": {
+        "operationId": "images_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_id",
+            "required": true,
+            "schema": {
+              "title": "Image Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Image detail",
+        "tags": ["images"]
+      },
+      "patch": {
+        "operationId": "images_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_id",
+            "required": true,
+            "schema": {
+              "title": "Image Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImagePatchSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Update image",
+        "tags": ["images"]
+      }
+    },
     "/api/v3/locales/": {
       "get": {
         "operationId": "locales_list",

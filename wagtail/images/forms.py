@@ -117,8 +117,17 @@ def get_image_base_form():
     return base_form
 
 
-def get_image_form(model):
-    fields = model.admin_form_fields
+def get_image_form(model, fields=None):
+    """
+    Return the configured image ModelForm class for ``model``.
+
+    If ``fields`` is omitted, use ``model.admin_form_fields``. An explicit
+    iterable limits the form to those fields, as required for partial updates.
+    The collection field is always included for permission-aware validation.
+    The configured base form and image model's tag widget are preserved.
+    """
+    if fields is None:
+        fields = model.admin_form_fields
     if "collection" not in fields:
         # force addition of the 'collection' field, because leaving it out can
         # cause dubious results when multiple collections exist (e.g adding the
