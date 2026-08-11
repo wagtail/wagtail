@@ -19992,6 +19992,10 @@
                 "type": "string"
               },
               {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
                 "type": "null"
               }
             ],
@@ -22509,6 +22513,10 @@
                 "type": "integer"
               },
               {
+                "type": "string"
+              },
+              {
+                "format": "uuid",
                 "type": "string"
               },
               {
@@ -26848,6 +26856,10 @@
                 "type": "integer"
               },
               {
+                "type": "string"
+              },
+              {
+                "format": "uuid",
                 "type": "string"
               },
               {
