@@ -8,11 +8,14 @@ from django.db.models.fields.reverse_related import ForeignObjectRel
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
+from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
+from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.schemas import BaseSchema
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
+from wagtail.rich_text import features as feature_registry
 
 FieldSchema = tuple[type, Any, Callable | None]
 FieldSchemaFunc = Callable[["SchemaGenerator", Field], FieldSchema]
@@ -325,8 +328,28 @@ def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     return list[str], [], staticmethod(resolve)
 
 
+def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
+    field = cast(RichTextField, field)
+    field_name = field.name
+    resolved_features = field.features or feature_registry.get_default_features()
+
+    def resolve(obj: Model, context: dict) -> str | None:
+        value = getattr(obj, field_name)
+        if value is None:
+            return None
+        request = context.get("request")
+        rich_text_format = APIRichText.resolve_format(
+            request.GET.get("rich_text_format") if request else None
+        )
+        return APIRichText.serialize(value, format=rich_text_format)
+
+    default = FieldInfo(default=None, json_schema_extra={"features": resolved_features})
+    return str | None, default, staticmethod(resolve)
+
+
 read_generator = SchemaGenerator()
 read_generator.register_field_schema(ForeignKey, foreign_key_schema)
 read_generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 read_generator.register_field_schema(StreamField, streamfield_schema)
 read_generator.register_field_schema(TaggableManager, tags_schema)
+read_generator.register_field_schema(RichTextField, rich_text_schema)

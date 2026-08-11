@@ -10,6 +10,7 @@ from ninja.errors import ValidationError as NinjaValidationError
 from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
+from wagtail.api.rich_text import RichTextFormatError
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.utils.forms import FormValidationError
 
@@ -156,6 +157,10 @@ def register_exception_handlers(api: NinjaAPI):
     @api.exception_handler(HttpError)
     def http_error_handler(request: HttpRequest, exc: HttpError):
         return problem_response(status=exc.status_code, detail=str(exc))
+
+    @api.exception_handler(RichTextFormatError)
+    def rich_text_format_error_handler(request: HttpRequest, exc: RichTextFormatError):
+        return problem_response(status=400, detail=str(exc))
 
     @api.exception_handler(Exception)
     def unhandled_exception_handler(request: HttpRequest, exc: Exception):

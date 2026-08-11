@@ -2714,8 +2714,29 @@
       "BlogEntryPageSchema": {
         "properties": {
           "body": {
-            "title": "Body",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
           },
           "carousel_items": {
             "default": [],
@@ -2775,7 +2796,6 @@
           "meta",
           "id",
           "title",
-          "body",
           "date"
         ],
         "title": "BlogEntryPageSchema",
@@ -3218,6 +3238,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Intro"
           },
@@ -5859,6 +5893,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Body"
           },
@@ -9344,8 +9392,29 @@
       "DefaultRichTextFieldPageSchema": {
         "properties": {
           "body": {
-            "title": "Body",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
           },
           "id": {
             "title": "Id",
@@ -9362,8 +9431,7 @@
         "required": [
           "meta",
           "id",
-          "title",
-          "body"
+          "title"
         ],
         "title": "DefaultRichTextFieldPageSchema",
         "type": "object"
@@ -10808,6 +10876,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Intro"
           },
@@ -16568,6 +16650,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Body"
           },
@@ -25094,8 +25190,20 @@
       "RichTextFieldWithFeaturesPageSchema": {
         "properties": {
           "body": {
-            "title": "Body",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "features": [
+              "quotation",
+              "embed",
+              "made-up-feature"
+            ],
+            "title": "Body"
           },
           "id": {
             "title": "Id",
@@ -25112,8 +25220,7 @@
         "required": [
           "meta",
           "id",
-          "title",
-          "body"
+          "title"
         ],
         "title": "RichTextFieldWithFeaturesPageSchema",
         "type": "object"
@@ -30572,6 +30679,20 @@
                 "type": "null"
               }
             ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
             "title": "Intro"
           },
           "meta": {
@@ -31271,6 +31392,20 @@
                 "type": "null"
               }
             ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
             "title": "Body"
           },
           "carousel_items": {
@@ -31303,6 +31438,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Intro"
           },
@@ -33831,6 +33980,20 @@
                 "type": "null"
               }
             ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
             "title": "Rich Body"
           },
           "sections": {
@@ -35508,6 +35671,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Body"
           },
@@ -37266,6 +37443,20 @@
                 "type": "null"
               }
             ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
             "title": "Biography"
           },
           "city": {
@@ -37341,6 +37532,20 @@
               {
                 "type": "null"
               }
+            ],
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
             ],
             "title": "Intro"
           },
@@ -38249,7 +38454,24 @@
       },
       "post": {
         "operationId": "pages_create",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -38843,24 +39065,6 @@
               ],
               "title": "Site"
             }
-          },
-          {
-            "in": "query",
-            "name": "version",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "enum": ["live", "draft"],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "default": "live",
-              "title": "Version"
-            }
           }
         ],
         "responses": {
@@ -39184,20 +39388,18 @@
           },
           {
             "in": "query",
-            "name": "version",
+            "name": "rich_text_format",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "enum": ["live", "draft"],
                   "type": "string"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "default": "live",
-              "title": "Version"
+              "title": "Rich Text Format"
             }
           }
         ],
@@ -39487,6 +39689,22 @@
             "schema": {
               "title": "Page Id",
               "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
             }
           }
         ],
@@ -43435,17 +43653,6 @@
             "required": true,
             "schema": {
               "title": "Pk",
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "version",
-            "required": false,
-            "schema": {
-              "default": "live",
-              "enum": ["live", "draft"],
-              "title": "Version",
               "type": "string"
             }
           }
