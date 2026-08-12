@@ -51,6 +51,8 @@ def get_documents_queryset(request: HttpRequest):
     summary="List documents",
     operation_id="documents_list",
     auth=[BearerTokenAuth(), AllowAnonymous()],
+    # Ninja extends the generated bearer requirement with this anonymous option.
+    openapi_extra={"security": [{}]},
 )
 @paginate(
     WagtailLimitOffsetPagination,
@@ -89,6 +91,8 @@ def list_documents(
     summary="Document detail",
     operation_id="documents_detail",
     auth=[BearerTokenAuth(), AllowAnonymous()],
+    # Ninja extends the generated bearer requirement with this anonymous option.
+    openapi_extra={"security": [{}]},
 )
 def get_document(request: HttpRequest, document_id: int):
     return get_object_or_404(get_documents_queryset(request), pk=document_id)

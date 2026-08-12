@@ -98,7 +98,7 @@ Documents are available at `/api/v3/documents/`. The routes are flat rather than
 
 - `GET /documents/`: list documents. Anonymous access, excluding documents whose direct collection has an unpassed view restriction. Supports `?search=`, `?order=`, and field filtering.
 - `GET /documents/{id}/`: document detail. Anonymous access, with the same direct-collection restriction behavior as the list endpoint.
-- `POST /documents/`: create a document using `multipart/form-data`. Send the binary as `file` and writable metadata such as `title` and `collection_id` as individual form fields.
+- `POST /documents/`: create a document using `multipart/form-data`. Both `file` (the binary) and `title` are required; send other writable metadata such as `collection_id` as individual form fields.
 - `PATCH /documents/{id}/`: update writable metadata as JSON. The document file cannot be replaced through this endpoint.
 - `DELETE /documents/{id}/`: delete a document.
 

@@ -35232,7 +35232,8 @@
         "security": [
           {
             "BearerTokenAuth": []
-          }
+          },
+          {}
         ],
         "summary": "List documents",
         "tags": ["documents"]
@@ -35351,7 +35352,8 @@
         "security": [
           {
             "BearerTokenAuth": []
-          }
+          },
+          {}
         ],
         "summary": "Document detail",
         "tags": ["documents"]

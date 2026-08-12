@@ -1,10 +1,14 @@
+from unittest.mock import patch
+
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from ninja import Schema
 
 from wagtail.actions import CreateAction
+from wagtail.api import APIField
 from wagtail.api.v3.schemas import create_generator, patch_generator
+from wagtail.documents.api.v3 import schemas as document_schemas
 from wagtail.documents.api.v3.form_data import build_document_form
 from wagtail.documents.forms import get_document_form
 from wagtail.models import Collection, GroupCollectionPermission
@@ -60,6 +64,37 @@ class TestV3CustomDocumentModel(WagtailTestUtils, TestCase):
         self.assertTrue(
             all(not field.is_required() for field in schema.model_fields.values())
         )
+
+    def test_document_input_schemas_ignore_writable_api_fields(self):
+        admin_form_fields = tuple(
+            field
+            for field in CustomDocument.admin_form_fields
+            if field not in {"file", "tags", "description"}
+        )
+        input_fields = [
+            field for field in admin_form_fields if field not in {"file", "tags"}
+        ]
+        writable_api_fields = (
+            APIField("file", writable=True),
+            APIField("tags", writable=True),
+            APIField("description", writable=True),
+        )
+
+        with (
+            patch.object(CustomDocument, "admin_form_fields", admin_form_fields),
+            patch.object(
+                CustomDocument, "api_fields", writable_api_fields, create=True
+            ),
+            patch.object(document_schemas, "Document", CustomDocument),
+            patch.object(document_schemas, "BASE_DOCUMENT_FIELDS", input_fields),
+        ):
+            _, create_schema, patch_schema = document_schemas.build_document_schemas()
+
+        for schema in (create_schema, patch_schema):
+            self.assertIn("fancy_description", schema.model_fields)
+            self.assertNotIn("file", schema.model_fields)
+            self.assertNotIn("tags", schema.model_fields)
+            self.assertNotIn("description", schema.model_fields)
 
     def test_document_form_binds_custom_fields(self):
         form_class = get_document_form(CustomDocument)
