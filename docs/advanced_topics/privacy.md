@@ -174,3 +174,7 @@ class VideoPage(Page):
 
     password_required_template = "video/password_required.html"
 ```
+
+## Privacy settings on page aliases
+
+If an alias is created of a page that has a privacy restriction set on it, that restriction will also apply to the alias in its new location, and any descendants of it. Privacy restrictions set on an ancestor of an aliased page do not apply to the alias; instead, the alias follows any privacy restriction rules set on its own ancestors. In this way, the alias behaves in the same way that would be seen from a page being copied to a new location (along with all privacy restrictions directly defined on it).
