@@ -178,11 +178,10 @@ def build_page_form(
         payload["slug"] = page.slug
         page._cached_parent_obj = None
 
-    payload, removals = convert_rich_text_payload(model, payload)
+    payload, _ = convert_rich_text_payload(model, payload)
     form_data = build_form_data(form_class, payload)
 
-    form = form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
-    return form, removals
+    return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
 
 
 def build_page_update_form(
@@ -216,17 +215,16 @@ def build_page_update_form(
     """
     model = type(page)
     payload = data.dict(exclude={"meta"}, exclude_unset=True)
-    payload, removals = convert_rich_text_payload(model, payload)
+    payload, _ = convert_rich_text_payload(model, payload)
     form_class = get_api_form_class(model, field_names=payload.keys())
     form_data = build_form_data(form_class, payload, instance=page)
 
-    form = form_class(
+    return form_class(
         data=form_data,
         instance=page,
         parent_page=page.get_parent(),
         for_user=user,
     )
-    return form, removals
 
 
 def build_model_form(model: type[Model], data: Any):

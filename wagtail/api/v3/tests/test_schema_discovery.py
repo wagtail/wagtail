@@ -15,7 +15,6 @@ PAGE_READ_META_SCHEMA_FIELDS = {
     "locale",
     "parent",
     "alias_of",
-    "warnings",
 }
 if not swapper.is_swapped("wagtailcore", "Page"):
     PAGE_READ_META_SCHEMA_FIELDS |= {"show_in_menus", "seo_title", "search_description"}
