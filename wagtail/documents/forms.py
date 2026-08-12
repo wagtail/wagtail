@@ -102,13 +102,17 @@ def get_document_base_form():
     return base_form
 
 
-def get_document_form(model):
-    fields = model.admin_form_fields
+def get_document_form(model, fields=None):
+    """
+    Return the configured document ModelForm class for ``model``.
+
+    If ``fields`` is omitted, use ``model.admin_form_fields``. An explicit
+    iterable limits the form to those fields for partial updates. The
+    collection field is always included for permission-aware validation.
+    """
+    if fields is None:
+        fields = model.admin_form_fields
     if "collection" not in fields:
-        # force addition of the 'collection' field, because leaving it out can
-        # cause dubious results when multiple collections exist (e.g adding the
-        # document to the root collection where the user may not have permission) -
-        # and when only one collection exists, it will get hidden anyway.
         fields = list(fields) + ["collection"]
 
     BaseForm = get_document_base_form()
