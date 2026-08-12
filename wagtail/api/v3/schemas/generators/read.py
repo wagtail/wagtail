@@ -310,13 +310,11 @@ def reverse_related_schema(generator: SchemaGenerator, field: Field) -> FieldSch
 
 
 def streamfield_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
-    field_name = field.name
+    # Lazy import: blocks_read.py imports FieldSchema/SchemaGenerator from
+    # this module, so importing it at module level here would be circular.
+    from .blocks_read import streamfield_schema as blocks_streamfield_schema
 
-    def resolve(obj: Model, context: dict) -> Any:
-        value = getattr(obj, field_name)
-        return value.stream_block.get_api_representation(value, context)
-
-    return list[Any], [], staticmethod(resolve)
+    return blocks_streamfield_schema(generator, field)
 
 
 def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
