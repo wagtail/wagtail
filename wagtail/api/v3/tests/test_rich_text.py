@@ -4,12 +4,11 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.models import Page
 from wagtail.test.testapp.models import (
     DefaultRichTextFieldPage,
     RichTextFieldWithFeaturesPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
