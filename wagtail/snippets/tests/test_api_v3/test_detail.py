@@ -2,7 +2,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.testapp.models import Advert
+from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -68,4 +68,69 @@ class TestV3SnippetDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assertIn(
             f"/api/v3/snippets/tests.Advert/{self.advert.pk}/",
             content["meta"]["detail_url"],
+        )
+
+
+class TestV3SnippetDetailVersion(TestV3Base, WagtailTestUtils, TestCase):
+    model = FullFeaturedSnippet
+
+    def get_response(self, pk, **params):
+        return self.client.get(
+            reverse(
+                "wagtailapi_v3:detail_snippet",
+                kwargs={"type": self.model._meta.label, "pk": pk},
+            ),
+            params,
+        )
+
+    def test_version_draft_returns_latest_revision_content(self):
+        snippet = FullFeaturedSnippet.objects.create(text="Published text")
+        user = self.login()
+        snippet.text = "Draft text"
+        snippet.save_revision(user=user)
+
+        response = self.get_response(snippet.pk, version="draft")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["text"], "Draft text")
+
+    def test_version_defaults_to_live(self):
+        snippet = FullFeaturedSnippet.objects.create(text="Published text")
+        user = self.login()
+        snippet.text = "Draft text"
+        snippet.save_revision(user=user)
+
+        response = self.get_response(snippet.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["text"], "Published text")
+
+    def test_version_draft_ignored_for_non_draftstate_model(self):
+        advert = Advert.objects.create(text="Advert 1", url="https://wagtail.org")
+        self.login()
+
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:detail_snippet",
+                kwargs={"type": "tests.Advert", "pk": advert.pk},
+            ),
+            {"version": "draft"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["text"], "Advert 1")
+
+    def test_version_invalid_value_gives_error(self):
+        snippet = FullFeaturedSnippet.objects.create(text="Published text")
+        self.login()
+
+        response = self.get_response(snippet.pk, version="published")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": ["query", "version"],
+                    "msg": "Input should be 'live' or 'draft'",
+                }
+            ],
         )

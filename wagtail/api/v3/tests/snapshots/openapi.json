@@ -40472,6 +40472,17 @@
               "title": "Pk",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "default": "live",
+              "enum": ["live", "draft"],
+              "title": "Version",
+              "type": "string"
+            }
           }
         ],
         "responses": {
