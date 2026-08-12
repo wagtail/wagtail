@@ -1,4 +1,5 @@
 import json
+import unittest
 
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -217,6 +218,129 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
         self.assertEqual(len(snippet.body), 1)
         self.assertEqual(snippet.body[0].block_type, "text")
         self.assertEqual(snippet.body[0].value, "hello world")
+
+    def test_create_with_various_streamfield_block_types(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        cases = [
+            (
+                "text",
+                "hello streamfield",
+                lambda value: self.assertEqual(value, "hello streamfield"),
+                lambda value: self.assertEqual(value, "hello streamfield"),
+            ),
+            (
+                "product",
+                {"name": "Widget", "price": "9.99"},
+                lambda value: (
+                    self.assertEqual(value["name"], "Widget"),
+                    self.assertEqual(value["price"], "9.99"),
+                ),
+                lambda value: self.assertEqual(
+                    value, {"name": "Widget", "price": "9.99"}
+                ),
+            ),
+            (
+                "raw_html",
+                "<div>raw</div>",
+                lambda value: self.assertEqual(str(value), "<div>raw</div>"),
+                lambda value: self.assertEqual(value, "<div>raw</div>"),
+            ),
+            (
+                "books",
+                [
+                    {"type": "title", "value": "Dune"},
+                    {"type": "author", "value": "Frank Herbert"},
+                ],
+                lambda value: (
+                    self.assertEqual(value[0].block_type, "title"),
+                    self.assertEqual(value[0].value, "Dune"),
+                    self.assertEqual(value[1].block_type, "author"),
+                    self.assertEqual(value[1].value, "Frank Herbert"),
+                ),
+                lambda value: (
+                    self.assertTrue(all(item["id"] for item in value)),
+                    self.assertEqual(
+                        [
+                            {k: v for k, v in item.items() if k != "id"}
+                            for item in value
+                        ],
+                        [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    ),
+                ),
+            ),
+            (
+                "title_list",
+                ["First", "Second", "Third"],
+                lambda value: self.assertEqual(
+                    list(value), ["First", "Second", "Third"]
+                ),
+                lambda value: self.assertEqual(value, ["First", "Second", "Third"]),
+            ),
+            (
+                "image",
+                image.pk,
+                lambda value: self.assertEqual(value.pk, image.pk),
+                lambda value: self.assertEqual(value, image.pk),
+            ),
+            (
+                "image_with_alt",
+                {
+                    "image": image.pk,
+                    "decorative": False,
+                    "alt_text": "A test image",
+                },
+                lambda value: (
+                    self.assertEqual(value.pk, image.pk),
+                    self.assertEqual(value.contextual_alt_text, "A test image"),
+                ),
+                lambda value: self.assertEqual(
+                    value,
+                    {
+                        "image": image.pk,
+                        "decorative": False,
+                        "alt_text": "A test image",
+                    },
+                ),
+            ),
+        ]
+        for block_type, input_value, assert_db_value, assert_api_value in cases:
+            with self.subTest(block_type=block_type):
+                text = f"Hello {block_type}"
+                response = self.post(
+                    {
+                        "text": text,
+                        # UUIDSnippetWithRelationsAPIForm.clean() requires
+                        # feed_image whenever body is given.
+                        "feed_image_id": image.pk,
+                        "body": [{"type": block_type, "value": input_value}],
+                    }
+                )
+                self.assertEqual(response.status_code, 201)
+
+                snippet = UUIDSnippetWithRelations.objects.get(text=text)
+                self.assertEqual(snippet.body[0].block_type, block_type)
+                assert_db_value(snippet.body[0].value)
+
+                [block] = response.json()["body"]
+                self.assertEqual(block["type"], block_type)
+                self.assertTrue(block["id"])
+                assert_api_value(block["value"])
+
+    @unittest.expectedFailure
+    def test_create_with_rich_text_block(self):
+        response = self.post(
+            {
+                "text": "Hello",
+                "body": [{"type": "rich_text", "value": "<p>hello <b>world</b></p>"}],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertEqual(snippet.body[0].block_type, "rich_text")
+        self.assertEqual(str(snippet.body[0].value), "<p>hello <b>world</b></p>")
 
     def test_create_with_invalid_streamfield_block_type_returns_422(self):
         response = self.post(

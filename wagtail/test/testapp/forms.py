@@ -53,6 +53,10 @@ class FavouriteColourForm(forms.ModelForm):
 class UUIDSnippetWithRelationsAPIForm(WagtailAdminModelForm):
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data.get("body") and not cleaned_data.get("feed_image"):
+        if (
+            "feed_image" in self.fields
+            and cleaned_data.get("body")
+            and not cleaned_data.get("feed_image")
+        ):
             self.add_error("feed_image", "This field is required when body is given.")
         return cleaned_data

@@ -1,4 +1,5 @@
 import json
+import unittest
 
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -222,6 +223,235 @@ class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
         self.assertEqual(response.status_code, 200)
         snippet.refresh_from_db()
         self.assertIsNone(snippet.feed_image_id)
+
+    def test_update_with_streamfield(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[{"type": "text", "value": "hello world"}],
+        )
+        response = self.patch(
+            snippet.pk,
+            {
+                "feed_image_id": image.pk,
+                "body": [{"type": "text", "value": "updated"}],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(snippet.body[0].value, "updated")
+
+    def test_update_without_block_id_regenerates_it(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[{"type": "text", "value": "original"}],
+        )
+        original_id = snippet.body[0].id
+        response = self.patch(
+            snippet.pk,
+            {
+                "feed_image_id": image.pk,
+                "body": [{"type": "text", "value": "updated"}],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(snippet.body[0].value, "updated")
+        self.assertNotEqual(snippet.body[0].id, original_id)
+
+    def test_update_with_block_id_preserves_it(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[{"type": "text", "value": "original"}],
+        )
+        original_id = snippet.body[0].id
+        response = self.patch(
+            snippet.pk,
+            {
+                "feed_image_id": image.pk,
+                "body": [{"type": "text", "value": "updated", "id": original_id}],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(snippet.body[0].value, "updated")
+        self.assertEqual(snippet.body[0].id, original_id)
+
+    def test_update_with_streamfield_diffing(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[
+                {"type": "text", "value": "first"},
+                {"type": "text", "value": "second"},
+                {"type": "text", "value": "third"},
+            ],
+        )
+        first_id, second_id, third_id = (block.id for block in snippet.body)
+
+        response = self.patch(
+            snippet.pk,
+            {
+                "feed_image_id": image.pk,
+                "body": [
+                    {"type": "text", "value": "third updated", "id": third_id},
+                    {"type": "text", "value": "first updated", "id": first_id},
+                    {"type": "text", "value": "new block"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(len(snippet.body), 3)
+        self.assertEqual(snippet.body[0].value, "third updated")
+        self.assertEqual(snippet.body[0].id, third_id)
+        self.assertEqual(snippet.body[1].value, "first updated")
+        self.assertEqual(snippet.body[1].id, first_id)
+        self.assertEqual(snippet.body[2].value, "new block")
+        self.assertNotIn(snippet.body[2].id, {first_id, second_id, third_id})
+
+    @unittest.expectedFailure
+    def test_update_with_rich_text_block(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[{"type": "rich_text", "value": "<p>original</p>"}],
+        )
+        response = self.patch(
+            snippet.pk,
+            {
+                "feed_image_id": image.pk,
+                "body": [{"type": "rich_text", "value": "<p>updated <b>text</b></p>"}],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        self.assertEqual(str(snippet.body[0].value), "<p>updated <b>text</b></p>")
+
+    def test_update_with_various_streamfield_block_types(self):
+        original_image = Image.objects.create(
+            title="Original image", file=get_test_image_file()
+        )
+        new_image = Image.objects.create(title="New image", file=get_test_image_file())
+        cases = [
+            (
+                "product",
+                {"name": "Original", "price": "1.00"},
+                {"name": "Widget", "price": "9.99"},
+                lambda value: (
+                    self.assertEqual(value["name"], "Widget"),
+                    self.assertEqual(value["price"], "9.99"),
+                ),
+                lambda value: self.assertEqual(
+                    value, {"name": "Widget", "price": "9.99"}
+                ),
+            ),
+            (
+                "raw_html",
+                "<div>original</div>",
+                "<div>updated</div>",
+                lambda value: self.assertEqual(str(value), "<div>updated</div>"),
+                lambda value: self.assertEqual(value, "<div>updated</div>"),
+            ),
+            (
+                "books",
+                [{"type": "title", "value": "Original"}],
+                [
+                    {"type": "title", "value": "Dune"},
+                    {"type": "author", "value": "Frank Herbert"},
+                ],
+                lambda value: (
+                    self.assertEqual(value[0].value, "Dune"),
+                    self.assertEqual(value[1].value, "Frank Herbert"),
+                ),
+                lambda value: (
+                    self.assertTrue(all(item["id"] for item in value)),
+                    self.assertEqual(
+                        [
+                            {k: v for k, v in item.items() if k != "id"}
+                            for item in value
+                        ],
+                        [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    ),
+                ),
+            ),
+            (
+                "title_list",
+                ["Original"],
+                ["First", "Second", "Third"],
+                lambda value: self.assertEqual(
+                    list(value), ["First", "Second", "Third"]
+                ),
+                lambda value: self.assertEqual(value, ["First", "Second", "Third"]),
+            ),
+            (
+                "image",
+                original_image.pk,
+                new_image.pk,
+                lambda value: self.assertEqual(value.pk, new_image.pk),
+                lambda value: self.assertEqual(value, new_image.pk),
+            ),
+            (
+                "image_with_alt",
+                {
+                    "image": original_image.pk,
+                    "decorative": False,
+                    "alt_text": "Original alt",
+                },
+                {
+                    "image": original_image.pk,
+                    "decorative": False,
+                    "alt_text": "Updated alt",
+                },
+                lambda value: self.assertEqual(
+                    value.contextual_alt_text, "Updated alt"
+                ),
+                lambda value: self.assertEqual(
+                    value,
+                    {
+                        "image": original_image.pk,
+                        "decorative": False,
+                        "alt_text": "Updated alt",
+                    },
+                ),
+            ),
+        ]
+        for (
+            block_type,
+            original_value,
+            updated_value,
+            assert_db_value,
+            assert_api_value,
+        ) in cases:
+            with self.subTest(block_type=block_type):
+                snippet = UUIDSnippetWithRelations.objects.create(
+                    text=f"Hello {block_type}",
+                    feed_image=original_image,
+                    body=[{"type": block_type, "value": original_value}],
+                )
+                response = self.patch(
+                    snippet.pk,
+                    {"body": [{"type": block_type, "value": updated_value}]},
+                )
+                self.assertEqual(response.status_code, 200)
+
+                snippet.refresh_from_db()
+                self.assertEqual(snippet.body[0].block_type, block_type)
+                assert_db_value(snippet.body[0].value)
+
+                [block] = response.json()["body"]
+                self.assertEqual(block["type"], block_type)
+                assert_api_value(block["value"])
 
     def test_update_with_child_relations_replaces_them(self):
         snippet = UUIDSnippetWithRelations.objects.create(text="Hello")

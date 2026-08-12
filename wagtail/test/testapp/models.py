@@ -1203,7 +1203,32 @@ class UUIDSnippetWithRelations(index.Indexed, ClusterableModel):
     body = StreamField(
         [
             ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
+            (
+                "product",
+                StructBlock(
+                    [
+                        ("name", CharBlock()),
+                        ("price", CharBlock()),
+                    ]
+                ),
+            ),
+            ("raw_html", RawHTMLBlock()),
+            (
+                "books",
+                StreamBlock(
+                    [
+                        ("title", CharBlock()),
+                        ("author", CharBlock()),
+                    ]
+                ),
+            ),
+            (
+                "title_list",
+                ListBlock(CharBlock()),
+            ),
+            ("image_with_alt", ImageBlock()),
         ],
         blank=True,
     )

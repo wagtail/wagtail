@@ -38,11 +38,34 @@ class Migration(migrations.Migration):
                 (
                     "body",
                     wagtail.fields.StreamField(
-                        [("text", 0), ("image", 1)],
+                        [
+                            ("text", 0),
+                            ("rich_text", 1),
+                            ("image", 2),
+                            ("product", 3),
+                            ("raw_html", 4),
+                            ("books", 5),
+                            ("title_list", 6),
+                            ("image_with_alt", 7),
+                        ],
                         blank=True,
                         block_lookup={
                             0: ("wagtail.blocks.CharBlock", (), {}),
-                            1: ("wagtail.images.blocks.ImageChooserBlock", (), {}),
+                            1: ("wagtail.blocks.RichTextBlock", (), {}),
+                            2: ("wagtail.images.blocks.ImageChooserBlock", (), {}),
+                            3: (
+                                "wagtail.blocks.StructBlock",
+                                [[("name", 0), ("price", 0)]],
+                                {},
+                            ),
+                            4: ("wagtail.blocks.RawHTMLBlock", (), {}),
+                            5: (
+                                "wagtail.blocks.StreamBlock",
+                                [[("title", 0), ("author", 0)]],
+                                {},
+                            ),
+                            6: ("wagtail.blocks.ListBlock", (0,), {}),
+                            7: ("wagtail.images.blocks.ImageBlock", [], {}),
                         },
                     ),
                 ),
