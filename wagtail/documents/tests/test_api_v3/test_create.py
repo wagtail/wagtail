@@ -118,6 +118,21 @@ class TestV3DocumentCreate(TestV3DocumentsBase):
             errors=[{"loc": ["collection"]}],
         )
 
+    def test_forbidden_collection_with_single_choice_returns_422(self):
+        user = self.create_user(username="single-limited", password="password")
+        self.grant_collection_permission(user, self.create_collection("Only allowed"))
+        forbidden = self.create_collection("Forbidden")
+        self.authorize(user)
+        response = self.post_document(
+            title="Wrong collection",
+            collection_id=forbidden.id,
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            errors=[{"loc": ["collection"]}],
+        )
+
     @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
     def test_bad_extension_returns_422(self):
         self.login()

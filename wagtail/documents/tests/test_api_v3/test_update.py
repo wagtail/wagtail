@@ -111,6 +111,21 @@ class TestV3DocumentUpdate(TestV3DocumentsBase):
             errors=[{"loc": ["collection"]}],
         )
 
+    def test_update_to_forbidden_collection_with_single_choice_returns_422(self):
+        user = self.create_user(username="single-choice-editor", password="password")
+        self.grant_permission(user, self.document.collection, "change_document")
+        forbidden = self.create_collection("Forbidden")
+        self.authorize(user)
+        response = self.patch(
+            self.document.id,
+            {"collection_id": forbidden.id},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            errors=[{"loc": ["collection"]}],
+        )
+
     def test_uploader_with_add_permission_can_edit_own_document(self):
         user = self.create_user(username="uploader", password="password")
         self.grant_permission(user, self.document.collection, "add_document")
