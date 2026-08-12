@@ -241,6 +241,7 @@ def find_page(
     id: Optional[PositiveInt] = None,
     html_path: Optional[str] = None,
     site: Optional[str] = None,
+    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
 ):
     page = None
 
@@ -279,8 +280,14 @@ def find_page(
     operation_id="pages_detail",
     auth=[BearerTokenAuth(), AllowAnonymous()],
 )
-def get_page(request: HttpRequest, page_id: int):
+def get_page(
+    request: HttpRequest,
+    page_id: int,
+    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
+):
     page = get_object_or_404(get_pages_queryset(request), pk=page_id)
+    if version == "draft" and request.user.is_authenticated:
+        return page.get_latest_revision_as_object()
     return page.specific
 
 

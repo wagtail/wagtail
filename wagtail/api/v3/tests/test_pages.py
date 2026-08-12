@@ -1111,6 +1111,61 @@ class TestV3PageDetail(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["id"], page.id)
 
+    def test_version_draft_returns_latest_revision_content_when_logged_in(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        user = self.login()
+        page.title = "Updated title"
+        page.save_revision(user=user)
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
+
+        response = self.client.get(url, {"version": "draft"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["title"], "Updated title")
+
+    def test_version_draft_falls_back_to_live_when_anonymous(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        original_title = page.title
+        user = self.login()
+        page.title = "Updated title"
+        page.save_revision(user=user)
+        self.unauthorize()
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
+
+        response = self.client.get(url, {"version": "draft"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["title"], original_title)
+
+    def test_version_defaults_to_live(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        original_title = page.title
+        user = self.login()
+        page.title = "Updated title"
+        page.save_revision(user=user)
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["title"], original_title)
+
+    def test_version_invalid_value_gives_error(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        self.login()
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
+
+        response = self.client.get(url, {"version": "published"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": ["query", "version"],
+                    "msg": "Input should be 'live' or 'draft'",
+                }
+            ],
+        )
+
 
 class TestV3PageFind(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
