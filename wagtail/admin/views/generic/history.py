@@ -163,6 +163,22 @@ class ActionColumn(Column):
                 action = {"url": url, "label": gettext("Compare with current version")}
                 actions.append(action)
 
+            if (
+                self.draftstate_enabled
+                and getattr(self.object, "live_revision_id", None)
+                and instance.revision_id != self.object.live_revision_id
+            ):
+                url = reverse(
+                    url_name,
+                    args=(
+                        quote(self.object.pk),
+                        self.object.live_revision_id,
+                        instance.revision_id,
+                    ),
+                )
+                action = {"url": url, "label": gettext("Compare with live version")}
+                actions.append(action)
+
         if (
             (url_name := self.url_names.get("revisions_unschedule"))
             and instance.revision
