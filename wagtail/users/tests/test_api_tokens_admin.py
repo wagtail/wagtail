@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import timezone
+from freezegun import freeze_time
 
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import APIToken
@@ -230,6 +231,7 @@ class TestAPITokenAdmin(TestCase):
         self.assertContains(response, "plain token")
         self.assertNotContains(response, "other token")
 
+    @freeze_time("2024-06-15 12:00:00")
     def test_filter_created_range(self):
         token, _ = APIToken.create_token(user=self.root, name="dated token")
         APIToken.objects.filter(pk=token.pk).update(
@@ -254,6 +256,7 @@ class TestAPITokenAdmin(TestCase):
         )
         self.assertNotContains(response, "dated token")
 
+    @freeze_time("2024-06-15 12:00:00")
     def test_filter_last_used_at_range(self):
         token, _ = APIToken.create_token(user=self.root, name="used token")
         used_at = timezone.now() - timezone.timedelta(days=3)
