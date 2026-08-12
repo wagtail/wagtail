@@ -1,3 +1,6 @@
+from django.urls import reverse
+
+from wagtail.api.v3.registry import registry
 from wagtail.documents import get_document_model
 from wagtail.documents.api.v3.schemas import build_document_schemas
 
@@ -7,6 +10,20 @@ Document = get_document_model()
 
 
 class TestV3DocumentSchemas(TestV3DocumentsBase):
+    def test_content_type_registered_for_schema_discovery(self):
+        registration = registry.get(Document._meta.label)
+        self.assertIsNotNone(registration)
+        self.assertEqual(
+            set(registry.get_type_schemas(Document._meta.label)),
+            {"read", "create", "patch"},
+        )
+
+    def test_schema_discovery_endpoint_lists_documents(self):
+        self.login()
+        response = self.client.get(reverse("wagtailapi_v3:list_schemas"))
+        names = [entry["name"] for entry in response.json()["types"]]
+        self.assertIn(Document._meta.label, names)
+
     def test_read_schema_shape(self):
         read_schema, _, _ = build_document_schemas()
         properties = read_schema.model_json_schema()["properties"]

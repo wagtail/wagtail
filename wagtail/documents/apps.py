@@ -28,3 +28,13 @@ class WagtailDocsAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Document)
+
+        from .api.v3.registry import register_content_types
+
+        register_content_types()
+
+        from wagtail.api.v3.api import api
+
+        from .api.v3.router import router
+
+        api.add_router("/documents/", router)
