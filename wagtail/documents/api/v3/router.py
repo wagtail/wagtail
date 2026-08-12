@@ -135,3 +135,20 @@ def update_document(
     action = action_class(form.instance, user=request.user, form=form)
     action.execute()
     return form.instance
+
+
+@router.delete(
+    "/{document_id}/",
+    response={204: None},
+    url_name="delete_document",
+    summary="Delete document",
+    operation_id="documents_delete",
+    auth=BearerTokenAuth(),
+)
+@require_any_permission(Document, ("delete",))
+def delete_document(request: HttpRequest, document_id: int):
+    document = get_object_or_404(Document, pk=document_id)
+    action_class = action_registry.get_action_class(Document, "delete")
+    action = action_class(document, user=request.user)
+    action.execute()
+    return Status(204, None)
