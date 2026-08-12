@@ -179,9 +179,20 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
         self.assertIn("<a href=", body)
         self.assertNotIn("linktype", body)
 
-    def test_invalid_format_is_400_problem_json(self):
+    def test_invalid_format_is_422_problem_json(self):
         response = self.get_detail(rich_text_format="nope")
-        self.assert_problem_response(response, status_code=400, detail_contains="nope")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": ["query", "rich_text_format"],
+                    "msg": "Input should be 'db_html' or 'html'",
+                }
+            ],
+        )
 
     def test_write_response_honours_format(self):
         # Write endpoints return the detail schema, so the format applies

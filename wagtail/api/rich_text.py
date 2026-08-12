@@ -1,10 +1,13 @@
 from collections.abc import Callable
-from typing import Any
+from typing import Any, Literal, cast
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.rich_text import expand_db_html
+
+RichTextOutputFormat = Literal["db_html", "html"]
+RichTextInputFormat = Literal["db_html"]
 
 
 class RichTextFormatError(Exception):
@@ -31,10 +34,10 @@ class APIRichText:
     Input formats are registered separately in :meth:`_input_converters`.
     """
 
-    FORMAT_DB_HTML = "db_html"
-    FORMAT_HTML = "html"
+    FORMAT_DB_HTML: Literal["db_html"] = "db_html"
+    FORMAT_HTML: Literal["html"] = "html"
 
-    DEFAULT_FORMAT = FORMAT_DB_HTML
+    DEFAULT_FORMAT: RichTextOutputFormat = FORMAT_DB_HTML
     SETTING_NAME = "WAGTAILAPI_RICH_TEXT_FORMAT"
 
     @classmethod
@@ -54,11 +57,16 @@ class APIRichText:
         )
 
     @classmethod
-    def get_default_format(cls) -> str:
-        return getattr(settings, cls.SETTING_NAME, cls.DEFAULT_FORMAT)
+    def get_default_format(cls) -> RichTextOutputFormat:
+        return cast(
+            RichTextOutputFormat,
+            getattr(settings, cls.SETTING_NAME, cls.DEFAULT_FORMAT),
+        )
 
     @classmethod
-    def resolve_format(cls, rich_text_format: str | None = None) -> str:
+    def resolve_format(
+        cls, rich_text_format: str | None = None
+    ) -> RichTextOutputFormat:
         """
         Return the rich text output format for this request.
 
@@ -69,12 +77,12 @@ class APIRichText:
         """
         if rich_text_format is not None:
             cls._validate_format(rich_text_format)
-            return rich_text_format
+            return cast(RichTextOutputFormat, rich_text_format)
 
         return cls.get_default_format()
 
     @classmethod
-    def serialize(cls, value: str | None, *, format: str) -> Any:
+    def serialize(cls, value: str | None, *, format: RichTextOutputFormat) -> Any:
         """
         Serialize ``value`` using a previously validated ``format``.
 
@@ -87,7 +95,7 @@ class APIRichText:
         return cls._serializers()[format](value)
 
     @classmethod
-    def parse_input(cls, value: str | dict) -> tuple[str, str]:
+    def parse_input(cls, value: str | dict) -> tuple[RichTextInputFormat, str]:
         """
         Normalise a rich text input value to a ``(format, content)`` pair.
 
@@ -114,7 +122,7 @@ class APIRichText:
                     f"Rich text input format must be one of {allowed}, "
                     f"got '{rich_text_format}'"
                 )
-            return rich_text_format, content
+            return cast(RichTextInputFormat, rich_text_format), content
 
         raise RichTextFormatError(
             f"Rich text input must be a string or an object, got {type(value).__name__}"
@@ -145,7 +153,7 @@ class APIRichText:
         return cls._input_converters()[rich_text_format](content, features=features)
 
     @classmethod
-    def _input_converters(cls) -> dict[str, Callable]:
+    def _input_converters(cls) -> dict[RichTextInputFormat, Callable]:
         """
         Input format converters, keyed by format name. Deliberately separate
         from ``_serializers`` — e.g. ``html`` is a valid output format but
@@ -154,7 +162,7 @@ class APIRichText:
         return {cls.FORMAT_DB_HTML: cls.sanitize_db_html}
 
     @classmethod
-    def _serializers(cls) -> dict[str, Callable[[str], Any]]:
+    def _serializers(cls) -> dict[RichTextOutputFormat, Callable[[str], Any]]:
         return {
             cls.FORMAT_DB_HTML: cls._serialize_db_html,
             cls.FORMAT_HTML: cls._serialize_html,
