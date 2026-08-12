@@ -316,8 +316,7 @@ Within a converter class, the rule definition for a given feature can be retriev
 
 ### Validating database HTML input
 
-The editor format converters above assume the input was produced by a rich text editor widget.
-For content arriving from outside the editor — API clients, content importers, copy-paste pipelines — Wagtail provides `wagtail.admin.rich_text.converters.db_html.DbHTMLConverter`, which validates HTML that is already in Wagtail's database format against a feature list:
+For HTML content coming from API clients or content importers, Wagtail provides a `DbHTMLConverter`. It validates HTML that is already in Wagtail's database format against a feature list:
 
 ```python
 from wagtail.admin.rich_text.converters.db_html import DbHTMLConverter
@@ -328,9 +327,5 @@ cleaned_html, removals = converter.clean("<h1>Title</h1><p><b>text</b></p>")
 # removals: [RichTextRemoval(tag='h1', action='unwrapped', reason='feature_disabled', ...)]
 ```
 
-Like the editor converters, it is built from the feature registry's `editorhtml` converter rules, so whitelisting matches what the editor enforces for the same feature set.
-Out-of-features elements, unknown link or embed types, and references missing their required attributes are removed, with each removal reported as a `RichTextRemoval` (`tag`, `action`, `reason`, and a short `detail` snippet of the source markup — raw input content that callers must treat as untrusted).
+Like the editor converters, it is built from the feature registry's `editorhtml` converter rules, so allowlisting matches what the editor enforces for the same feature set. Out-of-features elements, unknown link or embed types, and references missing their required attributes are removed, with each removal reported as a `RichTextRemoval` (`tag`, `action`, `reason`, and a short `detail` snippet of the source markup — raw input content that callers must treat as untrusted).
 References to missing pages, images, or documents are preserved, matching the editor's handling of broken references.
-
-For a higher-level entry point, `wagtail.api.rich_text.APIRichText` exposes the same pipeline as `APIRichText.sanitize_db_html(content, features=features)`, plus `APIRichText.convert_input(value, features=features)`, which additionally accepts a `{"format": ..., "content": ...}` envelope and dispatches to the converter registered for that format.
-The `wagtail.api.rich_text` module is importable without any HTTP machinery, and without `wagtail.admin` at import time.
