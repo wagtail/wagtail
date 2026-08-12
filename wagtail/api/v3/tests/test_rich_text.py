@@ -123,7 +123,7 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(warning["reason"], "feature_disabled")
         self.assertEqual(warning["detail"], "<h1>T</h1>")
 
-    def test_no_warnings_key_when_nothing_stripped(self):
+    def test_warnings_null_when_nothing_stripped(self):
         response = self.create_page("<p>ok</p>")
         self.assertEqual(response.status_code, 201)
         self.assertIsNone(response.json()["meta"]["warnings"])
