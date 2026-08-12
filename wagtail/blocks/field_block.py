@@ -16,6 +16,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.api.rich_text import APIRichText
 from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
@@ -784,6 +785,13 @@ class RichTextBlock(FieldBlock):
         # convert a RichText object back to a source-HTML string to go into
         # the JSONish representation
         return value.source
+
+    def get_api_representation(self, value, context=None):
+        rich_text_format = None
+        if request := (context and context.get("request")):
+            rich_text_format = request.GET.get("rich_text_format")
+        rich_text_format = APIRichText.resolve_format(rich_text_format)
+        return APIRichText.serialize(value.source, format=rich_text_format)
 
     def normalize(self, value):
         if isinstance(value, RichText):

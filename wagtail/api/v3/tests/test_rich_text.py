@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -319,18 +318,3 @@ class TestV3RichTextBlockRead(TestV3RichTextRead):
 
     def test_features_in_schema_discovery(self):
         self.skipTest("StreamField body has no per-block schema to carry features")
-
-    @unittest.expectedFailure
-    def test_html_output_expands_references(self):
-        "RichTextBlock does not respect rich_text_format query param"
-        super().test_html_output_expands_references()
-
-    @unittest.expectedFailure
-    def test_write_response_honours_format(self):
-        "RichTextBlock does not respect rich_text_format query param"
-        super().test_write_response_honours_format()
-
-    @unittest.expectedFailure
-    def test_project_wide_default_setting(self):
-        "RichTextBlock does not respect WAGTAILAPI_RICH_TEXT_FORMAT"
-        super().test_project_wide_default_setting()
