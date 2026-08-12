@@ -48,7 +48,10 @@ In both Python and templates, make sure to always use a named placeholder. In ad
 from django.utils.translation import gettext_lazy as _
 
 # Do this: printf style + named placeholders
-_("Page %(page_title)s with status %(status)s") % {"page_title": page.title, "status": page.status_string}
+_("Page %(page_title)s with status %(status)s") % {
+    "page_title": page.title,
+    "status": page.status_string,
+}
 
 # Do not use anonymous placeholders
 _("Page %s with status %s") % (page.title, page.status_string)
@@ -58,11 +61,20 @@ _("Page {} with status {}").format(page.title, page.status_string)
 _("Page {0} with status {1}").format(page.title, page.status_string)
 
 # Do not use new style
-_("Page {page_title} with status {status}").format(page_title=page.title, status=page.status_string)
+_("Page {page_title} with status {status}").format(
+    page_title=page.title, status=page.status_string
+)
 
 # Do not interpolate within the gettext call
-_("Page %(page_title)s with status %(status)s" % {"page_title": page.title, "status": page.status_string})
-_("Page {page_title} with status {status}".format(page_title=page.title, status=page.status_string))
+_(
+    "Page %(page_title)s with status %(status)s"
+    % {"page_title": page.title, "status": page.status_string}
+)
+_(
+    "Page {page_title} with status {status}".format(
+        page_title=page.title, status=page.status_string
+    )
+)
 
 # Do not use f-string
 _(f"Page {page.title} with status {page.status_string}")

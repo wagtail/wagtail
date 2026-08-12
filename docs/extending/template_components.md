@@ -43,8 +43,9 @@ The preferred way to create a component is to define a subclass of `wagtail.admi
 ```python
 from wagtail.admin.ui.components import Component
 
+
 class WelcomePanel(Component):
-    template_name = 'my_app/panels/welcome.html'
+    template_name = "my_app/panels/welcome.html"
 
 
 my_welcome_panel = WelcomePanel()
@@ -62,6 +63,7 @@ For simple cases that don't require a template, the `render_html` method can be 
 from django.utils.html import format_html
 from wagtail.admin.components import Component
 
+
 class WelcomePanel(Component):
     def render_html(self, parent_context):
         return format_html("<h1>{}</h1>", "Welcome to my app!")
@@ -74,12 +76,13 @@ The `get_context_data` method can be overridden to pass context variables to the
 ```python
 from wagtail.admin.ui.components import Component
 
+
 class WelcomePanel(Component):
-    template_name = 'my_app/panels/welcome.html'
+    template_name = "my_app/panels/welcome.html"
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        context['username'] = parent_context['request'].user.username
+        context["username"] = parent_context["request"].user.username
         return context
 ```
 
@@ -95,12 +98,10 @@ Like Django form widgets, components can specify associated JavaScript and CSS r
 
 ```python
 class WelcomePanel(Component):
-    template_name = 'my_app/panels/welcome.html'
+    template_name = "my_app/panels/welcome.html"
 
     class Media:
-        css = {
-            'all': ('my_app/css/welcome-panel.css',)
-        }
+        css = {"all": ("my_app/css/welcome-panel.css",)}
 ```
 
 (using_template_components_in_templates)=
@@ -112,14 +113,19 @@ The `wagtailadmin_tags` tag library provides a `{% component %}` tag for includi
 ```python
 from django.shortcuts import render
 
+
 def welcome_page(request):
     panels = [
         WelcomePanel(),
     ]
 
-    return render(request, 'my_app/welcome.html', {
-        'panels': panels,
-    })
+    return render(
+        request,
+        "my_app/welcome.html",
+        {
+            "panels": panels,
+        },
+    )
 ```
 
 the `my_app/welcome.html` template could render the panels as follows:
@@ -157,6 +163,7 @@ Note that it is your template's responsibility to output any media declarations 
 from django.forms import Media
 from django.shortcuts import render
 
+
 def welcome_page(request):
     panels = [
         WelcomePanel(),
@@ -166,10 +173,14 @@ def welcome_page(request):
     for panel in panels:
         media += panel.media
 
-    return render(request, 'my_app/welcome.html', {
-        'panels': panels,
-        'media': media,
-    })
+    return render(
+        request,
+        "my_app/welcome.html",
+        {
+            "panels": panels,
+            "media": media,
+        },
+    )
 ```
 
 `my_app/welcome.html`:

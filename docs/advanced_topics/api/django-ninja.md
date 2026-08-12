@@ -55,6 +55,7 @@ We will create a simple endpoint that returns a list of all pages in the site. W
 ```python
 # api.py
 
+
 class BasePageSchema(ModelSchema):
     url: str = Field(None, alias="get_url")
 
@@ -95,6 +96,7 @@ We also create a new schema for a specific page type: here, `BlogPage`, with `Ba
 ```python
 from blog.models import BlogPage
 
+
 class BlogPageSchema(BasePageSchema, ModelSchema):
     class Meta(BasePageSchema.Meta):
         model = BlogPage
@@ -119,6 +121,7 @@ Here is an example with an additional schema for our `HomePage` type:
 
 ```python
 from home.models import HomePage
+
 
 class HomePageSchema(BasePageSchema, ModelSchema):
     class Meta(BasePageSchema.Meta):
@@ -191,6 +194,7 @@ This can also be done with [Ninja resolvers](https://django-ninja.dev/guides/res
 ```python
 from wagtail.rich_text import expand_db_html
 
+
 class HomePageSchema(BasePageSchema, ModelSchema):
     content_type: Literal["homepage"]
     body: str
@@ -212,6 +216,7 @@ We use the [`get_renditions()` method](image_renditions_multiple) to retrieve th
 
 ```python
 from wagtail.images.models import AbstractRendition
+
 
 class RenditionSchema(ModelSchema):
     # We need to use the Field / alias API for properties

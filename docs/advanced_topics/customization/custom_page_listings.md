@@ -29,6 +29,8 @@ class CustomPageViewSet(PageViewSet):
 
 
 custom_page_viewset = CustomPageViewSet()
+
+
 @hooks.register("register_admin_viewset")
 def register_custom_page_viewset():
     return custom_page_viewset
@@ -82,6 +84,8 @@ class BlogPageViewSet(PageViewSet):
 
 
 blog_page_viewset = BlogPageViewSet()
+
+
 @hooks.register("register_admin_viewset")
 def register_blog_page_viewset():
     return blog_page_viewset
@@ -117,6 +121,8 @@ class BlogPageListingViewSet(PageListingViewSet):
 
 
 blog_page_listing_viewset = BlogPageListingViewSet("blog_pages")
+
+
 @hooks.register("register_admin_viewset")
 def register_blog_page_listing_viewset():
     return blog_page_listing_viewset
@@ -130,6 +136,7 @@ from wagtail.admin.ui.tables import Column
 from wagtail.admin.viewsets.pages import PageListingViewSet
 
 from myapp.models import BlogPage
+
 
 class BlogPageListingViewSet(PageListingViewSet):
     # ...

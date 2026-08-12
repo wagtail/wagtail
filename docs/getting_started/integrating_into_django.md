@@ -19,26 +19,26 @@ or add the package to your existing requirements file. This will also install th
 In your settings.py file, add the following apps to `INSTALLED_APPS`:
 
 ```python
-'wagtail.contrib.forms',
-'wagtail.contrib.redirects',
-'wagtail.embeds',
-'wagtail.sites',
-'wagtail.users',
-'wagtail.snippets',
-'wagtail.documents',
-'wagtail.images',
-'wagtail.search',
-'wagtail.admin',
-'wagtail',
+("wagtail.contrib.forms",)
+("wagtail.contrib.redirects",)
+("wagtail.embeds",)
+("wagtail.sites",)
+("wagtail.users",)
+("wagtail.snippets",)
+("wagtail.documents",)
+("wagtail.images",)
+("wagtail.search",)
+("wagtail.admin",)
+("wagtail",)
 
-'modelcluster',
-'taggit',
+("modelcluster",)
+("taggit",)
 ```
 
 Add the following entry to `MIDDLEWARE`:
 
 ```python
-'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+("wagtail.contrib.redirects.middleware.RedirectMiddleware",)
 ```
 
 Add a `STATIC_ROOT` setting, if your project doesn't have one already:
@@ -51,7 +51,7 @@ Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these al
 
 ```python
 MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 ```
 
 Set the `DATA_UPLOAD_MAX_NUMBER_FIELDS` setting to 10000 or higher. This specifies the maximum number of fields allowed in a form submission, and it is recommended to increase this from Django's default of 1000, as particularly complex page models can exceed this limit within Wagtail's page editor:
@@ -63,13 +63,13 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
 ```python
-WAGTAIL_SITE_NAME = 'My Example Site'
+WAGTAIL_SITE_NAME = "My Example Site"
 ```
 
 Add a `WAGTAILADMIN_BASE_URL` - this is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails:
 
 ```python
-WAGTAILADMIN_BASE_URL = 'https://example.com'
+WAGTAILADMIN_BASE_URL = "https://example.com"
 ```
 
 If this setting is not present, Wagtail will fall back to `request.site.root_url` or to the hostname of the request. Although this setting is not strictly required, it is highly recommended because leaving it out may produce unusable URLs in notification emails.
@@ -77,7 +77,18 @@ If this setting is not present, Wagtail will fall back to `request.site.root_url
 Add a `WAGTAILDOCS_EXTENSIONS` setting to specify the file types that Wagtail will allow to be uploaded as documents. This can be omitted to allow all file types, but this may present a security risk if untrusted users are allowed to upload documents - see [](user_uploaded_files).
 
 ```python
-WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+WAGTAILDOCS_EXTENSIONS = [
+    "csv",
+    "docx",
+    "key",
+    "odt",
+    "pdf",
+    "pptx",
+    "rtf",
+    "txt",
+    "xlsx",
+    "zip",
+]
 ```
 
 Various other settings are available to configure Wagtail's behavior - see [Settings](/reference/settings).
@@ -116,9 +127,12 @@ Finally, you need to set up your project to serve user-uploaded files from `MEDI
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
-    # ... the rest of your URLconf goes here ...
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        # ... the rest of your URLconf goes here ...
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 ```
 
 Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](<inv:django#howto/static-files/index:serving files uploaded by a user during development>) and [Deploying static files](inv:django#howto/static-files/deployment).
