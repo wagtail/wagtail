@@ -464,6 +464,11 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.9 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
+
 7.0.8 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
