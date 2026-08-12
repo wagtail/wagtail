@@ -261,9 +261,7 @@ class TestOverriddenDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTes
 
 @override_settings(
     WAGTAILADMIN_RICH_TEXT_EDITORS={
-        "default": {
-            "WIDGET": "wagtail.admin.tests.test_rich_text.TestCustomDefaultRichText"
-        },
+        "default": {"WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea"},
         "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
     }
 )
