@@ -135,17 +135,20 @@ For example, if we have a book that has a `ForeignKey` to its author, we can nes
 ```python
 from wagtail.search import index
 
+
 class Book(models.Model, index.Indexed):
     ...
 
     search_fields = [
-        index.SearchField('title'),
-        index.FilterField('published_date'),
-
-        index.RelatedFields('author', [
-            index.SearchField('name'),
-            index.FilterField('date_of_birth'),
-        ]),
+        index.SearchField("title"),
+        index.FilterField("published_date"),
+        index.RelatedFields(
+            "author",
+            [
+                index.SearchField("name"),
+                index.FilterField("date_of_birth"),
+            ],
+        ),
     ]
 ```
 
@@ -156,16 +159,19 @@ It works the other way around as well. You can index an author's books, allowing
 ```python
 from wagtail.search import index
 
+
 class Author(models.Model, index.Indexed):
     ...
 
     search_fields = [
-        index.SearchField('name'),
-        index.FilterField('date_of_birth'),
-
-        index.RelatedFields('books', [
-            index.SearchField('title'),
-        ]),
+        index.SearchField("name"),
+        index.FilterField("date_of_birth"),
+        index.RelatedFields(
+            "books",
+            [
+                index.SearchField("title"),
+            ],
+        ),
     ]
 ```
 
@@ -184,6 +190,7 @@ One use for this is indexing the `get_*_display` methods Django creates automati
 ```python
 from wagtail.search import index
 
+
 class EventPage(Page):
     IS_PRIVATE_CHOICES = (
         (False, "Public"),
@@ -194,10 +201,9 @@ class EventPage(Page):
 
     search_fields = Page.search_fields + [
         # Index the human-readable string for searching.
-        index.SearchField('get_is_private_display'),
-
+        index.SearchField("get_is_private_display"),
         # Index the boolean value for filtering.
-        index.FilterField('is_private'),
+        index.FilterField("is_private"),
     ]
 ```
 
@@ -208,11 +214,11 @@ class BookPage(Page):
     # ...
     def get_related_link_titles(self):
         # Get list of titles and concatenate them
-        return '\n'.join(self.related_links.all().values_list('name', flat=True))
+        return "\n".join(self.related_links.all().values_list("name", flat=True))
 
     search_fields = Page.search_fields + [
         # ...
-        index.SearchField('get_related_link_titles'),
+        index.SearchField("get_related_link_titles"),
     ]
 ```
 

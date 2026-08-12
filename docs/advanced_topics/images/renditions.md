@@ -8,7 +8,7 @@ and are stored as new image files in the site's `[media]/images` directory on th
 Image renditions can also be generated dynamically from Python via the native `get_rendition()` method, for example:
 
 ```python
-newimage = myimage.get_rendition('fill-300x150|jpegquality-60')
+newimage = myimage.get_rendition("fill-300x150|jpegquality-60")
 ```
 
 If `myimage` had a filename of `foo.jpg`, a new rendition of the image file called
@@ -19,7 +19,7 @@ The generated `Rendition` object will have properties specific to that version o
 `url`, `width` and `height`. Hence, something like this could be used in an API generator, for example:
 
 ```python
-url = myimage.get_rendition('fill-300x186|jpegquality-60').url
+url = myimage.get_rendition("fill-300x186|jpegquality-60").url
 ```
 
 Properties belonging to the original image from which the generated Rendition was created, such as `title`, can
@@ -41,7 +41,7 @@ See also: [](image_tag)
 You can generate multiple renditions of the same image from Python using the native `get_renditions()` method. It will accept any number of 'specification' strings or `Filter instances`, and will generate a set of matching renditions much more efficiently than generating each one individually. For example:
 
 ```python
-image.get_renditions('width-600', 'height-400', 'fill-300x186|jpegquality-60')
+image.get_renditions("width-600", "height-400", "fill-300x186|jpegquality-60")
 ```
 
 The return value is a dictionary of renditions keyed by the specifications that were provided to the method. The return value from the above example would look something like this:
@@ -127,7 +127,11 @@ The above can be modified slightly to prefetch the renditions for listing images
 
 ```python
 def get_events():
-    return EventPage.objects.live().select_related("listing_image").prefetch_related("listing_image__renditions")
+    return (
+        EventPage.objects.live()
+        .select_related("listing_image")
+        .prefetch_related("listing_image__renditions")
+    )
 ```
 
 If you know in advance the renditions you'll need, you can filter the renditions queryset to use:
@@ -143,8 +147,7 @@ def get_events():
 
     # `Prefetch` is used to fetch only the required renditions
     prefetch_images_and_renditions = Prefetch(
-        "listing_image",
-        queryset=Image.objects.prefetch_renditions(*filters)
+        "listing_image", queryset=Image.objects.prefetch_renditions(*filters)
     )
     return EventPage.objects.live().prefetch_related(prefetch_images_and_renditions)
 ```

@@ -21,6 +21,7 @@ from django.db import models
 
 from wagtail.models import AbstractPage
 
+
 class BasePage(AbstractPage):
     category = models.CharField(max_length=100, blank=True)
     review_date = models.DateField(blank=True, null=True)
@@ -55,11 +56,14 @@ and rename the created migration file to `0002_bootstrap_page_model.py`. Edit th
 ```python
 from django.db import migrations
 
-from wagtail.models import BootstrapLocaleField, BootstrapTranslatableModel, BootstrapTranslationKeyField
+from wagtail.models import (
+    BootstrapLocaleField,
+    BootstrapTranslatableModel,
+    BootstrapTranslationKeyField,
+)
 
 
 class Migration(migrations.Migration):
-
     # Keep the existing dependencies list from the auto-generated migration
     dependencies = [
         ("basepage", "0001_initial"),
@@ -109,26 +113,28 @@ The corresponding changes must also be made to the app's migration files. For ap
 In `0001_initial.py`, the `page_ptr` field should be renamed `basepage_ptr` and should point to `basepage.BasePage` instead of `wagtailcore.Page`, and `bases` should become `("basepage.basepage",)`:
 
 ```python
-migrations.CreateModel(
-    name="HomePage",
-    fields=[
-        (
-            "basepage_ptr",
-            models.OneToOneField(
-                on_delete=models.CASCADE,
-                parent_link=True,
-                auto_created=True,
-                primary_key=True,
-                serialize=False,
-                to="basepage.BasePage",
+(
+    migrations.CreateModel(
+        name="HomePage",
+        fields=[
+            (
+                "basepage_ptr",
+                models.OneToOneField(
+                    on_delete=models.CASCADE,
+                    parent_link=True,
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    to="basepage.BasePage",
+                ),
             ),
-        ),
-    ],
-    options={
-        "abstract": False,
-    },
-    bases=("basepage.basepage",),
-),
+        ],
+        options={
+            "abstract": False,
+        },
+        bases=("basepage.basepage",),
+    ),
+)
 ```
 
 In `0002_create_homepage.py`, the lookups for the `Page` model and content type should be changed to `BasePage`:

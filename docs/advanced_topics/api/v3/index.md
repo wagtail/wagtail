@@ -81,6 +81,7 @@ Renditions are exposed per-project through `api_fields`, the same mechanism as [
 ```python
 from wagtail.images.api.fields import ImageRenditionField
 
+
 class BlogPage(Page):
     ...
 

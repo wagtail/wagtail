@@ -22,8 +22,8 @@ The default conversion mapping can be changed by setting the `WAGTAILIMAGES_FORM
 
 ```python
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-    'bmp': 'png',
-    'avif': 'png',
-    'webp': 'png',
+    "bmp": "png",
+    "avif": "png",
+    "webp": "png",
 }
 ```

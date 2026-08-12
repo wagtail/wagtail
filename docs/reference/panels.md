@@ -174,12 +174,12 @@ class CustomInlinePanel(InlinePanel):
 
 
 class BlogPage(Page):
-        # .. fields
+    # .. fields
 
-        content_panels = Page.content_panels + [
-               CustomInlinePanel("blog_person_relationship"),
-              # ... other panels
-        ]
+    content_panels = Page.content_panels + [
+        CustomInlinePanel("blog_person_relationship"),
+        # ... other panels
+    ]
 ```
 
 Using JavaScript is as follows.
@@ -382,17 +382,17 @@ The `title` class can be used to make the input stand out with a bigger font siz
 The `collapsed` class will load the editor page with the panel collapsed under its heading.
 
 ```python
-    content_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('cover'),
-                FieldPanel('book_file'),
-                FieldPanel('publisher'),
-            ],
-            heading="Collection of Book Fields",
-            classname="collapsed",
-        ),
-    ]
+content_panels = [
+    MultiFieldPanel(
+        [
+            FieldPanel("cover"),
+            FieldPanel("book_file"),
+            FieldPanel("publisher"),
+        ],
+        heading="Collection of Book Fields",
+        classname="collapsed",
+    ),
+]
 ```
 
 ### Help text
@@ -407,8 +407,9 @@ For example, to customize placeholders for a `Book` snippet model:
 
 ```python
 # models.py
-from django import forms            # the default Django widgets live here
-from wagtail.admin import widgets   # to use Wagtail's special datetime widget
+from django import forms  # the default Django widgets live here
+from wagtail.admin import widgets  # to use Wagtail's special datetime widget
+
 
 class Book(models.Model):
     title = models.CharField(max_length=256)
@@ -416,22 +417,17 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
     # You can create them separately
-    title_widget = forms.TextInput(
-        attrs = {
-            'placeholder': 'Enter Full Title'
-        }
-    )
+    title_widget = forms.TextInput(attrs={"placeholder": "Enter Full Title"})
     # using the correct widget for your field type and desired effect
-    date_widget = widgets.AdminDateInput(
-        attrs = {
-            'placeholder': 'dd-mm-yyyy'
-        }
-    )
+    date_widget = widgets.AdminDateInput(attrs={"placeholder": "dd-mm-yyyy"})
 
     panels = [
-        TitleFieldPanel('title', widget=title_widget), # then add them as a variable
-        FieldPanel('release_date', widget=date_widget),
-        FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
+        TitleFieldPanel("title", widget=title_widget),  # then add them as a variable
+        FieldPanel("release_date", widget=date_widget),
+        FieldPanel(
+            "price",
+            widget=forms.NumberInput(attrs={"placeholder": "Retail price on release"}),
+        ),  # or directly inline
     ]
 ```
 
@@ -453,19 +449,19 @@ See [](permissions_overview) for details about working with permissions in Wagta
 In this example, 'notes' will be visible to all editors, 'cost' and 'details' will only be visible to those with the `submit` permission, 'budget approval' will be visible to super users only. Note that super users will have access to all fields.
 
 ```python
-    content_panels = [
-        FieldPanel("notes"),
-        MultiFieldPanel(
-            [
-                FieldPanel("cost"),
-                FieldPanel("details"),
-            ],
-            heading="Budget details",
-            classname="collapsed",
-            permission="submit"
-        ),
-        FieldPanel("budget_approval", permission="superuser"),
-    ]
+content_panels = [
+    FieldPanel("notes"),
+    MultiFieldPanel(
+        [
+            FieldPanel("cost"),
+            FieldPanel("details"),
+        ],
+        heading="Budget details",
+        classname="collapsed",
+        permission="submit",
+    ),
+    FieldPanel("budget_approval", permission="superuser"),
+]
 ```
 
 (panels_attrs)=
@@ -477,18 +473,18 @@ Use the `attrs` parameter to add custom attributes to the HTML element of the pa
 For example, you can use the `attrs` parameter to integrate your Stimulus controller into the panel:
 
 ```python
-    content_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('cover'),
-                FieldPanel('book_file'),
-                FieldPanel('publisher', attrs={'data-my-controller-target': 'myTarget'}),
-            ],
-            heading="Collection of Book Fields",
-            classname="collapsed",
-            attrs={'data-controller': 'my-controller'},
-        ),
-    ]
+content_panels = [
+    MultiFieldPanel(
+        [
+            FieldPanel("cover"),
+            FieldPanel("book_file"),
+            FieldPanel("publisher", attrs={"data-my-controller-target": "myTarget"}),
+        ],
+        heading="Collection of Book Fields",
+        classname="collapsed",
+        attrs={"data-controller": "my-controller"},
+    ),
+]
 ```
 
 (panels_api)=

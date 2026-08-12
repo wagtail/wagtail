@@ -17,6 +17,7 @@ The following example is a StructBlock that:
 from django.core.exceptions import ValidationError
 from wagtail.blocks import StructBlock, PageChooserBlock, URLBlock
 
+
 class LinkBlock(StructBlock):
     page = PageChooserBlock(required=False)
     url = URLBlock(required=False)
@@ -24,7 +25,7 @@ class LinkBlock(StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
-        if not self.is_deferred_validation and not (result['page'] or result['url']):
+        if not self.is_deferred_validation and not (result["page"] or result["url"]):
             raise ValidationError("Either page or URL must be specified")
         return result
 ```
@@ -50,6 +51,7 @@ The following example demonstrates raising a validation error attached to the 'd
 from django.core.exceptions import ValidationError
 from wagtail.blocks import CharBlock, StructBlock, StructBlockValidationError, TextBlock
 
+
 class TopicBlock(StructBlock):
     keyword = CharBlock()
     description = TextBlock()
@@ -57,9 +59,13 @@ class TopicBlock(StructBlock):
     def clean(self, value):
         result = super().clean(value)
         if result["keyword"] not in result["description"]:
-            raise StructBlockValidationError(block_errors={
-                "description": ValidationError("Description must contain the keyword")
-            })
+            raise StructBlockValidationError(
+                block_errors={
+                    "description": ValidationError(
+                        "Description must contain the keyword"
+                    )
+                }
+            )
         return result
 ```
 
@@ -68,6 +74,7 @@ ListBlock and StreamBlock also have corresponding exception classes `wagtail.blo
 ```python
 from django.core.exceptions import ValidationError
 from wagtail.blocks import ListBlock, ListBlockValidationError
+
 
 class AscendingListBlock(ListBlock):
     # example usage:
