@@ -331,7 +331,11 @@ def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     field = cast(RichTextField, field)
     field_name = field.name
-    resolved_features = field.features or feature_registry.get_default_features()
+    resolved_features = (
+        field.features
+        if field.features is not None
+        else feature_registry.get_default_features()
+    )
 
     def resolve(obj: Model, context: dict) -> str | None:
         value = getattr(obj, field_name)

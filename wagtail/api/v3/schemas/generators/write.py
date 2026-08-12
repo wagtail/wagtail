@@ -362,7 +362,11 @@ class RichTextInputSchema(Schema):
 
 def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
     field = cast(RichTextField, field)
-    resolved_features = field.features or feature_registry.get_default_features()
+    resolved_features = (
+        field.features
+        if field.features is not None
+        else feature_registry.get_default_features()
+    )
     default = FieldInfo(default="", json_schema_extra={"features": resolved_features})
     return str | RichTextInputSchema, default
 

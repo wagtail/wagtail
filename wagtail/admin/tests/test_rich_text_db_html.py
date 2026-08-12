@@ -172,6 +172,19 @@ class TestDbHTMLConverterSecurity(SimpleTestCase):
         self.assertNotIn("<script", cleaned)
         self.assertEqual([r.tag for r in removals], ["script"])
 
+    def test_unwrapped_script_body_with_markup_is_escaped(self):
+        # After a <script> is unwrapped, its body survives as a text node;
+        # safety depends on the serializer escaping it (formatter=escape in
+        # DbHtmlInputWhitelister.clean). Lock that in with a markup-bearing
+        # script body.
+        cleaned, removals = self.clean(
+            "<p>x</p><script>document.write('<img src=x onerror=alert(1)>')</script>"
+        )
+        self.assertNotIn("<script", cleaned)
+        self.assertNotIn("<img", cleaned)
+        self.assertIn("&lt;img src=x onerror=alert(1)&gt;", cleaned)
+        self.assertEqual([r.tag for r in removals], ["script"])
+
     def test_event_handler_attributes_dropped(self):
         cleaned, removals = self.clean('<p onclick="alert(1)">x</p>')
         self.assertEqual(cleaned, "<p>x</p>")
