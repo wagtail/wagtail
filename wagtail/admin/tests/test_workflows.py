@@ -3184,6 +3184,38 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "Edited Title",
         )
 
+    def test_perform_workflow_action_race_condition_does_not_crash(self):
+        """
+        https://github.com/wagtail/wagtail/issues/11235
+
+        When the workflow task disappears between workflow_action_is_valid()
+        returning True and perform_workflow_action() executing (a duplicate-POST
+        race), the view must redirect gracefully without raising AttributeError
+        or reverting the just-published page to draft.
+        """
+        workflow_state = self.object.current_workflow_state
+        # Simulate the winning request: complete the task via the model API.
+        workflow_state.current_task_state.approve(user=self.moderator)
+        self.object.refresh_from_db()
+        self.assertTrue(self.object.live)
+        self.assertIsNone(self.object.current_workflow_task)
+
+        # Simulate the losing (duplicate) request. Mock workflow_action_is_valid
+        # to return True, as it would have before the task was cleared.
+        with mock.patch(
+            "wagtail.admin.views.pages.edit.EditView.workflow_action_is_valid",
+            return_value=True,
+        ):
+            response = self.post(
+                "workflow-action",
+                {"workflow-action-name": "approve"},
+            )
+
+        self.assertEqual(response.status_code, 302)
+        # The page must remain live — not reverted to draft by a stale form.save().
+        self.object.refresh_from_db()
+        self.assertTrue(self.object.live)
+
 
 class TestApproveRejectSnippetWorkflow(
     TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
