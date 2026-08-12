@@ -112,8 +112,9 @@ def get_document_form(model, fields=None):
     """
     if fields is None:
         fields = model.admin_form_fields
+    fields = list(fields)
     if "collection" not in fields:
-        fields = list(fields) + ["collection"]
+        fields.append("collection")
 
     BaseForm = get_document_base_form()
 
