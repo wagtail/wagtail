@@ -45,6 +45,7 @@ Changelog
  * Maintenance: Enable flake8-bandit security-focused linting rules (Storm Heg)
  * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
  * Maintenance: Update guide.wagtail.org links to new versioning scheme (Raghad Dahi)
+ * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
 
 
 7.4.2 (15.06.2026)
