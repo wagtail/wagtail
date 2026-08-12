@@ -32,21 +32,51 @@ class TestOpenAPISnapshot(TestV3Base):
         )
 
         operations = {
-            paths["/api/v3/documents/"]["get"]["operationId"],
-            paths["/api/v3/documents/"]["post"]["operationId"],
-            paths["/api/v3/documents/{document_id}/"]["get"]["operationId"],
-            paths["/api/v3/documents/{document_id}/"]["patch"]["operationId"],
-            paths["/api/v3/documents/{document_id}/"]["delete"]["operationId"],
+            "GET /api/v3/documents/": paths["/api/v3/documents/"]["get"]["operationId"],
+            "POST /api/v3/documents/": paths["/api/v3/documents/"]["post"][
+                "operationId"
+            ],
+            "GET /api/v3/documents/{document_id}/": paths[
+                "/api/v3/documents/{document_id}/"
+            ]["get"]["operationId"],
+            "PATCH /api/v3/documents/{document_id}/": paths[
+                "/api/v3/documents/{document_id}/"
+            ]["patch"]["operationId"],
+            "DELETE /api/v3/documents/{document_id}/": paths[
+                "/api/v3/documents/{document_id}/"
+            ]["delete"]["operationId"],
         }
         self.assertEqual(
             operations,
             {
-                "documents_list",
-                "documents_detail",
-                "documents_create",
-                "documents_update",
-                "documents_delete",
+                "GET /api/v3/documents/": "documents_list",
+                "POST /api/v3/documents/": "documents_create",
+                "GET /api/v3/documents/{document_id}/": "documents_detail",
+                "PATCH /api/v3/documents/{document_id}/": "documents_update",
+                "DELETE /api/v3/documents/{document_id}/": "documents_delete",
             },
+        )
+
+        optional_bearer_security = [{"BearerTokenAuth": []}, {}]
+        bearer_security = [{"BearerTokenAuth": []}]
+        self.assertEqual(
+            paths["/api/v3/documents/"]["get"]["security"],
+            optional_bearer_security,
+        )
+        self.assertEqual(
+            paths["/api/v3/documents/{document_id}/"]["get"]["security"],
+            optional_bearer_security,
+        )
+        self.assertEqual(
+            paths["/api/v3/documents/"]["post"]["security"], bearer_security
+        )
+        self.assertEqual(
+            paths["/api/v3/documents/{document_id}/"]["patch"]["security"],
+            bearer_security,
+        )
+        self.assertEqual(
+            paths["/api/v3/documents/{document_id}/"]["delete"]["security"],
+            bearer_security,
         )
 
         post_content = paths["/api/v3/documents/"]["post"]["requestBody"]["content"]
