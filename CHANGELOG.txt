@@ -1,6 +1,11 @@
 Changelog
 =========
 
+7.0.9 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
+
 7.0.8 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
