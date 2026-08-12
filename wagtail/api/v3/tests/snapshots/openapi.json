@@ -36999,6 +36999,7 @@
             "schema": {
               "anyOf": [
                 {
+                  "enum": ["db_html", "html"],
                   "type": "string"
                 },
                 {
@@ -37960,6 +37961,7 @@
             "schema": {
               "anyOf": [
                 {
+                  "enum": ["db_html", "html"],
                   "type": "string"
                 },
                 {
@@ -38263,6 +38265,7 @@
             "schema": {
               "anyOf": [
                 {
+                  "enum": ["db_html", "html"],
                   "type": "string"
                 },
                 {

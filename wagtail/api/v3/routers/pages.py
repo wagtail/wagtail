@@ -18,7 +18,7 @@ from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.actions.copy_page import CopyPageIntegrityError
 from wagtail.actions.create_alias import CreatePageAliasIntegrityError
 from wagtail.actions.publish_page_revision import PublishPagePermissionError
-from wagtail.api.rich_text import APIRichText
+from wagtail.api.rich_text import APIRichText, RichTextOutputFormat
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.form_data import build_page_form, build_page_update_form
@@ -299,7 +299,7 @@ def get_page(
     request: HttpRequest,
     page_id: int,
     version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
-    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     page = get_object_or_404(get_pages_queryset(request), pk=page_id)
@@ -320,7 +320,7 @@ def get_page(
 def create_page(
     request: HttpRequest,
     data: PageCreateSchema = Body(...),  # ty: ignore[call-non-callable]
-    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
@@ -352,7 +352,7 @@ def update_page(
     request: HttpRequest,
     page_id: int,
     data: PageUpdateSchema = PageTypeInjectingBody(...),
-    rich_text_format: str | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)

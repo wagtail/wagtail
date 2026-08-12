@@ -14,6 +14,7 @@ from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
+from wagtail.api.rich_text import RichTextInputFormat
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
 
@@ -356,7 +357,7 @@ class InputSchemaGenerator:
 class RichTextInputSchema(Schema):
     """Envelope form of rich text input. A plain string means DB HTML."""
 
-    format: Literal["db_html"] = "db_html"
+    format: RichTextInputFormat = "db_html"
     content: str
 
 
