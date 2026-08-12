@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -308,18 +307,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(page.body[2].value, "new block")
         self.assertNotIn(page.body[2].id, {first_id, second_id, third_id})
 
-    @unittest.expectedFailure
     def test_update_page_with_rich_text_block(self):
-        """
-        RichTextBlock isn't yet run through APIRichText.convert_input like a
-        top-level RichTextField is (see convert_rich_text_payload). Its form
-        widget is Draftail, which expects a contentstate JSON string, not
-        source HTML - so posting the plain HTML string that every other rich
-        text input on this API accepts currently crashes the request with a
-        JSONDecodeError instead of saving the block or returning a 200.
-        Marked as an expected failure until RichTextBlock values are run
-        through the same conversion as RichTextField.
-        """
         page = self.root_page.add_child(
             instance=StreamPage(
                 title="Stream page",
@@ -338,7 +326,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page.refresh_from_db()
         self.assertEqual(page.body[0].block_type, "rich_text")
-        self.assertEqual(str(page.body[0].value), "<p>updated <b>text</b></p>")
+        self.assertIn("updated <b>text</b>", str(page.body[0].value))
 
     def test_update_page_with_various_block_types(self):
         original_image = Image.objects.create(

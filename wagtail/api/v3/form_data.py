@@ -17,6 +17,7 @@ from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator
 from wagtail.blocks.base import BlockField
+from wagtail.blocks.field_block import RichTextBlock
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
@@ -297,6 +298,10 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
         value = value or {}
         for name, child_block in block.child_blocks.items():
             flatten_block_value(child_block, value.get(name), f"{prefix}-{name}", data)
+    elif isinstance(block, RichTextBlock):
+        if value is not None:
+            value, _ = APIRichText.convert_input(value, features=block.features)
+        data[prefix] = block.field.widget.format_value(value)
     else:
         # A leaf field block (CharBlock, BooleanBlock, ChooserBlock, ...):
         # its own form field's widget reads a single key via plain `.get()`,

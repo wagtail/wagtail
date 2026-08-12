@@ -5324,6 +5324,12 @@
       },
       "CustomRichBlockFieldPageCreateSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "meta": {
             "$ref": "#/components/schemas/CustomRichBlockFieldPageCreateMetaSchema"
           },
@@ -5465,6 +5471,12 @@
       },
       "CustomRichBlockFieldPagePatchSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "meta": {
             "anyOf": [
               {
@@ -5507,6 +5519,12 @@
       },
       "CustomRichBlockFieldPageSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -6011,6 +6029,12 @@
       },
       "DefaultRichBlockFieldPageCreateSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "meta": {
             "$ref": "#/components/schemas/DefaultRichBlockFieldPageCreateMetaSchema"
           },
@@ -6152,6 +6176,12 @@
       },
       "DefaultRichBlockFieldPagePatchSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "meta": {
             "anyOf": [
               {
@@ -6194,6 +6224,12 @@
       },
       "DefaultRichBlockFieldPageSchema": {
         "properties": {
+          "body": {
+            "default": [],
+            "items": {},
+            "title": "Body",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"

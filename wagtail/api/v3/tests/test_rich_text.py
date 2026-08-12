@@ -1,10 +1,13 @@
 import json
+import unittest
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.test.testapp.models import (
+    CustomRichBlockFieldPage,
+    DefaultRichBlockFieldPage,
     DefaultRichTextFieldPage,
     RichTextFieldWithFeaturesPage,
 )
@@ -12,10 +15,14 @@ from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
+    model = DefaultRichTextFieldPage
+    unknown_format_status = 422
+
     def setUp(self):
         super().setUp()
         self.root_page = Page.objects.get(depth=1)
         self.user = self.login()
+        self.type_name = self.model._meta.label
 
     def post(self, data):
         return self.client.post(
@@ -24,46 +31,57 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
             content_type="application/json",
         )
 
-    def create_page(self, body, model="tests.DefaultRichTextFieldPage", title="Rich"):
+    def build_body(self, value):
+        return value
+
+    def body_value(self, page):
+        return page.body
+
+    def create_page(self, value, model=None, title="Rich"):
         return self.post(
             {
-                "meta": {"parent_id": self.root_page.pk, "type": model},
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": model or self.type_name,
+                },
                 "title": title,
                 "slug": "rich",
-                "body": body,
+                "body": self.build_body(value),
             }
         )
 
     def test_plain_string_stored_sanitised(self):
         response = self.create_page("<p><b>x</b></p><script>alert(1)</script>")
         self.assertEqual(response.status_code, 201)
-        page = DefaultRichTextFieldPage.objects.get(slug="rich")
-        self.assertNotIn("<script", page.body)
-        self.assertIn("<b>x</b>", page.body)
+        page = self.model.objects.get(slug="rich")
+        value = self.body_value(page)
+        self.assertNotIn("<script", value)
+        self.assertIn("<b>x</b>", value)
 
     def test_envelope_stored_sanitised(self):
         response = self.create_page(
             {"format": "db_html", "content": "<p>hi <script>alert(1)</script></p>"}
         )
         self.assertEqual(response.status_code, 201)
-        page = DefaultRichTextFieldPage.objects.get(slug="rich")
-        self.assertNotIn("<script", page.body)
+        page = self.model.objects.get(slug="rich")
+        self.assertNotIn("<script", self.body_value(page))
 
     def test_entity_references_survive(self):
         response = self.create_page('<p><a linktype="page" id="2">home</a></p>')
         self.assertEqual(response.status_code, 201)
-        page = DefaultRichTextFieldPage.objects.get(slug="rich")
-        self.assertIn('linktype="page"', page.body)
-        self.assertIn('id="2"', page.body)
+        page = self.model.objects.get(slug="rich")
+        value = self.body_value(page)
+        self.assertIn('linktype="page"', value)
+        self.assertIn('id="2"', value)
 
-    def test_unknown_format_rejected_with_422(self):
+    def test_unknown_format_rejected(self):
         response = self.create_page({"format": "markdown", "content": "# Hi"})
-        self.assert_problem_response(response, status_code=422)
+        self.assert_problem_response(response, status_code=self.unknown_format_status)
 
-    def create_page_without_body(self, action=None):
+    def create_page_without_body(self, action=None, **data):
         meta = {
             "parent_id": self.root_page.pk,
-            "type": "tests.DefaultRichTextFieldPage",
+            "type": self.type_name,
         }
         if action:
             meta["action"] = action
@@ -72,6 +90,7 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
                 "meta": meta,
                 "title": "No body",
                 "slug": "no-body",
+                **data,
             }
         )
 
@@ -83,8 +102,11 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         # paragraph, so what gets stored is not "".
         response = self.create_page_without_body()
         self.assertEqual(response.status_code, 201)
-        page = DefaultRichTextFieldPage.objects.get(slug="no-body")
-        self.assertRegex(page.body, r"^<p data-block-key=\"[a-z0-9]+\"></p>$")
+        page = self.model.objects.get(slug="no-body")
+        self.assertRegex(
+            self.body_value(page),
+            r"^<p data-block-key=\"[a-z0-9]+\"></p>$",
+        )
 
     def test_omitted_required_body_allowed_on_publish(self):
         # Publish runs full form validation, but the widget round-trip's
@@ -94,7 +116,7 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         # strictness; see the plan's Task 3 ruling.)
         response = self.create_page_without_body(action="publish")
         self.assertEqual(response.status_code, 201)
-        page = DefaultRichTextFieldPage.objects.get(slug="no-body")
+        page = self.model.objects.get(slug="no-body")
         self.assertTrue(page.live)
 
     def test_feature_restricted_field_strips_out_of_features(self):
@@ -111,21 +133,97 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         self.assertNotIn("<b>", page.body)
 
 
+class TestV3RichTextBlockWrite(TestV3RichTextWrite):
+    """RichTextBlock counterpart of TestV3RichTextWrite."""
+
+    model = DefaultRichBlockFieldPage
+    type_name = "tests.DefaultRichBlockFieldPage"
+    unknown_format_status = 400
+
+    def build_body(self, value):
+        return [{"type": "rich_text", "value": value}]
+
+    def body_value(self, page):
+        return page.body[0].value.source
+
+    def create_page_without_body(self, action=None, **data):
+        # Rather than an empty StreamField body, add a single rich_text block
+        # with an empty value for testing empty input.
+        return super().create_page_without_body(
+            action,
+            body=[{"type": "rich_text", "value": ""}],
+        )
+
+    def create_page_with_block(self, block_type, value, model, title):
+        return self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": model},
+                "title": title,
+                "slug": "rich",
+                "body": [{"type": block_type, "value": value}],
+            }
+        )
+
+    def test_feature_restricted_field_strips_out_of_features(self):
+        # CustomRichBlockFieldPage.rich_text_limited block: features=
+        # ["quotation", "embed"] - bold/h2 are not enabled.
+        response = self.create_page_with_block(
+            "rich_text_limited",
+            "<h2>T</h2><p><b>x</b></p>",
+            model="tests.CustomRichBlockFieldPage",
+            title="Restricted",
+        )
+        self.assertEqual(response.status_code, 201)
+        page = CustomRichBlockFieldPage.objects.get(slug="rich")
+        value = page.body[0].value.source
+        self.assertNotIn("<h2>", value)
+        self.assertNotIn("<b>", value)
+
+    def test_unrestricted_block_on_same_page_keeps_its_own_features(self):
+        # The plain "rich_text" block on CustomRichBlockFieldPage has no
+        # features restriction, unlike its sibling "rich_text_limited" block.
+        response = self.create_page_with_block(
+            "rich_text",
+            "<h2>T</h2><p><b>x</b></p>",
+            model="tests.CustomRichBlockFieldPage",
+            title="Unrestricted",
+        )
+        self.assertEqual(response.status_code, 201)
+        page = CustomRichBlockFieldPage.objects.get(slug="rich")
+        value = page.body[0].value.source
+        self.assertIn("<h2>", value)
+        self.assertIn("<b>", value)
+
+
 class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
+    model = DefaultRichTextFieldPage
+    type_name = "tests.DefaultRichTextFieldPage"
+
     def setUp(self):
         super().setUp()
         self.root_page = Page.objects.get(depth=1)
         self.user = self.login()
         self.home_page = Page.objects.get(depth=2)
-        self.page = DefaultRichTextFieldPage(
+        self.page = self.model(
             title="Rich",
             slug="rich",
-            body=f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
+            body=self.build_body(
+                f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>'
+            ),
         )
         # The detail endpoint serves the public queryset: live pages under
         # the default site's root (the depth-2 home page).
         self.home_page.add_child(instance=self.page)
         self.page.save_revision().publish()
+
+    def build_body(self, html):
+        """The api_fields "body" payload/model value for a given rich text
+        HTML string - a plain string for RichTextField."""
+        return html
+
+    def body_value(self, response):
+        """Extract the rich text HTML from a response's "body" value."""
+        return response.json()["body"]
 
     def get_detail(self, **params):
         return self.client.get(
@@ -137,14 +235,14 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
         response = self.get_detail()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.json()["body"],
+            self.body_value(response),
             f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
         )
 
     def test_html_output_expands_references(self):
         response = self.get_detail(rich_text_format="html")
         self.assertEqual(response.status_code, 200)
-        body = response.json()["body"]
+        body = self.body_value(response)
         self.assertIn("<a href=", body)
         self.assertNotIn("linktype", body)
 
@@ -173,28 +271,30 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "meta": {
                         "parent_id": self.root_page.pk,
-                        "type": "tests.DefaultRichTextFieldPage",
+                        "type": self.type_name,
                     },
                     "title": "Rich html",
                     "slug": "rich-html",
-                    "body": f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>',
+                    "body": self.build_body(
+                        f'<p><a linktype="page" id="{self.home_page.pk}">home</a></p>'
+                    ),
                 }
             ),
             content_type="application/json",
         )
         self.assertEqual(response.status_code, 201)
-        self.assertIn("<a href=", response.json()["body"])
+        self.assertIn("<a href=", self.body_value(response))
 
     @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html")
     def test_project_wide_default_setting(self):
         response = self.get_detail()
-        self.assertIn("<a href=", response.json()["body"])
+        self.assertIn("<a href=", self.body_value(response))
 
     def test_features_in_schema_discovery(self):
         response = self.client.get(
             reverse(
                 "wagtailapi_v3:get_schema_for_type",
-                kwargs={"type_name": "tests.DefaultRichTextFieldPage"},
+                kwargs={"type_name": self.type_name},
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -202,3 +302,35 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
         body_schema = read_schema["properties"]["body"]
         self.assertIn("features", body_schema)
         self.assertIn("bold", body_schema["features"])
+
+
+class TestV3RichTextBlockRead(TestV3RichTextRead):
+    """RichTextBlock counterpart of TestV3RichTextRead."""
+
+    model = DefaultRichBlockFieldPage
+    type_name = "tests.DefaultRichBlockFieldPage"
+
+    def build_body(self, html):
+        return [{"type": "rich_text", "value": html}]
+
+    def body_value(self, response):
+        [block] = response.json()["body"]
+        return block["value"]
+
+    def test_features_in_schema_discovery(self):
+        self.skipTest("StreamField body has no per-block schema to carry features")
+
+    @unittest.expectedFailure
+    def test_html_output_expands_references(self):
+        "RichTextBlock does not respect rich_text_format query param"
+        super().test_html_output_expands_references()
+
+    @unittest.expectedFailure
+    def test_write_response_honours_format(self):
+        "RichTextBlock does not respect rich_text_format query param"
+        super().test_write_response_honours_format()
+
+    @unittest.expectedFailure
+    def test_project_wide_default_setting(self):
+        "RichTextBlock does not respect WAGTAILAPI_RICH_TEXT_FORMAT"
+        super().test_project_wide_default_setting()

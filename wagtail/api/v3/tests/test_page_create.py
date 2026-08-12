@@ -1,5 +1,4 @@
 import json
-import unittest
 
 import swapper
 from django.contrib.auth.models import Group, Permission
@@ -617,18 +616,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             [{"message": "body: unrecognised block type 'not_a_real_block'"}],
         )
 
-    @unittest.expectedFailure
     def test_create_streamfield_page_with_rich_text_block(self):
-        """
-        RichTextBlock isn't yet run through APIRichText.convert_input like a
-        top-level RichTextField is (see convert_rich_text_payload). Its form
-        widget is Draftail, which expects a contentstate JSON string, not
-        source HTML - so posting the plain HTML string that every other
-        rich text input on this API accepts currently crashes the request
-        with a JSONDecodeError instead of saving the block or returning a
-        422. Marked as an expected failure until RichTextBlock values are
-        run through the same conversion as RichTextField.
-        """
         response = self.post(
             {
                 "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
@@ -640,7 +628,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 201)
         page = StreamPage.objects.get(slug="stream-page-rich-text")
         self.assertEqual(page.body[0].block_type, "rich_text")
-        self.assertEqual(str(page.body[0].value), "<p>hello <b>world</b></p>")
+        self.assertIn("hello <b>world</b>", str(page.body[0].value))
 
     def test_create_streamfield_page_with_various_block_types(self):
         image = Image.objects.create(title="Test image", file=get_test_image_file())
@@ -789,12 +777,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(block["type"], "image")
         self.assertEqual(block["value"], {"id": image.pk, "title": image.title})
 
-    @unittest.expectedFailure
     def test_create_streamfield_page_with_multiple_blocks(self):
-        """
-        Includes a rich_text block, which currently crashes the request -
-        see test_create_streamfield_page_with_rich_text_block.
-        """
         image = Image.objects.create(title="Test image", file=get_test_image_file())
         response = self.post(
             {

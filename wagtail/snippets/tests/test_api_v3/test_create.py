@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.contrib.auth.models import Permission
 from django.test import TestCase
@@ -329,18 +328,19 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
                 self.assertTrue(block["id"])
                 assert_api_value(block["value"])
 
-    @unittest.expectedFailure
     def test_create_with_rich_text_block(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         response = self.post(
             {
                 "text": "Hello",
+                "feed_image_id": image.pk,
                 "body": [{"type": "rich_text", "value": "<p>hello <b>world</b></p>"}],
             }
         )
         self.assertEqual(response.status_code, 201)
         snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
         self.assertEqual(snippet.body[0].block_type, "rich_text")
-        self.assertEqual(str(snippet.body[0].value), "<p>hello <b>world</b></p>")
+        self.assertIn("hello <b>world</b>", str(snippet.body[0].value))
 
     def test_create_with_invalid_streamfield_block_type_returns_422(self):
         response = self.post(

@@ -2360,6 +2360,8 @@ class DefaultRichBlockFieldPage(Page):
 
     content_panels = Page.content_panels + [FieldPanel("body")]
 
+    api_fields = (APIField("body", writable=True),)
+
 
 class CustomRichTextFieldPage(Page):
     body = RichTextField(editor="custom")
@@ -2374,6 +2376,10 @@ class CustomRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock(editor="custom")),
+            (
+                "rich_text_limited",
+                RichTextBlock(features=["quotation", "embed"]),
+            ),
         ],
     )
 
@@ -2381,6 +2387,8 @@ class CustomRichBlockFieldPage(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
+
+    api_fields = (APIField("body", writable=True),)
 
 
 class RichTextFieldWithFeaturesPage(Page):
