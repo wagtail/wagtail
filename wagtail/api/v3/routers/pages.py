@@ -57,20 +57,6 @@ class PageRevisionDetailSchema(RevisionDetailSchema):
     content_object: PageDetailSchema
 
 
-def _attach_rich_text_warnings(request: HttpRequest, removals) -> None:
-    if removals:
-        request._rich_text_warnings = [  # ty: ignore[unresolved-attribute]
-            {
-                "field": field_name,
-                "tag": removal.tag,
-                "action": removal.action,
-                "reason": removal.reason,
-                "detail": removal.detail,
-            }
-            for field_name, removal in removals
-        ]
-
-
 IntPKFilter: TypeAlias = PositiveInt
 RootRelativeFilter: TypeAlias = IntPKFilter | Literal["root"]
 
@@ -325,7 +311,7 @@ def create_page(
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
     parent = get_object_or_404(Page, id=data.meta.parent_id).specific
-    form, removals = build_page_form(model, parent, data, request.user)
+    form = build_page_form(model, parent, data, request.user)
     action_class = action_registry.get_action_class(model, "create")
     action = action_class(
         form.instance,
@@ -335,7 +321,6 @@ def create_page(
         publish=data.meta.action == "publish",
     )
     action.execute()
-    _attach_rich_text_warnings(request, removals)
     return Status(201, form.instance)
 
 
@@ -357,7 +342,7 @@ def update_page(
     APIRichText.resolve_format(rich_text_format)
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
-    form, removals = build_page_update_form(page, data, request.user)
+    form = build_page_update_form(page, data, request.user)
     action_class = action_registry.get_action_class(model, "edit")
     action = action_class(
         form.instance,
@@ -366,7 +351,6 @@ def update_page(
         publish=data.meta.action == "publish",
     )
     action.execute()
-    _attach_rich_text_warnings(request, removals)
     return form.instance
 
 

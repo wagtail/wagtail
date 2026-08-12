@@ -1058,7 +1058,6 @@ class TestV3PageDetail(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase
                 "locale",
                 "parent",
                 "alias_of",
-                "warnings",
             }
             | extra_meta,
         )

@@ -111,36 +111,6 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         self.assertNotIn("<h2>", page.body)
         self.assertNotIn("<b>", page.body)
 
-    def test_warnings_itemise_stripped_content(self):
-        response = self.create_page("<h1>T</h1><p>ok</p>")
-        self.assertEqual(response.status_code, 201)
-        warnings = response.json()["meta"]["warnings"]
-        self.assertEqual(len(warnings), 1)
-        warning = warnings[0]
-        self.assertEqual(warning["field"], "body")
-        self.assertEqual(warning["tag"], "h1")
-        self.assertEqual(warning["action"], "unwrapped")
-        self.assertEqual(warning["reason"], "feature_disabled")
-        self.assertEqual(warning["detail"], "<h1>T</h1>")
-
-    def test_warnings_null_when_nothing_stripped(self):
-        response = self.create_page("<p>ok</p>")
-        self.assertEqual(response.status_code, 201)
-        self.assertIsNone(response.json()["meta"]["warnings"])
-
-    def test_patch_reports_warnings(self):
-        page = DefaultRichTextFieldPage(title="Rich", slug="rich", body="<p>old</p>")
-        self.root_page.add_child(instance=page)
-        response = self.client.patch(
-            reverse("wagtailapi_v3:update_page", kwargs={"page_id": page.pk}),
-            data=json.dumps({"body": "<h1>T</h1><p>new</p>"}),
-            content_type="application/json",
-        )
-        self.assertEqual(response.status_code, 200)
-        warnings = response.json()["meta"]["warnings"]
-        self.assertEqual(len(warnings), 1)
-        self.assertEqual(warnings[0]["field"], "body")
-
 
 class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
     def setUp(self):
