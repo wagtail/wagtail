@@ -152,9 +152,18 @@ def list_snippets(
     operation_id="snippets_detail",
 )
 @require_any_permission(get_model_from_params, ("add", "change", "delete", "view"))
-def get_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
+def get_snippet(
+    request: HttpRequest,
+    type: SnippetTypeLiteral,
+    pk: str,
+    version: Literal["live", "draft"] = Query("live"),  # ty: ignore[call-non-callable]
+):
     model = resolve_model_string(type)
-    return get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=pk)
+    # The router requires authentication, so draft reads are always allowed
+    if version == "draft" and issubclass(model, DraftStateMixin):
+        return instance.get_latest_revision_as_object()
+    return instance
 
 
 @router.post(
