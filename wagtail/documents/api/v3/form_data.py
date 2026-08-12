@@ -1,13 +1,29 @@
-from typing import Any
+from copy import deepcopy
+from typing import Any, cast
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Model
-from django.forms import ModelForm
+from django.forms import ModelChoiceField, ModelForm
 from ninja import UploadedFile
 
 from wagtail.api.v3.form_data import build_form_data
 from wagtail.documents.forms import get_document_form
+
+
+def _restore_submitted_collection_field(
+    form: ModelForm,
+    payload: dict[str, Any],
+) -> ModelForm:
+    """Restore validation when the admin form hides its sole collection choice."""
+    if "collection" in payload and "collection" not in form.fields:
+        collection_field = cast(
+            ModelChoiceField,
+            deepcopy(form.base_fields["collection"]),
+        )
+        collection_field.queryset = getattr(form, "collections")
+        form.fields["collection"] = collection_field
+    return form
 
 
 def build_document_form(
@@ -20,12 +36,14 @@ def build_document_form(
     payload = data.model_dump()
     form_data = build_form_data(form_class, payload)
     instance = model(uploaded_by_user=user)
-    return form_class(
+    form = form_class(
         data=form_data,
         files={"file": file},
         instance=instance,
         user=user,
     )
+    submitted_payload = data.model_dump(exclude_unset=True)
+    return _restore_submitted_collection_field(form, submitted_payload)
 
 
 def build_document_update_form(
@@ -40,4 +58,5 @@ def build_document_update_form(
     if "collection" not in payload and "collection" in form_class.base_fields:
         # Django adds ``<foreign_key>_id`` attributes dynamically.
         form_data["collection"] = instance.collection_id  # ty: ignore[unresolved-attribute]
-    return form_class(data=form_data, instance=instance, user=user)
+    form = form_class(data=form_data, instance=instance, user=user)
+    return _restore_submitted_collection_field(form, payload)
