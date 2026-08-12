@@ -2,7 +2,7 @@ from typing import cast
 
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from ninja import File, Form, Query, Router, Status, UploadedFile
+from ninja import Body, File, Form, Query, Router, Status, UploadedFile
 from ninja.pagination import paginate
 from pydantic import BaseModel
 
@@ -19,13 +19,14 @@ from wagtail.api.v3.schemas.params import (
 from wagtail.documents import get_document_model
 from wagtail.models import CollectionViewRestriction
 
-from .form_data import build_document_form
+from .form_data import build_document_form, build_document_update_form
 
 router = Router(tags=["documents"])
 Document = get_document_model()
 registered_schemas = cast(ContentTypeRegistration, registry.get(Document._meta.label))
 DocumentDetailSchema = cast(type[BaseModel], registered_schemas.read_schema)
 DocumentCreateSchema = cast(type[BaseModel], registered_schemas.create_schema)
+DocumentPatchSchema = cast(type[BaseModel], registered_schemas.patch_schema)
 BASE_DOCUMENT_READ_FIELDS = ["id", "title"]
 
 
@@ -112,3 +113,25 @@ def create_document(
     action = action_class(form.instance, user=request.user, form=form)
     action.execute()
     return Status(201, form.instance)
+
+
+@router.patch(
+    "/{document_id}/",
+    response=DocumentDetailSchema,
+    url_name="update_document",
+    summary="Update document",
+    operation_id="documents_update",
+    auth=BearerTokenAuth(),
+)
+@require_any_permission(Document, ("change",))
+def update_document(
+    request: HttpRequest,
+    document_id: int,
+    data: DocumentPatchSchema = Body(...),  # ty: ignore[call-non-callable, invalid-type-form]
+):
+    document = get_object_or_404(Document, pk=document_id)
+    form = build_document_update_form(document, data, request.user)
+    action_class = action_registry.get_action_class(Document, "edit")
+    action = action_class(form.instance, user=request.user, form=form)
+    action.execute()
+    return form.instance
