@@ -195,7 +195,7 @@ The inspect view is disabled by default, as it's not often useful for most model
 
 When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular instance.
 
-By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customize what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. This is independent of any `panels` or `edit_handler` definition set up for the create and edit views. You can customize what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
 
 (modelviewset_templates)=
 
