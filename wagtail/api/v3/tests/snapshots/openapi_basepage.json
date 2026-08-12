@@ -6781,6 +6781,71 @@
         "title": "DefaultStreamPageSchema",
         "type": "object"
       },
+      "DocumentCreateSchema": {
+        "properties": {
+          "collection_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Collection"
+          },
+          "title": {
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "DocumentCreateSchema",
+        "type": "object"
+      },
+      "DocumentDetailMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "download_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Download Url"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "type": {
+            "const": "wagtaildocs.Document",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "DocumentDetailMetaSchema",
+        "type": "object"
+      },
       "DocumentForeignKeySchema": {
         "properties": {
           "id": {
@@ -6812,6 +6877,63 @@
         },
         "required": ["type"],
         "title": "DocumentMetaSchema",
+        "type": "object"
+      },
+      "DocumentPatchSchema": {
+        "properties": {
+          "collection_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Collection"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "title": "DocumentPatchSchema",
+        "type": "object"
+      },
+      "DocumentSchema": {
+        "properties": {
+          "collection": {
+            "$ref": "#/components/schemas/CollectionForeignKeySchema"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DocumentDetailMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "title", "collection"],
+        "title": "DocumentSchema",
         "type": "object"
       },
       "EarlyPageCreateMetaSchema": {
@@ -16045,6 +16167,24 @@
         },
         "required": ["items", "count"],
         "title": "PagedBasePageSchema",
+        "type": "object"
+      },
+      "PagedDocumentSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedDocumentSchema",
         "type": "object"
       },
       "PagedImageSchema": {
@@ -25822,6 +25962,270 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v3/documents/": {
+      "get": {
+        "operationId": "documents_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "random",
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "default": [],
+              "title": "Order"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search_operator",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["and", "or"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Operator"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedDocumentSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "List documents",
+        "tags": ["documents"]
+      },
+      "post": {
+        "operationId": "documents_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "collection_id": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Collection"
+                  },
+                  "file": {
+                    "format": "binary",
+                    "title": "File",
+                    "type": "string"
+                  },
+                  "title": {
+                    "maxLength": 255,
+                    "title": "Title",
+                    "type": "string"
+                  }
+                },
+                "required": ["file", "title"],
+                "title": "MultiPartBodyParams",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Create document",
+        "tags": ["documents"]
+      }
+    },
+    "/api/v3/documents/{document_id}/": {
+      "delete": {
+        "operationId": "documents_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Delete document",
+        "tags": ["documents"]
+      },
+      "get": {
+        "operationId": "documents_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Document detail",
+        "tags": ["documents"]
+      },
+      "patch": {
+        "operationId": "documents_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentPatchSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Update document",
+        "tags": ["documents"]
+      }
+    },
     "/api/v3/images/": {
       "get": {
         "operationId": "images_list",
