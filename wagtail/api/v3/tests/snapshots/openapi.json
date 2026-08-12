@@ -35937,6 +35937,24 @@
               ],
               "title": "Site"
             }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["live", "draft"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "live",
+              "title": "Version"
+            }
           }
         ],
         "responses": {
@@ -36252,6 +36270,24 @@
             "schema": {
               "title": "Page Id",
               "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["live", "draft"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "live",
+              "title": "Version"
             }
           }
         ],
