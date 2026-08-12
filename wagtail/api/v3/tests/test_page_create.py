@@ -1,4 +1,5 @@
 import json
+import unittest
 
 import swapper
 from django.contrib.auth.models import Group, Permission
@@ -614,6 +615,235 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(
             content["errors"],
             [{"message": "body: unrecognised block type 'not_a_real_block'"}],
+        )
+
+    @unittest.expectedFailure
+    def test_create_streamfield_page_with_rich_text_block(self):
+        """
+        RichTextBlock isn't yet run through APIRichText.convert_input like a
+        top-level RichTextField is (see convert_rich_text_payload). Its form
+        widget is Draftail, which expects a contentstate JSON string, not
+        source HTML - so posting the plain HTML string that every other
+        rich text input on this API accepts currently crashes the request
+        with a JSONDecodeError instead of saving the block or returning a
+        422. Marked as an expected failure until RichTextBlock values are
+        run through the same conversion as RichTextField.
+        """
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-rich-text",
+                "body": [{"type": "rich_text", "value": "<p>hello <b>world</b></p>"}],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = StreamPage.objects.get(slug="stream-page-rich-text")
+        self.assertEqual(page.body[0].block_type, "rich_text")
+        self.assertEqual(str(page.body[0].value), "<p>hello <b>world</b></p>")
+
+    def test_create_streamfield_page_with_various_block_types(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        cases = [
+            (
+                "text",
+                "hello streamfield",
+                lambda value: self.assertEqual(value, "hello streamfield"),
+                lambda value: self.assertEqual(value, "hello streamfield"),
+            ),
+            (
+                "product",
+                {"name": "Widget", "price": "9.99"},
+                lambda value: (
+                    self.assertEqual(value["name"], "Widget"),
+                    self.assertEqual(value["price"], "9.99"),
+                ),
+                lambda value: self.assertEqual(
+                    value, {"name": "Widget", "price": "9.99"}
+                ),
+            ),
+            (
+                "raw_html",
+                "<div>raw</div>",
+                lambda value: self.assertEqual(str(value), "<div>raw</div>"),
+                lambda value: self.assertEqual(value, "<div>raw</div>"),
+            ),
+            (
+                "books",
+                [
+                    {"type": "title", "value": "Dune"},
+                    {"type": "author", "value": "Frank Herbert"},
+                ],
+                lambda value: (
+                    self.assertEqual(value[0].block_type, "title"),
+                    self.assertEqual(value[0].value, "Dune"),
+                    self.assertEqual(value[1].block_type, "author"),
+                    self.assertEqual(value[1].value, "Frank Herbert"),
+                ),
+                # Each child gets its own server-generated "id" - assert one
+                # is present, then compare the rest.
+                lambda value: (
+                    self.assertTrue(all(item["id"] for item in value)),
+                    self.assertEqual(
+                        [
+                            {k: v for k, v in item.items() if k != "id"}
+                            for item in value
+                        ],
+                        [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    ),
+                ),
+            ),
+            (
+                "title_list",
+                ["First", "Second", "Third"],
+                lambda value: self.assertEqual(
+                    list(value), ["First", "Second", "Third"]
+                ),
+                lambda value: self.assertEqual(value, ["First", "Second", "Third"]),
+            ),
+            (
+                "image",
+                image.pk,
+                lambda value: self.assertEqual(value.pk, image.pk),
+                lambda value: self.assertEqual(value, image.pk),
+            ),
+            (
+                "image_with_alt",
+                {
+                    "image": image.pk,
+                    "decorative": False,
+                    "alt_text": "A test image",
+                },
+                lambda value: (
+                    self.assertEqual(value.pk, image.pk),
+                    self.assertEqual(value.contextual_alt_text, "A test image"),
+                ),
+                lambda value: self.assertEqual(
+                    value,
+                    {
+                        "image": image.pk,
+                        "decorative": False,
+                        "alt_text": "A test image",
+                    },
+                ),
+            ),
+        ]
+        for (
+            block_type,
+            input_value,
+            assert_db_value,
+            assert_api_value,
+        ) in cases:
+            with self.subTest(block_type=block_type):
+                slug = f"stream-page-{block_type}"
+                response = self.post(
+                    {
+                        "meta": {
+                            "parent_id": self.root_page.pk,
+                            "type": "tests.StreamPage",
+                        },
+                        "title": "Stream page",
+                        "slug": slug,
+                        "body": [{"type": block_type, "value": input_value}],
+                    }
+                )
+                self.assertEqual(response.status_code, 201)
+
+                page = StreamPage.objects.get(slug=slug)
+                self.assertEqual(page.body[0].block_type, block_type)
+                assert_db_value(page.body[0].value)
+
+                [block] = response.json()["body"]
+                self.assertEqual(block["type"], block_type)
+                self.assertTrue(block["id"])
+                assert_api_value(block["value"])
+
+    def test_create_streamfield_page_with_image_chooser_block_extended(self):
+        """
+        With an ?extended= query param, ExtendedImageChooserBlock's
+        get_api_representation returns a dict of id/title instead of a bare
+        pk. Ensure this is respected in the create response body.
+        """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.client.post(
+            reverse("wagtailapi_v3:create_page") + "?extended=true",
+            data=json.dumps(
+                {
+                    "meta": {
+                        "parent_id": self.root_page.pk,
+                        "type": "tests.StreamPage",
+                    },
+                    "title": "Stream page",
+                    "slug": "stream-page-image-extended",
+                    "body": [{"type": "image", "value": image.pk}],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+        content = response.json()
+        [block] = content["body"]
+        self.assertEqual(block["type"], "image")
+        self.assertEqual(block["value"], {"id": image.pk, "title": image.title})
+
+    @unittest.expectedFailure
+    def test_create_streamfield_page_with_multiple_blocks(self):
+        """
+        Includes a rich_text block, which currently crashes the request -
+        see test_create_streamfield_page_with_rich_text_block.
+        """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-multiple",
+                "body": [
+                    {"type": "text", "value": "hello"},
+                    {"type": "rich_text", "value": "<p>hi</p>"},
+                    {"type": "image", "value": image.pk},
+                    {
+                        "type": "product",
+                        "value": {"name": "Widget", "price": "9.99"},
+                    },
+                    {"type": "raw_html", "value": "<hr>"},
+                    {
+                        "type": "books",
+                        "value": [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    },
+                    {"type": "title_list", "value": ["First", "Second"]},
+                    {
+                        "type": "image_with_alt",
+                        "value": {
+                            "image": image.pk,
+                            "decorative": False,
+                            "alt_text": "A test image",
+                        },
+                    },
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = StreamPage.objects.get(slug="stream-page-multiple")
+        self.assertEqual(len(page.body), 8)
+        self.assertEqual(
+            [block.block_type for block in page.body],
+            [
+                "text",
+                "rich_text",
+                "image",
+                "product",
+                "raw_html",
+                "books",
+                "title_list",
+                "image_with_alt",
+            ],
         )
 
     def test_create_page_with_rich_text_field(self):

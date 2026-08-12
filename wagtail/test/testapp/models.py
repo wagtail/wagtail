@@ -1919,8 +1919,10 @@ class ExtendedImageChooserBlock(ImageChooserBlock):
 
     def get_api_representation(self, value, context=None):
         image_id = super().get_api_representation(value, context=context)
-        if "request" in context and context["request"].query_params.get(
-            "extended", False
+        if (
+            context
+            and context.get("request")
+            and context["request"].GET.get("extended", False)
         ):
             return {"id": image_id, "title": value.title}
         return image_id
