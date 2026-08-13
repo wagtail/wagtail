@@ -27,12 +27,12 @@ class WagtailSnippetsAppConfig(AppConfig):
         # to create the extra permissions.
         post_migrate.connect(create_extra_permissions, sender=self)
 
-        from .api import register_content_types
+        from .api.v3 import register_content_types
 
         register_content_types()
 
         from wagtail.api.v3.api import api
 
-        from .api.router import router
+        from .api.v3.router import router
 
         api.add_router("/snippets/", router)

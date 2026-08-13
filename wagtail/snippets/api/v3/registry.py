@@ -2,7 +2,7 @@ from wagtail.api import APIField
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator, patch_generator, read_generator
 from wagtail.models import DraftStateMixin
-from wagtail.snippets.api.schemas import (
+from wagtail.snippets.api.v3.schemas import (
     PUBLISH_ACTION_META_FIELD,
     BaseSnippetCreateSchema,
     BaseSnippetSchema,
