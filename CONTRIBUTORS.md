@@ -978,6 +978,7 @@
 * 0x1saac
 * Devansh Bordia
 * alanturing881
+* Joey Jurjens
 
 ## Translators
 
