@@ -227,7 +227,7 @@ The `js` and `css` keyword arguments on `EntityFeature` can be used to specify a
 Since entities hold data, the conversion to/from database format is more complicated. We have to create two handlers:
 
 ```python
-from draftjs_exporter.dom import DOM
+from draftjs_exporter import DOM
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineEntityElementHandler,
 )
