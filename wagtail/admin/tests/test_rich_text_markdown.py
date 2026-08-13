@@ -4,6 +4,7 @@ from django.core.files.base import ContentFile
 from django.test import SimpleTestCase, TestCase
 from draftjs_exporter import MarkdownParseError
 
+from wagtail.admin.rich_text.converters.db_html import DbHTMLConverter
 from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
 from wagtail.documents.models import Document
 from wagtail.embeds.exceptions import EmbedException
@@ -103,6 +104,66 @@ class TestMarkdownToDbHtml(SimpleTestCase):
             self.convert("[x](wagtail://page?id=notanint)")
         self.assertIsNotNone(cm.exception.line)
         self.assertIn("notanint", str(cm.exception))
+
+    def test_wagtail_ref_without_id_raises_parse_error(self):
+        # A wagtail:// page/document reference with no id is meaningless and
+        # would crash/unpredictably store; it must fail as a parse error (the
+        # API layer renders it as 422).
+        with self.assertRaises(MarkdownParseError):
+            self.convert("[x](wagtail://page)")
+        with self.assertRaises(MarkdownParseError):
+            self.convert("[x](wagtail://page?foo=bar)")
+        with self.assertRaises(MarkdownParseError):
+            self.convert("[x](wagtail://document)")
+
+    def test_empty_url_external_link_still_tolerated(self):
+        # Not a wagtail:// reference - `check_url("")` allows it, so it keeps
+        # its pre-existing tolerated behaviour (dead link, no parse error).
+        self.assertEqual(self.convert("[x]()"), '<p><a href="">x</a></p>')
+
+    def test_empty_image_format_dropped_and_reported(self):
+        # `format=` (empty) is treated as a missing format: nothing is stored
+        # silently - the whitelister removes the embed with a
+        # missing_attribute removal report. (The existing `format` attribute
+        # of a *valid* reference is unaffected; this asserts only the empty
+        # form is gone.)
+        html = self.convert("![a](wagtail://image?id=42&format=)")
+        self.assertNotIn('format=""', html)
+        clean, removals = DbHTMLConverter().clean(html)
+        self.assertNotIn("<embed", clean)
+        self.assertTrue(
+            any(r.tag == "embed" and r.reason == "missing_attribute" for r in removals)
+        )
+
+    def test_empty_media_url_dropped_and_reported(self):
+        html = self.convert("![a](wagtail://media?url=)")
+        self.assertNotIn('url=""', html)
+        clean, removals = DbHTMLConverter().clean(html)
+        self.assertNotIn("<embed", clean)
+        self.assertTrue(
+            any(r.tag == "embed" and r.reason == "missing_attribute" for r in removals)
+        )
+
+    def test_valid_references_still_convert(self):
+        # Regression guard for the entity-map normalisation: valid references
+        # (page/document with id, image with format, media with url) convert
+        # exactly as before.
+        self.assertEqual(
+            self.convert("[home](wagtail://page?id=3)"),
+            '<p><a linktype="page" id="3">home</a></p>',
+        )
+        self.assertEqual(
+            self.convert("[pdf](wagtail://document?id=5)"),
+            '<p><a linktype="document" id="5">pdf</a></p>',
+        )
+        self.assertEqual(
+            self.convert("![cute](wagtail://image?id=42&format=left)"),
+            '<embed embedtype="image" format="left" id="42" alt="cute"/>',
+        )
+        self.assertEqual(
+            self.convert("![vid](wagtail://media?url=https%3A%2F%2Fyoutu.be%2Fabc)"),
+            '<embed embedtype="media" url="https://youtu.be/abc"/>',
+        )
 
     def test_fenced_code_block_newlines(self):
         # Deferred from Task 2's ledger note: multi-line fenced code must
