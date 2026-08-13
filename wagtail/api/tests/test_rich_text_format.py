@@ -3,7 +3,7 @@ from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.api.v2.serializers import RichTextFieldSerializer
-from wagtail.models import Page
+from wagtail.test.utils import Page
 
 
 class TestRichTextFormatResolution(SimpleTestCase):
