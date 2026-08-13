@@ -19,23 +19,17 @@ from draftjs_exporter import (
     DOM,
     ENTITY_TYPES,
     INLINE_STYLES,
+    HTMLExporter,
     MarkdownImporter,
     MarkdownParseError,
     build_markdown_config,
+    md_block,
+    md_image,
+    md_inline,
+    md_link_destination,
+    md_mark_safe,
+    render_children,
     scheme_resolver,
-)
-from draftjs_exporter import HTML as HTMLExporter
-from draftjs_exporter.defaults import render_children
-from draftjs_exporter.markdown.entities import image as default_markdown_image
-from draftjs_exporter.markdown.helpers import (
-    block as markdown_block,
-)
-from draftjs_exporter.markdown.helpers import (
-    inline as markdown_inline,
-)
-from draftjs_exporter.markdown.helpers import (
-    link_destination,
-    mark_safe,
 )
 
 from wagtail.admin.rich_text.converters.contentstate import (
@@ -207,13 +201,13 @@ def _db_html_exporter():
 
 
 def _markdown_link(children, destination):
-    return markdown_inline(
+    return md_inline(
         [
-            mark_safe("["),
+            md_mark_safe("["),
             children,
-            mark_safe("]("),
-            link_destination(destination),
-            mark_safe(")"),
+            md_mark_safe("]("),
+            md_link_destination(destination),
+            md_mark_safe(")"),
         ]
     )
 
@@ -229,7 +223,7 @@ def _resolved_link(props):
     url = props.get("url")
     if not url:
         # Dangling references degrade to plain text (editor parity).
-        return markdown_inline([props["children"]])
+        return md_inline([props["children"]])
     return _markdown_link(props["children"], url)
 
 
@@ -242,54 +236,54 @@ def _document_ref_link(props):
 def _resolved_document_link(props):
     url = props.get("url")
     if not url:
-        return markdown_inline([props["children"]])
+        return md_inline([props["children"]])
     return _markdown_link(props["children"], url)
 
 
 def _image_ref_image(props):
-    return markdown_block(
+    return md_block(
         [
-            mark_safe("!["),
+            md_mark_safe("!["),
             props.get("alt") or "",
-            mark_safe("]("),
-            link_destination(
+            md_mark_safe("]("),
+            md_link_destination(
                 wagtail_ref(
                     "image", id=props.get("id"), format=props.get("format") or ""
                 )
             ),
-            mark_safe(")"),
+            md_mark_safe(")"),
         ]
     )
 
 
 def _resolved_image(props):
     if props.get("src"):
-        return default_markdown_image(props)
+        return md_image(props)
     return _image_ref_image(props)
 
 
 def _media_ref_embed(props):
     label = props.get("title") or props.get("url") or ""
-    return markdown_block(
+    return md_block(
         [
-            mark_safe("!["),
+            md_mark_safe("!["),
             label,
-            mark_safe("]("),
-            link_destination(wagtail_ref("media", url=props.get("url") or "")),
-            mark_safe(")"),
+            md_mark_safe("]("),
+            md_link_destination(wagtail_ref("media", url=props.get("url") or "")),
+            md_mark_safe(")"),
         ]
     )
 
 
 def _resolved_media_embed(props):
     label = props.get("title") or props.get("url") or ""
-    return markdown_block(
+    return md_block(
         [
-            mark_safe("["),
+            md_mark_safe("["),
             label,
-            mark_safe("]("),
-            link_destination(props.get("url") or ""),
-            mark_safe(")"),
+            md_mark_safe("]("),
+            md_link_destination(props.get("url") or ""),
+            md_mark_safe(")"),
         ]
     )
 
