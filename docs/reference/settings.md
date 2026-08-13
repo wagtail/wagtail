@@ -902,7 +902,7 @@ Requires `wagtailfrontendcache` app to be installed, indicates the API should us
 WAGTAILAPI_RICH_TEXT_FORMAT = "html"
 ```
 
-Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)); `html` returns display-ready HTML instead. Additionally, `db_markdown` and `markdown` (experimental) return Markdown with internal references preserved or resolved respectively — see [](api_v3). This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
+Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)); `html` returns display-ready HTML instead. Additionally, `db_markdown` and `markdown` return Markdown with internal references preserved or resolved respectively — see [](api_v3). This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
 
 ### `WAGTAILAPI_TOKEN_LAST_USED_INTERVAL`
 
