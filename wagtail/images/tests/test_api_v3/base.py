@@ -4,6 +4,7 @@ from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 Image = get_image_model()
 
@@ -18,6 +19,4 @@ class TestV3ImagesBase(TestV3Base, WagtailTestUtils, TestCase):
         return Image.objects.create(**defaults)
 
     def create_collection(self, name="Test collection"):
-        from wagtail.test.utils.wagtail_factories import CollectionFactory
-
         return CollectionFactory.create(name=name)
