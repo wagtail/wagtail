@@ -8,12 +8,14 @@ from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
+from draftjs_exporter import MarkdownParseError
 from ninja.schema import BaseModel
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
 from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api.rich_text import APIRichText
+from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator
 from wagtail.blocks.base import BlockField
@@ -136,9 +138,17 @@ def convert_rich_text_payload(
         value = payload[name]
         if value is None:
             continue
-        db_html, field_removals = APIRichText.convert_input(
-            value, features=model_field.features
-        )
+        try:
+            db_html, field_removals = APIRichText.convert_input(
+                value, features=model_field.features
+            )
+        except MarkdownParseError as e:
+            location = f" at line {e.line}" if e.line is not None else ""
+            raise as_validation_error(
+                e,
+                f"Invalid Markdown in rich text{location}: {e.message}",
+                loc=("body", name),
+            ) from e
         payload[name] = db_html
         removals.extend((name, removal) for removal in field_removals)
     return payload, removals

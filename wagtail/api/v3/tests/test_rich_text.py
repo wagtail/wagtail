@@ -1,8 +1,10 @@
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.api.v3.api import api
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.test.testapp.models import (
     CustomRichBlockFieldPage,
@@ -318,3 +320,106 @@ class TestV3RichTextBlockRead(TestV3RichTextRead):
 
     def test_features_in_schema_discovery(self):
         self.skipTest("StreamField body has no per-block schema to carry features")
+class TestV3RichTextMarkdown(TestV3RichTextWrite):
+    """db_markdown input (create/patch) + db_markdown/markdown output on
+    reads, wired through the v3 pages endpoints."""
+
+    def publish_detail_page(self, **kwargs):
+        """Add a live rich-text page the public detail endpoint can serve."""
+        model = kwargs.pop("model", DefaultRichTextFieldPage)
+        home_page = Page.objects.get(depth=2)
+        page = model(slug="md-detail", title="MD detail", **kwargs)
+        home_page.add_child(instance=page)
+        page.save_revision().publish()
+        return page
+
+    def test_db_markdown_input_on_create(self):
+        response = self.create_page(
+            {
+                "format": "db_markdown",
+                "content": "# Title\n\n[home](wagtail://page?id=2)",
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.json())
+        page = DefaultRichTextFieldPage.objects.get(slug="rich")
+        # h1 is out of the default features → unwrapped; page reference kept by id
+        self.assertNotIn("<h1", page.body)
+        self.assertIn("Title", page.body)
+        self.assertIn('linktype="page"', page.body)
+        self.assertIn('id="2"', page.body)
+
+    def test_db_markdown_input_on_patch(self):
+        self.create_page({"format": "db_markdown", "content": "**before**"})
+        page = DefaultRichTextFieldPage.objects.get(slug="rich")
+        response = self.client.patch(
+            reverse("wagtailapi_v3:update_page", kwargs={"page_id": page.pk}),
+            data=json.dumps(
+                {
+                    "meta": {"type": "tests.DefaultRichTextFieldPage"},
+                    "body": {"format": "db_markdown", "content": "**after**"},
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200, response.json())
+        page.refresh_from_db()
+        self.assertIn("<b>after</b>", page.body)
+        self.assertNotIn("<b>before</b>", page.body)
+
+    def test_malformed_reference_gives_422_with_field_and_line(self):
+        response = self.create_page(
+            {"format": "db_markdown", "content": "[x](wagtail://page?id=abc)"}
+        )
+        self.assert_problem_response(response, status_code=422)
+        body = json.dumps(response.json())
+        self.assertIn("body", body)
+        self.assertIn("abc", body)
+
+    def test_markdown_format_still_rejected_as_input(self):
+        response = self.create_page({"format": "markdown", "content": "# hi"})
+        self.assert_problem_response(response, status_code=422)
+
+    def test_db_markdown_output_on_detail(self):
+        page = self.publish_detail_page(
+            body='<p><a linktype="page" id="2">home</a></p>'
+        )
+        response = self.client.get(
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.pk})
+            + "?rich_text_format=db_markdown"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["body"], "[home](wagtail://page?id=2)\n\n")
+
+    def test_markdown_output_resolves_reference(self):
+        page = self.publish_detail_page(
+            body='<p><a linktype="page" id="2">home</a></p>'
+        )
+        response = self.client.get(
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.pk})
+            + "?rich_text_format=markdown"
+        )
+        home_url = Page.objects.get(depth=2).url or "/"
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["body"], "[home](%s)\n\n" % home_url)
+
+    def test_output_uses_field_features(self):
+        # RichTextFieldWithFeaturesPage declares features ["quotation",
+        # "embed", "made-up-feature"]: h2 is not among them, so the field's
+        # stored <h2> cannot convert to a contentstate heading and must not
+        # appear as `## ` in markdown output. (ORM save stores verbatim.)
+        page = self.publish_detail_page(
+            model=RichTextFieldWithFeaturesPage, body="<h2>Title</h2>"
+        )
+        response = self.client.get(
+            reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.pk})
+            + "?rich_text_format=db_markdown"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("## ", response.json()["body"])
+        self.assertIn("Title", response.json()["body"])
+
+    def test_openapi_lists_new_formats(self):
+        # DjangoJSONEncoder handles the lazy translation strings in descriptions.
+        spec = json.dumps(api.get_openapi_schema(), cls=DjangoJSONEncoder)
+        self.assertIn('"db_markdown"', spec)
+        self.assertIn('"markdown"', spec)
