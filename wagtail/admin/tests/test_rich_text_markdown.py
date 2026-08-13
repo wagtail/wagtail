@@ -1,7 +1,15 @@
-from django.test import SimpleTestCase
+from unittest.mock import patch
+
+from django.core.files.base import ContentFile
+from django.test import SimpleTestCase, TestCase
 from draftjs_exporter import MarkdownParseError
 
 from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
+from wagtail.documents.models import Document
+from wagtail.embeds.exceptions import EmbedException
+from wagtail.images import get_image_model
+from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Page
 
 
 class TestMarkdownToDbHtml(SimpleTestCase):
@@ -96,9 +104,170 @@ class TestMarkdownToDbHtml(SimpleTestCase):
         self.assertIsNotNone(cm.exception.line)
         self.assertIn("notanint", str(cm.exception))
 
+    def test_fenced_code_block_newlines(self):
+        # Deferred from Task 2's ledger note: multi-line fenced code must
+        # keep its newlines in <pre> output (not become <br/>).
+        result = self.convert("```\nimport os\nprint(1)\n```")
+        self.assertIn("import os\nprint(1)", result)
+        self.assertIn("<pre>", result)
+
     def test_unsupported_constructs_become_text(self):
         # Documented plain-text behaviour for out-of-scope CommonMark.
         self.assertIn("[text][ref]", self.convert("[text][ref]"))
         self.assertIn("| a | b |", self.convert("| a | b |"))
         # A setext heading MUST NOT become an h1; it stays literal text.
         self.assertEqual(self.convert("Title\n====="), "<p>Title<br/>=====</p>")
+
+
+class TestDbHtmlToMarkdown(TestCase):
+    def convert(self, html, *, resolved=False, **kwargs):
+        return MarkdownConverter(**kwargs).from_database_format(html, resolved=resolved)
+
+    def setUp(self):
+        self.image = get_image_model().objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.document = Document.objects.create(
+            title="Test doc",
+            file=ContentFile(b"doc-contents", name="test.txt"),
+        )
+
+    def test_paragraph_blocks_and_styles(self):
+        result = self.convert("<p>Hello <b>bold</b> and <i>italic</i></p><h2>T</h2>")
+        self.assertEqual(result, "Hello **bold** and *italic*\n\n## T\n\n")
+
+    def test_hr(self):
+        self.assertEqual(self.convert("<hr/>"), "---\n\n")
+
+    def test_sup_sub_fall_through_to_inline_html(self):
+        # sup/sub are not default features, so the converter must be told
+        # the field declares them — the same way the editor behaves.
+        result = self.convert(
+            "<p>E = mc<sup>2</sup></p>", features=["superscript", "subscript"]
+        )
+        self.assertIn("<sup>2</sup>", result)
+        # and it round-trips back
+        self.assertEqual(
+            MarkdownConverter().to_database_format(result),
+            "<p>E = mc<sup>2</sup></p>",
+        )
+
+    def test_sup_sub_dropped_without_feature(self):
+        # Editor parity: without the feature, the style does not survive the
+        # contentstate conversion either.
+        result = self.convert("<p>E = mc<sup>2</sup></p>")
+        self.assertEqual(result, "E = mc2\n\n")
+
+    def test_external_link(self):
+        self.assertEqual(
+            self.convert('<p><a href="https://example.com/">x</a></p>'),
+            "[x](https://example.com/)\n\n",
+        )
+
+    def test_page_link_reference_preserved(self):
+        page = Page.objects.get(id=2)
+        html = '<p><a linktype="page" id="%d">home</a></p>' % page.id
+        self.assertEqual(
+            self.convert(html),
+            "[home](wagtail://page?id=%d)\n\n" % page.id,
+        )
+
+    def test_page_link_dangling_id_preserved_in_db_markdown(self):
+        self.assertEqual(
+            self.convert('<p><a linktype="page" id="99999">gone</a></p>'),
+            "[gone](wagtail://page?id=99999)\n\n",
+        )
+
+    def test_page_link_dangling_id_plain_text_in_resolved(self):
+        self.assertEqual(
+            self.convert(
+                '<p><a linktype="page" id="99999">gone</a></p>', resolved=True
+            ),
+            "gone\n\n",
+        )
+
+    def test_page_link_resolved_uses_url(self):
+        page = Page.objects.get(id=2)
+        result = self.convert(
+            '<p><a linktype="page" id="%d">home</a></p>' % page.id,
+            resolved=True,
+        )
+        self.assertEqual(result, "[home](%s)\n\n" % (page.url or "/"))
+
+    def test_document_reference(self):
+        html = '<p><a id="%d" linktype="document">doc</a></p>' % self.document.id
+        self.assertEqual(
+            self.convert(html),
+            "[doc](wagtail://document?id=%d)\n\n" % self.document.id,
+        )
+
+    def test_document_reference_resolved_uses_url(self):
+        html = '<p><a id="%d" linktype="document">doc</a></p>' % self.document.id
+        result = self.convert(html, resolved=True)
+        self.assertEqual(result, "[doc](%s)\n\n" % self.document.url)
+
+    def test_image_reference(self):
+        html = (
+            '<embed alt="pic" embedtype="image" format="left" id="%d"/>' % self.image.id
+        )
+        self.assertEqual(
+            self.convert(html),
+            "![pic](wagtail://image?id=%d&format=left)\n\n" % self.image.id,
+        )
+
+    def test_image_reference_resolved_uses_rendition_url(self):
+        html = (
+            '<embed alt="pic" embedtype="image" format="left" id="%d"/>' % self.image.id
+        )
+        result = self.convert(html, resolved=True)
+        self.assertRegex(result, r"!\[pic\]\(/media/images/.*\)")
+        self.assertNotIn("wagtail://", result)
+
+    def test_media_embed_reference(self):
+        with patch("wagtail.embeds.embeds.get_embed", side_effect=EmbedException):
+            result = self.convert(
+                '<embed embedtype="media" url="https://youtu.be/abc"/>'
+            )
+        self.assertEqual(
+            result,
+            "![https://youtu.be/abc](wagtail://media?url=https%3A%2F%2Fyoutu.be%2Fabc)\n\n",
+        )
+
+    def test_media_embed_resolved_is_block_link(self):
+        with patch("wagtail.embeds.embeds.get_embed", side_effect=EmbedException):
+            result = self.convert(
+                '<embed embedtype="media" url="https://youtu.be/abc"/>',
+                resolved=True,
+            )
+        self.assertEqual(
+            result,
+            "[https://youtu.be/abc](https://youtu.be/abc)\n\n",
+        )
+
+    def test_round_trip_db_markdown_stable_after_first_normalisation(self):
+        md = (
+            "## Hi\n\n- a\n- b\n\n[home](wagtail://page?id=2)\n\n"
+            "![pic](wagtail://image?id=1&format=fullwidth)\n"
+        )
+        conv = MarkdownConverter()
+        once = conv.from_database_format(conv.to_database_format(md), resolved=False)
+        twice = conv.from_database_format(conv.to_database_format(once), resolved=False)
+        self.assertEqual(once, twice)
+
+    def test_round_trip_db_html_entity_references_exact(self):
+        md = (
+            "[home](wagtail://page?id=2) and [doc](wagtail://document?id=1)\n\n"
+            "![pic](wagtail://image?id=1&format=fullwidth)\n"
+        )
+        conv = MarkdownConverter()
+        db_html = conv.to_database_format(md)
+        md_again = MarkdownConverter().from_database_format(db_html, resolved=False)
+        db_html_again = MarkdownConverter().to_database_format(md_again)
+        for ref in (
+            'linktype="page" id="2"',
+            'linktype="document" id="1"',
+            'embedtype="image"',
+            'id="1"',
+        ):
+            self.assertIn(ref, db_html_again)
