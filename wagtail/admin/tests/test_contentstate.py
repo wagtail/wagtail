@@ -2,8 +2,7 @@ import json
 from unittest.mock import patch
 
 from django.test import TestCase
-from draftjs_exporter.dom import DOM
-from draftjs_exporter.html import HTML as HTMLExporter
+from draftjs_exporter import DOM, HTMLExporter
 
 from wagtail.admin.rich_text.converters.contentstate import (
     ContentstateConverter,
