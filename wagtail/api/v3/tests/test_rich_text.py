@@ -375,6 +375,26 @@ class TestV3RichTextMarkdown(TestV3RichTextWrite):
         self.assertIn("body", body)
         self.assertIn("abc", body)
 
+    def test_wagtail_ref_without_id_gives_422(self):
+        # A wagtail:// reference missing its id must fail validation, never 500.
+        response = self.create_page(
+            {"format": "db_markdown", "content": "[x](wagtail://page)"}
+        )
+        self.assert_problem_response(response, status_code=422)
+        body = json.dumps(response.json())
+        self.assertIn("body", body)
+        self.assertIn("requires id", body)
+
+    def test_empty_image_format_stripped_not_stored(self):
+        # `format=` (empty) behaves like a missing format: the embed is
+        # dropped, never stored verbatim to poison later output.
+        response = self.create_page(
+            {"format": "db_markdown", "content": "![a](wagtail://image?id=1&format=)"}
+        )
+        self.assertEqual(response.status_code, 201, response.json())
+        page = DefaultRichTextFieldPage.objects.get(slug="rich")
+        self.assertNotIn('format=""', page.body)
+
     def test_markdown_format_still_rejected_as_input(self):
         response = self.create_page({"format": "markdown", "content": "# hi"})
         self.assert_problem_response(response, status_code=422)

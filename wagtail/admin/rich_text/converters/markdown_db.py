@@ -20,6 +20,7 @@ from draftjs_exporter import (
     ENTITY_TYPES,
     INLINE_STYLES,
     MarkdownImporter,
+    MarkdownParseError,
     build_markdown_config,
     scheme_resolver,
 )
@@ -67,8 +68,13 @@ class MarkdownConverter:
         )
 
     def to_database_format(self, markdown):
-        """Convert Markdown to unsanitised DB HTML."""
+        """Convert Markdown to unsanitised DB HTML.
+
+        Raises ``MarkdownParseError`` for ``wagtail://`` references that are
+        missing their required parameters (e.g. ``[x](wagtail://page)``).
+        """
         content_state = _importer().import_markdown(markdown)
+        _validate_entity_map(content_state)
         return _db_html_exporter().render(content_state)
 
     def from_database_format(self, html, *, resolved):
@@ -91,6 +97,37 @@ class MarkdownConverter:
         # trailing blank line while any content remains.
         markdown = markdown.strip("\n")
         return f"{markdown}\n\n" if markdown else ""
+
+
+def _validate_entity_map(content_state):
+    """Normalise imported entity data before rendering to DB HTML.
+
+    Two checks, in this order:
+
+    1. Validate references: a ``LINK`` entity with neither ``id`` nor
+       ``url``, or a ``DOCUMENT`` entity with no ``id``, can only come from a
+       ``wagtail://`` reference missing its parameter (external links always
+       carry ``url`` from the default resolver). Reject with
+       ``MarkdownParseError`` — the API layer renders it as 422 — rather than
+       crashing the renderer or storing a meaningless reference.
+    2. Drop empty-string data values (e.g. ``wagtail://image?format=``):
+       an empty parameter means "absent", and must reach the whitelister as
+       a missing attribute (removal + report) rather than being stored
+       verbatim, where it would break every later output conversion.
+    """
+    for entity in content_state.get("entityMap", {}).values():
+        entity_type = entity.get("type")
+        data = entity.get("data") or {}
+        if entity_type == ENTITY_TYPES.LINK:
+            if "id" not in data and "url" not in data:
+                raise MarkdownParseError("wagtail://page reference requires id")
+            # LINK tolerates an empty url (`[x]()` → `<a href="">`); dropping
+            # it here would make the data-less LINK crash the renderer.
+            continue
+        if entity_type == ENTITY_TYPE_DOCUMENT and "id" not in data:
+            raise MarkdownParseError("wagtail://document reference requires id")
+        if data:
+            entity["data"] = {key: value for key, value in data.items() if value != ""}
 
 
 def _importer():

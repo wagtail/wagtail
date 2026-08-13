@@ -61,7 +61,7 @@ Supported input formats:
 - `db_html`: database HTML (the default when `format` is omitted).
 - `db_markdown`: Markdown using the `wagtail://` reference syntax described below.
 
-Markdown input is converted to database HTML and sanitised against the field's features exactly like `db_html` input: out-of-feature constructs are stripped, and malformed `wagtail://` references (for example a non-numeric `id`) fail the request with a 422 validation error naming the field and Markdown line.
+Markdown input is converted to database HTML and sanitised against the field's features exactly like `db_html` input: out-of-feature constructs are stripped. Malformed `wagtail://` references — an unparsable `id`, or a page/document reference missing its `id` — fail the request with a 422 validation error naming the field and Markdown line. Media references missing a `url`, and image references missing a `format`, are dropped during sanitisation instead, never stored verbatim — the reference syntax table below lists which parameters are required.
 
 ### Output formats
 
@@ -84,8 +84,10 @@ Internal object references travel in Markdown as `wagtail://` URLs in link and i
 | --- | --- |
 | `[text](wagtail://page?id=3)` | page 3 |
 | `[text](wagtail://document?id=5)` | document 5 |
-| `![alt](wagtail://image?id=42&format=left)` | image 42, left format, alt text from the label |
+| `![alt](wagtail://image?id=42&format=left)` | image 42, `left` format, alt text from the label |
 | `![label](wagtail://media?url=https%3A%2F%2Fyoutu.be%2Fabc)` | media embed with percent-encoded URL (label is informative only) |
+
+`id` is required for page, document, and image references; `format` (an image format name such as `left`, `right`, or `fullwidth`) is required for image references; `url` is required for media references. Empty values count as missing: `wagtail://image?id=42&format=` is treated like a missing `format`. Missing `id` on a page or document reference is a 422 validation error; a missing `format` or `url` drops the embed during sanitisation.
 
 Round-tripping `db_markdown` through the API preserves these references exactly, including references to objects that no longer exist.
 
