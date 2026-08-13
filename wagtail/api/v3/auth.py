@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.utils import timezone
 from ninja.security import HttpBearer
+from ninja.security.http import HttpAuthBase
 
 from wagtail.models import APIToken
 
@@ -50,7 +51,7 @@ class BearerTokenAuth(HttpBearer):
             APIToken.objects.filter(pk=api_token.pk).update(last_used_at=now)
 
 
-class AllowAnonymous:
+class AllowAnonymous(HttpAuthBase):
     """Fallback auth callback marking a request as explicitly anonymous.
 
     Use after BearerTokenAuth on public-read endpoints:

@@ -25949,6 +25949,9 @@
       }
     },
     "securitySchemes": {
+      "AllowAnonymous": {
+        "type": "http"
+      },
       "BearerTokenAuth": {
         "scheme": "bearer",
         "type": "http"
@@ -26058,6 +26061,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "List documents",
@@ -26177,6 +26183,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "Document detail",
@@ -26322,6 +26331,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "List images",
@@ -26498,6 +26510,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "Image detail",
@@ -27039,6 +27054,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "List pages",
@@ -27945,6 +27963,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "Find page",
@@ -28296,6 +28317,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "Page detail",
@@ -31553,6 +31577,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "List redirects",
@@ -31647,6 +31674,9 @@
         "security": [
           {
             "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
           }
         ],
         "summary": "Redirect detail",
