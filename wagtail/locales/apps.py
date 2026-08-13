@@ -10,6 +10,6 @@ class WagtailLocalesAppConfig(AppConfig):
     def ready(self):
         from wagtail.api.v3.api import api
 
-        from .api import router
+        from .api.v3 import router
 
         api.add_router("/locales/", router)
