@@ -320,6 +320,8 @@ class TestV3RichTextBlockRead(TestV3RichTextRead):
 
     def test_features_in_schema_discovery(self):
         self.skipTest("StreamField body has no per-block schema to carry features")
+
+
 class TestV3RichTextMarkdown(TestV3RichTextWrite):
     """db_markdown input (create/patch) + db_markdown/markdown output on
     reads, wired through the v3 pages endpoints."""
