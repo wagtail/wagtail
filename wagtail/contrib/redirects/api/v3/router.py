@@ -6,14 +6,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from ninja import Field, Query, Router, Schema, Status
 from ninja.pagination import paginate
-from rest_framework import serializers
 
 from wagtail.actions.create import CreateAction
 from wagtail.actions.delete import DeleteAction
 from wagtail.actions.edit import EditAction
-from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
-from wagtail.api.v2.serializers import BaseSerializer
-from wagtail.api.v2.views import BaseAPIViewSet
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -189,37 +185,3 @@ def delete_redirect(request: HttpRequest, redirect_id: int):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     DeleteAction(redirect, user=request.user).execute()
     return Status(204, None)
-
-
-# Legacy API v2
-
-
-class RedirectSerializer(BaseSerializer):
-    location = serializers.CharField(source="link")
-
-
-class RedirectsAPIViewSet(BaseAPIViewSet):
-    base_serializer_class = RedirectSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-    body_fields = BaseAPIViewSet.body_fields + ["old_path", "location"]
-    name = "redirects"
-    model = Redirect
-
-    listing_default_fields = BaseAPIViewSet.listing_default_fields + [
-        "old_path",
-        "location",
-    ]
-
-    def find_object(self, queryset, request):
-        if "html_path" in request.GET:
-            redirect = get_redirect(
-                request,
-                request.GET["html_path"],
-            )
-
-            if redirect is None:
-                raise Http404
-            else:
-                return redirect
-
-        return super().find_object(queryset, request)

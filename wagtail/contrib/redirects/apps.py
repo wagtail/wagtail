@@ -27,6 +27,6 @@ class WagtailRedirectsAppConfig(AppConfig):
 
         from wagtail.api.v3.api import api
 
-        from .api import router
+        from .api.v3 import router
 
         api.add_router("/redirects/", router)
