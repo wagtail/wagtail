@@ -57,6 +57,52 @@ class TestRevisions(PageFixturesMixin, WagtailTestUtils, TestCase):
         )
         self.assertRedirects(response, history_url)
 
+    def test_history_compare_with_live_version(self):
+        from wagtail.models import PageLogEntry
+        from django.contrib.auth import get_user_model
+        
+        self.last_christmas_revision.publish()
+
+        PageLogEntry.objects.create(
+            page=self.christmas_event,
+            label=self.christmas_event.get_admin_display_title(),
+            action="wagtail.edit",
+            revision=self.last_christmas_revision,
+            user=get_user_model().objects.first(),
+            timestamp=local_datetime(2013, 12, 25),
+            content_changed=True,
+        )
+        PageLogEntry.objects.create(
+            page=self.christmas_event,
+            label=self.christmas_event.get_admin_display_title(),
+            action="wagtail.edit",
+            revision=self.this_christmas_revision,
+            user=get_user_model().objects.first(),
+            timestamp=local_datetime(2014, 12, 25),
+            content_changed=True,
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:history", args=(self.christmas_event.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        compare_url = reverse(
+            "wagtailadmin_pages:revisions_compare",
+            args=(self.christmas_event.id, "live", self.this_christmas_revision.id),
+        )
+        link = soup.select_one(f"a[href='{compare_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Compare with live version")
+
+        # The last_christmas_revision is the live one, so it shouldn't have a compare to live link
+        invalid_compare_url = reverse(
+            "wagtailadmin_pages:revisions_compare",
+            args=(self.christmas_event.id, "live", self.last_christmas_revision.id),
+        )
+        self.assertIsNone(soup.select_one(f"a[href='{invalid_compare_url}']"))
+
     def request_preview_revision(self):
         last_christmas_preview_url = reverse(
             "wagtailadmin_pages:revisions_view",

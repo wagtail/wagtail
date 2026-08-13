@@ -167,12 +167,13 @@ class ActionColumn(Column):
                 self.draftstate_enabled
                 and getattr(self.object, "live_revision_id", None)
                 and instance.revision_id != self.object.live_revision_id
+                and instance.revision_id > self.object.live_revision_id
             ):
                 url = reverse(
                     url_name,
                     args=(
                         quote(self.object.pk),
-                        self.object.live_revision_id,
+                        "live",
                         instance.revision_id,
                     ),
                 )
