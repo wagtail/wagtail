@@ -65,7 +65,7 @@ class TestV3CustomDocumentModel(WagtailTestUtils, TestCase):
             all(not field.is_required() for field in schema.model_fields.values())
         )
 
-    def test_document_input_schemas_ignore_writable_api_fields(self):
+    def test_document_input_schemas_include_writable_api_fields(self):
         admin_form_fields = tuple(
             field
             for field in CustomDocument.admin_form_fields
@@ -92,9 +92,9 @@ class TestV3CustomDocumentModel(WagtailTestUtils, TestCase):
 
         for schema in (create_schema, patch_schema):
             self.assertIn("fancy_description", schema.model_fields)
-            self.assertNotIn("file", schema.model_fields)
-            self.assertNotIn("tags", schema.model_fields)
-            self.assertNotIn("description", schema.model_fields)
+            self.assertIn("file", schema.model_fields)
+            self.assertIn("tags", schema.model_fields)
+            self.assertIn("description", schema.model_fields)
 
     def test_document_form_binds_custom_fields(self):
         form_class = get_document_form(CustomDocument)

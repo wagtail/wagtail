@@ -29,9 +29,9 @@ class InputSchemaGenerator:
 
     Mirrors :class:`wagtail.api.v3.schemas.generators.read.SchemaGenerator`,
     but describes what the API accepts for writing rather than what it
-    returns for reading. By default, a field is included if it's one of the
-    model's own ``fields`` (passed to ``generate_schema``) or listed in the
-    model's ``api_fields``, excluding legacy API v2 custom serializer fields (those
+    returns for reading. A field is included if it's one of the model's own
+    ``fields`` (passed to ``generate_schema``) or listed in the model's
+    ``api_fields``, excluding legacy API v2 custom serializer fields (those
     are read-only computed values, not real fields).
 
     :param for_update: when ``True``, every "extra" field this
@@ -282,16 +282,13 @@ class InputSchemaGenerator:
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
         extra_meta_fields: dict[str, tuple[Any, Any]] | None = None,
-        include_api_fields: bool = True,
     ) -> type[Schema]:
         """Build an input (create/patch) schema for the concrete model ``model``.
 
         ``fields`` names the model's own fields to always include (besides
         whatever ``api_fields`` adds) - e.g. a page's ``title``/``slug``.
         ``required_fields`` marks which of those ``fields`` must be provided;
-        the rest are optional. ``include_api_fields`` controls whether the
-        model's writable ``api_fields`` are also included, and defaults to
-        ``True`` for backwards compatibility.
+        the rest are optional.
 
         If ``base_class`` declares a ``meta`` field (e.g. a schema holding
         control fields like ``parent_id`` and a ``type`` discriminator, kept
@@ -333,7 +330,7 @@ class InputSchemaGenerator:
                 {},
             )
 
-        extra_fields = self._build_extra_fields(model) if include_api_fields else {}
+        extra_fields = self._build_extra_fields(model)
         namespace: dict[str, Any] = {"__annotations__": {}}
 
         meta_field = base_class.model_fields.get("meta")
