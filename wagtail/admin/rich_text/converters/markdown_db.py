@@ -10,6 +10,7 @@ resulting DB HTML through `APIRichText.sanitize_db_html` (which enforces the
 field's features and reports removals).
 """
 
+import json
 import re
 from urllib.parse import quote, urlencode
 
@@ -19,12 +20,27 @@ from draftjs_exporter import (
     ENTITY_TYPES,
     INLINE_STYLES,
     MarkdownImporter,
+    build_markdown_config,
     scheme_resolver,
 )
 from draftjs_exporter import HTML as HTMLExporter
 from draftjs_exporter.defaults import render_children
+from draftjs_exporter.markdown.entities import image as default_markdown_image
+from draftjs_exporter.markdown.helpers import (
+    block as markdown_block,
+)
+from draftjs_exporter.markdown.helpers import (
+    inline as markdown_inline,
+)
+from draftjs_exporter.markdown.helpers import (
+    link_destination,
+    mark_safe,
+)
 
-from wagtail.admin.rich_text.converters.contentstate import br
+from wagtail.admin.rich_text.converters.contentstate import (
+    ContentstateConverter,
+    br,
+)
 from wagtail.rich_text import features as feature_registry
 
 REFERENCE_SCHEME = "wagtail"
@@ -55,7 +71,26 @@ class MarkdownConverter:
         content_state = _importer().import_markdown(markdown)
         return _db_html_exporter().render(content_state)
 
-    # from_database_format arrives with the API output formats.
+    def from_database_format(self, html, *, resolved):
+        """Convert DB HTML to Markdown.
+
+        ``resolved=False`` preserves internal references as ``wagtail://``
+        destinations (the ``db_markdown`` format); ``resolved=True`` emits
+        public URLs (the ``markdown`` format, the analogue of
+        ``expand_db_html``). Dangling references degrade to plain text in
+        resolved mode (editor parity).
+        """
+        contentstate_json = ContentstateConverter(self.features).from_database_format(
+            html
+        )
+        content_state = json.loads(contentstate_json)
+        markdown = _markdown_exporter(resolved).render(content_state)
+        # The contentstate conversion pads atomic blocks (images/embeds) at
+        # the document edges with empty spacer paragraphs, which render as
+        # stray blank lines. Normalise: no leading/trailing blank lines, one
+        # trailing blank line while any content remains.
+        markdown = markdown.strip("\n")
+        return f"{markdown}\n\n" if markdown else ""
 
 
 def _importer():
@@ -132,3 +167,114 @@ def _db_html_exporter():
             feature_config.get("entity_decorators", {})
         )
     return HTMLExporter(exporter_config)
+
+
+def _markdown_link(children, destination):
+    return markdown_inline(
+        [
+            mark_safe("["),
+            children,
+            mark_safe("]("),
+            link_destination(destination),
+            mark_safe(")"),
+        ]
+    )
+
+
+def _page_or_external_ref_link(props):
+    id_ = props.get("id")
+    if id_ is not None:
+        return _markdown_link(props["children"], wagtail_ref("page", id=id_))
+    return _markdown_link(props["children"], props.get("url") or "")
+
+
+def _resolved_link(props):
+    url = props.get("url")
+    if not url:
+        # Dangling references degrade to plain text (editor parity).
+        return markdown_inline([props["children"]])
+    return _markdown_link(props["children"], url)
+
+
+def _document_ref_link(props):
+    return _markdown_link(
+        props["children"], wagtail_ref("document", id=props.get("id"))
+    )
+
+
+def _resolved_document_link(props):
+    url = props.get("url")
+    if not url:
+        return markdown_inline([props["children"]])
+    return _markdown_link(props["children"], url)
+
+
+def _image_ref_image(props):
+    return markdown_block(
+        [
+            mark_safe("!["),
+            props.get("alt") or "",
+            mark_safe("]("),
+            link_destination(
+                wagtail_ref(
+                    "image", id=props.get("id"), format=props.get("format") or ""
+                )
+            ),
+            mark_safe(")"),
+        ]
+    )
+
+
+def _resolved_image(props):
+    if props.get("src"):
+        return default_markdown_image(props)
+    return _image_ref_image(props)
+
+
+def _media_ref_embed(props):
+    label = props.get("title") or props.get("url") or ""
+    return markdown_block(
+        [
+            mark_safe("!["),
+            label,
+            mark_safe("]("),
+            link_destination(wagtail_ref("media", url=props.get("url") or "")),
+            mark_safe(")"),
+        ]
+    )
+
+
+def _resolved_media_embed(props):
+    label = props.get("title") or props.get("url") or ""
+    return markdown_block(
+        [
+            mark_safe("["),
+            label,
+            mark_safe("]("),
+            link_destination(props.get("url") or ""),
+            mark_safe(")"),
+        ]
+    )
+
+
+def _markdown_exporter(resolved):
+    config = build_markdown_config({"italic": "*", "strikethrough": "~~"})
+    if resolved:
+        config["entity_decorators"].update(
+            {
+                ENTITY_TYPES.LINK: _resolved_link,
+                ENTITY_TYPE_DOCUMENT: _resolved_document_link,
+                ENTITY_TYPES.IMAGE: _resolved_image,
+                ENTITY_TYPE_MEDIA: _resolved_media_embed,
+            }
+        )
+    else:
+        config["entity_decorators"].update(
+            {
+                ENTITY_TYPES.LINK: _page_or_external_ref_link,
+                ENTITY_TYPE_DOCUMENT: _document_ref_link,
+                ENTITY_TYPES.IMAGE: _image_ref_image,
+                ENTITY_TYPE_MEDIA: _media_ref_embed,
+            }
+        )
+    return HTMLExporter(config)
