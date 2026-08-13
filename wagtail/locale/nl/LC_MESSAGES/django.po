@@ -781,7 +781,7 @@ msgid "Unpublish"
 msgstr "Publicatie intrekken"
 
 msgid "Unpublished"
-msgstr "Publicatie ongedaan maken"
+msgstr "Publicatie ongedaan gemaakt"
 
 msgid "Unpublish scheduled draft"
 msgstr "Trek concept met planning terug"

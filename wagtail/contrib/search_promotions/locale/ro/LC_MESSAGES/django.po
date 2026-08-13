@@ -4,6 +4,7 @@
 #
 # Translators:
 # Alex Morega, 2023
+# Alex Morega, 2023
 # Dan Braghis, 2014,2016
 # Dan Braghis, 2016,2019-2020,2022,2024
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Dan Braghis, 2016,2019-2020,2022,2024\n"
+"Last-Translator: Dan Braghis, 2014,2016\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +34,8 @@ msgid ""
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 "Introduceți șirul complet de căutare. Este nevoie de o potrivire exactă "
-"pentru a afișa selecțiile \n"
-"dvs. editoriale. Metacaractere NU sunt permise."
+"pentru ca rezultatele promovate să fie afișate; metacaracterele NU sunt "
+"permise."
 
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
@@ -50,6 +51,12 @@ msgstr "Selectați doar o pagină SAU un link extern."
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
 
+msgid "query"
+msgstr "interogare"
+
+msgid "queries"
+msgstr "interogări"
+
 msgid "Query Daily Hits"
 msgstr "Interogări zilnice"
 
@@ -57,7 +64,7 @@ msgid "page"
 msgstr "pagină"
 
 msgid "Choose an internal page for this promotion"
-msgstr "Alegeți o pagină internă pentru promovarea aceasta"
+msgstr "Alegeți o pagină internă pentru această promovare"
 
 msgid "External link URL"
 msgstr "URL pentru link extern"
@@ -94,7 +101,7 @@ msgstr ""
 "<p>Câmpul \"Termeni/frază de căutare\" de mai jos trebuie să conțină șirul "
 "exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</"
 "em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de "
-"căutare populari printre utilizatorii sitului dvs.</p>"
+"căutare populari printre utilizatorii site-ului dvs.</p>"
 
 #, python-format
 msgid "Delete %(query)s"
@@ -107,10 +114,10 @@ msgstr ""
 "căutare?"
 
 msgid "Move up"
-msgstr "Deplasează în sus"
+msgstr "Mută în sus"
 
 msgid "Move down"
-msgstr "Deplasează în jos"
+msgstr "Mută în jos"
 
 msgid "Drag"
 msgstr "Glisează"
@@ -119,7 +126,7 @@ msgid "Delete"
 msgstr "Șterge"
 
 msgid "Recommended search result"
-msgstr "Rezultate de căutare recomandate"
+msgstr "Rezultat de căutare recomandat"
 
 msgid "Promoted search results"
 msgstr "Rezultate de căutare promovate"
@@ -130,7 +137,7 @@ msgstr "Adaugă un rezultat recomandat"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu niciun "
 "rezultat promovat"
 
 #, python-format
@@ -138,8 +145,11 @@ msgid ""
 "No promoted results have been created. Why not <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a "
+"Nu a fost creat niciun rezultat de căutare promovat. De ce să nu <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Nu a fost creat niciun rezultat promovat."
 
 msgid "Popular search terms"
 msgstr "Termeni populari de căutare"
@@ -150,26 +160,32 @@ msgstr "Caută"
 msgid "Terms"
 msgstr "Termeni"
 
+msgid "Views"
+msgstr "Vizualizări"
+
 msgid "No results found"
-msgstr "Nu sunt rezultate"
+msgstr "Nu au fost găsite rezultate"
 
 msgid "Choose from popular search terms"
-msgstr "Alege din termeni populari de căutare"
+msgstr "Alege dintre termenii de căutare populari"
 
 msgid "External link"
 msgstr "Link extern"
 
 msgid "None"
-msgstr "Nici una"
+msgstr "Niciuna"
 
 msgid "Date"
 msgstr "Dată"
+
+msgid "Search terms"
+msgstr "Termeni de căutare"
 
 msgid "Search term(s)"
 msgstr "Termen de căutare"
 
 msgid "Add new promoted result"
-msgstr "Adaugă rezultat promovat"
+msgstr "Adaugă un rezultat promovat nou"
 
 msgid "Promoted results"
 msgstr "Rezultate promovate"
@@ -181,9 +197,15 @@ msgstr "Rezultat de căutare promovat"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Selecțiile editoriale pentru '%(query)s' au fost create."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Recomandările nu au fost create din cauza erorilor."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Selecțiile editoriale pentru '%(query)s' au fost actualizate."
 
+msgid "Recommendations have not been saved due to errors."
+msgstr "Recomandările nu au fost salvate din cauza erorilor."
+
 msgid "Editor's picks deleted."
-msgstr "Selecțiile editoriale au fost șterse"
+msgstr "Selecțiile editoriale au fost șterse."

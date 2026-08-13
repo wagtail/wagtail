@@ -4,6 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +47,12 @@ msgstr "الرجاء اختيار صفحة فقط أو إدخال رابط خا�
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "الرجاء تحديد توصية واحدة على الأقل لمصطلح البحث هذا."
+
+msgid "query"
+msgstr "إستعلام"
+
+msgid "queries"
+msgstr "إستعلامات"
 
 msgid "Query Daily Hits"
 msgstr "الزيارات اليومية للاستعلام"
@@ -183,9 +190,15 @@ msgstr "نتيجة البحث المروجة"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "تم إنشاء اختيارات المحرر لـ '%(query)s'."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "لم يتم إنشاء التوصيات بسبب وجود أخطاء."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "تم تحديث اختيارات المحرر لـ '%(query)s'."
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "لم يتم حفظ التوصيات بسبب وجود أخطاء."
 
 msgid "Editor's picks deleted."
 msgstr "تم حذف اختيارات المحرر."

@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016,2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgid "Last Name"
 msgstr "الاسم الأخير"
 
 msgid "Email"
-msgstr "البريد الإلكتروني"
+msgstr "البريد الالكتروني"
 
 msgid "Upload a profile picture"
 msgstr "رفع صورة ملف شخصي"
@@ -215,6 +215,9 @@ msgstr "لا يمكنك تحرير تعليق مستخدم آخر."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "يجب أن يكون تاريخ/وقت النشر المباشر قبل تاريخ/وقت الانتهاء"
+
+msgid "Expiry date/time must be in the future."
+msgstr "يجب أن يكون تاريخ/وقت انتهاء الصلاحية في المستقبل."
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -289,6 +292,10 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصفحات الفرعية"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "الرابط '' مستخدم بالفعل داخل الصفحة الرئيسية. '%(page_slug)s' ."
+
 msgid "Select a new parent for this page."
 msgstr "اختر صفحة أصل جديدة لهذه الصفحة."
 
@@ -309,6 +316,10 @@ msgstr "لا يمكنك إنشاء صفحة من نوع \"%(page_type)s\" تحت
 
 msgid "Search…"
 msgstr "بحث..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
+msgstr " .وسم %(value_too_long)s أكثر من %(max_tag_length)d حرف"
 
 msgid "Visibility"
 msgstr "الرؤية"
@@ -523,6 +534,9 @@ msgstr "رفع صورة الملف الشخصي:"
 
 msgid "Sidebar"
 msgstr "الشريط الجانبي"
+
+msgid "Go to the first error"
+msgstr "انتقل إلى أول  خطأ"
 
 msgid "Go back"
 msgstr "عودة"
@@ -748,6 +762,9 @@ msgstr "هل ما زلت ترغب في نشر %(model_name)s هذا؟"
 
 msgid "Cancel"
 msgstr "إلغاء"
+
+msgid "Actions (footer)"
+msgstr "الإجراءات (تذييل)"
 
 msgid "Comment"
 msgstr "تعليق"
@@ -1851,6 +1868,14 @@ msgstr "استكشاف الصفحات الفرعية لـ '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "إضافة صفحة فرعية إلى '%(title)s'"
 
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s من%(items_count)s %(model_name)s في جميع أنحاء "
+"الموقع."
+
 msgid "No results across entire site."
 msgstr "لا توجد نتائج عبر الموقع بأكمله"
 
@@ -1859,11 +1884,23 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "البحث في '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s من%(items_count)s %(model_name)s في '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
+
+#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr "لا توجد نتائج في '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 msgid "Search the whole site"
 msgstr "بحث في الموقع بأكمله"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)s من %(items_count)s %(model_name)s"
 
 msgid "Sites menu"
 msgstr "قائمة المواقع"
@@ -2052,6 +2089,12 @@ msgstr "%(field_label)s:"
 msgid "Clear"
 msgstr "مسح"
 
+msgid "Saved"
+msgstr "حفظ"
+
+msgid "Autosave is paused"
+msgstr "تم إيقاف الحفظ التلقائي مؤقتًا"
+
 msgid "Edit account avatar"
 msgstr "تحرير صورة الحساب"
 
@@ -2095,12 +2138,18 @@ msgstr "النظام"
 msgid "%(user_name)s saved a new version"
 msgstr "حفظ %(user_name)s نسخة جديدة"
 
+msgid "View latest version"
+msgstr "عرض أحدث إصدار"
+
 msgid "You have unsaved changes in another window"
 msgstr "لديك تغييرات غير محفوظة في نافذة أخرى"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "لدى %(user_name)s تغييرات غير محفوظة"
+
+msgid "Currently idle"
+msgstr "حاليًا غير نشط"
 
 msgid "Currently viewing"
 msgstr "يتم عرضه حاليًا"
@@ -2114,6 +2163,27 @@ msgstr[2] "%(num_user)s مستخدمان آخران يشاهدان حاليًا"
 msgstr[3] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[4] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[5] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
+
+msgid "Proceeding will overwrite the changes you made in that window."
+msgstr "ستؤدي المتابعة إلى استبدال التغييرات التي أجريتها في تلك النافذة."
+
+#, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr ""
+"ستؤدي المتابعة إلى استبدال التغييرات التي تم إجراؤها بواسطة %(user_name)s."
+
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "يمكنك بدلاً من ذلك عرض الإصدار الأحدث في علامة تبويب جديدة."
+
+msgid "A network error occurred"
+msgstr "حدث خطأ في الشبكة"
+
+msgid ""
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
+msgstr ""
+"قم بإصلاح اتصالك بالموقع قبل المتابعة. افتح المحرر في علامة تبويب منفصلة "
+"لعرض آخر نسخة محفوظة."
 
 msgid "Continue"
 msgstr "متابعة"
@@ -2151,6 +2221,14 @@ msgstr "الحساب"
 msgid "Keyboard shortcuts"
 msgstr "اختصارات لوحة المفاتيح"
 
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"اختصارات لوحة المفاتيح معطلة حاليًا؛ قم بإدارة إعداداتك لتمكينها "
+"%(account_link)s ."
+
 msgid "All keyboard shortcuts"
 msgstr "جميع اختصارات لوحة المفاتيح"
 
@@ -2159,6 +2237,14 @@ msgstr "القسم"
 
 msgid "Keyboard shortcut"
 msgstr "اختصار لوحة المفاتيح"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"اختصارات لوحة المفاتيح مُفعّلة حاليًا؛ يمكنك إدارتها لتعطيلها. "
+"%(account_link)s ."
 
 msgid "Current page status:"
 msgstr "حالة الصفحة الحالية:"
@@ -2220,6 +2306,44 @@ msgstr "كلمات"
 
 msgid "Reading time"
 msgstr "وقت القراءة"
+
+msgid "Readability"
+msgstr "سهولة القراءة"
+
+msgid "This data explained"
+msgstr "هذه البيانات وضحت"
+
+msgid "How we calculate our metrics"
+msgstr "كيف نحسب مقاييسنا"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"نقوم باستخراج المحتوى الرئيسي من معاينة الصفحة، وإزالة جميع التنسيقات، وحساب "
+"عدد الكلمات."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"نقوم بحساب وقت القراءة من حساب عدد الكلمات، باستخدام سرعات قراءة مختلفة "
+"للغات مختلفة."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"نستخدم معادلة لقياس سهولة القراءة تعتمد على طول الكلمات والجمل. فالجمل "
+"والكلمات الطويلة تؤدي إلى انخفاض درجة سهولة القراءة."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"راجع <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</a> "
+"لمزيد من المعلومات حول كيفية حساب مقاييس المحتوى."
 
 msgid "Issues found"
 msgstr "تم العثور على مشاكل"
@@ -2302,6 +2426,10 @@ msgid "View details"
 msgstr "عرض التفاصيل"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "سيتم إنشاؤه بواسطة %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "بواسطة %(user)s"
 
@@ -2348,6 +2476,9 @@ msgstr "وضع المعاينة"
 
 msgid "First published"
 msgstr "تاريخ النشر الأول"
+
+msgid "Autosave is <span>paused</span>"
+msgstr "تم تعطيل الحفظ التلقائي مؤقتا <span>paused</span>"
 
 msgid "Save your changes before leaving"
 msgstr "احفظ تغييراتك قبل المغادرة"
@@ -2439,8 +2570,14 @@ msgstr "تخطي إلى المحتوى الرئيسي"
 msgid "Item %(index)s of %(total)s"
 msgstr "العنصر %(index)s من %(total)s"
 
+msgid "Disable custom ordering"
+msgstr "تعطيل ترتيب مخصص"
+
 msgid "Sort"
 msgstr "ترتيب"
+
+msgid "Enable custom ordering"
+msgstr "تمكين ترتيب مخصص "
 
 msgid "View Wagtail quick actions"
 msgstr "عرض إجراءات Wagtail السريعة"
@@ -2690,17 +2827,33 @@ msgstr "تم الإرسال إلى %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "طلب"
+
+msgid "Show keyboard shortcuts"
+msgstr "عرض اختصارات لوحة المفاتيح"
+
 msgid "Toggle sidebar"
 msgstr "تبديل الشريط الجانبي"
 
 msgid "Toggle minimap"
 msgstr "تبديل الخريطة المصغرة"
 
+msgid "Close modal dialogs (like this one)"
+msgstr "إغلاق النوافذ المنبثقة (مثل هذه النافذة)"
+
 msgid "Save changes"
 msgstr "حفظ التغييرات"
 
 msgid "Add or show comments"
 msgstr "إضافة أو عرض التعليقات"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "تحرير النص"
 
 msgid "Cut"
 msgstr "قص"
@@ -2849,6 +3002,12 @@ msgstr "نص alt للصورة يحتوي على نمط غير مناسب"
 msgid "Use meaningful text"
 msgstr "استخدم نصًا ذا معنى"
 
+msgid "Meta description is empty"
+msgstr "الوصف التعريفي فارغ"
+
+msgid "Add a concise description for search engines"
+msgstr "أضف وصفًا موجزًا ​​لمحركات البحث"
+
 #, python-format
 msgid "%(classname)s object (%(id)s)"
 msgstr "كائن %(classname)s (%(id)s)"
@@ -2992,6 +3151,9 @@ msgstr "تم إعادة تشغيل سير العمل على %(model_name)s '%(ob
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "تم إلغاء سير العمل على %(model_name)s '%(object)s'."
 
+msgid "Saving will overwrite a newer version."
+msgstr "سيؤدي الحفظ إلى استبدال نسخة أحدث."
+
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr "تعذر حفظ %(model_name)s لأنه مقفل"
@@ -3025,6 +3187,9 @@ msgstr "تم جدولة النسخة من %(timestamp)s لـ %(model_name)s '%(o
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
+msgid "Sort item order"
+msgstr "ترتيب العناصر"
+
 msgid "Inspect"
 msgstr "فحص"
 
@@ -3043,6 +3208,9 @@ msgstr "تعذر إنشاء %(model_name)s بسبب الأخطاء."
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "جديد: %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr "توجد أخطاء في التحقق، انقر فوق حفظ لتسليط الضوء عليها."
 
 msgid "Editing"
 msgstr "جاري التعديل"
@@ -3234,6 +3402,10 @@ msgstr "تم نسخ الصفحة '%(page_title)s' و %(subpages_count)s الصف
 msgid "Page '%(page_title)s' copied."
 msgstr "الصفحة '%(page_title)s' المنسوخة."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr ". %(model_name)s تم حظر طلب الإنشاء بواسطة الخطاف"
+
 msgid "View draft"
 msgstr "عرض المسودة"
 
@@ -3277,6 +3449,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "تم تحديث الصفحة '%(page_title)s'."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr ". %(model_name)s تم حظر طلب التعديل بواسطة الخطاف."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."

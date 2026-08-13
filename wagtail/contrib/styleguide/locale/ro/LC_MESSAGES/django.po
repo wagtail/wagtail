@@ -21,7 +21,7 @@ msgstr ""
 "2:1));\n"
 
 msgid "Wagtail style guide"
-msgstr "Ghid stilistic Wagtail"
+msgstr "Ghid de stil Wagtail"
 
 msgid "Minimap"
 msgstr "Minimapă"
@@ -30,16 +30,16 @@ msgid "Save"
 msgstr "Salvează"
 
 msgid "Delete image"
-msgstr "Șterge imagine"
+msgstr "Șterge imaginea"
 
 msgid "Styleguide"
 msgstr "Ghid de stil"
 
 msgid "Success message"
-msgstr "Mesaj de success"
+msgstr "Mesaj de succes"
 
 msgid "View live"
-msgstr "Vezi în direct"
+msgstr "Vezi pagina publicată"
 
 msgid "Edit"
 msgstr "Editează"

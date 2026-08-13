@@ -61,6 +61,12 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
 
+msgid "query"
+msgstr "Abfrage"
+
+msgid "queries"
+msgstr "Abfragen"
+
 msgid "Query Daily Hits"
 msgstr "Nach täglichen Treffern suchen"
 

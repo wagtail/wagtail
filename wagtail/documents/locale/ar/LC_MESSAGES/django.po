@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Oumayma el bez, 2023
 # Oumayma el bez, 2023
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,10 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "مستندات Wagtail"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "الحد الأقصى لحجم الملف: %(max_upload_size)s."
 
 #, python-format
 msgid ""
@@ -413,6 +417,10 @@ msgstr "تعذر حفظ المستند بسبب أخطاء."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "تم تحديث المستند '%(document_title)s'"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document."
+msgstr "لم يتم العثور على الملف. يرجى تغيير المصدر أو حذف المستند."
 
 msgid "Delete document"
 msgstr "حذف مستند"

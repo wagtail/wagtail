@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -284,6 +284,9 @@ msgstr "لا، لا تحذف"
 msgid "Popular tags"
 msgstr "الوسوم الشائعة"
 
+msgid "Layout"
+msgstr "نسق"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -439,6 +442,12 @@ msgid ""
 msgstr ""
 "لم تقم برفع أي صور. لماذا لا <a "
 "href=\"%(wagtailimages_add_image_url)s\">ترفع واحدة الآن</a>؟"
+
+msgid "Grid layout"
+msgstr "نسق شبكي"
+
+msgid "List layout"
+msgstr "نسق قائمة"
 
 msgid "Preview"
 msgstr "معاينة"
@@ -617,6 +626,9 @@ msgstr "تعذر العثور على ملف الصورة المصدر. الرج�
 
 msgid "Generate URL"
 msgstr "إنشاء رابط"
+
+msgid "The filter options you have selected are not valid."
+msgstr "خيارات التصفية التي اخترتها غير صالحة."
 
 msgid "Delete image"
 msgstr "حذف صورة"

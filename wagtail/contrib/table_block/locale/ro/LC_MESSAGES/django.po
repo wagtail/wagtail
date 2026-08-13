@@ -25,13 +25,41 @@ msgid "Wagtail table block"
 msgstr "Bloc tabel Wagtail"
 
 msgid "Row header"
-msgstr "Antent rând"
+msgstr "Antet rând"
+
+msgid "Table headers"
+msgstr "Anteturi de tabel"
+
+msgid "Display the first row as a header"
+msgstr "Afișează primul rând ca antet"
+
+msgid "Display the first column as a header"
+msgstr "Afișează prima coloană ca antet"
 
 msgid "Column header"
 msgstr "Antet coloană"
 
+msgid "Display the first row AND first column as headers"
+msgstr "Afișează primul rând ȘI prima coloană ca anteturi"
+
+msgid "No headers"
+msgstr "Fără anteturi"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Care celule să fie afișate ca anteturi?"
+
 msgid "Table caption"
 msgstr "Legendă tabel"
 
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Un titlu care identifică subiectul general al tabelului, util pentru "
+"utilizatorii de cititoare de ecran."
+
 msgid "Table"
 msgstr "Tabel"
+
+msgid "Select a header option"
+msgstr "Selectați o opțiune de antet"

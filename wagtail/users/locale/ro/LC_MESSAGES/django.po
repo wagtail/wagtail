@@ -33,7 +33,8 @@ msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr "Obligatoriu. Numai litere, cifre și @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
+msgstr ""
+"Această valoare poate conține numai litere, cifre și caracterele @/./+/-/_."
 
 msgid "A user with that username already exists."
 msgstr "Un utilizator cu acest nume există deja."
@@ -60,7 +61,7 @@ msgid "Password confirmation"
 msgstr "Confirmare parolă"
 
 msgid "Enter the same password as above, for verification."
-msgstr "Introduceți aceeași parolă ca mai sus pentru verificare"
+msgstr "Introduceți aceeași parolă ca mai sus, pentru verificare."
 
 msgid "Administrator"
 msgstr "Administrator"
@@ -79,22 +80,22 @@ msgid "submitted notifications"
 msgstr "notificări depuse"
 
 msgid "Receive notification when a page is submitted for moderation"
-msgstr "Primește o notificăre când o pagină este trimisă pentru moderare"
+msgstr "Primiți o notificare când o pagină este trimisă pentru moderare"
 
 msgid "approved notifications"
 msgstr "notificări aprobate"
 
 msgid "Receive notification when your page edit is approved"
-msgstr "Primește o notificare când modificarea paginii este aprobată"
+msgstr "Primiți o notificare când modificarea paginii dvs. este aprobată"
 
 msgid "rejected notifications"
 msgstr "notificări respinse"
 
 msgid "Receive notification when your page edit is rejected"
-msgstr "Primește o notificare când modificărea paginii este respinsă"
+msgstr "Primiți o notificare când modificarea paginii dvs. este respinsă"
 
 msgid "updated comments notifications"
-msgstr "notificări actualizate de comentarii"
+msgstr "notificări pentru comentarii actualizate"
 
 msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
@@ -130,6 +131,12 @@ msgstr "Întunecat"
 msgid "admin theme"
 msgstr "temă pentru interfața de administrare"
 
+msgid "More contrast"
+msgstr "Mai mult contrast"
+
+msgid "contrast"
+msgstr "contrast"
+
 msgid "Default"
 msgstr "Implicit"
 
@@ -144,6 +151,9 @@ msgstr "densitate"
 msgid "Keyboard shortcuts"
 msgstr "Comenzi rapide de la tastatură"
 
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Activează comenzile rapide de la tastatură specifice Wagtail."
+
 msgid "user profile"
 msgstr "profil utilizator"
 
@@ -153,12 +163,12 @@ msgstr "profiluri utilizatori"
 #, python-format
 msgid "Assign role to 1 user"
 msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Adaugă rol la 1 utilizator"
-msgstr[1] "Adaugă rol la %(counter)s utilizatori"
-msgstr[2] "Adaugă rol la %(counter)s utilizatori"
+msgstr[0] "Atribuie rol la 1 utilizator"
+msgstr[1] "Atribuie rol la %(counter)s utilizatori"
+msgstr[2] "Atribuie rol la %(counter)s de utilizatori"
 
 msgid "Assign role"
-msgstr "Adaugă rol"
+msgstr "Atribuie rol"
 
 msgid "Are you sure you want to assign this role to these users?"
 msgstr "Sigur doriți să atribuiți acest rol acestor utilizatori?"
@@ -173,14 +183,14 @@ msgid "Yes, assign"
 msgstr "Da, atribuie"
 
 msgid "No, don't assign"
-msgstr "Nu, nu atribuie"
+msgstr "Nu, nu atribui"
 
 #, python-format
 msgid "Delete 1 user"
 msgid_plural "Delete %(counter)s users"
 msgstr[0] "Șterge 1 utilizator"
 msgstr[1] "Șterge %(counter)s utilizatori"
-msgstr[2] "Șterge %(counter)s utilizatori"
+msgstr[2] "Șterge %(counter)s de utilizatori"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -205,22 +215,22 @@ msgid "Change active state for 1 user"
 msgid_plural "Change active state for %(counter)s users"
 msgstr[0] "Schimbă starea activă pentru 1 utilizator"
 msgstr[1] "Schimbă starea activă pentru %(counter)s utilizatori"
-msgstr[2] "Schimbă starea activă pentru %(counter)s utilizatori"
+msgstr[2] "Schimbă starea activă pentru %(counter)s de utilizatori"
 
 msgid "Set active state"
 msgstr "Setează stare activă"
 
 msgid "Are you sure you want to change the active state for these users?"
-msgstr "Sigur doriți să shimbați starea activă pentru acești utilizatori?"
+msgstr "Sigur doriți să schimbați starea activă pentru acești utilizatori?"
 
 msgid "You cannot change your own active status"
-msgstr "Nu vă puteți schimba propriul statut activ"
+msgstr "Nu vă puteți schimba propria stare activă"
 
 msgid "Yes, change state"
-msgstr "Da, schimbă stare"
+msgstr "Da, schimbă starea"
 
 msgid "No, don't change state"
-msgstr "Nu, nu schimba stare"
+msgstr "Nu, nu schimba starea"
 
 #, python-format
 msgid ""
@@ -232,13 +242,13 @@ msgstr[0] ""
 msgstr[1] ""
 "Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> membri."
 msgstr[2] ""
-"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> membri."
+"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> de membri."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
 msgstr ""
-"Ștergerea acestui grup va revoca permsiunile de la toți utilizatorii membri."
+"Ștergerea acestui grup va revoca permisiunile de la toți utilizatorii membri."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Sigur doriți să ștergeți acest grup?"
@@ -287,14 +297,14 @@ msgstr "Adaugă permisiune de pagină"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
-msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu nici un grup"
+msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu niciun grup"
 
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a "
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nu există nici un grup configurat. De ce să nu <a "
+"Nu există niciun grup configurat. De ce să nu <a "
 "href=\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
 
 msgid "Account"
@@ -307,29 +317,32 @@ msgid "Select all users in listing"
 msgstr "Selectează toți utilizatorii din listă"
 
 msgid "Sorry, no users match your query"
-msgstr "Ne pare rău, niciun utlizator nu corespunde interogării"
+msgstr "Ne pare rău, niciun utilizator nu corespunde interogării"
 
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Nu există nici un utilizator. De ce să nu <a "
+"Nu există niciun utilizator configurat. De ce să nu <a "
 "href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+msgid "Can view"
+msgstr "Poate vizualiza"
 
 #, python-format
 msgid "user %(id)s (deleted)"
 msgstr "utilizator %(id)s (șters)"
 
 msgid "Assign role to selected users"
-msgstr "Adaugă rol la utilizatorii selectați"
+msgstr "Atribuie rol utilizatorilor selectați"
 
 #, python-format
 msgid "%(num_parent_objects)d user has been assigned as %(role)s"
 msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
 msgstr[0] "%(num_parent_objects)d utilizator a primit rolul %(role)s"
 msgstr[1] "%(num_parent_objects)d utilizatori au primit rolul %(role)s"
-msgstr[2] "%(num_parent_objects)d utilizatori au primit rolul %(role)s"
+msgstr[2] "%(num_parent_objects)d de utilizatori au primit rolul %(role)s"
 
 msgid "Delete selected users"
 msgstr "Șterge utilizatorii selectați"
@@ -339,7 +352,7 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utilizator a fost șters"
 msgstr[1] "%(num_parent_objects)d utilizatori au fost șterși"
-msgstr[2] "%(num_parent_objects)d utilizatori au fost șterși"
+msgstr[2] "%(num_parent_objects)d de utilizatori au fost șterși"
 
 msgid "Active"
 msgstr "Activ"
@@ -358,14 +371,14 @@ msgid "%(num_parent_objects)d user has been marked as active"
 msgid_plural "%(num_parent_objects)d users have been marked as active"
 msgstr[0] "%(num_parent_objects)d utilizator a fost marcat ca activ"
 msgstr[1] "%(num_parent_objects)d utilizatori au fost marcați ca activi"
-msgstr[2] "%(num_parent_objects)d utilizatori au fost marcați ca activi"
+msgstr[2] "%(num_parent_objects)d de utilizatori au fost marcați ca activi"
 
 #, python-format
 msgid "%(num_parent_objects)d user has been marked as inactive"
 msgid_plural "%(num_parent_objects)d users have been marked as inactive"
 msgstr[0] "%(num_parent_objects)d utilizator a fost marcat ca inactiv"
 msgstr[1] "%(num_parent_objects)d utilizatori au fost marcați ca inactivi"
-msgstr[2] "%(num_parent_objects)d utilizatori au fost marcați ca inactivi"
+msgstr[2] "%(num_parent_objects)d de utilizatori au fost marcați ca inactivi"
 
 msgid "Groups"
 msgstr "Grupuri"
@@ -391,17 +404,17 @@ msgid "The group could not be saved due to errors."
 msgstr "Grupul nu a fost salvat din cauza erorilor."
 
 msgid "View users in this group"
-msgstr "Vezi utilizatorii în acest grup"
+msgstr "Vezi utilizatorii din acest grup"
 
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupul '%(object)s' a fost șters."
 
 msgid "Delete group"
-msgstr "Șterge grup"
+msgstr "Șterge grupul"
 
 msgid "Last login"
-msgstr "Ultima logare"
+msgstr "Ultima autentificare"
 
 msgid "Group"
 msgstr "Grup"
@@ -413,7 +426,7 @@ msgid "Users"
 msgstr "Utilizatori"
 
 msgid "Username"
-msgstr "Nume utlizator"
+msgstr "Nume de utilizator"
 
 msgid "Admin"
 msgstr "Administrator"
@@ -440,7 +453,7 @@ msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 
 msgid "Delete user"
-msgstr "Șterge utilizator"
+msgstr "Șterge utilizatorul"
 
 #, python-format
 msgid "User '%(object)s' deleted."
