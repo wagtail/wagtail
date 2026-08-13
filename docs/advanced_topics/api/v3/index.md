@@ -102,10 +102,4 @@ Documents are available at `/api/v3/documents/`. The routes are flat rather than
 - `PATCH /documents/{id}/`: update writable metadata as JSON. The document file cannot be replaced through this endpoint.
 - `DELETE /documents/{id}/`: delete a document.
 
-The write endpoints require bearer-token authentication and the applicable Wagtail collection permissions. Wagtail's document ownership rules apply to updates and deletes: users with add permission may update or delete documents they uploaded themselves, while changing or deleting another user's document requires the corresponding permission.
-
-Tags are returned under `meta.tags` but are not writable through the Documents API. `meta.download_url` is generated from the document's `url` property, so it uses Wagtail's configured document serving behavior. When the URL uses Wagtail's serve view, that view performs collection privacy checks before serving the file.
-
-The API list and detail endpoints match the v2 API's direct-collection restriction behavior: a restriction on a document's direct collection can hide it, but a restriction inherited from an ancestor collection does not. The document serve view can enforce ancestor restrictions as well, so a document returned by the API is not necessarily publicly downloadable.
-
 Document uploads enforce `WAGTAILDOCS_EXTENSIONS`, `WAGTAILDOCS_MAX_UPLOAD_SIZE`, custom form validation, and collection permissions in the same way as admin uploads. Extension validation checks the filename and does not verify that the file contents match the extension; see [](user_uploaded_files) for guidance on handling untrusted uploads.
