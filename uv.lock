@@ -882,10 +882,11 @@ wheels = [
 
 [[package]]
 name = "draftjs-exporter"
-version = "7.0.0"
+version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9e/ac/18fe333830cfaab6fceb760fcfd0db9f5c08a8ae53605f7c5b3e194d4f0c/draftjs_exporter-7.1.0.tar.gz", hash = "sha256:ad27634d514f8bcfb828b19cfc84a8fee7cb1f0fd706d249f70633436272d687", size = 45259, upload-time = "2026-08-13T12:03:54.418Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/da/3e/7e2944b99b0246cf66e3750f58e041b59341469892b1ecb0e46eee3a4abc/draftjs_exporter-7.0.0-py3-none-any.whl", hash = "sha256:a19e28a18c758284a26ad36210fb43f4992a12ffbd7aeed8be89b92cfedf581c", size = 62150, upload-time = "2026-08-06T10:53:00.486Z" },
+    { url = "https://files.pythonhosted.org/packages/05/83/7bb024971238052574eb6e4479f2c80339784be533268a60559fa544bca9/draftjs_exporter-7.1.0-py3-none-any.whl", hash = "sha256:4a9397751aae7e66b25cba538a4a0421801c5dcfee2e75e9f664bd9cb37e90fd", size = 62604, upload-time = "2026-08-13T12:03:53.368Z" },
 ]
 
 [[package]]
@@ -3286,7 +3287,7 @@ requires-dist = [
     { name = "djangorestframework", specifier = ">=3.18.0,<4.0" },
     { name = "djhtml", marker = "extra == 'testing'", specifier = "==3.0.11" },
     { name = "doc8", marker = "extra == 'testing'", specifier = "==2.0.0" },
-    { name = "draftjs-exporter", specifier = ">=7.0.0,<8.0" },
+    { name = "draftjs-exporter", specifier = ">=7.1.0,<8.0" },
     { name = "factory-boy", marker = "extra == 'testing'", specifier = ">=3.2" },
     { name = "freezegun", marker = "extra == 'testing'", specifier = ">=0.3.8" },
     { name = "jinja2", marker = "extra == 'testing'", specifier = ">=3.0,<3.2" },
