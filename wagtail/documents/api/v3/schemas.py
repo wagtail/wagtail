@@ -75,12 +75,10 @@ def build_document_schemas():
         base_class=Schema,
         fields=BASE_DOCUMENT_FIELDS,
         required_fields=("title",),
-        include_api_fields=False,
     )
     patch_schema = patch_generator.generate_schema(
         Document,
         base_class=Schema,
         fields=BASE_DOCUMENT_FIELDS,
-        include_api_fields=False,
     )
     return read_schema, create_schema, patch_schema
