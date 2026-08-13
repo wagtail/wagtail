@@ -133,6 +133,79 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assert_problem_response(response, status_code=404)
 
 
+class TestV3RedirectFind(TestV3Base, WagtailTestUtils, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.redirect = make_redirect(
+            old_path="/old", redirect_link="https://example.com/"
+        )
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v3:find_redirect"), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Redirect matches the given query.",
+        )
+
+    def test_find_by_id(self):
+        response = self.get_response(id=self.redirect.pk)
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=999999)
+        self.assert_problem_response(response, status_code=404)
+
+    def test_find_by_html_path(self):
+        response = self.get_response(html_path="/old")
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_nonexistent(self):
+        response = self.get_response(html_path="/no-such-path")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Redirect matches the given query.",
+        )
+
+    def test_find_by_html_path_takes_precedence_over_id(self):
+        other = make_redirect(
+            old_path="/other",
+            redirect_link="https://example.com/other/",
+        )
+        response = self.get_response(id=other.pk, html_path="/old")
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_anonymous_can_find(self):
+        # v2 parity: redirect lookups are public data.
+        response = self.get_response(id=self.redirect.pk)
+        self.assertEqual(response.status_code, 302)
+
+
 class TestV3RedirectCreate(TestV3Base, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()

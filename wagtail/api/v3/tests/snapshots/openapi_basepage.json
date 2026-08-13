@@ -31619,6 +31619,67 @@
         "tags": ["redirects"]
       }
     },
+    "/api/v3/redirects/find/": {
+      "get": {
+        "operationId": "redirects_find",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "html_path",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Html Path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          },
+          {
+            "AllowAnonymous": []
+          }
+        ],
+        "summary": "Find redirect",
+        "tags": ["redirects"]
+      }
+    },
     "/api/v3/redirects/{redirect_id}/": {
       "delete": {
         "operationId": "redirects_delete",

@@ -1,7 +1,9 @@
 from datetime import datetime
+from typing import Optional
 
 from django.http import Http404, HttpRequest
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from ninja import Field, Router, Schema, Status
 from ninja.pagination import paginate
 from rest_framework import serializers
@@ -59,6 +61,41 @@ class RedirectInputSchema(Schema):
 @paginate(WagtailLimitOffsetPagination)
 def list_redirects(request: HttpRequest):
     return Redirect.objects.all()
+
+
+@router.get(
+    "/find/",
+    response=RedirectSchema,
+    url_name="find_redirect",
+    summary="Find redirect",
+    operation_id="redirects_find",
+    # Public read, like the list view and the v2 API.
+    auth=[BearerTokenAuth(), AllowAnonymous()],
+)
+def find_redirect(
+    request: HttpRequest,
+    id: Optional[int] = None,
+    html_path: Optional[str] = None,
+):
+    redirect_obj = None
+
+    if html_path:
+        redirect_obj = get_redirect(request, html_path)
+
+    if redirect_obj is None and id:
+        redirect_obj = get_object_or_404(Redirect, pk=id)
+
+    if redirect_obj is None:
+        raise Http404(f"No {Redirect._meta.object_name} matches the given query.")
+
+    url = reverse(
+        "wagtailapi_v3:detail_redirect",
+        kwargs={"redirect_id": redirect_obj.pk},
+    )
+    query = request.GET.copy()
+    query.pop("id", None)
+    query.pop("html_path", None)
+    return redirect(f"{url}?{query.urlencode()}")
 
 
 @router.get(
