@@ -98,6 +98,12 @@ class FeatureRegistry:
         except KeyError:
             return None
 
+    def get_converter_features(self, converter_name):
+        """Return the names of all features registered for the given converter."""
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+        return list(self.converter_rules_by_converter.get(converter_name, {}))
+
     @staticmethod
     def function_as_entity_handler(identifier, fn):
         """Supports legacy registering of entity handlers as functions."""
