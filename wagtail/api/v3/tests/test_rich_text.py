@@ -255,7 +255,7 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "literal_error",
                     "loc": ["query", "rich_text_format"],
-                    "msg": "Input should be 'db_html' or 'html'",
+                    "msg": "Input should be 'db_html', 'html', 'db_markdown' or 'markdown'",
                 }
             ],
         )
