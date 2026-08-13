@@ -7,6 +7,7 @@ Changelog
  * Fix: Ensure models with a UUID primary key can be previewed when creating a new instance (Sébastien Corbin)
  * Fix: Ensure the checks side panel recognises custom `ContentCheckerItem` subclasses (Robert Rollins)
  * Fix: Ensure form field clean_name is consistently set on form pages if autosave runs prematurely (Joey Jurjens)
+ * Fix: Set `last_published_at` noon alias pages on first publish (Kevin Howbrook)
  * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
 
 
