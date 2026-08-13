@@ -329,3 +329,9 @@ cleaned_html, removals = converter.clean("<h1>Title</h1><p><b>text</b></p>")
 
 Like the editor converters, it is built from the feature registry's `editorhtml` converter rules, so allowlisting matches what the editor enforces for the same feature set. Out-of-features elements, unknown link or embed types, and references missing their required attributes are removed, with each removal reported as a `RichTextRemoval` (`tag`, `action`, `reason`, and a short `detail` snippet of the source markup — raw input content that callers must treat as untrusted).
 References to missing pages, images, or documents are preserved, matching the editor's handling of broken references.
+
+### Markdown conversion for the write API
+
+The v3 API's `db_markdown` / `markdown` formats are converted by `wagtail.admin.rich_text.converters.markdown_db.MarkdownConverter`, which mediates via ContentState using the [draftjs_exporter](https://github.com/wagtail/draftjs_exporter) Markdown importer and exporter: `to_database_format(markdown)` converts Markdown to database HTML (resolving `wagtail://` reference URLs to typed entities), and `from_database_format(html, resolved=...)` converts database HTML to Markdown. Feature enforcement for API input is **not** done here — `DbHTMLConverter.clean` (above) is the single enforcement point for every input format.
+
+Both directions require `draftjs_exporter>=7.0.0`; its Markdown support is experimental. See [](api_v3) for the format and reference-syntax contract.

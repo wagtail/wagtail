@@ -46,7 +46,59 @@ List endpoints use Django Ninja's limit/offset pagination:
 
 ## Rich text
 
-Rich text fields are stored in Wagtail's database HTML format, described in [](rich_text_internals), and the v3 API uses that format as its rich text interchange representation. Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of `WAGTAILAPI_RICH_TEXT_FORMAT`.
+Rich text fields are stored in Wagtail's database HTML format, described in [](rich_text_internals), and the v3 API uses that format as its rich text interchange representation.
+
+### Input formats
+
+On writes, a rich text field value accepts either a plain string (database HTML, sanitised against the field's declared features) or an envelope object:
+
+```json
+"body": {"format": "db_markdown", "content": "# Title\n\n[about](wagtail://page?id=3)"}
+```
+
+Supported input formats:
+
+- `db_html`: database HTML (the default when `format` is omitted).
+- `db_markdown`: Markdown using the `wagtail://` reference syntax described below.
+
+Markdown input is converted to database HTML and sanitised against the field's features exactly like `db_html` input: out-of-feature constructs are stripped, and malformed `wagtail://` references (for example a non-numeric `id`) fail the request with a 422 validation error naming the field and Markdown line.
+
+### Output formats
+
+Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of `WAGTAILAPI_RICH_TEXT_FORMAT`:
+
+- `db_html` (default): Wagtail's database HTML, with internal references by id (`<a linktype="page" id="3">`).
+- `html`: display-ready HTML, via `expand_db_html` (page references expanded to URLs).
+- `db_markdown`: Markdown that preserves internal references as `wagtail://` URLs — the format to round-trip through.
+- `markdown`: Markdown with references resolved to public URLs (page URLs, image rendition URLs) — the Markdown analogue of `html`. Dangling page or document references degrade to plain text.
+
+Markdown output is normalised to exactly one trailing blank line, and is parameterised by the field's features, matching the database HTML the editor would produce for that field.
+
+Markdown support is **experimental** (the underlying draftjs_exporter library marks it experimental) and requires `draftjs_exporter>=7.0.0,<8.0`.
+
+### Reference syntax
+
+Internal object references travel in Markdown as `wagtail://` URLs in link and image destinations:
+
+| Markdown | Resolves to |
+| --- | --- |
+| `[text](wagtail://page?id=3)` | page 3 |
+| `[text](wagtail://document?id=5)` | document 5 |
+| `![alt](wagtail://image?id=42&format=left)` | image 42, left format, alt text from the label |
+| `![label](wagtail://media?url=https%3A%2F%2Fyoutu.be%2Fabc)` | media embed with percent-encoded URL (label is informative only) |
+
+Round-tripping `db_markdown` through the API preserves these references exactly, including references to objects that no longer exist.
+
+### Supported Markdown subset and lossy conversions
+
+Markdown input covers the CommonMark core: ATX headings, blockquotes, fenced code blocks, thematic breaks, ordered/unordered lists, bold/italic/inline code, inline links and images, and hard line breaks. Inline `<sup>`/`<sub>` HTML tags are the only interpreted HTML, imported as superscript/subscript; all other raw HTML becomes literal text — it can never bypass sanitisation. Unsupported constructs (reference-style links, Setext headings, tables, indented code blocks, list item continuation lines, autolinks) are treated as plain text.
+
+Known lossy conversions:
+
+- Strikethrough is emitted as `~~text~~` on output but not re-imported (leaves literal tildes).
+- Styles with no Markdown syntax (underline, mark) degrade to plain text on output; superscript/subscript output as inline `<sup>`/`<sub>` HTML and re-import only when the field declares those features.
+- Resolved `markdown` output loses internal identifiers by design; dangling page/document links become plain text, dangling images keep their `wagtail://` reference.
+- Media embeds output as an image reference (`db_markdown`) or a block-level `[label](url)` link (resolved `markdown`).
 
 ## Error format
 
