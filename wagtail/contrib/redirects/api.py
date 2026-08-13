@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, cast
 
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from ninja import Field, Router, Schema, Status
+from ninja import Field, Query, Router, Schema, Status
 from ninja.pagination import paginate
 from rest_framework import serializers
 
@@ -17,9 +17,21 @@ from wagtail.api.v2.views import BaseAPIViewSet
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
+from wagtail.api.v3.schemas.params import APIFieldFilterSchema, OrderingSchema
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.middleware import get_redirect
 from wagtail.contrib.redirects.models import Redirect
+
+BASE_REDIRECT_READ_FIELDS = [
+    "id",
+    "old_path",
+    "site",
+    "is_permanent",
+    "redirect_page",
+    "redirect_page_route_path",
+    "automatically_created",
+    "created_at",
+]
 
 # All redirects endpoints require a bearer token; see wagtail.api.v3.auth.
 router = Router(tags=["redirects"], auth=BearerTokenAuth())
@@ -58,9 +70,32 @@ class RedirectInputSchema(Schema):
     # them publicly), so reads allow anonymous access like the v2 API.
     auth=[BearerTokenAuth(), AllowAnonymous()],
 )
-@paginate(WagtailLimitOffsetPagination)
-def list_redirects(request: HttpRequest):
-    return Redirect.objects.all()
+@paginate(
+    WagtailLimitOffsetPagination,
+    pass_parameter="pagination_info",  # noqa: S106 not a password
+)
+def list_redirects(
+    request: HttpRequest,
+    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
+    **kwargs,
+):
+    pagination_info = cast(
+        WagtailLimitOffsetPagination.Input,
+        kwargs.get("pagination_info"),
+    )
+    field_filter = APIFieldFilterSchema.with_exclude_schemas(
+        raw_params=request.GET,
+        schemas=(OrderingSchema,),
+        base_fields=BASE_REDIRECT_READ_FIELDS,
+    )
+    queryset = Redirect.objects.all()
+    queryset = field_filter.filter_queryset(queryset)
+    queryset = ordering.order_queryset(
+        queryset,
+        pagination_info,
+        base_fields=BASE_REDIRECT_READ_FIELDS,
+    )
+    return queryset
 
 
 @router.get(
