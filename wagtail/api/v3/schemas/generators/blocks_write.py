@@ -9,16 +9,18 @@ StreamField input happens later, via the block's own admin form machinery
 (``build_form_data``/``flatten_block_value`` in ``wagtail.api.v3.form_data``)
 - this module does not call into that code and has no effect on it.
 
-The recursive dispatch here mirrors ``flatten_block_value``'s isinstance
-order (stream -> list -> struct -> richtext -> leaf), since that function
-defines what shape of JSON the write endpoint actually turns into a bound
-form. Unlike that function, this one asks "what shape does this block's
-*form field* accept" rather than "how do I write this value into a
+Dispatch is via ``block_schemas``, a map of Block class -> schema function,
+walked along each block's mro (like ``_FORM_FIELD_TYPE_MAP`` below does for
+Django form field classes). This mirrors ``flatten_block_value``'s
+isinstance order (stream -> list -> struct -> richtext -> leaf), since that
+function defines what shape of JSON the write endpoint actually turns into
+a bound form. Unlike that function, this one asks "what shape does this
+block's *form field* accept" rather than "how do I write this value into a
 MultiValueDict" - a related but distinct question with its own set of
-special cases (see leaf dispatch below).
+special cases (see ``_field_block_schema`` below).
 """
 
-from typing import Annotated, Any, Literal, Union, cast
+from typing import Annotated, Any, Callable, Literal, Union, cast
 
 from django import forms
 from django.db.models import Field
@@ -48,8 +50,8 @@ from .write import InputFieldSchema, InputSchemaGenerator, RichTextInputSchema
 #: Map of Django form field classes to a Python/Pydantic type, walked by
 #: MRO. Only for genuinely scalar leaf blocks - a block whose value is
 #: structured (TableBlock) or otherwise special (RichTextBlock, ChooserBlock,
-#: StaticBlock) is dispatched before this map is ever consulted; see
-#: `_leaf_block_type`.
+#: StaticBlock) is dispatched by ``block_schemas`` before this map is ever
+#: consulted; see `_field_block_schema`.
 _FORM_FIELD_TYPE_MAP: dict[type[FormField], Any] = {
     forms.CharField: str,
     forms.RegexField: str,
@@ -67,18 +69,115 @@ _FORM_FIELD_TYPE_MAP: dict[type[FormField], Any] = {
     forms.MultipleChoiceField: list[str],
 }
 
+BlockSchemaFunc = Callable[["BlockSchemaBuilder", Block, str], Any]
+
 
 def _pascal_case(name: str) -> str:
     return "".join(part.capitalize() for part in name.split("_"))
 
 
-class _BlockSchemaBuilder:
+def _stream_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    item_union = builder.build_item_union(cast(BaseStreamBlock, block), name_prefix)
+    if item_union is Any:
+        return list[Any]
+    return Annotated[
+        Union[list[item_union], list[Any]],
+        PydanticField(union_mode="left_to_right"),
+    ]
+
+
+def _list_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    block = cast(ListBlock, block)
+    child_type = builder._block_value_type(block.child_block, f"{name_prefix}Item")
+    return list[child_type]
+
+
+def _struct_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    block = cast(BaseStructBlock, block)
+    struct_name = f"{name_prefix}{builder.generator.name_suffix}"
+    namespace: dict[str, Any] = {"__annotations__": {}}
+    for child_name, child_block in block.child_blocks.items():
+        child_type = builder._block_value_type(
+            child_block, f"{name_prefix}{_pascal_case(child_name)}"
+        )
+        namespace["__annotations__"][child_name] = child_type | None
+        namespace[child_name] = None
+    return type(Schema)(struct_name, (Schema,), namespace)
+
+
+def _rich_text_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    return str | RichTextInputSchema
+
+
+def _chooser_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    return int | None
+
+
+def _static_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    return type(None)
+
+
+def _table_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    return Any
+
+
+def _choice_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    block = cast(BaseChoiceBlock, block)
+    original_choices = block._constructor_kwargs.get("choices")
+    is_multi = isinstance(block, MultipleChoiceBlock)
+    if isinstance(original_choices, (list, tuple)):
+        values = [
+            choice[0]
+            for choice in original_choices
+            if isinstance(choice, (list, tuple)) and len(choice) == 2
+        ]
+        if values:
+            base = Literal[tuple(values)]
+            return list[base] | None if is_multi else base | None
+    return list[str] | None if is_multi else str | None
+
+
+def _field_block_schema(
+    builder: "BlockSchemaBuilder", block: Block, name_prefix: str
+) -> Any:
+    form_field = cast(FormField, cast(FieldBlock, block).field)
+    for cls in type(form_field).mro():
+        if cls in _FORM_FIELD_TYPE_MAP:
+            return _FORM_FIELD_TYPE_MAP[cls] | None
+    return Any
+
+
+class BlockSchemaBuilder:
     """Builds per-StreamField item schemas for one ``streamfield_schema`` call.
 
     Class names are derived deterministically from the model, field, block
     names, and the generator's ``name_suffix`` (see ``streamfield_schema``),
     so two calls for the same field produce identically-named (and
     identically-shaped) classes rather than colliding under different ones.
+    """
+
+    block_schemas: dict[type[Block], BlockSchemaFunc] = {}
+    """
+    Map of Block classes to functions that return the type annotation for a
+    block's ``value``, given the builder (for recursing into children) and a
+    name prefix (for naming any generated nested Schema classes). Walked by
+    mro - see ``_block_value_type``.
     """
 
     def __init__(self, generator: InputSchemaGenerator, name_prefix: str):
@@ -124,68 +223,22 @@ class _BlockSchemaBuilder:
             return Any
         self._seen_block_ids = self._seen_block_ids | {id(block)}
 
-        if isinstance(block, BaseStreamBlock):
-            item_union = self.build_item_union(block, name_prefix)
-            if item_union is Any:
-                return list[Any]
-            return Annotated[
-                Union[list[item_union], list[Any]],
-                PydanticField(union_mode="left_to_right"),
-            ]
+        for cls in type(block).__mro__:
+            if cls in self.block_schemas:
+                return self.block_schemas[cls](self, block, name_prefix)
 
-        if isinstance(block, ListBlock):
-            child_type = self._block_value_type(block.child_block, f"{name_prefix}Item")
-            return list[child_type]
-
-        if isinstance(block, BaseStructBlock):
-            struct_name = f"{name_prefix}{self.generator.name_suffix}"
-            namespace: dict[str, Any] = {"__annotations__": {}}
-            for child_name, child_block in block.child_blocks.items():
-                child_type = self._block_value_type(
-                    child_block, f"{name_prefix}{_pascal_case(child_name)}"
-                )
-                namespace["__annotations__"][child_name] = child_type | None
-                namespace[child_name] = None
-            return type(Schema)(struct_name, (Schema,), namespace)
-
-        if isinstance(block, RichTextBlock):
-            return str | RichTextInputSchema
-
-        if isinstance(block, ChooserBlock):
-            return int | None
-
-        if isinstance(block, StaticBlock):
-            return type(None)
-
-        if isinstance(block, TableBlock):
-            return Any
-
-        return self._leaf_block_type(block)
-
-    @staticmethod
-    def _leaf_block_type(block: Block) -> Any:
-        if not isinstance(block, FieldBlock):
-            return Any
-
-        if isinstance(block, BaseChoiceBlock):
-            original_choices = block._constructor_kwargs.get("choices")
-            is_multi = isinstance(block, MultipleChoiceBlock)
-            if isinstance(original_choices, (list, tuple)):
-                values = [
-                    choice[0]
-                    for choice in original_choices
-                    if isinstance(choice, (list, tuple)) and len(choice) == 2
-                ]
-                if values:
-                    base = Literal[tuple(values)]
-                    return list[base] | None if is_multi else base | None
-            return list[str] | None if is_multi else str | None
-
-        form_field = cast(FormField, block.field)
-        for cls in type(form_field).mro():
-            if cls in _FORM_FIELD_TYPE_MAP:
-                return _FORM_FIELD_TYPE_MAP[cls] | None
         return Any
+
+
+BlockSchemaBuilder.block_schemas[BaseStreamBlock] = _stream_block_schema
+BlockSchemaBuilder.block_schemas[ListBlock] = _list_block_schema
+BlockSchemaBuilder.block_schemas[BaseStructBlock] = _struct_block_schema
+BlockSchemaBuilder.block_schemas[RichTextBlock] = _rich_text_block_schema
+BlockSchemaBuilder.block_schemas[ChooserBlock] = _chooser_block_schema
+BlockSchemaBuilder.block_schemas[StaticBlock] = _static_block_schema
+BlockSchemaBuilder.block_schemas[TableBlock] = _table_block_schema
+BlockSchemaBuilder.block_schemas[BaseChoiceBlock] = _choice_block_schema
+BlockSchemaBuilder.block_schemas[FieldBlock] = _field_block_schema
 
 
 def streamfield_schema(
@@ -195,7 +248,7 @@ def streamfield_schema(
     model = field.model
     name_prefix = f"{model._meta.object_name}{_pascal_case(field.name)}"
 
-    builder = _BlockSchemaBuilder(generator, name_prefix)
+    builder = BlockSchemaBuilder(generator, name_prefix)
     item_union = builder.build_item_union(field.stream_block, name_prefix)
 
     if item_union is Any:
