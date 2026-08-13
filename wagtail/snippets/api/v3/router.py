@@ -1,7 +1,8 @@
-from typing import Any, Literal, cast
+from typing import Any, Callable, Literal, cast
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.db.models import Model
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Query, Router, Schema, Status
@@ -27,7 +28,7 @@ from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchem
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 from wagtail.permissions import policy_registry
-from wagtail.snippets.api.schemas import ParamTypeInjectingBody
+from wagtail.snippets.api.v3.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
 
 router = Router(tags=["snippets"], auth=BearerTokenAuth())
@@ -71,16 +72,19 @@ mixins = (RevisionMixin, DraftStateMixin, TranslatableMixin)
 literals_by_mixin = {}
 schemas_by_mixin = {}
 for mixin in mixins:
-    models = [model for model in enabled_models if issubclass(model, mixin)]
-    literals_by_mixin[mixin] = _type_literal(models)
-    schemas_by_mixin[mixin] = (
-        build_discriminated_union(
-            models,
-            lambda model: registry.get(model._meta.label).read_schema,
-        )
-        if models
-        else SnippetDetailSchema
+    models = cast(
+        list[type[Model]],
+        [model for model in enabled_models if issubclass(model, mixin)],
     )
+    for_schema = cast(
+        Callable[[type[Model]], type[Any]],
+        lambda model: (reg := registry.get(model._meta.label)) and reg.read_schema,
+    )
+    literals_by_mixin[mixin] = _type_literal(models)
+    if models:
+        schemas_by_mixin[mixin] = build_discriminated_union(models, for_schema)
+    else:
+        schemas_by_mixin[mixin] = SnippetDetailSchema
 
 
 def get_model_from_params(request, *args, type: SnippetTypeLiteral, **kwargs):
@@ -96,7 +100,7 @@ def _check_can_view_revisions(request: HttpRequest, instance) -> None:
 
 
 class SnippetRevisionDetailSchema(RevisionDetailSchema):
-    content_object: schemas_by_mixin[RevisionMixin]
+    content_object: schemas_by_mixin[RevisionMixin]  # ty: ignore[invalid-type-form]
 
     @staticmethod
     def resolve_content_object(obj):
@@ -255,7 +259,7 @@ def delete_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
 @require_any_permission(get_model_from_params, ("add", "change", "delete"))
 def list_snippet_revisions(
     request: HttpRequest,
-    type: literals_by_mixin[RevisionMixin],
+    type: literals_by_mixin[RevisionMixin],  # ty: ignore[invalid-type-form]
     pk: str,
     filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
 ):
@@ -276,7 +280,7 @@ def list_snippet_revisions(
 @require_any_permission(get_model_from_params, ("add", "change", "delete"))
 def get_snippet_revision(
     request: HttpRequest,
-    type: literals_by_mixin[RevisionMixin],
+    type: literals_by_mixin[RevisionMixin],  # ty: ignore[invalid-type-form]
     pk: str,
     revision_id: PositiveInt,
 ):
@@ -296,7 +300,7 @@ def get_snippet_revision(
 )
 def publish_snippet(
     request: HttpRequest,
-    type: literals_by_mixin[DraftStateMixin],
+    type: literals_by_mixin[DraftStateMixin],  # ty: ignore[invalid-type-form]
     pk: str,
 ):
     model = resolve_model_string(type)
@@ -330,7 +334,7 @@ def publish_snippet(
 )
 def unpublish_snippet(
     request: HttpRequest,
-    type: literals_by_mixin[DraftStateMixin],
+    type: literals_by_mixin[DraftStateMixin],  # ty: ignore[invalid-type-form]
     pk: str,
 ):
     model = resolve_model_string(type)
@@ -354,7 +358,7 @@ class SnippetRevertSchema(Schema):
 )
 def revert_snippet(
     request: HttpRequest,
-    type: literals_by_mixin[RevisionMixin],
+    type: literals_by_mixin[RevisionMixin],  # ty: ignore[invalid-type-form]
     pk: str,
     data: SnippetRevertSchema = Body(...),  # ty: ignore[call-non-callable]
 ):
@@ -380,7 +384,7 @@ class SnippetCopyForTranslationSchema(Schema):
 )
 def copy_for_translation(
     request: HttpRequest,
-    type: literals_by_mixin[TranslatableMixin],
+    type: literals_by_mixin[TranslatableMixin],  # ty: ignore[invalid-type-form]
     pk: str,
     data: SnippetCopyForTranslationSchema = Body(...),  # ty: ignore[call-non-callable]
 ):
