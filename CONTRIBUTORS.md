@@ -988,6 +988,7 @@
 * Eesh Saxena
 * Jack Whitworth
 * Thomas Herman
+* Joey Jurjens
 
 ## Translators
 
