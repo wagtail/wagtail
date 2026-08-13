@@ -194,7 +194,9 @@ class APIRichText:
         }
 
     @classmethod
-    def _serializers(cls) -> dict[RichTextOutputFormat, Callable[[str], Any]]:
+    def _serializers(
+        cls,
+    ) -> dict[RichTextOutputFormat, Callable[..., Any]]:
         return {
             cls.FORMAT_DB_HTML: cls._serialize_db_html,
             cls.FORMAT_HTML: cls._serialize_html,
