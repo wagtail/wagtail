@@ -6,8 +6,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.rich_text import expand_db_html
 
-RichTextOutputFormat = Literal["db_html", "html"]
-RichTextInputFormat = Literal["db_html"]
+RichTextOutputFormat = Literal["db_html", "html", "db_markdown", "markdown"]
+RichTextInputFormat = Literal["db_html", "db_markdown"]
 
 
 class RichTextFormatError(Exception):
@@ -23,10 +23,12 @@ class APIRichText:
 
     - ``db_html``: Wagtail database HTML (default)
     - ``html``: display HTML via ``expand_db_html()``
+    - ``db_markdown``: Markdown preserving internal references as
+      ``wagtail://`` destinations
+    - ``markdown``: Markdown with references resolved to public URLs
 
-    To add output formats (for example ``markdown`` or ``content_state``),
-    extend :meth:`_serializers` and add a corresponding ``_serialize_*``
-    method.
+    To add output formats (for example ``content_state``), extend
+    :meth:`_serializers` and add a corresponding ``_serialize_*`` method.
 
     On the input side, :meth:`convert_input` accepts a plain string
     (database HTML) or a ``{"format": ..., "content": ...}`` envelope and
@@ -36,6 +38,8 @@ class APIRichText:
 
     FORMAT_DB_HTML: Literal["db_html"] = "db_html"
     FORMAT_HTML: Literal["html"] = "html"
+    FORMAT_DB_MARKDOWN: Literal["db_markdown"] = "db_markdown"
+    FORMAT_MARKDOWN: Literal["markdown"] = "markdown"
 
     DEFAULT_FORMAT: RichTextOutputFormat = FORMAT_DB_HTML
     SETTING_NAME = "WAGTAILAPI_RICH_TEXT_FORMAT"
@@ -82,9 +86,19 @@ class APIRichText:
         return cls.get_default_format()
 
     @classmethod
-    def serialize(cls, value: str | None, *, format: RichTextOutputFormat) -> Any:
+    def serialize(
+        cls,
+        value: str | None,
+        *,
+        format: RichTextOutputFormat,
+        features: list[str] | None = None,
+    ) -> Any:
         """
         Serialize ``value`` using a previously validated ``format``.
+
+        ``features`` is the rich text feature list of the field ``value``
+        came from; only formats that convert through the ContentState
+        pipeline (``db_markdown``, ``markdown``) use it.
 
         Callers must resolve the format via :meth:`resolve_format` (or
         :meth:`check_setting` for the project default) before calling this.
@@ -92,7 +106,7 @@ class APIRichText:
         if value is None:
             return None
 
-        return cls._serializers()[format](value)
+        return cls._serializers()[format](value, features=features)
 
     @classmethod
     def parse_input(cls, value: str | dict) -> tuple[RichTextInputFormat, str]:
@@ -141,6 +155,21 @@ class APIRichText:
 
         return DbHTMLConverter(features).clean(content)
 
+    @staticmethod
+    def convert_db_markdown_input(
+        content: str, *, features: list[str] | None = None
+    ) -> tuple[str, list]:
+        """
+        Convert Markdown input to database HTML via the ContentState
+        pipeline, then enforce ``features`` with the shared sanitiser.
+        Returns ``(cleaned_html, removals)``.
+        """
+        # Lazy import: wagtail.api must stay importable without wagtail.admin.
+        from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
+
+        db_html = MarkdownConverter().to_database_format(content)
+        return APIRichText.sanitize_db_html(db_html, features=features)
+
     @classmethod
     def convert_input(
         cls, value: str | dict, *, features: list[str] | None = None
@@ -159,22 +188,41 @@ class APIRichText:
         from ``_serializers`` — e.g. ``html`` is a valid output format but
         not a valid input format.
         """
-        return {cls.FORMAT_DB_HTML: cls.sanitize_db_html}
+        return {
+            cls.FORMAT_DB_HTML: cls.sanitize_db_html,
+            cls.FORMAT_DB_MARKDOWN: cls.convert_db_markdown_input,
+        }
 
     @classmethod
     def _serializers(cls) -> dict[RichTextOutputFormat, Callable[[str], Any]]:
         return {
             cls.FORMAT_DB_HTML: cls._serialize_db_html,
             cls.FORMAT_HTML: cls._serialize_html,
+            cls.FORMAT_DB_MARKDOWN: cls._serialize_db_markdown,
+            cls.FORMAT_MARKDOWN: cls._serialize_markdown,
         }
 
     @staticmethod
-    def _serialize_db_html(value: str) -> str:
+    def _serialize_db_html(value: str, *, features: list[str] | None = None) -> str:
         return value
 
     @staticmethod
-    def _serialize_html(value: str) -> str:
+    def _serialize_html(value: str, *, features: list[str] | None = None) -> str:
         return expand_db_html(value)
+
+    @staticmethod
+    def _serialize_db_markdown(value: str, *, features: list[str] | None = None) -> str:
+        # Lazy import: wagtail.api must stay importable without wagtail.admin.
+        from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
+
+        return MarkdownConverter(features).from_database_format(value, resolved=False)
+
+    @staticmethod
+    def _serialize_markdown(value: str, *, features: list[str] | None = None) -> str:
+        # Lazy import: wagtail.api must stay importable without wagtail.admin.
+        from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
+
+        return MarkdownConverter(features).from_database_format(value, resolved=True)
 
     @classmethod
     def _validate_format(cls, rich_text_format: str) -> None:

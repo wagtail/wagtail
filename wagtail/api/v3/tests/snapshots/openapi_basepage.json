@@ -17572,8 +17572,8 @@
             "type": "string"
           },
           "format": {
-            "const": "db_html",
             "default": "db_html",
+            "enum": ["db_html", "db_markdown"],
             "title": "Format",
             "type": "string"
           }
@@ -27072,7 +27072,7 @@
             "schema": {
               "anyOf": [
                 {
-                  "enum": ["db_html", "html"],
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
                   "type": "string"
                 },
                 {
@@ -28037,7 +28037,7 @@
             "schema": {
               "anyOf": [
                 {
-                  "enum": ["db_html", "html"],
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
                   "type": "string"
                 },
                 {
@@ -28344,7 +28344,7 @@
             "schema": {
               "anyOf": [
                 {
-                  "enum": ["db_html", "html"],
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
                   "type": "string"
                 },
                 {

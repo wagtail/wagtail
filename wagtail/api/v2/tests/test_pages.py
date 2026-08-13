@@ -1844,14 +1844,14 @@ class TestPageDetail(PageFixturesMixin, TestCase):
         self.assertEqual(content["body"], db_html)
 
     def test_invalid_rich_text_format_gives_error(self):
-        response = self.get_response(16, rich_text_format="markdown")
+        response = self.get_response(16, rich_text_format="invalid")
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             content,
             {
-                "message": "rich_text_format must be one of 'db_html', 'html', got 'markdown'"
+                "message": "rich_text_format must be one of 'db_html', 'db_markdown', 'html', 'markdown', got 'invalid'"
             },
         )
 
