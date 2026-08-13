@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,35 +62,35 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: views.py:22 wagtail_hooks.py:67 wagtail_hooks.py:85 wagtail_hooks.py:115
+#: views.py:26 wagtail_hooks.py:70 wagtail_hooks.py:88 wagtail_hooks.py:118
 msgid "Translate"
 msgstr ""
 
 #. Translators: always plural
-#: views.py:78
+#: views.py:82
 #, python-format
 msgid "%(locales_count)s locales"
 msgstr ""
 
-#: views.py:98
+#: views.py:103
 msgid "Translate page"
 msgstr ""
 
-#: views.py:122
+#: views.py:130
 #, python-format
 msgid "The page '%(page_title)s' was successfully created in %(locales)s"
 msgstr ""
 
-#: views.py:128
+#: views.py:136
 #, python-format
 msgid "Translate %(model_name)s"
 msgstr ""
 
-#: views.py:157
+#: views.py:170
 #, python-format
 msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
 
-#: wagtail_hooks.py:89
+#: wagtail_hooks.py:92
 msgid "Translate this page"
 msgstr ""

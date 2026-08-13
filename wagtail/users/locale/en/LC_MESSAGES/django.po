@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,63 +22,63 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:44
+#: forms.py:43
 msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:49
+#: forms.py:48
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:75
+#: forms.py:74
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:76
+#: forms.py:75
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:79
+#: forms.py:78
 msgid "Email"
 msgstr ""
 
-#: forms.py:80
+#: forms.py:79
 msgid "First Name"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:80
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:83
 msgid "Password"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:86
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:91
+#: forms.py:90
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:94
+#: forms.py:93
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:99 forms.py:234 views/users.py:68
+#: forms.py:98 forms.py:233 views/users.py:69
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:101 forms.py:236
+#: forms.py:100 forms.py:235
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:230
+#: forms.py:229
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:357
+#: forms.py:356
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -187,6 +187,60 @@ msgstr ""
 
 #: models.py:137
 msgid "user profiles"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/confirm_revoke.html:7
+msgid "Yes, revoke"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/confirm_revoke.html:8
+msgid "No, don't revoke"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:18
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:23
+msgid "API token"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:36
+msgid "Copy token"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:39
+msgid "Back to API tokens"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:44
+msgid "Copied to clipboard"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/created.html:47
+msgid "Copying failed — please select and copy the token manually."
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/status.html:6
+msgid "Status: "
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/status.html:8 views/api_tokens.py:57
+#: views/api_tokens.py:103
+msgid "Revoked"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/status.html:14
+#: views/bulk_actions/set_active_state.py:11 views/users.py:88
+#: views/users.py:151
+msgid "Active"
+msgstr ""
+
+#: templates/wagtailusers/api_tokens/status.html:28
+msgid "View history"
 msgstr ""
 
 #: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:6
@@ -307,7 +361,8 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:20
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:107
-#: views/groups.py:102 views/users.py:125
+#: views/api_tokens.py:33 views/api_tokens.py:99 views/groups.py:102
+#: views/users.py:126
 msgid "Name"
 msgstr ""
 
@@ -403,9 +458,54 @@ msgstr ""
 msgid "Can view"
 msgstr ""
 
-#: utils.py:88
+#: utils.py:126
 #, python-format
 msgid "user %(id)s (deleted)"
+msgstr ""
+
+#: views/api_tokens.py:34 views/api_tokens.py:43 views/api_tokens.py:100
+msgid "User"
+msgstr ""
+
+#: views/api_tokens.py:49 views/api_tokens.py:101
+msgid "Created"
+msgstr ""
+
+#: views/api_tokens.py:53 views/api_tokens.py:102
+msgid "Last used"
+msgstr ""
+
+#: views/api_tokens.py:96
+msgid "Token"
+msgstr ""
+
+#: views/api_tokens.py:114 views/api_tokens.py:215 views/api_tokens.py:236
+msgid "Revoke"
+msgstr ""
+
+#: views/api_tokens.py:154
+msgid "API token created"
+msgstr ""
+
+#: views/api_tokens.py:177
+msgid "Token secrets are only displayed once, immediately after creation."
+msgstr ""
+
+#: views/api_tokens.py:207
+msgid "Never"
+msgstr ""
+
+#: views/api_tokens.py:241
+msgid "Are you sure you want to revoke this API token?"
+msgstr ""
+
+#: views/api_tokens.py:252
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr ""
+
+#: views/api_tokens.py:260
+msgid "API tokens"
 msgstr ""
 
 #: views/bulk_actions/assign_role.py:17
@@ -429,11 +529,6 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] ""
 msgstr[1] ""
-
-#: views/bulk_actions/set_active_state.py:11 views/users.py:87
-#: views/users.py:150
-msgid "Active"
-msgstr ""
 
 #: views/bulk_actions/set_active_state.py:11
 msgid "Inactive"
@@ -504,62 +599,62 @@ msgstr ""
 msgid "Delete group"
 msgstr ""
 
-#: views/users.py:72 views/users.py:157
+#: views/users.py:73 views/users.py:158
 msgid "Last login"
 msgstr ""
 
-#: views/users.py:95
+#: views/users.py:96
 msgid "Group"
 msgstr ""
 
-#: views/users.py:112
+#: views/users.py:113
 msgid "Add a user"
 msgstr ""
 
-#: views/users.py:114 views/users.py:352 views/users.py:381
+#: views/users.py:115 views/users.py:353 views/users.py:382
 msgid "Users"
 msgstr ""
 
-#: views/users.py:135
+#: views/users.py:136
 msgid "Username"
 msgstr ""
 
-#: views/users.py:142
+#: views/users.py:143
 msgid "Admin"
 msgstr ""
 
-#: views/users.py:143
+#: views/users.py:144
 msgid "Access level"
 msgstr ""
 
-#: views/users.py:210
+#: views/users.py:211
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/users.py:239
+#: views/users.py:240
 #, python-format
 msgid "User '%(object)s' created."
 msgstr ""
 
-#: views/users.py:240
+#: views/users.py:241
 msgid "Add user"
 msgstr ""
 
-#: views/users.py:261
+#: views/users.py:262
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr ""
 
-#: views/users.py:262
+#: views/users.py:263
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:315
+#: views/users.py:316
 msgid "Delete user"
 msgstr ""
 
-#: views/users.py:316
+#: views/users.py:317
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr ""

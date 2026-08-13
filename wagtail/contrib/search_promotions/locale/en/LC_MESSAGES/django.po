@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,43 +48,43 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: models.py:71
+#: models.py:72
 msgid "query"
 msgstr ""
 
-#: models.py:72
+#: models.py:73
 msgid "queries"
 msgstr ""
 
-#: models.py:96 models.py:97
+#: models.py:97 models.py:98
 msgid "Query Daily Hits"
 msgstr ""
 
-#: models.py:106
+#: models.py:107
 msgid "page"
 msgstr ""
 
-#: models.py:107
+#: models.py:108
 msgid "Choose an internal page for this promotion"
 msgstr ""
 
-#: models.py:113
+#: models.py:114
 msgid "External link URL"
 msgstr ""
 
-#: models.py:114
+#: models.py:115
 msgid "Alternatively, use an external link for this promotion"
 msgstr ""
 
-#: models.py:123
+#: models.py:124
 msgid "description"
 msgstr ""
 
-#: models.py:124
+#: models.py:125
 msgid "Applies to internal page or external link"
 msgstr ""
 
-#: models.py:158
+#: models.py:159
 msgid "search promotion"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgid "Recommended search result"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
-#: views/settings.py:35 wagtail_hooks.py:36
+#: views/settings.py:35 wagtail_hooks.py:38
 msgid "Promoted search results"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgid "Terms"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:10
-#: views/reports.py:34 views/reports.py:38 views/settings.py:60
+#: views/reports.py:34 views/reports.py:38 views/settings.py:59
 msgid "Views"
 msgstr ""
 
@@ -198,44 +198,44 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: views/reports.py:24 wagtail_hooks.py:47
+#: views/reports.py:24 wagtail_hooks.py:49
 msgid "Search terms"
 msgstr ""
 
-#: views/reports.py:33 views/reports.py:37 views/settings.py:48
+#: views/reports.py:33 views/reports.py:37 views/settings.py:47
 msgid "Search term(s)"
 msgstr ""
 
-#: views/settings.py:44
+#: views/settings.py:43
 msgid "Add new promoted result"
 msgstr ""
 
-#: views/settings.py:55
+#: views/settings.py:54
 msgid "Promoted results"
 msgstr ""
 
-#: views/settings.py:94
+#: views/settings.py:98
 msgid "Promoted search result"
-msgstr ""
-
-#: views/settings.py:182
-#, python-format
-msgid "Editor's picks for '%(query)s' created."
-msgstr ""
-
-#: views/settings.py:183
-msgid "Recommendations have not been created due to errors."
 msgstr ""
 
 #: views/settings.py:192
 #, python-format
-msgid "Editor's picks for '%(query)s' updated."
+msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
 #: views/settings.py:193
-msgid "Recommendations have not been saved due to errors."
+msgid "Recommendations have not been created due to errors."
 msgstr ""
 
 #: views/settings.py:202
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr ""
+
+#: views/settings.py:203
+msgid "Recommendations have not been saved due to errors."
+msgstr ""
+
+#: views/settings.py:211
 msgid "Editor's picks deleted."
 msgstr ""
