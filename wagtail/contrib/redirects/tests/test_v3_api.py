@@ -88,6 +88,36 @@ class TestV3RedirectListing(TestV3Base, WagtailTestUtils, TestCase):
         content = response.json()
         self.assertEqual(content["count"], Redirect.objects.count())
 
+    def test_filter_by_old_path(self):
+        self.login()
+        content = self.get_response(old_path="/one").json()
+        self.assertEqual(content["count"], 1)
+        self.assertEqual(content["items"][0]["old_path"], "/one")
+
+    def test_filter_by_is_permanent(self):
+        self.login()
+        make_redirect(old_path="/temp", is_permanent=False)
+        content = self.get_response(is_permanent="false").json()
+        self.assertEqual(content["count"], 1)
+        self.assertEqual(content["items"][0]["old_path"], "/temp")
+
+    def test_filter_by_invalid_field_is_ignored(self):
+        self.login()
+        content = self.get_response(not_a_field="foo").json()
+        self.assertEqual(content["count"], Redirect.objects.count())
+
+    def test_order_by_old_path(self):
+        self.login()
+        content = self.get_response(order="old_path").json()
+        paths = [item["old_path"] for item in content["items"]]
+        self.assertEqual(paths, sorted(paths))
+
+    def test_order_by_old_path_descending(self):
+        self.login()
+        content = self.get_response(order="-old_path").json()
+        paths = [item["old_path"] for item in content["items"]]
+        self.assertEqual(paths, sorted(paths, reverse=True))
+
 
 class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
     def setUp(self):
