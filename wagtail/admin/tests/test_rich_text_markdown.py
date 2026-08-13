@@ -10,7 +10,7 @@ from wagtail.documents.models import Document
 from wagtail.embeds.exceptions import EmbedException
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Page
+from wagtail.test.utils import Page
 
 
 class TestMarkdownToDbHtml(SimpleTestCase):
