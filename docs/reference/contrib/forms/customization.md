@@ -622,6 +622,7 @@ Example:
 # myapp/views.py
 from wagtail.contrib.forms.views import SubmissionsListView
 
+
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50  # show more submissions per page, default is 20
     default_ordering = (
@@ -642,6 +643,7 @@ class CustomSubmissionsListView(SubmissionsListView):
 # myapp/models.py
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
+
 class FormField(AbstractFormField):
     page = ParentalKey("FormPage", related_name="form_fields")
 
@@ -651,6 +653,7 @@ class FormPage(AbstractEmailForm):
 
     def get_submissions_list_view_class(self):
         from myapp.views import CustomSubmissionsListView
+
         return CustomSubmissionsListView
 
     intro = RichTextField(blank=True)
