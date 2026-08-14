@@ -20,9 +20,9 @@ def progress_bar(current, total, bar_length=50):
 
 
 class Command(BaseCommand):
-    """Command to create missing image renditions with the option to remove (purge) any existing ones."""
+    """Command to delete and regenerate existing image renditions, with the option to purge them without regenerating."""
 
-    help = "This command will generate all image renditions, with an option to purge existing renditions first."
+    help = "This command will delete all image renditions and regenerate them by default; use --purge-only to delete them without regenerating."
 
     def add_arguments(self, parser):
         parser.add_argument(
