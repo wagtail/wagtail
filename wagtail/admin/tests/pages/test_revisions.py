@@ -58,9 +58,10 @@ class TestRevisions(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertRedirects(response, history_url)
 
     def test_history_compare_with_live_version(self):
-        from wagtail.models import PageLogEntry
         from django.contrib.auth import get_user_model
-        
+
+        from wagtail.models import PageLogEntry
+
         self.last_christmas_revision.publish()
 
         PageLogEntry.objects.create(
