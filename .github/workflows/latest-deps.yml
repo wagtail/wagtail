@@ -24,7 +24,7 @@ jobs:
     # Don't run scheduled workflows on forks
     if: ${{ github.repository == 'wagtail/wagtail' }}
     name: Latest dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

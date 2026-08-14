@@ -46,7 +46,7 @@ permissions:
 
 jobs:
   test-sqlite:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     strategy:
       matrix:
@@ -93,7 +93,7 @@ jobs:
           include-hidden-files: true
 
   test-postgres:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -141,6 +141,8 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           allow-prereleases: true
+      - name: Install libpq-dev
+        run: sudo apt-get install -y libpq-dev
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       - name: Install dependencies
@@ -189,7 +191,7 @@ jobs:
           python manage.py check --fail-level WARNING
 
   test-mysql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -261,7 +263,7 @@ jobs:
           include-hidden-files: true
 
   test-sqlite-elasticsearch8:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     strategy:
       matrix:
@@ -316,7 +318,7 @@ jobs:
           include-hidden-files: true
 
   test-postgres-elasticsearch7:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -355,6 +357,8 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
+      - name: Install libpq-dev
+        run: sudo apt-get install -y libpq-dev
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       - name: Install dependencies
@@ -384,7 +388,7 @@ jobs:
           include-hidden-files: true
 
   test-sqlite-opensearch2:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -443,7 +447,7 @@ jobs:
       - test-sqlite-elasticsearch8
       - test-postgres-elasticsearch7
       - test-sqlite-opensearch2
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 10
     steps:
       - name: Check out the repo

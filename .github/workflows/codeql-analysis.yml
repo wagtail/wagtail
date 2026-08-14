@@ -14,7 +14,7 @@ jobs:
       security-events: write # to upload SARIF results (github/codeql-action/analyze)
 
     name: Analyze (${{ matrix.language }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     timeout-minutes: 15
 
     strategy:
