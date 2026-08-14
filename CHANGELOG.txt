@@ -50,6 +50,7 @@ Changelog
  * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
  * Maintenance: Update guide.wagtail.org links to new versioning scheme (Raghad Dahi)
  * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
+ * Maintenance: Use Ubuntu 26.04 ARM runner for GitHub Actions workflows (Storm Heg)
 
 
 7.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
