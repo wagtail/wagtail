@@ -31,6 +31,7 @@ Changelog
  * Fix: Prevent stale content types from breaking audit log message formatting (Thibaud Colas)
  * Fix: Ensure form field clean_name is consistently set on form pages if autosave runs prematurely (Joey Jurjens)
  * Fix: Enforce 'choose' permission on image chooser select-format view (Matt Westcott)
+ * Fix: Hide the "Edit" link on chooser widgets when the user does not have edit permission for the selected item (Saksham Chawla)
  * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
  * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
  * Docs: Add docs for `request.in_preview_panel` to explain its use (Raghad Dahi)
