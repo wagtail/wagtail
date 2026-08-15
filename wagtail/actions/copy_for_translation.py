@@ -141,14 +141,29 @@ class CopyPageForTranslationAction(BaseAction):
             )
 
         else:
-            # Update locale on translatable child objects as well
+            # Update locale on translatable child objects as well, including
+            # children nested inside child relations, which are not passed to
+            # process_child_object individually.
             def process_child_object(
                 original_page, page_copy, child_relation, child_object
             ):
+                from modelcluster.fields import ParentalKey
+                from modelcluster.models import ClusterableModel
+
                 from wagtail.models import TranslatableMixin
 
-                if isinstance(child_object, TranslatableMixin):
-                    child_object.locale = locale
+                def set_locale_recursive(obj):
+                    if isinstance(obj, TranslatableMixin):
+                        obj.locale = locale
+                    if isinstance(obj, ClusterableModel):
+                        for relation in obj._meta.related_objects:
+                            if isinstance(relation.field, ParentalKey):
+                                for child in getattr(
+                                    obj, relation.get_accessor_name()
+                                ).all():
+                                    set_locale_recursive(child)
+
+                set_locale_recursive(child_object)
 
             return page.copy(
                 to=translated_parent,
@@ -223,6 +238,9 @@ class CopyForTranslationAction(BaseAction):
 
     @transaction.atomic
     def _copy_for_translation(self, object, locale, exclude_fields=None):
+        from modelcluster.fields import ParentalKey
+        from modelcluster.models import ClusterableModel
+
         from wagtail.models import DraftStateMixin, TranslatableMixin
 
         # Make sure the copy includes the latest changes, including draft
@@ -237,11 +255,21 @@ class CopyForTranslationAction(BaseAction):
         translated, child_object_map = _copy(object, exclude_fields=exclude_fields)
         translated.locale = locale
 
-        # Update locale on any translatable child objects as well
-        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
-        for (_child_relation, _old_pk), child_object in child_object_map.items():
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
+        # Update locale on this object and any nested translatable child objects.
+        # Note: If this is not a subclass of ClusterableModel, there will be no
+        # child objects to update. Children of children are not included in
+        # child_object_map, so walk the whole copied tree to retarget them too.
+
+        def set_locale_recursive(obj):
+            if isinstance(obj, TranslatableMixin):
+                obj.locale = locale
+            if isinstance(obj, ClusterableModel):
+                for relation in obj._meta.related_objects:
+                    if isinstance(relation.field, ParentalKey):
+                        for child in getattr(obj, relation.get_accessor_name()).all():
+                            set_locale_recursive(child)
+
+        set_locale_recursive(translated)
 
         return translated
 
