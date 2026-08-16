@@ -998,6 +998,7 @@
 * Dmitry Khlopyev
 * DresdenGman
 * Mason Lyons
+* Saksham Chawla
 
 ## Translators
 

@@ -898,6 +898,12 @@ class ChooserBlock(FieldBlock):
             help_text=self._help_text,
         )
 
+    @cached_property
+    def pk_field(self):
+        # the primary key field of the target model, used to convert serialised
+        # primary key values to their native Python type in bulk_to_python
+        return self.model_class._meta.pk
+
     def to_python(self, value):
         # the incoming serialised value should be None or an ID
         if value is None:
@@ -914,11 +920,17 @@ class ChooserBlock(FieldBlock):
         The instances must be returned in the same order as the values and keep None values.
         If the same ID appears multiple times, a distinct object instance is created for each one.
         """
-        objects = self.model_class.objects.in_bulk(values)
+        # serialised primary key values (e.g. a UUID string) need to be converted to the
+        # field's native Python type before looking them up, as in_bulk keys them by that
+        pk_values = [
+            self.pk_field.to_python(value) if value is not None else None
+            for value in values
+        ]
+        objects = self.model_class.objects.in_bulk(pk_values)
         seen_ids = set()
         result = []
 
-        for id in values:
+        for id in pk_values:
             obj = objects.get(id)
             if obj is not None and id in seen_ids:
                 # this object is already in the result list, so we need to make a copy

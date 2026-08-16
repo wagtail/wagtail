@@ -5,7 +5,11 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.widgets import AdminSnippetChooser
-from wagtail.test.testapp.models import Advert, AdvertWithCustomPrimaryKey
+from wagtail.test.testapp.models import (
+    Advert,
+    AdvertWithCustomPrimaryKey,
+    AdvertWithCustomUUIDPrimaryKey,
+)
 from wagtail.test.utils import PageFixturesMixin
 
 
@@ -31,6 +35,22 @@ class TestSnippetChooserBlock(PageFixturesMixin, TestCase):
 
         # None should deserialize to None
         self.assertIsNone(block.to_python(None))
+
+    def test_to_python_with_uuid_primary_key(self):
+        # See: https://github.com/wagtail/wagtail/issues/6509
+        block = SnippetChooserBlock(AdvertWithCustomUUIDPrimaryKey)
+        test_advert = AdvertWithCustomUUIDPrimaryKey.objects.create(text="test_advert")
+
+        result = block.to_python(str(test_advert.pk))
+        self.assertEqual(result, test_advert)
+
+    def test_bulk_to_python_with_uuid_primary_key(self):
+        # See: https://github.com/wagtail/wagtail/issues/6509
+        block = SnippetChooserBlock(AdvertWithCustomUUIDPrimaryKey)
+        test_advert = AdvertWithCustomUUIDPrimaryKey.objects.create(text="test_advert")
+
+        result = block.bulk_to_python([str(test_advert.pk)])
+        self.assertEqual(result, [test_advert])
 
     def test_reference_model_by_string(self):
         block = SnippetChooserBlock("tests.Advert")
