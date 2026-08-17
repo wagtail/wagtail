@@ -148,7 +148,7 @@ def register_exception_handlers(api: NinjaAPI):
         # v3 never trusts session auth: 401 unless a bearer token resolved.
         if not request.user.is_authenticated:
             return problem_response(status=401, detail="Authentication required")
-        return problem_response(status=403, detail="Permission denied")
+        return problem_response(status=403, detail=str(exc) or "Permission denied")
 
     @api.exception_handler(Http404)
     def not_found_handler(request: HttpRequest, exc: Http404):
