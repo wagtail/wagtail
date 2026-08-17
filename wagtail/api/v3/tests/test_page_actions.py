@@ -158,7 +158,7 @@ class TestV3PageUnpublish(TestV3PageActionsBase):
         self.assert_problem_response(
             response,
             status_code=403,
-            detail_contains="Permission denied",
+            detail_contains="You do not have permission to unpublish this page.",
         )
 
     def test_unknown_page_returns_404(self):
