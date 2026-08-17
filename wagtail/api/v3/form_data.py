@@ -10,6 +10,7 @@ from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
 from draftjs_exporter import MarkdownParseError
 from ninja.schema import BaseModel
+from permissionedforms import PermissionedForm
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
@@ -238,7 +239,11 @@ def build_page_update_form(
     )
 
 
-def build_model_form(model: type[Model], data: Any):
+def build_model_form(
+    model: type[Model],
+    data: Any,
+    user: AbstractBaseUser | AnonymousUser,
+):
     """Build a bound form from a validated create-input schema.
 
     Uses the model's own admin form, wired up through its edit handler's
@@ -250,10 +255,18 @@ def build_model_form(model: type[Model], data: Any):
     payload = data.dict(exclude={"meta"})
     form_data = build_form_data(form_class, payload)
 
-    return form_class(data=form_data, instance=model())
+    kwargs: dict[str, Any] = {"data": form_data, "instance": model()}
+    if issubclass(form_class, PermissionedForm):
+        kwargs["for_user"] = user
+
+    return form_class(**kwargs)
 
 
-def build_model_update_form(instance: Model, data: Any):
+def build_model_update_form(
+    instance: Model,
+    data: Any,
+    user: AbstractBaseUser | AnonymousUser,
+):
     """Build a bound form from a validated, partial update-input schema.
 
     Like :func:`build_model_form`, but binds the given, already-saved
@@ -268,7 +281,11 @@ def build_model_update_form(instance: Model, data: Any):
     form_class = get_api_form_class(model, field_names=payload.keys())
     form_data = build_form_data(form_class, payload, instance=instance)
 
-    return form_class(data=form_data, instance=instance)
+    kwargs: dict[str, Any] = {"data": form_data, "instance": instance}
+    if issubclass(form_class, PermissionedForm):
+        kwargs["for_user"] = user
+
+    return form_class(**kwargs)
 
 
 def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) -> None:
