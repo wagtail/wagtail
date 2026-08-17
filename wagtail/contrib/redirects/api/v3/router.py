@@ -7,9 +7,7 @@ from django.urls import reverse
 from ninja import Field, Query, Router, Schema, Status
 from ninja.pagination import paginate
 
-from wagtail.actions.create import CreateAction
-from wagtail.actions.delete import DeleteAction
-from wagtail.actions.edit import EditAction
+from wagtail.actions import action_registry
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -152,7 +150,8 @@ def get_redirect_detail(request: HttpRequest, redirect_id: int):
 @require_any_permission(Redirect, ("add",))
 def create_redirect(request: HttpRequest, data: RedirectInputSchema):
     form = RedirectForm(data.dict())
-    CreateAction(form.instance, user=request.user, form=form).execute(
+    action_class = action_registry.get_action_class(Redirect, "create")
+    action_class(form.instance, user=request.user, form=form).execute(
         skip_permission_checks=True
     )
     return Status(201, form.instance)
@@ -169,7 +168,8 @@ def create_redirect(request: HttpRequest, data: RedirectInputSchema):
 def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputSchema):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
     form = RedirectForm(data.dict(), instance=redirect)
-    EditAction(form.instance, user=request.user, form=form).execute()
+    action_class = action_registry.get_action_class(Redirect, "edit")
+    action_class(form.instance, user=request.user, form=form).execute()
     return form.instance
 
 
@@ -183,5 +183,6 @@ def update_redirect(request: HttpRequest, redirect_id: int, data: RedirectInputS
 @require_any_permission(Redirect, ("delete",))
 def delete_redirect(request: HttpRequest, redirect_id: int):
     redirect = get_object_or_404(Redirect, pk=redirect_id)
-    DeleteAction(redirect, user=request.user).execute()
+    action_class = action_registry.get_action_class(Redirect, "delete")
+    action_class(redirect, user=request.user).execute()
     return Status(204, None)

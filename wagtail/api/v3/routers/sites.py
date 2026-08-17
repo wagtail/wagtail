@@ -3,9 +3,7 @@ from django.shortcuts import get_object_or_404
 from ninja import Router, Status
 from ninja.pagination import paginate
 
-from wagtail.actions.create import CreateAction
-from wagtail.actions.delete import DeleteAction
-from wagtail.actions.edit import EditAction
+from wagtail.actions import action_registry
 from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
@@ -61,7 +59,8 @@ def get_site(request: HttpRequest, site_id: int):
 @require_any_permission(Site, ("add",))
 def create_site(request: HttpRequest, data: SiteInputSchema):
     form = SiteForm(data.dict())
-    CreateAction(form.instance, user=request.user, form=form).execute(
+    action_class = action_registry.get_action_class(Site, "create")
+    action_class(form.instance, user=request.user, form=form).execute(
         skip_permission_checks=True
     )
     return Status(201, form.instance)
@@ -78,7 +77,8 @@ def create_site(request: HttpRequest, data: SiteInputSchema):
 def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     site = get_object_or_404(Site, pk=site_id)
     form = SiteForm(data.dict(), instance=site)
-    EditAction(form.instance, user=request.user, form=form).execute()
+    action_class = action_registry.get_action_class(Site, "edit")
+    action_class(form.instance, user=request.user, form=form).execute()
     return form.instance
 
 
@@ -92,5 +92,6 @@ def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
 @require_any_permission(Site, ("delete",))
 def delete_site(request: HttpRequest, site_id: int):
     site = get_object_or_404(Site, pk=site_id)
-    DeleteAction(site, user=request.user).execute()
+    action_class = action_registry.get_action_class(Site, "delete")
+    action_class(site, user=request.user).execute()
     return Status(204, None)
