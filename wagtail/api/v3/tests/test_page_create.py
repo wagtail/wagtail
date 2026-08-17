@@ -568,6 +568,39 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
+    def test_user_with_add_but_not_publish_permission_with_publish_action(self):
+        editor = self.create_user(username="editor", password="password")
+        editor_group = Group.objects.create(name="Page branch editors")
+        editor.groups.add(editor_group)
+        GroupPagePermission.objects.create(
+            group=editor_group,
+            page=self.root_page,
+            permission=Permission.objects.get(
+                codename=Page.PERMISSION_CODENAMES.ADD,
+            ),
+        )
+        self.login(username="editor", password="password")
+        logs_before = PageLogEntry.objects.count()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogIndexPage",
+                    "action": "publish",
+                },
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="You do not have permission to publish this page.",
+        )
+
+        self.assertIsNone(BlogIndexPage.objects.filter(slug="new-page").first())
+        self.assertEqual(PageLogEntry.objects.count(), logs_before)
+
     def test_disallowed_subpage_type_returns_403(self):
         # BlogIndexPage's default page-type rules allow being created
         # under the root, but wagtailcore.Page itself is not creatable at all.

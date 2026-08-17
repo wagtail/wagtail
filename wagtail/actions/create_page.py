@@ -1,4 +1,4 @@
-from wagtail.actions.create import CreateAction
+from wagtail.actions.create import CreateAction, CreatePermissionError
 
 
 class CreatePageAction(CreateAction):
@@ -35,6 +35,16 @@ class CreatePageAction(CreateAction):
         ):
             return False
         return True
+
+    def check_publish(self):
+        if (
+            self.user
+            and self.publish
+            and not self.parent.permissions_for_user(self.user).can_publish_subpage()
+        ):
+            raise CreatePermissionError(
+                "You do not have permission to publish this page."
+            )
 
     def _save_instance(self):
         from wagtail.models import PageSubscription

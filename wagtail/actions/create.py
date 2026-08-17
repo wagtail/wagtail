@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
@@ -83,6 +84,23 @@ class CreateAction(BaseAction):
             self.user, self.permission_policy_action
         )
 
+    def check_publish(self):
+        if (
+            self.draftstate_enabled
+            and self.user
+            and not self.permission_policy.user_has_permission(self.user, "publish")
+        ):
+            model_name = self.instance._meta.verbose_name
+            raise CreatePermissionError(
+                f"You do not have permission to publish this {model_name}."
+            )
+
+    def check(self, skip_permission_checks=False):
+        super().check(skip_permission_checks)
+        if not skip_permission_checks:
+            if self.publish:
+                self.check_publish()
+
     def _clean_instance(self):
         # Always clean if a form is provided, as the form cannot be saved
         # if it has not been validated.
@@ -111,6 +129,7 @@ class CreateAction(BaseAction):
         else:
             self.instance.save()
 
+    @transaction.atomic
     def _create(self, skip_permission_checks=False):
         from wagtail.models.orderable import set_max_order
 
