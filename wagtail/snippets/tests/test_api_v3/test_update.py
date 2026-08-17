@@ -11,6 +11,7 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.testapp.models import (
     Advert,
     FullFeaturedSnippet,
+    RevisableChildModel,
     UUIDSnippetWithRelations,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -635,3 +636,36 @@ class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
         latest_revision.publish()
         snippet.refresh_from_db()
         self.assertEqual(snippet.text, "New Draft Text")
+
+
+class TestV3SnippetUpdateWithPermissionedFields(TestV3SnippetUpdateBase):
+    model = RevisableChildModel
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.snippet = RevisableChildModel.objects.create(
+            text="Hello", secret_text="original"
+        )
+
+    def test_superuser_can_update_secret_text(self):
+        response = self.patch(self.snippet.pk, {"secret_text": "updated"})
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.secret_text, "updated")
+
+    def test_user_with_change_permission_cannot_update_secret_text(self):
+        user = self.create_user(username="changer", password="password")
+        user.user_permissions.add(
+            Permission.objects.get(codename="change_revisablechildmodel")
+        )
+        self.login(user)
+        response = self.patch(
+            self.snippet.pk,
+            {"text": "Updated", "secret_text": "should be ignored"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        # secret_text was dropped from the form for this user, so it is
+        # left untouched while the non-protected field updates normally
+        self.assertEqual(self.snippet.text, "Updated")
+        self.assertEqual(self.snippet.secret_text, "original")

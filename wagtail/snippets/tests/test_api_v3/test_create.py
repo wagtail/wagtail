@@ -11,6 +11,7 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.testapp.models import (
     Advert,
     FullFeaturedSnippet,
+    RevisableChildModel,
     UUIDSnippetWithRelations,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -537,3 +538,28 @@ class TestV3SnippetCreateWithDraftState(TestV3SnippetCreateBase):
                 }
             ],
         )
+
+
+class TestV3SnippetCreateWithPermissionedFields(TestV3SnippetCreateBase):
+    model = RevisableChildModel
+
+    def test_superuser_can_create_with_secret_text(self):
+        response = self.post({"text": "Hello", "secret_text": "s3kr3t"})
+        self.assertEqual(response.status_code, 201)
+        snippet = RevisableChildModel.objects.get(pk=response.json()["id"])
+        self.assertEqual(snippet.text, "Hello")
+        self.assertEqual(snippet.secret_text, "s3kr3t")
+
+    def test_user_with_add_permission_cannot_set_secret_text(self):
+        user = self.create_user(username="adder", password="password")
+        user.user_permissions.add(
+            Permission.objects.get(codename="add_revisablechildmodel")
+        )
+        self.login(user)
+        response = self.post({"text": "Hello", "secret_text": "should be ignored"})
+        self.assertEqual(response.status_code, 201)
+        snippet = RevisableChildModel.objects.get(pk=response.json()["id"])
+        self.assertEqual(snippet.text, "Hello")
+        # secret_text was dropped from the form for this user, so it keeps
+        # its default rather than the submitted value
+        self.assertEqual(snippet.secret_text, "")
