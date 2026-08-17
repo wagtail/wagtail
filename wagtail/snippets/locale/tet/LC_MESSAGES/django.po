@@ -54,13 +54,13 @@ msgid "%(label)s and Publish"
 msgstr "%(label)sno Publika"
 
 msgid "Wagtail snippets"
-msgstr "Wagtail snippets"
+msgstr "Wagtail nia fragmentu sira"
 
 msgid "Delete"
 msgstr "Hamoos"
 
 msgid "Delete selected snippets"
-msgstr "Hamoos snippets sira ne'ebé hili ona"
+msgstr "Hamoos fragmentu sira ne'ebé hili ona"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -102,7 +102,8 @@ msgstr "Lae, labele hamoos"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
-msgstr "Deskulpa, laiha snippet maka koresponde \"<em> %(search_query)s</em>\""
+msgstr ""
+"Deskulpa, laiha fragmentu maka koresponde \"<em> %(search_query)s</em>\""
 
 #, python-format
 msgid ""
@@ -110,7 +111,7 @@ msgid ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"Ita-boot seidauk kria snippet %(snippet_type_name)s ruma. Tamba sa <a "
+"Ita-boot seidauk kria fragmentu %(snippet_type_name)s ruma. Tamba sa <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">la kria ida agora</a>?"
 
@@ -139,13 +140,13 @@ msgid "Save draft"
 msgstr "Salva esbosu"
 
 msgid "Select all snippets in listing"
-msgstr "Hili snippet sira hotu iha lista"
+msgstr "Hili fragmentu sira hotu iha lista"
 
 msgid "Choose"
 msgstr "Hili"
 
 msgid "Snippets"
-msgstr "Snippet sira"
+msgstr "Fragmentu sira"
 
 msgid "Name"
 msgstr "Naran"

@@ -74,7 +74,7 @@ msgid "Sorry, you do not have permission to access this area."
 msgstr "Síntoo, non tes permiso para acceder a esta área."
 
 msgid "You do not have permission to access the admin."
-msgstr "Non tes permiso para acceder ó administrador."
+msgstr "Non tes permiso para acceder ó admin."
 
 msgid "None"
 msgstr "Ningún"
@@ -170,7 +170,7 @@ msgid ""
 "itself or one of its descendants."
 msgstr ""
 "Selecciona posición xerárquica. Nota: unha colección non pode converterse en "
-"filla de si mesma ou un dos seus descendentes."
+"filla de sí mesma ou un dos seus descendentes."
 
 msgid "Please select another parent."
 msgstr "Por favor, elixe outra nai."
@@ -929,7 +929,7 @@ msgid "Remember me"
 msgstr "Lémbrame"
 
 msgid "Signing in…"
-msgstr "Entrando..."
+msgstr "Entrando…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -971,7 +971,7 @@ msgid ""
 "\"%(task)s\"."
 msgstr ""
 "O %(model_name)s \"%(title)s\" aprobouse no estado de moderación "
-"\"%(task)s\"-"
+"\"%(task)s\"."
 
 #, python-format
 msgid "You can edit the %(model_name)s here:"

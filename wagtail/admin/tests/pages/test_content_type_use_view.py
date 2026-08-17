@@ -8,12 +8,12 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from openpyxl import load_workbook
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.test.testapp.models import EventPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestContentTypeUse(WagtailTestUtils, TestCase):
+class TestContentTypeUse(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

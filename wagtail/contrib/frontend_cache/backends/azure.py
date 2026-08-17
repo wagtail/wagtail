@@ -75,9 +75,20 @@ class AzureBaseBackend(BaseBackend):
         Obtain subscription ID directly from Azure.
         """
         try:
-            from azure.mgmt.resource import SubscriptionClient
+            from azure.mgmt.subscription import SubscriptionClient
         except ImportError:
-            return ""
+            # Old versions
+            try:
+                from azure.mgmt.resource import SubscriptionClient
+            except ImportError:
+                return ""
+            else:
+                warnings.warn(
+                    "Support for getting the default Azure subscription from "
+                    "azure-mgmt-resource is deprecated. "
+                    "Please install azure-mgmt-subscription instead.",
+                    RemovedInWagtail90Warning,
+                )
         credential = self._get_credentials()
         subscription_client = SubscriptionClient(credential)
         subscription = next(subscription_client.subscriptions.list())
@@ -116,14 +127,19 @@ class AzureBaseBackend(BaseBackend):
         kwargs = self._get_client_kwargs()
         return klass(**kwargs)
 
-    def _get_purge_kwargs(self, paths):
+    def _get_purge_kwargs(self, paths, **kwargs):
         """
         Get keyword arguments passes to Azure purge content calls.
         """
+        if self._is_legacy_azure_library:
+            return {
+                "resource_group_name": self._resource_group_name,
+                "custom_headers": self._custom_headers,
+                "content_paths": set(paths),
+            }
         return {
             "resource_group_name": self._resource_group_name,
-            "custom_headers": self._custom_headers,
-            "content_paths": set(paths),
+            **kwargs,
         }
 
     def _purge_content(self, paths):
@@ -170,13 +186,29 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._front_door_service_url)
+        if self._front_door_service_url:
+            kwargs.setdefault("base_url", self._front_door_service_url)
 
         return kwargs
 
+    def _get_purge_kwargs(self, paths, **kwargs):
+        if self._is_legacy_azure_library:
+            return super()._get_purge_kwargs(paths, **kwargs)
+
+        from azure.mgmt.frontdoor.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
+        )
+
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        if self._is_legacy_azure_library:
+            return client.endpoints.purge_content(
+                **self._get_purge_kwargs(paths),
+                front_door_name=self._front_door_name,
+            )
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             front_door_name=self._front_door_name,
         )
 
@@ -206,13 +238,30 @@ class AzureCdnBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._cdn_service_url)
+        if self._cdn_service_url:
+            kwargs.setdefault("base_url", self._cdn_service_url)
 
         return kwargs
 
+    def _get_purge_kwargs(self, paths, **kwargs):
+        if self._is_legacy_azure_library:
+            return super()._get_purge_kwargs(paths, **kwargs)
+
+        from azure.mgmt.cdn.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
+        )
+
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        if self._is_legacy_azure_library:
+            return client.endpoints.purge_content(
+                **self._get_purge_kwargs(paths),
+                profile_name=self._cdn_profile_name,
+                endpoint_name=self._cdn_endpoint_name,
+            )
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             profile_name=self._cdn_profile_name,
             endpoint_name=self._cdn_endpoint_name,
         )

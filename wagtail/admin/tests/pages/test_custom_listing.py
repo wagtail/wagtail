@@ -3,13 +3,14 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.test.testapp.models import EventPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestCustomListing(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestCustomListing(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

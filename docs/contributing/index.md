@@ -60,7 +60,7 @@ There are many more ways to contribute to the Wagtail community, through code or
 
 -   Contribute to one of the other [core Wagtail projects](https://github.com/orgs/wagtail/repositories) in GitHub.
 -   Contribute to one of the community-maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
--   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
+-   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en/contributing/).
 -   Star the [wagtail](https://github.com/wagtail/wagtail) project on GitHub
 -   Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
 -   Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).

@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.shortcuts import get_object_or_404
 from rest_framework import fields, status
@@ -8,9 +9,10 @@ from rest_framework.serializers import Serializer
 from wagtail.actions.copy_page import CopyPageAction, CopyPageIntegrityError
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.coreutils import find_available_slug
-from wagtail.models import Page
 
 from .base import APIAction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class CopyPageAPIActionSerializer(Serializer):

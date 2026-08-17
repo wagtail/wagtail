@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -102,7 +103,7 @@ class SearchPromotion(models.Model):
         Query, db_index=True, related_name="editors_picks", on_delete=models.CASCADE
     )
     page = models.ForeignKey(
-        "wagtailcore.Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         help_text=_("Choose an internal page for this promotion"),
         on_delete=models.CASCADE,

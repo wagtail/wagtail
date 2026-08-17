@@ -24,6 +24,17 @@ class TestDocumentFormOverride(TestCase):
         self.assertIn(BaseDocumentForm, bases)
         self.assertNotIn(AlternateDocumentForm, bases)
 
+    def test_get_document_form_with_explicit_fields(self):
+        form_class = get_document_form(models.Document, fields=["title"])
+
+        self.assertEqual(set(form_class.base_fields), {"title", "collection"})
+
+    def test_get_document_form_with_explicit_fields_generator(self):
+        fields = (field for field in ["title"])
+        form_class = get_document_form(models.Document, fields=fields)
+
+        self.assertEqual(set(form_class.base_fields), {"title", "collection"})
+
     def test_get_document_form_widgets(self):
         form_cls = get_document_form(models.Document)
         form = form_cls()

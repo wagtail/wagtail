@@ -29,6 +29,8 @@ class CustomPageViewSet(PageViewSet):
 
 
 custom_page_viewset = CustomPageViewSet()
+
+
 @hooks.register("register_admin_viewset")
 def register_custom_page_viewset():
     return custom_page_viewset
@@ -53,7 +55,7 @@ class CustomPageViewSet(PageViewSet):
     filterset_class = CustomPageFilterSet
 ```
 
-For some page types, you may have enforced that only a single page type can be created under a given parent page. For example, your site may implement a `BlogIndexPage` model with its {attr}`~wagtail.models.Page.subpage_types` set to only allow `BlogPage` instances under it. With the listing limited to `BlogPage` instances, you can display, filter, and order on additional fields specific to `BlogPage` when viewing the children of a `BlogIndexPage`.
+For some page types, you may have enforced that only a single page type can be created under a given parent page. For example, your site may implement a `BlogIndexPage` model with its {attr}`~wagtail.models.AbstractPage.subpage_types` set to only allow `BlogPage` instances under it. With the listing limited to `BlogPage` instances, you can display, filter, and order on additional fields specific to `BlogPage` when viewing the children of a `BlogIndexPage`.
 
 To customize the page explorer listing for a given parent page, set the `model` and `parent_models` attributes on a custom `PageViewSet` subclass. The following is an example of a custom viewset that adds a column and a filter for the `blog_category` field on the listing of `BlogPage` instances under a `BlogIndexPage`:
 
@@ -82,6 +84,8 @@ class BlogPageViewSet(PageViewSet):
 
 
 blog_page_viewset = BlogPageViewSet()
+
+
 @hooks.register("register_admin_viewset")
 def register_blog_page_viewset():
     return blog_page_viewset
@@ -117,6 +121,8 @@ class BlogPageListingViewSet(PageListingViewSet):
 
 
 blog_page_listing_viewset = BlogPageListingViewSet("blog_pages")
+
+
 @hooks.register("register_admin_viewset")
 def register_blog_page_listing_viewset():
     return blog_page_listing_viewset
@@ -130,6 +136,7 @@ from wagtail.admin.ui.tables import Column
 from wagtail.admin.viewsets.pages import PageListingViewSet
 
 from myapp.models import BlogPage
+
 
 class BlogPageListingViewSet(PageListingViewSet):
     # ...

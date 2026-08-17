@@ -10,6 +10,10 @@ class WagtailAPIV2AppConfig(AppConfig):
     verbose_name = _("Wagtail API v2")
 
     def ready(self):
+        from wagtail.api.rich_text import APIRichText
+
+        APIRichText.check_setting()
+
         # Install cache purging signal handlers
         if getattr(settings, "WAGTAILAPI_USE_FRONTENDCACHE", False):
             if apps.is_installed("wagtail.contrib.frontend_cache"):

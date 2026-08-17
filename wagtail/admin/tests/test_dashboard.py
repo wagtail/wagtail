@@ -13,9 +13,9 @@ from wagtail.admin.views.home import (
     WorkflowObjectsToModeratePanel,
 )
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import GroupPagePermission, Workflow, WorkflowContentType
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -152,7 +152,7 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Goodbye world!")
 
 
-class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
+class TestRecentEditsQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -209,7 +209,7 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(statuses, expected_statuses)
 
 
-class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
+class TestLockedPagesQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -243,7 +243,9 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(titles, expected_titles)
 
 
-class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
+class UserObjectsInWorkflowModerationQueryCount(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -315,7 +317,9 @@ class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
         self.assertEqual(titles, expected_titles)
 
 
-class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
+class WorkflowObjectsToModerateQueryCount(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

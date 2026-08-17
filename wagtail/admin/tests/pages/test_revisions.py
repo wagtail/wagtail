@@ -8,19 +8,19 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission
 from wagtail.test.testapp.models import (
     DefaultStreamPage,
     EventPage,
     FormClassAdditionalFieldPage,
     SecretPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestRevisions(WagtailTestUtils, TestCase):
+class TestRevisions(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -210,7 +210,9 @@ class TestStreamRevisions(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestCompareRevisions(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     base_breadcrumb_items = []
@@ -378,7 +380,9 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisionsWithPerUserEditHandlers(WagtailTestUtils, TestCase):
+class TestCompareRevisionsWithPerUserEditHandlers(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -435,7 +439,9 @@ class TestCompareRevisionsWithPerUserEditHandlers(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
+class TestCompareRevisionsWithNonModelField(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     """
     Tests if form fields defined in the base_form_class will not be included.
     in revisions view as they are not actually on the model.
@@ -510,7 +516,7 @@ class TestCompareRevisionsWithNonModelField(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<h2>Code:</h2>")
 
 
-class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
+class TestRevisionsUnschedule(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -667,7 +673,9 @@ class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
         )
 
 
-class TestRevisionsUnscheduleForUnpublishedPages(WagtailTestUtils, TestCase):
+class TestRevisionsUnscheduleForUnpublishedPages(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

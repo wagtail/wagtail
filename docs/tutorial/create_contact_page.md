@@ -43,7 +43,7 @@ from wagtail.snippets.models import register_snippet
 
 # ... keep the definition of NavigationSettings and FooterText. Add FormField and FormPage:
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -52,16 +52,21 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
-        FieldPanel('intro'),
-        InlinePanel('form_fields'),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address'),
-                FieldPanel('to_address'),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address"),
+                        FieldPanel("to_address"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 ```
 
@@ -119,7 +124,7 @@ To add contact information to your portfolio site, follow these steps:
 
     a. Restart your server.
     b. Go to your admin interface.
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/#the-sidebar).
     d. Click `Home`.
     e. Click the `+` icon (Add child page) at the top of the resulting page.
     f. Click `Form page`.

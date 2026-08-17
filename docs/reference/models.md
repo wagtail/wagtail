@@ -13,7 +13,8 @@ This document contains reference information for the model classes inside the `w
 ### Database fields
 
 ```{eval-rst}
-.. class:: Page
+.. class:: AbstractPage
+    :canonical: wagtail.models.pages.AbstractPage
 
     .. attribute:: title
 
@@ -73,34 +74,6 @@ This document contains reference information for the model classes inside the `w
 
         The date/time when the page was last published.
 
-    .. attribute:: seo_title
-
-        (text)
-
-        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
-
-    .. attribute:: search_description
-
-        (text)
-
-        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
-
-    .. attribute:: show_in_menus
-
-        (boolean)
-
-        Toggles whether the page should be included in site-wide menus, and is shown in the ``promote_panels`` within the Page editor.
-
-        Wagtail does not include any menu implementation by default, which means that this field will not do anything in the front facing content unless built that way in a specific Wagtail installation.
-
-        However, this is used by the :meth:`~wagtail.query.PageQuerySet.in_menu` QuerySet filter to make it easier to query for pages that use this field.
-
-        Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
-
-        .. note::
-
-            To set the global default for all pages, set ``Page.show_in_menus_default = True`` once where you first import the ``Page`` model.
-
     .. attribute:: locked
 
         (boolean)
@@ -144,6 +117,37 @@ This document contains reference information for the model classes inside the `w
         when a new page is created and copied when a translation of a page is made.
 
         A ``translation_key`` value can only be used on one page in each locale.
+
+.. class:: Page
+
+    .. attribute:: seo_title
+
+        (text)
+
+        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
+
+    .. attribute:: search_description
+
+        (text)
+
+        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+
+    .. attribute:: show_in_menus
+
+        (boolean)
+
+        Toggles whether the page should be included in site-wide menus, and is shown in the ``promote_panels`` within the Page editor.
+
+        Wagtail does not include any menu implementation by default, which means that this field will not do anything in the front facing content unless built that way in a specific Wagtail installation.
+
+        However, this is used by the :meth:`~wagtail.query.PageQuerySet.in_menu` QuerySet filter to make it easier to query for pages that use this field.
+
+        Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
+
+        .. note::
+
+            To set the global default for all pages, set ``Page.show_in_menus_default = True`` once where you first import the ``Page`` model.
+
 ```
 
 ### Methods and properties
@@ -155,7 +159,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 ```
 
 ```{eval-rst}
-.. class:: Page
+.. class:: AbstractPage
     :no-index:
 
     .. automethod:: get_specific
@@ -165,6 +169,8 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
     .. autoattribute:: specific_deferred
 
     .. autoattribute:: specific_class
+
+    .. automethod:: get_base_page
 
     .. autoattribute:: cached_content_type
 

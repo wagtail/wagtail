@@ -1,11 +1,12 @@
+import swapper
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
-from wagtail.models import Page, PageViewRestriction
-from wagtail.permissions import page_permission_policy
+from wagtail.models import PageViewRestriction
+from wagtail.permissions import policy_registry
 
 from .models import WagtailAdminModelForm
 from .view_restrictions import BaseViewRestrictionForm
@@ -13,10 +14,14 @@ from .view_restrictions import BaseViewRestrictionForm
 
 class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
+
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop("page")
         self.user = kwargs.pop("user")
-        can_publish = page_permission_policy.user_has_permission(self.user, "publish")
+        can_publish = policy_registry.get_by_type(Page).user_has_permission(
+            self.user, "publish"
+        )
 
         super().__init__(*args, **kwargs)
         self.fields["new_title"] = forms.CharField(
@@ -232,6 +237,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         return data
 
     def clean(self):
+        Page = swapper.load_model("wagtailcore", "Page")
         cleaned_data = super().clean()
         if "slug" in self.cleaned_data:
             page_slug = cleaned_data["slug"]
@@ -260,6 +266,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
 
 class MoveForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
         self.page_to_move = kwargs.pop("page_to_move")
         self.target_parent_models = kwargs.pop("target_parent_models")
 
@@ -281,6 +288,7 @@ class MoveForm(forms.Form):
 
 class ParentChooserForm(forms.Form):
     def __init__(self, child_page_type, user, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
         self.child_page_type = child_page_type
         self.user = user
         super().__init__(*args, **kwargs)

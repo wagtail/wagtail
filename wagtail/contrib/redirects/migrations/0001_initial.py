@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -49,7 +50,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         verbose_name="Redirect to a page",
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                     ),
                 ),
                 (

@@ -13,7 +13,7 @@ To use the `wagtail.documents` app, you need to include it in the `INSTALLED_APP
 
 INSTALLED_APPS = [
     # ...
-    'wagtail.documents',
+    "wagtail.documents",
     # ...
 ]
 ```
@@ -29,7 +29,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     # ...
-    path('documents/', include(wagtaildocs_urls)),
+    path("documents/", include(wagtaildocs_urls)),
     # ...
 ]
 ```
@@ -60,9 +60,8 @@ class YourPage(Page):
 
     content_panels = Page.content_panels + [
         # ...
-        FieldPanel('document'),
+        FieldPanel("document"),
     ]
-
 ```
 
 This allows you to select a document file when creating or editing a page, and link to it in your page template.
@@ -93,11 +92,11 @@ You can either exclude or include these by passing the `features` to your `RichT
 # models.py
 from wagtail.fields import RichTextField
 
+
 class BlogPage(Page):
     # ...other fields
     document_footnotes = RichTextField(
-        blank=True,
-        features=["bold", "italic", "ol", "document-link"]
+        blank=True, features=["bold", "italic", "ol", "document-link"]
     )
 
     panels = [
@@ -122,9 +121,8 @@ from wagtail.documents.blocks import DocumentChooserBlock
 class BlogPage(Page):
     # ... other fields
 
-    documents = StreamField([
-            ('document', DocumentChooserBlock())
-        ],
+    documents = StreamField(
+        [("document", DocumentChooserBlock())],
         null=True,
         blank=True,
         use_json_field=True,
@@ -146,12 +144,13 @@ In `blog_page.html`, add the following block of code to display the document lin
 
 ## Working documents and collections
 
-Documents in Wagtail can be organized within [collections](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
+Documents in Wagtail can be organized within [collections](https://guide.wagtail.org/en/how-to-guides/manage-collections/). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
 
 Here's an example:
 
 ```python
 from wagtail.documents import get_document_model
+
 
 class PageWithCollection(Page):
     collection = models.ForeignKey(
@@ -159,8 +158,8 @@ class PageWithCollection(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Document Collection',
+        related_name="+",
+        verbose_name="Document Collection",
     )
 
     content_panels = Page.content_panels + [
@@ -170,9 +169,8 @@ class PageWithCollection(Page):
     def get_context(self, request):
         context = super().get_context(request)
         documents = get_document_model().objects.filter(collection=self.collection)
-        context['documents'] = documents
+        context["documents"] = documents
         return context
-
 ```
 
 Here’s an example template to access the document collection and render it:
@@ -197,7 +195,7 @@ Here’s an example template to access the document collection and render it:
 
 ## Making documents private
 
-If you want to restrict access to certain documents, you can place them in [private collections](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings).
+If you want to restrict access to certain documents, you can place them in [private collections](https://guide.wagtail.org/en/how-to-guides/manage-collections/#privacy-settings).
 
 Private collections are not publicly accessible, and their contents are only available to users with the appropriate permissions.
 

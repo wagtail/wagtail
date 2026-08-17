@@ -170,6 +170,7 @@ Benjamin Van Renterghem <benjaaa.vr.gmail.com>
 Bram <bram2w.live.nl>
 Brecht Dervaux <info.dervauxbrecht.be>
 Coen van der Kamp <cvanderkamp.gmail.com>
+Filip Van
 Franklin Kingma <franklin.statix.net>
 Harmen <sigmo.sigmo.nl>
 Huib Keemink <huib.creativedutchmen.com>

@@ -811,6 +811,9 @@ msgstr "Möchten Sie dieses %(model_name)s-Objekt dennoch veröffentlichen?"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Actions (footer)"
+msgstr "Aktionen (Fußzeile)"
+
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -1769,6 +1772,14 @@ msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
 msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s von %(items_count)s %(model_name)s auf der "
+"gesamten Website."
+
 msgid "No results across entire site."
 msgstr "Keine Ergebnisse auf der gesamten Website."
 
@@ -1777,12 +1788,24 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Suchen in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s von %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
+
+#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Keine Ergebnisse in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Die gesamte Website durchsuchen"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)s von %(items_count)s %(model_name)s"
 
 msgid "Sites menu"
 msgstr "Seitenmenü"
@@ -2014,12 +2037,18 @@ msgstr "System"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s hat eine neue Version gespeichert"
 
+msgid "View latest version"
+msgstr "Aktuelle Version anzeigen "
+
 msgid "You have unsaved changes in another window"
 msgstr "Sie haben nicht gespeicherte Änderungen in einem anderen Fenster"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s hat ungespeicherte Änderungen"
+
+msgid "Currently idle"
+msgstr "Derzeit inaktiv"
 
 msgid "Currently viewing"
 msgstr "Wird gerade angezeigt"
@@ -2029,6 +2058,31 @@ msgid "One other user is currently viewing"
 msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "1 weiterer Benutzer sieht sich das gerade an"
 msgstr[1] "%(num_user)s weitere Benutzer sehen sich das gerade an"
+
+msgid "Proceeding will overwrite the changes you made in that window."
+msgstr ""
+"Durch das Fortfahren werden die in diesem Fenster vorgenommenen Änderungen "
+"überschrieben."
+
+#, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr ""
+"Durch das Fortfahren werden die von %(user_name)s vorgenommenen Änderungen "
+"überschrieben."
+
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "Alternativ können Sie die neueste Version in einem neuen Tab anzeigen."
+
+msgid "A network error occurred"
+msgstr "Es ist ein Netzwerkfehler aufgetreten"
+
+msgid ""
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
+msgstr ""
+"Beheben Sie Verbindungsprobleme zur Website, bevor Sie fortfahren. Öffnen "
+"Sie den Editor in einem separaten Tab, um die zuletzt gespeicherte Version "
+"anzuzeigen."
 
 msgid "Continue"
 msgstr "Weiter"
@@ -2850,6 +2904,12 @@ msgstr "Bild-Alt-Text hat unpassendes Muster"
 
 msgid "Use meaningful text"
 msgstr "Verwenden Sie aussagekräftigen Text"
+
+msgid "Meta description is empty"
+msgstr "Die Meta-Beschreibung ist leer."
+
+msgid "Add a concise description for search engines"
+msgstr "Fügen Sie eine kurze Beschreibung für Suchmaschinen hinzu."
 
 #, python-format
 msgid "%(classname)s object (%(id)s)"

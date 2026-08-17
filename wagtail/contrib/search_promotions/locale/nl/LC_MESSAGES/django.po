@@ -104,10 +104,10 @@ msgid ""
 "any misspellings/user error. To help, you can choose from search terms that "
 "have been popular with users of your site.</p>"
 msgstr ""
-"<p>Het 'Zoekterm(en)' veld moet een volledige zoekterm, <em>inclusief</em> "
-"mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
-"resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
-"zoektermen van gebruikers van de website.</p>            "
+"<p>Het 'Zoekterm(en)' veld moet de exacte zoekterm, <em>inclusief</em> "
+"mogelijk spelfouten, bevatten waarvoor u een uitgelicht resultaat wilt "
+"instellen. Om te helpen kun je kiezen uit populaire zoektermen van "
+"gebruikers van de website.</p>            "
 
 #, python-format
 msgid "Delete %(query)s"
@@ -116,7 +116,7 @@ msgstr "Verwijder %(query)s"
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Weet je zeker dat je alle aanbevolen zoekresultaten voor deze zoekterm wilt "
+"Weet je zeker dat je alle uitgelichte zoekresultaten voor deze zoekterm wilt "
 "verwijderen?"
 
 msgid "Move up"
@@ -132,13 +132,13 @@ msgid "Delete"
 msgstr "Verwijder"
 
 msgid "Recommended search result"
-msgstr "Aanbevolen zoekresultaat"
+msgstr "Uitgelicht zoekresultaat"
 
 msgid "Promoted search results"
 msgstr "Uitgelichte zoekresultaten"
 
 msgid "Add a recommended result"
-msgstr "Voeg een aanbevolen resultaat toe"
+msgstr "Voeg een uitgelicht resultaat toe"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -191,13 +191,13 @@ msgid "Search term(s)"
 msgstr "Zoekterm(en)"
 
 msgid "Add new promoted result"
-msgstr "Voeg een gepromoveerd resultaat toe"
+msgstr "Voeg een uitgelicht resultaat toe"
 
 msgid "Promoted results"
 msgstr "Uitgelichte resultaten"
 
 msgid "Promoted search result"
-msgstr "Gepromoveerd zoekresultaat"
+msgstr "Uitgelicht zoekresultaat"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

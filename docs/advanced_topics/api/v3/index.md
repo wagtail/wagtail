@@ -10,6 +10,7 @@ The v2 read API remains available. v3 is mounted separately at `/api/v3/`.
 ---
 maxdepth: 1
 ---
+authentication
 reference
 ```
 
@@ -28,7 +29,7 @@ urlpatterns = [
 
 Browse the interactive docs at `/api/v3/docs` and the OpenAPI schema at `/api/v3/openapi.json`.
 
-The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`). See [](api_v2_configuration) and the [API settings reference](/reference/settings).
+The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`, `WAGTAILAPI_RICH_TEXT_FORMAT`). See [](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
 
 ## Pagination
 
@@ -41,7 +42,35 @@ List endpoints use Django Ninja's limit/offset pagination:
 }
 ```
 
-`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](/reference/settings)).
+`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](wagtailapi_settings)).
+
+## Rich text
+
+Rich text fields are stored in Wagtail's database HTML format, described in [](rich_text_internals), and the v3 API uses that format as its rich text interchange representation.
+
+### Input formats
+
+On writes, a rich text field value accepts either a plain string (database HTML, sanitised against the field's declared features) or an envelope object:
+
+```json
+"body": {"format": "db_markdown", "content": "# Title\n\n[about](wagtail://page?id=3)"}
+```
+
+Supported input formats:
+
+- `db_html`: database HTML (the default when `format` is omitted).
+- `db_markdown`: Markdown using the `wagtail://` reference syntax described below.
+
+Markdown input is converted and sanitized for storage as database HTML.
+
+### Output formats
+
+Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of [`WAGTAILAPI_RICH_TEXT_FORMAT`](wagtailapi_settings):
+
+- `db_html` (default): Wagtail's [internal storage format](rich_text_internals).
+- `html`: display-ready HTML, converted like in templates.
+- `db_markdown`: Markdown that preserves internal references as `wagtail://` URLs, similarly to `db_html`.
+- `markdown`: Markdown with references resolved to public URLs (page URLs, image rendition URLs), like `html`.
 
 ## Error format
 
@@ -56,3 +85,45 @@ All error responses use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807
     "errors": []
 }
 ```
+
+## Images
+
+Images are available at `/api/v3/images/`:
+
+- `GET /images/`: list images. Anonymous access, excluding images in restricted collections. Supports `?search=`, `?order=`, and filtering on the image's own fields (`title`, `width`, `height`, plus any `api_fields` the project declares) via query parameters.
+- `GET /images/{id}/`: image detail.
+- `POST /images/`: create an image. This endpoint uses `multipart/form-data`: the `file` field carries the image binary, and writable metadata (title, description, collection, focal point) is sent as individual form fields.
+- `PATCH /images/{id}/`: update the same writable metadata as JSON. Does not support changing the image file itself.
+
+Tags are returned in image responses under `meta.tags`, but are not writable through the images API yet.
+- `DELETE /images/{id}/`: delete an image.
+
+Image writes enforce the same validation (max upload size, max pixels, extensions) and collection permissions as the admin.
+
+### Image renditions
+
+Renditions are exposed per-project through `api_fields`, the same mechanism as [in the v2 API](api_v2_images):
+
+```python
+from wagtail.images.api.fields import ImageRenditionField
+
+
+class BlogPage(Page):
+    ...
+
+    api_fields = [
+        APIField("thumbnail", serializer=ImageRenditionField("fill-300x300")),
+    ]
+```
+
+## Documents
+
+Documents are available at `/api/v3/documents/`. The routes are flat rather than nested under collections:
+
+- `GET /documents/`: list documents. Anonymous access, excluding documents whose direct collection has an unpassed view restriction. Supports `?search=`, `?order=`, and field filtering.
+- `GET /documents/{id}/`: document detail. Anonymous access, with the same direct-collection restriction behavior as the list endpoint.
+- `POST /documents/`: create a document using `multipart/form-data`. Both `file` (the binary) and `title` are required; send other writable metadata such as `collection_id` as individual form fields.
+- `PATCH /documents/{id}/`: update writable metadata as JSON. The document file cannot be replaced through this endpoint.
+- `DELETE /documents/{id}/`: delete a document.
+
+Document uploads enforce `WAGTAILDOCS_EXTENSIONS`, `WAGTAILDOCS_MAX_UPLOAD_SIZE`, custom form validation, and collection permissions in the same way as admin uploads. Extension validation checks the filename and does not verify that the file contents match the extension; see [](user_uploaded_files) for guidance on handling untrusted uploads.

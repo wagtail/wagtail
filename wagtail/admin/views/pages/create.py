@@ -1,5 +1,6 @@
 from urllib.parse import quote, urlencode
 
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -30,11 +31,12 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import (
     BaseViewRestriction,
     Locale,
-    Page,
     PageSubscription,
     PageViewRestriction,
 )
 from wagtail.signals import init_new_page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class AddSubpageView(TemplateView):

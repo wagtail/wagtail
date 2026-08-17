@@ -12,7 +12,10 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.panels import (
+    ObjectList,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
@@ -43,11 +46,16 @@ from wagtail.models import (
     RevisionMixin,
     WorkflowMixin,
 )
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
+from wagtail.snippets.models import (
+    SNIPPET_MODELS,
+    SnippetAdminURLFinder,
+    get_snippet_models,
+)
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.utils.decorators import cached_classmethod
 
 
 # == Helper functions ==
@@ -111,7 +119,7 @@ class ModelIndexView(generic.BaseListingView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_list_url(self, model):
-        if model.snippet_viewset.permission_policy.user_has_any_permission(
+        if policy_registry.get_by_type(model).user_has_any_permission(
             self.request.user,
             {"add", "change", "delete", "view"},
         ):
@@ -661,10 +669,6 @@ class SnippetViewSet(ModelViewSet):
         )
         return revisions_revert_view_class
 
-    @property
-    def permission_policy(self):
-        return ModelPermissionPolicy(self.model)
-
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
@@ -1086,7 +1090,12 @@ class SnippetViewSet(ModelViewSet):
     @property
     def url_finder_class(self):
         return type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+            "_SnippetAdminURLFinder",
+            (SnippetAdminURLFinder,),
+            {
+                "model": self.model,
+                "edit_url_name": self.get_url_name("edit"),
+            },
         )
 
     def get_urlpatterns(self):
@@ -1234,13 +1243,22 @@ class SnippetViewSet(ModelViewSet):
         checks.register(snippets_model_check, "panels")
 
     def register_snippet_model(self):
-        snippet_models = get_snippet_models()
-        if self.model in snippet_models:
+        # Do not use get_snippet_models here to avoid searching for hooks. We
+        # only care if the model is already registered, not any other models
+        # that may be registered later.
+        if self.model in SNIPPET_MODELS:
             raise ImproperlyConfigured(
                 f"The {self.model.__name__} model is already registered as a snippet"
             )
-        snippet_models.append(self.model)
-        snippet_models.sort(key=lambda x: x._meta.verbose_name)
+        SNIPPET_MODELS.append(self.model)
+        SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
+
+    def attach_model_edit_handler(self):
+        @cached_classmethod
+        def _get_edit_handler(cls):
+            return self.get_edit_handler()
+
+        self.model.get_edit_handler = _get_edit_handler
 
     def on_register(self):
         super().on_register()
@@ -1250,6 +1268,7 @@ class SnippetViewSet(ModelViewSet):
         self.register_chooser_viewset()
         self.register_model_check()
         self.register_snippet_model()
+        self.attach_model_edit_handler()
 
 
 class SnippetViewSetGroup(ModelViewSetGroup):

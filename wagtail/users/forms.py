@@ -1,5 +1,6 @@
 from itertools import groupby
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -17,13 +18,11 @@ from wagtail import hooks
 from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.models import (
-    PAGE_PERMISSION_CODENAMES,
-    PAGE_PERMISSION_TYPES,
     GroupPagePermission,
-    Page,
 )
 
 User = get_user_model()
+Page = swapper.load_model("wagtailcore", "Page")
 
 # The standard fields each user model is expected to have, as a minimum.
 standard_fields = {"email", "first_name", "last_name", "is_superuser", "groups"}
@@ -288,9 +287,9 @@ class PagePermissionsForm(forms.Form):
     )
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.filter(
-            content_type__app_label="wagtailcore",
-            content_type__model="page",
-            codename__in=PAGE_PERMISSION_CODENAMES,
+            content_type__app_label=Page._meta.app_label,
+            content_type__model=Page._meta.model_name,
+            codename__in=Page.permission_codenames,
         )
         .select_related("content_type")
         .order_by("codename"),
@@ -308,7 +307,7 @@ class PagePermissionsForm(forms.Form):
 
 class BaseGroupPagePermissionFormSet(BaseFormSetMixin, forms.BaseFormSet):
     # defined here for easy access from templates
-    permission_types = PAGE_PERMISSION_TYPES
+    permission_types = Page.permission_types
 
     def __init__(self, data=None, files=None, instance=None, prefix="page_permissions"):
         if instance is None:

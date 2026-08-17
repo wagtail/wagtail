@@ -1,10 +1,11 @@
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
-from draftjs_exporter.dom import DOM
+from draftjs_exporter import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import __version__, hooks
@@ -54,19 +55,16 @@ from wagtail.admin.views.pages.bulk_actions import (
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.pages import base_page_viewset
 from wagtail.admin.widgets import ButtonWithDropdownFromHook
-from wagtail.models import Collection, Page, Task, Workflow
-from wagtail.permissions import (
-    collection_permission_policy,
-    page_permission_policy,
-    task_permission_policy,
-    workflow_permission_policy,
-)
+from wagtail.models import Collection, Task, Workflow
+from wagtail.permissions import policy_registry
 from wagtail.templatetags.wagtailcore_tags import (
     wagtail_feature_release_editor_guide_link,
     wagtail_feature_release_whats_new_link,
 )
 from wagtail.utils.version import get_main_version
 from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 @hooks.register("register_admin_viewset", order=-1)
@@ -80,7 +78,9 @@ class ExplorerMenuItem(MenuItem):
 
     def get_context(self, request):
         context = super().get_context(request)
-        start_page = page_permission_policy.explorable_root_instance(request.user)
+        start_page = policy_registry.get_by_type(Page).explorable_root_instance(
+            request.user
+        )
 
         if start_page:
             context["start_page_id"] = start_page.id
@@ -88,7 +88,9 @@ class ExplorerMenuItem(MenuItem):
         return context
 
     def render_component(self, request):
-        start_page = page_permission_policy.explorable_root_instance(request.user)
+        start_page = policy_registry.get_by_type(Page).explorable_root_instance(
+            request.user
+        )
 
         if start_page:
             return PageExplorerMenuItemComponent(
@@ -170,7 +172,7 @@ def register_collection_permissions_panel():
 
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
-        return collection_permission_policy.user_has_any_permission(
+        return policy_registry.get_by_type(Collection).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -191,7 +193,7 @@ class WorkflowsMenuItem(MenuItem):
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
-        return workflow_permission_policy.user_has_any_permission(
+        return policy_registry.get_by_type(Workflow).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -201,7 +203,7 @@ class WorkflowTasksMenuItem(MenuItem):
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
-        return task_permission_policy.user_has_any_permission(
+        return policy_registry.get_by_type(Task).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -445,6 +447,12 @@ def register_core_features(features):
             WhitelistRule("ul", allow_without_attributes),
             WhitelistRule("li", allow_without_attributes),
         ],
+    )
+
+    features.register_converter_rule(
+        "editorhtml",
+        "hr",
+        [WhitelistRule("hr", allow_without_attributes)],
     )
 
     # Draftail
@@ -842,35 +850,40 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return page_permission_policy.user_has_permission(request.user, "unlock")
+        return policy_registry.get_by_type(Page).user_has_permission(
+            request.user, "unlock"
+        )
 
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(
-            settings, "WAGTAIL_WORKFLOW_ENABLED", True
-        ) and page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
+        return getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True) and (
+            policy_registry.get_by_type(Page).user_has_any_permission(
+                request.user, ["add", "change", "publish"]
+            )
         )
 
 
 class SiteHistoryReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return page_permission_policy.explorable_root_instance(request.user) is not None
+        return (
+            policy_registry.get_by_type(Page).explorable_root_instance(request.user)
+            is not None
+        )
 
 
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(
-            settings, "WAGTAIL_AGING_PAGES_ENABLED", True
-        ) and page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
+        return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True) and (
+            policy_registry.get_by_type(Page).user_has_any_permission(
+                request.user, ["add", "change", "publish"]
+            )
         )
 
 
 class PageTypesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return page_permission_policy.user_has_any_permission(
+        return policy_registry.get_by_type(Page).user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
 
@@ -1157,7 +1170,6 @@ register_admin_url_finder(Page, PageAdminURLFinder)
 
 
 class CollectionAdminURLFinder(ModelAdminURLFinder):
-    permission_policy = collection_permission_policy
     edit_url_name = "wagtailadmin_collections:edit"
 
 
@@ -1165,7 +1177,6 @@ register_admin_url_finder(Collection, CollectionAdminURLFinder)
 
 
 class WorkflowAdminURLFinder(ModelAdminURLFinder):
-    permission_policy = workflow_permission_policy
     edit_url_name = "wagtailadmin_workflows:edit"
 
 
@@ -1173,7 +1184,6 @@ register_admin_url_finder(Workflow, WorkflowAdminURLFinder)
 
 
 class WorkflowTaskAdminURLFinder(ModelAdminURLFinder):
-    permission_policy = task_permission_policy
     edit_url_name = "wagtailadmin_workflows:edit_task"
 
 

@@ -2,9 +2,8 @@ from unittest import mock
 
 from django.conf import settings
 
-from wagtail.models import Page
 from wagtail.test.routablepage.models import RoutablePageTest
-from wagtail.test.utils import WagtailPageTestCase
+from wagtail.test.utils import Page, WagtailPageTestCase
 
 
 class TestCustomPageAssertions(WagtailPageTestCase):

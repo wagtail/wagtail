@@ -6,14 +6,15 @@ from ninja.pagination import paginate
 from wagtail.actions.create import CreateAction
 from wagtail.actions.delete import DeleteAction
 from wagtail.actions.edit import EditAction
+from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.schemas import SiteInputSchema, SiteSchema
 from wagtail.models import Site
-from wagtail.permissions import site_permission_policy
+from wagtail.permissions import policy_registry
 from wagtail.sites.forms import SiteForm
 
-router = Router(tags=["sites"])
+router = Router(tags=["sites"], auth=BearerTokenAuth())
 
 
 @router.get(
@@ -26,7 +27,7 @@ router = Router(tags=["sites"])
 @paginate(WagtailLimitOffsetPagination)
 @require_any_permission(Site)
 def list_sites(request: HttpRequest):
-    return site_permission_policy.instances_user_has_any_permission_for(
+    return policy_registry.get_by_type(Site).instances_user_has_any_permission_for(
         request.user,
         ("add", "change", "delete", "view"),
     )
@@ -42,7 +43,7 @@ def list_sites(request: HttpRequest):
 @require_any_permission(Site)
 def get_site(request: HttpRequest, site_id: int):
     return get_object_or_404(
-        site_permission_policy.instances_user_has_any_permission_for(
+        policy_registry.get_by_type(Site).instances_user_has_any_permission_for(
             request.user,
             ("add", "change", "delete", "view"),
         ),
@@ -73,6 +74,7 @@ def create_site(request: HttpRequest, data: SiteInputSchema):
     summary="Update site",
     operation_id="sites_update",
 )
+@require_any_permission(Site, ("change",))
 def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     site = get_object_or_404(Site, pk=site_id)
     form = SiteForm(data.dict(), instance=site)
@@ -87,6 +89,7 @@ def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     summary="Delete site",
     operation_id="sites_delete",
 )
+@require_any_permission(Site, ("delete",))
 def delete_site(request: HttpRequest, site_id: int):
     site = get_object_or_404(Site, pk=site_id)
     DeleteAction(site, user=request.user).execute()

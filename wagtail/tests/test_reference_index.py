@@ -13,7 +13,7 @@ from wagtail.documents import get_document_model
 from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Page, ReferenceIndex
+from wagtail.models import ReferenceIndex
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.models import (
     Advert,
@@ -31,6 +31,7 @@ from wagtail.test.testapp.models import (
     ModelWithNullableParentalKey,
     VariousOnDeleteModel,
 )
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 class TestCreateOrUpdateForObject(TestCase):
@@ -314,7 +315,7 @@ class TestCreateOrUpdateForObject(TestCase):
         self.assertEqual(refs.count(), 1)
 
 
-class TestDescribeOnDelete(TestCase):
+class TestDescribeOnDelete(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -847,7 +848,7 @@ class TestBulkFetch(TestCase):
         expected_refs = {
             self.test_image_1: [
                 (
-                    self.event_page.page_ptr,
+                    self.event_page.get_base_page(),
                     {
                         f"carousel_items.{self.carousel_items[0].pk}.image",
                         f"carousel_items.{self.carousel_items[2].pk}.image",
@@ -857,7 +858,7 @@ class TestBulkFetch(TestCase):
             ],
             self.test_image_2: [
                 (
-                    self.event_page.page_ptr,
+                    self.event_page.get_base_page(),
                     {f"carousel_items.{self.carousel_items[1].pk}.image"},
                 )
             ],
@@ -892,7 +893,7 @@ class TestBulkFetch(TestCase):
         expected_refs = {
             self.test_image_1: [
                 (
-                    self.event_page.page_ptr,
+                    self.event_page.get_base_page(),
                     {
                         f"carousel_items.{self.carousel_items[0].pk}.image",
                         f"carousel_items.{self.carousel_items[2].pk}.image",
@@ -902,14 +903,14 @@ class TestBulkFetch(TestCase):
             ],
             self.test_image_2: [
                 (
-                    self.event_page.page_ptr,
+                    self.event_page.get_base_page(),
                     {f"carousel_items.{self.carousel_items[1].pk}.image"},
                 )
             ],
             self.test_document_1: [],
             self.test_document_2: [
                 (
-                    self.event_page.page_ptr,
+                    self.event_page.get_base_page(),
                     {f"carousel_items.{self.carousel_items[3].pk}.link_document"},
                 )
             ],

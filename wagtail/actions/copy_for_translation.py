@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 
+from wagtail.actions.base import BaseAction
 from wagtail.coreutils import find_available_slug
 from wagtail.models.copying import _copy
 from wagtail.signals import copy_for_translation_done
@@ -27,7 +28,7 @@ class CopyPageForTranslationPermissionError(CopyForTranslationPermissionError):
     pass
 
 
-class CopyPageForTranslationAction:
+class CopyPageForTranslationAction(BaseAction):
     """
     Creates a copy of this page in the specified locale.
 
@@ -49,6 +50,9 @@ class CopyPageForTranslationAction:
     are excluded in ``.exclude_fields_in_copy`` will be excluded from the translation.
     """
 
+    action_name = "copy_for_translation"
+    permission_error_class = CopyPageForTranslationPermissionError
+
     def __init__(
         self,
         page,
@@ -59,6 +63,7 @@ class CopyPageForTranslationAction:
         user=None,
         include_subtree=False,
     ):
+        super().__init__(page, user=user)
         self.page = page
         self.locale = locale
         self.copy_parents = copy_parents
@@ -110,7 +115,7 @@ class CopyPageForTranslationAction:
             except parent.__class__.DoesNotExist as e:
                 if not copy_parents:
                     raise ParentNotTranslatedError(
-                        "Parent page is not translated."
+                        f"Parent page '{parent.title}' is not translated."
                     ) from e
 
                 translated_parent = parent.copy_for_translation(
@@ -182,13 +187,16 @@ class CopyPageForTranslationAction:
         return translated_page
 
 
-class CopyForTranslationAction:
+class CopyForTranslationAction(BaseAction):
     """
     Creates a copy of this object in the specified locale.
 
     The ``exclude_fields`` parameter can be used to set any fields to a blank value
     in the copy.
     """
+
+    action_name = "copy_for_translation"
+    permission_error_class = CopyForTranslationPermissionError
 
     def __init__(
         self,
@@ -197,10 +205,10 @@ class CopyForTranslationAction:
         exclude_fields=None,
         user=None,
     ):
+        super().__init__(object, user=user)
         self.object = object
         self.locale = locale
         self.exclude_fields = exclude_fields
-        self.user = user
 
     def check(self, skip_permission_checks=False):
         # Permission checks

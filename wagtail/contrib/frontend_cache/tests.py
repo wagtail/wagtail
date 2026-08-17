@@ -17,8 +17,8 @@ from wagtail.contrib.frontend_cache.backends import (
     HTTPBackend,
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.utils import Page, PageFixturesMixin
 from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .utils import (
@@ -255,6 +255,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "CDN_PROFILE_NAME": "wagtail-io-profile",
                     "CDN_ENDPOINT_NAME": "wagtail-io-endpoint",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -296,6 +297,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "RESOURCE_GROUP_NAME": "test-resource-group",
                     "FRONT_DOOR_NAME": "wagtail-io-front-door",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -541,7 +543,7 @@ class MockCloudflareBackend(CloudflareBackend):
         }
     },
 )
-class TestCachePurgingFunctions(TestCase):
+class TestCachePurgingFunctions(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -732,7 +734,7 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         },
     }
 )
-class TestCachePurgingSignals(TestCase):
+class TestCachePurgingSignals(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -822,7 +824,7 @@ class TestCachePurgingSignals(TestCase):
         )
 
 
-class TestPurgeBatchClass(TestCase):
+class TestPurgeBatchClass(PageFixturesMixin, TestCase):
     # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
     # by TestCachePurgingFunctions.test_purge_batch above
 

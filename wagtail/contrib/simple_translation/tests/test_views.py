@@ -19,11 +19,11 @@ from wagtail.contrib.simple_translation.views import (
     SubmitTranslationView,
 )
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import GroupPagePermission, Locale, Page
+from wagtail.models import GroupPagePermission, Locale
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import FullFeaturedSnippet
-from wagtail.test.utils import TestCase, WagtailTestUtils
+from wagtail.test.utils import Page, TestCase, WagtailTestUtils
 
 
 @override_settings(

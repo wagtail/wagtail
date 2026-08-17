@@ -3,9 +3,18 @@ from django.db import models
 from django.test import TestCase
 
 from wagtail import hooks
-from wagtail.actions import CreateAction, DeleteAction, EditAction
+from wagtail.actions import (
+    CopyForTranslationAction,
+    CreateAction,
+    DeleteAction,
+    EditAction,
+)
 from wagtail.actions.base import BaseAction
+from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.registry import ActionRegistry, action_registry
+from wagtail.actions.revert_to_revision import RevertToRevisionAction
+from wagtail.actions.unpublish import UnpublishAction
+from wagtail.models import DraftStateMixin, RevisionMixin, TranslatableMixin
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
@@ -111,13 +120,24 @@ class TestDefaultActions(TestCase):
         )
 
     def test_custom_models_have_default_actions(self):
-        for model in (Advert, DraftStateModel, FullFeaturedSnippet):
+        for model in (
+            Advert,
+            DraftStateModel,
+            FullFeaturedSnippet,
+            RevisableModel,
+            RevisableChildModel,
+        ):
             with self.subTest(model=model):
-                self.assertEqual(
-                    action_registry.get_actions_for_model(model),
-                    {
-                        "create": CreateAction,
-                        "edit": EditAction,
-                        "delete": DeleteAction,
-                    },
-                )
+                actions = {
+                    "create": CreateAction,
+                    "edit": EditAction,
+                    "delete": DeleteAction,
+                }
+                if issubclass(model, RevisionMixin):
+                    actions["revert"] = RevertToRevisionAction
+                if issubclass(model, DraftStateMixin):
+                    actions["publish"] = PublishRevisionAction
+                    actions["unpublish"] = UnpublishAction
+                if issubclass(model, TranslatableMixin):
+                    actions["copy_for_translation"] = CopyForTranslationAction
+                self.assertEqual(action_registry.get_actions_for_model(model), actions)

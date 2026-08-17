@@ -22,14 +22,17 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```python
-body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-], block_counts={
-    'heading': {'min_num': 1},
-    'image': {'max_num': 5},
-})
+body = StreamField(
+    [
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ],
+    block_counts={
+        "heading": {"min_num": 1},
+        "image": {"max_num": 5},
+    },
+)
 ```
 
 ## Block options and methods

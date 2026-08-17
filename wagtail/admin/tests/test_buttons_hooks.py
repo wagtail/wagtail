@@ -7,9 +7,8 @@ from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_header_buttons, page_listing_more_buttons
 from wagtail.admin.widgets.button import Button
-from wagtail.models import Page
 from wagtail.test.testapp.models import SimpleChildPage, SimplePage, SimpleParentPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestButtonsHooks(WagtailTestUtils, TestCase):

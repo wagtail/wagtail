@@ -6,9 +6,10 @@ from wagtail.models import Locale
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import Advert, AdvertWithCustomPrimaryKey
+from wagtail.test.utils import PageFixturesMixin
 
 
-class TestSnippetChooserBlock(TestCase):
+class TestSnippetChooserBlock(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_serialize(self):
@@ -113,7 +114,7 @@ class TestSnippetChooserBlock(TestCase):
             block.widget
 
 
-class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
+class TestSnippetChooserBlockWithCustomPrimaryKey(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_serialize(self):

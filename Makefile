@@ -49,9 +49,16 @@ test:
 	python runtests.py
 
 OPENAPI_SNAPSHOT := wagtail/api/v3/tests/snapshots/openapi.json
+OPENAPI_SNAPSHOT_CUSTOM_PAGE_MODEL := wagtail/api/v3/tests/snapshots/openapi_basepage.json
+
+define OPENAPI_SNAPSHOT_SCRIPT
+DJANGO_SETTINGS_MODULE=wagtail.test.settings python -c 'import json, django; django.setup(); from wagtail.api.v3.api import api; from ninja.responses import NinjaJSONEncoder; f = open("$(1)", "w"); json.dump(api.get_openapi_schema(), f, cls=NinjaJSONEncoder, indent=2, sort_keys=True); f.write("\n"); f.close()'
+endef
 
 openapi-snapshot:
-	DJANGO_SETTINGS_MODULE=wagtail.test.settings python -c 'import json, django; django.setup(); from wagtail.api.v3.api import api; from ninja.responses import NinjaJSONEncoder; f = open("$(OPENAPI_SNAPSHOT)", "w"); json.dump(api.get_openapi_schema(), f, cls=NinjaJSONEncoder, indent=2, sort_keys=True); f.write("\n"); f.close()'
+	$(call OPENAPI_SNAPSHOT_SCRIPT,$(OPENAPI_SNAPSHOT))
+	USE_CUSTOM_PAGE_MODEL=1 $(call OPENAPI_SNAPSHOT_SCRIPT,$(OPENAPI_SNAPSHOT_CUSTOM_PAGE_MODEL))
+	npm run format
 
 coverage:
 	coverage run --source wagtail runtests.py

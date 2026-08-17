@@ -70,7 +70,7 @@ msgid ""
 "Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"Image .%(extension)s non valide. L'extension de fichier ne correspond pas "
+"Image .%(extension)s non valide. L'extension de fichier ne correspond pas au "
 "format du fichier (%(image_format)s)"
 
 #, python-format

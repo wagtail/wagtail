@@ -5,6 +5,7 @@
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Imanu Wardi, 2026
 # Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Reshi Mahendra <reshimahendra@gmail.com>, 2020
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Last-Translator: Imanu Wardi, 2026\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +42,7 @@ msgid "Submit to %(workflow_name)s"
 msgstr "Pengajuan ke %(workflow_name)s"
 
 msgid "Restart workflow "
-msgstr "Restart alur kerja"
+msgstr "Mulai ulang alur kerja"
 
 msgid "Cancel workflow "
 msgstr "Batalkan alur kerja"
@@ -59,11 +60,20 @@ msgstr "Halaman dikunci"
 msgid "%(label)s and Publish"
 msgstr "%(label)s dan Publikasikan"
 
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
-msgstr "Wagtail admin"
+msgstr "Admin Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
-msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
+msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini."
+
+msgid "You do not have permission to access the admin."
+msgstr "Anda tidak memiliki izin untuk mengakses halaman admin."
 
 msgid "None"
 msgstr "Tidak ada"
@@ -73,6 +83,12 @@ msgstr "Tanggal awal"
 
 msgid "Date to"
 msgstr "Tanggal akhir"
+
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "Maximum"
+msgstr "Maksimum"
 
 msgid "All"
 msgstr "Semua"

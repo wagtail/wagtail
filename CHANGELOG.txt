@@ -4,6 +4,8 @@ Changelog
 8.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support for custom base page models (Matt Westcott)
+ * Create a global registry for permission policies (Sage Abdullah)
  * Add customizability for all remaining page views to `PageViewSet` (Sage Abdullah)
  * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
  * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
@@ -15,6 +17,10 @@ Changelog
  * Use a more accessible label for blank values of `ChoiceBlock` (Sage Abdullah)
  * Use a more accessible label for blank values of dropdowns in locked page report filters (Sage Abdullah)
  * Make audit log messages for scheduling/unscheduling generic (Sage Abdullah)
+ * Stop converting AVIF and WebP images to PNG by default (Thibaud Colas)
+ * Add rich text serializing to HTML support in the v2 API (Thibaud Colas)
+ * Expose the block `id` as a template context variable when rendering children of `StreamBlock` and `ListBlock` (Sage Abdullah)
+ * Add extension blocks for image and document stats in the edit view templates (Preeti Singh)
  * Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
  * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
  * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
@@ -23,8 +29,14 @@ Changelog
  * Fix: Use canonical URL for TED oEmbed provider (Marquis Nobles)
  * Fix: Prevent icons from capturing clicks inside buttons (Maciek Baron)
  * Fix: Prevent stale content types from breaking audit log message formatting (Thibaud Colas)
+ * Fix: Ensure form field clean_name is consistently set on form pages if autosave runs prematurely (Joey Jurjens)
+ * Fix: Enforce 'choose' permission on image chooser select-format view (Matt Westcott)
  * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
  * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
+ * Docs: Add docs for `request.in_preview_panel` to explain its use (Raghad Dahi)
+ * Docs: Update image format docs to encourage more intentional conversions (Thibaud Colas)
+ * Docs: Clarify Wagtail XSS protections for uploaded documents (Thibaud Colas)
+ * Maintenance: Formalized support for Django 6.1
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
@@ -36,6 +48,19 @@ Changelog
  * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
  * Maintenance: Enable flake8-bandit security-focused linting rules (Storm Heg)
  * Maintenance: Add support for latest Azure SDK for frontend cache invalidation (Sage Abdullah)
+ * Maintenance: Update guide.wagtail.org links to new versioning scheme (Raghad Dahi)
+ * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
+ * Maintenance: Use Ubuntu 26.04 ARM runner for GitHub Actions workflows (Storm Heg)
+
+
+7.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure models with a UUID primary key can be previewed when creating a new instance (Sébastien Corbin)
+ * Fix: Ensure the checks side panel recognises custom `ContentCheckerItem` subclasses (Robert Rollins)
+ * Fix: Ensure form field clean_name is consistently set on form pages if autosave runs prematurely (Joey Jurjens)
+ * Fix: Set `last_published_at` noon alias pages on first publish (Kevin Howbrook)
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
 
 
 7.4.2 (15.06.2026)
@@ -496,6 +521,11 @@ Changelog
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
+
+7.0.9 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
 
 7.0.8 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~

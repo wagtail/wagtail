@@ -1,16 +1,18 @@
 import logging
 from collections.abc import Iterable
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Q
 
 from wagtail.contrib.frontend_cache.utils import PurgeBatch
 from wagtail.coreutils import BatchCreator, get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 
 from .models import Redirect
 
+Page = swapper.load_model("wagtailcore", "Page")
 logger = logging.getLogger(__name__)
 
 

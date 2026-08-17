@@ -369,14 +369,35 @@ msgstr "Publiku"
 msgid "groups"
 msgstr "Grupu sira"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Dalarum iha ida mak iha progresu ka presija troka fluxu servisu nia estatus "
+"kada pájina/fragmentu."
+
 msgid "Not started"
 msgstr "Seidauk hahú"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Fluxu servisu ativu bele aumenta ona ba pájina sira/fragmentu sira. Desativa "
+"fluxu servisu ida la hasai nia hosi pájina sira/fragmentu sira."
 
 msgid "workflows"
 msgstr "fluxu servisu sira"
 
 msgid "task"
 msgstr "tarefa"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pájina sira/fragmentu sira iha etapa ida-ne'e iha fluxu servisu sei bele "
+"moderadu ona ka aprova ona tuir grupu sira hosi uzuáriu sira"
 
 msgid "Approve"
 msgstr "Aprova"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr ""
 
-#: filters.py:12 views.py:100 views.py:117
+#: filters.py:12 views.py:111 views.py:128
 msgid "Type"
 msgstr ""
 
@@ -67,70 +67,70 @@ msgstr ""
 msgid "To field"
 msgstr ""
 
-#: models.py:14
+#: models.py:15
 msgid "redirect from"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "site"
 msgstr ""
 
-#: models.py:26 models.py:101
+#: models.py:27 models.py:102
 msgid "permanent"
 msgstr ""
 
-#: models.py:29
+#: models.py:30
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 
-#: models.py:35
+#: models.py:36
 msgid "redirect to a page"
 msgstr ""
 
-#: models.py:41
+#: models.py:42
 msgid "target page route"
 msgstr ""
 
-#: models.py:43
+#: models.py:44
 msgid ""
 "Optionally specify a route on the target page to redirect to. Leave blank to "
 "redirect to the default page route."
 msgstr ""
 
-#: models.py:50
+#: models.py:51
 msgid "redirect to any URL"
 msgstr ""
 
-#: models.py:53
+#: models.py:54
 msgid "automatically created"
 msgstr ""
 
-#: models.py:58
+#: models.py:59
 msgid "created at"
 msgstr ""
 
-#: models.py:103
+#: models.py:104
 msgid "temporary"
 msgstr ""
 
-#: models.py:235
+#: models.py:236
 msgid "redirect"
 msgstr ""
 
-#: models.py:236
+#: models.py:237
 msgid "redirects"
 msgstr ""
 
-#: templates/wagtailredirects/choose_import_file.html:3 views.py:77
+#: templates/wagtailredirects/choose_import_file.html:3 views.py:88
 #: wagtail_hooks.py:34
 msgid "Redirects"
 msgstr ""
 
 #: templates/wagtailredirects/choose_import_file.html:6
 #: templates/wagtailredirects/confirm_import.html:6
-#: templates/wagtailredirects/import_summary.html:5 views.py:128
+#: templates/wagtailredirects/import_summary.html:5 views.py:139
 msgid "Import redirects"
 msgstr ""
 
@@ -183,11 +183,11 @@ msgid ""
 "Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
 
-#: templates/wagtailredirects/import_summary.html:17 views.py:82 views.py:114
+#: templates/wagtailredirects/import_summary.html:17 views.py:93 views.py:125
 msgid "From"
 msgstr ""
 
-#: templates/wagtailredirects/import_summary.html:18 views.py:94 views.py:116
+#: templates/wagtailredirects/import_summary.html:18 views.py:105 views.py:127
 msgid "To"
 msgstr ""
 
@@ -211,57 +211,57 @@ msgid ""
 "href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:68
+#: views.py:79
 msgid "Add redirect"
 msgstr ""
 
-#: views.py:88 views.py:115
+#: views.py:99 views.py:126
 msgid "Site"
 msgstr ""
 
-#: views.py:146
+#: views.py:156
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:150
+#: views.py:160
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr ""
 
-#: views.py:183
+#: views.py:192
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr ""
 
-#: views.py:196
+#: views.py:204
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
-#: views.py:200
+#: views.py:208
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr ""
 
-#: views.py:235
+#: views.py:243
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:249
+#: views.py:257
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported."
 msgstr ""
 
-#: views.py:266
+#: views.py:274
 #, python-format
 msgid "Imported file has a wrong encoding: %(error_message)s."
 msgstr ""
 
-#: views.py:273
+#: views.py:281
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s."
 msgstr ""
 
-#: views.py:364
+#: views.py:372
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"

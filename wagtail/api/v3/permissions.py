@@ -2,13 +2,16 @@ import functools
 
 from django.core.exceptions import PermissionDenied
 
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 
 
 def require_any_permission(model, actions=("add", "change", "delete", "view")):
     """
     Decorator factory that gates a view behind authentication and any of the
-    given permission actions for *model*, looked up via ``policies_registry``.
+    given permission actions for ``model``, looked up via ``policy_registry``.
+
+    If ``model`` is a function, it will be called with the same arguments as the
+    view function to allow dynamic model resolution based on request parameters.
 
     Usage::
 
@@ -21,10 +24,12 @@ def require_any_permission(model, actions=("add", "change", "delete", "view")):
     def decorator(view_func):
         @functools.wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            # FIXME: use the registry when it's implemented.
-            # from wagtail.permissions import policies_registry
-            # permission_policy = policies_registry.get(model)
-            permission_policy = ModelPermissionPolicy(model)
+            resolved_model = model
+            if callable(model) and not isinstance(model, type):
+                # Allow dynamic model resolution based on request parameters.
+                resolved_model = model(request, *args, **kwargs)
+
+            permission_policy = policy_registry.get_by_type(resolved_model)
             if not permission_policy.user_has_any_permission(request.user, actions):
                 raise PermissionDenied
             return view_func(request, *args, **kwargs)

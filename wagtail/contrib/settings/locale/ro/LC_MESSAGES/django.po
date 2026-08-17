@@ -26,24 +26,29 @@ msgid "default"
 msgstr "implicit"
 
 msgid "Sites"
-msgstr "Saituri"
+msgstr "Site-uri"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "Permisiuni pentru %(model)s"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s pentru %(site)s"
 
 msgid "Site"
-msgstr "Sit"
+msgstr "Site"
 
 msgid "Settings"
 msgstr "Setări"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Setarea nu poate fi deschisă din cauzei lipsei definiților de sit."
+msgstr ""
+"Această setare nu a putut fi deschisă deoarece nu există niciun site definit."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Setarea nu a putut fi salvată din cauza erorilor."
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "%(setting_type)sa fost actualizat(ă)."
+msgstr "%(setting_type)s a fost actualizat(ă)."

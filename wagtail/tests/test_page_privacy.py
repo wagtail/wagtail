@@ -1,11 +1,11 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page, PageViewRestriction
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import PageViewRestriction
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPagePrivacy(WagtailTestUtils, TestCase):
+class TestPagePrivacy(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

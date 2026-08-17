@@ -9,7 +9,6 @@ from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
     Locale,
-    Page,
     Workflow,
     WorkflowTask,
 )
@@ -26,10 +25,13 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     SingletonPageViaMaxCount,
 )
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
-class TestPagePermission(TestCase):
+class TestPagePermission(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
+    model = Page
+    policy_class = PagePermissionPolicy
 
     def create_workflow_and_task(self):
         workflow = Workflow.objects.create(name="test_workflow")
@@ -279,7 +281,8 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="change_page"
+            group__name="Event moderators",
+            permission__codename=Page.PERMISSION_CODENAMES.CHANGE,
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -552,7 +555,7 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         editable_pages = policy.instances_user_has_permission_for(
             event_editor, "change"
@@ -592,7 +595,7 @@ class TestPagePermission(TestCase):
         )
         about_us_page = Page.objects.get(url_path="/home/about-us/")
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
         explorable_pages = policy.explorable_instances(event_editor)
 
         # Verify all pages below /home/events/ are explorable
@@ -629,7 +632,7 @@ class TestPagePermission(TestCase):
             email="corporateeditor@example.com"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         about_us_page = Page.objects.get(url_path="/home/about-us/")
         businessy_events = Page.objects.get(url_path="/home/events/businessy-events/")
@@ -637,9 +640,15 @@ class TestPagePermission(TestCase):
 
         explorable_pages = policy.explorable_instances(corporate_editor)
 
-        self.assertTrue(explorable_pages.filter(id=about_us_page.id).exists())
-        self.assertTrue(explorable_pages.filter(id=businessy_events.id).exists())
-        self.assertTrue(explorable_pages.filter(id=events_page.id).exists())
+        pages = [about_us_page, businessy_events, events_page]
+        for page in pages:
+            # If the policy is for a specific model, then the result should only
+            # include pages of that model type (or its subclasses).
+            page_matches_policy_model = issubclass(page.specific_class, self.model)
+            self.assertIs(
+                explorable_pages.filter(id=page.id).exists(),
+                page_matches_policy_model,
+            )
 
     def test_editable_pages_for_user_with_edit_permission(self):
         event_moderator = get_user_model().objects.get(
@@ -654,7 +663,7 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         editable_pages = policy.instances_user_has_permission_for(
             event_moderator, "change"
@@ -692,7 +701,7 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         editable_pages = policy.instances_user_has_permission_for(user, "change")
         can_edit_pages = policy.user_has_permission(user, "change")
@@ -728,27 +737,33 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         editable_pages = policy.instances_user_has_permission_for(user, "change")
         can_edit_pages = policy.user_has_permission(user, "change")
         publishable_pages = policy.instances_user_has_permission_for(user, "publish")
         can_publish_pages = policy.user_has_permission(user, "publish")
 
-        self.assertTrue(editable_pages.filter(id=homepage.id).exists())
-        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
-        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
-        self.assertTrue(editable_pages.filter(id=someone_elses_event_page.id).exists())
+        pages = [
+            homepage,
+            christmas_page,
+            unpublished_event_page,
+            someone_elses_event_page,
+        ]
+        for page in pages:
+            # If the policy is for a specific model, then the result should only
+            # include pages of that model type (or its subclasses).
+            page_matches_policy_model = issubclass(page.specific_class, self.model)
+            self.assertIs(
+                editable_pages.filter(id=page.id).exists(),
+                page_matches_policy_model,
+            )
+            self.assertIs(
+                publishable_pages.filter(id=page.id).exists(),
+                page_matches_policy_model,
+            )
 
         self.assertTrue(can_edit_pages)
-
-        self.assertTrue(publishable_pages.filter(id=homepage.id).exists())
-        self.assertTrue(publishable_pages.filter(id=christmas_page.id).exists())
-        self.assertTrue(publishable_pages.filter(id=unpublished_event_page.id).exists())
-        self.assertTrue(
-            publishable_pages.filter(id=someone_elses_event_page.id).exists()
-        )
-
         self.assertTrue(can_publish_pages)
 
     def test_editable_pages_for_non_editing_user(self):
@@ -762,7 +777,7 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        policy = PagePermissionPolicy()
+        policy = self.policy_class(self.model)
 
         editable_pages = policy.instances_user_has_permission_for(user, "change")
         can_edit_pages = policy.user_has_permission(user, "change")
@@ -815,7 +830,8 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="unlock_page"
+            group__name="Event moderators",
+            permission__codename=Page.PERMISSION_CODENAMES.UNLOCK,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -834,7 +850,8 @@ class TestPagePermission(TestCase):
         christmas_page.save()
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission__codename="unlock_page"
+            group__name="Event moderators",
+            permission__codename=Page.PERMISSION_CODENAMES.UNLOCK,
         ).delete()
 
         perms = christmas_page.permissions_for_user(user)
@@ -990,7 +1007,11 @@ class TestPagePermission(TestCase):
         self.assertIsInstance(page.permissions_for_user(user), CustomPermissionTester)
 
 
-class TestPagePermissionTesterCanCopyTo(TestCase):
+class TestSpecificPagePermission(TestPagePermission):
+    model = EventPage
+
+
+class TestPagePermissionTesterCanCopyTo(PageFixturesMixin, TestCase):
     """Tests PagePermissionTester.can_copy_to()"""
 
     fixtures = ["test.json"]
@@ -1079,10 +1100,8 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         )
 
 
-class TestPagePermissionModel(TestCase):
-    fixtures = [
-        "test.json",
-    ]
+class TestPagePermissionModel(PageFixturesMixin, TestCase):
+    fixtures = ["test.json"]
 
     def test_create_with_permission_type_only(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
@@ -1090,4 +1109,6 @@ class TestPagePermissionModel(TestCase):
         group_permission = GroupPagePermission.objects.create(
             group=user.groups.first(), page=page, permission_type="add"
         )
-        self.assertEqual(group_permission.permission.codename, "add_page")
+        self.assertEqual(
+            group_permission.permission.codename, Page.PERMISSION_CODENAMES.ADD
+        )

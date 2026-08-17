@@ -6,6 +6,7 @@ from http import HTTPStatus
 from unittest.mock import patch
 
 from django.conf import settings
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
@@ -38,7 +39,6 @@ from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
-    Page,
     UploadedFile,
     get_root_collection_id,
 )
@@ -48,7 +48,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
@@ -718,7 +718,9 @@ class TestBulkActionsColumn(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
+class TestImageIndexViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -899,7 +901,9 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
 
 
 @tag("transaction")
-class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
+class TestImageListingResultsView(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -2357,7 +2361,9 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
+class TestImageChooserViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -2388,7 +2394,7 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.context["results"][0], image)
 
 
-class TestImageChooserChosenMixin:
+class TestImageChooserLimitedPermissionsMixin:
     @classmethod
     def setUpTestData(cls):
         cls.superuser = cls.create_test_user()
@@ -2417,7 +2423,7 @@ class TestImageChooserChosenMixin:
 
 
 class TestImageChooserChosenView(
-    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+    TestImageChooserLimitedPermissionsMixin, WagtailTestUtils, TestCase
 ):
     @classmethod
     def setUpTestData(cls):
@@ -2490,7 +2496,7 @@ class TestImageChooserChosenView(
 
 
 class TestImageChooserChosenMultipleView(
-    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+    TestImageChooserLimitedPermissionsMixin, WagtailTestUtils, TestCase
 ):
     @classmethod
     def setUpTestData(cls):
@@ -2547,37 +2553,44 @@ class TestImageChooserChosenMultipleView(
         self.assertEqual(item["default_alt_text"], "Another test description")
 
 
-class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+class TestImageChooserSelectFormatView(
+    TestImageChooserLimitedPermissionsMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
 
         # Create an image to edit
-        self.image = Image.objects.create(
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
         )
 
-    def get(self, params=None):
+    def get(self, image_id, params=None):
         return self.client.get(
-            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(image_id,)),
             params,
         )
 
-    def post(self, post_data=None):
+    def post(self, image_id, post_data=None):
         return self.client.post(
-            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(image_id,)),
             post_data,
         )
 
     def test_simple(self):
-        response = self.get()
+        self.client.force_login(self.superuser)
+        response = self.get(self.image.id)
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "select_format")
         self.assertTemplateUsed(response, "wagtailimages/chooser/select_format.html")
 
     def test_with_edit_params(self):
-        response = self.get(params={"alt_text": "some previous alt text"})
+        self.client.force_login(self.superuser)
+        response = self.get(
+            self.image.id, params={"alt_text": "some previous alt text"}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'value=\\"some previous alt text\\"')
         self.assertNotContains(
@@ -2585,19 +2598,22 @@ class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
         )
 
     def test_with_edit_params_no_alt_text_marks_as_decorative(self):
-        response = self.get(params={"alt_text": ""})
+        self.client.force_login(self.superuser)
+        response = self.get(self.image.id, params={"alt_text": ""})
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response, 'id=\\"id_image-chooser-insertion-image_is_decorative\\" checked'
         )
 
     def test_post_response(self):
+        self.client.force_login(self.superuser)
         response = self.post(
+            self.image.id,
             {
                 "image-chooser-insertion-format": "left",
                 "image-chooser-insertion-image_is_decorative": False,
                 "image-chooser-insertion-alt_text": 'Arthur "two sheds" Jackson',
-            }
+            },
         )
 
         self.assertEqual(response.status_code, 200)
@@ -2614,12 +2630,14 @@ class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
         self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result["html"])
 
     def test_post_response_image_is_decorative_discards_alt_text(self):
+        self.client.force_login(self.superuser)
         response = self.post(
+            self.image.id,
             {
                 "image-chooser-insertion-format": "left",
                 "image-chooser-insertion-alt_text": 'Arthur "two sheds" Jackson',
                 "image-chooser-insertion-image_is_decorative": True,
-            }
+            },
         )
         response_json = json.loads(response.content.decode())
         result = response_json["result"]
@@ -2628,18 +2646,74 @@ class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
         self.assertIn('alt=""', result["html"])
 
     def test_post_response_image_is_not_decorative_missing_alt_text(self):
+        self.client.force_login(self.superuser)
         response = self.post(
+            self.image.id,
             {
                 "image-chooser-insertion-format": "left",
                 "image-chooser-insertion-alt_text": "",
                 "image-chooser-insertion-image_is_decorative": False,
-            }
+            },
         )
         response_json = json.loads(response.content.decode())
         self.assertIn(
             "Please add some alt text for your image or mark it as decorative",
             response_json["html"],
         )
+
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        accessible_image = Image.objects.create(
+            title="Accessible image",
+            file=get_test_image_file(),
+            description="Test description",
+            collection=self.limited_collection,
+        )
+
+        # should not have access to images outside their allowed collection
+        response = self.get(self.image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        response = self.get(accessible_image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+    def test_post_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        accessible_image = Image.objects.create(
+            title="Accessible image",
+            file=get_test_image_file(),
+            description="Test description",
+            collection=self.limited_collection,
+        )
+
+        response = self.post(
+            self.image.id,
+            {
+                "image-chooser-insertion-format": "left",
+                "image-chooser-insertion-image_is_decorative": False,
+                "image-chooser-insertion-alt_text": 'Arthur "two sheds" Jackson',
+            },
+        )
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+        response = self.post(
+            accessible_image.id,
+            {
+                "image-chooser-insertion-format": "left",
+                "image-chooser-insertion-image_is_decorative": False,
+                "image-chooser-insertion-alt_text": 'Arthur "two sheds" Jackson',
+            },
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response["Content-Type"], "application/json")
 
 
 class TestImageChooserUploadView(WagtailTestUtils, TestCase):
@@ -4316,6 +4390,32 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         )
         self.assertEqual(preview_url, expected_preview_url)
 
+    def test_get_no_collection_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailimages",
+                codename=get_permission_codename("change", Image._meta),
+            ),
+        )
+        self.user.save()
+
+        # With only admin access and model-level permissions, the user gets
+        # redirected to the home page due to insufficient permissions to view
+        # the image URL generator at all
+        response = self.client.get(
+            reverse(
+                "wagtailimages:url_generator_output",
+                args=(self.image.id,),
+            )
+            + "?filter_method=fill&width=800&height=600"
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_get_bad_permissions(self):
         """
         This tests that the view gives a 403 if a user without correct permissions attempts to access it
@@ -4327,6 +4427,20 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
                 content_type__app_label="wagtailadmin", codename="access_admin"
             )
         )
+        image_changers_group = Group.objects.create(name="Image changers")
+        change_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        root_collection = Collection.get_first_root_node()
+        new_collection = root_collection.add_child(
+            instance=Collection(name="New collection")
+        )
+        GroupCollectionPermission.objects.create(
+            group=image_changers_group,
+            collection=new_collection,
+            permission=change_permission,
+        )
+        self.user.groups.add(image_changers_group)
         self.user.save()
 
         # Get
@@ -4340,6 +4454,9 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 403)
+        # With admin access, model-level image permission, but only permissions
+        # for a different collection, the user should get an image-specific
+        # error message
         self.assertEqual(
             response.content.decode(),
             "You do not have permission to generate a URL for this image.",

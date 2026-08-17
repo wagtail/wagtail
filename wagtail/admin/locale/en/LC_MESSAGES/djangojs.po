@@ -39,11 +39,11 @@ msgstr[1] ""
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:275
+#: src/controllers/AutosaveController.ts:328
 msgid "A network error occurred."
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:305
+#: src/controllers/AutosaveController.ts:358
 msgid "A server error occurred."
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:415
+#: src/controllers/AutosaveController.ts:469
 msgid "Autosave in progress…"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:419
+#: src/controllers/AutosaveController.ts:473
 msgid "Changes have been autosaved."
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/controllers/PreviewController.ts:1024
+#: src/controllers/PreviewController.ts:1038
 msgid "Error while sending preview data."
 msgstr ""
 

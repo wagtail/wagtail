@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import Button
-from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
+from wagtail.models import GroupPagePermission, Locale, Site, Workflow
 from wagtail.test.testapp.models import (
     CustomPermissionPage,
     SimpleChildPage,
@@ -17,7 +17,7 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StandardIndex,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
@@ -1120,7 +1120,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertIsNone(add_subpage_link)
 
 
-class TestBreadcrumb(WagtailTestUtils, TestCase):
+class TestBreadcrumb(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_breadcrumb_next_present(self):
@@ -1164,7 +1164,7 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
 
 
-class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
+class TestPageExplorerSidePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_side_panel_present(self):
@@ -1184,7 +1184,7 @@ class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
+class TestPageExplorerSignposting(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1389,7 +1389,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
 
 
-class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
+class TestExplorablePageVisibility(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
     This is isolated in its own test case because it requires a custom page tree and custom set of
@@ -1542,7 +1542,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1591,7 +1591,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         )
 
 
-class TestInWorkflowStatus(WagtailTestUtils, TestCase):
+class TestInWorkflowStatus(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

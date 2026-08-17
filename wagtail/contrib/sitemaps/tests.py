@@ -6,8 +6,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import PageViewRestriction, Site
 from wagtail.test.testapp.models import EventIndex, SimplePage
+from wagtail.test.utils import Page
 
 from .sitemap_generator import Sitemap
 
@@ -100,9 +101,9 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         pages = sitemap.items()
 
-        self.assertIn(self.child_page.page_ptr.specific, pages)
-        self.assertNotIn(self.unpublished_child_page.page_ptr.specific, pages)
-        self.assertNotIn(self.protected_child_page.page_ptr.specific, pages)
+        self.assertIn(self.child_page, pages)
+        self.assertNotIn(self.unpublished_child_page, pages)
+        self.assertNotIn(self.protected_child_page, pages)
 
     def test_get_urls_without_request(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
@@ -257,8 +258,8 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         pages = sitemap.items()
 
-        self.assertIn(self.other_site_homepage.page_ptr.specific, pages)
-        self.assertNotIn(self.child_page.page_ptr.specific, pages)
+        self.assertIn(self.other_site_homepage, pages)
+        self.assertNotIn(self.child_page, pages)
 
 
 class TestIndexView(TestCase):

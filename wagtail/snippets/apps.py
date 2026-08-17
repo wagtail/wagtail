@@ -26,3 +26,13 @@ class WagtailSnippetsAppConfig(AppConfig):
         # as we do not know the concrete model's name. Thus, we use our own signal handler
         # to create the extra permissions.
         post_migrate.connect(create_extra_permissions, sender=self)
+
+        from .api.v3 import register_content_types
+
+        register_content_types()
+
+        from wagtail.api.v3.api import api
+
+        from .api.v3.router import router
+
+        api.add_router("/snippets/", router)

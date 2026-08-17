@@ -16,6 +16,7 @@ from wagtail.snippets.models import register_snippet
 
 # ...
 
+
 @register_snippet
 class Advert(models.Model):
     url = models.URLField(null=True, blank=True)
@@ -64,6 +65,7 @@ class AdvertViewSet(SnippetViewSet):
         FieldPanel("url"),
         FieldPanel("text"),
     ]
+
 
 # Instead of using @register_snippet as a decorator on the model class,
 # register the snippet using register_snippet as a function and pass in

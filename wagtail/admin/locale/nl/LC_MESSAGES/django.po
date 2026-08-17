@@ -12,6 +12,7 @@
 # Bram <bram2w@live.nl>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Filip Van, 2026
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022-2023
 # Huib Keemink <huib@creativedutchmen.com>, 2015
@@ -38,7 +39,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
+"Last-Translator: Filip Van, 2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1522,7 +1523,7 @@ msgid ""
 msgstr ""
 "Je kunt de publicatie van deze pagina ook <a "
 "href=\"%(unpublish_url)s\">intrekken</a>. Dit zorgt ervoor dat de pagina "
-"niet meer publiekelijk zichtbaar is en u kunt de pagina later bewerken of "
+"niet meer publiekelijk zichtbaar is en je kan de pagina later bewerken of "
 "opnieuw publiceren."
 
 #, python-format
@@ -1829,10 +1830,10 @@ msgid "Save schedule"
 msgstr "Schema opslaan"
 
 msgid "Collection management permissions"
-msgstr "Collectie beheer machtigingen"
+msgstr "Collectiebeheermachtigingen"
 
 msgid "Add a collection permission"
-msgstr "Voeg een collectie-machtiging toe"
+msgstr "Voeg een collectiemachtiging toe"
 
 msgid "Last published"
 msgstr "Voor het laatst gepubliceerd"
@@ -2233,7 +2234,7 @@ msgid "Not visible to the public"
 msgstr "Niet openbaar"
 
 msgid "Choose who can view the live version of this page"
-msgstr "Kies wie de live versie van deze pagina kan bekijken"
+msgstr "Kies wie de live-versie van deze pagina kan bekijken"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
@@ -2291,7 +2292,7 @@ msgid "Set schedule"
 msgstr "Stel schema in"
 
 msgid "Preview in new tab"
-msgstr "Voorvertoning in een nieuw tabblad"
+msgstr "Voorbeeld in een nieuw tabblad"
 
 msgid "Loading"
 msgstr "Laden"
@@ -2303,17 +2304,17 @@ msgid "Refresh"
 msgstr "Herladen"
 
 msgid "Preview is out of date"
-msgstr "Voorvertoning is verouderd"
+msgstr "Voorbeeld is verouderd"
 
 msgid ""
 "Correct the validation errors to resume preview (saving will highlight "
 "errors)"
 msgstr ""
-"Corrigeer de validatiefouten om door te gaan met voorvertoning (opslaan zal "
+"Corrigeer de validatiefouten om door te gaan met het voorbeeld (opslaan zal "
 "de fouten markeren)"
 
 msgid "Preview mode"
-msgstr "Voorvertoning modus"
+msgstr "Voorbeeldmodus"
 
 msgid "First published"
 msgstr "Voor het eerst gepubliceerd"
@@ -2398,10 +2399,10 @@ msgid ""
 "target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
 "in your web browser</a>."
 msgstr ""
-"Javascript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
+"JavaScript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
 "JavaScript ingeschakeld te zijn. <br /><a href=\"https://www.enable-"
 "javascript.com/\" target=\"_blank\" rel=\"noreferrer\">De instructies om "
-"javascript in te schakelen zijn hier te vinden</a>."
+"JavaScript in te schakelen zijn hier te vinden</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2773,8 +2774,8 @@ msgid ""
 "Focus on the drag button and press up or down arrows to move the item, then "
 "press enter to submit the change."
 msgstr ""
-"Focus de versleep-knop en gebruik de pijltje omhoog en omlaag toetsen om het "
-"item de verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
+"Focus de versleep-knop en gebruik de toetsen pijltje omhoog en omlaag om het "
+"item te verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
 "slaan."
 
 #, python-format
@@ -2794,7 +2795,7 @@ msgstr ""
 "volgorde."
 
 msgid "Button text is empty"
-msgstr "Knop tekst is leeg"
+msgstr "Knoptekst is leeg"
 
 msgid "Use meaningful text for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2803,10 +2804,10 @@ msgid "Empty heading found"
 msgstr "Lege kop gevonden"
 
 msgid "Table header text is empty"
-msgstr "Tabel kop tekst is leeg"
+msgstr "Tabelkoptekst is leeg"
 
 msgid "Empty frame title found"
-msgstr "Lege frame titel gevonden"
+msgstr "Lege frametitel gevonden"
 
 msgid "Use a meaningful title for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2818,10 +2819,10 @@ msgid "Avoid skipping levels"
 msgstr "Voorkom dat er niveaus worden overgeslagen"
 
 msgid "Input button text is empty"
-msgstr "Invoerknop tekst is leeg"
+msgstr "Invoerknop-tekst is leeg"
 
 msgid "Link text is empty"
-msgstr "Link tekst is leeg"
+msgstr "Link-tekst is leeg"
 
 msgid "Misusing paragraphs as headings"
 msgstr "Paragrafen gebruikt als koppen"
@@ -2830,7 +2831,7 @@ msgid "Use proper heading tags"
 msgstr "Gebruik de daarvoor bedoelde kop-tags"
 
 msgid "Image alt text has inappropriate pattern"
-msgstr "Afbeelding alt tekst bevat een verdacht patroon"
+msgstr "Alt-tekst van de afbeelding bevat een ongepast patroon"
 
 msgid "Use meaningful text"
 msgstr "Gebruik betekenisvolle tekst"
@@ -2858,7 +2859,7 @@ msgid "Profile picture"
 msgstr "Profielfoto"
 
 msgid "Theme preferences"
-msgstr "Thema voorkeuren"
+msgstr "Themavoorkeuren"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -2911,7 +2912,7 @@ msgid "There are no %(model_name)s to display."
 msgstr "Er zijn geen %(model_name)s om te tonen."
 
 msgid "Live version"
-msgstr "Live versie"
+msgstr "Live-versie"
 
 msgid "Current draft"
 msgstr "Huidig concept"
@@ -2923,7 +2924,7 @@ msgid "Compare with current version"
 msgstr "Vergelijk met huidige versie"
 
 msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
+msgstr "Annuleer geplande publicatie"
 
 msgid "Workflow history"
 msgstr "Workflow-geschiedenis"
@@ -3389,7 +3390,7 @@ msgid "Pages using"
 msgstr "Pagina's van het type"
 
 msgid "Page types usage"
-msgstr "Pagina type gebruik"
+msgstr "Paginatypegebruik"
 
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
@@ -3413,7 +3414,7 @@ msgid "Last published at"
 msgstr "Voor het laatst gepubliceerd op"
 
 msgid "Site history"
-msgstr "Site geschiedenis"
+msgstr "Sitegeschiedenis"
 
 msgid "ID"
 msgstr "ID"
@@ -3599,7 +3600,7 @@ msgid "Link"
 msgstr "Link"
 
 msgid "Strikethrough"
-msgstr "Doorgestreept"
+msgstr "Doorstreept"
 
 msgid "Code"
 msgstr "Code"

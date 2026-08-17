@@ -17,11 +17,9 @@ from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
-from ..permissions import permission_policy
 
 
 class AddView(WagtailAdminTemplateMixin, BaseAddView):
-    permission_policy = permission_policy
     template_name = "wagtaildocs/multiple/add.html"
     header_icon = "doc-full-inverse"
     page_title = gettext_lazy("Add documents")
@@ -82,7 +80,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
 
 
 class EditView(BaseEditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "doc_id"
     edit_object_form_prefix = "doc"
     context_object_name = "doc"
@@ -98,7 +95,6 @@ class EditView(BaseEditView):
 
 
 class DeleteView(BaseDeleteView):
-    permission_policy = permission_policy
     pk_url_kwarg = "doc_id"
     context_object_id_name = "doc_id"
 

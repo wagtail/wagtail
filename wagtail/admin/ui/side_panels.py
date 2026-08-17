@@ -1,11 +1,16 @@
+import swapper
 from django.conf import settings
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin.ui.components import Component
-from wagtail.admin.userbar import AccessibilityItem, apply_userbar_hooks
-from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
+from wagtail.admin.userbar import (
+    AccessibilityItem,
+    ContentCheckerItem,
+    apply_userbar_hooks,
+)
+from wagtail.models import AbstractPage, DraftStateMixin, LockableMixin, ReferenceIndex
 from wagtail.models.view_restrictions import BaseViewRestriction
 
 
@@ -36,7 +41,7 @@ class BaseSidePanel(Component):
 
     def get_context_data(self, parent_context):
         context = {"panel": self, "object": self.object, "request": self.request}
-        if issubclass(self.model, Page):
+        if issubclass(self.model, AbstractPage):
             context["page"] = self.object
         return context
 
@@ -236,6 +241,7 @@ class StatusSidePanel(BaseSidePanel):
 
 class PageStatusSidePanel(StatusSidePanel):
     def __init__(self, *args, **kwargs):
+        self.base_page_model = swapper.load_model("wagtailcore", "Page")
         self.parent_page = kwargs.pop("parent_page", None)
         super().__init__(*args, **kwargs)
         self.usage_url = ""
@@ -290,14 +296,16 @@ class PageStatusSidePanel(StatusSidePanel):
                 context.update({"is_public": False})
             else:
                 is_public = (
-                    Page.objects.filter(id=self.parent_page.id).public().exists()
+                    self.base_page_model.objects.filter(id=self.parent_page.id)
+                    .public()
+                    .exists()
                 )
                 context.update({"is_public": is_public})
 
         context.update(
             {
                 "model_name": self.model.get_verbose_name(),
-                "base_model_name": Page._meta.verbose_name,
+                "base_model_name": self.base_page_model._meta.verbose_name,
                 "model_description": self.model.get_page_description(),
                 "status_templates": self.get_status_templates(context),
             }
@@ -335,11 +343,11 @@ class ChecksSidePanel(BaseSidePanel):
     def get_axe_configuration(self):
         # Retrieve the Axe configuration from the userbar.
         userbar_items = [AccessibilityItem(in_editor=True)]
-        page = self.object if issubclass(self.model, Page) else None
+        page = self.object if issubclass(self.model, AbstractPage) else None
         apply_userbar_hooks(self.request, userbar_items, page)
 
         for item in userbar_items:
-            if isinstance(item, AccessibilityItem):
+            if isinstance(item, ContentCheckerItem):
                 return item.get_axe_configuration(self.request)
 
     def get_context_data(self, parent_context):
