@@ -9,7 +9,12 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import Revision
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.signals import published
-from wagtail.test.testapp.models import Advert, DraftStateModel, RevisableModel
+from wagtail.test.testapp.models import (
+    Advert,
+    DraftStateModel,
+    LockableModel,
+    RevisableModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 AdvertForm = modelform_factory(Advert, fields=["text", "url", "tags"])
@@ -252,3 +257,53 @@ class TestEditAction(WagtailTestUtils, TestCase):
         EditAction(advert, user=user).execute(skip_permission_checks=True)
         advert.refresh_from_db()
         self.assertEqual(advert.text, "Bypass")
+
+    def test_edit_locked_model_is_rejected(self):
+        instance = LockableModel.objects.create(text="Original", locked=True)
+        instance.text = "Edited"
+        with self.assertRaisesMessage(
+            EditPermissionError,
+            "The lockable model could not be saved as it is locked.",
+        ):
+            EditAction(instance, user=self.user).execute()
+
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "Original")
+        self.assertEqual(
+            log_registry.get_logs_for_instance(instance)
+            .filter(action="wagtail.edit")
+            .count(),
+            0,
+        )
+
+    def test_edit_locked_model_locked_by_other_user_is_rejected(self):
+        other_user = self.create_user(username="other")
+        instance = LockableModel.objects.create(
+            text="Original",
+            locked=True,
+            locked_by=other_user,
+        )
+        instance.text = "Edited"
+        with self.assertRaisesMessage(
+            EditPermissionError,
+            "The lockable model could not be saved as it is locked.",
+        ):
+            EditAction(instance, user=self.user).execute()
+
+    def test_edit_locked_model_locked_by_self_is_allowed(self):
+        instance = LockableModel.objects.create(
+            text="Original",
+            locked=True,
+            locked_by=self.user,
+        )
+        instance.text = "Edited"
+        EditAction(instance, user=self.user).execute()
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "Edited")
+
+    def test_edit_locked_model_with_skip_permission_checks_is_allowed(self):
+        instance = LockableModel.objects.create(text="Original", locked=True)
+        instance.text = "Edited"
+        EditAction(instance, user=self.user).execute(skip_permission_checks=True)
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "Edited")

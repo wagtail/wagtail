@@ -3,6 +3,7 @@ import json
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.documents.models import Document
@@ -636,6 +637,49 @@ class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
         latest_revision.publish()
         snippet.refresh_from_db()
         self.assertEqual(snippet.text, "New Draft Text")
+
+
+class TestV3SnippetUpdateWhenLocked(TestV3SnippetUpdateBase):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.snippet = FullFeaturedSnippet.objects.create(
+            text="Original", some_number=1, live=False
+        )
+
+    def test_update_when_locked_is_rejected(self):
+        # Lock with no locked_by (e.g. locked by a script): applies to everyone
+        self.snippet.locked = True
+        self.snippet.save()
+
+        logs_since = timezone.now()
+        response = self.patch(self.snippet.pk, {"text": "Updated"})
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains=(
+                "The full-featured snippet could not be saved as it is locked."
+            ),
+        )
+
+        # Nothing was saved, no change, no draft/revision/log entry
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.text, "Original")
+        self.assertFalse(self.snippet.has_unpublished_changes)
+        self.assertEqual(self.snippet.revisions.count(), 0)
+        self.assert_log_actions(self.snippet, [], since=logs_since)
+
+    def test_update_when_locked_by_self_is_allowed(self):
+        self.snippet.locked = True
+        self.snippet.locked_by = self.user
+        self.snippet.locked_at = timezone.now()
+        self.snippet.save()
+
+        response = self.patch(self.snippet.pk, {"text": "Updated"})
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.text, "Updated")
 
 
 class TestV3SnippetUpdateWithPermissionedFields(TestV3SnippetUpdateBase):
