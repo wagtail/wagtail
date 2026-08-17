@@ -873,3 +873,52 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             },
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_update_page_when_locked_is_rejected(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        # Lock with no locked_by (e.g. locked by a script): applies to everyone
+        page.locked = True
+        page.save()
+
+        logs_since = timezone.now()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogIndexPage"},
+                "title": "New title",
+            },
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="could not be saved as it is locked.",
+        )
+
+        # Nothing was saved, the page is unchanged, no draft/revision/log entry
+        page.refresh_from_db()
+        self.assertEqual(page.title, "Original")
+        self.assertFalse(page.has_unpublished_changes)
+        self.assertFalse(page.revisions.exists())
+        self.assert_log_actions(page, [], since=logs_since)
+
+    def test_update_page_when_locked_by_self_is_allowed(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        page.locked = True
+        page.locked_by = self.user
+        page.locked_at = timezone.now()
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogIndexPage"},
+                "title": "New title",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        self.assertEqual(page.title, "New title")
