@@ -349,7 +349,7 @@ class TestPublishScheduledPagesCommand(PageFixturesMixin, WagtailTestUtils, Test
             .exists()
         )
 
-        with self.assertNumQueries(41):
+        with self.assertNumQueries(37):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
