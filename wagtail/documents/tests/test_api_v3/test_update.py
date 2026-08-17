@@ -146,7 +146,10 @@ class TestV3DocumentUpdate(TestV3DocumentsBase):
         self.assert_problem_response(
             response,
             status_code=403,
-            detail_contains="Permission denied",
+            detail_contains=(
+                "You do not have permission to perform the 'edit' "
+                "action on this object."
+            ),
         )
 
     def test_unknown_id_returns_404(self):

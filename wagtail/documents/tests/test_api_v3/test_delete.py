@@ -54,7 +54,10 @@ class TestV3DocumentDelete(TestV3DocumentsBase):
         self.assert_problem_response(
             response,
             status_code=403,
-            detail_contains="Permission denied",
+            detail_contains=(
+                "You do not have permission to perform the 'delete' "
+                "action on this object."
+            ),
         )
 
     def test_uploader_with_add_permission_can_delete_own_document(self):
