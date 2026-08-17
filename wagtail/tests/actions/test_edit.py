@@ -258,6 +258,28 @@ class TestEditAction(WagtailTestUtils, TestCase):
         advert.refresh_from_db()
         self.assertEqual(advert.text, "Bypass")
 
+    def test_publish_without_publish_permission_raises_error(self):
+        instance = DraftStateModel.objects.create(text="Original", live=False)
+        user = self.create_user(username="editor")
+        user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="tests", codename="change_draftstatemodel"
+            )
+        )
+        instance.text = "Edited"
+        with self.assertRaisesMessage(
+            EditPermissionError,
+            "You do not have permission to publish this draft state model.",
+        ):
+            EditAction(instance, user=user, publish=True).execute()
+
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "Original")
+        self.assertFalse(instance.live)
+        self.assertFalse(instance.has_unpublished_changes)
+        self.assertEqual(Revision.objects.for_instance(instance).count(), 0)
+        self.assertEqual(log_registry.get_logs_for_instance(instance).count(), 0)
+
     def test_edit_locked_model_is_rejected(self):
         instance = LockableModel.objects.create(text="Original", locked=True)
         instance.text = "Edited"

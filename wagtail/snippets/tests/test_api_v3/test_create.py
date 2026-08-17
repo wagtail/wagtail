@@ -474,6 +474,25 @@ class TestV3SnippetCreateWithDraftState(TestV3SnippetCreateBase):
         self.assertTrue(snippet.live)
         self.assertIsNotNone(snippet.live_revision)
 
+    def test_user_with_add_but_not_publish_permission_with_publish_action(self):
+        user = self.create_user(username="adder", password="password")
+        user.user_permissions.add(
+            Permission.objects.get(codename="add_fullfeaturedsnippet")
+        )
+        self.login(username="adder", password="password")
+        response = self.post(
+            {"meta": {"action": "publish"}, "text": "Hello", "some_number": 1}
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains=(
+                "You do not have permission to publish this full-featured snippet."
+            ),
+        )
+
+        self.assertFalse(FullFeaturedSnippet.objects.filter(text="Hello").exists())
+
     def test_create_without_action_does_not_publish(self):
         response = self.post({"text": "Hello", "some_number": 1})
         self.assertEqual(response.status_code, 201)

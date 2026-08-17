@@ -580,6 +580,30 @@ class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
             self.snippet.live_revision_id, self.snippet.get_latest_revision().pk
         )
 
+    def test_user_with_change_but_not_publish_permission_with_publish_action(self):
+        user = self.create_user(username="changer", password="password")
+        user.user_permissions.add(
+            Permission.objects.get(codename="change_fullfeaturedsnippet")
+        )
+        self.login(username="changer", password="password")
+        response = self.patch(
+            self.snippet.pk, {"meta": {"action": "publish"}, "text": "Updated"}
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains=(
+                "You do not have permission to publish this full-featured snippet."
+            ),
+        )
+
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.text, "Original")
+        self.assertFalse(self.snippet.live)
+        self.assertFalse(self.snippet.has_unpublished_changes)
+        self.assertEqual(self.snippet.revisions.count(), 0)
+        self.assert_log_actions(self.snippet, [])
+
     def test_update_without_action_does_not_publish(self):
         response = self.patch(self.snippet.pk, {"text": "Updated"})
         self.assertEqual(response.status_code, 200)
