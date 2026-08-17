@@ -1316,6 +1316,12 @@ class RevisableModel(RevisionMixin, models.Model):
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
 
+    api_fields = (
+        APIField("id"),
+        APIField("text", writable=True),
+        APIField("secret_text", writable=True),
+    )
+
     # The edit_handler is defined on the viewset
 
 

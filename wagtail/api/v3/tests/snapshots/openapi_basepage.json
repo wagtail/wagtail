@@ -16139,6 +16139,9 @@
                   "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
                 },
                 {
+                  "$ref": "#/components/schemas/RevisableChildModelSchema"
+                },
+                {
                   "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
                 }
               ]
@@ -17158,6 +17161,176 @@
         },
         "required": ["meta", "id", "title"],
         "title": "RestaurantPageSchema",
+        "type": "object"
+      },
+      "RevisableChildModelCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.RevisableChildModel",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "RevisableChildModelCreateMetaSchema",
+        "type": "object"
+      },
+      "RevisableChildModelCreateSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RevisableChildModelCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "secret_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "title": "Secret Text"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["text"],
+        "title": "RevisableChildModelCreateSchema",
+        "type": "object"
+      },
+      "RevisableChildModelMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.RevisableChildModel",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "RevisableChildModelMetaSchema",
+        "type": "object"
+      },
+      "RevisableChildModelPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.RevisableChildModel",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "RevisableChildModelPatchMetaSchema",
+        "type": "object"
+      },
+      "RevisableChildModelPatchSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RevisableChildModelPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "secret_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "title": "Secret Text"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "title": "RevisableChildModelPatchSchema",
+        "type": "object"
+      },
+      "RevisableChildModelSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RevisableChildModelMetaSchema"
+          },
+          "secret_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "",
+            "title": "Secret Text"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "RevisableChildModelSchema",
         "type": "object"
       },
       "RevisionFilterSchema": {
@@ -20339,7 +20512,15 @@
             "$ref": "#/components/schemas/ContentTypeSchema"
           },
           "content_object": {
-            "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+              },
+              {
+                "$ref": "#/components/schemas/RevisableChildModelSchema"
+              }
+            ],
+            "title": "Content Object"
           },
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeSchema"
@@ -32065,6 +32246,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32211,6 +32393,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32228,6 +32411,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/FullFeaturedSnippetCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RevisableChildModelCreateSchema"
                   },
                   {
                     "$ref": "#/components/schemas/UUIDSnippetWithRelationsCreateSchema"
@@ -32250,6 +32436,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RevisableChildModelSchema"
                     },
                     {
                       "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
@@ -32283,6 +32472,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32323,6 +32513,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32363,6 +32554,9 @@
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
                     },
                     {
+                      "$ref": "#/components/schemas/RevisableChildModelSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
                     }
                   ],
@@ -32392,6 +32586,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32420,6 +32615,9 @@
                     "$ref": "#/components/schemas/FullFeaturedSnippetPatchSchema"
                   },
                   {
+                    "$ref": "#/components/schemas/RevisableChildModelPatchSchema"
+                  },
+                  {
                     "$ref": "#/components/schemas/UUIDSnippetWithRelationsPatchSchema"
                   }
                 ],
@@ -32440,6 +32638,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RevisableChildModelSchema"
                     },
                     {
                       "$ref": "#/components/schemas/UUIDSnippetWithRelationsSchema"
@@ -32528,6 +32729,7 @@
               "enum": [
                 "tests.Advert",
                 "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
               ],
               "title": "Type",
@@ -32612,7 +32814,10 @@
             "name": "type",
             "required": true,
             "schema": {
-              "const": "tests.FullFeaturedSnippet",
+              "enum": [
+                "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel"
+              ],
               "title": "Type",
               "type": "string"
             }
@@ -32642,7 +32847,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RevisableChildModelSchema"
+                    }
+                  ],
+                  "title": "Response"
                 }
               }
             },
@@ -32712,7 +32925,10 @@
             "name": "type",
             "required": true,
             "schema": {
-              "const": "tests.FullFeaturedSnippet",
+              "enum": [
+                "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel"
+              ],
               "title": "Type",
               "type": "string"
             }
@@ -32882,7 +33098,10 @@
             "name": "type",
             "required": true,
             "schema": {
-              "const": "tests.FullFeaturedSnippet",
+              "enum": [
+                "tests.FullFeaturedSnippet",
+                "tests.RevisableChildModel"
+              ],
               "title": "Type",
               "type": "string"
             }

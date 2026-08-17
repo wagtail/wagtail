@@ -184,7 +184,7 @@ def create_snippet(
     data: SnippetCreateSchema = ParamTypeInjectingBody(...),
 ):
     model = resolve_model_string(type)
-    form = build_model_form(model, data)
+    form = build_model_form(model, data, user=request.user)
     action_class = action_registry.get_action_class(model, "create")
     action = action_class(
         form.instance,
@@ -212,7 +212,7 @@ def update_snippet(
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=pk)
-    form = build_model_update_form(instance, data)
+    form = build_model_update_form(instance, data, user=request.user)
     action_class = action_registry.get_action_class(model, "edit")
     action = action_class(
         form.instance,
