@@ -75,6 +75,25 @@ class EditAction(BaseAction):
         # The revision created by execute(), if any.
         self.revision = None
 
+    def check_lock(self):
+        from wagtail.models import LockableMixin
+
+        if (
+            isinstance(self.instance, LockableMixin)
+            and self.user
+            and (lock := self.instance.get_lock()) is not None
+            and lock.for_user(self.user)
+        ):
+            model_name = self.instance._meta.verbose_name
+            raise EditPermissionError(
+                f"The {model_name} could not be saved as it is locked."
+            )
+
+    def check(self, skip_permission_checks=False):
+        super().check(skip_permission_checks=skip_permission_checks)
+        if not skip_permission_checks:
+            self.check_lock()
+
     def _clean_instance(self):
         # Always clean if a form is provided, as the form cannot be saved
         # if it has not been validated.
