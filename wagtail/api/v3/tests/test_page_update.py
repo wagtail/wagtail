@@ -874,6 +874,42 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+    def test_user_with_change_but_not_publish_permission_with_publish_action(self):
+        page = self.root_page.add_child(
+            instance=BlogIndexPage(title="Original", slug="original", live=False)
+        )
+        editor = self.create_user(username="editor", password="password")
+        editor_group = Group.objects.create(name="Page branch editors")
+        editor.groups.add(editor_group)
+        GroupPagePermission.objects.create(
+            group=editor_group,
+            page=self.root_page,
+            permission=Permission.objects.get(
+                codename=Page.PERMISSION_CODENAMES.CHANGE,
+            ),
+        )
+        self.login(username="editor", password="password")
+        logs_since = timezone.now()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogIndexPage", "action": "publish"},
+                "title": "New title",
+            },
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="You do not have permission to publish this page.",
+        )
+
+        page.refresh_from_db()
+        self.assertEqual(page.title, "Original")
+        self.assertFalse(page.live)
+        self.assertFalse(page.has_unpublished_changes)
+        self.assertFalse(page.revisions.exists())
+        self.assert_log_actions(page, [], since=logs_since)
+
     def test_update_page_when_locked_is_rejected(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(title="Original", slug="original", live=False)
