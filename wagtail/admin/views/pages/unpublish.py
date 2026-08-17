@@ -1,6 +1,7 @@
 import swapper
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -87,12 +88,22 @@ class UnpublishView(GenericUnpublishView):
                 "page": self.object,
                 "live_descendant_count": self.object.get_descendants().live().count(),
                 "translation_count": len(self.objects_to_unpublish[1:]),
-                "translation_descendant_count": sum(
-                    [
-                        p.get_descendants().filter(alias_of__isnull=True).live().count()
-                        for p in self.objects_to_unpublish[1:]
-                    ]
-                ),
+                "translation_descendant_count": self.get_translation_descendant_count(),
             }
         )
         return context
+
+    def get_translation_descendant_count(self):
+        translations = self.objects_to_unpublish[1:]
+        if not translations:
+            return 0
+
+        # Combine the per-translation descendant lookups into a single query
+        # rather than running one ``count()`` per translated page.
+        descendant_q = Q()
+        for page in translations:
+            descendant_q |= Page.objects.descendant_of_q(page)
+
+        return Page.objects.filter(
+            descendant_q, alias_of__isnull=True, live=True
+        ).count()

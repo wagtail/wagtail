@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.db import connection
 from django.test import TestCase, override_settings
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 
 from wagtail import hooks
@@ -214,6 +216,90 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # Test that both the English and French homepages are unpublished
         self.assertFalse(self.en_homepage.live)
         self.assertFalse(self.fr_homepage.live)
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_translation_descendant_count_in_context(self):
+        # Login to access the admin
+        self.login()
+
+        # Give the English homepage live children and translate them, so the
+        # French and German homepages each get live descendants.
+        self.en_child = TestPage(title="English child", slug="en-child")
+        self.en_homepage.add_child(instance=self.en_child)
+        self.en_other_child = TestPage(
+            title="English other child", slug="en-other-child"
+        )
+        self.en_homepage.add_child(instance=self.en_other_child)
+
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_post.live = True
+        self.fr_blog_post.save()
+
+        # Make sure the French and German homepages are published/live
+        self.fr_homepage.live = True
+        self.fr_homepage.save()
+        self.de_homepage.live = True
+        self.de_homepage.save()
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:unpublish", args=(self.en_homepage.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # The confirmation page should show the combined translated descendant
+        # count: only the live descendant of the translated (fr) page counts,
+        # not the English children (which belong to the page being unpublished).
+        self.assertEqual(
+            response.context["translation_descendant_count"],
+            1,
+        )
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_translation_descendant_count_uses_single_query(self):
+        # Login to access the admin
+        self.login()
+
+        # Give the English homepage live children and translate them, so the
+        # French and German homepages each get live descendants.
+        self.en_child = TestPage(title="English child", slug="en-child")
+        self.en_homepage.add_child(instance=self.en_child)
+        self.en_other_child = TestPage(
+            title="English other child", slug="en-other-child"
+        )
+        self.en_homepage.add_child(instance=self.en_other_child)
+
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_post.live = True
+        self.fr_blog_post.save()
+
+        self.fr_homepage.live = True
+        self.fr_homepage.save()
+        self.de_homepage.live = True
+        self.de_homepage.save()
+
+        with CaptureQueriesContext(connection) as ctx:
+            response = self.client.get(
+                reverse("wagtailadmin_pages:unpublish", args=(self.en_homepage.id,))
+            )
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.context["translation_descendant_count"], 1)
+
+        # The descendant count must be computed in a single query regardless of
+        # how many translated pages are involved (regression test for #13937).
+        # The descendant count must be computed in a single query regardless of
+        # how many translated pages are involved (regression test for #13937).
+        descendant_count_queries = [
+            q["sql"]
+            for q in ctx.captured_queries
+            if "SELECT COUNT" in q["sql"] and "alias_of" in q["sql"]
+        ]
+        self.assertEqual(len(descendant_count_queries), 1)
 
 
 class TestMovingTranslatedPages(Utils):
