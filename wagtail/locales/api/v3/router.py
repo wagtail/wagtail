@@ -107,6 +107,7 @@ def create_locale(request: HttpRequest, data: LocaleInputSchema):
     summary="Update locale",
     operation_id="locales_update",
 )
+@require_any_permission(Locale, ("change",))
 def update_locale(request: HttpRequest, locale_id: int, data: LocaleInputSchema):
     locale = get_object_or_404(Locale.all_objects, pk=locale_id)
     form = LocaleForm(data.dict(), instance=locale)
@@ -122,6 +123,7 @@ def update_locale(request: HttpRequest, locale_id: int, data: LocaleInputSchema)
     summary="Delete locale",
     operation_id="locales_delete",
 )
+@require_any_permission(Locale, ("delete",))
 def delete_locale(request: HttpRequest, locale_id: int):
     locale = get_object_or_404(Locale.all_objects, pk=locale_id)
     _check_can_delete(locale)
