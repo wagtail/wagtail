@@ -94,14 +94,6 @@ class ContentTypeRegistry:
         )
         from wagtail.models import get_page_models
 
-        self.register(
-            ContentTypeRegistration(
-                name="pages",
-                label="Pages",
-                read_schema=PageSchema,
-            )
-        )
-
         for model in get_page_models():
             read_schema = read_generator.generate_schema(model, base_class=PageSchema)
             # Do not generate create and patch schemas for the base page model
