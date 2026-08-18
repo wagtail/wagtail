@@ -1,6 +1,7 @@
 from typing import Any, Callable, Literal, cast
 
 from django.conf import settings
+from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
 from django.db.models import Model
 from django.http import Http404, HttpRequest
@@ -171,7 +172,7 @@ def get_snippet(
         permission_policy.instances_user_has_any_permission_for(
             request.user, ("add", "change", "delete", "view")
         ),
-        pk=pk,
+        pk=unquote(pk),
     )
     # The router requires authentication, so draft reads are always allowed
     if version == "draft" and issubclass(model, DraftStateMixin):
@@ -220,7 +221,7 @@ def update_snippet(
     data: SnippetUpdateSchema = ParamTypeInjectingBody(...),
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     form = build_model_update_form(instance, data, user=request.user)
     action_class = action_registry.get_action_class(model, "edit")
     action = action_class(
@@ -250,7 +251,7 @@ def update_snippet(
 @require_any_permission(get_model_from_params, ("delete",))
 def delete_snippet(request: HttpRequest, type: SnippetTypeLiteral, pk: str):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     action_class = action_registry.get_action_class(model, "delete")
     action = action_class(instance, user=request.user)
     action.execute()
@@ -273,7 +274,7 @@ def list_snippet_revisions(
     filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     _check_can_view_revisions(request, instance)
     queryset = instance.revisions.order_by("-created_at", "-id")
     return filters.filter(queryset)
@@ -294,7 +295,7 @@ def get_snippet_revision(
     revision_id: PositiveInt,
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     _check_can_view_revisions(request, instance)
     revisions = instance.revisions.select_related("content_type", "base_content_type")
     return get_object_or_404(revisions, pk=revision_id)
@@ -313,7 +314,7 @@ def publish_snippet(
     pk: str,
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     revision = instance.get_latest_revision()
 
     # If the object has no revision, create one only if the user has
@@ -347,7 +348,7 @@ def unpublish_snippet(
     pk: str,
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     action_class = action_registry.get_action_class(model, "unpublish")
     action = action_class(instance, user=request.user)
     action.execute()
@@ -372,7 +373,7 @@ def revert_snippet(
     data: SnippetRevertSchema = Body(...),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     revision = get_object_or_404(instance.revisions, id=data.revision_id)
     action_class = action_registry.get_action_class(model, "revert")
     action = action_class(instance=instance, revision=revision, user=request.user)
@@ -401,7 +402,7 @@ def copy_for_translation(
         raise Http404("Internationalization is not enabled.")
 
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    instance = get_object_or_404(model, pk=unquote(pk))
     locale = get_object_or_404(Locale, language_code=data.locale)
 
     action_class = action_registry.get_action_class(model, "copy_for_translation")

@@ -1,9 +1,15 @@
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.testapp.models import Advert, UUIDSnippetWithRelations
+from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
+    Advert,
+    AdvertWithCustomPrimaryKey,
+    UUIDSnippetWithRelations,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -44,6 +50,24 @@ class TestV3SnippetDelete(TestV3SnippetDeleteBase):
         response = self.delete(pk)
         self.assertEqual(response.status_code, 204)
         self.assertFalse(Advert.objects.filter(pk=pk).exists())
+
+    def test_delete_with_quotable_pk(self):
+        advert = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id=QUOTABLE_PK, text="To delete"
+        )
+        response = self.client.delete(
+            reverse(
+                "wagtailapi_v3:delete_snippet",
+                kwargs={
+                    "type": "tests.AdvertWithCustomPrimaryKey",
+                    "pk": quote(advert.pk),
+                },
+            )
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(
+            AdvertWithCustomPrimaryKey.objects.filter(pk=QUOTABLE_PK).exists()
+        )
 
     def test_user_without_delete_permission_gets_403(self):
         user = self.create_user(username="noperms", password="password")

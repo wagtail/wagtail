@@ -1,9 +1,15 @@
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
+    Advert,
+    DraftStateCustomPrimaryKeyModel,
+    FullFeaturedSnippet,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -136,6 +142,25 @@ class TestV3SnippetRevisionsList(TestV3SnippetRevisionsBase):
             detail_contains="Validation failed",
             errors=[{"type": "literal_error", "loc": ["path", "type"]}],
         )
+
+    def test_list_revisions_with_quotable_pk(self):
+        user = self.login()
+        snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id=QUOTABLE_PK, text="Original"
+        )
+        revision = snippet.save_revision(user=user)
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:list_snippet_revisions",
+                kwargs={
+                    "type": "tests.DraftStateCustomPrimaryKeyModel",
+                    "pk": quote(snippet.pk),
+                },
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        ids = [item["id"] for item in response.json()["items"]]
+        self.assertEqual(ids, [revision.pk])
 
 
 class TestV3SnippetRevisionsListFilters(TestV3SnippetRevisionsBase):
@@ -320,3 +345,24 @@ class TestV3SnippetRevisionsDetail(TestV3SnippetRevisionsBase):
             detail_contains="Validation failed",
             errors=[{"type": "literal_error", "loc": ["path", "type"]}],
         )
+
+    def test_detail_with_quotable_pk(self):
+        user = self.login()
+        snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id=QUOTABLE_PK, text="Original"
+        )
+        revision = snippet.save_revision(user=user)
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:detail_snippet_revision",
+                kwargs={
+                    "type": "tests.DraftStateCustomPrimaryKeyModel",
+                    "pk": quote(snippet.pk),
+                    "revision_id": revision.pk,
+                },
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["content_object"]["custom_id"], QUOTABLE_PK)
+        self.assertEqual(content["content_object"]["text"], "Original")

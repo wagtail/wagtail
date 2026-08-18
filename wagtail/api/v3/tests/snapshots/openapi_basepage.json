@@ -881,6 +881,176 @@
         "title": "AdvertSchema",
         "type": "object"
       },
+      "AdvertWithCustomPrimaryKeyCreateMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.AdvertWithCustomPrimaryKey",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertWithCustomPrimaryKeyCreateMetaSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyCreateSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["text"],
+        "title": "AdvertWithCustomPrimaryKeyCreateSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.AdvertWithCustomPrimaryKey",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertWithCustomPrimaryKeyMetaSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyPatchMetaSchema": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.AdvertWithCustomPrimaryKey",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertWithCustomPrimaryKeyPatchMetaSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyPatchSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "title": "AdvertWithCustomPrimaryKeyPatchSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeySchema": {
+        "properties": {
+          "advert_id": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Advert Id"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyMetaSchema"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertWithCustomPrimaryKeySchema",
+        "type": "object"
+      },
       "AlwaysShowInMenusPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -6934,6 +7104,165 @@
         },
         "required": ["meta", "title", "collection"],
         "title": "DocumentSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelCreateMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.DraftStateCustomPrimaryKeyModel",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "DraftStateCustomPrimaryKeyModelCreateMetaSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelCreateSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelCreateMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["text"],
+        "title": "DraftStateCustomPrimaryKeyModelCreateSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelMetaSchema": {
+        "properties": {
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "type": {
+            "const": "tests.DraftStateCustomPrimaryKeyModel",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "DraftStateCustomPrimaryKeyModelMetaSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelPatchMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.DraftStateCustomPrimaryKeyModel",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "DraftStateCustomPrimaryKeyModelPatchMetaSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelPatchSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "title": "DraftStateCustomPrimaryKeyModelPatchSchema",
+        "type": "object"
+      },
+      "DraftStateCustomPrimaryKeyModelSchema": {
+        "properties": {
+          "custom_id": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelMetaSchema"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "DraftStateCustomPrimaryKeyModelSchema",
         "type": "object"
       },
       "EarlyPageCreateMetaSchema": {
@@ -16136,6 +16465,12 @@
                   "$ref": "#/components/schemas/AdvertSchema"
                 },
                 {
+                  "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeySchema"
+                },
+                {
+                  "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+                },
+                {
                   "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
                 },
                 {
@@ -20513,6 +20848,9 @@
           },
           "content_object": {
             "oneOf": [
+              {
+                "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+              },
               {
                 "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
               },
@@ -32245,6 +32583,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32392,6 +32732,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32408,6 +32750,12 @@
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/AdvertCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyCreateSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelCreateSchema"
                   },
                   {
                     "$ref": "#/components/schemas/FullFeaturedSnippetCreateSchema"
@@ -32433,6 +32781,12 @@
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeySchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
                     },
                     {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
@@ -32471,6 +32825,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32512,6 +32868,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32551,6 +32909,12 @@
                       "$ref": "#/components/schemas/AdvertSchema"
                     },
                     {
+                      "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeySchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
                     },
                     {
@@ -32585,6 +32949,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32612,6 +32978,12 @@
                     "$ref": "#/components/schemas/AdvertPatchSchema"
                   },
                   {
+                    "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyPatchSchema"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelPatchSchema"
+                  },
+                  {
                     "$ref": "#/components/schemas/FullFeaturedSnippetPatchSchema"
                   },
                   {
@@ -32635,6 +33007,12 @@
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/AdvertSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeySchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
                     },
                     {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
@@ -32728,6 +33106,8 @@
             "schema": {
               "enum": [
                 "tests.Advert",
+                "tests.AdvertWithCustomPrimaryKey",
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel",
                 "tests.UUIDSnippetWithRelations"
@@ -32769,7 +33149,10 @@
             "name": "type",
             "required": true,
             "schema": {
-              "const": "tests.FullFeaturedSnippet",
+              "enum": [
+                "tests.DraftStateCustomPrimaryKeyModel",
+                "tests.FullFeaturedSnippet"
+              ],
               "title": "Type",
               "type": "string"
             }
@@ -32789,7 +33172,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    }
+                  ],
+                  "title": "Response"
                 }
               }
             },
@@ -32815,6 +33206,7 @@
             "required": true,
             "schema": {
               "enum": [
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel"
               ],
@@ -32849,6 +33241,9 @@
                 "schema": {
                   "oneOf": [
                     {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
                     },
                     {
@@ -32880,7 +33275,10 @@
             "name": "type",
             "required": true,
             "schema": {
-              "const": "tests.FullFeaturedSnippet",
+              "enum": [
+                "tests.DraftStateCustomPrimaryKeyModel",
+                "tests.FullFeaturedSnippet"
+              ],
               "title": "Type",
               "type": "string"
             }
@@ -32900,7 +33298,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullFeaturedSnippetSchema"
+                    }
+                  ],
+                  "title": "Response"
                 }
               }
             },
@@ -32926,6 +33332,7 @@
             "required": true,
             "schema": {
               "enum": [
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel"
               ],
@@ -33099,6 +33506,7 @@
             "required": true,
             "schema": {
               "enum": [
+                "tests.DraftStateCustomPrimaryKeyModel",
                 "tests.FullFeaturedSnippet",
                 "tests.RevisableChildModel"
               ],

@@ -1111,6 +1111,11 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
         FieldPanel("text"),
     ]
 
+    api_fields = (
+        APIField("url", writable=True),
+        APIField("text", writable=True),
+    )
+
     def __str__(self):
         return self.text
 
@@ -1348,6 +1353,8 @@ class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Mod
         FieldPanel("first_published_at"),
         PublishingPanel(),
     ]
+
+    api_fields = (APIField("text", writable=True),)
 
     def __str__(self):
         return self.text
@@ -2823,9 +2830,12 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
 
 
+QUOTE_CHRS = '":/_#?;@&=+$,"[]<>%\n\\'
+QUOTABLE_PK = QUOTE_CHRS + "a1"
+
+
 def random_quotable_pk():
-    quote_chrs = '":/_#?;@&=+$,"[]<>%\n\\'
-    components = (quote_chrs, string.ascii_letters, string.digits)
+    components = (QUOTE_CHRS, string.ascii_letters, string.digits)
     return "".join(random.choice(components[i % len(components)]) for i in range(10))  # noqa: S311 - random not used cryptographically
 
 
