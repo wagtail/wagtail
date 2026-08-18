@@ -460,6 +460,135 @@ class TestV3SnippetCreateWithRelationsFieldFiltering(TestV3SnippetCreateBase):
         )
 
 
+class TestV3SnippetCreateWithRichText(TestV3SnippetCreateBase):
+    model = UUIDSnippetWithRelations
+
+    def create_snippet(self, value):
+        return self.post({"text": "Hello", "rich_body": value})
+
+    def test_plain_string_stored_sanitised(self):
+        response = self.create_snippet("<p><i>x</i></p><script>alert(1)</script>")
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertNotIn("<script", snippet.rich_body)
+        self.assertIn("<i>x</i>", snippet.rich_body)
+
+    def test_feature_restricted_field_strips_out_of_features(self):
+        # bold/h2 are not enabled in rich_body features list
+        response = self.create_snippet("<h2>T</h2><p><b>x</b></p>")
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertNotIn("<h2>", snippet.rich_body)
+        self.assertNotIn("<b>", snippet.rich_body)
+
+    def test_envelope_stored_sanitised(self):
+        body = {"format": "db_html", "content": "<p>hi <script>alert(1)</script></p>"}
+        response = self.create_snippet(body)
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertNotIn("<script", snippet.rich_body)
+        self.assertIn("hi", snippet.rich_body)
+
+    def test_entity_references_survive(self):
+        response = self.create_snippet('<p><a linktype="page" id="2">home</a></p>')
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertIn('linktype="page"', snippet.rich_body)
+        self.assertIn('id="2"', snippet.rich_body)
+
+    def test_unknown_format_rejected(self):
+        response = self.create_snippet({"format": "markdown", "content": "# Hi"})
+        self.assert_problem_response(response, status_code=422)
+        self.assertFalse(UUIDSnippetWithRelations.objects.exists())
+
+    def test_omitted_blank_rich_body_allowed(self):
+        # rich_body is blank=True, so omitting it entirely is fine. The
+        # Draftail widget round-trip normalises the empty value to an empty
+        # paragraph, so what gets stored is not "".
+        response = self.post({"text": "Hello"})
+        self.assertEqual(response.status_code, 201)
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertRegex(snippet.rich_body, r'^<p data-block-key="[a-z0-9]+"></p>$')
+
+
+class TestV3SnippetCreateWithRichTextMarkdown(TestV3SnippetCreateBase):
+    model = UUIDSnippetWithRelations
+
+    def create_snippet(self, content, rich_text_format="db_markdown"):
+        return self.post(
+            {
+                "text": "Hello",
+                "rich_body": {"format": rich_text_format, "content": content},
+            }
+        )
+
+    def test_db_markdown_input_on_create(self):
+        response = self.create_snippet("# Title\n\n[home](wagtail://page?id=2)")
+        self.assertEqual(response.status_code, 201, response.json())
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        # h1 is out of the field's features → unwrapped; page reference kept by id
+        self.assertNotIn("<h1", snippet.rich_body)
+        self.assertIn("Title", snippet.rich_body)
+        self.assertIn('linktype="page"', snippet.rich_body)
+        self.assertIn('id="2"', snippet.rich_body)
+
+    def test_malformed_reference_gives_422_with_field_and_line(self):
+        response = self.create_snippet("[x](wagtail://page?id=abc)")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.UUIDSnippetWithRelations",
+                        "rich_body",
+                    ],
+                    "msg": (
+                        "Value error, Invalid Markdown in rich text at line 1: "
+                        "Entity resolver failed for URL 'wagtail://page?id=abc': "
+                        "invalid literal for int() with base 10: 'abc'"
+                    ),
+                }
+            ],
+        )
+
+    def test_wagtail_ref_without_id_gives_422(self):
+        # A wagtail:// reference missing its id must fail validation, never 500.
+        response = self.create_snippet("[x](wagtail://page)")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.UUIDSnippetWithRelations",
+                        "rich_body",
+                    ],
+                    "msg": (
+                        "Value error, Invalid Markdown in rich text: "
+                        "wagtail://page reference requires id"
+                    ),
+                }
+            ],
+        )
+
+    def test_empty_image_format_stripped_not_stored(self):
+        # `format=` (empty) behaves like a missing format: the embed is
+        # dropped, never stored verbatim to poison later output.
+        response = self.create_snippet("![a](wagtail://image?id=1&format=)")
+        self.assertEqual(response.status_code, 201, response.json())
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        self.assertNotIn('format=""', snippet.rich_body)
+
+
 class TestV3SnippetCreateWithDraftState(TestV3SnippetCreateBase):
     """meta.action support for DraftStateMixin snippets."""
 
