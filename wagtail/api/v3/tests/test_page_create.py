@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -16,7 +15,7 @@ from wagtail.test.demosite.models import (
     EventPage,
     HomePage,
 )
-from wagtail.test.testapp.models import StreamPage
+from wagtail.test.testapp.models import SimpleParentPage, StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
 
 
@@ -510,6 +509,10 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             ),
             ({"parent_id": self.root_page.pk, "type": "not.AType"}, "not.AType"),
             ({"parent_id": self.root_page.pk, "type": "auth.User"}, "auth.User"),
+            (
+                {"parent_id": self.root_page.pk, "type": Page._meta.label},
+                Page._meta.label,
+            ),
         ]
         for meta, extracted in problem_metas:
             with self.subTest(meta=meta):
@@ -602,16 +605,16 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(PageLogEntry.objects.count(), logs_before)
 
     def test_disallowed_subpage_type_returns_403(self):
-        # BlogIndexPage's default page-type rules allow being created
-        # under the root, but wagtailcore.Page itself is not creatable at all.
         parent = self.root_page.add_child(
-            instance=BlogIndexPage(title="Parent", slug="parent-page")
+            instance=SimpleParentPage(title="Parent", slug="parent-page")
         )
         response = self.post(
             {
                 "meta": {
                     "parent_id": parent.pk,
-                    "type": swapper.get_model_name("wagtailcore", "Page"),
+                    # SimpleParentPage only allows SimpleChildPage as subpages,
+                    # so this should be rejected.
+                    "type": HomePage._meta.label,
                 },
                 "title": "New page",
                 "slug": "new-page",
