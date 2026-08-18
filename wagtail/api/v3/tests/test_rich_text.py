@@ -65,7 +65,9 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 201)
         page = self.model.objects.get(slug="rich")
-        self.assertNotIn("<script", self.body_value(page))
+        value = self.body_value(page)
+        self.assertNotIn("<script", value)
+        self.assertRegex(value, r"^<p data-block-key=\"[a-z0-9]+\">hi alert\(1\)</p>$")
 
     def test_entity_references_survive(self):
         response = self.create_page('<p><a linktype="page" id="2">home</a></p>')
