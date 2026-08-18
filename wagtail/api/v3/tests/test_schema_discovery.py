@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 PAGE_READ_SCHEMA_FIELDS = {"id", "title", "meta"}
 PAGE_READ_META_SCHEMA_FIELDS = {
@@ -35,13 +35,13 @@ class TestV3SchemaDiscovery(TestV3Base, WagtailTestUtils, TestCase):
         content = response.json()
         self.assertIn("types", content)
         names = [entry["name"] for entry in content["types"]]
-        self.assertIn("pages", names)
+        self.assertIn(Page._meta.label, names)
 
     def test_get_pages_schema(self):
         response = self.client.get(
             reverse(
                 "wagtailapi_v3:get_schema_for_type",
-                kwargs={"type_name": "pages"},
+                kwargs={"type_name": Page._meta.label},
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -50,7 +50,7 @@ class TestV3SchemaDiscovery(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(
             set(content["read"]["properties"].keys()), PAGE_READ_SCHEMA_FIELDS
         )
-        meta_schema = content["read"]["$defs"]["PageMetaSchema"]
+        meta_schema = content["read"]["$defs"][f"{Page._meta.object_name}MetaSchema"]
         self.assertEqual(
             set(meta_schema["properties"].keys()), PAGE_READ_META_SCHEMA_FIELDS
         )
