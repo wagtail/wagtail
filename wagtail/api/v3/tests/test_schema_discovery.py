@@ -54,8 +54,8 @@ class TestV3SchemaDiscovery(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(
             set(meta_schema["properties"].keys()), PAGE_READ_META_SCHEMA_FIELDS
         )
-        self.assertEqual(content["create"], {"description": "Not yet available."})
-        self.assertEqual(content["patch"], {"description": "Not yet available."})
+        self.assertEqual(content["create"], {"description": "Not available."})
+        self.assertEqual(content["patch"], {"description": "Not available."})
 
     def test_get_specific_page_type_schema_includes_create_schema(self):
         response = self.client.get(
