@@ -4,19 +4,16 @@ from typing import Any, cast
 import swapper
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
-from django.core.exceptions import FieldDoesNotExist, ValidationError
+from django.core.exceptions import ValidationError
 from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
-from draftjs_exporter import MarkdownParseError
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
-from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api.rich_text import APIRichText
-from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator
 from wagtail.blocks.base import BlockField
@@ -24,7 +21,6 @@ from wagtail.blocks.field_block import RichTextBlock
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
-from wagtail.fields import RichTextField
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -115,46 +111,6 @@ def get_api_form_class(model: type[Model], field_names: Iterable[str] | None = N
     )
 
 
-def convert_rich_text_payload(
-    model: type[Model], payload: dict[str, Any]
-) -> tuple[dict[str, Any], list[tuple[str, RichTextRemoval]]]:
-    """Sanitise RichTextField values in a create/update payload.
-
-    Converts each accepted input shape (plain DB HTML string or
-    {"format", "content"} envelope) to database HTML, enforcing the field's
-    declared features. Returns the updated payload and a list of
-    (field_name, RichTextRemoval) tuples for everything that was stripped.
-
-    Only top-level model RichTextFields are handled; rich text inside
-    StreamField values is out of scope (#14310).
-    """
-    removals: list[tuple[str, RichTextRemoval]] = []
-    for name in list(payload):
-        try:
-            model_field = model._meta.get_field(name)
-        except FieldDoesNotExist:
-            continue
-        if not isinstance(model_field, RichTextField):
-            continue
-        value = payload[name]
-        if value is None:
-            continue
-        try:
-            db_html, field_removals = APIRichText.convert_input(
-                value, features=model_field.features
-            )
-        except MarkdownParseError as e:
-            location = f" at line {e.line}" if e.line is not None else ""
-            raise as_validation_error(
-                e,
-                f"Invalid Markdown in rich text{location}: {e.message}",
-                loc=("body", name),
-            ) from e
-        payload[name] = db_html
-        removals.extend((name, removal) for removal in field_removals)
-    return payload, removals
-
-
 def build_page_form(
     model: type[Page],
     parent: Page,
@@ -190,7 +146,6 @@ def build_page_form(
         payload["slug"] = page.slug
         page._cached_parent_obj = None
 
-    payload, _ = convert_rich_text_payload(model, payload)
     form_data = build_form_data(form_class, payload)
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
@@ -227,7 +182,6 @@ def build_page_update_form(
     """
     model = type(page)
     payload = data.dict(exclude={"meta"}, exclude_unset=True)
-    payload, _ = convert_rich_text_payload(model, payload)
     form_class = get_api_form_class(model, field_names=payload.keys())
     form_data = build_form_data(form_class, payload, instance=page)
 
@@ -361,6 +315,8 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
     elif getattr(field.widget, "allow_multiple_selected", False):
         data.setlist(name, list(value) if value else [])
     elif hasattr(field.widget, "converter"):
+        if isinstance(value, dict):
+            value = value.get("content", "")
         # A rich text editor widget (Draftail's `to_database_format`/
         # `from_database_format` contract - core ships only Draftail, but
         # third-party editors may implement the same converter pattern).
