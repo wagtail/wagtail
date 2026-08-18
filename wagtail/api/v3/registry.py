@@ -64,9 +64,7 @@ class ContentTypeRegistry:
         """Return the JSON schemas for each direction of content type ``name``.
 
         Returns ``None`` when ``name`` is not registered. Directions without a
-        schema fall back to a placeholder (``{"description": "Not yet available."}``)
-        for ``create`` and ``patch`` so schema discovery keeps advertising the
-        planned write directions.
+        schema fall back to a placeholder (``{"description": "Not available."}``).
         """
         registration = self.get(name)
         if registration is None:
@@ -77,10 +75,8 @@ class ContentTypeRegistry:
             schema = self._schema_for_direction(registration, direction)
             if schema is not None:
                 result[direction] = schema
-            elif direction in ("create", "patch"):
-                # TODO Placeholder until write endpoints land; keeps schema discovery
-                # showing that create/patch directions are planned.
-                result[direction] = {"description": "Not yet available."}
+            else:
+                result[direction] = {"description": "Not available."}
         return result
 
     def register_defaults(self) -> None:
