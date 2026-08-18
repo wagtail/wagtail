@@ -2,7 +2,6 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Annotated, Any, Iterable, Union
 
-from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from ninja import Schema
 from pydantic import Discriminator, Tag
@@ -86,8 +85,9 @@ def build_discriminated_union(
         return schema_for(models[0])
 
     members = tuple(
-        Annotated[schema_for(model), Tag(model._meta.label)]  # ty: ignore[invalid-type-form]
+        Annotated[schema, Tag(model._meta.label)]  # ty: ignore[invalid-type-form]
         for model in models
+        if (schema := schema_for(model)) is not None
     )
     return Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
@@ -119,12 +119,6 @@ def build_union_schemas(models: Iterable[type[Model]]) -> DiscriminatedUnionSche
     def registered_schema_for(model: type[Model], attr: str):
         registration = registry.get(model._meta.label)
         schema = registration and getattr(registration, attr)
-        if schema is None:
-            raise ImproperlyConfigured(
-                f"{model._meta.label} has no registered {attr} - "
-                f"ContentTypeRegistry.register_defaults() must run before "
-                f"build_union_schemas()."
-            )
         return schema
 
     models = list(models)
