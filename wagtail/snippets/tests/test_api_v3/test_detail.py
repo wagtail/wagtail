@@ -1,8 +1,14 @@
+from django.contrib.admin.utils import quote
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
+    Advert,
+    AdvertWithCustomPrimaryKey,
+    FullFeaturedSnippet,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -56,6 +62,25 @@ class TestV3SnippetDetail(TestV3Base, WagtailTestUtils, TestCase):
             status_code=404,
             detail_contains="No Advert matches the given query.",
         )
+
+    def test_detail_with_quotable_pk(self):
+        advert = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id=QUOTABLE_PK, text="Advert 1"
+        )
+        self.login()
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:detail_snippet",
+                kwargs={
+                    "type": "tests.AdvertWithCustomPrimaryKey",
+                    "pk": quote(advert.pk),
+                },
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["advert_id"], QUOTABLE_PK)
+        self.assertEqual(content["text"], "Advert 1")
 
     @override_settings(WAGTAILAPI_BASE_URL="https://api.example.com")
     def test_detail_url_uses_base_url_setting(self):

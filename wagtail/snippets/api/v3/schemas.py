@@ -1,5 +1,6 @@
 from typing import ClassVar, Literal
 
+from django.contrib.admin.utils import quote
 from django.db.models import Model
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
@@ -27,7 +28,7 @@ class SnippetMetaSchema(BaseMetaSchema):
         try:
             path = reverse(
                 "wagtailapi_v3:detail_snippet",
-                kwargs={"type": model._meta.label, "pk": obj.pk},
+                kwargs={"type": model._meta.label, "pk": quote(str(obj.pk))},
             )
             detail_url = get_full_url(request, path)
         except NoReverseMatch:

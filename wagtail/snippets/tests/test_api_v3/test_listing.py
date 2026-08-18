@@ -5,7 +5,12 @@ from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import Locale
-from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
+    Advert,
+    AdvertWithCustomPrimaryKey,
+    FullFeaturedSnippet,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -55,6 +60,23 @@ class TestV3SnippetListing(TestV3SnippetListingBase, TestCase):
     def test_count_matches_database(self):
         content = self.get_response().json()
         self.assertEqual(content["count"], Advert.objects.count())
+
+    def test_detail_url_resolves_for_quotable_pk(self):
+        AdvertWithCustomPrimaryKey.objects.create(
+            advert_id=QUOTABLE_PK, text="Advert 1"
+        )
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:list_snippets",
+                kwargs={"type": "tests.AdvertWithCustomPrimaryKey"},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        detail_url = response.json()["items"][0]["meta"]["detail_url"]
+        self.assertIsNotNone(detail_url)
+        response = self.client.get(detail_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["advert_id"], QUOTABLE_PK)
 
     def test_user_with_any_permission_can_list(self):
         user = self.create_user(username="viewer", password="password")
