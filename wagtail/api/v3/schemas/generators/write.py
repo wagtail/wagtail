@@ -1,20 +1,21 @@
 from collections.abc import Iterable
 from types import UnionType
-from typing import Any, Callable, Literal, Union, cast, get_args, get_origin
+from typing import Annotated, Any, Callable, Literal, Union, cast, get_args, get_origin
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Field, ForeignKey, Model
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from draftjs_exporter import MarkdownParseError
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
 from ninja.orm.fields import get_schema_field
-from pydantic import BaseModel
+from pydantic import AfterValidator, BaseModel
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
-from wagtail.api.rich_text import RichTextInputFormat
+from wagtail.api.rich_text import APIRichText, RichTextInputFormat
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
 
@@ -354,7 +355,7 @@ class InputSchemaGenerator:
         return cast(type[Schema], metaclass(name, (schema,), namespace))
 
 
-class RichTextInputSchema(Schema):
+class RichTextInputSchema(BaseModel):
     """Envelope form of rich text input. A plain string means DB HTML."""
 
     format: RichTextInputFormat = "db_html"
@@ -369,7 +370,26 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
         else feature_registry.get_default_features()
     )
     default = FieldInfo(default="", json_schema_extra={"features": resolved_features})
-    return str | RichTextInputSchema, default
+
+    def convert_content(value: str | RichTextInputSchema) -> str | RichTextInputSchema:
+        input = value if isinstance(value, str) else value.model_dump()
+        try:
+            db_html, _ = APIRichText.convert_input(input, features=field.features)
+        except MarkdownParseError as e:
+            location = f" at line {e.line}" if e.line is not None else ""
+            raise ValueError(
+                f"Invalid Markdown in rich text{location}: {e.message}"
+            ) from e
+        # Result is normalized as db_html, with an envelope if it came with one.
+        return (
+            db_html
+            if isinstance(value, str)
+            else RichTextInputSchema(format="db_html", content=db_html)
+        )
+
+    annotation = Annotated[str | RichTextInputSchema, AfterValidator(convert_content)]
+
+    return annotation, default
 
 
 def streamfield_schema(
