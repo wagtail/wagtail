@@ -1291,63 +1291,6 @@
         "title": "BaseMetaSchema",
         "type": "object"
       },
-      "BasePageCreateMetaSchema": {
-        "properties": {
-          "action": {
-            "anyOf": [
-              {
-                "const": "publish",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Action"
-          },
-          "parent_id": {
-            "title": "Parent Id",
-            "type": "integer"
-          },
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          }
-        },
-        "required": ["type", "parent_id"],
-        "title": "BasePageCreateMetaSchema",
-        "type": "object"
-      },
-      "BasePageCreateSchema": {
-        "properties": {
-          "meta": {
-            "$ref": "#/components/schemas/BasePageCreateMetaSchema"
-          },
-          "slug": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
-            "title": "Slug"
-          },
-          "title": {
-            "description": "The page title as you'd like it to be seen by the public",
-            "maxLength": 255,
-            "title": "Title",
-            "type": "string"
-          }
-        },
-        "required": ["meta", "title"],
-        "title": "BasePageCreateSchema",
-        "type": "object"
-      },
       "BasePageForeignKeySchema": {
         "properties": {
           "id": {
@@ -1434,79 +1377,6 @@
         },
         "required": ["slug"],
         "title": "BasePageMetaSchema",
-        "type": "object"
-      },
-      "BasePagePatchMetaSchema": {
-        "properties": {
-          "action": {
-            "anyOf": [
-              {
-                "const": "publish",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Action"
-          },
-          "type": {
-            "anyOf": [
-              {
-                "const": "basepage.BasePage",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Type"
-          }
-        },
-        "required": ["type"],
-        "title": "BasePagePatchMetaSchema",
-        "type": "object"
-      },
-      "BasePagePatchSchema": {
-        "properties": {
-          "meta": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/BasePagePatchMetaSchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "slug": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
-            "title": "Slug"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The page title as you'd like it to be seen by the public",
-            "title": "Title"
-          }
-        },
-        "title": "BasePagePatchSchema",
         "type": "object"
       },
       "BasePageSchema": {
@@ -27608,9 +27478,6 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/BasePageCreateSchema"
-                  },
-                  {
                     "$ref": "#/components/schemas/EarlyPageCreateSchema"
                   },
                   {
@@ -28879,9 +28746,6 @@
             "application/json": {
               "schema": {
                 "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/BasePagePatchSchema"
-                  },
                   {
                     "$ref": "#/components/schemas/EarlyPagePatchSchema"
                   },

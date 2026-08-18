@@ -786,6 +786,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             ({"type": 123}, "123"),
             ({"type": ["not", "a", "string"]}, "['not', 'a', 'string']"),
             ({"type": self.user._meta.label}, self.user._meta.label),
+            ({"type": Page._meta.label}, Page._meta.label),
         ]
         for meta, extracted in problem_metas:
             with self.subTest(meta=meta):

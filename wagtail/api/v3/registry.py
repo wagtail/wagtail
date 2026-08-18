@@ -103,24 +103,32 @@ class ContentTypeRegistry:
         )
 
         for model in get_page_models():
+            read_schema = read_generator.generate_schema(model, base_class=PageSchema)
+            # Do not generate create and patch schemas for the base page model
+            # unless it is explicitly marked as creatable.
+            if model is model.base_page_model and not model.is_creatable:
+                create_schema = None
+                patch_schema = None
+            else:
+                create_schema = create_generator.generate_schema(
+                    model,
+                    base_class=PageCreateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                    required_fields=("title",),
+                )
+                patch_schema = patch_generator.generate_schema(
+                    model,
+                    base_class=PageUpdateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                )
+
             self.register(
                 ContentTypeRegistration(
                     name=model._meta.label,
                     label=str(model._meta.verbose_name),
-                    read_schema=read_generator.generate_schema(
-                        model, base_class=PageSchema
-                    ),
-                    create_schema=create_generator.generate_schema(
-                        model,
-                        base_class=PageCreateBaseSchema,
-                        fields=BASE_PAGE_FIELDS,
-                        required_fields=("title",),
-                    ),
-                    patch_schema=patch_generator.generate_schema(
-                        model,
-                        base_class=PageUpdateBaseSchema,
-                        fields=BASE_PAGE_FIELDS,
-                    ),
+                    read_schema=read_schema,
+                    create_schema=create_schema,
+                    patch_schema=patch_schema,
                 )
             )
 
