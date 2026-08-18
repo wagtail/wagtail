@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -7,7 +8,12 @@ from django.utils import timezone
 
 from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.models import Locale
-from wagtail.test.testapp.models import Advert, FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
+    Advert,
+    AdvertWithCustomPrimaryKey,
+    FullFeaturedSnippet,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -203,6 +209,25 @@ class TestV3SnippetDeleteAction(TestV3SnippetActionsBase):
             )
         )
         self.assert_problem_response(response, status_code=404)
+
+    def test_delete_with_quotable_pk(self):
+        advert = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id=QUOTABLE_PK, text="Deletable"
+        )
+        self.login_with_permissions("delete_advertwithcustomprimarykey")
+        response = self.client.delete(
+            reverse(
+                "wagtailapi_v3:snippets_actions_delete",
+                kwargs={
+                    "type": "tests.AdvertWithCustomPrimaryKey",
+                    "pk": quote(advert.pk),
+                },
+            )
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(
+            AdvertWithCustomPrimaryKey.objects.filter(pk=QUOTABLE_PK).exists()
+        )
 
 
 class TestV3SnippetRevert(TestV3SnippetActionsBase):

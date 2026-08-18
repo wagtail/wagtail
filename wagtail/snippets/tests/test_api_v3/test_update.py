@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -10,7 +11,9 @@ from wagtail.documents.models import Document
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.testapp.models import (
+    QUOTABLE_PK,
     Advert,
+    AdvertWithCustomPrimaryKey,
     FullFeaturedSnippet,
     RevisableChildModel,
     UUIDSnippetWithRelations,
@@ -57,6 +60,25 @@ class TestV3SnippetUpdate(TestV3SnippetUpdateBase):
         self.assertEqual(response.status_code, 200)
         self.advert.refresh_from_db()
         self.assertEqual(self.advert.text, "Updated")
+
+    def test_update_with_quotable_pk(self):
+        advert = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id=QUOTABLE_PK, text="Old text"
+        )
+        response = self.client.patch(
+            reverse(
+                "wagtailapi_v3:update_snippet",
+                kwargs={
+                    "type": "tests.AdvertWithCustomPrimaryKey",
+                    "pk": quote(advert.pk),
+                },
+            ),
+            data=json.dumps({"text": "New text"}),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
+        advert.refresh_from_db()
+        self.assertEqual(advert.text, "New text")
 
     def test_partial_update_leaves_other_fields_unchanged(self):
         response = self.patch(self.advert.pk, {"text": "Updated"})
