@@ -138,7 +138,10 @@ def list_snippets(
         schemas=(TranslationFilterSchema, OrderingSchema, SearchSchema),
         base_fields=base_fields,
     )
-    queryset = model._default_manager.order_by(model._meta.pk.name)
+    permission_policy = policy_registry.get_by_type(model)
+    queryset = permission_policy.instances_user_has_any_permission_for(
+        request.user, ("add", "change", "delete", "view")
+    ).order_by(model._meta.pk.name)
     queryset = translation_filter.filter_queryset(queryset)
     queryset = field_filter.filter_queryset(queryset)
     queryset = ordering.order_queryset(
@@ -163,7 +166,13 @@ def get_snippet(
     version: Literal["live", "draft"] = Query("live"),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
-    instance = get_object_or_404(model, pk=pk)
+    permission_policy = policy_registry.get_by_type(model)
+    instance = get_object_or_404(
+        permission_policy.instances_user_has_any_permission_for(
+            request.user, ("add", "change", "delete", "view")
+        ),
+        pk=pk,
+    )
     # The router requires authentication, so draft reads are always allowed
     if version == "draft" and issubclass(model, DraftStateMixin):
         return instance.get_latest_revision_as_object()
