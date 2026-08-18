@@ -1189,7 +1189,10 @@ class UUIDSnippetWithRelations(index.Indexed, ClusterableModel):
     text = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
     intro = models.CharField(max_length=255, blank=True)
-    rich_body = RichTextField(blank=True)
+    rich_body = RichTextField(
+        blank=True,
+        features=["image", "italic", "link", "quotation", "embed"],
+    )
     feed_image = models.ForeignKey(
         Image,
         null=True,

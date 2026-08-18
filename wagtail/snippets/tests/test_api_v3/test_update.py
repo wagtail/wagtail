@@ -578,6 +578,150 @@ class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
         )
 
 
+class TestV3SnippetUpdateWithRichText(TestV3SnippetUpdateBase):
+    model = UUIDSnippetWithRelations
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello", rich_body="<p>original</p>"
+        )
+
+    def patch_rich_body(self, value):
+        return self.patch(self.snippet.pk, {"rich_body": value})
+
+    def test_plain_string_stored_sanitised(self):
+        response = self.patch_rich_body("<p><i>x</i></p><script>alert(1)</script>")
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertNotIn("<script", self.snippet.rich_body)
+        self.assertIn("<i>x</i>", self.snippet.rich_body)
+
+    def test_feature_restricted_field_strips_out_of_features(self):
+        # bold/h2 are not enabled in rich_body features list
+        response = self.patch_rich_body("<h2>T</h2><p><b>x</b></p>")
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertNotIn("<h2>", self.snippet.rich_body)
+        self.assertNotIn("<b>", self.snippet.rich_body)
+
+    def test_envelope_stored_sanitised(self):
+        response = self.patch_rich_body(
+            {"format": "db_html", "content": "<p>hi <script>alert(1)</script></p>"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertNotIn("<script", self.snippet.rich_body)
+        self.assertIn("hi", self.snippet.rich_body)
+
+    def test_entity_references_survive(self):
+        response = self.patch_rich_body('<p><a linktype="page" id="2">home</a></p>')
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertIn('linktype="page"', self.snippet.rich_body)
+        self.assertIn('id="2"', self.snippet.rich_body)
+
+    def test_unknown_format_rejected(self):
+        response = self.patch_rich_body({"format": "markdown", "content": "# Hi"})
+        self.assert_problem_response(response, status_code=422)
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.rich_body, "<p>original</p>")
+
+    def test_rich_body_untouched_when_omitted(self):
+        response = self.patch(self.snippet.pk, {"text": "Updated"})
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.text, "Updated")
+        self.assertEqual(self.snippet.rich_body, "<p>original</p>")
+
+    def test_rich_body_cleared_with_empty_string(self):
+        # The Draftail widget round-trip normalises the empty value to an
+        # empty paragraph, so what gets stored is not "".
+        response = self.patch_rich_body("")
+        self.assertEqual(response.status_code, 200)
+        self.snippet.refresh_from_db()
+        self.assertRegex(
+            self.snippet.rich_body,
+            r'^<p data-block-key="[a-z0-9]+"></p>$',
+        )
+
+
+class TestV3SnippetUpdateWithRichTextMarkdown(TestV3SnippetUpdateBase):
+    model = UUIDSnippetWithRelations
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello", rich_body="<p>original</p>"
+        )
+
+    def patch_rich_body(self, content, rich_text_format="db_markdown"):
+        return self.patch(
+            self.snippet.pk,
+            {"rich_body": {"format": rich_text_format, "content": content}},
+        )
+
+    def test_db_markdown_input_on_patch(self):
+        response = self.patch_rich_body("*after*")
+        self.assertEqual(response.status_code, 200, response.json())
+        self.snippet.refresh_from_db()
+        self.assertNotIn("original", self.snippet.rich_body)
+        # italic is in the field's features, so *after* becomes <i> markup
+        self.assertIn("<i>after</i>", self.snippet.rich_body)
+
+    def test_malformed_reference_gives_422_with_field_and_line(self):
+        response = self.patch_rich_body("[x](wagtail://page?id=abc)")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.UUIDSnippetWithRelations",
+                        "rich_body",
+                    ],
+                    "msg": (
+                        "Value error, Invalid Markdown in rich text at line 1: "
+                        "Entity resolver failed for URL 'wagtail://page?id=abc': "
+                        "invalid literal for int() with base 10: 'abc'"
+                    ),
+                }
+            ],
+        )
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.rich_body, "<p>original</p>")
+
+    def test_wagtail_ref_without_id_gives_422(self):
+        # A wagtail:// reference missing its id must fail validation, never 500.
+        response = self.patch_rich_body("[x](wagtail://page)")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "value_error",
+                    "loc": [
+                        "body",
+                        "data",
+                        "tests.UUIDSnippetWithRelations",
+                        "rich_body",
+                    ],
+                    "msg": (
+                        "Value error, Invalid Markdown in rich text: "
+                        "wagtail://page reference requires id"
+                    ),
+                }
+            ],
+        )
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.rich_body, "<p>original</p>")
+
+
 class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
     """meta.action support for DraftStateMixin snippets."""
 
