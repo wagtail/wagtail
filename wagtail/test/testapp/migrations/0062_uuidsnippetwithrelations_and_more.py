@@ -34,7 +34,13 @@ class Migration(migrations.Migration):
                 ("text", models.CharField(max_length=255)),
                 ("subtitle", models.CharField(blank=True, max_length=255)),
                 ("intro", models.CharField(blank=True, max_length=255)),
-                ("rich_body", wagtail.fields.RichTextField(blank=True)),
+                (
+                    "rich_body",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        features=["image","italic", "link", "quotation", "embed"],
+                    ),
+                ),
                 (
                     "body",
                     wagtail.fields.StreamField(

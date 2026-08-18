@@ -23545,20 +23545,7 @@
               }
             ],
             "default": "",
-            "features": [
-              "embed",
-              "image",
-              "hr",
-              "link",
-              "bold",
-              "italic",
-              "h2",
-              "h3",
-              "h4",
-              "ol",
-              "ul",
-              "document-link"
-            ],
+            "features": ["image", "italic", "link", "quotation", "embed"],
             "title": "Rich Body"
           },
           "sections": {
@@ -23660,20 +23647,7 @@
               }
             ],
             "default": "",
-            "features": [
-              "embed",
-              "image",
-              "hr",
-              "link",
-              "bold",
-              "italic",
-              "h2",
-              "h3",
-              "h4",
-              "ol",
-              "ul",
-              "document-link"
-            ],
+            "features": ["image", "italic", "link", "quotation", "embed"],
             "title": "Rich Body"
           },
           "sections": {
@@ -23732,20 +23706,7 @@
                 "type": "null"
               }
             ],
-            "features": [
-              "embed",
-              "image",
-              "hr",
-              "link",
-              "bold",
-              "italic",
-              "h2",
-              "h3",
-              "h4",
-              "ol",
-              "ul",
-              "document-link"
-            ],
+            "features": ["image", "italic", "link", "quotation", "embed"],
             "title": "Rich Body"
           },
           "sections": {
