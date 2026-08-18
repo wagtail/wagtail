@@ -2,7 +2,7 @@
 
 # v3 API authentication & tokens
 
-The v3 API authenticates requests with bearer tokens. Tokens are tied to a user account, and API requests act as that user with exactly their Wagtail permissions — the same permissions system as the admin UI.
+The v3 API authenticates requests with bearer tokens. Tokens are tied to a user account, and API requests act as that user with their Wagtail permissions — the same permissions system as the admin UI. Edge cases are covered in the Permissions section below.
 
 ```{note}
 v3 does not use Django session authentication. Browser session cookies are ignored by API requests; only a valid bearer token authenticates a caller.
@@ -17,6 +17,12 @@ curl -H "Authorization: Bearer wagtail_…" https://example.com/api/v3/whoami/
 ```
 
 `GET /api/v3/whoami/` returns the authenticated user, profile, and groups — useful to validate a token and configuration.
+
+## Anonymous requests and failed tokens
+
+Public read endpoints (for example pages, images, documents, and redirects) allow both anonymous and bearer access, declared as `auth=[BearerTokenAuth(), AllowAnonymous()]`. On these endpoints a missing, invalid, or revoked token does **not** reject the request: authentication falls through to `AllowAnonymous`, which marks the request anonymous and normalizes `request.user` so a Django session cookie cannot elevate it, and the request is served with anonymous visibility.
+
+This has an important consequence: a successful public response does not prove that a credential was accepted. For example, `GET /pages/{id}/?version=draft` with an invalid token returns the live public page with HTTP 200, because `version=draft` only returns the latest revision when the caller is authenticated. Clients must not treat a successful public response as proof that their token was valid — confirm with `GET /whoami/` if that matters.
 
 ## Creating tokens
 
@@ -52,7 +58,11 @@ Each successful request updates the token's `last_used_at`, throttled to at most
 
 ## Permissions
 
-A token grants exactly the permissions of its user. We recommend dedicated service accounts with minimal group permissions for integrations.
+A token acts as its user, so it grants exactly the permissions the user has. We recommend dedicated service accounts with minimal group permissions for integrations.
+
+```{note}
+Most writes route through Wagtail's forms and actions, so they enforce the same per-object policies as the admin UI. One caveat: snippet list and detail endpoints gate on a model-wide "any permission" check and start from the model's unfiltered default manager, so object-level snippet visibility policies are not applied automatically. See [the permissions and visibility guide](api_v3_permissions) for how visibility differs by resource and access tier.
+```
 
 Token management itself is permission-gated:
 
@@ -62,7 +72,7 @@ Token management itself is permission-gated:
 
 ## Custom authentication
 
-Projects can subclass `wagtail.api.v3.auth.BearerTokenAuth` (or stack additional [Django Ninja authentication classes](https://django-ninja.dev/guides/authentication/)) and apply them per router or per endpoint. Authorization in v3 derives from `request.auth` only — see `wagtail.api.v3.auth.get_api_user`.
+Projects can subclass `wagtail.api.v3.auth.BearerTokenAuth` to customize token resolution, or stack additional [Django Ninja authentication classes](https://django-ninja.dev/guides/authentication/) per router or per endpoint. Public read endpoints use `auth=[BearerTokenAuth(), AllowAnonymous()]`. Authorization in v3 derives from `request.auth`, which Ninja sets to the authenticated `APIToken`.
 
 ## Throttling
 

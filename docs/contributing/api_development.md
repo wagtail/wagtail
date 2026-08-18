@@ -14,13 +14,15 @@ When you add or change endpoints intentionally, regenerate the snapshot and comm
 make openapi-snapshot
 ```
 
+For guidance on the v3 API's schema discovery endpoints and how read and write schemas are generated, see the [schema discovery guide](api_v3_schema). For the reusable actions/operations layer and the extension contracts for API fields, permission policies, and custom fields, see the [Python API and extensions guide](api_v3_python_api).
+
 ## Type checking
 
 The v3 API package is type-checked with [ty](https://docs.astral.sh/ty/) (configured in `[tool.ty]` in `pyproject.toml`). Checking is scoped to `wagtail/api/v3` only.
 
 ## Pagination
 
-List endpoints use `@paginate` with `WagtailLimitOffsetPagination` (or a subclass such as `PageListingPagination` in `routers/pages.py`). Responses use Ninja's native envelope: `{"count": N, "items": [...]}`. `WAGTAILAPI_LIMIT_MAX` is enforced in the paginator.
+List endpoints use `@paginate` with `WagtailLimitOffsetPagination`, defined in `wagtail/api/v3/pagination.py`. Responses use Ninja's native envelope: `{"count": N, "items": [...]}`. `WAGTAILAPI_LIMIT_MAX` is enforced in the paginator.
 
 ## RFC 7807 errors
 

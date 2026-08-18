@@ -862,7 +862,7 @@ Static file URLs within the Wagtail admin are given a version-specific query str
 
 (wagtailapi_settings)=
 
-For full documentation on API configuration, including these settings, see [](api_v2_configuration) and the [Wagtail API v3 documentation](api_v3). These settings apply to both the v2 and v3 APIs.
+For full documentation on API configuration, including these settings, see [](api_v2_configuration) and the [Wagtail API v3 documentation](api_v3). Each setting below notes whether it applies to the v2 API, the v3 API, or both.
 
 ### `WAGTAILAPI_BASE_URL`
 
@@ -870,7 +870,7 @@ For full documentation on API configuration, including these settings, see [](ap
 WAGTAILAPI_BASE_URL = "https://api.example.com/"
 ```
 
-Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
+Applies to the v2 and v3 APIs. Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
 
 ### `WAGTAILAPI_LIMIT_MAX`
 
@@ -878,7 +878,7 @@ Required when using frontend cache invalidation, used to generate absolute URLs 
 WAGTAILAPI_LIMIT_MAX = 500
 ```
 
-Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit. Once this is set, combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.
+Applies to the v2 and v3 APIs. Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit. Once this is set, combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.
 
 ### `WAGTAILAPI_SEARCH_ENABLED`
 
@@ -886,7 +886,7 @@ Default is 20, used to change the maximum number of results a user can request a
 WAGTAILAPI_SEARCH_ENABLED = False
 ```
 
-Default is true, setting this to false will disable full text search on all endpoints.
+Applies to the v2 and v3 APIs. Default is true, setting this to false will disable full text search on all endpoints.
 
 ### `WAGTAILAPI_USE_FRONTENDCACHE`
 
@@ -894,7 +894,7 @@ Default is true, setting this to false will disable full text search on all endp
 WAGTAILAPI_USE_FRONTENDCACHE = True
 ```
 
-Requires `wagtailfrontendcache` app to be installed, indicates the API should use the frontend cache.
+Applies to the v2 API only. v3 does not yet invalidate the frontend cache. Requires `wagtailfrontendcache` app to be installed, indicates the API should use the frontend cache.
 
 ### `WAGTAILAPI_RICH_TEXT_FORMAT`
 
@@ -902,7 +902,7 @@ Requires `wagtailfrontendcache` app to be installed, indicates the API should us
 WAGTAILAPI_RICH_TEXT_FORMAT = "html"
 ```
 
-Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)); `html` returns display-ready HTML instead. Additionally, `db_markdown` and `markdown` return Markdown with internal references preserved or resolved respectively — see [](api_v3). This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
+Applies to the v2 and v3 APIs. Format for rich text content in the API. Defaults to `db_html`, which returns rich text in Wagtail's database HTML format (see [](rich_text_internals)); `html` returns display-ready HTML instead. Additionally, `db_markdown` and `markdown` return Markdown with internal references preserved or resolved respectively — see [](api_v3). This applies to `RichTextField` values on all API endpoints. The `?rich_text_format=` query parameter overrides this setting on individual requests.
 
 ### `WAGTAILAPI_TOKEN_LAST_USED_INTERVAL`
 
@@ -910,7 +910,7 @@ Format for rich text content in the API. Defaults to `db_html`, which returns ri
 WAGTAILAPI_TOKEN_LAST_USED_INTERVAL = 60
 ```
 
-How often an API token's `last_used_at` timestamp is updated, in seconds (default `60`). Successful authenticated requests update the timestamp at most once per this interval per token, limiting database writes on busy APIs. Set to `None` to disable these updates entirely, for example on sites running with a read-only production database. See [](api_v3_authentication).
+Applies to the v3 API only. How often an API token's `last_used_at` timestamp is updated, in seconds (default `60`). Successful authenticated requests update the timestamp at most once per this interval per token, limiting database writes on busy APIs. Set to `None` to disable these updates entirely, for example on sites running with a read-only production database. See [](api_v3_authentication).
 
 ## Frontend cache
 
