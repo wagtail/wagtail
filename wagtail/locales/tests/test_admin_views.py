@@ -43,6 +43,24 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         Locale.objects.create(language_code="de")
         self.assertContains(self.get(), self.add_url)
 
+    def test_index_view_shows_all_locales_without_pagination(self):
+        """
+        Verify that the locales listing shows all locales without pagination.
+        Regression test for https://github.com/wagtail/wagtail/issues/14399
+        """
+        # Create more than 20 locales to exceed the default page size
+        language_codes = [f"lang{i}" for i in range(25)]
+        for code in language_codes:
+            Locale.objects.create(language_code=code)
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        # All locales should be shown (25 created + 1 default "en" = 26)
+        # The page should NOT be paginated
+        self.assertFalse(response.context["is_paginated"])
+        self.assertEqual(len(response.context["table"].data), 26)
+
 
 class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):

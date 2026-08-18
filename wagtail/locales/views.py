@@ -127,6 +127,7 @@ class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
     add_to_reference_index = False
+    list_per_page = None
 
     index_view_class = IndexView
     add_view_class = CreateView
