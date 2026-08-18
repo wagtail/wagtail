@@ -218,6 +218,17 @@ class TestDocumentListing(PageFixturesMixin, TestCase):
             self.get_document_id_list(content_filtered),
         )
 
+    def test_filtering_mixed_empty_nonempty_query_string_param(self):
+        response = self.get_response(search="James")
+        content = json.loads(response.content.decode("UTF-8"))
+        response_filtered = self.get_response(search="James", title="")
+        content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
+
+        self.assertEqual(
+            self.get_document_id_list(content),
+            self.get_document_id_list(content_filtered),
+        )
+
     def test_filtering_exact_filter(self):
         response = self.get_response(title="James Joyce")
         content = json.loads(response.content.decode("UTF-8"))
@@ -259,6 +270,17 @@ class TestDocumentListing(PageFixturesMixin, TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode("UTF-8"))
         response_filtered = self.get_response(order="")
+        content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
+
+        self.assertEqual(
+            self.get_document_id_list(content),
+            self.get_document_id_list(content_filtered),
+        )
+
+    def test_ordering_by_title_with_empty_query_string_param(self):
+        response = self.get_response(order="title")
+        content = json.loads(response.content.decode("UTF-8"))
+        response_filtered = self.get_response(order="title", title="")
         content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
 
         self.assertEqual(

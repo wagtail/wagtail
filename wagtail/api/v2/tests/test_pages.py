@@ -245,6 +245,19 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertEqual(len(content["items"]), 1)
         self.assertEqual(content["items"][0]["id"], french_homepage.id)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter_with_empty_query_string_param(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(locale="fr", title="")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["items"][0]["id"], french_homepage.id)
+
     # TRANSLATION OF FILTER
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -272,6 +285,19 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         french_homepage.get_latest_revision().publish()
 
         response = self.get_response(translation_of=homepage.id)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["items"][0]["id"], french_homepage.id)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter_with_empty_query_string_param(self):
+        french = Locale.objects.create(language_code="fr")
+        homepage = self.get_homepage()
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id, title="")
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(len(content["items"]), 1)
@@ -650,6 +676,17 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
             self.get_page_id_list(content_filtered),
         )
 
+    def test_filtering_mixed_empty_nonempty_query_string_param(self):
+        response = self.get_response(search="Home")
+        content = json.loads(response.content.decode("UTF-8"))
+        response_filtered = self.get_response(search="Home", title="")
+        content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
+
+        self.assertEqual(
+            self.get_page_id_list(content),
+            self.get_page_id_list(content_filtered),
+        )
+
     def test_filtering_exact_filter(self):
         response = self.get_response(title="Home page")
         content = json.loads(response.content.decode("UTF-8"))
@@ -795,6 +832,13 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16, 18, 19])
 
+    def test_child_of_filter_with_empty_query_string_param(self):
+        response = self.get_response(child_of=5, title="")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [16, 18, 19])
+
     def test_child_of_root(self):
         # "root" gets children of the homepage of the current site
         response = self.get_response(child_of="root")
@@ -852,6 +896,13 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [2, 6])
 
+    def test_ancestor_of_filter_with_empty_query_string_param(self):
+        response = self.get_response(ancestor_of=10, title="")
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 6])
+
     def test_ancestor_of_with_type(self):
         response = self.get_response(type="demosite.eventindexpage", ancestor_of=8)
         content = response.json()
@@ -896,6 +947,13 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
 
     def test_descendant_of_filter(self):
         response = self.get_response(descendant_of=6)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
+
+    def test_descendant_of_filter_with_empty_query_string_param(self):
+        response = self.get_response(descendant_of=6, title="")
         content = json.loads(response.content.decode("UTF-8"))
 
         page_id_list = self.get_page_id_list(content)
@@ -987,6 +1045,17 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode("UTF-8"))
         response_filtered = self.get_response(order="")
+        content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
+
+        self.assertEqual(
+            self.get_page_id_list(content),
+            self.get_page_id_list(content_filtered),
+        )
+
+    def test_ordering_by_title_with_empty_query_string_param(self):
+        response = self.get_response(order="title")
+        content = json.loads(response.content.decode("UTF-8"))
+        response_filtered = self.get_response(order="title", title="")
         content_filtered = json.loads(response_filtered.content.decode("UTF-8"))
 
         self.assertEqual(
