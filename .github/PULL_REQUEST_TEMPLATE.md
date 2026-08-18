@@ -8,6 +8,9 @@ Fixes #...
 
 <!-- Please describe the problem you're fixing. -->
 
+### Tested locally
+
+<!-- Please describe how you tested the fix locally. Add screenshots or a short screen recording if applicable. -->
 
 ### AI usage
 
