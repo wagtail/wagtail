@@ -32,24 +32,25 @@ class SchemaGenerator:
     best-effort basis - see ``build_schema`` for the exact rules.
     """
 
-    field_schemas: dict[type[Field | ForeignObjectRel], FieldSchemaFunc] = {}
-    """
-    Map of Django field classes to functions that return a tuple of
-    (annotation, default value, resolver function) for that field type.
-    """
+    def __init__(self):
+        self.field_schemas: dict[type[Field | ForeignObjectRel], FieldSchemaFunc] = {}
+        """
+        Map of Django field classes to functions that return a tuple of
+        (annotation, default value, resolver function) for that field type.
+        """
 
-    _reverse_related_schema_cache: dict[type[Model], type[Schema]] = {}
-    """
-    Schemas already built for a given reverse-related model, so a model
-    referenced by several models' api_fields only gets built once.
-    """
+        self._reverse_related_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Schemas already built for a given reverse-related model, so a model
+        referenced by several models' api_fields only gets built once.
+        """
 
-    _foreign_key_schema_cache: dict[type[Model], type[Schema]] = {}
-    """
-    Schemas already built for a given foreign key's related model, keyed
-    separately from `_nested_schema_cache` since these are a distinct, much
-    smaller shape (primary key(s) plus a meta.type), not a full nested schema.
-    """
+        self._foreign_key_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Schemas already built for a given foreign key's related model, keyed
+        separately from `_nested_schema_cache` since these are a distinct, much
+        smaller shape (primary key(s) plus a meta.type), not a full nested schema.
+        """
 
     @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
