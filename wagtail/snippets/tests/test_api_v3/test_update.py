@@ -602,6 +602,27 @@ class TestV3SnippetUpdateWithRichText(TestV3SnippetUpdateBase):
         # bold/h2 are not enabled in rich_body features list
         response = self.patch_rich_body("<h2>T</h2><p><b>x</b></p>")
         self.assertEqual(response.status_code, 200)
+        data = response.json()
+        meta = data["meta"]
+        self.assertEqual(
+            meta.get("warnings"),
+            [
+                {
+                    "tag": "h2",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<h2>T</h2>",
+                },
+                {
+                    "tag": "b",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<b>x</b>",
+                },
+            ],
+        )
         self.snippet.refresh_from_db()
         self.assertNotIn("<h2>", self.snippet.rich_body)
         self.assertNotIn("<b>", self.snippet.rich_body)

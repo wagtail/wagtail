@@ -6,13 +6,22 @@ from django.db.models import Model
 from ninja import Schema
 from pydantic import Discriminator, Field, Tag
 
+from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
+
 
 class BaseMetaSchema(Schema):
     type: str
+    warnings: list[RichTextRemoval | str] | None = Field(
+        None, exclude_if=lambda v: not v
+    )
 
     @staticmethod
     def resolve_type(obj: Model, context: dict) -> str:
         return obj._meta.label
+
+    @staticmethod
+    def resolve_warnings(obj: Model, context: dict) -> list[str] | None:
+        return getattr(obj, "_meta_warnings", [])
 
 
 class BaseSchema(Schema):
