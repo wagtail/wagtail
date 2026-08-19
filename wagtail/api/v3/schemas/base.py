@@ -4,7 +4,7 @@ from typing import Annotated, Any, Iterable, Union
 
 from django.db.models import Model
 from ninja import Schema
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Field, Tag
 
 
 class BaseMetaSchema(Schema):
@@ -92,6 +92,18 @@ def build_discriminated_union(
     return Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
         Discriminator(discriminate_meta_type),
+        # Ideally, we'd use the proper "discriminator" OpenAPI field here, but
+        # it only supports a field on the same level as the union, while our
+        # "type" is nested under "meta". (Pydantic would also automatically add
+        # it if we did not use a callable discriminator.)
+        Field(
+            json_schema_extra={
+                "description": (
+                    "A union of models, discriminated by the content type in "
+                    "`meta.type`."
+                )
+            }
+        ),
     ]
 
 
