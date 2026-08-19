@@ -12,6 +12,7 @@ from pydantic import PositiveInt
 
 from wagtail.actions import action_registry
 from wagtail.actions.publish_revision import PublishPermissionError
+from wagtail.api.rich_text import RichTextOutputFormat
 from wagtail.api.v3.auth import BearerTokenAuth
 from wagtail.api.v3.form_data import build_model_form, build_model_update_form
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
@@ -126,6 +127,7 @@ def list_snippets(
     translation_filter: TranslationFilterSchema = Query(...),  # ty: ignore[call-non-callable]
     ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
     search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -165,6 +167,7 @@ def get_snippet(
     type: SnippetTypeLiteral,
     pk: str,
     version: Literal["live", "draft"] = Query("live"),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
     permission_policy = policy_registry.get_by_type(model)
@@ -192,6 +195,7 @@ def create_snippet(
     request: HttpRequest,
     type: SnippetTypeLiteral,
     data: SnippetCreateSchema = ParamTypeInjectingBody(...),
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
     form = build_model_form(model, data, user=request.user)
@@ -219,6 +223,7 @@ def update_snippet(
     type: SnippetTypeLiteral,
     pk: str,
     data: SnippetUpdateSchema = ParamTypeInjectingBody(...),
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=unquote(pk))
