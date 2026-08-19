@@ -125,12 +125,12 @@ def register_exception_handlers(api: NinjaAPI):
     ):
         if isinstance(exc, FormValidationError):
             errors = [
-                {"type": code, "loc": list(path), "message": message}
+                {"type": code, "loc": list(path), "msg": message}
                 for path, coded_messages in exc.loc_errors
                 for message, code in coded_messages
             ]
         elif isinstance(exc, DjangoValidationError):
-            errors = [{"message": msg} for msg in exc.messages]
+            errors = [{"msg": msg} for msg in exc.messages]
         elif isinstance(exc, NinjaValidationError):
             errors = exc.errors
         else:  # PydanticValidationError
