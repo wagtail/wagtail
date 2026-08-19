@@ -5,7 +5,7 @@
 Pages are the core resource of the v3 API. You can list, find, read, create, edit, delete, and act on pages, including drafts, revisions, and page actions.
 
 ```{note}
-Unless stated otherwise, the page endpoints at `/api/v3/pages/` support both anonymous and bearer-token access for reads. Writes (creating, editing, deleting, and page actions) always require an authenticated bearer token with the relevant page permission. See [](api_v3_authentication).
+Unless stated otherwise, the page endpoints at `/api/v3/pages/` support both anonymous and bearer-token access for reads. Writes (creating, editing, deleting, and page actions) always require an authenticated request with the relevant page permission. See [](api_v3_authentication).
 ```
 
 ## Listing pages
@@ -96,7 +96,7 @@ Two query parameters control the response:
 
 ## Creating a page
 
-The `/pages/` endpoint creates a new page under a parent. It requires an authenticated bearer token and the page `add` (create) permission for the relevant page type.
+The `/pages/` endpoint creates a new page under a parent. It requires an authenticated request and the page `add` (create) permission for the relevant page type.
 
 The request body is a discriminated union: `meta.type` selects the concrete page type, and the remaining fields are that type's writable fields. A minimal create request looks like:
 
@@ -147,7 +147,7 @@ Each submitted field is validated against the page type's generated schema and i
 
 ## Editing a page
 
-The `/pages/{page_id}/` endpoint updates an existing page. It requires an authenticated bearer token and the page `change` (edit) permission.
+The `/pages/{page_id}/` endpoint updates an existing page. It requires an authenticated request and the page `change` (edit) permission.
 
 `PATCH` is a partial update:
 
@@ -170,7 +170,7 @@ StreamField and child-relation values are replaced as a whole: a `PATCH` that su
 
 ## Deleting a page
 
-The `/pages/{page_id}/` endpoint deletes a page. It requires an authenticated bearer token and the page `change` permission.
+The `/pages/{page_id}/` endpoint deletes a page. It requires an authenticated request and the page `change` permission.
 
 ```{warning}
 Deletion is a hard delete — there is no trash or undo. Descendants are deleted too, according to the delete action's permissions.
@@ -215,7 +215,7 @@ The `/pages/{page_id}/revisions/{revision_id}/` endpoint returns a single revisi
 
 ## Page actions
 
-Page actions are operations Wagtail applies to a page as a whole, each exposed as a `POST /pages/{page_id}/actions/<name>/` endpoint. Each action requires an authenticated bearer token and the permission indicated below, and runs through the same Wagtail action layer as the admin UI, so permissions, revisions, audit logs, hooks, and signals are preserved.
+Page actions are operations Wagtail applies to a page as a whole, each exposed as a `POST /pages/{page_id}/actions/<name>/` endpoint. Each action requires an authenticated request and the permission indicated below, and runs through the same Wagtail action layer as the admin UI, so permissions, revisions, audit logs, hooks, and signals are preserved.
 
 ### Publish
 

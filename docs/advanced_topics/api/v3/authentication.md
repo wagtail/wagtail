@@ -1,6 +1,6 @@
 (api_v3_authentication)=
 
-# v3 API authentication & tokens
+# v3 API authentication
 
 The v3 API authenticates requests with bearer tokens. Tokens are tied to a user account, and API requests act as that user with their Wagtail permissions — the same permissions system as the admin UI. Edge cases are covered in the Permissions section below.
 

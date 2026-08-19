@@ -5,7 +5,7 @@
 Alongside [pages](api_v3_pages), [media](api_v3_images), and [snippets](api_v3_snippets), the v3 API exposes three more management domains: sites, locales, and redirects. Sites and locales are bearer-only; redirects allow anonymous reads because they represent public routing behaviour.
 
 ```{note}
-Sites and locales are managed exclusively with an authenticated bearer token. Redirect reads are public, but redirect writes still require a token. See [](api_v3_authentication) for how tokens map to permissions.
+Sites and locales are managed exclusively with an authenticated request. Redirect reads are public, but redirect writes still require a token. See [](api_v3_authentication) for how tokens map to permissions.
 ```
 
 ## Sites

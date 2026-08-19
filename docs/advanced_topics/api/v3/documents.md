@@ -5,7 +5,7 @@
 Documents are managed through the v3 API at `/api/v3/documents/`. You can list, read, upload, update metadata for, and delete documents, with the same collection permissions, validation, and behaviour as the admin. The document routes are flat rather than nested under collections.
 
 ```{note}
-Document reads are public by default; uploads, metadata updates, and deletes always require an authenticated bearer token with the relevant document permission. See [](api_v3_authentication) and the collection behaviour below.
+Document reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behaviour below.
 ```
 
 ## Reading documents
@@ -32,7 +32,7 @@ curl "https://example.com/api/v3/documents/?search=policy"
 
 ## Uploading a document
 
-The `/documents/` endpoint creates a document and requires an authenticated bearer token and the document `add` permission. It uses `multipart/form-data`: the `file` field carries the document binary, and writable metadata is sent as individual form fields:
+The `/documents/` endpoint creates a document and requires an authenticated request and the document `add` permission. It uses `multipart/form-data`: the `file` field carries the document binary, and writable metadata is sent as individual form fields:
 
 ```sh
 curl -X POST "https://example.com/api/v3/documents/" \
@@ -50,7 +50,7 @@ Extension validation checks the filename and does not verify that the file conte
 
 ## Updating document metadata
 
-The `/documents/{id}/` endpoint updates a document's writable metadata as JSON. It requires an authenticated bearer token and the document `change` permission:
+The `/documents/{id}/` endpoint updates a document's writable metadata as JSON. It requires an authenticated request and the document `change` permission:
 
 ```sh
 curl -X PATCH "https://example.com/api/v3/documents/7/" \
@@ -63,7 +63,7 @@ Updating cannot replace the original document binary, and tags are not writable 
 
 ## Deleting a document
 
-The `/documents/{id}/` endpoint deletes a document. It requires an authenticated bearer token and the document `delete` permission. Deletion is a hard delete, and the document file is cleaned up as part of it.
+The `/documents/{id}/` endpoint deletes a document. It requires an authenticated request and the document `delete` permission. Deletion is a hard delete, and the document file is cleaned up as part of it.
 
 ## Custom document models
 

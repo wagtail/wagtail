@@ -17,7 +17,7 @@ A request to the v3 API is checked in layers, so an endpoint is only reachable a
 3. **Form and action checks** — writes route through Wagtail's admin forms and action classes, which enforce operation- and object-level permission checks the same way the editor does.
 4. **Explicit object checks** — some domains add further object-level checks, notably page and snippet revision reads.
 
-Because most writes flow through Wagtail's forms and actions, they inherit the same validation, permission, revision, audit-log, hook, and signal behaviour as the admin. Writes always require an authenticated bearer token.
+Because most writes flow through Wagtail's forms and actions, they inherit the same validation, permission, revision, audit-log, hook, and signal behaviour as the admin. Writes always require an authenticated request.
 
 ## What an anonymous request can see
 

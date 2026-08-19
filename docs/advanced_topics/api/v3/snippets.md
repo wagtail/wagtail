@@ -5,7 +5,7 @@
 Snippets are small pieces of reusable, non-page content that Wagtail manages through the admin. The v3 API exposes registered snippet models for reading, writing, and where the model supports it, revisions, drafts, and translations.
 
 ```{note}
-Unlike pages, images, and documents, snippet endpoints are bearer-only: every snippet read and write requires an authenticated bearer token with the relevant model permission. See [](api_v3_authentication) and the [permissions and visibility guide](api_v3_permissions) for how these grants work.
+Unlike pages, images, and documents, snippet endpoints are bearer-only: every snippet read and write requires an authenticated request with the relevant model permission. See [](api_v3_authentication) and the [permissions and visibility guide](api_v3_permissions) for how these grants work.
 ```
 
 ## Registering snippets

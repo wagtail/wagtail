@@ -2,17 +2,17 @@
 
 # Images
 
-Images are managed through the v3 API at `/api/v3/images/`. You can list, read, upload, update metadata for, and delete images, with the same collection permissions, validation, and behaviour as the admin.
+The v3 API has wide "read" and "write" support for images. You can list, read, upload, update metadata for, and delete images, with the same collection permissions, validation, and behaviour as the admin.
 
 ```{note}
-Image reads are public by default; uploads, metadata updates, and deletes always require an authenticated bearer token with the relevant image permission. See [](api_v3_authentication) and the image collection behaviour below.
+Image reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behaviour below.
 ```
 
 ## Reading images
 
 The `/images/` endpoint lists images, and the `/images/{id}/` endpoint returns a single image. An image response includes its ID, title, dimensions, the configured descriptive and focal-point fields, its collection, its tags, and its type, detail and download URLs.
 
-Both endpoints are public for anonymous requests, but an image whose collection has a restricted view is excluded when the restriction does not accept the request. A bearer-authenticated request can satisfy an applicable restriction through the user's and groups' identities, and a password-restriction's session state is honoured, in the same way as the documented read behaviour elsewhere in v3.
+Both endpoints are public for anonymous requests, but an image whose collection has a restricted view is excluded when the restriction does not accept the request. An authenticated request can satisfy an applicable restriction through the user's and groups' identities.
 
 ### Listing and filtering
 
@@ -28,7 +28,7 @@ curl "https://example.com/api/v3/images/?search=report"
 
 ## Uploading an image
 
-The `/images/` endpoint creates an image and requires an authenticated bearer token and the image `add` permission. It uses `multipart/form-data`: the `file` field carries the image binary, and writable metadata is sent as individual form fields:
+The `/images/` endpoint creates an image and requires an authenticated request and the image `add` permission. It uses `multipart/form-data`: the `file` field contains the image binary, and writable metadata is sent as individual form fields:
 
 ```sh
 curl -X POST "https://example.com/api/v3/images/" \
@@ -43,7 +43,7 @@ The `title` and `file` fields are required. Uploads go through the active image 
 
 ## Updating image metadata
 
-The `/images/{id}/` endpoint updates an image's writable metadata as JSON. It requires an authenticated bearer token and the image `change` permission:
+The `/images/{id}/` endpoint updates an image's writable metadata as JSON. It requires an authenticated request and the image `change` permission:
 
 ```sh
 curl -X PATCH "https://example.com/api/v3/images/7/" \
@@ -56,11 +56,13 @@ Updating cannot replace the original image binary. Tags are returned in image re
 
 ## Deleting an image
 
-The `/images/{id}/` endpoint deletes an image. It requires an authenticated bearer token and the image `delete` permission. Deletion is a hard delete.
+The `/images/{id}/` endpoint deletes an image. It requires an authenticated request and the image `delete` permission. Deletion is a hard delete.
 
-## Custom image models and renditions
+## Custom image models
 
-The active image model, set with `WAGTAILIMAGES_IMAGE_MODEL` (see [](custom_image_model)), is used for the API: generated schemas and forms include the model's custom API and admin fields, and its custom form validation. Dedicated tests cover custom model reads, create, update, and schemas.
+The API supports custom models set via `WAGTAILIMAGES_IMAGE_MODEL` (see [](custom_image_model))
+
+## Image renditions
 
 [Renditions](image_renditions) are exposed per-project through `api_fields`, the same mechanism as [in the v2 API](api_v2_images):
 
@@ -113,4 +115,6 @@ curl -X POST "$BASE/pages/" \
   }'
 ```
 
-The full, generated OpenAPI reference for every image endpoint — request and response shapes included — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
+## Images reference
+
+We document the full generated OpenAPI reference for every image endpoint from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

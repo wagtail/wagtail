@@ -2,7 +2,7 @@
 
 # Schema discovery
 
-The v3 API exposes its generated JSON schemas so clients can discover what each content type accepts and returns, without hand-copying field definitions. Schema discovery requires an authenticated bearer token.
+The v3 API exposes its generated JSON schemas so clients can discover what each content type accepts and returns, without hand-copying field definitions. Schema discovery requires an authenticated request.
 
 ## Listing registered content types
 
