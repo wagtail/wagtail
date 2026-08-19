@@ -2,7 +2,7 @@
 
 # v3 API reference
 
-For the best results, we recommend existing projects generate reference documentation from their own API exports, or use the interactive explorer at `/api/v3/docs`. The reference below is generated as part of Wagtail’s build pipelines, and will not contain project-specific changes.
+The reference below is generated as part of Wagtail’s build pipelines, and will not contain project-specific changes. For a real deployment, use your own project’s self-generating `/docs/` viewer and `openapi.json` as the source of truth.
 
 ```{eval-rst}
 .. openapi:: ../../../../wagtail/api/v3/tests/snapshots/openapi.json
