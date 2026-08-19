@@ -14,6 +14,7 @@ from permissionedforms import PermissionedForm
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
 from wagtail.api.rich_text import APIRichText
+from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas import create_generator
 from wagtail.blocks.base import BlockField
@@ -281,7 +282,10 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
             flatten_block_value(child_block, value.get(name), f"{prefix}-{name}", data)
     elif isinstance(block, RichTextBlock):
         if value is not None:
-            value, _ = APIRichText.convert_input(value, features=block.features)
+            try:
+                value, _ = APIRichText.convert_input(value, features=block.features)
+            except ValueError as e:
+                raise as_validation_error(e, loc=(prefix,)) from e
         data[prefix] = block.field.widget.format_value(value)
     else:
         # A leaf field block (CharBlock, BooleanBlock, ChooserBlock, ...):
