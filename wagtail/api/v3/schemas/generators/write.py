@@ -10,9 +10,11 @@ from ninja import Schema
 from ninja.orm import create_schema
 from ninja.orm.fields import get_schema_field
 from pydantic import AfterValidator, BaseModel
+from pydantic import Field as PydanticField
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
+from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api import APIField
 from wagtail.api.rich_text import APIRichText, RichTextInputFormat
 from wagtail.fields import RichTextField, StreamField
@@ -359,6 +361,7 @@ class RichTextInputSchema(BaseModel):
 
     format: RichTextInputFormat = "db_html"
     content: str
+    removals: list[RichTextRemoval] = PydanticField([], exclude_if=lambda v: not v)
 
 
 def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
@@ -373,9 +376,9 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
 
     def convert_content(value: str | RichTextInputSchema) -> RichTextInputSchema:
         input = value if isinstance(value, str) else value.model_dump()
-        db_html, _ = APIRichText.convert_input(input, features=field.features)
+        db_html, removals = APIRichText.convert_input(input, features=field.features)
         # Result is normalized as an enveloped db_html
-        return RichTextInputSchema(format="db_html", content=db_html)
+        return RichTextInputSchema(format="db_html", content=db_html, removals=removals)
 
     annotation = Annotated[str | RichTextInputSchema, AfterValidator(convert_content)]
 

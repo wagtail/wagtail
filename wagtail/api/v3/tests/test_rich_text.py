@@ -130,6 +130,27 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
             title="Restricted",
         )
         self.assertEqual(response.status_code, 201)
+        data = response.json()
+        meta = data["meta"]
+        self.assertEqual(
+            meta.get("warnings"),
+            [
+                {
+                    "tag": "h2",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<h2>T</h2>",
+                },
+                {
+                    "tag": "b",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<b>x</b>",
+                },
+            ],
+        )
         page = RichTextFieldWithFeaturesPage.objects.get(slug="rich")
         self.assertNotIn("<h2>", page.body)
         self.assertNotIn("<b>", page.body)
@@ -211,6 +232,27 @@ class TestV3RichTextBlockWrite(TestV3RichTextWrite):
             title="Restricted",
         )
         self.assertEqual(response.status_code, 201)
+        data = response.json()
+        meta = data["meta"]
+        self.assertEqual(
+            meta.get("warnings"),
+            [
+                {
+                    "tag": "h2",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<h2>T</h2>",
+                },
+                {
+                    "tag": "b",
+                    "action": "unwrapped",
+                    "reason": "feature_disabled",
+                    "attribute": None,
+                    "detail": "<b>x</b>",
+                },
+            ],
+        )
         page = CustomRichBlockFieldPage.objects.get(slug="rich")
         value = page.body[0].value.source
         self.assertNotIn("<h2>", value)

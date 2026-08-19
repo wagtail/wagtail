@@ -148,6 +148,7 @@ def build_page_form(
         page._cached_parent_obj = None
 
     form_data = build_form_data(form_class, payload)
+    setattr(page, "_meta_warnings", get_warnings(form_data))
 
     return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
 
@@ -185,6 +186,7 @@ def build_page_update_form(
     payload = data.dict(exclude={"meta"}, exclude_unset=True)
     form_class = get_api_form_class(model, field_names=payload.keys())
     form_data = build_form_data(form_class, payload, instance=page)
+    setattr(page, "_meta_warnings", get_warnings(form_data))
 
     return form_class(
         data=form_data,
@@ -209,8 +211,10 @@ def build_model_form(
     form_class = get_api_form_class(model)
     payload = data.dict(exclude={"meta"})
     form_data = build_form_data(form_class, payload)
+    instance = model()
+    setattr(instance, "_meta_warnings", get_warnings(form_data))
 
-    kwargs: dict[str, Any] = {"data": form_data, "instance": model()}
+    kwargs: dict[str, Any] = {"data": form_data, "instance": instance}
     if issubclass(form_class, PermissionedForm):
         kwargs["for_user"] = user
 
@@ -235,12 +239,21 @@ def build_model_update_form(
     payload = data.dict(exclude={"meta"}, exclude_unset=True)
     form_class = get_api_form_class(model, field_names=payload.keys())
     form_data = build_form_data(form_class, payload, instance=instance)
+    setattr(instance, "_meta_warnings", get_warnings(form_data))
 
     kwargs: dict[str, Any] = {"data": form_data, "instance": instance}
     if issubclass(form_class, PermissionedForm):
         kwargs["for_user"] = user
 
     return form_class(**kwargs)
+
+
+def get_warnings(data: MultiValueDict) -> list[Any]:
+    return data.get("__meta_warnings", [])
+
+
+def add_warnings(data: MultiValueDict, warnings: list[Any]) -> None:
+    data.setdefault("__meta_warnings", []).extend(warnings)
 
 
 def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) -> None:
@@ -283,9 +296,12 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
     elif isinstance(block, RichTextBlock):
         if value is not None:
             try:
-                value, _ = APIRichText.convert_input(value, features=block.features)
+                value, warnings = APIRichText.convert_input(
+                    value, features=block.features
+                )
             except ValueError as e:
                 raise as_validation_error(e, loc=(prefix,)) from e
+            add_warnings(data, warnings)
         data[prefix] = block.field.widget.format_value(value)
     else:
         # A leaf field block (CharBlock, BooleanBlock, ChooserBlock, ...):
@@ -323,6 +339,7 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
         # e.g. if the field was not in the payload and thus the Pydantic field
         # default "" is used.
         if isinstance(value, dict):
+            add_warnings(data, value.get("removals", []))
             value = value.get("content", "")
         # A rich text editor widget (Draftail's `to_database_format`/
         # `from_database_format` contract - core ships only Draftail, but
