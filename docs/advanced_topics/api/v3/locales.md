@@ -6,11 +6,11 @@ Locales are managed at `/api/v3/locales/` and are exposed for authenticated requ
 
 Locales are exposed as CRUD:
 
-- `GET /locales/` — list locales.
-- `GET /locales/{locale_id}/` — return one locale.
-- `POST /locales/` — create a locale.
-- `PUT /locales/{locale_id}/` — update a locale.
-- `DELETE /locales/{locale_id}/` — delete a locale.
+- `GET /locales/`: list locales.
+- `GET /locales/{locale_id}/`: return one locale.
+- `POST /locales/`: create a locale.
+- `PUT /locales/{locale_id}/`: update a locale.
+- `DELETE /locales/{locale_id}/`: delete a locale.
 
 A locale response includes its `id`, `language_code`, `display_name`, `is_bidi` (bidirectional text), and `is_default` state. The request input is a single `language_code` value:
 
@@ -30,8 +30,6 @@ Beyond managing locales themselves, the v3 API supports translation workflows ov
 - Pages support `locale` and `translation_of` [filters](api_v3_pages), and the `copy_for_translation` [page action](api_v3_pages), with optional parent, subtree, and alias behaviour.
 - Snippets on a `TranslatableMixin` model support `locale` and `translation_of` [filters and a `copy_for_translation` action](api_v3_snippets).
 
-```{note}
-`copy_for_translation` creates the initial translated copy. There is no API for ongoing synchronization of translations or for `wagtail-localize` workflows; those remain outside the v3 API in this release.
-```
+## Locales API reference
 
-The full, generated OpenAPI reference for every locale endpoint — request and response shapes included — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
+We document the full generated OpenAPI reference for every locale endpoint from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

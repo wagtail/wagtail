@@ -6,12 +6,12 @@ Redirects are managed at `/api/v3/redirects/`. Reads are public for anonymous re
 
 Redirects are exposed as CRUD:
 
-- `GET /redirects/` — list redirects. Public for anonymous read.
-- `GET /redirects/find/` — resolve a redirect and redirect to its canonical detail. Public for anonymous read.
-- `GET /redirects/{redirect_id}/` — return one redirect. Public for anonymous read.
-- `POST /redirects/` — create a redirect. Requires a token.
-- `PUT /redirects/{redirect_id}/` — update a redirect. Requires a token.
-- `DELETE /redirects/{redirect_id}/` — delete a redirect. Requires a token.
+- `GET /redirects/`: list redirects. Public for anonymous read.
+- `GET /redirects/find/`: resolve a redirect and redirect to its canonical detail. Public for anonymous read.
+- `GET /redirects/{redirect_id}/`: return one redirect. Public for anonymous read.
+- `POST /redirects/`: create a redirect. Requires a token.
+- `PUT /redirects/{redirect_id}/`: update a redirect. Requires a token.
+- `DELETE /redirects/{redirect_id}/`: delete a redirect. Requires a token.
 
 Redirect reads are public because the redirect middleware resolves redirects publicly; the endpoints behave like the v2 API in this regard.
 
@@ -48,4 +48,6 @@ Resolve the old path. The endpoint follows the redirect and returns the canonica
 curl "$BASE/redirects/find/?html_path=/old-location/"
 ```
 
-The full, generated OpenAPI reference for every redirect endpoint — request and response shapes included — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
+## Redirects API reference
+
+We document the full generated OpenAPI reference for every image endpoint from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

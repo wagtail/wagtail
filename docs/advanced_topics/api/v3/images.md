@@ -115,6 +115,6 @@ curl -X POST "$BASE/pages/" \
   }'
 ```
 
-## Images reference
+## Images API reference
 
 We document the full generated OpenAPI reference for every image endpoint from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

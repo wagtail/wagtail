@@ -6,11 +6,11 @@ Sites are managed at `/api/v3/sites/` and are exposed for authenticated requests
 
 Sites are exposed as CRUD:
 
-- `GET /sites/` — list sites.
-- `GET /sites/{site_id}/` — return one site.
-- `POST /sites/` — create a site.
-- `PUT /sites/{site_id}/` — update a site.
-- `DELETE /sites/{site_id}/` — delete a site.
+- `GET /sites/`: list sites.
+- `GET /sites/{site_id}/`: return one site.
+- `POST /sites/`: create a site.
+- `PUT /sites/{site_id}/`: update a site.
+- `DELETE /sites/{site_id}/`: delete a site.
 
 A site is described by its `id`, `hostname`, `port`, `site_name`, `root_page_id`, and `is_default_site` state. The list and detail endpoints are filtered by the permission policy, so a caller only sees sites they have a permission on.
 
@@ -23,4 +23,6 @@ curl -X POST "https://example.com/api/v3/sites/" \
   -d '{"hostname": "www.example.com", "port": 443, "site_name": "Example", "root_page_id": 4, "is_default_site": true}'
 ```
 
-The full, generated OpenAPI reference for every site endpoint — request and response shapes included — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
+## Sites API reference
+
+We document the full generated OpenAPI reference for every sites endpoint from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

@@ -1,6 +1,6 @@
 (api_v3_streamfield)=
 
-# StreamField and relations
+# StreamField and relations in the API
 
 [StreamField](streamfield_topic) content is written and read through the v3 API as an internal-style list of blocks. The API supports the full range of StreamField behaviour: nested blocks, chooser values, rich text inside blocks, and writable child relations behind `InlinePanel` / `ParentalKey`. Rich text inside blocks follows the formats on this page, with the rich text input caveats described in [](api_v3_rich_text). This page is the reference for how StreamField values are represented and how they are written.
 

@@ -14,7 +14,7 @@ When you add or change endpoints intentionally, regenerate the snapshot and comm
 make openapi-snapshot
 ```
 
-For guidance on the v3 API's schema discovery endpoints and how read and write schemas are generated, see the [schema discovery guide](api_v3_schema). For the reusable actions/operations layer and the extension contracts for API fields, permission policies, and custom fields, see the [Python API and extensions guide](api_v3_python_api).
+For guidance on the v3 API's schema discovery endpoints and how read and write schemas are generated, see the [schema discovery guide](api_v3_schema).
 
 ## Type checking
 
