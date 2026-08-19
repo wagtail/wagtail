@@ -196,7 +196,6 @@ class TestV3RichTextBlockWrite(TestV3RichTextWrite):
     """RichTextBlock counterpart of TestV3RichTextWrite."""
 
     model = DefaultRichBlockFieldPage
-    type_name = "tests.DefaultRichBlockFieldPage"
 
     def build_body(self, value):
         return [{"type": "rich_text", "value": value}]
@@ -279,7 +278,6 @@ class TestV3RichTextBlockWrite(TestV3RichTextWrite):
 
 class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
     model = DefaultRichTextFieldPage
-    type_name = "tests.DefaultRichTextFieldPage"
 
     def setUp(self):
         super().setUp()
@@ -297,6 +295,7 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
         # the default site's root (the depth-2 home page).
         self.home_page.add_child(instance=self.page)
         self.page.save_revision().publish()
+        self.type_name = self.model._meta.label
 
     def build_body(self, html):
         """The api_fields "body" payload/model value for a given rich text
@@ -390,7 +389,6 @@ class TestV3RichTextBlockRead(TestV3RichTextRead):
     """RichTextBlock counterpart of TestV3RichTextRead."""
 
     model = DefaultRichBlockFieldPage
-    type_name = "tests.DefaultRichBlockFieldPage"
 
     def build_body(self, html):
         return [{"type": "rich_text", "value": html}]
