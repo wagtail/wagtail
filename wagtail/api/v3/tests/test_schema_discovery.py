@@ -8,6 +8,7 @@ from wagtail.test.utils import Page, WagtailTestUtils
 PAGE_READ_SCHEMA_FIELDS = {"id", "title", "meta"}
 PAGE_READ_META_SCHEMA_FIELDS = {
     "type",
+    "warnings",
     "detail_url",
     "html_url",
     "slug",
