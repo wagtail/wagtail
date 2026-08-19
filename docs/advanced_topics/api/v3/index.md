@@ -2,38 +2,89 @@
 
 # Wagtail API v3
 
-Wagtail 8.0 introduces a v3 API built on [Django Ninja](https://django-ninja.dev/) and [Pydantic](https://docs.pydantic.dev/). It provides OpenAPI 3.1 schema export and declarative per-type schemas to support read and write CMS operations described in [RFC 115](https://wagtail.org/rfc-115/).
-
-The v2 read API remains available. v3 is mounted separately at `/api/v3/`.
+Wagtail 8.0 introduces a preview of a new v3 API built on [Django Ninja](https://django-ninja.dev/) and type hints. It provides OpenAPI 3.1 schema export and declarative per-type schemas to support read and write CMS operations described in [RFC 115](https://wagtail.org/rfc-115/).
 
 ```{toctree}
 ---
 maxdepth: 1
 ---
 authentication
+pages
+images
+documents
+snippets
+redirects
+streamfield
+rich_text
+sites
+locales
+schema
 reference
+migration
 ```
 
 ## Quick start
 
-Register the API URLs in your project:
+First, add `wagtail.api.v3` to `INSTALLED_APPS` in your Django project settings:
+
+```python
+# settings.py
+
+INSTALLED_APPS = [
+    ...
+
+    'wagtail.api.v3',
+
+    ...
+]
+```
+
+Then register the API URLs in your project. While v3 is in preview, we recommend mounting it at `/api/v3-preview/` to signify that it may change as part of an upcoming release:
 
 ```python
 # urls.py
 from wagtail.api.v3.urls import api
 
 urlpatterns = [
-    path("api/v3/", api.urls),
+    path("api/v3-preview/", api.urls),
+    # You can also mount it at /api/v3/ if you prefer:
+    # path("api/v3/", api.urls),
 ]
 ```
 
-Browse the interactive docs at `/api/v3/docs` and the OpenAPI schema at `/api/v3/openapi.json`.
+This will expose all endpoints at the API root you decided. This includes read-only endpoints, write-only endpoints (protected with authentication and permission checks). Which endpoints are available depends on which Wagtail apps are in `INSTALLED_APPS` on your project. Pages are always available, while images, documents, snippets, locales, and redirects appear only when their app is installed and their models are registered.
+
+To get started, browse the generated docs:
+
+- A human-friendly documentation dashboard at `<API root>/docs/`
+- A machine-readable OpenAPI schema at `<API root>/openapi.json`.
 
 The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`, `WAGTAILAPI_RICH_TEXT_FORMAT`). See [](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
 
+## What's included
+
+The v3 API supports a wide range of CMS operations, largely covering the same functionality as the Wagtail admin interface. This includes:
+
+- Pages, including drafts, revisions, and page actions.
+- Sites, locales, and redirects.
+- Images and documents.
+- API-enabled snippets.
+- Rich text in HTML and Markdown.
+- StreamField content.
+- Schema discovery and the OpenAPI reference.
+
+This covers a wide range of Wagtail capabilities but not all of it. [Share your feedback](https://github.com/wagtail/wagtail/discussions/14531) on what you would like to see next, including:
+
+- Workflow / moderation operations (for example submitting, approving, or rejecting).
+- Support for Site settings.
+- Precise StreamField block schemas.
+- Official client libraries or UIs that reuse the API.
+- Deprecation and eventual removal of the v2 API.
+- Official API tutorial.
+
 ## Pagination
 
-List endpoints use Django Ninja's limit/offset pagination:
+List endpoints use limit/offset pagination, with a `count` in responses that is the total number of results irrespective of pagination:
 
 ```json
 {
@@ -42,43 +93,15 @@ List endpoints use Django Ninja's limit/offset pagination:
 }
 ```
 
-`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](wagtailapi_settings)).
+Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see the [API settings reference](wagtailapi_settings)).
 
-## Rich text
+## Error handling
 
-Rich text fields are stored in Wagtail's database HTML format, described in [](rich_text_internals), and the v3 API uses that format as its rich text interchange representation.
-
-### Input formats
-
-On writes, a rich text field value accepts either a plain string (database HTML, sanitised against the field's declared features) or an envelope object:
-
-```json
-"body": {"format": "db_markdown", "content": "# Title\n\n[about](wagtail://page?id=3)"}
-```
-
-Supported input formats:
-
-- `db_html`: database HTML (the default when `format` is omitted).
-- `db_markdown`: Markdown using the `wagtail://` reference syntax described below.
-
-Markdown input is converted and sanitized for storage as database HTML.
-
-### Output formats
-
-Rich text fields use the `?rich_text_format=` query parameter, which supports the same options as the project-level default of [`WAGTAILAPI_RICH_TEXT_FORMAT`](wagtailapi_settings):
-
-- `db_html` (default): Wagtail's [internal storage format](rich_text_internals).
-- `html`: display-ready HTML, converted like in templates.
-- `db_markdown`: Markdown that preserves internal references as `wagtail://` URLs, similarly to `db_html`.
-- `markdown`: Markdown with references resolved to public URLs (page URLs, image rendition URLs), like `html`.
-
-## Error format
-
-All error responses use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) `application/problem+json`:
+Handled API errors use `application/problem+json` from [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807). This covers validation failures at the schema, content, and model layers (HTTP 422), permission failures (`401` unauthenticated, `403` authenticated), `404`, and explicit framework errors. Here’s an example of a validation failure:
 
 ```json
 {
-    "type": "https://docs.wagtail.org/api/v3/validation-error",
+    "type": "about:blank",
     "title": "Unprocessable Entity",
     "status": 422,
     "detail": "Validation failed",
@@ -86,44 +109,6 @@ All error responses use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807
 }
 ```
 
-## Images
-
-Images are available at `/api/v3/images/`:
-
-- `GET /images/`: list images. Anonymous access, excluding images in restricted collections. Supports `?search=`, `?order=`, and filtering on the image's own fields (`title`, `width`, `height`, plus any `api_fields` the project declares) via query parameters.
-- `GET /images/{id}/`: image detail.
-- `POST /images/`: create an image. This endpoint uses `multipart/form-data`: the `file` field carries the image binary, and writable metadata (title, description, collection, focal point) is sent as individual form fields.
-- `PATCH /images/{id}/`: update the same writable metadata as JSON. Does not support changing the image file itself.
-
-Tags are returned in image responses under `meta.tags`, but are not writable through the images API yet.
-- `DELETE /images/{id}/`: delete an image.
-
-Image writes enforce the same validation (max upload size, max pixels, extensions) and collection permissions as the admin.
-
-### Image renditions
-
-Renditions are exposed per-project through `api_fields`, the same mechanism as [in the v2 API](api_v2_images):
-
-```python
-from wagtail.images.api.fields import ImageRenditionField
-
-
-class BlogPage(Page):
-    ...
-
-    api_fields = [
-        APIField("thumbnail", serializer=ImageRenditionField("fill-300x300")),
-    ]
+```{note}
+Unhandled exceptions are not converted to this envelope: in production (`DEBUG=False`) they are re-raised for Django's own handling, so they may not use `application/problem+json`.
 ```
-
-## Documents
-
-Documents are available at `/api/v3/documents/`. The routes are flat rather than nested under collections:
-
-- `GET /documents/`: list documents. Anonymous access, excluding documents whose direct collection has an unpassed view restriction. Supports `?search=`, `?order=`, and field filtering.
-- `GET /documents/{id}/`: document detail. Anonymous access, with the same direct-collection restriction behavior as the list endpoint.
-- `POST /documents/`: create a document using `multipart/form-data`. Both `file` (the binary) and `title` are required; send other writable metadata such as `collection_id` as individual form fields.
-- `PATCH /documents/{id}/`: update writable metadata as JSON. The document file cannot be replaced through this endpoint.
-- `DELETE /documents/{id}/`: delete a document.
-
-Document uploads enforce `WAGTAILDOCS_EXTENSIONS`, `WAGTAILDOCS_MAX_UPLOAD_SIZE`, custom form validation, and collection permissions in the same way as admin uploads. Extension validation checks the filename and does not verify that the file contents match the extension; see [](user_uploaded_files) for guidance on handling untrusted uploads.
