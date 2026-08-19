@@ -15,7 +15,9 @@ images
 documents
 python_api
 rich_text
-sites_locales_redirects
+sites
+locales
+redirects
 snippets
 streamfield
 schema
