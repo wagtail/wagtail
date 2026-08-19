@@ -358,7 +358,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["slug"],
-                    "message": "The slug 'existing' is already in use within the parent page.",
+                    "msg": "The slug 'existing' is already in use within the parent page.",
                 }
             ],
         )
@@ -431,12 +431,12 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "required",
                     "loc": ["location"],
-                    "message": "This field is required.",
+                    "msg": "This field is required.",
                 },
                 {
                     "type": "required",
                     "loc": ["cost"],
-                    "message": "This field is required.",
+                    "msg": "This field is required.",
                 },
             ],
         )
@@ -479,7 +479,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["signup_link"],
-                    "message": "This field is required when publishing events via the API.",
+                    "msg": "This field is required when publishing events via the API.",
                 }
             ],
         )
@@ -649,7 +649,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         content = self.assert_problem_response(response, status_code=422)
         self.assertEqual(
             content["errors"],
-            [{"message": "body: unrecognised block type 'not_a_real_block'"}],
+            [{"msg": "body: unrecognised block type 'not_a_real_block'"}],
         )
 
     def test_create_streamfield_page_with_rich_text_block(self):
@@ -1007,7 +1007,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid_choice",
                     "loc": ["feed_image"],
-                    "message": (
+                    "msg": (
                         "Select a valid choice. That choice is not one of "
                         "the available choices."
                     ),
@@ -1039,7 +1039,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["carousel_items", 0, "__all__"],
-                    "message": "You must provide a related page, related document or an external URL",
+                    "msg": "You must provide a related page, related document or an external URL",
                 }
             ],
         )
