@@ -350,7 +350,10 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
             value, format=rich_text_format, features=field.features
         )
 
-    default = FieldInfo(default=None, json_schema_extra={"features": resolved_features})
+    default = FieldInfo(
+        default=None,
+        json_schema_extra={"x-rich-text-features": resolved_features},
+    )
     return cast(type, str | None), default, staticmethod(resolve)
 
 
