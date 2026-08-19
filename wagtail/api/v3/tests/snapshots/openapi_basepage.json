@@ -15312,6 +15312,7 @@
             "$ref": "#/components/schemas/ContentTypeSchema"
           },
           "content_object": {
+            "description": "A union of models, discriminated by the content type in `meta.type`.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/BasePageSchema"
@@ -16330,6 +16331,7 @@
           },
           "items": {
             "items": {
+              "description": "A union of models, discriminated by the content type in `meta.type`.",
               "oneOf": [
                 {
                   "$ref": "#/components/schemas/AdvertSchema"
@@ -20717,6 +20719,7 @@
             "$ref": "#/components/schemas/ContentTypeSchema"
           },
           "content_object": {
+            "description": "A union of models, discriminated by the content type in `meta.type`.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
@@ -27437,6 +27440,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "A union of models, discriminated by the content type in `meta.type`.",
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/EarlyPageCreateSchema"
@@ -27699,6 +27703,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -28046,6 +28051,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -28400,6 +28406,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -28706,6 +28713,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "A union of models, discriminated by the content type in `meta.type`.",
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/EarlyPagePatchSchema"
@@ -28968,6 +28976,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -29258,6 +29267,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -29569,6 +29579,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -29869,6 +29880,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -30178,6 +30190,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -30507,6 +30520,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -30797,6 +30811,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -31097,6 +31112,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -31404,6 +31420,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/BasePageSchema"
@@ -32606,6 +32623,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "A union of models, discriminated by the content type in `meta.type`.",
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/AdvertCreateSchema"
@@ -32637,6 +32655,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/AdvertSchema"
@@ -32780,6 +32799,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/AdvertSchema"
@@ -32866,6 +32886,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "A union of models, discriminated by the content type in `meta.type`.",
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/AdvertPatchSchema"
@@ -32897,6 +32918,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/AdvertSchema"
@@ -33065,6 +33087,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
@@ -33132,6 +33155,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
@@ -33191,6 +33215,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "A union of models, discriminated by the content type in `meta.type`.",
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelSchema"
