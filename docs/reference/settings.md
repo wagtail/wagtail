@@ -262,6 +262,16 @@ DATETIME_INPUT_FORMATS = [
 
 ## Page editing
 
+(wagtail_page_model)=
+
+### `WAGTAIL_PAGE_MODEL`
+
+```python
+WAGTAIL_PAGE_MODEL = "basepage.BasePage"
+```
+
+Specifies a base page model to use in place of {class}`~wagtail.models.Page`. See [](custom_page_models).
+
 ### `WAGTAILADMIN_COMMENTS_ENABLED`
 
 ```python

@@ -118,19 +118,7 @@ This document contains reference information for the model classes inside the `w
 
         A ``translation_key`` value can only be used on one page in each locale.
 
-.. class:: Page
-
-    .. attribute:: seo_title
-
-        (text)
-
-        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
-
-    .. attribute:: search_description
-
-        (text)
-
-        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+.. class:: ShowInMenusMixin
 
     .. attribute:: show_in_menus
 
@@ -148,6 +136,23 @@ This document contains reference information for the model classes inside the `w
 
             To set the global default for all pages, set ``Page.show_in_menus_default = True`` once where you first import the ``Page`` model.
 
+.. class:: DefaultBasePageMixin
+
+    .. attribute:: seo_title
+
+        (text)
+
+        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
+
+    .. attribute:: search_description
+
+        (text)
+
+        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+
+.. class:: Page
+
+    The standard base page model that all page types descend from, unless overridden with :ref:`wagtail_page_model` (see :ref:`custom_page_models`).
 ```
 
 ### Methods and properties
