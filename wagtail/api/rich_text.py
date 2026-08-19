@@ -3,6 +3,7 @@ from typing import Any, Literal, cast
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from draftjs_exporter import MarkdownParseError
 
 from wagtail.rich_text import expand_db_html
 
@@ -10,7 +11,7 @@ RichTextOutputFormat = Literal["db_html", "html", "db_markdown", "markdown"]
 RichTextInputFormat = Literal["db_html", "db_markdown"]
 
 
-class RichTextFormatError(Exception):
+class RichTextFormatError(ValueError):
     pass
 
 
@@ -167,7 +168,13 @@ class APIRichText:
         # Lazy import: wagtail.api must stay importable without wagtail.admin.
         from wagtail.admin.rich_text.converters.markdown_db import MarkdownConverter
 
-        db_html = MarkdownConverter().to_database_format(content)
+        try:
+            db_html = MarkdownConverter().to_database_format(content)
+        except MarkdownParseError as e:
+            location = f" at line {e.line}" if e.line is not None else ""
+            raise RichTextFormatError(
+                f"Invalid Markdown in rich text{location}: {e.message}"
+            ) from e
         return APIRichText.sanitize_db_html(db_html, features=features)
 
     @classmethod

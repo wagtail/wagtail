@@ -17,7 +17,6 @@ from wagtail.test.utils import Page, WagtailTestUtils
 
 class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
     model = DefaultRichTextFieldPage
-    unknown_format_status = 422
 
     def setUp(self):
         super().setUp()
@@ -79,7 +78,7 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
 
     def test_unknown_format_rejected(self):
         response = self.create_page({"format": "markdown", "content": "# Hi"})
-        self.assert_problem_response(response, status_code=self.unknown_format_status)
+        self.assert_problem_response(response, status_code=422)
 
     def create_page_without_body(self, action=None, **data):
         meta = {
@@ -135,13 +134,48 @@ class TestV3RichTextWrite(TestV3Base, WagtailTestUtils, TestCase):
         self.assertNotIn("<h2>", page.body)
         self.assertNotIn("<b>", page.body)
 
+    def test_with_db_markdown(self):
+        response = self.create_page(
+            {
+                "format": "db_markdown",
+                "content": "# Title\n\n[home](wagtail://page?id=2)",
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = self.model.objects.get(slug="rich")
+        body = self.body_value(page)
+        self.assertNotIn("<h1", body)
+        self.assertIn("Title", body)
+        self.assertIn('linktype="page"', body)
+        self.assertIn('id="2"', body)
+
+    def test_with_incorrect_db_markdown(self, loc=None):
+        response = self.create_page(
+            {
+                "format": "db_markdown",
+                "content": "[home](wagtail://page?)",
+            }
+        )
+        data = self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+        )
+        loc = loc or ["body", "data", self.model._meta.label, "body"]
+        self.assertEqual(len(data["errors"]), 1)
+        self.assertEqual(data["errors"][0]["loc"], loc)
+        self.assertIn(
+            "Invalid Markdown in rich text: wagtail://page reference requires id",
+            data["errors"][0]["msg"],
+        )
+        self.assertFalse(self.model.objects.filter(slug="rich").exists())
+
 
 class TestV3RichTextBlockWrite(TestV3RichTextWrite):
     """RichTextBlock counterpart of TestV3RichTextWrite."""
 
     model = DefaultRichBlockFieldPage
     type_name = "tests.DefaultRichBlockFieldPage"
-    unknown_format_status = 400
 
     def build_body(self, value):
         return [{"type": "rich_text", "value": value}]
@@ -196,6 +230,9 @@ class TestV3RichTextBlockWrite(TestV3RichTextWrite):
         value = page.body[0].value.source
         self.assertIn("<h2>", value)
         self.assertIn("<b>", value)
+
+    def test_with_incorrect_db_markdown(self, loc=None):
+        return super().test_with_incorrect_db_markdown(loc=["body-0-value"])
 
 
 class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
