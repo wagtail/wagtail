@@ -12,6 +12,14 @@ Support for custom base page models was added.
 This feature is currently experimental. Some third-party packages may not be compatible.
 ```
 
+````{note}
+A ready-made Wagtail project template adapted to use a custom base page model following these instructions has been published as [wagtail-custom-base-page-template](https://github.com/wagtail/wagtail-custom-base-page-template). To set up a new project using this template, run:
+
+```bash
+wagtail start mysite --template=https://github.com/wagtail/wagtail-custom-base-page-template/archive/main.zip
+```
+````
+
 After creating a Wagtail project as detailed in [](quick_install) or [](/getting_started/integrating_into_django), but before running `python manage.py migrate`, create a new app to contain the base page model by running `python manage.py startapp basepage` and adding `"basepage"` to `INSTALLED_APPS`. It is recommended to keep an app solely to contain the base page model, to minimise the possibility of circular imports.
 
 Within `basepage/models.py`, define a page model inheriting from {class}`~wagtail.models.AbstractPage` containing your desired fields - for example:
