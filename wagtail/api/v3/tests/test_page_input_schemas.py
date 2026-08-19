@@ -262,12 +262,21 @@ class TestRichTextFieldInputSchema(TestSchemaGenerator):
     def test_plain_string_validates(self):
         schema = self.generate(self.make_model())
         instance = schema(body="<p>x</p>")
-        self.assertEqual(instance.body, "<p>x</p>")
+        # Normalizes into an envelope
+        self.assertEqual(instance.body.format, "db_html")
+        self.assertEqual(instance.body.content, "<p>x</p>")
 
     def test_envelope_validates(self):
         schema = self.generate(self.make_model())
         instance = schema(body={"format": "db_html", "content": "<p>x</p>"})
+        self.assertEqual(instance.body.format, "db_html")
         self.assertEqual(instance.body.content, "<p>x</p>")
+
+    def test_normalizes_other_format_into_db_html_envelope(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body={"format": "db_markdown", "content": "**Hi**"})
+        self.assertEqual(instance.body.format, "db_html")
+        self.assertEqual(instance.body.content, "<p><b>Hi</b></p>")
 
     def test_unknown_format_rejected(self):
         from pydantic import ValidationError as PydanticValidationError

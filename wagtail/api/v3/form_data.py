@@ -315,6 +315,9 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
     elif getattr(field.widget, "allow_multiple_selected", False):
         data.setlist(name, list(value) if value else [])
     elif hasattr(field.widget, "converter"):
+        # Normally this is an envelope dict, but it can also be a plain str
+        # e.g. if the field was not in the payload and thus the Pydantic field
+        # default "" is used.
         if isinstance(value, dict):
             value = value.get("content", "")
         # A rich text editor widget (Draftail's `to_database_format`/
