@@ -197,7 +197,7 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
                 {
                     "type": "invalid_choice",
                     "loc": ["feed_image"],
-                    "message": (
+                    "msg": (
                         "Select a valid choice. That choice is not one of "
                         "the available choices."
                     ),
@@ -354,7 +354,7 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
         self.assert_problem_response(
             response,
             status_code=422,
-            errors=[{"message": "body: unrecognised block type 'not_a_real_block'"}],
+            errors=[{"msg": "body: unrecognised block type 'not_a_real_block'"}],
         )
 
     def test_create_with_child_relations(self):
@@ -389,7 +389,7 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
                 {
                     "type": "invalid",
                     "loc": ["sections", 0, "__all__"],
-                    "message": "You must provide a related document or an external URL",
+                    "msg": "You must provide a related document or an external URL",
                 }
             ],
         )
@@ -455,7 +455,7 @@ class TestV3SnippetCreateWithRelationsFieldFiltering(TestV3SnippetCreateBase):
                 {
                     "type": "invalid",
                     "loc": ["feed_image"],
-                    "message": "This field is required when body is given.",
+                    "msg": "This field is required when body is given.",
                 }
             ],
         )
@@ -687,7 +687,7 @@ class TestV3SnippetCreateWithDraftState(TestV3SnippetCreateBase):
                 {
                     "type": "required",
                     "loc": ["text"],
-                    "message": "This field is required.",
+                    "msg": "This field is required.",
                 }
             ],
         )

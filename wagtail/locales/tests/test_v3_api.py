@@ -152,7 +152,7 @@ class TestV3LocaleCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid_choice",
                     "loc": ["language_code"],
-                    "message": "Select a valid choice. "
+                    "msg": "Select a valid choice. "
                     "fr is not one of the available choices.",
                 }
             ],
@@ -169,7 +169,7 @@ class TestV3LocaleCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid_choice",
                     "loc": ["language_code"],
-                    "message": "Select a valid choice. "
+                    "msg": "Select a valid choice. "
                     "xx is not one of the available choices.",
                 }
             ],
@@ -239,7 +239,7 @@ class TestV3LocaleUpdate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid_choice",
                     "loc": ["language_code"],
-                    "message": "Select a valid choice. "
+                    "msg": "Select a valid choice. "
                     "en is not one of the available choices.",
                 }
             ],
@@ -297,7 +297,7 @@ class TestV3LocaleDelete(TestV3Base, WagtailTestUtils, TestCase):
             detail_contains="Validation failed",
             errors=[
                 {
-                    "message": "This locale cannot be deleted because "
+                    "msg": "This locale cannot be deleted because "
                     "there are no other locales."
                 }
             ],
@@ -317,7 +317,7 @@ class TestV3LocaleDelete(TestV3Base, WagtailTestUtils, TestCase):
             detail_contains="Validation failed",
             errors=[
                 {
-                    "message": "This locale cannot be deleted because "
+                    "msg": "This locale cannot be deleted because "
                     "there are pages and/or other objects using it."
                 }
             ],
