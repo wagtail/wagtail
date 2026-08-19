@@ -10,8 +10,9 @@ from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
     FullFeaturedSnippet,
+    UUIDSnippetWithRelations,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestV3SnippetListingBase(TestV3Base, WagtailTestUtils):
@@ -515,3 +516,40 @@ class TestV3SnippetListingSearch(TestV3SnippetListingBase, TransactionTestCase):
 
         content = self.get_response(translation_of=self.apple.pk, search="zebra").json()
         self.assertEqual(self.get_id_list(content), [])
+
+
+class TestV3SnippetListingWithRichText(TestV3SnippetListingBase, TestCase):
+    # Unlike the pages listing, the snippets listing serialises the full
+    # detail schema (including api_fields), so rich_text_format applies
+    # here as well as on the detail endpoint.
+    model = UUIDSnippetWithRelations
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.home_page = Page.objects.get(depth=2)
+        cls.snippet = cls.model.objects.create(
+            text="Hello",
+            rich_body=f'<p><a linktype="page" id="{cls.home_page.pk}">home</a></p>',
+        )
+
+    def test_listing_applies_rich_text_format(self):
+        response = self.get_response(rich_text_format="html")
+        self.assertEqual(response.status_code, 200)
+        body = response.json()["items"][0]["rich_body"]
+        self.assertIn("<a href=", body)
+        self.assertNotIn("linktype", body)
+
+    def test_listing_invalid_rich_text_format_is_422(self):
+        response = self.get_response(rich_text_format="nope")
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[
+                {
+                    "type": "literal_error",
+                    "loc": ["query", "rich_text_format"],
+                    "msg": "Input should be 'db_html', 'html', 'db_markdown' or 'markdown'",
+                }
+            ],
+        )

@@ -28,12 +28,13 @@ class TestV3SnippetUpdateBase(TestV3Base, WagtailTestUtils, TestCase):
         super().setUp()
         self.user = self.login()
 
-    def patch(self, pk, data):
+    def patch(self, pk, data, query_params=""):
         return self.client.patch(
             reverse(
                 "wagtailapi_v3:update_snippet",
                 kwargs={"type": self.model._meta.label, "pk": pk},
-            ),
+            )
+            + f"?{query_params}",
             data=json.dumps(data),
             content_type="application/json",
         )
@@ -587,8 +588,8 @@ class TestV3SnippetUpdateWithRichText(TestV3SnippetUpdateBase):
             text="Hello", rich_body="<p>original</p>"
         )
 
-    def patch_rich_body(self, value):
-        return self.patch(self.snippet.pk, {"rich_body": value})
+    def patch_rich_body(self, value, query_params=""):
+        return self.patch(self.snippet.pk, {"rich_body": value}, query_params)
 
     def test_plain_string_stored_sanitised(self):
         response = self.patch_rich_body("<p><i>x</i></p><script>alert(1)</script>")
@@ -644,6 +645,16 @@ class TestV3SnippetUpdateWithRichText(TestV3SnippetUpdateBase):
             self.snippet.rich_body,
             r'^<p data-block-key="[a-z0-9]+"></p>$',
         )
+
+    def test_write_response_honours_format(self):
+        # Write endpoints return the detail schema, so the format applies
+        # there too.
+        response = self.patch_rich_body(
+            '<p><a linktype="page" id="2">home</a></p>',
+            "rich_text_format=html",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("<a href=", response.json()["rich_body"])
 
 
 class TestV3SnippetUpdateWithRichTextMarkdown(TestV3SnippetUpdateBase):
