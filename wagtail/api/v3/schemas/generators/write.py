@@ -369,9 +369,10 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
         if field.features is not None
         else feature_registry.get_default_features()
     )
+    # Default is not normalized to an envelope for simplicity
     default = FieldInfo(default="", json_schema_extra={"features": resolved_features})
 
-    def convert_content(value: str | RichTextInputSchema) -> str | RichTextInputSchema:
+    def convert_content(value: str | RichTextInputSchema) -> RichTextInputSchema:
         input = value if isinstance(value, str) else value.model_dump()
         try:
             db_html, _ = APIRichText.convert_input(input, features=field.features)
@@ -380,12 +381,8 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
             raise ValueError(
                 f"Invalid Markdown in rich text{location}: {e.message}"
             ) from e
-        # Result is normalized as db_html, with an envelope if it came with one.
-        return (
-            db_html
-            if isinstance(value, str)
-            else RichTextInputSchema(format="db_html", content=db_html)
-        )
+        # Result is normalized as an enveloped db_html
+        return RichTextInputSchema(format="db_html", content=db_html)
 
     annotation = Annotated[str | RichTextInputSchema, AfterValidator(convert_content)]
 
