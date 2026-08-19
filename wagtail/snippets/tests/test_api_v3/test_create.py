@@ -24,12 +24,13 @@ class TestV3SnippetCreateBase(TestV3Base, WagtailTestUtils, TestCase):
         super().setUp()
         self.user = self.login()
 
-    def post(self, data):
+    def post(self, data, query_params=""):
         return self.client.post(
             reverse(
                 "wagtailapi_v3:create_snippet",
                 kwargs={"type": self.model._meta.label},
-            ),
+            )
+            + f"?{query_params}",
             data=json.dumps(data),
             content_type="application/json",
         )
@@ -463,8 +464,8 @@ class TestV3SnippetCreateWithRelationsFieldFiltering(TestV3SnippetCreateBase):
 class TestV3SnippetCreateWithRichText(TestV3SnippetCreateBase):
     model = UUIDSnippetWithRelations
 
-    def create_snippet(self, value):
-        return self.post({"text": "Hello", "rich_body": value})
+    def create_snippet(self, value, query_params=""):
+        return self.post({"text": "Hello", "rich_body": value}, query_params)
 
     def test_plain_string_stored_sanitised(self):
         response = self.create_snippet("<p><i>x</i></p><script>alert(1)</script>")
@@ -500,6 +501,16 @@ class TestV3SnippetCreateWithRichText(TestV3SnippetCreateBase):
         response = self.create_snippet({"format": "markdown", "content": "# Hi"})
         self.assert_problem_response(response, status_code=422)
         self.assertFalse(UUIDSnippetWithRelations.objects.exists())
+
+    def test_write_response_honours_format(self):
+        # Write endpoints return the detail schema, so the format applies
+        # there too.
+        response = self.create_snippet(
+            '<p><a linktype="page" id="2">home</a></p>',
+            "rich_text_format=html",
+        )
+        self.assertEqual(response.status_code, 201)
+        self.assertIn("<a href=", response.json()["rich_body"])
 
     def test_omitted_blank_rich_body_allowed(self):
         # rich_body is blank=True, so omitting it entirely is fine. The

@@ -32506,6 +32506,23 @@
           },
           {
             "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
+            }
+          },
+          {
+            "in": "query",
             "name": "limit",
             "required": false,
             "schema": {
@@ -32565,6 +32582,23 @@
               ],
               "title": "Type",
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
             }
           }
         ],
@@ -32722,6 +32756,23 @@
               "title": "Version",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
+            }
           }
         ],
         "responses": {
@@ -32791,6 +32842,23 @@
             "schema": {
               "title": "Pk",
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rich_text_format",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": ["db_html", "html", "db_markdown", "markdown"],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rich Text Format"
             }
           }
         ],
