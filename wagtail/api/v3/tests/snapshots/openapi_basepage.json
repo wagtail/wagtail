@@ -2203,7 +2203,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -2216,8 +2217,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "carousel_items": {
             "default": [],
@@ -2576,7 +2576,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Intro",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -2589,8 +2590,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Intro"
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/BlogIndexPageMetaSchema"
@@ -4265,7 +4265,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -4278,8 +4279,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "city": {
             "anyOf": [
@@ -6560,7 +6560,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -6573,8 +6574,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "id": {
             "title": "Id",
@@ -7801,7 +7801,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Intro",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -7814,8 +7815,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Intro"
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/EventIndexPageMetaSchema"
@@ -11970,7 +11970,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -11983,8 +11984,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "carousel_items": {
             "default": [],
@@ -17925,8 +17925,8 @@
                 "type": "null"
               }
             ],
-            "features": ["quotation", "embed", "made-up-feature"],
-            "title": "Body"
+            "title": "Body",
+            "x-rich-text-features": ["quotation", "embed", "made-up-feature"]
           },
           "id": {
             "title": "Id",
@@ -21465,7 +21465,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Intro",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -21478,8 +21479,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Intro"
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/StandardIndexPageMetaSchema"
@@ -21987,7 +21987,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -22000,8 +22001,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "carousel_items": {
             "default": [],
@@ -22034,7 +22034,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Intro",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -22047,8 +22048,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Intro"
+            ]
           },
           "meta": {
             "$ref": "#/components/schemas/StandardPageMetaSchema"
@@ -23709,8 +23709,14 @@
                 "type": "null"
               }
             ],
-            "features": ["image", "italic", "link", "quotation", "embed"],
-            "title": "Rich Body"
+            "title": "Rich Body",
+            "x-rich-text-features": [
+              "image",
+              "italic",
+              "link",
+              "quotation",
+              "embed"
+            ]
           },
           "sections": {
             "default": [],
@@ -25067,7 +25073,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Body",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -25080,8 +25087,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Body"
+            ]
           },
           "carousel_items": {
             "default": [],
@@ -26145,7 +26151,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Biography",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -26158,8 +26165,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Biography"
+            ]
           },
           "city": {
             "anyOf": [
@@ -26235,7 +26241,8 @@
                 "type": "null"
               }
             ],
-            "features": [
+            "title": "Intro",
+            "x-rich-text-features": [
               "embed",
               "image",
               "hr",
@@ -26248,8 +26255,7 @@
               "ol",
               "ul",
               "document-link"
-            ],
-            "title": "Intro"
+            ]
           },
           "last_name": {
             "maxLength": 255,
