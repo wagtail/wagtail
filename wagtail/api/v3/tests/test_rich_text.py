@@ -303,8 +303,8 @@ class TestV3RichTextRead(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         read_schema = response.json()["read"]
         body_schema = read_schema["properties"]["body"]
-        self.assertIn("features", body_schema)
-        self.assertIn("bold", body_schema["features"])
+        self.assertIn("x-rich-text-features", body_schema)
+        self.assertIn("bold", body_schema["x-rich-text-features"])
 
 
 class TestV3RichTextBlockRead(TestV3RichTextRead):
