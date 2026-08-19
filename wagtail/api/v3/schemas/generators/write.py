@@ -5,7 +5,6 @@ from typing import Annotated, Any, Callable, Literal, Union, cast, get_args, get
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Field, ForeignKey, Model
 from django.db.models.fields.reverse_related import ForeignObjectRel
-from draftjs_exporter import MarkdownParseError
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
@@ -374,13 +373,7 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
 
     def convert_content(value: str | RichTextInputSchema) -> RichTextInputSchema:
         input = value if isinstance(value, str) else value.model_dump()
-        try:
-            db_html, _ = APIRichText.convert_input(input, features=field.features)
-        except MarkdownParseError as e:
-            location = f" at line {e.line}" if e.line is not None else ""
-            raise ValueError(
-                f"Invalid Markdown in rich text{location}: {e.message}"
-            ) from e
+        db_html, _ = APIRichText.convert_input(input, features=field.features)
         # Result is normalized as an enveloped db_html
         return RichTextInputSchema(format="db_html", content=db_html)
 

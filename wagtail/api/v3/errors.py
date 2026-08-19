@@ -36,6 +36,11 @@ def as_validation_error(
     Useful for converting exceptions raised in code that is normally caught
     via other mechanisms e.g. Django form validation or prevented by normal
     user interface.
+
+    The ``loc`` argument is best-effort, as the caller may not have enough
+    context to provide a full path to the field that caused the error. It may
+    also be different to how Ninja normally reports validation errors, which is
+    based on the request shape (i.e. may include "body" or "query").
     """
     return PydanticValidationError.from_exception_data(
         "Validation error",
