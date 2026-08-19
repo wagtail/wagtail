@@ -29,7 +29,9 @@ class BasePage(AbstractPage):
     promote_panels = AbstractPage.promote_panels + ["category", "review_date"]
 ```
 
-`AbstractPage` provides all of the standard fields from {class}`~wagtail.models.Page` with the exception of `show_in_menus`, `seo_title` and `search_description`.
+```{note}
+`AbstractPage` provides all of the standard fields from {class}`~wagtail.models.Page` with the exception of `show_in_menus`, `seo_title` and `search_description`. This means that the {meth}`~wagtail.query.PageQuerySet.in_menu` and {meth}`~wagtail.query.PageQuerySet.not_in_menu` methods will not work. To include the show-in-menu flag in your page model, set your class to inherit from both `AbstractPage` and {class}`~wagtail.models.ShowInMenusMixin`. To include all the default fields from `Page`, inherit from both `AbstractPage` and {class}`~wagtail.models.DefaultBasePageMixin`.
+```
 
 Add the setting `WAGTAIL_PAGE_MODEL` to your project's settings file, giving the dotted {attr}`~django.db.models.Options.label` of the base page model qualified by the app name:
 
