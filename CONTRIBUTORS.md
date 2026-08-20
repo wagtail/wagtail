@@ -990,6 +990,10 @@
 * Thomas Herman
 * Joey Jurjens
 * Preeti Singh
+* xuliang@QAX
+* Anand Himanshu
+* Ta Duc Thien
+* tinyb0y
 
 ## Translators
 
