@@ -979,6 +979,10 @@
 * Devansh Bordia
 * alanturing881
 * Joey Jurjens
+* xuliang@QAX
+* Anand Himanshu
+* Ta Duc Thien
+* tinyb0y
 
 ## Translators
 
