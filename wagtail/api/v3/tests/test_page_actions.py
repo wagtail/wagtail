@@ -916,13 +916,17 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         )
 
     def test_requires_submit_translation_permission(self):
-        self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
         response = self.post(page, {"locale": "fr"})
         self.assert_problem_response(response, status_code=403)
 
     def test_copy_for_translation(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         self.home_page.copy_for_translation(self.french)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -935,7 +939,9 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertFalse(new_page.live)
 
     def test_alias_copy_for_translation(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         self.home_page.copy_for_translation(self.french)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -947,7 +953,9 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertEqual(new_page.alias_of_id, page.pk)
 
     def test_missing_translated_parent_returns_422(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
 
@@ -967,7 +975,9 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         )
 
     def test_copy_parents_creates_missing_translated_parents(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
 
@@ -978,14 +988,18 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertEqual(new_page.locale, self.french)
 
     def test_unknown_locale_returns_404(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
         response = self.post(page, {"locale": "de"})
         self.assert_problem_response(response, status_code=404)
 
     def test_unknown_page_returns_404(self):
-        self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         response = self.client.post(
             reverse(
                 "wagtailapi_v3:pages_actions_copy_for_translation",
