@@ -22,14 +22,16 @@ class TestServeView(TestCase):
         self.pdf_document.file.save(
             "serve_view.pdf", ContentFile(b"A boring example document")
         )
+        self.responses = []
 
     def tearDown(self):
-        if hasattr(self, "response"):
-            # Make sure the response is fully read before deleting the document so
-            # that the file is closed by the view.
-            # This is required on Windows as the below line that deletes the file
-            # will crash if the file is still open.
-            b"".join(self.response.streaming_content)
+        for response in self.responses:
+            if hasattr(response, "streaming_content"):
+                # Make sure the response is fully read before deleting the document so
+                # that the file is closed by the view.
+                # This is required on Windows as the below line that deletes the file
+                # will crash if the file is still open.
+                b"".join(response.streaming_content)
 
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
@@ -38,11 +40,12 @@ class TestServeView(TestCase):
 
     def get(self, document=None, headers=None):
         document = document or self.document
-        self.response = self.client.get(
+        response = self.client.get(
             reverse("wagtaildocs_serve", args=(document.id, document.filename)),
             headers=headers,
         )
-        return self.response
+        self.responses.append(response)
+        return response
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
