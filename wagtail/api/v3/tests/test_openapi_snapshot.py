@@ -14,6 +14,8 @@ else:
 
 
 class TestOpenAPISnapshot(TestV3Base):
+    maxDiff = None
+
     def test_openapi_version(self):
         schema = api.get_openapi_schema()
         self.assertEqual(schema["openapi"], "3.1.0")

@@ -18,5 +18,5 @@ class TestV3ImagesBase(TestV3Base, WagtailTestUtils, TestCase):
         defaults.update(kwargs)
         return Image.objects.create(**defaults)
 
-    def create_collection(self, name="Test collection"):
-        return CollectionFactory.create(name=name)
+    def create_collection(self, name="Test collection", parent=None):
+        return CollectionFactory.create(name=name, parent=parent)

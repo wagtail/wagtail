@@ -127,7 +127,7 @@ class TestV3DocumentListing(TestV3DocumentsBase):
         session.save()
         self.assertIn(document.id, self.listed_ids(self.get_response()))
 
-    def test_ancestor_restriction_does_not_hide_descendant_document(self):
+    def test_ancestor_restriction_hides_descendant_document(self):
         parent = self.create_collection("Restricted parent")
         child = self.create_collection("Child", parent=parent)
         document = self.create_document(collection=child)
@@ -135,4 +135,4 @@ class TestV3DocumentListing(TestV3DocumentsBase):
             collection=parent,
             restriction_type=CollectionViewRestriction.LOGIN,
         )
-        self.assertIn(document.id, self.listed_ids(self.get_response()))
+        self.assertNotIn(document.id, self.listed_ids(self.get_response()))

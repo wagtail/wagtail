@@ -30,5 +30,15 @@ class TestV3DocumentDetail(TestV3DocumentsBase):
         )
         self.assertEqual(self.get_response(document.id).status_code, 404)
 
+    def test_ancestor_restriction_returns_404(self):
+        parent = self.create_collection("Restricted parent")
+        child = self.create_collection("Child", parent=parent)
+        document = self.create_document(collection=child)
+        CollectionViewRestriction.objects.create(
+            collection=parent,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        self.assertEqual(self.get_response(document.id).status_code, 404)
+
     def test_unknown_id_returns_404(self):
         self.assertEqual(self.get_response(999999).status_code, 404)
