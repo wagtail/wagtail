@@ -971,6 +971,10 @@
 * 0x1saac
 * Devansh Bordia
 * alanturing881
+* xuliang@QAX
+* Anand Himanshu
+* Ta Duc Thien
+* tinyb0y
 
 ## Translators
 

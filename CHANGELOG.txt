@@ -331,6 +331,16 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.9 (20.08.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Security fix: Improper restriction handling on Pages admin API (xuliang@QAX, Dan Braghis)
+ * Security fix: Identification of documents by SHA1 hash (Anand Himanshu, Matt Westcott)
+ * Security fix: Improper restriction handling on descendant collections in Documents and Images API (Ta Duc Thien, Matt Westcott)
+ * Security fix: Improper permission handling when copying snippets (tinyb0y, Matt Westcott)
+ * Security fix: Improper restriction handling on Page translation API endpoint (tinyb0y, Matt Westcott)
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
+
 7.0.8 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
