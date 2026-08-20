@@ -1395,7 +1395,9 @@ class TestCopyPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
     def test_recursively_copy_into_self(self):
         response = self.get_response(
@@ -1431,7 +1433,9 @@ class TestCopyPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
     def test_without_publish_permissions_at_destination_with_keep_live(self):
         self.user.is_superuser = False
@@ -1594,7 +1598,9 @@ class TestDeletePageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
         # Page is still there
         self.assertTrue(Page.objects.filter(id=4).exists())
@@ -1640,7 +1646,9 @@ class TestPublishPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
     def test_publish_alias_page(self):
         home = Page.objects.get(slug="home")
@@ -1728,7 +1736,9 @@ class TestUnpublishPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
 
 class TestMovePageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
@@ -1758,7 +1768,9 @@ class TestMovePageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
     def test_move_page_without_destination_page_id(self):
         response = self.get_response(4, {})
@@ -2088,7 +2100,9 @@ class TestCreatePageAliasAction(PageFixturesMixin, AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
 
 class TestRevertToPageRevisionAction(PageFixturesMixin, AdminAPITestCase, TestCase):
@@ -2143,7 +2157,9 @@ class TestRevertToPageRevisionAction(PageFixturesMixin, AdminAPITestCase, TestCa
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "No Page matches the given query."})
+        self.assertEqual(
+            content, {"message": f"No {Page.__name__} matches the given query."}
+        )
 
     def test_revert_to_page_revision_without_revision_id(self):
         response = self.get_response(self.events_page.id, {})
