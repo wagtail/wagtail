@@ -193,6 +193,16 @@ Changelog
  * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
  * Maintenance: Set up zizmor to lint GitHub Actions for security gotchas (Dan Braghis)
 
+7.3.4 (20.08.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Security fix: Improper restriction handling on Pages admin API (xuliang@QAX, Dan Braghis)
+ * Security fix: Identification of documents by SHA1 hash (Anand Himanshu, Matt Westcott)
+ * Security fix: Improper restriction handling on descendant collections in Documents and Images API (Ta Duc Thien, Matt Westcott)
+ * Security fix: Improper permission handling when copying snippets (tinyb0y, Matt Westcott)
+ * Security fix: Improper restriction handling on Page translation API endpoint (tinyb0y, Matt Westcott)
+ * Maintenance: Update base managers for Page and Collection to avoid warnings from django-treebeard 5.3 (Samir Shah)
+
 7.3.3 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
