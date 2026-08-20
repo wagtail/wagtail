@@ -9,7 +9,10 @@ from pydantic import BaseModel
 from wagtail.actions import action_registry
 from wagtail.api.v3.auth import AllowAnonymous, BearerTokenAuth
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
-from wagtail.api.v3.permissions import require_any_permission
+from wagtail.api.v3.permissions import (
+    get_restricted_collection_ids,
+    require_any_permission,
+)
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
 from wagtail.api.v3.schemas.params import (
     APIFieldFilterSchema,
@@ -17,7 +20,6 @@ from wagtail.api.v3.schemas.params import (
     SearchSchema,
 )
 from wagtail.documents import get_document_model
-from wagtail.models import CollectionViewRestriction
 
 from .form_data import build_document_form, build_document_update_form
 
@@ -31,12 +33,7 @@ BASE_DOCUMENT_READ_FIELDS = ["id", "title"]
 
 
 def get_documents_queryset(request: HttpRequest):
-    restricted_collection_ids = {
-        # Django adds ``<foreign_key>_id`` attributes dynamically.
-        restriction.collection_id  # ty: ignore[unresolved-attribute]
-        for restriction in CollectionViewRestriction.objects.all()
-        if not restriction.accept_request(request)
-    }
+    restricted_collection_ids = get_restricted_collection_ids(request)
     return (
         Document.objects.exclude(collection__in=restricted_collection_ids)
         .prefetch_related("tags")

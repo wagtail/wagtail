@@ -29,6 +29,19 @@ class TestV3ImageListing(TestV3ImagesBase):
         self.assertEqual(content["count"], 0)
         self.assertNotIn(image.id, [item["id"] for item in content["items"]])
 
+    def test_listing_excludes_restricted_collection_descendant(self):
+        parent = self.create_collection("Secret")
+        child = self.create_collection("Child", parent=parent)
+        image = self.create_image(collection=child)
+        CollectionViewRestriction.objects.create(
+            collection=parent,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        response = self.get_response()
+        content = response.json()
+        self.assertEqual(content["count"], 0)
+        self.assertNotIn(image.id, [item["id"] for item in content["items"]])
+
     def test_meta_fields(self):
         self.create_image()
         response = self.get_response()

@@ -34,6 +34,17 @@ class TestV3ImageDetail(TestV3ImagesBase):
         response = self.get_response(image.id)
         self.assertEqual(response.status_code, 404)
 
+    def test_detail_excludes_restricted_collection_descendant(self):
+        parent = self.create_collection("Secret")
+        child = self.create_collection("Child", parent=parent)
+        image = self.create_image(collection=child)
+        CollectionViewRestriction.objects.create(
+            collection=parent,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        response = self.get_response(image.id)
+        self.assertEqual(response.status_code, 404)
+
     def test_unknown_id_returns_404(self):
         response = self.get_response(999999)
         self.assertEqual(response.status_code, 404)
