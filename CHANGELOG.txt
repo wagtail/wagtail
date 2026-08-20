@@ -1,9 +1,14 @@
 Changelog
 =========
 
-7.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.4.3 (20.08.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Security fix: Improper restriction handling on Pages admin API (xuliang@QAX, Dan Braghis)
+ * Security fix: Identification of documents by SHA1 hash (Anand Himanshu, Matt Westcott)
+ * Security fix: Improper restriction handling on descendant collections in Documents and Images API (Ta Duc Thien, Matt Westcott)
+ * Security fix: Improper permission handling when copying snippets (tinyb0y, Matt Westcott)
+ * Security fix: Improper restriction handling on Page translation API endpoint (tinyb0y, Matt Westcott)
  * Fix: Ensure models with a UUID primary key can be previewed when creating a new instance (Sébastien Corbin)
  * Fix: Ensure the checks side panel recognises custom `ContentCheckerItem` subclasses (Robert Rollins)
  * Fix: Ensure form field clean_name is consistently set on form pages if autosave runs prematurely (Joey Jurjens)
