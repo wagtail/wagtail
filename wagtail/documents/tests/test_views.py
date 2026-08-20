@@ -22,6 +22,7 @@ class TestServeView(TestCase):
         self.pdf_document.file.save(
             "serve_view.pdf", ContentFile(b"A boring example document")
         )
+        self.responses = []
 
     def read_response(self, response):
         if hasattr(response, "streaming_content"):
@@ -31,8 +32,8 @@ class TestServeView(TestCase):
             b"".join(response.streaming_content)
 
     def tearDown(self):
-        if hasattr(self, "response"):
-            self.read_response(self.response)
+        for response in self.responses:
+            self.read_response(response)
 
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
@@ -41,11 +42,12 @@ class TestServeView(TestCase):
 
     def get(self, document=None, headers=None):
         document = document or self.document
-        self.response = self.client.get(
+        response = self.client.get(
             reverse("wagtaildocs_serve", args=(document.id, document.filename)),
             headers=headers,
         )
-        return self.response
+        self.responses.append(response)
+        return response
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -63,20 +65,12 @@ class TestServeView(TestCase):
         )
 
     def test_content_security_policy(self):
-        self.get()
-        try:
-            self.assertEqual(
-                self.response["Content-Security-Policy"], "default-src 'none'"
-            )
-        finally:
-            self.read_response(self.response)
+        response = self.get()
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
 
         with self.settings(WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT=False):
-            self.get()
-            try:
-                self.assertNotIn("Content-Security-Policy", self.response.headers)
-            finally:
-                self.read_response(self.response)
+            response = self.get()
+            self.assertNotIn("Content-Security-Policy", response.headers)
 
     def test_no_sniff_content_type(self):
         self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
