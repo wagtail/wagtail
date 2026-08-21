@@ -57,7 +57,9 @@ This will expose all endpoints at the API root you decided. This includes read-o
 To get started, browse the generated docs:
 
 - A human-friendly documentation dashboard at `<API root>/docs/`
-- A machine-readable OpenAPI schema at `<API root>/openapi.json`.
+- A machine-readable OpenAPI schema at `<API root>/openapi.json`
+
+The OpenAPI schema (`<API root>/openapi.json`) and the interactive docs dashboard (`<API root>/docs/`) are publicly available, including descriptions of both anonymous and authenticated endpoints. To add a layer of obscurity, you can set the [`WAGTAILAPI_DOCS_ENABLED`](wagtailapi_settings) setting to `False` to disable both routes.
 
 The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`, `WAGTAILAPI_RICH_TEXT_FORMAT`). See [](api_v2_configuration) and the [API settings reference](wagtailapi_settings).
 
