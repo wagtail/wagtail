@@ -81,6 +81,17 @@ class DraftStateMixin(models.Model):
                 return _("expired")
             elif self.approved_schedule:
                 return _("scheduled")
+            elif self.first_published_at:
+                try:
+                    revisions_count = self.revisions.filter(
+                        created_at__gt=self.last_published_at
+                    ).count()
+                    if revisions_count > 1:
+                        return _("draft (unpublished)")
+                except (ValueError, TypeError):
+                    pass
+
+                return _("unpublished")
             else:
                 return _("draft")
         else:
