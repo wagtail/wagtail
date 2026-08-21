@@ -31,6 +31,21 @@ describe('PageExplorerPanel', () => {
       expect(shallow(<PageExplorerPanel {...mockProps} />)).toMatchSnapshot();
     });
 
+    it('keeps the focus trap active when the page explorer button is clicked', () => {
+      document.body.innerHTML = `
+        <li class="sidebar-page-explorer-item"><button type="button"></button></li>
+      `;
+      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
+      const clickOutsideDeactivates = wrapper
+        .find('FocusTrap')
+        .prop('focusTrapOptions').clickOutsideDeactivates;
+
+      expect(
+        clickOutsideDeactivates({ target: document.querySelector('button') }),
+      ).toBe(false);
+      expect(clickOutsideDeactivates({ target: document.body })).toBe(true);
+    });
+
     it('#isFetching', () => {
       expect(
         shallow(
