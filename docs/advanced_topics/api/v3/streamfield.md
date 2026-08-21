@@ -38,7 +38,7 @@ The `value` representation depends on the block type:
 -   **RichTextBlock** — rich text, using the input and output formats described in [](api_v3_rich_text).
 -   **Chooser and leaf blocks** (for example image and page choosers) — a scalar value such as the object's ID, or another widget-compatible value.
 
-Custom blocks can customise how they are read back through the API by defining `get_api_representation()`, which takes precedence over the default representation.
+Custom blocks can customise how they are read back through the API by [defining `get_api_representation(value, context=None)`](apiv2_streamfield_configuration), which takes precedence over the default representation.
 
 ## Writing StreamField values
 

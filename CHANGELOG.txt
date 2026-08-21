@@ -42,6 +42,7 @@ Changelog
  * Docs: Add docs for `request.in_preview_panel` to explain its use (Raghad Dahi)
  * Docs: Update image format docs to encourage more intentional conversions (Thibaud Colas)
  * Docs: Clarify Wagtail XSS protections for uploaded documents (Thibaud Colas)
+ * Docs: Add section on customizing StreamField block API output with `get_api_representation` (Pranith Beeram)
  * Maintenance: Formalized support for Django 6.1
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)

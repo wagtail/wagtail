@@ -253,16 +253,12 @@ This adds two fields to the API (other fields omitted for brevity):
     "published_date_display": "Thursday 06 April 2017"
 }
 ```
-### Customising StreamField block API output
 
-When a `StreamField` is serialized for the API, Wagtail calls
-`get_api_representation(value, context)` on each block. You can
-override this method in your own block classes to control exactly
-what gets included in the JSON response.
+(apiv2_streamfield_configuration)=
 
-By default, blocks that reference other objects (such as `ImageChooserBlock`)
-return just the related object's primary key, an integer. For example, a page
-with this model:
+### StreamField blocks in the API
+
+When a StreamField block’s value is serialized for the API, by default Wagtail uses the same representation as it does for the database. For example, this model:
 
 ```python
 # blog/models.py
@@ -270,11 +266,14 @@ from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.blocks import CharBlock, ImageChooserBlock
 
+
 class BlogPage(Page):
-    body = StreamField([
-        ("heading", CharBlock()),
-        ("photo",   ImageChooserBlock()),
-    ])
+    body = StreamField(
+        [
+            ("heading", CharBlock()),
+            ("photo", ImageChooserBlock()),
+        ]
+    )
 ```
 
 produces this API output by default:
@@ -288,59 +287,27 @@ produces this API output by default:
 }
 ```
 
-The `"value": 42` is only the image's database ID. To return richer data,
-subclass the block and override `get_api_representation`:
+`CharBlock` produces a string value, and an `ImageChooserBlock` reference corresponds to the primary key of the image.
+
+#### `get_api_representation` for custom block serialization
+
+To return richer data, you can define `get_api_representation` in `StructBlock`. Here is another example, returning the full image data inline rather than just the ID:
 
 ```python
 # blog/blocks.py
 from wagtail.images.blocks import ImageChooserBlock
 
+
 class APIImageChooserBlock(ImageChooserBlock):
     def get_api_representation(self, value, context=None):
         # value is the fully-loaded Image object, not just the integer ID
         return {
-            "id":    value.id,
+            "id": value.id,
             "title": value.title,
-            "url":   value.file.url,
         }
 ```
 
-Use this block in your page model:
-
-```python
-# blog/models.py
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.blocks import CharBlock
-from .blocks import APIImageChooserBlock
-
-class BlogPage(Page):
-    body = StreamField([
-        ("heading", CharBlock()),
-        ("photo",   APIImageChooserBlock()),
-    ])
-```
-
-The API now returns the full image data inline, with no second request needed:
-
-```json
-{
-    "body": [
-        {"type": "heading", "value": "Hello world", "id": "abc123"},
-        {"type": "photo", "value": {
-            "id":    42,
-            "title": "Sunset over the mountains",
-            "url":   "/media/images/sunset.jpg"
-        }, "id": "def456"}
-    ]
-}
-```
-
-This approach works for any block type. `StreamBlock`, `StructBlock`, and
-`ListBlock` all recursively call `get_api_representation` on their children,
-so overriding it on a leaf block applies automatically everywhere that block
-is used.
-
+The API now returns the full image data inline, with no second request needed. This approach works for all blocks based on StructBlock, no matter where they are in the block hierarchy.
 
 (api_v2_rich_text)=
 
