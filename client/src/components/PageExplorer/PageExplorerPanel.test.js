@@ -164,4 +164,29 @@ describe('PageExplorerPanel', () => {
       expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
     });
   });
+
+  describe('FocusTrap options', () => {
+    it('clickOutsideDeactivates ignores click on Pages trigger button', () => {
+      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
+      const focusTrapOptions =
+        wrapper.find('FocusTrap').prop('focusTrapOptions');
+
+      const button = document.createElement('button');
+      button.className = 'sidebar-menu-item__link';
+      const li = document.createElement('li');
+      li.className = 'sidebar-page-explorer-item';
+      li.appendChild(button);
+
+      // Should return false for clicks inside the Pages button
+      expect(
+        focusTrapOptions.clickOutsideDeactivates({ target: button }),
+      ).toBe(false);
+
+      // Should return true for clicks outside the Pages button
+      const outsideElement = document.createElement('div');
+      expect(
+        focusTrapOptions.clickOutsideDeactivates({ target: outsideElement }),
+      ).toBe(true);
+    });
+  });
 });
