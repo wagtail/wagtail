@@ -922,6 +922,14 @@ WAGTAILAPI_TOKEN_LAST_USED_INTERVAL = 60
 
 Applies to the v3 API only. How often an API token's `last_used_at` timestamp is updated, in seconds (default `60`). Successful authenticated requests update the timestamp at most once per this interval per token, limiting database writes on busy APIs. Set to `None` to disable these updates entirely, for example on sites running with a read-only production database. See [](api_v3_authentication).
 
+### `WAGTAILAPI_DOCS_ENABLED`
+
+```python
+WAGTAILAPI_DOCS_ENABLED = False
+```
+
+Applies to the v3 API only. Sets whether the API serves [OpenAPI schema and interactive docs](api_v3) or not. Defaults to `True`.
+
 ## Frontend cache
 
 For full documentation on frontend cache invalidation, including these settings, see [](frontend_cache_purging).
