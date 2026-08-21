@@ -14,20 +14,32 @@ class WagtailAPIRouter:
     def __init__(self, url_namespace):
         self.url_namespace = url_namespace
         self._endpoints = {}
+        self._model2endpoint = {}
 
-    def register_endpoint(self, name, class_):
+    def register_endpoint(self, name, class_, as_default_view=True):
+        """
+        Registers the endpoint's URLs under the provided name as namespace.
+
+        If `as_default_view` is set (the default), then the endpoint
+        will be used for reverse resolution in :meth:`get_model_listing_urlpath`
+        and :meth:`get_object_detail_urlpath` (e.g. in `detail_url` field on objects).
+        """
         self._endpoints[name] = class_
+        if as_default_view and class_.model is not None:
+            # setdefault instead of assign so first takes precedence,
+            # like now
+            self._model2endpoint.setdefault(class_.model, (name, class_))
 
-    def get_model_endpoint(self, model):
+    def get_model_endpoint(self, model, specific=False):
         """
         Finds the endpoint in the API that represents a model
 
         Returns a (name, endpoint_class) tuple. Or None if an
         endpoint is not found.
         """
-        for name, class_ in self._endpoints.items():
-            if issubclass(model, class_.model):
-                return name, class_
+        for class_ in model.__mro__:
+            if class_ in self._model2endpoint:
+                return self._model2endpoint[class_]
 
     def get_model_listing_urlpath(self, model):
         """
