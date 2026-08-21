@@ -33,7 +33,7 @@ If you believe you or your organisation should receive full details of vulnerabi
 
 At any given time, the Wagtail team provides official security support for several versions of Wagtail:
 
--   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support.
+-   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support. Security issues that only affect the `main` development branch and not any stable released versions are fixed in public without going through the [disclosure process](#how-wagtail-discloses-security-issues).
 -   The two most recent Wagtail release series receive security support.
     For example, during the development cycle leading to the release of
     Wagtail 2.6, support will be provided for Wagtail 2.5 and Wagtail 2.4. Upon the release of Wagtail 2.6, Wagtail 2.4's security support will end.
