@@ -32,7 +32,7 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
-from wagtail.images.utils import find_image_duplicates
+from wagtail.images.utils import find_image_duplicates, get_image_pk_converter
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import policy_registry
 
@@ -422,9 +422,10 @@ class ImageChooserViewSet(ChooserViewSet):
         )
 
     def get_urlpatterns(self):
+        conv = get_image_pk_converter(self.model)
         return super().get_urlpatterns() + [
             path(
-                "<int:image_id>/select_format/",
+                f"<{conv}:image_id>/select_format/",
                 self.select_format_view,
                 name="select_format",
             ),
