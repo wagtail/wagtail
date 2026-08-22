@@ -336,6 +336,64 @@ class TestV3PageCopy(TestV3PageActionsBase):
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.title, "Custom Title")
 
+    def test_explicit_slug_conflicting_with_sibling_returns_422(self):
+        self.login()
+        destination = self.add_simple_page(
+            self.home_page, title="Destination", slug="destination"
+        )
+        self.add_simple_page(destination, title="Existing", slug="taken")
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        response = self.post(page, {"destination_id": destination.pk, "slug": "taken"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["slug"]}],
+        )
+        # The rejected copy must not have added a second child to the destination.
+        self.assertEqual(destination.get_children().count(), 1)
+
+    def test_invalid_slug_returns_422(self):
+        self.login()
+        destination = self.add_simple_page(
+            self.home_page, title="Destination", slug="destination"
+        )
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        # keep_live=False exercises minimal_clean(), which previously skipped
+        # slug format validation and allowed a malformed slug to be saved.
+        response = self.post(
+            page,
+            {"destination_id": destination.pk, "keep_live": False, "slug": "bad slug"},
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
+
+    def test_non_ascii_slug_rejected_when_unicode_disabled(self):
+        self.login()
+        destination = self.add_simple_page(
+            self.home_page, title="Destination", slug="destination"
+        )
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        with self.settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False):
+            response = self.post(
+                page,
+                {
+                    "destination_id": destination.pk,
+                    "keep_live": False,
+                    "slug": "pàgé",
+                },
+            )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
+
     def test_unknown_destination_returns_404(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -860,6 +918,38 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
         self.assertEqual(response.status_code, 201)
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.slug, "custom-alias-slug")
+
+    def test_explicit_slug_conflicting_with_sibling_returns_422(self):
+        self.login()
+        destination = self.add_simple_page(
+            self.home_page, title="Destination", slug="destination"
+        )
+        self.add_simple_page(destination, title="Existing", slug="taken")
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        response = self.post(page, {"destination_id": destination.pk, "slug": "taken"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["slug"]}],
+        )
+        self.assertEqual(destination.get_children().count(), 1)
+
+    def test_invalid_slug_returns_422(self):
+        self.login()
+        destination = self.add_simple_page(
+            self.home_page, title="Destination", slug="destination"
+        )
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        response = self.post(
+            page, {"destination_id": destination.pk, "slug": "bad slug"}
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
 
     def test_unknown_destination_returns_404(self):
         self.login()
