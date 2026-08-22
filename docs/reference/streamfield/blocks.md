@@ -534,6 +534,10 @@ All block definitions have the following methods and properties that can be over
      A list of block names or ``BlockGroup`` instances to determine the order in which sub-blocks are displayed in the editing interface. Alternatively, a ``BlockGroup`` instance can be provided instead of a list, to define a group of ``children`` and ``settings`` blocks. See :ref:`structblock_custom_order_and_grouping` and :class:`BlockGroup` for more details.
 
     .. automethod:: get_form_layout
+    
+    .. automethod:: get_api_representation
+
+    For more information, see :ref:`apiv2_streamfield_configuration`.
 
 
 .. autoclass:: wagtail.blocks.ListBlock
