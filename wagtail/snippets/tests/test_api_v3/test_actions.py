@@ -353,13 +353,24 @@ class TestV3SnippetCopyForTranslation(TestV3SnippetActionsBase):
         )
 
     def test_requires_submit_translation_permission(self):
-        self.login_with_permissions("add_fullfeaturedsnippet")
+        self.login_with_permissions(
+            "add_fullfeaturedsnippet", "change_fullfeaturedsnippet"
+        )
+        snippet = FullFeaturedSnippet.objects.create(text="Src")
+        response = self.post(snippet, {"locale": "fr"})
+        self.assert_problem_response(response, status_code=403)
+
+    def test_requires_change_permission_on_source_snippet(self):
+        user = self.login_with_permissions("add_fullfeaturedsnippet")
+        self.grant_submit_translation(user)
         snippet = FullFeaturedSnippet.objects.create(text="Src")
         response = self.post(snippet, {"locale": "fr"})
         self.assert_problem_response(response, status_code=403)
 
     def test_copy_for_translation(self):
-        user = self.login_with_permissions("add_fullfeaturedsnippet")
+        user = self.login_with_permissions(
+            "add_fullfeaturedsnippet", "change_fullfeaturedsnippet"
+        )
         self.grant_submit_translation(user)
         snippet = FullFeaturedSnippet.objects.create(text="Src")
 

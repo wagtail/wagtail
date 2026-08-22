@@ -199,6 +199,7 @@ class CopyForTranslationAction(BaseAction):
     """
 
     action_name = "copy_for_translation"
+    permission_policy_action = "change"
     permission_error_class = CopyForTranslationPermissionError
 
     def __init__(
@@ -213,14 +214,22 @@ class CopyForTranslationAction(BaseAction):
         self.locale = locale
         self.exclude_fields = exclude_fields
 
+    def user_has_permission(self):
+        # Copying an object for translation additionally requires the global
+        # ``submit_translation`` permission, alongside ``change`` permission over
+        # the source object.
+        return super().user_has_permission() and self.user.has_perms(
+            ["simple_translation.submit_translation"]
+        )
+
     def check(self, skip_permission_checks=False):
         # Permission checks
         if (
             self.user
             and not skip_permission_checks
-            and not self.user.has_perms(["simple_translation.submit_translation"])
+            and not self.user_has_permission()
         ):
-            raise CopyForTranslationPermissionError(
+            raise self.permission_error_class(
                 "You do not have permission to submit a translation for this object."
             )
 
