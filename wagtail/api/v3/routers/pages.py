@@ -1,6 +1,7 @@
 from typing import Literal, Optional, TypeAlias, cast
 
 import swapper
+from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -445,12 +446,49 @@ def unpublish(
     return page
 
 
+def _validate_slug(value: str) -> str:
+    """
+    Validate a client-supplied slug matches Wagtail's slug format, honouring the
+    ``WAGTAIL_ALLOW_UNICODE_SLUGS`` setting. Mirrors the admin ``CopyForm``'s
+    ``SlugField``. Raises ``ValueError`` so the value maps to a field-level 422.
+    """
+    allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
+    field = forms.SlugField(allow_unicode=allow_unicode)
+    try:
+        field.clean(value)
+    except forms.ValidationError as exc:
+        raise ValueError(exc.messages[0]) from exc
+    return value
+
+
+def _validate_slug_available(slug: str, destination) -> None:
+    """
+    Raise ``ValueError`` if ``slug`` is already in use by a sibling of the
+    destination page. ``destination`` may be ``None`` (defaulting to the
+    source's parent), in which case the check is skipped here and enforced by
+    the model layer during save.
+    """
+    if destination is None:
+        return
+    if destination.get_children().filter(slug=slug).exists():
+        raise ValueError(
+            "This slug is already in use within the context of its parent page."
+        )
+
+
 class PageCopySchema(Schema):
     destination_id: Optional[PositiveInt] = None
     recursive: bool = False
     keep_live: bool = True
     slug: Optional[str] = None
     title: Optional[str] = None
+
+    @field_validator("slug", mode="after")
+    @classmethod
+    def _validate_slug_format(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        return _validate_slug(value)
 
     def get_destination(self) -> Page:
         if self.destination_id is None:
@@ -460,6 +498,7 @@ class PageCopySchema(Schema):
     def get_update_attrs(self, page: Page, destination: Page | None) -> dict:
         update_attrs = {}
         if self.slug:
+            _validate_slug_available(self.slug, destination or page.get_parent())
             update_attrs["slug"] = self.slug
         else:
             destination = destination or page.get_parent()
@@ -486,7 +525,10 @@ def copy(
 ):
     page = get_object_or_404(Page, pk=page_id)
     destination = data.get_destination()
-    update_attrs = data.get_update_attrs(page, destination)
+    try:
+        update_attrs = data.get_update_attrs(page, destination)
+    except ValueError as exc:
+        raise as_validation_error(exc, loc=("slug",)) from exc
     action_class = action_registry.get_action_class(Page, "copy")
     action = action_class(
         page=page,
@@ -613,6 +655,13 @@ class PageCreateAliasSchema(Schema):
     recursive: bool = False
     slug: Optional[str] = None
 
+    @field_validator("slug", mode="after")
+    @classmethod
+    def _validate_slug_format(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        return _validate_slug(value)
+
     def get_destination(self) -> Page | None:
         if self.destination_id is None:
             return None
@@ -620,6 +669,7 @@ class PageCreateAliasSchema(Schema):
 
     def get_update_slug(self, page: Page, destination: Page | None) -> str:
         if self.slug:
+            _validate_slug_available(self.slug, destination or page.get_parent())
             return self.slug
         return find_available_slug(destination or page.get_parent(), page.slug)
 
@@ -639,12 +689,16 @@ def create_alias(
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     destination = data.get_destination()
+    try:
+        update_slug = data.get_update_slug(page, destination)
+    except ValueError as exc:
+        raise as_validation_error(exc, loc=("slug",)) from exc
     action_class = action_registry.get_action_class(Page, "create_alias")
     action = action_class(
         page,
         recursive=data.recursive,
         parent=destination,
-        update_slug=data.get_update_slug(page, destination),
+        update_slug=update_slug,
         user=request.user,
     )
     try:
