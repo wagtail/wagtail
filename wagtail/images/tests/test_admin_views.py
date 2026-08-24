@@ -1749,7 +1749,7 @@ class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         with self.assertRaises(type(old_rendition).DoesNotExist):
             old_rendition.refresh_from_db()
 
-    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_focal_point_editor(self):
         large_image = Image.objects.create(
             title="Test image",

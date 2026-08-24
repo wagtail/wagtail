@@ -819,9 +819,6 @@ class TestFilteredLogEntriesResultsView(TestFilteredLogEntriesView):
     results_only = True
 
 
-@override_settings(
-    USE_L10N=True,
-)
 class TestExcelDateFormatter(TestCase):
     def test_all_locales(self):
         formatter = ExcelDateFormatter()
