@@ -142,7 +142,9 @@ jobs:
           python-version: ${{ matrix.python }}
           allow-prereleases: true
       - name: Install libpq-dev
-        run: sudo apt-get install -y libpq-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       - name: Install dependencies
@@ -358,7 +360,9 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install libpq-dev
-        run: sudo apt-get install -y libpq-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       - name: Install dependencies
