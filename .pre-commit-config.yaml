@@ -22,7 +22,7 @@ repos:
           # Keep in sync with package.json
           - prettier@3.8.1
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v9.39.0
+    rev: v9.39.1
     hooks:
       - id: eslint
         types: [file]
