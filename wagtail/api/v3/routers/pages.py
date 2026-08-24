@@ -1,6 +1,7 @@
 from typing import Literal, Optional, TypeAlias, cast
 
 import swapper
+from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -445,12 +446,33 @@ def unpublish(
     return page
 
 
+def _validate_slug(value: Optional[str]) -> Optional[str]:
+    """
+    Checks for Wagtail’s slug format, respecting unicode on/off settings.
+    Replicates ``SlugField`` from ``CopyForm`` in the admin.
+    """
+    if value is None:
+        return None
+    allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
+    field = forms.SlugField(allow_unicode=allow_unicode)
+    try:
+        field.clean(value)
+    except forms.ValidationError as exc:
+        raise ValueError(exc.messages[0]) from exc
+    return value
+
+
 class PageCopySchema(Schema):
     destination_id: Optional[PositiveInt] = None
     recursive: bool = False
     keep_live: bool = True
     slug: Optional[str] = None
     title: Optional[str] = None
+
+    @field_validator("slug", mode="after")
+    @classmethod
+    def validate_slug(cls, value: Optional[str]) -> Optional[str]:
+        return _validate_slug(value)
 
     def get_destination(self) -> Page:
         if self.destination_id is None:
@@ -612,6 +634,11 @@ class PageCreateAliasSchema(Schema):
     destination_id: Optional[PositiveInt] = None
     recursive: bool = False
     slug: Optional[str] = None
+
+    @field_validator("slug", mode="after")
+    @classmethod
+    def validate_slug(cls, value: Optional[str]) -> Optional[str]:
+        return _validate_slug(value)
 
     def get_destination(self) -> Page | None:
         if self.destination_id is None:
