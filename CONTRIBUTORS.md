@@ -994,6 +994,7 @@
 * Anand Himanshu
 * Ta Duc Thien
 * tinyb0y
+* Piyush Bhakuni
 
 ## Translators
 
