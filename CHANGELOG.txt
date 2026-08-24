@@ -44,6 +44,7 @@ Changelog
  * Docs: Clarify Wagtail XSS protections for uploaded documents (Thibaud Colas)
  * Docs: Add section on customizing StreamField block API output with `get_api_representation` (Pranith Beeram)
  * Docs: Removed now-deprecated `USE_L10N` setting from internationalization and project setup documentation (Piyush Bhakuni)
+ * Docs: Add an overview page for images (Dmitry Khlopyev)
  * Maintenance: Formalized support for Django 6.1
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
