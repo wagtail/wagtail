@@ -52,35 +52,19 @@ class TestAPITokenAdmin(TestCase):
         self.assertContains(response, 'name="name"')
         self.assertContains(response, 'name="user"')
 
-    def test_create_shows_secret_exactly_once(self):
+    def test_create_shows_secret_on_post_response(self):
         self.client.force_login(self.root)
         response = self.client.post(
             reverse("wagtailusers_api_tokens:add"),
             {"user": self.root.pk, "name": "deploy bot"},
         )
         token = APIToken.objects.get()
-        # POST/redirect/GET to the one-time secret page
-        self.assertRedirects(
-            response,
-            reverse("wagtailusers_api_tokens:created", args=[token.pk]),
-            fetch_redirect_response=False,
-        )
-        created = self.client.get(response["Location"])
-        self.assertEqual(created.status_code, 200)
-        self.assertContains(created, token.prefix)
-        matches = TOKEN_RE.findall(created.content.decode())
+        # The token is rendered directly in the POST response (no redirect).
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, token.prefix)
+        matches = TOKEN_RE.findall(response.content.decode())
         self.assertEqual(len(matches), 1)
         plaintext = matches[0]
-
-        # The one-time page does not serve the secret twice.
-        second = self.client.get(response["Location"], follow=True)
-        self.assertEqual(len(second.redirect_chain), 1)
-        self.assertEqual(second.redirect_chain[0][1], 302)
-        self.assertContains(
-            second,
-            "Token secrets are only displayed once, immediately after creation.",
-        )
-        self.assertNotContains(second, plaintext)
 
         # The full secret is never shown anywhere else.
         self.assertNotContains(self.get("index"), plaintext)
@@ -107,7 +91,7 @@ class TestAPITokenAdmin(TestCase):
             reverse("wagtailusers_api_tokens:add"),
             {"user": plain.pk, "name": "my token"},
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(APIToken.objects.get().user, plain)
 
     def test_create_for_other_user_requires_change_user_perm(self):
