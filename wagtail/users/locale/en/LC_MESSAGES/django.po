@@ -483,15 +483,11 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
-#: views/api_tokens.py:154
+#: views/api_tokens.py:148
 msgid "API token created"
 msgstr ""
 
-#: views/api_tokens.py:177
-msgid "Token secrets are only displayed once, immediately after creation."
-msgstr ""
-
-#: views/api_tokens.py:207
+#: views/api_tokens.py:169
 msgid "Never"
 msgstr ""
 

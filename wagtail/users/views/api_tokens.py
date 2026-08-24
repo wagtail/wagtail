@@ -2,12 +2,10 @@ import django_filters
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.forms import CharField, CheckboxSelectMultiple, Form, ModelChoiceField
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import path, reverse
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.utils.functional import cached_property
-from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
-from django.views import View
 
 from wagtail.admin.filters import (
     DateRangePickerWidget,
@@ -19,14 +17,11 @@ from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.log_actions import log
 from wagtail.models import APIToken
 from wagtail.users.utils import get_manageable_token_owners, user_can_manage_token
-
-CREATED_SESSION_KEY = "wagtail_apitoken_created"
 
 
 class APITokenForm(Form):
@@ -134,58 +129,17 @@ class CreateView(generic.CreateView):
             user=owner, name=form.cleaned_data["name"]
         )
         log(self.object, "wagtail.apitoken.create", user=self.request.user)
-        # Stash the secret in the session for a single display on the
-        # redirected-to page (POST/redirect/GET, so a refresh cannot
-        # re-submit and mint a duplicate token). Keyed by pk so multiple
-        # pending secrets can coexist.
-        stash = self.request.session.get(CREATED_SESSION_KEY, {})
-        stash[str(self.object.pk)] = plaintext
-        self.request.session[CREATED_SESSION_KEY] = stash
-        return redirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse("wagtailusers_api_tokens:created", args=[self.object.pk])
-
-
-class CreatedView(WagtailAdminTemplateMixin, View):
-    """Displays a newly-created token's secret exactly once."""
-
-    template_name = "wagtailusers/api_tokens/created.html"
-    page_title = _("API token created")
-    model = APIToken
-    index_url_name = None
-    header_icon = ""
-
-    def get_breadcrumbs_items(self):
-        items = [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-        ]
-        items.append({"url": "", "label": self.get_page_title()})
-        return self.breadcrumbs_items + items
-
-    def get(self, request, pk):
-        # Peek before consuming: a stale link or prefetch must not wipe the
-        # one-time secret.
-        stash = request.session.get(CREATED_SESSION_KEY, {})
-        plaintext = stash.get(str(pk))
-        if plaintext is None:
-            messages.warning(
-                request,
-                _("Token secrets are only displayed once, immediately after creation."),
-            )
-            return redirect("wagtailusers_api_tokens:index")
-        self.object = get_object_or_404(APIToken, pk=pk)
-        del stash[str(pk)]
-        if stash:
-            request.session[CREATED_SESSION_KEY] = stash
-        else:
-            del request.session[CREATED_SESSION_KEY]
-        return self.render_to_response(
-            self.get_context_data(object=self.object, token=plaintext)
+        return TemplateResponse(
+            self.request,
+            "wagtailusers/api_tokens/created.html",
+            self.get_created_context(plaintext),
         )
+
+    def get_created_context(self, plaintext):
+        context = super().get_context_data(token=plaintext)
+        context["page_title"] = _("API token created")
+        context["header_title"] = _("API token created")
+        return context
 
 
 class APITokenStatusSidePanel(StatusSidePanel):
@@ -270,15 +224,6 @@ class APITokenViewSet(ModelViewSet):
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = RevokeView
-
-    @property
-    def created_view(self):
-        return self.construct_view(CreatedView)
-
-    def get_urlpatterns(self):
-        return super().get_urlpatterns() + [
-            path("created/<int:pk>/", self.created_view, name="created"),
-        ]
 
     def get_form_class(self, for_update=False):
         if for_update:
