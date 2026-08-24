@@ -541,7 +541,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContains(response, "1-153 of 153")
         self.assertEqual(len(response.context["pages"]), 153)
 
-    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_bulk_action_checkbox(self):
         """
         Test that the USE_THOUSAND_SEPARATOR setting does mess up object IDs in

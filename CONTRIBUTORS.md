@@ -996,6 +996,7 @@
 * tinyb0y
 * Piyush Bhakuni
 * Dmitry Khlopyev
+* DresdenGman
 
 ## Translators
 

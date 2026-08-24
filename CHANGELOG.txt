@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Maintenance: Drop support for Python 3.10
+ * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
 
 
 8.0 (25.08.2026)
