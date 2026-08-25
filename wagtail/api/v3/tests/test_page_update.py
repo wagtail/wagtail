@@ -333,6 +333,22 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             title="Original image", file=get_test_image_file()
         )
         new_image = Image.objects.create(title="New image", file=get_test_image_file())
+        original_table = {
+            "data": [["", "Original"], ["Row", "1"]],
+            "first_col_is_header": True,
+            "first_row_is_table_header": True,
+            "mergeCells": [],
+            "table_caption": "Original table",
+            "table_header_choice": "both",
+        }
+        updated_table = {
+            "data": [["", "Updated"], ["Row", "2"]],
+            "first_col_is_header": True,
+            "first_row_is_table_header": True,
+            "mergeCells": [],
+            "table_caption": "Updated table",
+            "table_header_choice": "both",
+        }
         cases = [
             (
                 "product",
@@ -419,6 +435,13 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
                         "alt_text": "Updated alt",
                     },
                 ),
+            ),
+            (
+                "table",
+                original_table,
+                updated_table,
+                lambda value: self.assertEqual(value, updated_table),
+                lambda value: self.assertEqual(value, updated_table),
             ),
         ]
         for (
