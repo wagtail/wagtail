@@ -21,8 +21,8 @@ concurrency:
 #   DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel, USE_CUSTOM_PAGE_MODEL=yes
-# - django 5.2, python 3.10, mysql:8.0
+# - django 5.2, python 3.11, postgres:14, psycopg 2, parallel, USE_CUSTOM_PAGE_MODEL=yes
+# - django 5.2, python 3.11, mysql:8.0
 # - django 6.0, python 3.12, mariadb:10.6
 # - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
 # - django 6.1, python 3.12, mariadb:11.4, USE_CUSTOM_PAGE_MODEL=yes
@@ -31,8 +31,8 @@ concurrency:
 # - django 6.1, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
-# - elasticsearch 7, django 5.2, python 3.10, postgres:latest, psycopg 2
-# - opensearch 2, django 5.2, python 3.10, sqlite
+# - elasticsearch 7, django 5.2, python 3.11, postgres:latest, psycopg 2
+# - opensearch 2, django 5.2, python 3.11, sqlite
 # - elasticsearch 8, django 6.1, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -99,7 +99,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
+          - python: '3.11'
             django: 'Django>=5.2,<5.3'
             psycopg: 'psycopg2>=2.8.4'
             experimental: false
@@ -199,7 +199,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
+          - python: '3.11'
             django: 'Django>=5.2,<5.3'
             experimental: false
           - python: '3.12'
@@ -326,7 +326,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
+          - python: '3.11'
             django: 'Django>=5.2,<5.3'
             experimental: false
 
@@ -398,7 +398,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
+          - python: '3.11'
             django: 'Django>=5.2,<5.3'
             experimental: false
 
