@@ -51,7 +51,7 @@ class YourPage(Page):
 
 `on_delete=models.SET_NULL` keeps the page usable if the image is deleted from the image library, and `related_name="+"` avoids adding a reverse accessor to the image model, which is rarely useful.
 
-If your project uses a [custom image model](custom_image_model), refer to it with `get_image_model_string()` instead of `"wagtailimages.Image"`. See [](custom_image_model_referring_to_image_model).
+If your project uses a custom image model, refer to it with `get_image_model_string()` instead of `"wagtailimages.Image"`. See [](custom_image_model_referring_to_image_model).
 
 ## Using images in templates
 
