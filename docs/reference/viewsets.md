@@ -251,10 +251,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
 ## PageListingViewSet
 
-```{versionadded} 7.4
-Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `export_headings` and `export_filename` was added to `PageListingViewSet`.
-```
-
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.pages.PageListingViewSet
 
@@ -272,10 +268,6 @@ Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `expo
 ```
 
 ## PageViewSet
-
-```{versionadded} 7.4
-The `PageViewSet` class was added.
-```
 
 ```{versionadded} 8.0
 Endpoints for the following views were added to the viewset:
