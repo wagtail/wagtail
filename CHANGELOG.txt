@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.0 (xx.xx.xxxx) - IN DEVELOPMENT
+8.0 (25.08.2026)
 ~~~~~~~~~~~~~~~~
 
  * Support for custom base page models (Matt Westcott)
