@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,8 +228,8 @@ msgstr ""
 msgid "Status: "
 msgstr ""
 
-#: templates/wagtailusers/api_tokens/status.html:8 views/api_tokens.py:57
-#: views/api_tokens.py:103
+#: templates/wagtailusers/api_tokens/status.html:8 views/api_tokens.py:52
+#: views/api_tokens.py:98
 msgid "Revoked"
 msgstr ""
 
@@ -361,7 +361,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:20
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:107
-#: views/api_tokens.py:33 views/api_tokens.py:99 views/groups.py:102
+#: views/api_tokens.py:28 views/api_tokens.py:94 views/groups.py:102
 #: views/users.py:126
 msgid "Name"
 msgstr ""
@@ -463,44 +463,44 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr ""
 
-#: views/api_tokens.py:34 views/api_tokens.py:43 views/api_tokens.py:100
+#: views/api_tokens.py:29 views/api_tokens.py:38 views/api_tokens.py:95
 msgid "User"
 msgstr ""
 
-#: views/api_tokens.py:49 views/api_tokens.py:101
+#: views/api_tokens.py:44 views/api_tokens.py:96
 msgid "Created"
 msgstr ""
 
-#: views/api_tokens.py:53 views/api_tokens.py:102
+#: views/api_tokens.py:48 views/api_tokens.py:97
 msgid "Last used"
 msgstr ""
 
-#: views/api_tokens.py:96
+#: views/api_tokens.py:91
 msgid "Token"
 msgstr ""
 
-#: views/api_tokens.py:114 views/api_tokens.py:215 views/api_tokens.py:236
+#: views/api_tokens.py:109 views/api_tokens.py:169 views/api_tokens.py:190
 msgid "Revoke"
 msgstr ""
 
-#: views/api_tokens.py:148
+#: views/api_tokens.py:140 views/api_tokens.py:141
 msgid "API token created"
 msgstr ""
 
-#: views/api_tokens.py:169
+#: views/api_tokens.py:161
 msgid "Never"
 msgstr ""
 
-#: views/api_tokens.py:241
+#: views/api_tokens.py:195
 msgid "Are you sure you want to revoke this API token?"
 msgstr ""
 
-#: views/api_tokens.py:252
+#: views/api_tokens.py:206
 #, python-format
 msgid "API token '%(name)s' revoked."
 msgstr ""
 
-#: views/api_tokens.py:260
+#: views/api_tokens.py:214
 msgid "API tokens"
 msgstr ""
 
