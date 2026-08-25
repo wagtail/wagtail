@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -159,6 +159,18 @@ msgstr "Perfil de usuário"
 
 msgid "user profiles"
 msgstr "perfis de usuário"
+
+msgid "Copied to clipboard"
+msgstr "Copiado para a área de transferência"
+
+msgid "Status: "
+msgstr "Status: "
+
+msgid "Active"
+msgstr "Ativo"
+
+msgid "View history"
+msgstr "Ver histórico"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -335,6 +347,12 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "usuário%(id)s(excluído)"
 
+msgid "User"
+msgstr "Usuário"
+
+msgid "Created"
+msgstr "Criado"
+
 msgid "Assign role to selected users"
 msgstr "Atribuir função aos usuários selecionados"
 
@@ -354,9 +372,6 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)dusuário foi excluído"
 msgstr[1] "%(num_parent_objects)dusuários foram excluídos"
 msgstr[2] "%(num_parent_objects)dusuários foram excluídos"
-
-msgid "Active"
-msgstr "Ativo"
 
 msgid "Inactive"
 msgstr "Inativo"

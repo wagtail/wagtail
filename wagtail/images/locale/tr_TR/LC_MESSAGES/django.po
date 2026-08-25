@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -76,9 +76,6 @@ msgstr "Sağa yaslı"
 msgid "Collection"
 msgstr "Koleksiyon"
 
-msgid "Filter"
-msgstr "Filtrele"
-
 msgid "Original size"
 msgstr "Özgün boyut"
 
@@ -96,6 +93,9 @@ msgstr "Azami buna yeniden boyutlandır"
 
 msgid "Resize to fill"
 msgstr "Doldurma şeklinde yeniden boyutlandır"
+
+msgid "Filter"
+msgstr "Filtrele"
 
 msgid "Width"
 msgstr "Genişlik"

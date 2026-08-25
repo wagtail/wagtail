@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -153,6 +153,12 @@ msgstr "ޝެޑިއުލް އަށް ބަލާފައި ތަޅުލާފައި"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "މިވަގުތު ތަޅުލާފައި ހުރިއިރު ލައިވް ކުރާނީ ޝެޑިއުލް ތާރީހުގަ އެވެ"
 
+msgid "user"
+msgstr "ޔޫޒަރ"
+
+msgid "name"
+msgstr "ނަން"
+
 msgid "content type"
 msgstr "ކޮންޓެންޓް ޓައިޕް"
 
@@ -232,9 +238,6 @@ msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަން"
 msgid "collection view restrictions"
 msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަންސް"
 
-msgid "name"
-msgstr "ނަން"
-
 msgid "collections"
 msgstr "ކަލެކްޝަންތަކެވެ"
 
@@ -289,6 +292,12 @@ msgstr "ތަޅު ހުޅުވާ"
 msgid "Unlock any page"
 msgstr "ކޮންމެ ޕޭޖެއް ވެސް އަންލޮކް ކޮށްލާށެވެ"
 
+msgid "page"
+msgstr "ސަފްހާ"
+
+msgid "pages"
+msgstr "ޞަފްޙާތަކެވެ"
+
 msgid "title"
 msgstr "ޓައިޓަލް"
 
@@ -309,13 +318,8 @@ msgstr "ޔޫއާރްއެލް މަގު"
 msgid "owner"
 msgstr "ވެރި ފަރާތް"
 
-msgid "title tag"
-msgstr "ސުރުޚީ ޓެގް"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "ކްލިކް ކުރެވޭ ސުރުޚީގެ ގޮތުގައި ސަރޗް އިންޖީނުގެ ނަތީޖާތަކުގައި ދައްކާ ޕޭޖުގެ ނަން."
+msgid "latest revision created at"
+msgstr "އެންމެ ފަހުން އިސްލާހު އުފެއްދި ގދ"
 
 msgid "show in menus"
 msgstr "މެނޫތަކުގައި ދައްކާށެވެ"
@@ -323,6 +327,17 @@ msgstr "މެނޫތަކުގައި ދައްކާށެވެ"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "މި ޕޭޖަށް ލިންކެއް އޮޓޮމެޓިކުން އުފައްދާ މެނޫތަކުގައި ފެންނާނެތޯ / ނޫންތޯ"
+
+msgid "For site menus"
+msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
+
+msgid "title tag"
+msgstr "ސުރުޚީ ޓެގް"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "ކްލިކް ކުރެވޭ ސުރުޚީގެ ގޮތުގައި ސަރޗް އިންޖީނުގެ ނަތީޖާތަކުގައި ދައްކާ ޕޭޖުގެ ނަން."
 
 msgid "meta description"
 msgstr "މެޓާ ޑިސްކްރިޕްޝަން"
@@ -332,20 +347,8 @@ msgid ""
 "results."
 msgstr "ސަރޗް އިންޖީނުގެ ނަތީޖާތަކުގައި ސުރުޚީއެއްގެ ދަށުގައި ފެންނަ ސިފަކުރަނިވި ލިޔުން"
 
-msgid "latest revision created at"
-msgstr "އެންމެ ފަހުން އިސްލާހު އުފެއްދި ގދ"
-
 msgid "For search engines"
 msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
-
-msgid "For site menus"
-msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
-
-msgid "page"
-msgstr "ސަފްހާ"
-
-msgid "pages"
-msgstr "ޞަފްޙާތަކެވެ"
 
 msgid "group page permission"
 msgstr "ގްރޫޕް ޕޭޖްގެ ހުއްދަ ލިބިފައިވުން"
@@ -430,9 +433,6 @@ msgstr "ރެފަރެންސް އަންސެޓް ކުރާނެއެވެ"
 
 msgid "created at"
 msgstr "އުފެއްދިފައިވަނީ "
-
-msgid "user"
-msgstr "ޔޫޒަރ"
 
 msgid "content JSON"
 msgstr "ކޮންޓެންޓް ޖޭއެސްއޯއެން"
@@ -797,13 +797,6 @@ msgid ""
 msgstr ""
 "ޝާއިއު ކުރުމަށް ހަމަޖެހިފައިވާ%(revision_id)s އިން%(created_at)s ފެށިގެން އިސްލާހުކުރުން %(go_live_at)s"
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "%(go_live_at)s ގައި ޝާއިޢުކުރުމަށް ޝެޑިއުލްކޮށްފައިވާ ޞަފްޙާއެވެ"
-
-msgid "Page scheduled for publishing"
-msgstr "ޝާއިއު ކުރުމަށް ހަމަޖެހިފައިވާ ޞަފްޙާ"
-
 msgid "Unschedule publication"
 msgstr "ޝެޑިއުލް ނުކޮށް ޝާއިއުކުރުން"
 
@@ -814,13 +807,6 @@ msgid ""
 msgstr ""
 "%(revision_id)s އިސްލާހުކުރުން ޝެޑިއުލް ނުކުރެވި%(created_at)s އިން ފެށިގެން ޝާއިއުކުރުމުން "
 "%(go_live_at)s"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "%(go_live_at)s ގައި ޝާއިއު ކުރުމަށް ޝެޑިއުލް ނުކުރެވިފައިވާ ޕޭޖް"
-
-msgid "Page unscheduled from publishing"
-msgstr "ޝާއިޢުކުރުމުން ޝެޑިއުލް ނުކުރެވިފައިވާ ޞަފްޙާ"
 
 msgid "Add view restrictions"
 msgstr "ވިއު ރެސްޓްރިކްޝަންސް އިތުރުކުރުން"

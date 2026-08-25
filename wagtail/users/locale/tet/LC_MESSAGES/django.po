@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Mario <mario@catalpa.io>, 2019,2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -155,6 +155,18 @@ msgstr "perfil uzuáriu"
 
 msgid "user profiles"
 msgstr "perfil uzuáriu sira"
+
+msgid "Copied to clipboard"
+msgstr "Kopia ona ba clipboard"
+
+msgid "Status: "
+msgstr "Estadu:"
+
+msgid "Active"
+msgstr "Ativu"
+
+msgid "View history"
+msgstr "Haree istória"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -317,6 +329,12 @@ msgstr "Bele haree"
 msgid "user %(id)s (deleted)"
 msgstr "%(id)s uzuáriu (hamoos)"
 
+msgid "User"
+msgstr "Uzuáriu"
+
+msgid "Created"
+msgstr "Kria ona"
+
 msgid "Assign role to selected users"
 msgstr "Atribui papél ba uzuáriu sira ne'ebé hili ona"
 
@@ -332,9 +350,6 @@ msgstr "Hamoos uzuáriu sira ne'ebé hili ona"
 msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "Uzuáriu %(num_parent_objects)d hamoos ona"
-
-msgid "Active"
-msgstr "Ativu"
 
 msgid "Inactive"
 msgstr "La ativu"

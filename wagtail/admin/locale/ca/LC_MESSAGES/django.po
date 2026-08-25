@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -254,6 +254,10 @@ msgstr "Àlies"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Mantenir les noves pàgines actualitzades amb futurs canvis"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr "No teniu permís per publicar pàgines a \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -2573,6 +2577,10 @@ msgid "Changes requested"
 msgstr "Canvis demanats"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Cancel·lat per %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Aprovat per %(approved_by)s"
 
@@ -3390,6 +3398,12 @@ msgstr "Tipus d'acció"
 
 msgid "Date/Time"
 msgstr "Data/Hora"
+
+msgid "Locked by"
+msgstr "Blocat per"
+
+msgid "Anyone"
+msgstr "Qualsevol"
 
 msgid "Locked pages"
 msgstr "Pàgines bloquejades"

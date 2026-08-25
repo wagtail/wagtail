@@ -11,6 +11,7 @@
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
+# Mohammad Foroutan, 2026
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2015
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Mohammad Foroutan, 2026\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +64,20 @@ msgstr "صفحه قفل شد"
 msgid "%(label)s and Publish"
 msgstr "%(label)s و انتشار"
 
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "ادمین وگتیل"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این بخش را ندارید."
+
+msgid "You do not have permission to access the admin."
+msgstr "مجوز لازم برای دسترسی به ادمین را ندارید."
 
 msgid "None"
 msgstr "خالی"
@@ -78,11 +88,20 @@ msgstr "تاریخ از"
 msgid "Date to"
 msgstr "تاریخ به"
 
+msgid "Minimum"
+msgstr "حداقل"
+
+msgid "Maximum"
+msgstr "حداکثر"
+
 msgid "Locale"
 msgstr "محلی"
 
 msgid "All"
 msgstr "همه"
+
+msgid "Usage count"
+msgstr "تعداد استفاده"
 
 msgid "Collection"
 msgstr "مجموعه"
@@ -92,6 +111,13 @@ msgstr "برچسب"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "فیلتر با ده محبوبترین برچسب ها"
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "استفاده از زبان سرور: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "استفاده از منطقه‌ی زمانی سرور"
 
 msgid "Preferred language"
 msgstr "زبان ترجیحی"
@@ -147,6 +173,9 @@ msgstr ""
 "سلسله جایگاه را انتخاب کنید. توجه: یک مجموعه نمی تواند زیر مجموعه خود یا یکی "
 "از زیر مجموعه هایش شود."
 
+msgid "Please select another parent."
+msgstr "لطفا یک والد دیگر انتخاب نمایید."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "برای یک مجموعه نمی‌توانید چندین مجوز انتخاب کنید."
 
@@ -173,6 +202,9 @@ msgstr "نمی توانید نظر کاربر دیگری را ویرایش کن�
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
+
+msgid "Expiry date/time must be in the future."
+msgstr "تاریخ/ساعت انقضا باید در آینده باشد."
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -224,6 +256,10 @@ msgid "Keep the new pages updated with future changes"
 msgstr "بروز نگه داشتن صفحات جدید با تغییرات آینده"
 
 #, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr "دسترسی لازم برای انتشار صفحه‌ها در \"%(page_title)s\" را ندارید"
+
+#, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "دسترسی لازم برای کپی صفحه %(page_title)s را ندارید"
 
@@ -238,6 +274,10 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "اسلاگ '%(page_slug)s' از قبل در صفحه والد استفاده شده است."
+
 msgid "Select a new parent for this page."
 msgstr "انتخاب یک والد جدید برای این صفحه."
 
@@ -251,8 +291,19 @@ msgstr "صفحه جدید زیر شاخه صفحه مادر خواهد شد."
 msgid "You do not have permission to create a page under \"%(page_title)s\"."
 msgstr "شما اجازه ساخت صفحه در زیر شاخه صفحه%(page_title)s را ندارید."
 
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"شما اجازه ساخت صفحه از نوع \"%(page_type)s\" در زیر شاخه صفحه%(page_title)s "
+"را ندارید."
+
 msgid "Search…"
 msgstr "جستجو..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
+msgstr "برچسب(های) %(value_too_long)s بیشتر از %(max_tag_length)d حرف دارند."
 
 msgid "Visibility"
 msgstr "وضوح"
@@ -691,6 +742,12 @@ msgstr "حساب کاربری"
 msgid "Your locked pages"
 msgstr "صفحات قفل شده"
 
+msgid "Language"
+msgstr "زبان"
+
+msgid "Privacy and access"
+msgstr "حریم خصوصی و دسترسی"
+
 msgid "Status"
 msgstr "وضعیت"
 
@@ -717,6 +774,19 @@ msgstr "تاریخ"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
+
+#, python-format
+msgid ""
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s صفحه <span class=\"w-sr-only\">ساخته شده در %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s صفحه <span class=\"w-sr-only\">ساخته شده در %(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "بروزرسانی برای وگتیل موجود است"
 
 msgid "Read the release notes."
 msgstr "خواندن یادداشت های انتشار."

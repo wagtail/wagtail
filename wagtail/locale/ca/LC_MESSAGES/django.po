@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,11 +24,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "Wagtail API v3"
+
 msgid "Wagtail core"
 msgstr "Nucli de Wagtail"
 
 msgid "Add Comment"
 msgstr "Afegir comentari"
+
+msgid "- Select an option -"
+msgstr "- Seleccioneu una opció -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -166,6 +172,30 @@ msgstr "Bloquejat/da per programació de publicació"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Actualment bloquejat i passarà a En viu en la data programada"
 
+msgid "user"
+msgstr "usuari"
+
+msgid "name"
+msgstr "nom"
+
+msgid "A human-readable label to identify this token."
+msgstr "Una etiqueta llegible per a humans per identificar aquest token."
+
+msgid "created"
+msgstr "creat"
+
+msgid "revoked at"
+msgstr "revocat el"
+
+msgid "last used at"
+msgstr "últim ús el"
+
+msgid "API token"
+msgstr "API token"
+
+msgid "API tokens"
+msgstr "API tokens"
+
 msgid "content type"
 msgstr "tipus de contingut"
 
@@ -252,9 +282,6 @@ msgstr "Restricció de visualització de col·lecció"
 msgid "collection view restrictions"
 msgstr "Restriccions de visualitzacions de col·leccions"
 
-msgid "name"
-msgstr "nom"
-
 msgid "collections"
 msgstr "col·leccions"
 
@@ -312,6 +339,12 @@ msgstr "Desbloquejar"
 msgid "Unlock any page"
 msgstr "Desbloquejar alguna pàgina"
 
+msgid "page"
+msgstr "pàgina"
+
+msgid "pages"
+msgstr "pàgines"
+
 msgid "title"
 msgstr "títol"
 
@@ -334,42 +367,8 @@ msgstr "ruta URL"
 msgid "owner"
 msgstr "propietari"
 
-msgid "title tag"
-msgstr "etiqueta de títol"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"El nom de la pàgina que es mostra als resultats del motor de cerca com a "
-"títol on es pot fer clic."
-
-msgid "show in menus"
-msgstr "mostrar als menús"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
-
-msgid "meta description"
-msgstr "descripció meta"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr ""
-"El text descriptiu que es mostra sota un títol als resultats del motor de "
-"cerca."
-
 msgid "latest revision created at"
 msgstr "última revisió creada el"
-
-msgid "For search engines"
-msgstr "Per motors de cerca"
-
-msgid "For site menus"
-msgstr "Per menús de lloc web"
 
 #, python-format
 msgid ""
@@ -391,11 +390,39 @@ msgstr ""
 "No es pot sobreescriure una revisió que no ha estat creada per l'usuari "
 "actual."
 
-msgid "page"
-msgstr "pàgina"
+msgid "show in menus"
+msgstr "mostrar als menús"
 
-msgid "pages"
-msgstr "pàgines"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
+
+msgid "For site menus"
+msgstr "Per menús de lloc web"
+
+msgid "title tag"
+msgstr "etiqueta de títol"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"El nom de la pàgina que es mostra als resultats del motor de cerca com a "
+"títol on es pot fer clic."
+
+msgid "meta description"
+msgstr "descripció meta"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"El text descriptiu que es mostra sota un títol als resultats del motor de "
+"cerca."
+
+msgid "For search engines"
+msgstr "Per motors de cerca"
 
 msgid "group page permission"
 msgstr "permís de pàgina de grup"
@@ -480,9 +507,6 @@ msgstr "anul·larà la referència"
 
 msgid "created at"
 msgstr "creat el"
-
-msgid "user"
-msgstr "usuari"
 
 msgid "content JSON"
 msgstr "contingut JSON"
@@ -769,6 +793,18 @@ msgstr "Eliminar"
 msgid "Deleted"
 msgstr "Suprimida"
 
+msgid "Create API token"
+msgstr "Crear API token"
+
+msgid "API token created"
+msgstr "S'ha creat l'API token"
+
+msgid "Revoke API token"
+msgstr "Revocar API token"
+
+msgid "API token revoked"
+msgstr "API token revocat"
+
 msgid "Published"
 msgstr "Publicada"
 
@@ -887,11 +923,12 @@ msgstr ""
 "publicar el %(go_live_at)s."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "S'ha programat la publicació pel %(go_live_at)s"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s programat per publicar el %(go_live_at)s"
 
-msgid "Page scheduled for publishing"
-msgstr "S'ha programat la publicació de la pàgina"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s programat per publicar"
 
 msgid "Unschedule publication"
 msgstr "Anul·lar la programació de la publicació"
@@ -905,12 +942,12 @@ msgstr ""
 "publicar el %(go_live_at)s."
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr ""
-"S'ha anul·lat la programació de publicació de la pàgina pel %(go_live_at)s"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s desprogramat per publicar el %(go_live_at)s"
 
-msgid "Page unscheduled from publishing"
-msgstr "S'ha anul·lat la programació de la publicació de la pàgina"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "%(model_name)s desprogramat per publicar"
 
 msgid "Add view restrictions"
 msgstr "Afegir restriccions de visualització"

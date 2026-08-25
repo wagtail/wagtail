@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Zoriana Zaiats, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -112,6 +112,12 @@ msgstr "Заблоковано через графік публікації"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Зараз заблоковано і буде опубліковано у визначений час"
 
+msgid "user"
+msgstr "користувач"
+
+msgid "name"
+msgstr "ім'я"
+
 msgid "content type"
 msgstr "тип вмісту"
 
@@ -195,9 +201,6 @@ msgstr "обмеження показу колекції"
 msgid "collection view restrictions"
 msgstr "обмеження показу колекції"
 
-msgid "name"
-msgstr "ім'я"
-
 msgid "collections"
 msgstr "колекції"
 
@@ -252,6 +255,12 @@ msgstr "Розблокувати"
 msgid "Unlock any page"
 msgstr "Розблокувати будь-яку сторінку"
 
+msgid "page"
+msgstr "сторінка"
+
+msgid "pages"
+msgstr "сторінки"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -274,6 +283,20 @@ msgstr "рядок URL"
 msgid "owner"
 msgstr "власник"
 
+msgid "latest revision created at"
+msgstr "останню ревізію створено о"
+
+msgid "show in menus"
+msgstr "показати у меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Чи буде посилання на цю сторінку з'являтися в автоматично згенерованих меню"
+
+msgid "For site menus"
+msgstr "Для меню сайту"
+
 msgid "title tag"
 msgstr "тег title"
 
@@ -283,14 +306,6 @@ msgid ""
 msgstr ""
 "Клікабельна назва сторінки, що відображається в результатах пошукової "
 "системи у вигляді заголовка. "
-
-msgid "show in menus"
-msgstr "показати у меню"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Чи буде посилання на цю сторінку з'являтися в автоматично згенерованих меню"
 
 msgid "meta description"
 msgstr "мета опис"
@@ -302,20 +317,8 @@ msgstr ""
 "Описовий текст, що відображається під заголовком у результатах пошукової "
 "системи."
 
-msgid "latest revision created at"
-msgstr "останню ревізію створено о"
-
 msgid "For search engines"
 msgstr "Для пошукових систем"
-
-msgid "For site menus"
-msgstr "Для меню сайту"
-
-msgid "page"
-msgstr "сторінка"
-
-msgid "pages"
-msgstr "сторінки"
 
 msgid "group page permission"
 msgstr "дозвіл для групи сторінок "
@@ -367,9 +370,6 @@ msgstr "ID об'єкту"
 
 msgid "created at"
 msgstr "створено о"
-
-msgid "user"
-msgstr "користувач"
 
 msgid "content JSON"
 msgstr "вміст JSON"
@@ -729,13 +729,6 @@ msgstr ""
 "Ревізія %(revision_id)s від %(created_at)s заплановано для публікації о "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Сторінку заплановано до публікації о %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Сторінку заплановано до публікації"
-
 msgid "Unschedule publication"
 msgstr "Відмінити заплановану публікацію"
 
@@ -746,13 +739,6 @@ msgid ""
 msgstr ""
 "Ревізія %(revision_id)s від %(created_at)s знята з розкладу для публікації о "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Сторінку знято з розкладу для публікації о %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Сторінку знято з розкладу для публікації"
 
 msgid "Add view restrictions"
 msgstr "Додати обмеження показу"

@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -182,6 +182,49 @@ msgstr "Benutzerprofil"
 
 msgid "user profiles"
 msgstr "Benutzerprofile"
+
+msgid "Yes, revoke"
+msgstr "Ja, widerrufen"
+
+msgid "No, don't revoke"
+msgstr "Nein, nicht widerrufen"
+
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ""
+"Das Token „%(name)s“ wurde erstellt. Kopieren Sie es jetzt, es wird nie "
+"wieder angezeigt."
+
+msgid "API token"
+msgstr "API-Token"
+
+msgid "Copy token"
+msgstr "Token kopieren"
+
+msgid "Back to API tokens"
+msgstr "Zurück zu den API-Tokens"
+
+msgid "Copied to clipboard"
+msgstr "In Zwischenablage kopiert"
+
+msgid "Copying failed — please select and copy the token manually."
+msgstr ""
+"Das Kopieren ist fehlgeschlagen – bitte das Token auswählen und manuell "
+"kopieren."
+
+msgid "Status: "
+msgstr "Status:"
+
+msgid "Revoked"
+msgstr "Widerrufen"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "View history"
+msgstr "Historie anschauen"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -356,6 +399,42 @@ msgstr "Kann ansehen"
 msgid "user %(id)s (deleted)"
 msgstr "Benutzer %(id)s (gelöscht)"
 
+msgid "User"
+msgstr "Benutzer"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Last used"
+msgstr "Zuletzt verwendet"
+
+msgid "Token"
+msgstr "Token"
+
+msgid "Revoke"
+msgstr "Widerrufen"
+
+msgid "API token created"
+msgstr "API-Token erstellt"
+
+msgid "Token secrets are only displayed once, immediately after creation."
+msgstr ""
+"Token-Geheimnisse werden nur einmal angezeigt, und zwar unmittelbar nach "
+"ihrer Erstellung."
+
+msgid "Never"
+msgstr "Niemals"
+
+msgid "Are you sure you want to revoke this API token?"
+msgstr "Möchten Sie diesen API-Token wirklich widerrufen?"
+
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr "API-Token „%(name)s“ wurde widerrufen."
+
+msgid "API tokens"
+msgstr "API-Tokens"
+
 msgid "Assign role to selected users"
 msgstr "Rolle dem ausgewählten Benutzer zuordnen"
 
@@ -373,9 +452,6 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d Benutzer wurde gelöscht"
 msgstr[1] "%(num_parent_objects)d Benutzer wurden gelöscht"
-
-msgid "Active"
-msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"

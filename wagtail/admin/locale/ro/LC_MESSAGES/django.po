@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Alex Morega, 2023-2024
+# Alex Morega, 2023-2024,2026
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2024
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
+"Last-Translator: Alex Morega, 2023-2024,2026\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -260,6 +260,10 @@ msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Menține paginile noi actualizate cu modificările viitoare"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr "Nu aveți permisiunea de a publica pagini la \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -2638,6 +2642,10 @@ msgid "Changes requested"
 msgstr "Modificări solicitate"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Anulat de %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Aprobat de %(approved_by)s"
 
@@ -3463,6 +3471,12 @@ msgstr "Tip acțiune"
 
 msgid "Date/Time"
 msgstr "Dată/Oră"
+
+msgid "Locked by"
+msgstr "Blocat de"
+
+msgid "Anyone"
+msgstr "Oricine"
 
 msgid "Locked pages"
 msgstr "Pagini blocate"

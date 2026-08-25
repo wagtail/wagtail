@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,6 +163,12 @@ msgstr "Låst av schema"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "För närvarande låst, kommer publiceras på det schemalagda datumet"
 
+msgid "user"
+msgstr "användare"
+
+msgid "name"
+msgstr "namn"
+
 msgid "content type"
 msgstr "innehållstyp"
 
@@ -249,9 +255,6 @@ msgstr "visningsrestriktion för samling"
 msgid "collection view restrictions"
 msgstr "visningsrestriktioner för samling"
 
-msgid "name"
-msgstr "namn"
-
 msgid "collections"
 msgstr "samlingar"
 
@@ -309,6 +312,12 @@ msgstr "Lås upp"
 msgid "Unlock any page"
 msgstr "Lås upp valfri sida"
 
+msgid "page"
+msgstr "sida"
+
+msgid "pages"
+msgstr "sidor"
+
 msgid "title"
 msgstr "titel"
 
@@ -331,13 +340,16 @@ msgstr "URL sökväg"
 msgid "owner"
 msgstr "ägare"
 
-msgid "title tag"
-msgstr "titeltagg"
+msgid "latest revision created at"
+msgstr "senaste revision skapad vid"
 
+#, python-format
 msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "Namnet på sidan som syns i sökresultat som den klickbara rubriken"
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Sluggen '%(page_slug)s' används redan inom föräldersidan vid "
+"'%(parent_url_path)s'."
 
 msgid "show in menus"
 msgstr "visa i menyer"
@@ -347,6 +359,17 @@ msgid ""
 msgstr ""
 "Om huruvida en länk till den här sidan ska synas i automatiskt genererade "
 "menyer"
+
+msgid "For site menus"
+msgstr "För sajtmenyer"
+
+msgid "title tag"
+msgstr "titeltagg"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Namnet på sidan som syns i sökresultat som den klickbara rubriken"
 
 msgid "meta description"
 msgstr "Metabeskrivning"
@@ -358,28 +381,8 @@ msgstr ""
 "Den beskrivande texten som är synlig under rubriken bland resultaten i "
 "sökmotorer."
 
-msgid "latest revision created at"
-msgstr "senaste revision skapad vid"
-
 msgid "For search engines"
 msgstr "För sökmotorer"
-
-msgid "For site menus"
-msgstr "För sajtmenyer"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'."
-msgstr ""
-"Sluggen '%(page_slug)s' används redan inom föräldersidan vid "
-"'%(parent_url_path)s'."
-
-msgid "page"
-msgstr "sida"
-
-msgid "pages"
-msgstr "sidor"
 
 msgid "group page permission"
 msgstr "gruppens sidrättighet"
@@ -447,9 +450,6 @@ msgstr "förhindrar radering"
 
 msgid "created at"
 msgstr "skapad vid"
-
-msgid "user"
-msgstr "användare"
 
 msgid "content JSON"
 msgstr "innehålls JSON"
@@ -838,13 +838,6 @@ msgstr ""
 "Revision %(revision_id)s från %(created_at)s schemalagd för publicering vid "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Sida schemalagd för publicering vid %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Sida schemalagd för publicering"
-
 msgid "Unschedule publication"
 msgstr "Avschemalägg publicering"
 
@@ -855,13 +848,6 @@ msgid ""
 msgstr ""
 "Revision %(revision_id)s från %(created_at)s avschemalagd för publicering "
 "vid %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Sida avschemalagd för publicering vid %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Sida avschemalagd för publicering"
 
 msgid "Add view restrictions"
 msgstr "Lägg till vyrestriktioner"

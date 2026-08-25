@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -140,6 +140,12 @@ msgstr "профіль користувача"
 msgid "user profiles"
 msgstr "профілі користувачів"
 
+msgid "Active"
+msgstr "Активний"
+
+msgid "View history"
+msgstr "Переглянути історію"
+
 msgid "Assign role"
 msgstr "Призначити роль"
 
@@ -263,6 +269,12 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "користувач %(id)s (видалено)"
 
+msgid "User"
+msgstr "Користувач"
+
+msgid "Created"
+msgstr "Створено"
+
 msgid "Assign role to selected users"
 msgstr "Призначити роль для вибраних користувачів"
 
@@ -284,9 +296,6 @@ msgstr[0] "%(num_parent_objects)dкористувач був видалений"
 msgstr[1] "%(num_parent_objects)d користувачів було видалено"
 msgstr[2] "%(num_parent_objects)d користувачів було видалено"
 msgstr[3] "%(num_parent_objects)d користувачів було видалено"
-
-msgid "Active"
-msgstr "Активний"
 
 msgid "Inactive"
 msgstr "Неактивний"

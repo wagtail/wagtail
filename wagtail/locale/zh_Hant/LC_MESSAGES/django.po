@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -59,6 +59,12 @@ msgstr "已鎖定"
 
 msgid "Unlocked"
 msgstr "已解鎖"
+
+msgid "user"
+msgstr "用戶"
+
+msgid "name"
+msgstr "名稱"
 
 msgid "content type"
 msgstr "內容類型"
@@ -124,9 +130,6 @@ msgstr "集合檢視限制"
 msgid "collection view restrictions"
 msgstr "集合檢視限制"
 
-msgid "name"
-msgstr "名稱"
-
 msgid "collections"
 msgstr "集合"
 
@@ -181,6 +184,12 @@ msgstr "解鎖"
 msgid "Unlock any page"
 msgstr "解鎖作何頁面"
 
+msgid "page"
+msgstr "頁面"
+
+msgid "pages"
+msgstr "頁面"
+
 msgid "title"
 msgstr "標題"
 
@@ -201,8 +210,8 @@ msgstr "URL路徑"
 msgid "owner"
 msgstr "所有者"
 
-msgid "title tag"
-msgstr "標題標籤"
+msgid "latest revision created at"
+msgstr "最近修訂版本創建於"
 
 msgid "show in menus"
 msgstr "在選單中顯示"
@@ -211,14 +220,8 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
 
-msgid "latest revision created at"
-msgstr "最近修訂版本創建於"
-
-msgid "page"
-msgstr "頁面"
-
-msgid "pages"
-msgstr "頁面"
+msgid "title tag"
+msgstr "標題標籤"
 
 msgid "group page permission"
 msgstr "群組頁面權限"
@@ -261,9 +264,6 @@ msgstr "預設"
 
 msgid "created at"
 msgstr "創建時間"
-
-msgid "user"
-msgstr "用戶"
 
 msgid "content JSON"
 msgstr "內容JSON"
@@ -546,14 +546,8 @@ msgstr "已重新排序"
 msgid "Schedule publication"
 msgstr "預定發佈"
 
-msgid "Page scheduled for publishing"
-msgstr "頁面已預定發佈排程"
-
 msgid "Unschedule publication"
 msgstr "取消預定發佈"
-
-msgid "Page unscheduled from publishing"
-msgstr "頁面已取消發佈排程"
 
 msgid "Add view restrictions"
 msgstr "新增檢視限制"

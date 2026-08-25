@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -167,6 +167,12 @@ msgstr "Bloccato dalla pianificazione"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Attualmente bloccato; sarà pubblicato alla data programmata"
 
+msgid "user"
+msgstr "utente"
+
+msgid "name"
+msgstr "nome"
+
 msgid "content type"
 msgstr "tipo contenuto"
 
@@ -253,9 +259,6 @@ msgstr "limitazione per la vista della raccolta"
 msgid "collection view restrictions"
 msgstr "limitazioni per la vista della raccolta"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collections"
 msgstr "raccolte"
 
@@ -313,6 +316,12 @@ msgstr "Sblocca"
 msgid "Unlock any page"
 msgstr "Sblocca qualsiasi pagina"
 
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagine"
+
 msgid "title"
 msgstr "titolo"
 
@@ -335,41 +344,8 @@ msgstr "URL path"
 msgid "owner"
 msgstr "proprietario"
 
-msgid "title tag"
-msgstr "title tag"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Il nome della pagina visualizzato nei risultati di motori di ricerca come "
-"titolo cliccabile."
-
-msgid "show in menus"
-msgstr "mostra nel menu"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
-
-msgid "meta description"
-msgstr "meta description"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr ""
-"Il testo descrittivo visualizzato sotto un titolo nei risultati dei motori "
-"di ricerca."
-
 msgid "latest revision created at"
 msgstr "ultima revisione creata"
-
-msgid "For search engines"
-msgstr "Per i motori di ricerca"
-
-msgid "For site menus"
-msgstr "Per i menu del sito"
 
 #, python-format
 msgid ""
@@ -390,11 +366,38 @@ msgid "Cannot overwrite a revision that was not created by the current user."
 msgstr ""
 "Impossibile sovrascrivere una revisione non creata dall'utente corrente."
 
-msgid "page"
-msgstr "pagina"
+msgid "show in menus"
+msgstr "mostra nel menu"
 
-msgid "pages"
-msgstr "pagine"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
+
+msgid "For site menus"
+msgstr "Per i menu del sito"
+
+msgid "title tag"
+msgstr "title tag"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Il nome della pagina visualizzato nei risultati di motori di ricerca come "
+"titolo cliccabile."
+
+msgid "meta description"
+msgstr "meta description"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Il testo descrittivo visualizzato sotto un titolo nei risultati dei motori "
+"di ricerca."
+
+msgid "For search engines"
+msgstr "Per i motori di ricerca"
 
 msgid "group page permission"
 msgstr "permesso della pagina del gruppo"
@@ -479,9 +482,6 @@ msgstr "rimuoverà il riferimento"
 
 msgid "created at"
 msgstr "creato alle"
-
-msgid "user"
-msgstr "utente"
 
 msgid "content JSON"
 msgstr "contenuto JSON"
@@ -884,13 +884,6 @@ msgstr ""
 "Revisione %(revision_id)s da %(created_at)s programmata per la pubblicazione "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Pagina programmata per la pubblicazione %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Pagina programmata per la pubblicazione."
-
 msgid "Unschedule publication"
 msgstr "Annulla pubblicazione programmata"
 
@@ -901,13 +894,6 @@ msgid ""
 msgstr ""
 "Revisione %(revision_id)s di %(created_at)s è stata rimossa dalla "
 "pubblicazione programmata %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Pagina rimossa dalla pubblicazione programmata %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Pagina rimossa dalla pubblicazione programmata"
 
 msgid "Add view restrictions"
 msgstr "Aggiungi restrizioni alla visualizzazione"

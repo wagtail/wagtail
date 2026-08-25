@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -56,6 +56,12 @@ msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Ulåst"
+
+msgid "user"
+msgstr "bruker"
+
+msgid "name"
+msgstr "navn"
 
 msgid "content type"
 msgstr "innholdstype"
@@ -111,9 +117,6 @@ msgstr "visningsbegrensning for samling"
 msgid "collection view restrictions"
 msgstr "visningsbegrensninger for samling"
 
-msgid "name"
-msgstr "navn"
-
 msgid "collections"
 msgstr "samlinger"
 
@@ -168,6 +171,12 @@ msgstr "Lås opp"
 msgid "Unlock any page"
 msgstr "Lås opp hvilken som helst side"
 
+msgid "page"
+msgstr "side"
+
+msgid "pages"
+msgstr "sider"
+
 msgid "title"
 msgstr "tittel"
 
@@ -190,6 +199,9 @@ msgstr "URL-sti"
 msgid "owner"
 msgstr "eier"
 
+msgid "latest revision created at"
+msgstr "siste utgave opprettet"
+
 msgid "show in menus"
 msgstr "vis i menyer"
 
@@ -198,20 +210,11 @@ msgid ""
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
 
-msgid "latest revision created at"
-msgstr "siste utgave opprettet"
-
-msgid "For search engines"
-msgstr "For søkemotorer"
-
 msgid "For site menus"
 msgstr "For sidemenyer"
 
-msgid "page"
-msgstr "side"
-
-msgid "pages"
-msgstr "sider"
+msgid "For search engines"
+msgstr "For søkemotorer"
 
 msgid "group page permission"
 msgstr "gruppetillatelse for side"
@@ -230,9 +233,6 @@ msgstr "Standard"
 
 msgid "created at"
 msgstr "opprettet"
-
-msgid "user"
-msgstr "bruker"
 
 msgid "content JSON"
 msgstr "JSON for innhold"

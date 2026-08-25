@@ -20,14 +20,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +173,48 @@ msgstr "compte utilisateur"
 
 msgid "user profiles"
 msgstr "compte utilisateur"
+
+msgid "Yes, revoke"
+msgstr "Oui, révoquer"
+
+msgid "No, don't revoke"
+msgstr "Non, ne pas révoquer"
+
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ""
+"Le jeton \"%(name)s\" a été créé, copiez-le maintenant, il ne sera pas "
+"réaffiché."
+
+msgid "API token"
+msgstr "Jeton d'API"
+
+msgid "Copy token"
+msgstr "Copier le jeton"
+
+msgid "Back to API tokens"
+msgstr "Retour aux jetons d'API"
+
+msgid "Copied to clipboard"
+msgstr "Copié dans le presse-papier"
+
+msgid "Copying failed — please select and copy the token manually."
+msgstr ""
+"La copie a échouée — veuillez sélectionner et copier le jeton manuellement."
+
+msgid "Status: "
+msgstr "Status :"
+
+msgid "Revoked"
+msgstr "Révoqué"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "View history"
+msgstr "Voir l'historique"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -353,6 +395,41 @@ msgstr "Peut voir"
 msgid "user %(id)s (deleted)"
 msgstr "utilisateur « %(id)s » (supprimé)"
 
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Created"
+msgstr "Créé(e)"
+
+msgid "Last used"
+msgstr "Dernière utilisation"
+
+msgid "Token"
+msgstr "Jeton"
+
+msgid "Revoke"
+msgstr "Révoquer"
+
+msgid "API token created"
+msgstr "Jeton d'API créé"
+
+msgid "Token secrets are only displayed once, immediately after creation."
+msgstr ""
+"Les jetons secrets sont affichés une seule fois, juste après leur création."
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "Are you sure you want to revoke this API token?"
+msgstr "Êtes-vous sûr(e) de vouloir révoquer ce jeton d'API ?"
+
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr "Jeton d'API \"%(name)s\" révoqué."
+
+msgid "API tokens"
+msgstr "Jetons d'API"
+
 msgid "Assign role to selected users"
 msgstr "Assigner le rôle aux utilisateurs sélectionnés"
 
@@ -375,9 +452,6 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utilisateur a été supprimé"
 msgstr[1] "%(num_parent_objects)d utilisateurs ont été supprimés"
 msgstr[2] "%(num_parent_objects)d utilisateurs ont été supprimés"
-
-msgid "Active"
-msgstr "Actif"
 
 msgid "Inactive"
 msgstr "Inactif"

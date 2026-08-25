@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -64,6 +64,12 @@ msgstr "Заблакавана"
 
 msgid "Unlocked"
 msgstr "Разблакавана"
+
+msgid "user"
+msgstr "карыстальнік"
+
+msgid "name"
+msgstr "імя"
 
 msgid "content type"
 msgstr "тып змесціва"
@@ -119,9 +125,6 @@ msgstr "абмежаванне на прагляд калекцыі"
 msgid "collection view restrictions"
 msgstr "абмежаванні на прагляд калекцыі"
 
-msgid "name"
-msgstr "імя"
-
 msgid "collections"
 msgstr "калекцыі"
 
@@ -176,6 +179,12 @@ msgstr "Разблакаваць"
 msgid "Unlock any page"
 msgstr "Разблакаваць любую старонку"
 
+msgid "page"
+msgstr "старонка"
+
+msgid "pages"
+msgstr "старонкі"
+
 msgid "title"
 msgstr "загаловак"
 
@@ -198,6 +207,9 @@ msgstr "шлях URL"
 msgid "owner"
 msgstr "уладальнік"
 
+msgid "latest revision created at"
+msgstr "апошняя версія створана"
+
 msgid "show in menus"
 msgstr "паказваць у меню"
 
@@ -206,15 +218,6 @@ msgid ""
 msgstr ""
 "Ці павінна спасылка на гэтую старонку адлюстроўвацца ў аўтаматычна "
 "генераваных меню"
-
-msgid "latest revision created at"
-msgstr "апошняя версія створана"
-
-msgid "page"
-msgstr "старонка"
-
-msgid "pages"
-msgstr "старонкі"
 
 msgid "group page permission"
 msgstr "права на старонку ў гурта"
@@ -236,9 +239,6 @@ msgstr "Па змаўчанні"
 
 msgid "created at"
 msgstr "створана"
-
-msgid "user"
-msgstr "карыстальнік"
 
 msgid "content JSON"
 msgstr "сожержимое JSON"

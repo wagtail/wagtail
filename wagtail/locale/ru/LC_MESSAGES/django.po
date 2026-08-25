@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -186,6 +186,12 @@ msgid "Currently locked and will go live on the scheduled date"
 msgstr ""
 "В настоящее время заблокирован и будет опубликован в запланированный срок"
 
+msgid "user"
+msgstr "пользователь"
+
+msgid "name"
+msgstr "имя"
+
 msgid "content type"
 msgstr "тип содержимого"
 
@@ -272,9 +278,6 @@ msgstr "ограничение на просмотр коллекции"
 msgid "collection view restrictions"
 msgstr "ограничения на просмотр коллекции"
 
-msgid "name"
-msgstr "имя"
-
 msgid "collections"
 msgstr "коллекции"
 
@@ -332,6 +335,12 @@ msgstr "Разблокировать"
 msgid "Unlock any page"
 msgstr "Разблокировать любую страницу"
 
+msgid "page"
+msgstr "страница"
+
+msgid "pages"
+msgstr "страницы"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -354,41 +363,8 @@ msgstr "Путь URL"
 msgid "owner"
 msgstr "владелец"
 
-msgid "title tag"
-msgstr "тег заголовка"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Кликабельное название страницы, отображаемое в результатах поисковой системы "
-"в виде заголовка."
-
-msgid "show in menus"
-msgstr "показывать в меню"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
-"меню"
-
-msgid "meta description"
-msgstr "мета-описание"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr "Описание, отображаемое под заголовком в результатах поиска."
-
 msgid "latest revision created at"
 msgstr "последняя версия создана"
-
-msgid "For search engines"
-msgstr "Для поисковых систем"
-
-msgid "For site menus"
-msgstr "Для меню сайта"
 
 #, python-format
 msgid ""
@@ -410,11 +386,38 @@ msgstr ""
 "Невозможно перезаписать ревизию, которая не была создана текущим "
 "пользователем."
 
-msgid "page"
-msgstr "страница"
+msgid "show in menus"
+msgstr "показывать в меню"
 
-msgid "pages"
-msgstr "страницы"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
+"меню"
+
+msgid "For site menus"
+msgstr "Для меню сайта"
+
+msgid "title tag"
+msgstr "тег заголовка"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Кликабельное название страницы, отображаемое в результатах поисковой системы "
+"в виде заголовка."
+
+msgid "meta description"
+msgstr "мета-описание"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "Описание, отображаемое под заголовком в результатах поиска."
+
+msgid "For search engines"
+msgstr "Для поисковых систем"
 
 msgid "group page permission"
 msgstr "право на страницу у группы"
@@ -499,9 +502,6 @@ msgstr "снимет значение ссылки"
 
 msgid "created at"
 msgstr "создано"
-
-msgid "user"
-msgstr "пользователь"
 
 msgid "content JSON"
 msgstr "сожержимое JSON"
@@ -905,13 +905,6 @@ msgstr ""
 "Версия %(revision_id)s от %(created_at)s запланирована к публикации "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Страница запланирована к публикации %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Страница запланирована к публикации"
-
 msgid "Unschedule publication"
 msgstr "Внеплановая публикация "
 
@@ -922,13 +915,6 @@ msgid ""
 msgstr ""
 "Версия %(revision_id)s от %(created_at)s больше не запланирована к "
 "публикации %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Страница снята с расписания публикации на %(go_live_at)s."
-
-msgid "Page unscheduled from publishing"
-msgstr "Страница снята с расписания публикации"
 
 msgid "Add view restrictions"
 msgstr "Добавить ограничение просмотра"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,11 +30,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "Wagtail API v3"
+
 msgid "Wagtail core"
 msgstr "Wagtail core"
 
 msgid "Add Comment"
 msgstr "Commentaar toevoegen"
+
+msgid "- Select an option -"
+msgstr "- Kies een optie -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -168,6 +174,30 @@ msgstr "Vergrendeld vanwege geplande publicatie"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Momenteel vergrendeld en zal gepubliceerd worden op de geplande datum"
 
+msgid "user"
+msgstr "gebruiker"
+
+msgid "name"
+msgstr "naam"
+
+msgid "A human-readable label to identify this token."
+msgstr "Een naam om dit API-token aan te herkennen"
+
+msgid "created"
+msgstr "aangemaakt op"
+
+msgid "revoked at"
+msgstr "ingetrokken op"
+
+msgid "last used at"
+msgstr "laatst gebruikt op"
+
+msgid "API token"
+msgstr "API-token"
+
+msgid "API tokens"
+msgstr "API-tokens"
+
 msgid "content type"
 msgstr "inhoudstype"
 
@@ -254,9 +284,6 @@ msgstr "collectie bekijk restrictie"
 msgid "collection view restrictions"
 msgstr "collectie bekijk restricties"
 
-msgid "name"
-msgstr "naam"
-
 msgid "collections"
 msgstr "collecties"
 
@@ -314,6 +341,12 @@ msgstr "Ontgrendelen"
 msgid "Unlock any page"
 msgstr "Ontgrendel welke pagina ook"
 
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagina's"
+
 msgid "title"
 msgstr "titel"
 
@@ -336,42 +369,8 @@ msgstr "URL pad"
 msgid "owner"
 msgstr "eigenaar"
 
-msgid "title tag"
-msgstr "titel tag"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"De naam van de pagina wordt in zoekmachine resultaten als klikbare kop "
-"getoond."
-
-msgid "show in menus"
-msgstr "toon in menu's"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Indien aangevinkt komt er een link naar deze pagina in automatisch "
-"gegenereerde menu's te staan."
-
-msgid "meta description"
-msgstr "meta beschrijving"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr ""
-"De beschrijving die getoond wordt onder de kop in de zoekmachine resultaten."
-
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
-
-msgid "For search engines"
-msgstr "Voor zoekmachines"
-
-msgid "For site menus"
-msgstr "Voor site menu's"
 
 #, python-format
 msgid ""
@@ -391,11 +390,39 @@ msgstr ""
 msgid "Cannot overwrite a revision that was not created by the current user."
 msgstr "Kan revisie niet overschrijven omdat deze niet gemaakt is door jou."
 
-msgid "page"
-msgstr "pagina"
+msgid "show in menus"
+msgstr "toon in menu's"
 
-msgid "pages"
-msgstr "pagina's"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Indien aangevinkt komt er een link naar deze pagina in automatisch "
+"gegenereerde menu's te staan."
+
+msgid "For site menus"
+msgstr "Voor site menu's"
+
+msgid "title tag"
+msgstr "titel tag"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"De naam van de pagina wordt in zoekmachine resultaten als klikbare kop "
+"getoond."
+
+msgid "meta description"
+msgstr "meta beschrijving"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"De beschrijving die getoond wordt onder de kop in de zoekmachine resultaten."
+
+msgid "For search engines"
+msgstr "Voor zoekmachines"
 
 msgid "group page permission"
 msgstr "groep pagina machtiging"
@@ -480,9 +507,6 @@ msgstr "zal de verwijzing weghalen"
 
 msgid "created at"
 msgstr "gemaakt op"
-
-msgid "user"
-msgstr "gebruiker"
 
 msgid "content JSON"
 msgstr "content JSON"
@@ -768,6 +792,18 @@ msgstr "Verwijder"
 msgid "Deleted"
 msgstr "Verwijderd"
 
+msgid "Create API token"
+msgstr "API-token aanmaken"
+
+msgid "API token created"
+msgstr "API-token aangemaakt"
+
+msgid "Revoke API token"
+msgstr "API-token intrekken"
+
+msgid "API token revoked"
+msgstr "API-token ingetrokken"
+
 msgid "Published"
 msgstr "Gepubliceerd"
 
@@ -886,11 +922,12 @@ msgstr ""
 "%(go_live_at)s."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Pagina ingepland voor publicatie op %(go_live_at)s"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "Publicatie van %(model_name)s ingepland op %(go_live_at)s"
 
-msgid "Page scheduled for publishing"
-msgstr "Pagina is ingepland voor publicatie"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "Publicatie %(model_name)s ingepland"
 
 msgid "Unschedule publication"
 msgstr "Publicatie planning verwijderen"
@@ -904,11 +941,13 @@ msgstr ""
 "publicatie op %(go_live_at)s."
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Pagina niet meer ingepland voor publicatie op %(go_live_at)s"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr ""
+"Geplande publicatie van %(model_name)s op %(go_live_at)s ongedaan gemaakt"
 
-msgid "Page unscheduled from publishing"
-msgstr "Pagina niet meer ingepland voor publicatie"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "Geplande publicatie van %(model_name)s ingetrokken"
 
 msgid "Add view restrictions"
 msgstr "Voeg weergavebeperkingen toe"

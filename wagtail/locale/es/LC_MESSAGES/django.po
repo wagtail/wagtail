@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,6 +91,12 @@ msgstr "Bloqueado"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
+
+msgid "user"
+msgstr "usuario"
+
+msgid "name"
+msgstr "nombre"
 
 msgid "content type"
 msgstr "tipo de contenido"
@@ -175,9 +181,6 @@ msgstr "Restrición de vista de la colección"
 msgid "collection view restrictions"
 msgstr "Restriciones de vista de la colección"
 
-msgid "name"
-msgstr "nombre"
-
 msgid "collections"
 msgstr "coleciones"
 
@@ -232,6 +235,12 @@ msgstr "Desbloquear"
 msgid "Unlock any page"
 msgstr "Desbloquear cualquier página"
 
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
 msgid "title"
 msgstr "Título"
 
@@ -254,6 +263,19 @@ msgstr "Dirección URL"
 msgid "owner"
 msgstr "propietario"
 
+msgid "latest revision created at"
+msgstr "última revisión creada a las"
+
+msgid "show in menus"
+msgstr "mostrar en menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
+
+msgid "For site menus"
+msgstr "Para menús del sitio"
+
 msgid "title tag"
 msgstr "etiqueta título"
 
@@ -263,13 +285,6 @@ msgid ""
 msgstr ""
 "El nombre de la página mostrado en los resultados del motor de búsqueda como "
 "titular para hacer clic."
-
-msgid "show in menus"
-msgstr "mostrar en menús"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
 msgid "meta description"
 msgstr "Descripción meta"
@@ -281,20 +296,8 @@ msgstr ""
 "El texto descriptivo mostrado debajo de un titular en los resultados del "
 "motor de búsqueda."
 
-msgid "latest revision created at"
-msgstr "última revisión creada a las"
-
 msgid "For search engines"
 msgstr "Para motores de búsqueda"
-
-msgid "For site menus"
-msgstr "Para menús del sitio"
-
-msgid "page"
-msgstr "página"
-
-msgid "pages"
-msgstr "páginas"
 
 msgid "group page permission"
 msgstr "grupo de permisos de página"
@@ -355,9 +358,6 @@ msgstr "id del objeto"
 
 msgid "created at"
 msgstr "creado el"
-
-msgid "user"
-msgstr "usuario"
 
 msgid "content JSON"
 msgstr "contenido JSON"
@@ -709,13 +709,6 @@ msgstr ""
 "Revisión %(revision_id)s del %(created_at)s programada para publicación el "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Página programada para publicación el %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Página programada para publicación"
-
 msgid "Unschedule publication"
 msgstr "Publicación no programada"
 
@@ -726,13 +719,6 @@ msgid ""
 msgstr ""
 "Revisión %(revision_id)s del %(created_at)s no programada para publicación "
 "el %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Página no programada para publicar el %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Página no programada para publicación"
 
 msgid "Add view restrictions"
 msgstr "Añadir restricciones de vista"
