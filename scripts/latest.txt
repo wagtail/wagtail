@@ -1,7 +1,7 @@
 {
-    "version": "7.4.3",
-    "url":     "https://docs.wagtail.org/en/stable/releases/7.4.3.html",
-    "minorUrl": "https://docs.wagtail.org/en/stable/releases/7.4.html",
+    "version": "8.0",
+    "url":     "https://docs.wagtail.org/en/stable/releases/8.0.html",
+    "minorUrl": "https://docs.wagtail.org/en/stable/releases/8.0.html",
     "lts": {
         "version": "7.4.3",
         "url": "https://docs.wagtail.org/en/stable/releases/7.4.3.html",
