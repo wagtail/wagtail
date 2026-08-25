@@ -38,7 +38,7 @@ New documents saved are stored in the [reference index](managing_the_reference_i
 
 ## Using documents in a Page
 
-To include a document file in a Wagtail page, you can use `FieldPanel` in your page model.
+To include a document file in a Wagtail page, you can use [`FieldPanel`](wagtail.admin.panels.FieldPanel) in your page model.
 
 Here's an example:
 
@@ -204,3 +204,9 @@ Private collections are not publicly accessible, and their contents are only ava
 Documents in Wagtail can be accessed through the API via the `wagtail.documents.api.v2.views.DocumentsAPIViewSet`. This allows you to programmatically interact with documents, retrieve their details, and perform various operations.
 
 For more details, you can refer to the [API section](api_v2_configure_endpoints) that provides additional information and usage examples.
+
+```{versionadded} 8.0
+Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
+```
+
+The [v3 images API endpoints](api_v3_documents) are also available whenever the v3 API is enabled, and provide more advanced features such as "write" operations.

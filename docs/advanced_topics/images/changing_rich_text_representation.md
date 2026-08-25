@@ -1,5 +1,3 @@
-(changing_rich_text_representation)=
-
 # Changing rich text representation
 
 The HTML representation of an image in rich text can be customized - for example, to display captions or custom fields.
