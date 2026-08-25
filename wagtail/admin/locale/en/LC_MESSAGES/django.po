@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: action_menu.py:205
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html:11
-#: views/generic/models.py:1549 views/pages/bulk_actions/unpublish.py:8
+#: views/generic/models.py:1557 views/pages/bulk_actions/unpublish.py:8
 #: wagtail_hooks.py:334
 msgid "Unpublish"
 msgstr ""
@@ -248,9 +248,9 @@ msgstr ""
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:81
 #: views/generic/history.py:139 views/generic/history.py:273
 #: views/generic/history.py:359 views/generic/models.py:376
-#: views/generic/models.py:631 views/generic/models.py:1063
-#: views/generic/models.py:1322 views/generic/models.py:1412
-#: views/generic/models.py:1590 views/generic/models.py:1702
+#: views/generic/models.py:631 views/generic/models.py:1071
+#: views/generic/models.py:1330 views/generic/models.py:1420
+#: views/generic/models.py:1598 views/generic/models.py:1710
 #: views/generic/usage.py:88 views/pages/copy.py:92 views/pages/create.py:219
 #: views/pages/edit.py:306 views/pages/move.py:151 views/workflows.py:245
 #: views/workflows.py:371 viewsets/chooser.py:34 wagtail_hooks.py:251
@@ -268,8 +268,8 @@ msgstr ""
 #: templates/wagtailadmin/panels/inline_panel_child.html:12
 #: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:16
 #: templates/wagtailadmin/workflows/includes/workflow_pages_form.html:8
-#: views/generic/models.py:403 views/generic/models.py:810
-#: views/generic/models.py:1158 views/generic/models.py:1326
+#: views/generic/models.py:403 views/generic/models.py:818
+#: views/generic/models.py:1166 views/generic/models.py:1334
 #: views/pages/bulk_actions/delete.py:12 wagtail_hooks.py:306
 msgid "Delete"
 msgstr ""
@@ -1118,7 +1118,7 @@ msgstr ""
 #: templates/wagtailadmin/shared/page_status_tag_new.html:14
 #: templates/wagtailadmin/shared/side_panels/includes/status/workflow.html:18
 #: templates/wagtailadmin/shared/side_panels/includes/status/workflow.html:88
-#: views/generic/models.py:1482
+#: views/generic/models.py:1490
 msgid "Live"
 msgstr ""
 
@@ -1620,7 +1620,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/action_menu/save_draft.html:9
 #: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:28
 #: templates/wagtailadmin/shared/autosave/indicator.html:21
-#: views/generic/models.py:814
+#: views/generic/models.py:822
 msgid "Saving…"
 msgstr ""
 
@@ -2021,7 +2021,7 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:5
 #: templatetags/wagtailadmin_tags.py:1384 views/generic/models.py:385
-#: views/generic/models.py:933 wagtail_hooks.py:297
+#: views/generic/models.py:941 wagtail_hooks.py:297
 msgid "Copy"
 msgstr ""
 
@@ -2562,7 +2562,7 @@ msgstr ""
 #: templates/wagtailadmin/shared/headers/_history_icon_link.html:5
 #: templates/wagtailadmin/shared/headers/_history_icon_link.html:7
 #: views/generic/history.py:201 views/generic/history.py:263
-#: views/generic/models.py:1413 wagtail_hooks.py:343
+#: views/generic/models.py:1421 wagtail_hooks.py:343
 msgid "History"
 msgstr ""
 
@@ -2647,7 +2647,7 @@ msgid "Other searches"
 msgstr ""
 
 #: templates/wagtailadmin/shared/set_privacy.html:14
-#: views/generic/models.py:813
+#: views/generic/models.py:821
 msgid "Save"
 msgstr ""
 
@@ -3689,7 +3689,7 @@ msgstr ""
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr ""
 
-#: views/generic/mixins.py:457 views/generic/models.py:811
+#: views/generic/mixins.py:457 views/generic/models.py:819
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr ""
@@ -3791,8 +3791,8 @@ msgstr ""
 msgid "Sort item order"
 msgstr ""
 
-#: views/generic/models.py:394 views/generic/models.py:951
-#: views/generic/models.py:1274
+#: views/generic/models.py:394 views/generic/models.py:959
+#: views/generic/models.py:1282
 msgid "Inspect"
 msgstr ""
 
@@ -3816,57 +3816,57 @@ msgstr ""
 msgid "New: %(model_name)s"
 msgstr ""
 
-#: views/generic/models.py:640 views/generic/models.py:1072
+#: views/generic/models.py:640 views/generic/models.py:1080
 #: views/pages/create.py:436 views/pages/edit.py:976
 msgid "There are validation errors, click save to highlight them."
 msgstr ""
 
-#: views/generic/models.py:805
+#: views/generic/models.py:813
 msgid "Editing"
 msgstr ""
 
-#: views/generic/models.py:812
+#: views/generic/models.py:820
 #, python-format
 msgid "The %(model_name)s could not be saved due to errors."
 msgstr ""
 
-#: views/generic/models.py:1159
+#: views/generic/models.py:1167
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
 
-#: views/generic/models.py:1228
+#: views/generic/models.py:1236
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr ""
 
-#: views/generic/models.py:1414
+#: views/generic/models.py:1422
 msgid "Compare"
 msgstr ""
 
-#: views/generic/models.py:1487
+#: views/generic/models.py:1495
 msgid "Earliest"
 msgstr ""
 
-#: views/generic/models.py:1490
+#: views/generic/models.py:1498
 msgid "Latest"
 msgstr ""
 
-#: views/generic/models.py:1550
+#: views/generic/models.py:1558
 #, python-format
 msgid "'%(object)s' unpublished."
 msgstr ""
 
-#: views/generic/models.py:1659
+#: views/generic/models.py:1667
 #, python-format
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr ""
 
-#: views/generic/models.py:1662
+#: views/generic/models.py:1670
 msgid "Unschedule"
 msgstr ""
 
-#: views/generic/models.py:1720
+#: views/generic/models.py:1728
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr ""
