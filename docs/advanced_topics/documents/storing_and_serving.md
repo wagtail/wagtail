@@ -89,10 +89,6 @@ WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
 
 If unset, Wagtail allows any file size (subject to Django's [`DATA_UPLOAD_MAX_MEMORY_SIZE`](inv:django#DATA_UPLOAD_MAX_MEMORY_SIZE) and [`FILE_UPLOAD_MAX_MEMORY_SIZE`](inv:django#FILE_UPLOAD_MAX_MEMORY_SIZE), and any limits enforced by your web server or storage backend).
 
-```{versionadded} 7.4
-The `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting was added.
-```
-
 (document_antivirus_scanning)=
 
 ## Anti-virus scanning

@@ -6,10 +6,6 @@
 
 ## Customizing the default page listings
 
-```{versionadded} 7.4
-The ability to customize the page explorer listing was added.
-```
-
 The page explorer is the default listing of pages in the Wagtail admin, where editors can navigate through the structure of the page tree. The pages in the tree can be of different types, thus only a limited set of fields common to all pages are available for display, filtering, and ordering. Wagtail provides a default set of columns and filters for the page explorer, but you may want to customize them to cater to your editors' needs.
 
 To customize the default page explorer listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook. For example, to add a column for the `slug` field on all page listings, you could override the {attr}`~wagtail.admin.viewsets.pages.PageViewSet.columns` attribute on the viewset to add a new {class}`~wagtail.admin.ui.tables.Column` instance, and then register the viewset in a `wagtail_hooks.py` file within the app as follows:

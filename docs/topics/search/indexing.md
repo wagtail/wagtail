@@ -175,10 +175,6 @@ class Author(models.Model, index.Indexed):
     ]
 ```
 
-```{versionadded} 7.4
-Filtering on related fields is now supported.
-```
-
 (wagtailsearch_indexing_callable_fields)=
 
 ### Indexing callables and other attributes

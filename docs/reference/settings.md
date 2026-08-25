@@ -357,10 +357,6 @@ If false, searching for pages within the Wagtail admin interface will skip the u
 Disabling this permission filter may expose information that would not otherwise be visible to editors. This should not be used on sites containing sensitive information that should not be accessible to all users of the Wagtail admin.
 ```
 
-```{versionadded} 7.4
-The `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS` setting was added.
-```
-
 (wagtailimages_all_settings)=
 
 ## Images
@@ -596,10 +592,6 @@ Allowing all file types may present a security risk if untrusted users are allow
 (wagtaildocs_max_upload_size)=
 
 ### `WAGTAILDOCS_MAX_UPLOAD_SIZE`
-
-```{versionadded} 7.4
-The `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting was added.
-```
 
 ```python
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
