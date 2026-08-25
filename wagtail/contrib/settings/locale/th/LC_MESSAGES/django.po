@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,9 +23,6 @@ msgstr ""
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "default"
-msgstr "ค่าเริ่มต้น"
-
 msgid "Sites"
 msgstr "หลายเว็บไซด์"
 
@@ -35,6 +32,9 @@ msgstr "%(site_setting)s สำหรับ %(site)s"
 
 msgid "Site"
 msgstr "เว็บไซด์"
+
+msgid "default"
+msgstr "ค่าเริ่มต้น"
 
 msgid "Settings"
 msgstr "ตั้งค่า"

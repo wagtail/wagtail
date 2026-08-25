@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -157,6 +157,18 @@ msgstr "الملف الشخصي للمستخدم"
 
 msgid "user profiles"
 msgstr "الملفات الشخصية للمستخدمين"
+
+msgid "Copied to clipboard"
+msgstr "تم النسخ إلى الحافظة"
+
+msgid "Status: "
+msgstr "الحالة: "
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "View history"
+msgstr "عرض السجل"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -358,6 +370,12 @@ msgstr "يمكن عرض"
 msgid "user %(id)s (deleted)"
 msgstr "المستخدم %(id)s (محذوف)"
 
+msgid "User"
+msgstr "مستخدم"
+
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
 msgid "Assign role to selected users"
 msgstr "تعيين دور للمستخدمين المحددين"
 
@@ -383,9 +401,6 @@ msgstr[2] "%(num_parent_objects)d تم حذف مستخدمين"
 msgstr[3] "تم حذف %(num_parent_objects)d مستخدمين"
 msgstr[4] "تم حذف %(num_parent_objects)d مستخدمًا"
 msgstr[5] "تم حذف %(num_parent_objects)d مستخدم"
-
-msgid "Active"
-msgstr "نشط"
 
 msgid "Inactive"
 msgstr "غير نشط"

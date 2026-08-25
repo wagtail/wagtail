@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,9 +95,6 @@ msgstr "مجموعة"
 msgid "Format"
 msgstr "تنسيق"
 
-msgid "Filter"
-msgstr "تصفية"
-
 msgid "Original size"
 msgstr "الحجم الأصلي"
 
@@ -115,6 +112,9 @@ msgstr "تغيير الحجم إلى الحد الأقصى"
 
 msgid "Resize to fill"
 msgstr "تغيير الحجم لملء الفراغ"
+
+msgid "Filter"
+msgstr "تصفية"
 
 msgid "Width"
 msgstr "عرض"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -56,6 +56,12 @@ msgstr "Terkunci"
 
 msgid "Unlocked"
 msgstr "Kunci terbuka"
+
+msgid "user"
+msgstr "pemakai"
+
+msgid "name"
+msgstr "nama"
 
 msgid "content type"
 msgstr "tipe konten"
@@ -111,9 +117,6 @@ msgstr "batasan penampilan koleksi"
 msgid "collection view restrictions"
 msgstr "semua batasan penampilan koleksi"
 
-msgid "name"
-msgstr "nama"
-
 msgid "collections"
 msgstr "koleksi-koleksi"
 
@@ -159,6 +162,12 @@ msgstr "Publikasi halaman manapun"
 msgid "Unlock"
 msgstr "Buka kunci"
 
+msgid "page"
+msgstr "halaman"
+
+msgid "pages"
+msgstr "halaman-halaman"
+
 msgid "title"
 msgstr "judul"
 
@@ -181,6 +190,9 @@ msgstr "jalur URL"
 msgid "owner"
 msgstr "pemilik"
 
+msgid "latest revision created at"
+msgstr "revisi terakhir dibuat pada"
+
 msgid "show in menus"
 msgstr "tampilkan dalam menu"
 
@@ -189,15 +201,6 @@ msgid ""
 msgstr ""
 "Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
 "otomatis"
-
-msgid "latest revision created at"
-msgstr "revisi terakhir dibuat pada"
-
-msgid "page"
-msgstr "halaman"
-
-msgid "pages"
-msgstr "halaman-halaman"
 
 msgid "group page permission"
 msgstr "izin grup halaman"
@@ -216,9 +219,6 @@ msgstr "Utama"
 
 msgid "created at"
 msgstr "dibuat pada"
-
-msgid "user"
-msgstr "pemakai"
 
 msgid "content JSON"
 msgstr "JSON konten"

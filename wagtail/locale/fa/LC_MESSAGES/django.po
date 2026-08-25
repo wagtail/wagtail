@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2026\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -59,6 +59,12 @@ msgstr "قفل شده"
 
 msgid "Unlocked"
 msgstr "گشوده"
+
+msgid "user"
+msgstr "کاربر"
+
+msgid "name"
+msgstr "نام"
 
 msgid "content type"
 msgstr "نوع محتوا"
@@ -109,9 +115,6 @@ msgstr "محدودیت دیدن مجموعه"
 msgid "collection view restrictions"
 msgstr "محدودیت‌های دیدن مجموعه"
 
-msgid "name"
-msgstr "نام"
-
 msgid "collections"
 msgstr "مجموعه ها"
 
@@ -157,6 +160,12 @@ msgstr "انتشار هر صفحه ای"
 msgid "Unlock"
 msgstr "حذف قفل"
 
+msgid "page"
+msgstr "صفحه"
+
+msgid "pages"
+msgstr "صفحه ها"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -178,6 +187,9 @@ msgstr "مسیر نشانی"
 msgid "owner"
 msgstr "مالک"
 
+msgid "latest revision created at"
+msgstr "آخرین بازبینی ایجاد شده در"
+
 msgid "show in menus"
 msgstr "نمایش در منوها"
 
@@ -187,20 +199,11 @@ msgstr ""
 "این که آیا یک لینک به این صفحه در منوهای ساخته شده بصورت خودکار نمایش داده "
 "می‌شود یا نه"
 
-msgid "latest revision created at"
-msgstr "آخرین بازبینی ایجاد شده در"
-
-msgid "For search engines"
-msgstr "برای موتور های جست و جو"
-
 msgid "For site menus"
 msgstr "برای منو های سایت"
 
-msgid "page"
-msgstr "صفحه"
-
-msgid "pages"
-msgstr "صفحه ها"
+msgid "For search engines"
+msgstr "برای موتور های جست و جو"
 
 msgid "group page permission"
 msgstr "مجوز گروه صفحه"
@@ -225,9 +228,6 @@ msgstr "پیشفرض"
 
 msgid "created at"
 msgstr "ایجادشده در"
-
-msgid "user"
-msgstr "کاربر"
 
 msgid "content JSON"
 msgstr "محتوای JSON"

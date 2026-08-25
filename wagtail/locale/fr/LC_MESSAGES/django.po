@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -38,11 +38,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "Wagtail API v3"
+
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
 
 msgid "Add Comment"
 msgstr "Ajouter un commentaire"
+
+msgid "- Select an option -"
+msgstr "- Sélectionner une option -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -187,6 +193,30 @@ msgstr "Verrouillé(e) par programmation"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Actuellement verrouillé(e) et sera publié(e) à la date programmée"
 
+msgid "user"
+msgstr "utilisateur"
+
+msgid "name"
+msgstr "nom"
+
+msgid "A human-readable label to identify this token."
+msgstr "Un nom lisible pour identifier ce jeton."
+
+msgid "created"
+msgstr "créé"
+
+msgid "revoked at"
+msgstr "revoqué le"
+
+msgid "last used at"
+msgstr "utilisé en dernier le"
+
+msgid "API token"
+msgstr "Jeton d'API"
+
+msgid "API tokens"
+msgstr "Jetons d'API"
+
 msgid "content type"
 msgstr "type de contenu"
 
@@ -273,9 +303,6 @@ msgstr "confidentialité de collection"
 msgid "collection view restrictions"
 msgstr "confidentialités de collection"
 
-msgid "name"
-msgstr "nom"
-
 msgid "collections"
 msgstr "collections"
 
@@ -333,6 +360,12 @@ msgstr "Déverrouiller"
 msgid "Unlock any page"
 msgstr "Déverrouiller n'importe quelle page"
 
+msgid "page"
+msgstr "page"
+
+msgid "pages"
+msgstr "pages"
+
 msgid "title"
 msgstr "Titre"
 
@@ -355,43 +388,8 @@ msgstr "URL"
 msgid "owner"
 msgstr "propriétaire"
 
-msgid "title tag"
-msgstr "balise titre"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Le nom de la page qui sera affiché sur les moteurs de recherche en tant "
-"qu'entête cliquable."
-
-msgid "show in menus"
-msgstr "faire apparaître dans les menus"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Si un lien vers cette page devra apparaître dans les menus générés "
-"automatiquement"
-
-msgid "meta description"
-msgstr "méta-description"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr ""
-"Le texte descriptif affiché sous l'entête dans les résultats des moteurs de "
-"recherche."
-
 msgid "latest revision created at"
 msgstr "dernière version créée le"
-
-msgid "For search engines"
-msgstr "Pour les moteurs de recherche"
-
-msgid "For site menus"
-msgstr "Pour les menus du site"
 
 #, python-format
 msgid ""
@@ -413,11 +411,40 @@ msgstr ""
 "Impossible d'enregistrer une version qui n'a pas été créée par l'utilisateur "
 "courant."
 
-msgid "page"
-msgstr "page"
+msgid "show in menus"
+msgstr "faire apparaître dans les menus"
 
-msgid "pages"
-msgstr "pages"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Si un lien vers cette page devra apparaître dans les menus générés "
+"automatiquement"
+
+msgid "For site menus"
+msgstr "Pour les menus du site"
+
+msgid "title tag"
+msgstr "balise titre"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Le nom de la page qui sera affiché sur les moteurs de recherche en tant "
+"qu'entête cliquable."
+
+msgid "meta description"
+msgstr "méta-description"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Le texte descriptif affiché sous l'entête dans les résultats des moteurs de "
+"recherche."
+
+msgid "For search engines"
+msgstr "Pour les moteurs de recherche"
 
 msgid "group page permission"
 msgstr "permission de page par groupe"
@@ -502,9 +529,6 @@ msgstr "supprimera la référence"
 
 msgid "created at"
 msgstr "créé à"
-
-msgid "user"
-msgstr "utilisateur"
 
 msgid "content JSON"
 msgstr "contenu JSON"
@@ -794,6 +818,18 @@ msgstr "Supprimer"
 msgid "Deleted"
 msgstr "Supprimée"
 
+msgid "Create API token"
+msgstr "Créer un jeton d'API"
+
+msgid "API token created"
+msgstr "Jeton d'API créé"
+
+msgid "Revoke API token"
+msgstr "Révoquer le jeton d'API"
+
+msgid "API token revoked"
+msgstr "Jeton d'API révoqué"
+
 msgid "Published"
 msgstr "Publiée"
 
@@ -913,11 +949,12 @@ msgstr ""
 "%(go_live_at)s."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Page planifiée pour la publication à %(go_live_at)s"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s programmé pour publication le %(go_live_at)s"
 
-msgid "Page scheduled for publishing"
-msgstr "Page planifiée pour la publication"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s programmé pour publication"
 
 msgid "Unschedule publication"
 msgstr "Déprogrammer la publication"
@@ -931,11 +968,12 @@ msgstr ""
 "%(go_live_at)s."
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Page planifiée pour la publication à %(go_live_at)s"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s déprogrammé pour publication le %(go_live_at)s"
 
-msgid "Page unscheduled from publishing"
-msgstr "La publication de la page a été déplanifiée"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "%(model_name)s déprogrammé pour publication"
 
 msgid "Add view restrictions"
 msgstr "Ajouter des règles de confidentialité"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -172,6 +172,12 @@ msgstr "Zároló: időzített publikálás funkció"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Jelenleg zárolva van, és a megadott időpontban lesz látható"
 
+msgid "user"
+msgstr "felhasználó"
+
+msgid "name"
+msgstr "név"
+
 msgid "content type"
 msgstr "tartalomtípus"
 
@@ -258,9 +264,6 @@ msgstr "gyűjtemény elérési korlátozás"
 msgid "collection view restrictions"
 msgstr "gyűjtemény elérési korlátozások"
 
-msgid "name"
-msgstr "név"
-
 msgid "collections"
 msgstr "gyűjtemények"
 
@@ -318,6 +321,12 @@ msgstr "Felold"
 msgid "Unlock any page"
 msgstr "Bármely oldal feloldása"
 
+msgid "page"
+msgstr "oldal"
+
+msgid "pages"
+msgstr "oldalak"
+
 msgid "title"
 msgstr "cím"
 
@@ -340,13 +349,8 @@ msgstr "URL cím"
 msgid "owner"
 msgstr "tulajdonos"
 
-msgid "title tag"
-msgstr "cím elem"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "Az oldal keresés oldalakon megjelenített, kattintható neve."
+msgid "latest revision created at"
+msgstr "a legutóbbi verzió letrehozásának időpontja"
 
 msgid "show in menus"
 msgstr "szerepeljen a menükben"
@@ -354,6 +358,17 @@ msgstr "szerepeljen a menükben"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Erre az oldalra mutató link fog megjelenni a generált menükben "
+
+msgid "For site menus"
+msgstr "Oldal menük számára"
+
+msgid "title tag"
+msgstr "cím elem"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Az oldal keresés oldalakon megjelenített, kattintható neve."
 
 msgid "meta description"
 msgstr "meta leírás"
@@ -363,20 +378,8 @@ msgid ""
 "results."
 msgstr "Az oldal kerés oldalakon megjelenített leírása."
 
-msgid "latest revision created at"
-msgstr "a legutóbbi verzió letrehozásának időpontja"
-
 msgid "For search engines"
 msgstr "Keresőmotorok számára"
-
-msgid "For site menus"
-msgstr "Oldal menük számára"
-
-msgid "page"
-msgstr "oldal"
-
-msgid "pages"
-msgstr "oldalak"
 
 msgid "group page permission"
 msgstr "csoport hozzáférés"
@@ -461,9 +464,6 @@ msgstr "törli a hivatkozást"
 
 msgid "created at"
 msgstr "létrehozás ideje"
-
-msgid "user"
-msgstr "felhasználó"
 
 msgid "content JSON"
 msgstr "JSON tartalom"
@@ -866,13 +866,6 @@ msgstr ""
 "A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió "
 "közzététele időzítve ekkorra: %(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Oldal közzététele időzítve ekkorra: %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Oldal közzétételre időzítve"
-
 msgid "Unschedule publication"
 msgstr "Közzététel időzítésének visszavonása"
 
@@ -883,13 +876,6 @@ msgid ""
 msgstr ""
 "A(z) %(revision_id)s azonosítójú, %(created_at)s dátummal létrehozott verzió "
 "visszavonása időzítve ekkorra: %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Oldal visszavonása időzítve ekkorra: %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Oldal visszavonása időzítve"
 
 msgid "Add view restrictions"
 msgstr "Elérési korlátozás hozzáadása"

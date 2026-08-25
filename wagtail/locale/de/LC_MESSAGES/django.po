@@ -40,7 +40,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,11 +54,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "Wagtail-API v3"
+
 msgid "Wagtail core"
 msgstr "Wagtail Kern"
 
 msgid "Add Comment"
 msgstr "Kommentar hinzufügen"
+
+msgid "- Select an option -"
+msgstr "- Option auswählen -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -200,6 +206,31 @@ msgstr "Durch Zeitplan gesperrt"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Derzeit gesperrt und wird zum geplanten Datum live gehen"
 
+msgid "user"
+msgstr "Benutzer"
+
+msgid "name"
+msgstr "Name"
+
+msgid "A human-readable label to identify this token."
+msgstr ""
+"Eine für Menschen lesbare Bezeichnung zur Identifizierung dieses Tokens."
+
+msgid "created"
+msgstr "erstellt"
+
+msgid "revoked at"
+msgstr "widerrufen am"
+
+msgid "last used at"
+msgstr "zuletzt verwendet am"
+
+msgid "API token"
+msgstr "API-Token"
+
+msgid "API tokens"
+msgstr "API-Tokens"
+
 msgid "content type"
 msgstr "Inhaltstyp"
 
@@ -286,9 +317,6 @@ msgstr "Sammlung Ansichtsrestriktion"
 msgid "collection view restrictions"
 msgstr "Sammlung Ansichtsrestriktionen"
 
-msgid "name"
-msgstr "Name"
-
 msgid "collections"
 msgstr "Sammlungen"
 
@@ -346,6 +374,12 @@ msgstr "Entsperren"
 msgid "Unlock any page"
 msgstr "Beliebige Seite entsperren"
 
+msgid "page"
+msgstr "Seite"
+
+msgid "pages"
+msgstr "Seiten"
+
 msgid "title"
 msgstr "Titel"
 
@@ -368,42 +402,8 @@ msgstr "URL Pfad"
 msgid "owner"
 msgstr "Eigner"
 
-msgid "title tag"
-msgstr "Titel"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Der Titel der Seite, dargestellt in Suchmaschinen-Ergebnissen als die "
-"verlinkte Überschrift."
-
-msgid "show in menus"
-msgstr "In Menüs anzeigen"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
-
-msgid "meta description"
-msgstr "Meta-Information Beschreibung"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr ""
-"Die informative Beschreibung, dargestellt in Suchmaschinen-Ergebnissen unter "
-"der Überschrift."
-
 msgid "latest revision created at"
 msgstr "Neuste Revision erstellt am"
-
-msgid "For search engines"
-msgstr "Für Suchmaschinen"
-
-msgid "For site menus"
-msgstr "Für Seitenmenü"
 
 #, python-format
 msgid ""
@@ -425,11 +425,39 @@ msgstr ""
 "Eine Revision, die nicht vom aktuellen Benutzer erstellt wurde, kann nicht "
 "überschrieben werden."
 
-msgid "page"
-msgstr "Seite"
+msgid "show in menus"
+msgstr "In Menüs anzeigen"
 
-msgid "pages"
-msgstr "Seiten"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
+
+msgid "For site menus"
+msgstr "Für Seitenmenü"
+
+msgid "title tag"
+msgstr "Titel"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Der Titel der Seite, dargestellt in Suchmaschinen-Ergebnissen als die "
+"verlinkte Überschrift."
+
+msgid "meta description"
+msgstr "Meta-Information Beschreibung"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Die informative Beschreibung, dargestellt in Suchmaschinen-Ergebnissen unter "
+"der Überschrift."
+
+msgid "For search engines"
+msgstr "Für Suchmaschinen"
 
 msgid "group page permission"
 msgstr "Gruppen Seitenberechtigung"
@@ -514,9 +542,6 @@ msgstr "setzt die Referenz zurück"
 
 msgid "created at"
 msgstr "Erstellt am"
-
-msgid "user"
-msgstr "Benutzer"
 
 msgid "content JSON"
 msgstr "JSON Inhalt"
@@ -805,6 +830,18 @@ msgstr "Löschen"
 msgid "Deleted"
 msgstr "Gelöscht"
 
+msgid "Create API token"
+msgstr "API-Token erstellen"
+
+msgid "API token created"
+msgstr "API-Token erstellt"
+
+msgid "Revoke API token"
+msgstr "API-Token widerrufen"
+
+msgid "API token revoked"
+msgstr "API-Token widerrufen"
+
 msgid "Published"
 msgstr "Veröffentlicht"
 
@@ -924,11 +961,12 @@ msgstr ""
 "%(go_live_at)s eingeplant."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Seite zur Veröffentlichung am %(go_live_at)s eingeplant"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s zur Veröffentlichung am %(go_live_at)s eingeplant"
 
-msgid "Page scheduled for publishing"
-msgstr "Seite zur Veröffentlichung eingeplant"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s zur Veröffentlichung eingeplant"
 
 msgid "Unschedule publication"
 msgstr "Geplante Veröffentlichung aufheben"
@@ -942,11 +980,13 @@ msgstr ""
 "%(go_live_at)s aufgehoben."
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Veröffentlichung der Seite am %(go_live_at)s aufgehoben"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr ""
+"Veröffentlichung des „%(model_name)s“-Objekts am %(go_live_at)s aufgehoben"
 
-msgid "Page unscheduled from publishing"
-msgstr "Geplante Veröffentlichung der Seite aufgehoben"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "Veröffentlichung des „%(model_name)s“-Objekts aufgehoben"
 
 msgid "Add view restrictions"
 msgstr "Ansichtsrestriktionen hinzufügen"

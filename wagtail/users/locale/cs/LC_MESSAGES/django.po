@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tomáš Podivínský, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -136,6 +136,15 @@ msgstr "uživatelský profile"
 msgid "user profiles"
 msgstr "uživatelské profily"
 
+msgid "Copied to clipboard"
+msgstr "Zkopírováno do schránky"
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "View history"
+msgstr "Zobrazit historii"
+
 msgid "Assign role"
 msgstr "Přiřadit roli"
 
@@ -228,11 +237,14 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "uživatel %(id)s (odstraněn)"
 
+msgid "User"
+msgstr "Uživatel"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
 msgid "Delete selected users"
 msgstr "Smazat vybrané uživatele"
-
-msgid "Active"
-msgstr "Aktivní"
 
 msgid "Inactive"
 msgstr "Neaktivní"

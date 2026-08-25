@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: UP, 2021\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -162,6 +162,12 @@ msgstr "Zaklenjeno po urniku"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Trenutno zaklenjeno in bo objavljeno na načrtovani datum"
 
+msgid "user"
+msgstr "uporabnik"
+
+msgid "name"
+msgstr "ime"
+
 msgid "content type"
 msgstr "tip vsebine"
 
@@ -248,9 +254,6 @@ msgstr "omejitev pogleda zbirke"
 msgid "collection view restrictions"
 msgstr "omejitve ogledov zbirke"
 
-msgid "name"
-msgstr "ime"
-
 msgid "collections"
 msgstr "zbirke"
 
@@ -308,6 +311,12 @@ msgstr "Odkleni"
 msgid "Unlock any page"
 msgstr "Odklenite katero koli stran"
 
+msgid "page"
+msgstr "stran"
+
+msgid "pages"
+msgstr "strani"
+
 msgid "title"
 msgstr "naziv"
 
@@ -330,6 +339,19 @@ msgstr "URL pot"
 msgid "owner"
 msgstr "lastnik"
 
+msgid "latest revision created at"
+msgstr "zadnja različica ustvarjena"
+
+msgid "show in menus"
+msgstr "prikazuj v meniju"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Določa, ali bo stran vidna v avtomatskih menijih"
+
+msgid "For site menus"
+msgstr "Za menije strani"
+
 msgid "title tag"
 msgstr "oznaka naslova"
 
@@ -339,13 +361,6 @@ msgid ""
 msgstr ""
 "Ime strani, ki bo prikazano kot klikabilen naslov v rezultatih iskanja "
 "spletnih iskalnikov."
-
-msgid "show in menus"
-msgstr "prikazuj v meniju"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "Določa, ali bo stran vidna v avtomatskih menijih"
 
 msgid "meta description"
 msgstr "meta opis"
@@ -357,20 +372,8 @@ msgstr ""
 "Besedilni opis strani, ki bo prikazan pod naslovom rezultata iskanja "
 "spletnih iskalnikov."
 
-msgid "latest revision created at"
-msgstr "zadnja različica ustvarjena"
-
 msgid "For search engines"
 msgstr "Za iskalnike"
-
-msgid "For site menus"
-msgstr "Za menije strani"
-
-msgid "page"
-msgstr "stran"
-
-msgid "pages"
-msgstr "strani"
 
 msgid "group page permission"
 msgstr "dovoljenje za stran skupine"
@@ -455,9 +458,6 @@ msgstr "bo razveljavilo referenco"
 
 msgid "created at"
 msgstr "ustvarjeno"
-
-msgid "user"
-msgstr "uporabnik"
 
 msgid "content JSON"
 msgstr "JSON vsebina"
@@ -854,13 +854,6 @@ msgstr ""
 "Revizija %(revision_id)s iz%(created_at)s predvidena za objavo ob "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Stran je predvidena za objavo ob %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Stran je načrtovana za objavo"
-
 msgid "Unschedule publication"
 msgstr "Prekliči objavo"
 
@@ -871,13 +864,6 @@ msgid ""
 msgstr ""
 "Revizija %(revision_id)s iz %(created_at)s nenačrtovane objave na "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Stran ni predvidena za objavo ob %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Načrtovana objava strani odstranjena"
 
 msgid "Add view restrictions"
 msgstr "Dodajte omejitve za ogled"

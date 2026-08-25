@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,6 +155,18 @@ msgstr "käyttäjäprofiili"
 
 msgid "user profiles"
 msgstr "käyttäjäprofiilit"
+
+msgid "Copied to clipboard"
+msgstr "Kopioitu leikepöydälle"
+
+msgid "Status: "
+msgstr "Tila:"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "View history"
+msgstr "Näytä historia"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -325,6 +337,12 @@ msgstr "Voi katsoa"
 msgid "user %(id)s (deleted)"
 msgstr "käyttäjä %(id)s (poistettu)"
 
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "Created"
+msgstr "Luotu"
+
 msgid "Assign role to selected users"
 msgstr "Määritä rooli valituille käyttäjille"
 
@@ -342,9 +360,6 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d käyttäjä on poistettu"
 msgstr[1] "%(num_parent_objects)d käyttäjää on poistettu."
-
-msgid "Active"
-msgstr "Aktiivinen"
 
 msgid "Inactive"
 msgstr "Passiivinen"

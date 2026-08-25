@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,18 @@ msgstr "uporabniški profil"
 
 msgid "user profiles"
 msgstr "uporabniški profili"
+
+msgid "Copied to clipboard"
+msgstr "Kopirano v odložišče"
+
+msgid "Status: "
+msgstr "Stanje: "
+
+msgid "Active"
+msgstr "Aktiven"
+
+msgid "View history"
+msgstr "Ogled zgodovine"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -331,6 +343,12 @@ msgstr "Lahko si ogledata"
 msgid "user %(id)s (deleted)"
 msgstr "uporabnik%(id)s (izbrisan)"
 
+msgid "User"
+msgstr "Uporabnik"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
 msgid "Assign role to selected users"
 msgstr "Dodeli vlogo izbranim uporabnikom"
 
@@ -344,9 +362,6 @@ msgstr[0] "%(num_parent_objects)d uporabnik je bil izbrisan"
 msgstr[1] "%(num_parent_objects)d uporabnika sta bili izbrisana"
 msgstr[2] "%(num_parent_objects)d uporabniki so bili izbrisani"
 msgstr[3] "%(num_parent_objects)d uporabniki so bili izbrisani"
-
-msgid "Active"
-msgstr "Aktiven"
 
 msgid "Inactive"
 msgstr "Neaktiven"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,6 +60,12 @@ msgstr "Lukustatud"
 
 msgid "Unlocked"
 msgstr "Lukustamata"
+
+msgid "user"
+msgstr "kasutaja"
+
+msgid "name"
+msgstr "nimi"
 
 msgid "content type"
 msgstr "sisu tüüp"
@@ -134,9 +140,6 @@ msgstr "kogu vaatamise piirang"
 msgid "collection view restrictions"
 msgstr "kogu vaatamise piirangud"
 
-msgid "name"
-msgstr "nimi"
-
 msgid "collections"
 msgstr "kollektsioonid"
 
@@ -191,6 +194,12 @@ msgstr "Ava"
 msgid "Unlock any page"
 msgstr "Avage mis tahes leht"
 
+msgid "page"
+msgstr "lehele"
+
+msgid "pages"
+msgstr "lehekülgi"
+
 msgid "title"
 msgstr "pealkiri"
 
@@ -213,21 +222,15 @@ msgstr "URL-i tee"
 msgid "owner"
 msgstr "omanik"
 
+msgid "latest revision created at"
+msgstr "viimane redaktsioon loodud aadressil"
+
 msgid "show in menus"
 msgstr "saade menüüdes"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
-
-msgid "latest revision created at"
-msgstr "viimane redaktsioon loodud aadressil"
-
-msgid "page"
-msgstr "lehele"
-
-msgid "pages"
-msgstr "lehekülgi"
 
 msgid "group page permission"
 msgstr "grupilehe luba"
@@ -264,9 +267,6 @@ msgstr "Vaikimisi"
 
 msgid "created at"
 msgstr "loodud aadressil"
-
-msgid "user"
-msgstr "kasutaja"
 
 msgid "content JSON"
 msgstr "sisu JSON"
@@ -570,13 +570,6 @@ msgstr ""
 "Versiooni %(revision_id)s plaaniline %(created_at)s avaldamine "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on kavandatud kell %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Lehe avaldamine on kavandatud"
-
 msgid "Unschedule publication"
 msgstr "Väljaandmise ajagraafik"
 
@@ -587,13 +580,6 @@ msgid ""
 msgstr ""
 "Versiooni %(revision_id)s  plaaniväline %(created_at)s avaldamine "
 "%(go_live_at)s asemel."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on ajakavas %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Lehe avaldamine on ajastatud"
 
 msgid "Add view restrictions"
 msgstr "Lisage vaate piirangud"

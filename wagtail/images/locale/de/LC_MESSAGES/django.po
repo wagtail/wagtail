@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,6 +108,9 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr "Die Datei ist zu groß. Maximale Dateigröße %(max_filesize)s."
 
+msgid "unknown number"
+msgstr "unbekannte Anzahl"
+
 msgid "Full width"
 msgstr "Ganze Breite"
 
@@ -122,9 +125,6 @@ msgstr "Sammlung"
 
 msgid "Format"
 msgstr "Format"
-
-msgid "Filter"
-msgstr "Filter"
 
 msgid "Original size"
 msgstr "Ursprüngliche Größe"
@@ -143,6 +143,9 @@ msgstr "Auf Maximalgröße anpassen"
 
 msgid "Resize to fill"
 msgstr "Anpassen, so dass es die Größe ausfüllt"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Width"
 msgstr "Breite"

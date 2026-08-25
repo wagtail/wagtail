@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -55,6 +55,12 @@ msgstr "Zamknuté"
 
 msgid "Unlocked"
 msgstr "Odomknuté"
+
+msgid "user"
+msgstr "používateľ"
+
+msgid "name"
+msgstr "názov"
 
 msgid "content type"
 msgstr "typ obsahu"
@@ -101,9 +107,6 @@ msgstr "obmedzenie zobrazenia kolekcie"
 msgid "collection view restrictions"
 msgstr "obmedzenia zobrazenia kolekcie"
 
-msgid "name"
-msgstr "názov"
-
 msgid "collections"
 msgstr "kolekcie"
 
@@ -146,6 +149,12 @@ msgstr "Publikovať"
 msgid "Publish any page"
 msgstr "Publikovať akúkoľvek stránku"
 
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
 msgid "title"
 msgstr "titulok"
 
@@ -168,21 +177,15 @@ msgstr "URL cesta"
 msgid "owner"
 msgstr "vlastník"
 
+msgid "latest revision created at"
+msgstr "posledná revízia vytvorená"
+
 msgid "show in menus"
 msgstr "zobraziť v menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
-
-msgid "latest revision created at"
-msgstr "posledná revízia vytvorená"
-
-msgid "page"
-msgstr "stránka"
-
-msgid "pages"
-msgstr "stránky"
 
 msgid "group page permission"
 msgstr "skupinové oprávnenie stránky"
@@ -201,9 +204,6 @@ msgstr "Predvolené"
 
 msgid "created at"
 msgstr "vytvorené"
-
-msgid "user"
-msgstr "používateľ"
 
 msgid "content JSON"
 msgstr "obsah JSON"

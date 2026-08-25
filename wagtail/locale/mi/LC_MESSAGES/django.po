@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -48,6 +48,12 @@ msgstr "Kua hē tou kupu muna. Whakamātau koa anō."
 
 msgid "Comment"
 msgstr "Tākupu"
+
+msgid "user"
+msgstr "Kaiwhakamahi"
+
+msgid "name"
+msgstr "Ingoa"
 
 msgid "content type"
 msgstr "Momo rārangi take"
@@ -122,9 +128,6 @@ msgstr "Kohikohinga kitea aukatinga"
 msgid "collection view restrictions"
 msgstr "Ngā kohikohinga kitea aukatinga"
 
-msgid "name"
-msgstr "Ingoa"
-
 msgid "collections"
 msgstr "Ngā kohikohinga"
 
@@ -179,6 +182,12 @@ msgstr "Iriti"
 msgid "Unlock any page"
 msgstr "Iriti ngā whārangi"
 
+msgid "page"
+msgstr "Whārangi"
+
+msgid "pages"
+msgstr "Ngā whārangi"
+
 msgid "title"
 msgstr "taitara"
 
@@ -201,6 +210,9 @@ msgstr "Tukutata URL"
 msgid "owner"
 msgstr "Rangatira"
 
+msgid "latest revision created at"
+msgstr "I hanga whakahou ki"
+
 msgid "show in menus"
 msgstr "Kitea kī roto i te pae tahua"
 
@@ -209,15 +221,6 @@ msgid ""
 msgstr ""
 "Mēna ka kitea he taukea ki tēnei whārangi ki roto i ngā pae tahua aunoa-"
 "waihanga"
-
-msgid "latest revision created at"
-msgstr "I hanga whakahou ki"
-
-msgid "page"
-msgstr "Whārangi"
-
-msgid "pages"
-msgstr "Ngā whārangi"
 
 msgid "group page permission"
 msgstr "Rōpū whakaae-a-whārangi"
@@ -251,9 +254,6 @@ msgstr "Taunoa"
 
 msgid "created at"
 msgstr "I hangaia ki"
-
-msgid "user"
-msgstr "Kaiwhakamahi"
 
 msgid "content JSON"
 msgstr "Rārangi take JSON"

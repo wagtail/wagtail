@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -77,9 +77,6 @@ msgstr "우측 정렬"
 msgid "Collection"
 msgstr "모음"
 
-msgid "Filter"
-msgstr "필터"
-
 msgid "Original size"
 msgstr "원본 사이즈"
 
@@ -97,6 +94,9 @@ msgstr "최대 사이즈에 따라 사이즈 조정"
 
 msgid "Resize to fill"
 msgstr "꽉 채우도록 사이즈 조정"
+
+msgid "Filter"
+msgstr "필터"
 
 msgid "Width"
 msgstr "너비"

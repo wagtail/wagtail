@@ -37,9 +37,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Filip Van, 2026\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -281,6 +281,11 @@ msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Werk nieuwe pagina's bij als er wijzigingen plaatsvinden"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr ""
+"Je hebt geen rechten om pagina's te publiceren onder \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -2606,6 +2611,10 @@ msgid "Changes requested"
 msgstr "Wijzigingen gevraagd"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Geannuleerd door %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Goedgekeurd door %(approved_by)s"
 
@@ -3424,6 +3433,12 @@ msgstr "Actietype"
 
 msgid "Date/Time"
 msgstr "Datum/tijd"
+
+msgid "Locked by"
+msgstr "Vergrendeld door"
+
+msgid "Anyone"
+msgstr "Iedereen"
 
 msgid "Locked pages"
 msgstr "Vergrendelde pagina's"

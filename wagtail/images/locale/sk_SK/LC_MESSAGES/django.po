@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -66,9 +66,6 @@ msgstr "Doprava zarovnané"
 msgid "Collection"
 msgstr "Kolekcie"
 
-msgid "Filter"
-msgstr "Filter"
-
 msgid "Original size"
 msgstr "Originálna veľkosť"
 
@@ -86,6 +83,9 @@ msgstr "Upraviť rozmery na maximum"
 
 msgid "Resize to fill"
 msgstr "Upraviť rozmery na výplň"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Width"
 msgstr "Šírka"

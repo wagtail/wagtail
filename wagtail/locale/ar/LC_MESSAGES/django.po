@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -161,6 +161,12 @@ msgstr "مقفل حسب الجدول"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "مقفل حالياً وسينشر في التاريخ المجدول"
 
+msgid "user"
+msgstr "مستخدم"
+
+msgid "name"
+msgstr "الاسم"
+
 msgid "content type"
 msgstr "نوع المحتوى"
 
@@ -247,9 +253,6 @@ msgstr "تقييد عرض الرزمة"
 msgid "collection view restrictions"
 msgstr "قيود عرض الرزمة"
 
-msgid "name"
-msgstr "الاسم"
-
 msgid "collections"
 msgstr "الرزم"
 
@@ -307,6 +310,12 @@ msgstr "فتح"
 msgid "Unlock any page"
 msgstr "فتح أي صفحة"
 
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
 msgid "title"
 msgstr "العنوان"
 
@@ -328,37 +337,8 @@ msgstr "مسار URL"
 msgid "owner"
 msgstr "المالك"
 
-msgid "title tag"
-msgstr "وسم العنوان"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "اسم الصفحة المعروض في نتائج محركات البحث كعنوان قابل للنقر."
-
-msgid "show in menus"
-msgstr "إظهار في القوائم"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "ما إذا كان رابط لهذه الصفحة سيظهر في القوائم المولدة تلقائياً"
-
-msgid "meta description"
-msgstr "وصف التعريف"
-
-msgid ""
-"The descriptive text displayed underneath a headline in search engine "
-"results."
-msgstr "النص الوصفي المعروض تحت العنوان في نتائج محركات البحث."
-
 msgid "latest revision created at"
 msgstr "أحدث مراجعة تم إنشاؤها في"
-
-msgid "For search engines"
-msgstr "لمحركات البحث"
-
-msgid "For site menus"
-msgstr "لقوائم الموقع"
 
 #, python-format
 msgid ""
@@ -376,11 +356,34 @@ msgstr "لا يمكن استبدال نسخة معدلة ليست الأحدث �
 msgid "Cannot overwrite a revision that was not created by the current user."
 msgstr "لا يمكن استبدال نسخة لم يتم إنشاؤها بواسطة المستخدم الحالي."
 
-msgid "page"
-msgstr "صفحة"
+msgid "show in menus"
+msgstr "إظهار في القوائم"
 
-msgid "pages"
-msgstr "صفحات"
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "ما إذا كان رابط لهذه الصفحة سيظهر في القوائم المولدة تلقائياً"
+
+msgid "For site menus"
+msgstr "لقوائم الموقع"
+
+msgid "title tag"
+msgstr "وسم العنوان"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "اسم الصفحة المعروض في نتائج محركات البحث كعنوان قابل للنقر."
+
+msgid "meta description"
+msgstr "وصف التعريف"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "النص الوصفي المعروض تحت العنوان في نتائج محركات البحث."
+
+msgid "For search engines"
+msgstr "لمحركات البحث"
 
 msgid "group page permission"
 msgstr "أذن صفحة ل مجموعة"
@@ -465,9 +468,6 @@ msgstr "سيقوم بإلغاء تعيين المرجع"
 
 msgid "created at"
 msgstr "تم الإنشاء في"
-
-msgid "user"
-msgstr "مستخدم"
 
 msgid "content JSON"
 msgstr "محتوى JSON"
@@ -871,13 +871,6 @@ msgid ""
 msgstr ""
 "تم جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في %(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "تم جدولة الصفحة للنشر في %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "تم جدولة الصفحة للنشر"
-
 msgid "Unschedule publication"
 msgstr "إلغاء جدولة النشر"
 
@@ -888,13 +881,6 @@ msgid ""
 msgstr ""
 "تم إلغاء جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "تم إلغاء جدولة الصفحة للنشر في %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "تم إلغاء جدولة الصفحة من النشر"
 
 msgid "Add view restrictions"
 msgstr "إضافة قيود عرض"
