@@ -6,6 +6,7 @@ Release notes
 
    upgrading
    release_process
+   8.1
    8.0
    7.4.3
    7.4.2
