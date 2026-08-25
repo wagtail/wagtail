@@ -304,10 +304,12 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
             add_warnings(data, warnings)
         data[prefix] = block.field.widget.format_value(value)
     else:
-        # A leaf field block (CharBlock, BooleanBlock, ChooserBlock, ...):
-        # its own form field's widget reads a single key via plain `.get()`,
-        # confirmed for every built-in Wagtail/Django block widget.
-        data[prefix] = value
+        # A leaf field block (CharBlock, TableBlock, ChooserBlock, ...):
+        # - `value` is the API value (`get_prep_value`)
+        # - We need to convert it to the form value (`value_for_form`)
+        # - So we first convert to the native value `to_python`
+        # Binding the form will then work even for blocks where the form/API/native values differ.
+        data[prefix] = block.value_for_form(block.to_python(value))
 
 
 def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) -> None:

@@ -668,6 +668,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
 
     def test_create_streamfield_page_with_various_block_types(self):
         image = Image.objects.create(title="Test image", file=get_test_image_file())
+        table = {
+            "data": [["", "Column"], ["Row", "Value"]],
+            "first_col_is_header": True,
+            "first_row_is_table_header": True,
+            "mergeCells": [],
+            "table_caption": "Minimal API table",
+            "table_header_choice": "both",
+        }
         cases = [
             (
                 "text",
@@ -753,6 +761,12 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                         "alt_text": "A test image",
                     },
                 ),
+            ),
+            (
+                "table",
+                table,
+                lambda value: self.assertEqual(value, table),
+                lambda value: self.assertEqual(value, table),
             ),
         ]
         for (

@@ -38,14 +38,13 @@ class FieldBlock(Block):
 
     def value_from_form(self, value):
         """
+        Perform any necessary conversion from the form field value to the block's native value.
+        As standard, this returns the form field value unchanged.
+
         The value that we get back from the form field might not be the type
         that this block works with natively; for example, the block may want to
         wrap a simple value such as a string in an object that provides a fancy
         HTML rendering (e.g. EmbedBlock).
-
-        We therefore provide this method to perform any necessary conversion
-        from the form field value to the block's native value. As standard,
-        this returns the form field value unchanged.
         """
         return value
 
