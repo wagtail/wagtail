@@ -259,6 +259,8 @@
       text-align: center;
       height: inherit;
       width: inherit;
+      // Allow overflow for an error badge
+      overflow: visible;
 
       &:hover {
         color: theme('colors.icon-secondary-hover');
@@ -289,6 +291,10 @@
         }
       }
     }
+  }
+
+  .icon {
+    pointer-events: none; // ensure icons don't interfere with button interactions
   }
 
   // Larger viewport width adjustments

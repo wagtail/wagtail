@@ -1,11 +1,11 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page, PageViewRestriction
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import PageViewRestriction
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPagePrivacy(WagtailTestUtils, TestCase):
+class TestPagePrivacy(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -27,6 +27,11 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         self.assertEqual(
             response.templates[0].name, "wagtailcore/password_required.html"
         )
+
+        # test that preview attributes are set on the request
+        request = response.context["request"]
+        self.assertFalse(request.is_preview)
+        self.assertIsNone(request.preview_mode)
 
         submit_url = "/_util/authenticate_with_password/%d/%d/" % (
             self.view_restriction.id,

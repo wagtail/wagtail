@@ -53,4 +53,31 @@ describe('SubmitController', () => {
     expect(submit).toHaveBeenCalled();
     expect(lastFormCalled).toEqual(document.getElementById('form'));
   });
+
+  it('should throw an error if there is no form associated with the controlled element', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    document.body.innerHTML = `
+    <div id="form">
+      <input type="text" data-controller="w-submit" data-action="change->w-submit#submit" />
+    </div>`;
+
+    await Promise.resolve(); // wait for the controller to initialize
+
+    expect(errorSpy).not.toHaveBeenCalled();
+
+    const input = document.querySelector('input');
+
+    input.dispatchEvent(new CustomEvent('change'));
+
+    expect(errorSpy).toHaveBeenCalledTimes(3);
+    const [[, message, error]] = errorSpy.mock.calls;
+
+    expect(message).toEqual('Error invoking action "change->w-submit#submit"');
+    expect(error.message).toEqual(
+      'w-submit controlled element must be part of a <form />',
+    );
+
+    errorSpy.mockRestore();
+  });
 });

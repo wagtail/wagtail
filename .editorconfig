@@ -20,7 +20,7 @@ charset = utf-8
 [*.{html,rst,md}]
 indent_size = 4
 
-[*.{js,ts,tsx,json,yml,yaml,css,scss}]
+[*.{js,ts,tsx,json,jsonc,yml,yaml,css,scss}]
 indent_size = 2
 
 [*.md]

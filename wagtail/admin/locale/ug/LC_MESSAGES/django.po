@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 # Azat, 2024
 # Azat, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Azat, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -54,14 +54,25 @@ msgstr "بەت قۇلۇپلاندى"
 msgid "%(label)s and Publish"
 msgstr "%(label)s ۋە تارقات"
 
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "خالىغان"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "Wagtail باشقۇرۇش سەھىپىسى"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "كەچۈرۈڭ، بۇ رايوننى زىيارەت قىلىش ئىجازىتىڭىز يوق."
 
-msgid "You do not have permission to access the admin"
-msgstr "سىزنىڭ باشقۇرۇش سەھىپىسىگە كىرىش ئىجازىتىڭىز يوق"
+msgid "You do not have permission to access the admin."
+msgstr "سىزنىڭ باشقۇرۇش سەھىپىسىگە كىرىش ئىجازىتىڭىز يوق."
 
 msgid "None"
 msgstr "يوق"
@@ -72,11 +83,20 @@ msgstr "باشلانغان چېسلا"
 msgid "Date to"
 msgstr "ئاخىرلىشىدىغان چېسلا"
 
+msgid "Minimum"
+msgstr "ئەڭ كىچىك"
+
+msgid "Maximum"
+msgstr "ئەڭ چوڭ"
+
 msgid "Locale"
 msgstr "يەرلىك تىل"
 
 msgid "All"
 msgstr "ھەممىسى"
+
+msgid "Usage count"
+msgstr "ئىشلىتىش سانى"
 
 msgid "Collection"
 msgstr "توپلام"
@@ -86,6 +106,13 @@ msgstr "بەلگە"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "ئالقىشلىق بەلگىدىن كۆپ بولغاندا ئونغىچە سۈزىدۇ."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "مۇلازىمېتىر تىلىنى ئىشلىتىدۇ: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "مۇلازىمېتىر ۋاقىت رايونىنى ئىشلىتىدۇ"
 
 msgid "Preferred language"
 msgstr "تىل مايىللىقى"
@@ -141,8 +168,8 @@ msgstr ""
 "قاتلاملىق ئورۇن تاللىنىدۇ. ئەسكەرتىش: بىر توپلام ئۆزىنىڭ تارمىقى ياكى "
 "ئۆزىنىڭ داۋامى بولالمايدۇ."
 
-msgid "Please select another parent"
-msgstr "باشقا ئانا تۈرىنى تاللاڭ"
+msgid "Please select another parent."
+msgstr "باشقا ئانا تۈرىنى تاللاڭ."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -174,8 +201,8 @@ msgstr ""
 "بىۋاسىتە تارقىتىدىغان چېسلا/ۋاقىت قەرەلى توشىدىغان چېسلا/ۋاقىتتىن ئىلگىرى "
 "بولۇشى كېرەك"
 
-msgid "Expiry date/time must be in the future"
-msgstr "قەرەلى توشىدىغان چېسلا/ۋاقىت چوقۇم كەلگۈسىدە بولۇشى كېرەك"
+msgid "Expiry date/time must be in the future."
+msgstr "قەرەلى توشىدىغان چېسلا/ۋاقىت چوقۇم كەلگۈسىدە بولۇشى كېرەك."
 
 msgid "New title"
 msgstr "يېڭى ماۋزۇ"
@@ -241,8 +268,8 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr "تارماق بەتنى كۆچۈرۈۋاتقاندا بەتنى ئۆزىنىڭ ئىچىگە كۆچۈرەلمەيسىز"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "بۇ قىسقارتىلما «%(page_slug)s» ئانا بەتتە ئىشلىتىلىۋاتىدۇ"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "بۇ قىسقارتىلما «%(page_slug)s» ئانا بەتتە ئىشلىتىلىۋاتىدۇ."
 
 msgid "Select a new parent for this page."
 msgstr "بۇ بەتنىڭ يېڭى ئانا بېتى تاللىنىدۇ."
@@ -268,8 +295,8 @@ msgid "Search…"
 msgstr "ئىزدە…"
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "%(value_too_long)s بەلگە %(max_tag_length)d ھەرپتىن ئېشىپ كەتتى"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
+msgstr "%(value_too_long)s بەلگە %(max_tag_length)d ھەرپتىن ئېشىپ كەتتى."
 
 msgid "Visibility"
 msgstr "كۆرۈشچانلىقى"
@@ -392,6 +419,12 @@ msgstr "تىزىمدىكى ھەممە تۈر تاللاندى"
 msgid "Can access Wagtail admin"
 msgstr "Wagtail باشقۇرغۇچىنى زىيارەت قىلالايدۇ"
 
+msgid "item"
+msgstr "تۈر"
+
+msgid "items"
+msgstr "تۈر"
+
 msgid "Content"
 msgstr "مەزمۇن"
 
@@ -479,6 +512,9 @@ msgstr "تەرجىمىھال رەسىمى يۈكلەش:"
 
 msgid "Sidebar"
 msgstr "يان بالداق"
+
+msgid "Go to the first error"
+msgstr "تۇنجى خاتالىققا يۆتكەل"
 
 msgid "Go back"
 msgstr "كەينىگە"
@@ -602,9 +638,6 @@ msgstr "بۇ توپلامنى ئانا توپلىمى شەخسىيلەشتۈرگ
 msgid "You can edit the privacy settings on:"
 msgstr "شەخسىيەت تەڭشىكىنى تەھرىرلىيەلەيسىز:"
 
-msgid "Save"
-msgstr "ساقلا"
-
 msgid "Change privacy"
 msgstr "شەخسىيەت ئۆزگەرت"
 
@@ -695,11 +728,13 @@ msgstr "بۇ %(model_name)s نى ئېلان قىلىۋېرەمسىز؟"
 msgid "Cancel"
 msgstr "ۋاز كەچ"
 
-msgid "Actions"
-msgstr "مەشغۇلات"
-
 msgid "Comment"
 msgstr "ئىنكاس"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "مەشغۇلات"
 
 #, python-format
 msgid ""
@@ -1152,8 +1187,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "بۇ بەتنىڭ شەخسىيىتىنى ئۆزگەرتىش چەكلەنگەن."
 
+msgid "Scheduling…"
+msgstr "كۈنتەرتىپلەۋاتىدۇ…"
+
 msgid "Publishing…"
 msgstr "تارقىتىلىۋاتىدۇ…"
+
+msgid "Schedule to publish"
+msgstr "تارقىتىشقا كۈنتەرتىپلە"
 
 msgid "Publish this version"
 msgstr "بۇ نەشرىنى تارقات"
@@ -1599,26 +1640,6 @@ msgstr "«%(title)s» نىڭ بالا بېتىنى ئىزدەيدۇ"
 msgid "Add a child page to '%(title)s'"
 msgstr "«%(title)s» غا بالا بەتتىن بىرنى قوشىدۇ"
 
-msgid "Drag"
-msgstr "سۆرە"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "%(index)s/%(total)s تۈر"
-
-msgid "Disable ordering of child pages"
-msgstr "بالا بەت تەرتىپلەشنى چەكلە"
-
-msgid "Sort"
-msgstr "تەرتىپلە"
-
-msgid "Enable ordering of child pages"
-msgstr "بالا بەت تەرتىپلەشنى چەكلە"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "پۈتكۈل تور بېكەتتە %(start_index)s-%(end_index)s / %(items_count)s."
-
 msgid "No results across entire site."
 msgstr "پۈتكۈل تور بېكەتتە ھېچقانداق نەتىجە يوق."
 
@@ -1627,24 +1648,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "«<span class=\"w-title-ellipsis\">%(title)s</span>» دىن ئىزدە"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"«<span class=\"w-title-ellipsis\">%(title)s</span>» دىكى %(start_index)s-"
-"%(end_index)s / %(items_count)s."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "«<span class=\"w-title-ellipsis\">%(title)s</span>» دا ھېچقانداق نەتىجە يوق."
 
 msgid "Search the whole site"
 msgstr "پۈتكۈل تور بېكەتنى ئىزدە"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
 
 msgid "Sites menu"
 msgstr "بېكەت تىزىملىك"
@@ -1667,9 +1676,6 @@ msgstr "بۇ بەت ئاشكارا كۆرۈنۈشتىن قوغدالغان"
 
 msgid "Confirm"
 msgstr "جەزملە"
-
-msgid "Add child page"
-msgstr "بالا بەت قوش"
 
 msgid "Page types"
 msgstr "بەت تۈرى"
@@ -1697,6 +1703,9 @@ msgstr "يۇقىرىغا"
 msgid "Move down"
 msgstr "تۆۋەنگە"
 
+msgid "Drag"
+msgstr "سۆرە"
+
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr ""
@@ -1704,6 +1713,13 @@ msgstr ""
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "بۇ بەت بىۋاسىتە تارقىتىلغاندا ۋە ياكى ۋاقتى ئۆتكەندە تاللىنىدۇ"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"تارقىتىشنى كۈنتەرتىپلەش پەقەت «تارقىتىشقا كۈنتەرتىپلە» نى تاللىسىڭىز ئاندىن "
+"كۈچكە ئىگە بولىدۇ"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "تەھرىرلەش ئىجازىتى بار ھەر كىم كۈنتەرتىپ قۇرالايدۇ"
@@ -1816,8 +1832,20 @@ msgstr "تەستىقلاشقا ھېچقانداق بەت/پۇرۇچ تاپشۇر
 msgid "Completed at"
 msgstr "تاماملانغان ۋاقىت"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "تازىلا"
+
+msgid "Saved"
+msgstr "ساقلاندى"
+
+msgid "Autosave is paused"
+msgstr "ئۆزلۈكىدىن ساقلاش ۋاقىتلىق توختىتىلدى"
 
 msgid "Edit account avatar"
 msgstr "ھېسابات سىماسىنى تەھرىرلەيدۇ"
@@ -1827,6 +1855,13 @@ msgstr "بەلگە ئىزىنى ئالماشتۇر"
 
 msgid "Breadcrumb"
 msgstr "بەلگە ئىزى"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] "بۇ مەشغۇلات جەمئىي <b>%(total_pages_formatted)s</b> بەتنى ئۆچۈرىدۇ."
+msgstr[1] "بۇ مەشغۇلات جەمئىي <b>%(total_pages_formatted)s</b> بەتنى ئۆچۈرىدۇ."
 
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
@@ -1845,9 +1880,6 @@ msgstr "سىستېما"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s يېڭى نەشرىنى ساقلىدى"
 
-msgid "Refresh"
-msgstr "يېڭىلا"
-
 msgid "You have unsaved changes in another window"
 msgstr "باشقا كۆزنەكتە ساقلىمىغان ئۆزگەرتىشلىرىڭىز بار"
 
@@ -1864,37 +1896,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "ھازىر باشقا بىر ئىشلەتكۈچى كۆرۈۋاتىدۇ"
 msgstr[1] "ھازىر باشقا %(num_user)s ئىشلەتكۈچى كۆرۈۋاتىدۇ"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"داۋاملاشتۇرۇش ئۇ كۆزنەكتە قىلغان ئۆزگەرتىشلىرىڭىزنى قاپلىۋېتىدۇ. بەتنى "
-"يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى كۆزنەكتىكى "
-"تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"داۋاملاشتۇرۇش ئۇ كۆزنەكتە %(user_name)s قىلغان ئۆزگەرتىشلەرنى قاپلىۋېتىدۇ. "
-"بەتنى يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى "
-"كۆزنەكتىكى تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-"بەتنى يېڭىلاش ساقلانمىغان ئۆزگەرتىشلەرنى يوقىتىدىغانلىقىڭىزنى بىلدۈرىدۇ"
-
-msgid "Refresh page"
-msgstr "بەتنى يېڭىلا"
-
 msgid "Continue"
 msgstr "داۋاملاشتۇر"
-
-msgid "Refresh the page"
-msgstr "بۇ بەتنى يېڭىلا"
 
 msgid "Download XLSX"
 msgstr "XLSX نى چۈشۈر"
@@ -1923,8 +1926,19 @@ msgstr "قايت"
 msgid "History"
 msgstr "تارىخ"
 
+msgid "account"
+msgstr "ھېساب"
+
 msgid "Keyboard shortcuts"
 msgstr "ھەرپتاختا تېزلەتمىسى"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"نۆۋەتتە ھەرپتاختا تېزلەتمىسى چەكلەنگەن؛ ئۇلارنى قوزغىتىشتا %(account_link)s "
+"دىن باشقۇرۇڭ"
 
 msgid "All keyboard shortcuts"
 msgstr "بارلىق ھەرپتاختا تېزلەتمىسى"
@@ -1934,6 +1948,14 @@ msgstr "دائىرە"
 
 msgid "Keyboard shortcut"
 msgstr "ھەرپتاختا تېزلەتمىسى"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"نۆۋەتتە ھەرپتاختا تېزلەتمىسى قوزغىتىلغان؛ ئۇلارنى چەكلەشتە%(account_link)s "
+"دىن باشقۇرۇڭ"
 
 msgid "Current page status:"
 msgstr "نۆۋەتتىكى بەت ھالىتى:"
@@ -1969,6 +1991,9 @@ msgstr "ياق، كۈنتەرتىپكە تىز"
 msgid "Other searches"
 msgstr "باشقا ئىزدەش"
 
+msgid "Save"
+msgstr "ساقلا"
+
 msgid "Minimap"
 msgstr "كىچىك خەرىتە"
 
@@ -1992,6 +2017,15 @@ msgstr "سۆز"
 
 msgid "Reading time"
 msgstr "ئوقۇش ۋاقتى"
+
+msgid "Readability"
+msgstr "ئوقۇشچانلىقى"
+
+msgid "This data explained"
+msgstr "بۇ سانلىق مەلۇمات چۈشەندۈرۈلگەن"
+
+msgid "How we calculate our metrics"
+msgstr "ئۆلچىمىمىزنى قانداق ھېسابلايمىز"
 
 msgid "Issues found"
 msgstr "تېپىلغان مەسىلە"
@@ -2084,6 +2118,9 @@ msgstr "ئىناۋەتسىز كۈنتەرتىپ"
 msgid "Go-live:"
 msgstr "نەق مەيدانغا يۆتكەل:"
 
+msgid "Once scheduled:"
+msgstr "كۈنتەرتىپلەنگەندە:"
+
 msgid "No publishing schedule set"
 msgstr "تارقىتىش كۈنتەرتىپى تەڭشەلمىگەن"
 
@@ -2098,6 +2135,9 @@ msgstr "يۈكلەۋاتىدۇ"
 
 msgid "Refreshing…"
 msgstr "يېڭىلاۋاتىدۇ…"
+
+msgid "Refresh"
+msgstr "يېڭىلا"
 
 msgid "Preview is out of date"
 msgstr "ئالدىن كۆزىتىشنىڭ ۋاقتى ئۆتتى"
@@ -2115,17 +2155,14 @@ msgstr "ئالدىن كۆزىتىش ھالىتى"
 msgid "First published"
 msgstr "تۇنجى تارقىتىلغان ۋاقىت"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "ئۆزلۈكىدىن ساقلاش <span>ۋاقىتلىق توختىتىلدى</span>"
+
 msgid "Save your changes before leaving"
 msgstr "ئايرىلىشتىن ئىلگىرى ئۆزگەرتىشىڭىزنى ساقلايدۇ"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "<span>ساقلىمىغان تەھرىرلەش</span>لىرىڭىز بار"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "<span>ساقلىمىغان ئىنكاس</span>لىرىڭىز بار"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "<span>ساقلىمىغان تەھرىرلەش</span> ۋە <span>ئىنكاس</span>لىرىڭىز بار"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2206,11 +2243,24 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "ئاساسىي مەزمۇنغا ئاتلا"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s/%(total)s تۈر"
+
+msgid "Disable custom ordering"
+msgstr "ئىختىيارىي تەرتىپلەشنى چەكلەيدۇ"
+
+msgid "Sort"
+msgstr "تەرتىپلە"
+
+msgid "Enable custom ordering"
+msgstr "ئىختىيارىي تەرتىپلەشنى قوزغىتىدۇ"
+
 msgid "View Wagtail quick actions"
 msgstr "Wagtail تېز مەشغۇلاتىنى كۆرسىتىدۇ"
 
-msgid "Accessibility"
-msgstr "قوشۇمچە ئىقتىدار"
+msgid "Checks"
+msgstr "\"تەكشۈرۈش"
 
 msgid "Warnings"
 msgstr "ئاگاھلاندۇرۇش"
@@ -2358,6 +2408,15 @@ msgstr "كەچۈرۈڭ، ھېچقانداق ۋەزىپە «<em>%(query_string)s<
 msgid "You haven't created any tasks."
 msgstr "سىز ھېچقانداق ۋەزىپە قۇرمىدىڭىز."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"نېمىشقا <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ھازىر بىرنى قۇر</a>مايسىز؟"
+
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2441,8 +2500,33 @@ msgstr "%(task_name)s %(started_at)s غا يوللا"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "ئادەتتىكى مەشغۇلات"
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "پىروگرامما"
+
+msgid "Show keyboard shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسىنى كۆرسىتىدۇ"
+
+msgid "Toggle sidebar"
+msgstr "يان بالداقنى ئالماشتۇر"
+
+msgid "Toggle minimap"
+msgstr "كىچىك خەرىتىنى ئالماشتۇر"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "بۆلەك سۆزلەشكۈنى ياپىدۇ (بۇ بىرسىگە ئوخشاش)"
+
+msgid "Save changes"
+msgstr "ئۆزگەرتكەننى ساقلا"
+
+msgid "Add or show comments"
+msgstr "ئىنكاس قوش ياكى كۆرسەت"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "تېكىست تەھرىرلەش"
 
 msgid "Cut"
 msgstr "كەس"
@@ -2462,26 +2546,19 @@ msgstr "يېنىۋال"
 msgid "Redo"
 msgstr "قايتىلا"
 
-msgid "Save changes"
-msgstr "ئۆزگەرتكەننى ساقلا"
-
-msgid "Toggle sidebar"
-msgstr "يان بالداقنى ئالماشتۇر"
-
-msgid "Text content"
-msgstr "تېكىست مەزمۇن"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "تېكىست پىچىمى"
 
 msgid "Insert or edit a link"
 msgstr "ئۇلانما  قىستۇر ياكى تەھرىر"
 
-msgid "Text formatting"
-msgstr "تېكىست پىچىمى"
+msgid "Bold"
+msgstr "توم"
 
 msgid "Italic"
 msgstr "يانتۇ"
-
-msgid "Underline"
-msgstr "ئاستى سىزىق"
 
 msgid "Monospace (code)"
 msgstr "تەڭ كەڭلىكتىكى بوشلۇق (كود)"
@@ -2513,11 +2590,11 @@ msgstr "ئىنكاس"
 msgid "Toggle checks"
 msgstr "تەكشۈرۈشنى ئالماشتۇر"
 
-msgid "Checks"
-msgstr "\"تەكشۈرۈش"
-
 msgid "Toggle preview"
 msgstr "ئالدىن كۆزىتىشنى ئالماشتۇر"
+
+msgid "(blank)"
+msgstr "(بوش)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2526,6 +2603,17 @@ msgstr "«%(label)s» بويىچە ئۆسكۈچى تەرتىپتە تەرتىپ�
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "«%(label)s» بويىچە كېمەيگۈچى تەرتىپتە تەرتىپلەيدۇ."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "«%(page_title)s» مۇۋەپپەقىيەتلىك يۆتكەلدى."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"سۆرەش توپچىغا دىققەتنى مەركەزلەشتۈرۈپ، ئاستى ياكى ئۈستى يا ئوقنى بېسىپ تۈرنى "
+"يۆتكىگىلى بولىدۇ، ئاندىن Enter نى بېسىپ ئۆزگەرتىشنى يوللىغىلى بولىدۇ."
 
 #, python-format
 msgid ""
@@ -2584,6 +2672,10 @@ msgstr "سۈرەتنىڭ ئورنىغا ئالماشتۇرىدىغان تېكى�
 
 msgid "Use meaningful text"
 msgstr "مەنىلىك تېكىست ئىشلىتىلىدۇ"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s جىسىم(%(id)s)"
 
 msgid "Profile"
 msgstr "تەرجىمىھال"
@@ -2679,10 +2771,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "ھازىر %(model_name)s دىكى «%(title)s» نىڭ قۇلۇپى ئېچىلدى."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "قۇلۇپلانغانلىقتىن %(model_name)s نى ساقلىيالمايدۇ"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s دىكى «%(object)s» يېڭىلاندى."
 
@@ -2731,6 +2819,13 @@ msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» قايت
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» بىكار قىلىندى."
 
+msgid "Saving will overwrite a newer version."
+msgstr "ساقلاش يېڭىراق نەشرىنى قاپلىۋېتىدۇ"
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "قۇلۇپلانغانلىقتىن %(model_name)s نى ساقلىيالمايدۇ"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
@@ -2764,6 +2859,9 @@ msgstr ""
 #, python-format
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
+
+msgid "Sort item order"
+msgstr "تۈر تەرتىپىنى تەرتىپلە"
 
 msgid "Inspect"
 msgstr "تەكشۈر"
@@ -2896,6 +2994,10 @@ msgstr "«%(page_title)s» بەت ۋە %(subpages_count)s تاماق بەت كۆ
 msgid "Page '%(page_title)s' copied."
 msgstr "«%(page_title)s» بەت كۆچۈرۈلدى."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "%(model_name)s قۇرۇش ئىلتىماسىنى ئىلمەك توسقان."
+
 msgid "View draft"
 msgstr "دەسلەپكى نۇسخىنى كۆرسەت"
 
@@ -2918,9 +3020,6 @@ msgstr "«%(page_title)s» بەت قۇرۇلۇپ ۋە تارقىتىلدى."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "«%(page_title)s» بەت قۇرۇلۇپ ۋە تەستىقلاشقا يوللاندى."
 
-msgid "The page could not be created due to validation errors"
-msgstr "دەلىللەش خاتالىقى سەۋەبىدىن بەتنى قۇرغىلى بولمىدى"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "«%(page_title)s» بەت ئۆچۈرۈلدى."
@@ -2940,6 +3039,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "«%(page_title)s» بەت يېڭىلاندى."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "%(model_name)s تەھرىرلەش ئىلتىماسىنى ئىلمەك توسقان."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
@@ -2979,12 +3082,6 @@ msgstr "«%(page_title)s» بەت تەستىقلاشقا يوللاندى."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "«%(page_title)s» بەتتىكى خىزمەت ئېقىمى قايتا قوزغىتىلدى."
 
-msgid "The page could not be saved as it is locked"
-msgstr "قۇلۇپلانغانلىقتىن بۇ بەتنى ساقلىغىلى بولمىدى"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "دەلىللەش خاتالىقى سەۋەبىدىن بەتنى ساقلىغىلى بولمىدى"
-
 msgid "Is commenting action"
 msgstr "ئىنكاس مەشغۇلاتى"
 
@@ -3015,32 +3112,19 @@ msgstr "بەت تۈرى"
 msgid "Exploring"
 msgstr "كۆرسىتىش"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"سۆرەش توپچىغا دىققەتنى مەركەزلەشتۈرۈپ، ئاستى ياكى ئۈستى يا ئوقنى بېسىپ تۈرنى "
-"يۆتكىگىلى بولىدۇ، ئاندىن Enter نى بېسىپ ئۆزگەرتىشنى يوللىغىلى بولىدۇ."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "«%(page_title)s» مۇۋەپپەقىيەتلىك يۆتكەلدى."
+msgid "Add child page"
+msgstr "بالا بەت قوش"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "ھازىر «%(page_title)s» نىڭ قۇلۇپى ئېچىلدى."
 
 #, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"تاللانغان ئانا بەتتە «%(page_slug)s» قىسقارتىلما ئاللىقاچان ئىشلىتىلگەن. "
-"قىسقارتىلمىنىڭ بىردىنبىر ئىكەنلىكىنى جەزملەپ، قايتا سىناڭ"
-
-#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "«%(page_title)s» بەت يۆتكەلدى."
+
+msgid "Placeholder title"
+msgstr "ئورۇن بەلگىسى ماۋزۇسى"
 
 #, python-format
 msgid ""
@@ -3232,6 +3316,24 @@ msgstr "باشقىسى تاللىنىدۇ"
 msgid "Sort menu order"
 msgstr "تىزىملىك تەرتىپىنى تەرتىپلە"
 
+msgid "Heading 1"
+msgstr "1-ماۋزۇ"
+
+msgid "Heading 2"
+msgstr "2-ماۋزۇ"
+
+msgid "Heading 3"
+msgstr "3-ماۋزۇ"
+
+msgid "Heading 4"
+msgstr "4-ماۋزۇ"
+
+msgid "Heading 5"
+msgstr "5-ماۋزۇ"
+
+msgid "Heading 6"
+msgstr "6-ماۋزۇ"
+
 msgid "Bulleted list"
 msgstr "بەلگە تىزىم"
 
@@ -3240,9 +3342,6 @@ msgstr "رەقەملىك تىزىم"
 
 msgid "Blockquote"
 msgstr "بۆلەك نەقىل"
-
-msgid "Bold"
-msgstr "توم"
 
 msgid "Link"
 msgstr "ئۇلانما"

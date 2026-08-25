@@ -18,15 +18,15 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:start_import"), params)
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailredirects:start_import"), post_data, follow=follow
         )
 
-    def post_import(self, post_data={}, follow=False):
+    def post_import(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailredirects:process_import"), post_data, follow=follow
         )

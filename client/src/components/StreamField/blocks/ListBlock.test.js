@@ -3,7 +3,7 @@ import * as uuid from 'uuid';
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition } from './ListBlock';
 import { StreamBlockDefinition } from './StreamBlock';
-import { StructBlockDefinition } from './StructBlock';
+import { BlockGroupDefinition, StructBlockDefinition } from './StructBlock';
 
 // Mock uuid for consistent snapshot results
 jest.mock('uuid');
@@ -119,14 +119,6 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -341,14 +333,6 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       maxNum: 3,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -478,14 +462,6 @@ describe('telepath: wagtail.blocks.ListBlock with minNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       minNum: 2,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -584,14 +560,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
           maxNum: null,
           minNum: null,
           blockCounts: {},
-          strings: {
-            MOVE_UP: 'Move up',
-            MOVE_DOWN: 'Move down',
-            DRAG: 'Drag',
-            DELETE: 'Delete',
-            DUPLICATE: 'Duplicate',
-            ADD: 'Add',
-          },
         },
       ),
       null,
@@ -601,14 +569,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -667,14 +627,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -692,14 +644,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -773,6 +717,13 @@ describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
           classname: 'struct-block',
           helpText: 'use <strong>lots</strong> of these',
           helpIcon: '<svg></svg>',
+          formLayout: new BlockGroupDefinition({
+            children: [
+              ['heading_text', 'heading_text'],
+              ['size', 'size'],
+            ],
+            settings: [],
+          }),
         },
       ),
       null,
@@ -782,14 +733,6 @@ describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 

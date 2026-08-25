@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import PermissionDenied
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +11,7 @@ from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenMultipleViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -19,7 +21,7 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock
 from wagtail.documents import get_document_model, get_document_model_string
-from wagtail.documents.permissions import permission_policy
+from wagtail.permissions import policy_registry
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -118,9 +120,39 @@ class DocumentChooseResultsView(
 
 
 class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model)
+
+    def get_object(self, pk):
+        item = super().get_object(pk)
+        if not self.permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", item
+        ):
+            raise PermissionDenied
+
+        return item
+
     def get(self, request, *args, pk, **kwargs):
         self.model = get_document_model()
         return super().get(request, *args, pk, **kwargs)
+
+
+class DocumentChosenMultipleView(
+    ChosenMultipleViewMixin, DocumentChosenResponseMixin, View
+):
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model)
+
+    def get_objects(self, pks):
+        return self.permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        ).filter(pk__in=pks)
+
+    def get(self, request, *args, **kwargs):
+        self.model = get_document_model()
+        return super().get(request, *args, **kwargs)
 
 
 class DocumentChooserUploadView(
@@ -175,11 +207,11 @@ class DocumentChooserViewSet(ChooserViewSet):
     choose_view_class = DocumentChooseView
     choose_results_view_class = DocumentChooseResultsView
     chosen_view_class = DocumentChosenView
+    chosen_multiple_view_class = DocumentChosenMultipleView
     create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
     widget_telepath_adapter_class = DocumentChooserAdapter
     base_block_class = BaseDocumentChooserBlock
-    permission_policy = permission_policy
 
     icon = "doc-full-inverse"
     choose_one_text = _("Choose a document")

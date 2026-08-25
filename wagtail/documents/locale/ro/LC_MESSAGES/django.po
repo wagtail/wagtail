@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,6 +25,20 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "Documente Wagtail"
 
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "Dimensiunea maximă a fișierului: %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Acest fișier este prea mare (%(file_size)s). Mărime maximă: %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Acest fișier este prea mare. Mărime maximă: %(max_filesize)s."
+
 msgid "Collection"
 msgstr "Colecție"
 
@@ -32,7 +46,7 @@ msgid "Add"
 msgstr "Adaugă"
 
 msgid "Add/edit documents you own"
-msgstr "Adaugă/editeaza documente deținute"
+msgstr "Adaugă/editează documente proprii"
 
 msgid "Edit"
 msgstr "Editează"
@@ -41,7 +55,7 @@ msgid "Edit any document"
 msgstr "Editează orice document"
 
 msgid "Choose"
-msgstr "Selectează"
+msgstr "Alege"
 
 msgid "Select documents in choosers"
 msgstr "Selectează documente în selectoare"
@@ -56,7 +70,7 @@ msgid "created at"
 msgstr "creat la"
 
 msgid "uploaded by user"
-msgstr "încărcată de utlizator"
+msgstr "încărcat de utilizator"
 
 msgid "tags"
 msgstr "etichete"
@@ -72,16 +86,16 @@ msgid "Add tags to 1 document"
 msgid_plural "Add tags to %(counter)s documents"
 msgstr[0] "Adaugă etichete la 1 document"
 msgstr[1] "Adaugă etichete la %(counter)s documente"
-msgstr[2] "Adaugă etichete la %(counter)s documente"
+msgstr[2] "Adaugă etichete la %(counter)s de documente"
 
 msgid "Add tags to documents"
 msgstr "Adaugă etichete la documente"
 
 msgid "Are you sure you want to tag the following document?"
 msgid_plural "Are you sure you want to tag the following documents?"
-msgstr[0] "Sigur doriți să adaugați etichete la documentul următor?"
-msgstr[1] "Sigur doriți să adaugați etichete la documentele următoare?"
-msgstr[2] "Sigur doriți să adaugați etichete la documentele următoare?"
+msgstr[0] "Sigur doriți să adăugați etichete la documentul următor?"
+msgstr[1] "Sigur doriți să adăugați etichete la documentele următoare?"
+msgstr[2] "Sigur doriți să adăugați etichete la documentele următoare?"
 
 msgid "You don't have permission to add tags to this document"
 msgid_plural "You don't have permission to add tags to these documents"
@@ -93,14 +107,14 @@ msgid "Yes, add"
 msgstr "Da, adaugă"
 
 msgid "No, don't add"
-msgstr "Nu, nu adaugă"
+msgstr "Nu, nu adăuga"
 
 #, python-format
 msgid "Add 1 document to new collection"
 msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Adaugă 1 document la colecție nouă"
-msgstr[1] "Adaugă %(counter)s documente la colecție nouă"
-msgstr[2] "Adaugă %(counter)s documente la colecție nouă"
+msgstr[0] "Adaugă 1 document la o colecție nouă"
+msgstr[1] "Adaugă %(counter)s documente la o colecție nouă"
+msgstr[2] "Adaugă %(counter)s de documente la o colecție nouă"
 
 msgid "Add documents to collection"
 msgstr "Adaugă documente la colecție"
@@ -128,7 +142,7 @@ msgid "Delete 1 document"
 msgid_plural "Delete %(counter)s documents"
 msgstr[0] "Șterge 1 document"
 msgstr[1] "Șterge %(counter)s documente"
-msgstr[2] "Șterge %(counter)s documente"
+msgstr[2] "Șterge %(counter)s de documente"
 
 msgid "Delete documents"
 msgstr "Șterge documente"
@@ -157,14 +171,23 @@ msgstr "Documente recente"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un "
+"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu niciun "
 "document"
 
 msgid "You haven't uploaded any documents in this collection."
-msgstr "Nu ați încărcat nici un document în această colecție."
+msgstr "Nu ați încărcat niciun document în această colecție."
 
 msgid "You haven't uploaded any documents."
-msgstr "Nu ați încărcat nici un document. "
+msgstr "Nu ați încărcat niciun document."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"De ce să nu <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">încărcați unul acum</a>?"
 
 msgid "Change document:"
 msgstr "Schimbă documentul:"
@@ -176,7 +199,7 @@ msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
 msgid "Upload"
-msgstr "Încărcare"
+msgstr "Încarcă"
 
 msgid "Filesize"
 msgstr "Mărime fișier"
@@ -200,7 +223,7 @@ msgstr "Selectează toate documentele din listă"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu niciun "
 "document"
 
 #, python-format
@@ -208,7 +231,7 @@ msgid ""
 "You haven't uploaded any documents in this collection. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document în această colecție. De ce să nu <a "
+"Nu ați încărcat niciun document în această colecție. De ce să nu <a "
 "href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 #, python-format
@@ -216,8 +239,21 @@ msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document. De ce să nu <a "
+"Nu ați încărcat niciun document. De ce să nu <a "
 "href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+
+#, python-format
+msgid ""
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s Document <span class=\"w-sr-only\">creat în %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s Documente <span class=\"w-sr-only\">create în %(site_name)s</span>"
+msgstr[2] ""
+"%(total)s de Documente <span class=\"w-sr-only\">create în %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
@@ -237,18 +273,18 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Încărcare de success. Dacă este necesar, actualizați aceast document cu un "
-"titlu potrivit. Puteți deasemenea să ștergeți documentul în întregime dacă "
-"încărcarea nu a fost necesară."
+"Încărcare reușită. Dacă este necesar, actualizați acest document cu un titlu "
+"mai potrivit. De asemenea, puteți șterge documentul complet dacă încărcarea "
+"nu a fost necesară."
 
 msgid "Sorry, upload failed."
-msgstr "Încărcarea a eșuat."
+msgstr "Ne pare rău, încărcarea a eșuat."
 
 msgid "Document updated."
 msgstr "Document actualizat."
 
 msgid "You need a password to access this document."
-msgstr "Aveți nevoie de o parolă pentru a accesa aceast document."
+msgstr "Aveți nevoie de o parolă pentru a accesa acest document."
 
 msgid "Document permissions"
 msgstr "Permisiunile documentului"
@@ -260,7 +296,7 @@ msgid "Tags"
 msgstr "Etichete"
 
 msgid "Tag"
-msgstr "Adaugă etichetă"
+msgstr "Etichetează"
 
 msgid "Add tags to the selected documents"
 msgstr "Adaugă etichete la documentele selectate"
@@ -270,13 +306,14 @@ msgid "New tags have been added to %(num_parent_objects)d document"
 msgid_plural "New tags have been added to %(num_parent_objects)d documents"
 msgstr[0] "Au fost adăugate etichete noi la %(num_parent_objects)d document"
 msgstr[1] "Au fost adăugate etichete noi la %(num_parent_objects)d documente"
-msgstr[2] "Au fost adăugate etichete noi la %(num_parent_objects)d documente"
+msgstr[2] ""
+"Au fost adăugate etichete noi la %(num_parent_objects)d de documente"
 
 msgid "Add to collection"
 msgstr "Adaugă la colecție"
 
 msgid "Add selected documents to collection"
-msgstr "Adaugă documente selectate la colecție"
+msgstr "Adaugă documentele selectate la colecție"
 
 #, python-format
 msgid "%(num_parent_objects)d document has been added to %(collection)s"
@@ -284,7 +321,8 @@ msgid_plural ""
 "%(num_parent_objects)d documents have been added to %(collection)s"
 msgstr[0] "%(num_parent_objects)d document a fost adăugat la %(collection)s"
 msgstr[1] "%(num_parent_objects)d documente au fost adăugate la %(collection)s"
-msgstr[2] "%(num_parent_objects)d documente au fost adăugate la %(collection)s"
+msgstr[2] ""
+"%(num_parent_objects)d de documente au fost adăugate la %(collection)s"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -297,7 +335,7 @@ msgid "%(num_parent_objects)d document has been deleted"
 msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d document a fost șters"
 msgstr[1] "%(num_parent_objects)d documente au fost șterse"
-msgstr[2] "%(num_parent_objects)d documente au fost șterse"
+msgstr[2] "%(num_parent_objects)d de documente au fost șterse"
 
 msgid "File"
 msgstr "Fișier"
@@ -306,7 +344,7 @@ msgid "Created"
 msgstr "Creat la"
 
 msgid "Choose a document"
-msgstr "Alege document"
+msgstr "Alege un document"
 
 msgid "Choose another document"
 msgstr "Alege alt document"
@@ -320,6 +358,9 @@ msgstr "Documente"
 msgid "Title"
 msgstr "Titlu"
 
+msgid "The document could not be created due to errors."
+msgstr "Documentul nu a putut fi creat din cauza erorilor."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documentul '%(document_title)s' a fost adăugat."
@@ -329,14 +370,14 @@ msgstr "Documentul nu a fost salvat din cauza erorilor."
 
 #, python-format
 msgid "Document '%(document_title)s' updated"
-msgstr "Documentul '%(document_title)s' a fost actualizat."
+msgstr "Documentul '%(document_title)s' a fost actualizat"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
+"The file could not be found. Please change the source or delete the document."
+msgstr "Fișierul nu a fost găsit. Schimbați sursa sau ștergeți documentul."
 
 msgid "Delete document"
-msgstr "Șterge document"
+msgstr "Șterge documentul"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."

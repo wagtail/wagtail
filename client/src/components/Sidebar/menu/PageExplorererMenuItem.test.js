@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import { PageExplorerMenuItem } from './PageExplorerMenuItem';
 
 describe('PageExplorerMenuItem', () => {
@@ -66,5 +66,25 @@ describe('PageExplorerMenuItem', () => {
       type: 'set-navigation-path',
     });
     expect(preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('should reset navigation path when closed via FocusTrap deactivation', () => {
+    const dispatch = jest.fn();
+
+    const wrapper = shallow(
+      <PageExplorerMenuItem
+        dispatch={dispatch}
+        item={{}}
+        path=".explorer"
+        state={{ activePath: '', navigationPath: '.explorer' }}
+      />,
+    );
+
+    wrapper.find('Connect(PageExplorer)').prop('onClose')();
+
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'set-navigation-path',
+      path: '',
+    });
   });
 });

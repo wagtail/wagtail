@@ -1,4 +1,4 @@
-/* eslint-disable import/no-mutable-exports */
+/* eslint-disable import-x/no-mutable-exports */
 let perfMiddleware;
 
 if (process.env.NODE_ENV !== 'production') {

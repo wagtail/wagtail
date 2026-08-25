@@ -18,7 +18,7 @@ from wagtail.coreutils import (
     make_wagtail_template_fragment_key,
     resolve_model_string,
 )
-from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models import Locale, Site, SiteRootPath
 from wagtail.models.sites import (
     SITE_ROOT_PATHS_CACHE_KEY,
     SITE_ROOT_PATHS_CACHE_VERSION,
@@ -26,9 +26,13 @@ from wagtail.models.sites import (
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
-class TestPageUrlTags(TestCase):
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
+class TestPageUrlTags(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -104,7 +108,7 @@ class TestPageUrlTags(TestCase):
         )
 
         # no 'request' object in context
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(1):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -122,7 +126,7 @@ class TestPageUrlTags(TestCase):
 
         request = get_dummy_request()
 
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(2):
             result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -140,7 +144,7 @@ class TestPageUrlTags(TestCase):
         # 'request' object in context, but site is None
         request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(2):
             result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -204,7 +208,7 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, "/events/")
 
         # 'request' object in context, but no 'site' attribute
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(2):
             result = slugurl(
                 template.Context({"request": get_dummy_request()}), "events"
             )
@@ -223,7 +227,7 @@ class TestPageUrlTags(TestCase):
             """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
         )
         page = Page.objects.get(url_path="/home/events/")
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(1):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="http://localhost/events/">Events</a>', result)
 
@@ -260,7 +264,7 @@ class TestPageUrlTags(TestCase):
             tpl.render(template.Context({"page": 123}))
 
 
-class TestWagtailSiteTag(TestCase):
+class TestWagtailSiteTag(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
@@ -281,7 +285,7 @@ class TestWagtailSiteTag(TestCase):
         self.assertEqual("", result)
 
 
-class TestSiteRootPathsCache(TestCase):
+class TestSiteRootPathsCache(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def get_cached_site_root_paths(self):
@@ -489,38 +493,38 @@ class TestSiteRootPathsCache(TestCase):
 
 class TestResolveModelString(TestCase):
     def test_resolve_from_string(self):
-        model = resolve_model_string("wagtailcore.Page")
+        model = resolve_model_string("wagtailcore.Site")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_default_app(self):
-        model = resolve_model_string("Page", default_app="wagtailcore")
+        model = resolve_model_string("Site", default_app="wagtailcore")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_different_default_app(self):
-        model = resolve_model_string("wagtailcore.Page", default_app="wagtailadmin")
+        model = resolve_model_string("wagtailcore.Site", default_app="wagtailadmin")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_class(self):
-        model = resolve_model_string(Page)
+        model = resolve_model_string(Site)
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_invalid(self):
-        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Page")
+        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Site")
 
     def test_resolve_from_string_with_incorrect_default_app(self):
         self.assertRaises(
-            LookupError, resolve_model_string, "Page", default_app="wagtailadmin"
+            LookupError, resolve_model_string, "Site", default_app="wagtailadmin"
         )
 
     def test_resolve_from_string_with_unknown_model_string(self):
-        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Page")
+        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Site")
 
     def test_resolve_from_string_with_no_default_app(self):
-        self.assertRaises(ValueError, resolve_model_string, "Page")
+        self.assertRaises(ValueError, resolve_model_string, "Site")
 
     def test_resolve_from_class_that_isnt_a_model(self):
         model = resolve_model_string(object)
@@ -648,7 +652,7 @@ class TestWagtailCacheTag(TestCase):
         )
 
 
-class TestWagtailPageCacheTag(TestCase):
+class TestWagtailPageCacheTag(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

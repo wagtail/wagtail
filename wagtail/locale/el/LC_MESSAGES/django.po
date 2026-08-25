@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,24 +41,6 @@ msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
 
-msgid "Move up"
-msgstr "Πάνω"
-
-msgid "Move down"
-msgstr "Κάτω"
-
-msgid "Drag"
-msgstr "Τραβήξτε"
-
-msgid "Duplicate"
-msgstr "Αναπαραγωγή"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
-msgid "Add"
-msgstr "Προσθήκη"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: αυτό το μπλοκ δεν έχει επιλογές"
@@ -68,6 +50,9 @@ msgstr "Αυτό το block δεν έχει επιλογές."
 
 msgid "This field is required."
 msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Group"
+msgstr "Ομάδα"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -83,6 +68,12 @@ msgstr "Κλειδωμένο"
 
 msgid "Unlocked"
 msgstr "Ξεκλειδωμενο"
+
+msgid "user"
+msgstr "χρήστης"
+
+msgid "name"
+msgstr "όνομα"
 
 msgid "content type"
 msgstr "Τύπος περιεχομένου"
@@ -135,9 +126,6 @@ msgstr "κλειδώθηκε από"
 msgid "collection"
 msgstr "συλλογή"
 
-msgid "name"
-msgstr "όνομα"
-
 msgid "collections"
 msgstr "συλλογές"
 
@@ -152,6 +140,9 @@ msgstr "άδεια ομάδας συλλογών"
 
 msgid "uploaded by user"
 msgstr "ανέβηκε από το χρήστη"
+
+msgid "Add"
+msgstr "Προσθήκη"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
@@ -186,6 +177,12 @@ msgstr "Ξεκλείδωμα"
 msgid "Unlock any page"
 msgstr "Ξεκλείδωμα οποιασδήποτε σελίδας"
 
+msgid "page"
+msgstr "σελίδα"
+
+msgid "pages"
+msgstr "σελίδες"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -208,15 +205,8 @@ msgstr "Διεύθυνση URL"
 msgid "owner"
 msgstr "ιδιοκτήτης"
 
-msgid "title tag"
-msgstr "ετικέτα τίτλου"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Το όνομα της σελίδας που εμφανίζεται ως επικεφαλίδα-σύνδεσμος σε μηχανές "
-"αναζήτησης"
+msgid "latest revision created at"
+msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
 
 msgid "show in menus"
 msgstr "εμφάνιση στα μενού"
@@ -227,6 +217,19 @@ msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
 
+msgid "For site menus"
+msgstr "Για τα μενού του ιστότοπου"
+
+msgid "title tag"
+msgstr "ετικέτα τίτλου"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Το όνομα της σελίδας που εμφανίζεται ως επικεφαλίδα-σύνδεσμος σε μηχανές "
+"αναζήτησης"
+
 msgid "meta description"
 msgstr "Περιγραφή"
 
@@ -236,20 +239,8 @@ msgid ""
 msgstr ""
 "Το κείμενο που εμφανίζεται κάτω από την επικεφαλίδα σε μηχανές αναζήτησης"
 
-msgid "latest revision created at"
-msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
-
 msgid "For search engines"
 msgstr "Για μηχανές αναζήτησης"
-
-msgid "For site menus"
-msgstr "Για τα μενού του ιστότοπου"
-
-msgid "page"
-msgstr "σελίδα"
-
-msgid "pages"
-msgstr "σελίδες"
 
 msgid "group page permission"
 msgstr "άδεια ομάδας σελίδων"
@@ -280,9 +271,6 @@ msgstr "Προεπιλογή"
 
 msgid "created at"
 msgstr "δημιουργία στις"
-
-msgid "user"
-msgstr "χρήστης"
 
 msgid "content JSON"
 msgstr "περιεχόμενο JSON"
@@ -420,6 +408,9 @@ msgstr "Δημιουργήθηκε"
 
 msgid "Edited"
 msgstr "Διορθωμένη"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Deleted"
 msgstr "Διαγράφηκε"

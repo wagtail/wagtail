@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags %}
 
 <button type="button"
-        class="{{ nav_icon_button_classes }}"
+        class="w-side-panel-toggle"
         aria-label="{{ toggle.aria_label }}"
         aria-expanded="false"
         data-controller="w-tooltip{% if toggle.keyboard_shortcut %} w-kbd{% endif %}"
@@ -10,9 +10,9 @@
         data-w-tooltip-content-value="{{ panel.title }}"
         data-w-tooltip-offset-value="[0, 0]"
 >
-    {% icon name=toggle.icon_name classname=nav_icon_classes %}
+    {% icon name=toggle.icon_name classname="w-side-panel-toggle__icon" %}
     {% if toggle.has_counter %}
-        <div data-side-panel-toggle-counter class="{{ nav_icon_counter_classes }} {{ toggle.counter_classname|default:'w-bg-surface-button-default'}}" {% if not count %}hidden{% endif %}>
+        <div data-side-panel-toggle-counter class="w-side-panel-toggle__counter {{ toggle.counter_classname|default:'w-bg-surface-button-default'}}" {% if not count %}hidden{% endif %}>
             {{ count|intcomma }}
         </div>
     {% endif %}

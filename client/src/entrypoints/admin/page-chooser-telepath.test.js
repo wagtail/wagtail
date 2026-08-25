@@ -1,4 +1,7 @@
-import './telepath/telepath';
+import Telepath from 'telepath-unpack';
+
+window.telepath = new Telepath();
+
 import './page-chooser-telepath';
 
 describe('telepath: wagtail.widgets.PageChooser', () => {

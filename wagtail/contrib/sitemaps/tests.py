@@ -6,12 +6,16 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import PageViewRestriction, Site
 from wagtail.test.testapp.models import EventIndex, SimplePage
+from wagtail.test.utils import Page
 
 from .sitemap_generator import Sitemap
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestSitemapGenerator(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
@@ -97,16 +101,16 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         pages = sitemap.items()
 
-        self.assertIn(self.child_page.page_ptr.specific, pages)
-        self.assertNotIn(self.unpublished_child_page.page_ptr.specific, pages)
-        self.assertNotIn(self.protected_child_page.page_ptr.specific, pages)
+        self.assertIn(self.child_page, pages)
+        self.assertNotIn(self.unpublished_child_page, pages)
+        self.assertNotIn(self.protected_child_page, pages)
 
     def test_get_urls_without_request(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(17):
+        with self.assertNumQueries(9):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -123,8 +127,7 @@ class TestSitemapGenerator(TestCase):
 
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
-
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(8):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -139,7 +142,8 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(19):
+
+        with self.assertNumQueries(11):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -157,8 +161,7 @@ class TestSitemapGenerator(TestCase):
 
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
-
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(10):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -255,8 +258,8 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         pages = sitemap.items()
 
-        self.assertIn(self.other_site_homepage.page_ptr.specific, pages)
-        self.assertNotIn(self.child_page.page_ptr.specific, pages)
+        self.assertIn(self.other_site_homepage, pages)
+        self.assertNotIn(self.child_page, pages)
 
 
 class TestIndexView(TestCase):

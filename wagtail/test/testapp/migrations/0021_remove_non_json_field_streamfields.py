@@ -49,7 +49,15 @@ class Migration(migrations.Migration):
             model_name="customrichblockfieldpage",
             name="body",
             field=wagtail.fields.StreamField(
-                [("rich_text", wagtail.blocks.RichTextBlock(editor="custom"))],
+                [
+                    ("rich_text", wagtail.blocks.RichTextBlock(editor="custom")),
+                    (
+                        "rich_text_limited",
+                        wagtail.blocks.RichTextBlock(
+                            features=["quotation", "embed"]
+                        ),
+                    ),
+                ],
                 use_json_field=True,
             ),
         ),

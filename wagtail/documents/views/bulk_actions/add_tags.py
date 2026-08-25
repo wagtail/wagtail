@@ -27,7 +27,7 @@ class AddTagsBulkAction(DocumentBulkAction):
         return {"tags": self.cleaned_form.cleaned_data["tags"].split(",")}
 
     @classmethod
-    def execute_action(cls, objects, tags=[], **kwargs):
+    def execute_action(cls, objects, tags=None, **kwargs):
         num_parent_objects = 0
         if not tags:
             return

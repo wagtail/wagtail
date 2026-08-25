@@ -3,6 +3,7 @@ from contextlib import contextmanager
 
 from bs4 import BeautifulSoup
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.test.testcases import assert_and_parse_html
 
 
@@ -32,7 +33,7 @@ class WagtailTestUtils:
 
         return user_model.objects.create_superuser(**user_data)
 
-    def login(self, user=None, username=None, password="password"):
+    def login(self, user=None, username=None, password="password"):  # noqa: S107 - usage in tests allowed
         # wrapper for self.client.login that works interchangeably for user models
         # with email as the username field; in this case it will use the passed username
         # plus '@example.com'
@@ -58,7 +59,7 @@ class WagtailTestUtils:
         return user
 
     @staticmethod
-    def create_user(username, email=None, password=None, **kwargs):
+    def create_user(username, email=None, password=None, *, permissions=None, **kwargs):
         # wrapper for get_user_model().objects.create_user that works interchangeably for user models
         # with and without a username field
         User = get_user_model()
@@ -68,7 +69,13 @@ class WagtailTestUtils:
         if User.USERNAME_FIELD != "email":
             kwargs[User.USERNAME_FIELD] = username
 
-        return User.objects.create_user(**kwargs)
+        user = User.objects.create_user(**kwargs)
+        if permissions:
+            # Grant permissions by codename, e.g. permissions=["access_admin"].
+            user.user_permissions.set(
+                Permission.objects.filter(codename__in=permissions)
+            )
+        return user
 
     @staticmethod
     def create_superuser(username, email=None, password=None, **kwargs):

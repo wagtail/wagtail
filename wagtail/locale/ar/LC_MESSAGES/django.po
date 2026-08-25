@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -41,24 +41,6 @@ msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
 
-msgid "Move up"
-msgstr "نقل للأعلى"
-
-msgid "Move down"
-msgstr "نقل للأسفل"
-
-msgid "Drag"
-msgstr "سحب"
-
-msgid "Duplicate"
-msgstr "تكرار"
-
-msgid "Delete"
-msgstr "حذف"
-
-msgid "Add"
-msgstr "إضافة"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: هذه الكتلة لا تحتوي على خيارات."
@@ -68,6 +50,9 @@ msgstr "هذه الكتلة لا تحتوي على خيارات."
 
 msgid "This field is required."
 msgstr "هذا الحقل مطلوب."
+
+msgid "Group"
+msgstr "مجموعة"
 
 msgid "Wagtail frontend cache"
 msgstr "ذاكرة التخزين المؤقت لواجهة Wagtail"
@@ -176,6 +161,12 @@ msgstr "مقفل حسب الجدول"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "مقفل حالياً وسينشر في التاريخ المجدول"
 
+msgid "user"
+msgstr "مستخدم"
+
+msgid "name"
+msgstr "الاسم"
+
 msgid "content type"
 msgstr "نوع المحتوى"
 
@@ -262,9 +253,6 @@ msgstr "تقييد عرض الرزمة"
 msgid "collection view restrictions"
 msgstr "قيود عرض الرزمة"
 
-msgid "name"
-msgstr "الاسم"
-
 msgid "collections"
 msgstr "الرزم"
 
@@ -285,6 +273,9 @@ msgstr "لنوع المحتوى"
 
 msgid "uploaded by user"
 msgstr "تم الرفع بواسطة المستخدم"
+
+msgid "Add"
+msgstr "إضافة"
 
 msgid "Add/edit pages you own"
 msgstr "إضافة/تعديل الصفحات التي تملكها"
@@ -319,6 +310,12 @@ msgstr "فتح"
 msgid "Unlock any page"
 msgstr "فتح أي صفحة"
 
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
 msgid "title"
 msgstr "العنوان"
 
@@ -340,13 +337,24 @@ msgstr "مسار URL"
 msgid "owner"
 msgstr "المالك"
 
-msgid "title tag"
-msgstr "وسم العنوان"
+msgid "latest revision created at"
+msgstr "أحدث مراجعة تم إنشاؤها في"
 
+#, python-format
 msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "اسم الصفحة المعروض في نتائج محركات البحث كعنوان قابل للنقر."
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"الرابط  '%(page_slug)s' مستخدم بالفعل في الصفحة الرئيسية "
+"'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr "لا يمكن استبدال نسخة معدلة ليست الأحدث لهذا الإصدار %(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr "لا يمكن استبدال نسخة لم يتم إنشاؤها بواسطة المستخدم الحالي."
 
 msgid "show in menus"
 msgstr "إظهار في القوائم"
@@ -354,6 +362,17 @@ msgstr "إظهار في القوائم"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "ما إذا كان رابط لهذه الصفحة سيظهر في القوائم المولدة تلقائياً"
+
+msgid "For site menus"
+msgstr "لقوائم الموقع"
+
+msgid "title tag"
+msgstr "وسم العنوان"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "اسم الصفحة المعروض في نتائج محركات البحث كعنوان قابل للنقر."
 
 msgid "meta description"
 msgstr "وصف التعريف"
@@ -363,28 +382,8 @@ msgid ""
 "results."
 msgstr "النص الوصفي المعروض تحت العنوان في نتائج محركات البحث."
 
-msgid "latest revision created at"
-msgstr "أحدث مراجعة تم إنشاؤها في"
-
 msgid "For search engines"
 msgstr "لمحركات البحث"
-
-msgid "For site menus"
-msgstr "لقوائم الموقع"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"الرابط المختصر '%(page_slug)s' مستخدم بالفعل في الصفحة الأصلية في "
-"'%(parent_url_path)s'"
-
-msgid "page"
-msgstr "صفحة"
-
-msgid "pages"
-msgstr "صفحات"
 
 msgid "group page permission"
 msgstr "أذن صفحة ل مجموعة"
@@ -469,9 +468,6 @@ msgstr "سيقوم بإلغاء تعيين المرجع"
 
 msgid "created at"
 msgstr "تم الإنشاء في"
-
-msgid "user"
-msgstr "مستخدم"
 
 msgid "content JSON"
 msgstr "محتوى JSON"
@@ -753,6 +749,9 @@ msgstr "تم الإنشاء"
 msgid "Edited"
 msgstr "تم التعديل"
 
+msgid "Delete"
+msgstr "حذف"
+
 msgid "Deleted"
 msgstr "تم الحذف"
 
@@ -872,13 +871,6 @@ msgid ""
 msgstr ""
 "تم جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في %(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "تم جدولة الصفحة للنشر في %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "تم جدولة الصفحة للنشر"
-
 msgid "Unschedule publication"
 msgstr "إلغاء جدولة النشر"
 
@@ -889,13 +881,6 @@ msgid ""
 msgstr ""
 "تم إلغاء جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "تم إلغاء جدولة الصفحة للنشر في %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "تم إلغاء جدولة الصفحة من النشر"
 
 msgid "Add view restrictions"
 msgstr "إضافة قيود عرض"

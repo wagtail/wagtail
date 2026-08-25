@@ -340,7 +340,7 @@ class CustomImagesAppConfig(WagtailImagesAppConfig):
     default_attrs = {"decoding": "async", "loading": "lazy"}
 ```
 
-Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`:
+Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomImagesAppConfig`:
 
 ```python
 INSTALLED_APPS = [
@@ -474,8 +474,18 @@ representing the color you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG image quality settings default to 85 (which is quite high). AVIF and WebP default to 80.
-This can be changed either globally or on a per-tag basis.
+Wagtail’s default image quality settings are suitable for most kinds and sizes of images on most websites. JPEG image quality settings default to 76, WebP to 80, AVIF to 61. Those values are set to achieve similar perceptual quality across the different formats, at a quality level where few to no artifacts are visible and file size is low.
+
+Those values can be changed either globally or on a per-tag basis. To achieve the best results, adjust image quality per tag to match the scenario. Compression artifacts are more visible on larger images and less of an issue for thumbnails. They are more distracting for computer graphics, less noticeable for decorative photography.
+
+Here are our recommended settings for common scenarios:
+
+| Intended use                | JPEG quality | AVIF quality | WebP quality |
+|-----------------------------|--------------|--------------|--------------|
+| Full-size photography       | 85           | 73           | 87           |
+| General-purpose web content | 76 (default) | 61 (default) | 80 (default) |
+| Large thumbnails (256x256)  | 65           | 54           | 70           |
+| Small thumbnails (64x64)    | 55           | 49           | 57           |
 
 ### Changing globally
 

@@ -83,7 +83,7 @@ Permission configuration for built-in models like Sites, Site settings and Users
 
 Python, Django, and Wagtail allow you to override, extend and customize functionality. Here are some ideas that may help you create a multi-tenancy solution for your site:
 
--   Django allows to override templates, this also works in the Wagtail admin.
+-   Django allows you to override templates. This also works in the Wagtail admin.
 -   A custom user model can be used to link users to a specific site.
 -   Custom admin views can provide more restrictive user management.
 

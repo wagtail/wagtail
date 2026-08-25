@@ -1,9 +1,9 @@
 /* global $ */
-import ReactDOM from 'react-dom';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { setAttrs } from '../../../utils/attrs';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
-import { setAttrs } from '../../../utils/attrs';
 
 export class FieldBlock {
   constructor(

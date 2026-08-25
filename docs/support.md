@@ -26,6 +26,16 @@ If you think you've found a bug in Wagtail, or you'd like to suggest a new featu
 
 If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](../contributing/security).
 
+## AI assistance
+
+For users of Large Language Models (LLMs), the developer documentation and the [Wagtail user guide](https://guide.wagtail.org/) contents are available in the [llms.txt format](https://llmstxt.org/).
+
+ * [llms.txt](llms.txt){.external}
+ * [llms-full.txt](llms-full.txt){.external}
+ * Add `.md` at the end of any documentation page URL to view the Markdown output of that page. Example: [StreamField block reference in Markdown](./reference/streamfield/blocks.html.md){.external}
+ * [User guide llms.txt](https://guide.wagtail.org/llms.txt)
+ * [User guide llms-full.txt](https://guide.wagtail.org/llms-full.txt)
+
 ## Torchbox
 
 Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on [hello@wagtail.org](mailto:hello@wagtail.org) or [@wagtail@fosstodon.org](https://fosstodon.org/@wagtail).

@@ -1,38 +1,44 @@
 import uuid
 
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.functional import cached_property
 from django.utils.translation import gettext
+from django.views import View
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
-def view_draft(request, page_id):
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_object()
-    perms = page.permissions_for_user(request.user)
-    if not (perms.can_publish() or perms.can_edit()):
-        raise PermissionDenied
+class ViewDraftView(View):
+    def dispatch(self, request, page_id, *args, **kwargs):
+        page = get_object_or_404(Page, id=page_id).get_latest_revision_as_object()
+        perms = page.permissions_for_user(request.user)
+        if not (perms.can_publish() or perms.can_edit()):
+            raise PermissionDenied
 
-    try:
-        preview_mode = request.GET.get("mode", page.default_preview_mode)
-    except IndexError:
-        raise PermissionDenied
+        try:
+            preview_mode = request.GET.get("mode", page.default_preview_mode)
+        except IndexError as e:
+            raise PermissionDenied from e
 
-    return page.make_preview_request(request, preview_mode)
+        return page.make_preview_request(request, preview_mode)
 
 
-class PreviewOnEdit(GenericPreviewOnEdit):
-    @property
-    def session_key(self):
-        return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
-
+class PreviewOnEditView(GenericPreviewOnEdit):
     def get_object(self):
-        return get_object_or_404(
-            Page, id=self.kwargs["page_id"]
+        page = get_object_or_404(
+            Page.objects.select_related("latest_revision"),
+            id=self.kwargs["page_id"],
         ).get_latest_revision_as_object()
+        page_perms = page.permissions_for_user(self.request.user)
+        if not page_perms.can_edit():
+            raise PermissionDenied
+        return page
 
     def get_form(self, query_dict):
         form_class = self.object.get_edit_handler().get_form_class()
@@ -64,29 +70,29 @@ class PreviewOnEdit(GenericPreviewOnEdit):
         )
 
 
-class PreviewOnCreate(PreviewOnEdit):
-    @property
-    def session_key(self):
-        return "{}{}-{}-{}".format(
-            self.session_key_prefix,
-            self.kwargs["content_type_app_name"],
-            self.kwargs["content_type_model_name"],
-            self.kwargs["parent_page_id"],
-        )
-
-    def get_object(self):
+class PreviewOnCreateView(PreviewOnEditView):
+    @cached_property
+    def content_type(self):
         content_type_app_name = self.kwargs["content_type_app_name"]
         content_type_model_name = self.kwargs["content_type_model_name"]
-        parent_page_id = self.kwargs["parent_page_id"]
         try:
-            content_type = ContentType.objects.get_by_natural_key(
+            return ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
-        page = content_type.model_class()()
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
+    @cached_property
+    def parent_object_id(self):
+        return self.kwargs["parent_page_id"]
+
+    def get_object(self):
+        page = self.content_type.model_class()()
+        parent_page = get_object_or_404(Page, id=self.parent_object_id).specific
+        parent_page_perms = parent_page.permissions_for_user(self.request.user)
+        if not parent_page_perms.can_add_subpage():
+            raise PermissionDenied
+
         # We need to populate treebeard's path / depth fields in order to
         # pass validation. We can't make these 100% consistent with the rest
         # of the tree without making actual database changes (such as

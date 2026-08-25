@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -32,20 +32,9 @@ msgstr "Jumlah isi minimum adalah %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Jumlah isi maksimum adalah %(max_num)d"
 
-msgid "Move up"
-msgstr "Geser ke atas"
-
-msgid "Move down"
-msgstr "Geser ke bawah"
-
-msgid "Drag"
-msgstr "Seret"
-
-msgid "Delete"
-msgstr "Hapus"
-
-msgid "Add"
-msgstr "Tambah"
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Tidak ada pilihan untuk blok ini."
 
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."
@@ -67,6 +56,12 @@ msgstr "Terkunci"
 
 msgid "Unlocked"
 msgstr "Kunci terbuka"
+
+msgid "user"
+msgstr "pemakai"
+
+msgid "name"
+msgstr "nama"
 
 msgid "content type"
 msgstr "tipe konten"
@@ -122,9 +117,6 @@ msgstr "batasan penampilan koleksi"
 msgid "collection view restrictions"
 msgstr "semua batasan penampilan koleksi"
 
-msgid "name"
-msgstr "nama"
-
 msgid "collections"
 msgstr "koleksi-koleksi"
 
@@ -139,6 +131,9 @@ msgstr "izin grup koleksi"
 
 msgid "uploaded by user"
 msgstr "diunggah oleh pengguna"
+
+msgid "Add"
+msgstr "Tambah"
 
 msgid "Add/edit pages you own"
 msgstr "Tambah/ubah halaman anda sendiri"
@@ -167,6 +162,12 @@ msgstr "Publikasi halaman manapun"
 msgid "Unlock"
 msgstr "Buka kunci"
 
+msgid "page"
+msgstr "halaman"
+
+msgid "pages"
+msgstr "halaman-halaman"
+
 msgid "title"
 msgstr "judul"
 
@@ -189,6 +190,9 @@ msgstr "jalur URL"
 msgid "owner"
 msgstr "pemilik"
 
+msgid "latest revision created at"
+msgstr "revisi terakhir dibuat pada"
+
 msgid "show in menus"
 msgstr "tampilkan dalam menu"
 
@@ -197,15 +201,6 @@ msgid ""
 msgstr ""
 "Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
 "otomatis"
-
-msgid "latest revision created at"
-msgstr "revisi terakhir dibuat pada"
-
-msgid "page"
-msgstr "halaman"
-
-msgid "pages"
-msgstr "halaman-halaman"
 
 msgid "group page permission"
 msgstr "izin grup halaman"
@@ -224,9 +219,6 @@ msgstr "Utama"
 
 msgid "created at"
 msgstr "dibuat pada"
-
-msgid "user"
-msgstr "pemakai"
 
 msgid "content JSON"
 msgstr "JSON konten"
@@ -331,6 +323,9 @@ msgstr "Lanjut"
 
 msgid "Edited"
 msgstr "Telah diubah"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Unpublish"
 msgstr "Batal Publikasi"

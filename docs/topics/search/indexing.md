@@ -85,7 +85,7 @@ class EventPage(Page):
 
 (wagtailsearch_index_searchfield)=
 
-### `index.SearchField`
+### `SearchField`
 
 These are used for performing full-text searches on your models, usually for text fields.
 
@@ -108,7 +108,7 @@ These are used for performing full-text searches on your models, usually for tex
 
 (wagtailsearch_index_autocompletefield)=
 
-### `index.AutocompleteField`
+### `AutocompleteField`
 
 These are used for autocomplete queries that match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
 
@@ -120,13 +120,13 @@ This takes the same options as `index.SearchField`.
 
 (wagtailsearch_index_filterfield)=
 
-### `index.FilterField`
+### `FilterField`
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
 
 (wagtailsearch_index_relatedfields)=
 
-### `index.RelatedFields`
+### `RelatedFields`
 
 This allows you to index fields from related objects. It works on all types of related fields, including their reverse accessors.
 
@@ -135,44 +135,49 @@ For example, if we have a book that has a `ForeignKey` to its author, we can nes
 ```python
 from wagtail.search import index
 
+
 class Book(models.Model, index.Indexed):
     ...
 
     search_fields = [
-        index.SearchField('title'),
-        index.FilterField('published_date'),
-
-        index.RelatedFields('author', [
-            index.SearchField('name'),
-        ]),
+        index.SearchField("title"),
+        index.FilterField("published_date"),
+        index.RelatedFields(
+            "author",
+            [
+                index.SearchField("name"),
+                index.FilterField("date_of_birth"),
+            ],
+        ),
     ]
 ```
 
-This will allow you to search for books by their author's name.
+This will allow you to search for books by their author's name, or limit the search to books by authors born before or after a given date.
 
 It works the other way around as well. You can index an author's books, allowing an author to be searched for by the titles of books they've published:
 
 ```python
 from wagtail.search import index
 
+
 class Author(models.Model, index.Indexed):
     ...
 
     search_fields = [
-        index.SearchField('name'),
-        index.FilterField('date_of_birth'),
-
-        index.RelatedFields('books', [
-            index.SearchField('title'),
-        ]),
+        index.SearchField("name"),
+        index.FilterField("date_of_birth"),
+        index.RelatedFields(
+            "books",
+            [
+                index.SearchField("title"),
+            ],
+        ),
     ]
 ```
 
-#### Filtering on `index.RelatedFields`
-
-It's not possible to filter on any `index.FilterFields` within `index.RelatedFields` using the `QuerySet` API. Placing `index.FilterField` inside `index.RelatedFields` is valid, and will cause the appropriate field data to be stored at indexing time, but the `QuerySet` API does not currently support filters that span relations, and so there is no way to access these fields. However, it should be possible to use them by querying Elasticsearch manually.
-
-Filtering on `index.RelatedFields` with the `QuerySet` API is planned for a future release of Wagtail.
+```{versionadded} 7.4
+Filtering on related fields is now supported.
+```
 
 (wagtailsearch_indexing_callable_fields)=
 
@@ -185,6 +190,7 @@ One use for this is indexing the `get_*_display` methods Django creates automati
 ```python
 from wagtail.search import index
 
+
 class EventPage(Page):
     IS_PRIVATE_CHOICES = (
         (False, "Public"),
@@ -195,10 +201,9 @@ class EventPage(Page):
 
     search_fields = Page.search_fields + [
         # Index the human-readable string for searching.
-        index.SearchField('get_is_private_display'),
-
+        index.SearchField("get_is_private_display"),
         # Index the boolean value for filtering.
-        index.FilterField('is_private'),
+        index.FilterField("is_private"),
     ]
 ```
 
@@ -209,11 +214,11 @@ class BookPage(Page):
     # ...
     def get_related_link_titles(self):
         # Get list of titles and concatenate them
-        return '\n'.join(self.related_links.all().values_list('name', flat=True))
+        return "\n".join(self.related_links.all().values_list("name", flat=True))
 
     search_fields = Page.search_fields + [
         # ...
-        index.SearchField('get_related_link_titles'),
+        index.SearchField("get_related_link_titles"),
     ]
 ```
 

@@ -11,7 +11,7 @@
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2023-2025
+# Andrei Satsevich, 2023-2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -49,9 +49,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Twixxik, 2025\n"
+"Last-Translator: Andrei Satsevich, 2023-2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -100,14 +100,20 @@ msgstr "%(label)s и Опубликовать"
 msgid "any"
 msgstr "любое"
 
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Извините, но у вас нет доступа в эту область."
 
-msgid "You do not have permission to access the admin"
-msgstr "У вас нет прав для доступа в админ-панель"
+msgid "You do not have permission to access the admin."
+msgstr "У вас нет прав доступа к админке."
 
 msgid "None"
 msgstr "Ничего"
@@ -118,11 +124,20 @@ msgstr "С"
 msgid "Date to"
 msgstr "До"
 
+msgid "Minimum"
+msgstr "Минимум"
+
+msgid "Maximum"
+msgstr "Максимум"
+
 msgid "Locale"
 msgstr "Локализация"
 
 msgid "All"
 msgstr "Все"
+
+msgid "Usage count"
+msgstr "Количество использований"
 
 msgid "Collection"
 msgstr "Коллекция"
@@ -195,8 +210,8 @@ msgstr ""
 "Выберите положение в иерархии. Примечание: коллекция не может стать дочерним "
 "элементом самой себя или одного из своих потомков."
 
-msgid "Please select another parent"
-msgstr "Пожалуйста выберите другого родителя"
+msgid "Please select another parent."
+msgstr "Пожалуйста, выберите другого родителя."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -228,8 +243,8 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Дата/время публикации должно быть раньше даты/времени снятия с публикации."
 
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/время снятия с публикации должно быть в будущем."
+msgid "Expiry date/time must be in the future."
+msgstr "Дата/время истечения срока действия должны быть в будущем."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -308,8 +323,8 @@ msgstr ""
 "\"Копировать подстраницы\""
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Слаг '%(page_slug)s' уже используется на родительской странице"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "Слаг «%(page_slug)s» уже используется на родительской странице."
 
 msgid "Select a new parent for this page."
 msgstr "Выбрать нового родителя для этой страницы"
@@ -335,8 +350,8 @@ msgid "Search…"
 msgstr "Поиск..."
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Длина тега(ов) %(value_too_long)s превышает %(max_tag_length)dсимволов"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
+msgstr "Тег(и) %(value_too_long)s превыша(ет/ют) %(max_tag_length)d символов."
 
 msgid "Visibility"
 msgstr "Видимость"
@@ -554,6 +569,9 @@ msgstr "Изображение профиля:"
 msgid "Sidebar"
 msgstr "Боковая панель"
 
+msgid "Go to the first error"
+msgstr "Перейти к первой ошибке"
+
 msgid "Go back"
 msgstr "Обратно"
 
@@ -684,9 +702,6 @@ msgstr "Коллекция приватна в соответствии с ро�
 msgid "You can edit the privacy settings on:"
 msgstr "Вы можете редактировать настройки приватности на:"
 
-msgid "Save"
-msgstr "Сохранить"
-
 msgid "Change privacy"
 msgstr "Изменить приватность"
 
@@ -778,11 +793,13 @@ msgstr "Вы все еще хотите опубликовать %(model_name)s?
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "Actions"
-msgstr "Действия"
-
 msgid "Comment"
 msgstr "Оставить комментарий"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Действия"
 
 #, python-format
 msgid ""
@@ -1818,26 +1835,6 @@ msgstr "Обзор дочерних для '%(title)s' страниц"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавить дочернюю страницу к '%(title)s'"
 
-msgid "Drag"
-msgstr "Перетянуть"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "%(index)s из %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Отключить упорядочение дочерних страниц"
-
-msgid "Sort"
-msgstr "Порядок"
-
-msgid "Enable ordering of child pages"
-msgstr "Включить упорядочение дочерних страниц"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s из %(items_count)s по всему сайту."
-
 msgid "No results across entire site."
 msgstr "Нет результатов на всём сайте."
 
@@ -1846,23 +1843,11 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Искать в '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s из %(items_count)s в '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr "Нет результатов в '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Поиск по всему сайту"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s из %(items_count)s "
 
 msgid "Sites menu"
 msgstr "Список сайтов"
@@ -1885,9 +1870,6 @@ msgstr "Эта страница защищена от публичного пр�
 
 msgid "Confirm"
 msgstr "Подтвердить"
-
-msgid "Add child page"
-msgstr "Добавить дочернюю страницу"
 
 msgid "Page types"
 msgstr "Типы страниц"
@@ -1916,6 +1898,9 @@ msgstr "Двигать наверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
+
+msgid "Drag"
+msgstr "Перетянуть"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -2043,8 +2028,20 @@ msgstr "На модерацию пока не отправлено ни одно
 msgid "Completed at"
 msgstr "Завершен в"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Очистить"
+
+msgid "Saved"
+msgstr "Сохранён"
+
+msgid "Autosave is paused"
+msgstr "Автосохранение приостановлено"
 
 msgid "Edit account avatar"
 msgstr "Редактировать аватар аккаунта"
@@ -2083,9 +2080,6 @@ msgstr "Система"
 msgid "%(user_name)s saved a new version"
 msgstr "Пользователь %(user_name)s сохранил новую версию"
 
-msgid "Refresh"
-msgstr "Обновить"
-
 msgid "You have unsaved changes in another window"
 msgstr "У вас есть несохраненные изменения в другом окне"
 
@@ -2104,36 +2098,8 @@ msgstr[1] "Ещё %(num_user)s пользователей в данный мом
 msgstr[2] "Ещё %(num_user)s пользователей в данный момент просматривают"
 msgstr[3] "Ещё %(num_user)s пользователей в данный момент просматривают"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"При продолжении работы изменения, сделанные в этом окне, будут перезаписаны. "
-"Обновление страницы покажет вам новые изменения, но вы потеряете все "
-"несохраненные изменения в текущем окне."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"При продолжении работы изменения, сделанные %(user_name)s, будут "
-"перезаписаны. Обновление страницы покажет новые изменения, но все "
-"несохраненные изменения будут потеряны."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Обновление страницы означает потерю всех несохраненных изменений"
-
-msgid "Refresh page"
-msgstr "Обновить страницу"
-
 msgid "Continue"
 msgstr "Продолжить"
-
-msgid "Refresh the page"
-msgstr "Обновить страницу"
 
 msgid "Download XLSX"
 msgstr "Скачать XLSX"
@@ -2162,17 +2128,36 @@ msgstr "Назад"
 msgid "History"
 msgstr "История"
 
+msgid "account"
+msgstr "аккаунт"
+
 msgid "Keyboard shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Сочетания клавиш"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Сочетания клавиш в текущий момент отключены; измените свои %(account_link)s, "
+"чтобы включить их."
 
 msgid "All keyboard shortcuts"
-msgstr "Все горячие клавиши"
+msgstr "Все сочетания клавиш"
 
 msgid "Section"
 msgstr "Раздел"
 
 msgid "Keyboard shortcut"
 msgstr "Сочетание клавиш"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Сочетания клавиш в текущий момент включены; измените свои %(account_link)s, "
+"чтобы отключить их."
 
 msgid "Current page status:"
 msgstr "Текущий статус страницы:"
@@ -2208,6 +2193,9 @@ msgstr "Нет, не отменять публикацию по расписан
 msgid "Other searches"
 msgstr "Другие поиски"
 
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "Minimap"
 msgstr "Миникарта"
 
@@ -2231,6 +2219,45 @@ msgstr "Слова"
 
 msgid "Reading time"
 msgstr "Время чтения"
+
+msgid "Readability"
+msgstr "Читабельность"
+
+msgid "This data explained"
+msgstr "Эти данные объясняют"
+
+msgid "How we calculate our metrics"
+msgstr "Как мы рассчитываем наши метрики"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Мы извлекаем основной контент из предварительного просмотра страницы, "
+"удаляем все форматирование и подсчитываем количество слов."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Мы рассчитываем время чтения по количеству слов, используя разную скорость "
+"чтения для различных языков."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Мы используем формулу читабельности, основанную на длине слов и предложений. "
+"Длинные предложения и слова приводят к ухудшению показателя читабельности."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"См. наше <a href=\"%(guide_link)s\" target=\"_blank\">руководство по "
+"проверке контента</a> для получения дополнительной информации о том, как "
+"рассчитываются метрики контента."
 
 msgid "Issues found"
 msgstr "Найдены проблемы"
@@ -2313,6 +2340,10 @@ msgid "View details"
 msgstr "Посмотреть детали"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Создается %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "%(user)s"
 
@@ -2343,6 +2374,9 @@ msgstr "Загрузка"
 msgid "Refreshing…"
 msgstr "Обновление..."
 
+msgid "Refresh"
+msgstr "Обновить"
+
 msgid "Preview is out of date"
 msgstr "Предварительный просмотр устарел"
 
@@ -2359,19 +2393,14 @@ msgstr "Режим предпросмотра"
 msgid "First published"
 msgstr "Впервые опубликовано"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "Автосохранение <span>приостановлено</span>"
+
 msgid "Save your changes before leaving"
 msgstr "Сохраните изменения перед выходом"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас есть <span> несохраненные изменения</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "У вас есть <span> несохраненные комментарии </span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"У вас есть <span> несохраненные изменения </span> и <span> комментарии </"
-"span>"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2454,11 +2483,24 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s из %(total)s"
+
+msgid "Disable custom ordering"
+msgstr "Отключить пользовательский порядок"
+
+msgid "Sort"
+msgstr "Порядок"
+
+msgid "Enable custom ordering"
+msgstr "Включить пользовательский порядок"
+
 msgid "View Wagtail quick actions"
 msgstr "Просмотр быстрых действий"
 
-msgid "Accessibility"
-msgstr "Доступность"
+msgid "Checks"
+msgstr "Проверки "
 
 msgid "Warnings"
 msgstr "Предупреждения"
@@ -2706,8 +2748,33 @@ msgstr "Отправлено в %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr " Распространенные действия"
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Приложение"
+
+msgid "Show keyboard shortcuts"
+msgstr "Показать сочетания клавиш"
+
+msgid "Toggle sidebar"
+msgstr "Переключить боковую панель"
+
+msgid "Toggle minimap"
+msgstr "Переключить мини-карту"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Закрывать модальные окна (такие как это)"
+
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+msgid "Add or show comments"
+msgstr "Добавить или показать комментарии"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Редактирование текста"
 
 msgid "Cut"
 msgstr "Вырезать"
@@ -2727,32 +2794,19 @@ msgstr "Отмена изменения"
 msgid "Redo"
 msgstr "Повтор изменения"
 
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
-msgid "Toggle sidebar"
-msgstr "Переключить боковую панель"
-
-msgid "Toggle minimap"
-msgstr "Переключить мини-карту"
-
-msgid "Add or show comments"
-msgstr "Добавить или показать комментарии"
-
-msgid "Text content"
-msgstr "Содержание текста"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Форматирование текста"
 
 msgid "Insert or edit a link"
 msgstr "Вставка или изменение ссылки"
 
-msgid "Text formatting"
-msgstr "Форматирование текста"
+msgid "Bold"
+msgstr "Жирный"
 
 msgid "Italic"
 msgstr "Наклонный"
-
-msgid "Underline"
-msgstr "Подчеркивание"
 
 msgid "Monospace (code)"
 msgstr "Моноширинный шрифт (код)"
@@ -2786,11 +2840,11 @@ msgstr "Комментарии"
 msgid "Toggle checks"
 msgstr "Переключение проверок  "
 
-msgid "Checks"
-msgstr "Проверки "
-
 msgid "Toggle preview"
 msgstr "Переключить предварительный просмотр"
+
+msgid "(blank)"
+msgstr "(пусто)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2799,6 +2853,17 @@ msgstr "Сортировка по %(label)s в порядке возрастан
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Сортировка по '%(label)s' в порядке убывания."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' был успешно перемещен."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Наведите курсор на кнопку перетаскивания и нажмите стрелки вверх или вниз, "
+"чтобы переместить элемент, затем нажмите Enter, чтобы применить изменение."
 
 #, python-format
 msgid ""
@@ -2859,6 +2924,10 @@ msgstr "Текст alt у изображения имеет неподходящ
 
 msgid "Use meaningful text"
 msgstr "Используйте содержательный текст"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s объект (%(id)s)"
 
 msgid "Profile"
 msgstr "Профиль"
@@ -2954,10 +3023,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' теперь разблокирован."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)sневозможно сохранить, так как заблокирован"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' обновлена"
 
@@ -3005,6 +3070,13 @@ msgstr "Рабочий процесс над %(model_name)s '%(object)s' был 
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Рабочий процесс над %(model_name)s '%(object)s' был отменен."
 
+msgid "Saving will overwrite a newer version."
+msgstr "Сохранение перезапишет более новую версию."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)sневозможно сохранить, так как заблокирован"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
@@ -3036,6 +3108,9 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
+msgid "Sort item order"
+msgstr "Сортировка порядка элементов"
+
 msgid "Inspect"
 msgstr "Просмотр"
 
@@ -3054,6 +3129,9 @@ msgstr "Не удалось создать %(model_name)s из-за ошибок
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Новый: %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr "Есть ошибки проверки, нажмите «Сохранить», чтобы подсветить их."
 
 msgid "Editing"
 msgstr "Редактирование"
@@ -3234,6 +3312,10 @@ msgstr "Страница '%(page_title)s' и %(subpages_count)s подстран
 msgid "Page '%(page_title)s' copied."
 msgstr "Страница '%(page_title)s' скопирована."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Запрос на создание %(model_name)s был заблокирован хуком."
+
 msgid "View draft"
 msgstr "Смотреть черновик"
 
@@ -3256,8 +3338,8 @@ msgstr "Страница '%(page_title)s' создана и опубликова
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Страница '%(page_title)s' создана и отправлена на модерацию."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Эта страница не может быть создана из-за ошибок при проверке"
+msgid "The page could not be created due to validation errors."
+msgstr "Страница не может быть создана из-за ошибок при проверке."
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -3278,6 +3360,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Страница '%(page_title)s' обновлена."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Запрос на редактирование %(model_name)s был заблокирован хуком."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
@@ -3319,11 +3405,11 @@ msgstr "Страница '%(page_title)s' была отправлена на м�
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Рабочий процесс на странице '%(page_title)s' перезапущен."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Страница не может быть сохранена, так как она заблокирована"
+msgid "The page could not be saved as it is locked."
+msgstr "Страница не может быть сохранена, так как она заблокирована."
 
-msgid "The page could not be saved due to validation errors"
-msgstr "Страница не может быть сохранена из-за ошибок при проверке"
+msgid "The page could not be saved due to validation errors."
+msgstr "Страница не может быть сохранена из-за ошибок при проверке."
 
 msgid "Is commenting action"
 msgstr "Является комментарием "
@@ -3355,16 +3441,8 @@ msgstr "Тип страницы"
 msgid "Exploring"
 msgstr "Исследование"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Наведите курсор на кнопку перетаскивания и нажмите стрелки вверх или вниз, "
-"чтобы переместить элемент, затем нажмите Enter, чтобы применить изменение."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' был успешно перемещен."
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3373,10 +3451,10 @@ msgstr "Страница '%(page_title)s' разблокирована."
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
+"sure the slug is unique and try again."
 msgstr ""
-"Слаг '%(page_slug)s' уже используется в выбранной родительской странице. "
-"Убедитесь что слаг уникален и попробуйте заново"
+"Слаг «%(page_slug)s» уже используется на выбранной родительской странице. "
+"Убедитесь, что слаг уникален, и повторите попытку."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3625,9 +3703,6 @@ msgstr "Нумерованный список"
 
 msgid "Blockquote"
 msgstr "Цитата"
-
-msgid "Bold"
-msgstr "Жирный"
 
 msgid "Link"
 msgstr "Ссылка"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,6 +141,9 @@ msgstr "پروفایل کاربر"
 msgid "user profiles"
 msgstr "مشخصات کاربری"
 
+msgid "Active"
+msgstr "فعال"
+
 msgid "You don't have permission to edit this user"
 msgid_plural "You don't have permission to edit these users"
 msgstr[0] "شما مجوز تغییر این کاربر را ندارید"
@@ -221,9 +224,6 @@ msgstr ""
 "هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
 "مورد اضافه کنید</a>؟"
 
-msgid "Active"
-msgstr "فعال"
-
 msgid "Inactive"
 msgstr "غیرفعال"
 
@@ -274,6 +274,10 @@ msgstr "نام کاربری"
 
 msgid "Admin"
 msgstr "راهبر"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "کاربر '%(object)s' ایجاد شد."
 
 msgid "Add user"
 msgstr "افزودن کاربر"

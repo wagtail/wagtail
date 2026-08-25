@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -64,9 +64,6 @@ msgstr "集合"
 msgid "Format"
 msgstr "格式"
 
-msgid "Filter"
-msgstr "過濾器"
-
 msgid "Original size"
 msgstr "原始尺寸"
 
@@ -84,6 +81,9 @@ msgstr "調至最大"
 
 msgid "Resize to fill"
 msgstr "調至合適"
+
+msgid "Filter"
+msgstr "過濾器"
 
 msgid "Width"
 msgstr "寬度"
@@ -159,6 +159,10 @@ msgstr "新增"
 
 msgid "Latest images"
 msgstr "最新圖片"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "選擇 %(title)s"
 
 msgid "Choose a format"
 msgstr "選擇格式"
@@ -285,6 +289,12 @@ msgstr "刪除"
 msgid "Delete selected images"
 msgstr "刪除選擇的圖片"
 
+msgid "Title"
+msgstr "標題"
+
+msgid "Created"
+msgstr "已建立"
+
 msgid "Choose an image"
 msgstr "選擇一個圖片"
 
@@ -293,12 +303,6 @@ msgstr "編輯此圖片"
 
 msgid "Images"
 msgstr "圖片"
-
-msgid "Title"
-msgstr "標題"
-
-msgid "Created"
-msgstr "已建立"
 
 msgid "The image could not be saved due to errors."
 msgstr "圖片無法儲存。出現錯誤。"

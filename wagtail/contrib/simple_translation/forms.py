@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail.models import Locale, Page
+from wagtail.models import AbstractPage, Locale
 
 
 class CheckboxSelectMultipleWithDisabledOptions(forms.CheckboxSelectMultiple):
@@ -50,7 +50,7 @@ class SubmitTranslationForm(forms.Form):
         hide_include_subtree = True
         self.show_submit = True
 
-        if isinstance(instance, Page):
+        if isinstance(instance, AbstractPage):
             descendant_count = instance.get_descendants().count()
 
             if descendant_count > 0:
@@ -76,7 +76,7 @@ class SubmitTranslationForm(forms.Form):
         # anyway and it gets cached so it'll only have one query in the end.
         hide_select_all = len(untranslated_locales) < 2
 
-        if isinstance(instance, Page):
+        if isinstance(instance, AbstractPage):
             parent = instance.get_parent()
 
             # Find allowed locale options.
@@ -115,7 +115,7 @@ class SubmitTranslationForm(forms.Form):
                     len(disabled_locales),
                 )
                 help_text += "</a>"
-                self.fields["locales"].help_text = mark_safe(help_text)
+                self.fields["locales"].help_text = mark_safe(help_text)  # noqa: S308 - TODO: should this be rewritten to format_html?
 
             # For pages, if there is one locale or all locales are disabled.
             hide_select_all = (

@@ -8,14 +8,16 @@ from django.utils.http import urlencode
 from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import Button
-from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
+from wagtail.models import GroupPagePermission, Locale, Site, Workflow
 from wagtail.test.testapp.models import (
     CustomPermissionPage,
+    SimpleChildPage,
     SimplePage,
+    SimpleParentPage,
     SingleEventPage,
     StandardIndex,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
@@ -93,12 +95,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             count=3,
         )
 
+        # Should render bulk actions markup
         bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
-        self.assertContains(
-            response,
-            f'<script defer src="{bulk_actions_js}"></script>',
-            html=True,
-        )
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
 
     def test_explore_results(self):
         explore_results_url = reverse(
@@ -122,6 +128,39 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             + urlencode({"next": explore_url})
         )
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
+
+        # There should be a fragment to update the header buttons and it should
+        # retain the existing buttons. This is not very useful for the default
+        # view, but can be used by custom views to ensure export buttons have
+        # their URLs updated with the current filters applied.
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select_one(
+            'template[data-controller="w-teleport"]'
+            '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            '[data-w-teleport-mode-value="innerHTML"]'
+        )
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
+        )
 
         self.assertContains(response, "1-3 of 3")
 
@@ -622,16 +661,29 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
     def test_search(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-            {"q": "old"},
-        )
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        response = self.client.get(url, {"q": "old"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(response, "Search the whole site")
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_whole_tree_url = f"{url}?q=old&search_all=1"
+        search_whole_tree_link = title_th.select_one(
+            f'a[href="{search_whole_tree_url}"]'
+        )
+        self.assertIsNotNone(search_whole_tree_link)
+        self.assertHTMLEqual(
+            search_whole_tree_link.extract().decode_contents(),
+            "Search the whole site",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 page in ' | Welcome to your new Wagtail site! | '.",
+        )
 
     def test_search_results(self):
         response = self.client.get(
@@ -667,6 +719,55 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, [])
 
     def test_search_whole_tree(self):
+        url = reverse("wagtailadmin_explore", args=(self.new_page.id,))
+        response = self.client.get(url, {"q": "old", "search_all": "1"})
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_in_parent_url = f"{url}?q=old"
+        search_parent_link = title_th.select_one(f'a[href="{search_in_parent_url}"]')
+        self.assertIsNotNone(search_parent_link)
+        self.assertHTMLEqual(
+            search_parent_link.extract().decode_contents(),
+            "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 page across entire site.",
+        )
+
+    def test_search_whole_tree_filter_by_permissions(self):
+        # Create a page that matches the search term but that the user doesn't have permission to see
+        restricted_page = SimplePage(
+            title="Restricted old page",
+            slug="restricted-old-page",
+            content="hello",
+        )
+        self.root_page.add_child(instance=restricted_page)
+
+        old_page_editors = Group.objects.create(name="Old page editors")
+        old_page_editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.old_page,
+            permission_type="change",
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.new_page,
+            permission_type="change",
+        )
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(old_page_editors)
+
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.new_page.id,)),
             {"q": "old", "search_all": "1"},
@@ -674,10 +775,44 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(
-            response,
-            "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
+
+    @override_settings(WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS=False)
+    def test_search_whole_tree_disable_filter_by_permissions(self):
+        # Create a page that matches the search term but that the user doesn't have permission to see
+        restricted_page = SimplePage(
+            title="Restricted old page",
+            slug="restricted-old-page",
+            content="hello",
         )
+        self.root_page.add_child(instance=restricted_page)
+
+        old_page_editors = Group.objects.create(name="Old page editors")
+        old_page_editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.old_page,
+            permission_type="change",
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.new_page,
+            permission_type="change",
+        )
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(old_page_editors)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old", "search_all": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id, restricted_page.id])
 
     def test_filter_by_page_type(self):
         new_page_child = SimplePage(
@@ -747,6 +882,56 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             response,
             "Date updated: Jan. 1, 2015 - any",
             "latest_revision_created_at_from=2015-01-01",
+        )
+
+    def test_filter_by_date_updated_results(self):
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore_results", args=(self.root_page.id,)),
+            {"latest_revision_created_at_from": "2015-01-01"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+        self.assertContainsActiveFilter(
+            response,
+            "Date updated: Jan. 1, 2015 - any",
+            "latest_revision_created_at_from=2015-01-01",
+        )
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select_one(
+            'template[data-controller="w-teleport"]'
+            '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            '[data-w-teleport-mode-value="innerHTML"]'
+        )
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
         )
 
     def test_filter_by_owner(self):
@@ -911,8 +1096,31 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
 
+    def test_add_child_not_shown_when_no_subpage_type_available_to_create(self):
+        simple_parent_page = SimpleParentPage(
+            title="Simple parent",
+            slug="simple-parent",
+        )
+        self.root_page.add_child(instance=simple_parent_page)
+        simple_child_page = SimpleChildPage(
+            title="Simple child",
+            slug="simple-child",
+        )
+        simple_parent_page.add_child(instance=simple_child_page)
+        url = reverse("wagtailadmin_explore", args=(simple_parent_page.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        add_subpage_url = reverse(
+            "wagtailadmin_pages:add_subpage",
+            args=(simple_parent_page.id,),
+        )
+        # Should not show the "Add child page" button in the header
+        add_subpage_link = soup.select_one(f'a[href="{add_subpage_url}"]')
+        self.assertIsNone(add_subpage_link)
 
-class TestBreadcrumb(WagtailTestUtils, TestCase):
+
+class TestBreadcrumb(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_breadcrumb_next_present(self):
@@ -956,7 +1164,7 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
 
 
-class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
+class TestPageExplorerSidePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_side_panel_present(self):
@@ -976,7 +1184,7 @@ class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
+class TestPageExplorerSignposting(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1181,7 +1389,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
 
 
-class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
+class TestExplorablePageVisibility(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
     This is isolated in its own test case because it requires a custom page tree and custom set of
@@ -1334,7 +1542,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1383,7 +1591,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         )
 
 
-class TestInWorkflowStatus(WagtailTestUtils, TestCase):
+class TestInWorkflowStatus(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -1408,7 +1616,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(44):
+        with self.assertNumQueries(43):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

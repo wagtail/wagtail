@@ -1,8 +1,10 @@
+import swapper
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView):
@@ -50,4 +52,4 @@ class PageReportView(ReportView):
         "content_type.model_class._meta.verbose_name.title",
     ]
     context_object_name = "pages"
-    permission_policy = page_permission_policy
+    model = Page

@@ -1,12 +1,7 @@
-import {
-  DraftailEditor,
-  ToolbarButton,
-  createEditorStateFromRaw,
-  serialiseEditorStateToRaw,
-  InlineStyleControl,
-  ControlComponentProps,
-  DraftailEditorProps,
-} from 'draftail';
+import type DraftEditorLeaf from 'draft-js/lib/DraftEditorLeaf.react';
+import type { CommentApp } from '../../CommentApp/main';
+import type { Comment } from '../../CommentApp/state/comments';
+import type { Annotation } from '../../CommentApp/utils/annotation';
 import {
   CharacterMetadata,
   ContentBlock,
@@ -19,6 +14,15 @@ import {
   RichUtils,
   SelectionState,
 } from 'draft-js';
+import {
+  ControlComponentProps,
+  DraftailEditor,
+  DraftailEditorProps,
+  InlineStyleControl,
+  ToolbarButton,
+  createEditorStateFromRaw,
+  serialiseEditorStateToRaw,
+} from 'draftail';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, {
   MutableRefObject,
@@ -28,16 +32,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import type { Comment } from '../../CommentApp/state/comments';
-import type { Annotation } from '../../CommentApp/utils/annotation';
-import type { CommentApp } from '../../CommentApp/main';
+import { shallowEqual, useSelector } from 'react-redux';
 import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
 
 const { isOptionKeyCommand } = KeyBindingUtil;
 
@@ -105,7 +103,7 @@ export class DraftailInlineAnnotation implements Annotation {
     return 0;
   }
 
-  static getMedianRef(refArray: Array<DecoratorRef>) {
+  static getMedianRef(refArray: DecoratorRef[]) {
     const refs = refArray.sort(
       (firstRef, secondRef) =>
         this.getHeightForRef(firstRef) - this.getHeightForRef(secondRef),
@@ -320,7 +318,10 @@ function getCommentControl(
   contentPath: string,
   fieldNode: Element,
 ) {
-  return ({ getEditorState, onChange }: ControlComponentProps) => (
+  const CommentControl = ({
+    getEditorState,
+    onChange,
+  }: ControlComponentProps) => (
     <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
@@ -345,6 +346,7 @@ function getCommentControl(
       />
     </span>
   );
+  return CommentControl;
 }
 
 function findCommentStyleRanges(
@@ -385,7 +387,7 @@ export function updateCommentPositions({
   commentApp,
 }: {
   editorState: EditorState;
-  comments: Array<Comment>;
+  comments: Comment[];
   commentApp: CommentApp;
 }) {
   const commentPositions = getCommentPositions(editorState);
@@ -458,7 +460,7 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
 
 interface DecoratorProps {
   contentState: ContentState;
-  children?: Array<typeof DraftEditorLeaf>;
+  children?: DraftEditorLeaf[];
 }
 
 function getCommentDecorator(commentApp: CommentApp) {
@@ -625,7 +627,7 @@ interface CommentableEditorProps {
   editorRef: (editor: ReactNode) => void;
   isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
-  plugins?: Record<string, unknown>[];
+  plugins?: Array<Record<string, unknown>>;
   controls?: DraftailEditorProps['controls'];
 }
 

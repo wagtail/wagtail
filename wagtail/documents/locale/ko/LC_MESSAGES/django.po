@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,6 +26,19 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "웨그테일 문서"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다(%(file_size)s). 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
 
 msgid "Collection"
 msgstr "모음"
@@ -298,11 +311,6 @@ msgstr "에러로 인해 문서를 저장할 수 없습니다."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' 문서가 추가 되었습니다."
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
 
 msgid "Delete document"
 msgstr "문서 삭제"

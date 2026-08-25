@@ -1,5 +1,5 @@
 import { WagtailPageAPI } from '../../../api/admin';
-import { OPEN_EXPLORER, CLOSE_EXPLORER } from './explorer';
+import { CLOSE_EXPLORER, OPEN_EXPLORER } from './explorer';
 
 export interface PageState extends WagtailPageAPI {
   isFetchingChildren: boolean;

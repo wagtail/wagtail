@@ -13,9 +13,10 @@
   $breakpoint-names: map.keys($breakpoints);
   $n: list.index($breakpoint-names, $name);
   @return if(
-    $n < list.length($breakpoint-names),
-    list.nth($breakpoint-names, $n + 1),
-    null
+    sass($n < list.length($breakpoint-names)): list.nth(
+        $breakpoint-names,
+        $n + 1
+      )
   );
 }
 
@@ -24,7 +25,7 @@
 //    50em
 @function breakpoint-min($name) {
   $min: map.get($breakpoints, $name);
-  @return if($min != 0, $min, null);
+  @return if(sass($min != 0): $min);
 }
 
 // Maximum breakpoint width. Null for the largest (last) breakpoint.
@@ -32,5 +33,5 @@
 //    56.1875em
 @function breakpoint-max($name) {
   $next: breakpoint-next($name);
-  @return if($next, breakpoint-min($next) - 0.0625em, null);
+  @return if(sass($next): breakpoint-min($next) - 0.0625em);
 }

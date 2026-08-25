@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: 💡 Discussion
+    url: https://github.com/wagtail/wagtail/discussions/new/choose
+    about: Not sure if you found a bug or have a feature request? Start a discussion to get community input
   - name: 🙋 Ask questions on Stack Overflow (preferred)
     url: https://stackoverflow.com/questions/tagged/wagtail
     about: Ask structured and fully-formed questions about Wagtail or about building a site with Wagtail

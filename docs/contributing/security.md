@@ -1,3 +1,5 @@
+(security_reporting)=
+
 # Reporting security issues
 
 ```{warning}
@@ -15,17 +17,23 @@ Mail sent to that address reaches a subset of the core team, who can forward sec
 
 Once you've submitted an issue via email, you should receive an acknowledgment from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
 
-If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0xbed227b4daf93ff9`, and this public key is available from most commonly-used keyservers.
-
 This information can also be found in our [security.txt](https://wagtail.org/.well-known/security.txt).
 
 Django security issues should be reported directly to the Django Project, following [Django's security policies](inv:django#internals/security) (upon which Wagtail's own policies are based).
+
+## Early notification
+
+Approximately 1 week before the public disclosure of a security vulnerability, we publish an announcement to the [Security Announcements](https://github.com/wagtail/wagtail/discussions/categories/security-announcements) discussion category. On the day of disclosure, we will post a message to the same category with details of the vulnerability and the release notes for the newly-released version(s). You can subscribe to the Security Announcements using its [RSS Feed](https://github.com/wagtail/wagtail/discussions/categories/security-announcements.atom).
+
+If a reported issue is believed to be particularly time-sensitive – due to a known exploit in the wild, for example – the time between advance notification and public disclosure may be shortened considerably.
+
+If you believe you or your organisation should receive full details of vulnerabilities early, please contact the Security Team using the contact channels above. We follow [Django's policy](inv:django#security-notifications) for who should receive these notifications.
 
 ## Supported versions
 
 At any given time, the Wagtail team provides official security support for several versions of Wagtail:
 
--   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support.
+-   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support. Security issues that only affect the `main` development branch and not any stable released versions are fixed in public without going through the [disclosure process](#how-wagtail-discloses-security-issues).
 -   The two most recent Wagtail release series receive security support.
     For example, during the development cycle leading to the release of
     Wagtail 2.6, support will be provided for Wagtail 2.5 and Wagtail 2.4. Upon the release of Wagtail 2.6, Wagtail 2.4's security support will end.
@@ -48,6 +56,7 @@ If you have found a vulnerability in Wagtail, please report it using the informa
 
 Any CVEs issued for vulnerabilities not discussed with the Wagtail security team, or otherwise issued or requested erroneously will be disputed and may be later rejected.
 
+(how-wagtail-discloses-security-issues)=
 ## How Wagtail discloses security issues
 
 Our process for taking a security issue from private discussion to public disclosure involves multiple steps.
@@ -77,12 +86,28 @@ Since the CSV format has no concept of formulae or macros, there is also no agre
 
 Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimizes the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
 
-### Cross-site scripting through document uploads
+### Cross-site scripting through uploads
 
-Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
+Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if image or document uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
 
 When Wagtail serves these files itself (ie the content is returned in the response directly), the required protections are already in place. This can be done using the [dynamic image serve](using_images_outside_wagtail) view for images and by setting [](wagtaildocs_serve_method) to `serve_view`. However, when files are served from where they're being stored directly (such as directly from the AWS S3 bucket), Wagtail has little to no control over how the files are served. Instead, developers must make sure care is taken when configuring file storage to serve files. The relevant documentation for [images](svg_security_considerations) and [documents](documents_security_considerations) should be read before serving files directly from remote storage.
 
 Because the considerations needed for remote storage are already documented, we do not consider misconfiguration of storage, particularly when served directly from the media source, as a security vulnerability in Wagtail. This includes when using Django's built-in media serving capabilities via `MEDIA_URL`. Vulnerabilities in Wagtail's built-in serve views are still considered.
 
-Wagtail does not take any measures to block the execution of JavaScript within PDF documents. To the extent that browsers allow this, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
+Wagtail does not sanitize JavaScript within HTML / SVG / PDF documents, though we do prevent its execution when serving files via Wagtail, using a strict [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy). To the extent that browsers allow JavaScript in PDFs, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
+
+### Privilege escalation by users with user management roles
+
+A user with "add" or "change" permission over users has the unrestricted ability to create or modify user accounts with any access level, including administrator (superuser) status, even if the user does not have those permissions themselves. This behaviour is by design, and follows logically from the permission model implemented by Wagtail and Django.
+
+At the present time, the Wagtail team takes the position that user management permissions should only be assigned to users who are fully trusted. This is because many of the tasks that such a user would reasonably be expected to perform are ones that can inherently be exploited to gain additional access. For example, a site owner might reasonably assign "change user" permission to a member of staff in a junior support role so that they can handle password reset requests; however, the ability to reset a password is by itself sufficient to gain access to other accounts.
+
+Securing the user management interface against all avenues for privilege escalation, while not locking down its functionality to the point of non-administrator-level users not being able to do anything meaningful, is an open design question that Wagtail does not - currently - attempt to solve. Any security reports involving a user with user management permissions performing unauthorized actions are considered out of scope.
+
+Developers interested in revising the user management interface to accommodate untrusted users are invited to contribute to the open issue [#14100 - Prevent privilege escalation via user management features](https://github.com/wagtail/wagtail/issues/14100).
+
+### CVEs in third-party dependencies
+
+Many of the reports we receive originate from automated dependency scanners flagging a CVE in a library Wagtail depends on, transitively includes, or vendors. Wagtail's security policy covers vulnerabilities in our runtime / production dependencies in Python, and any third-party JavaScript libraries loaded into the Wagtail admin. We focus on scenarios where the vulnerability is reachable from a code path that is actually used in Wagtail.
+
+Reports about development dependencies and other tooling required only to build or test Wagtail are out of scope, as none of these are shipped to Wagtail users.

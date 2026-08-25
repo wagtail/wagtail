@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import {
-  Modifier,
+  CharacterMetadata,
+  ContentState,
   EditorState,
+  Modifier,
   RichUtils,
   convertFromHTML,
-  ContentState,
-  CharacterMetadata,
 } from 'draft-js';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { gettext } from '../../../utils/gettext';

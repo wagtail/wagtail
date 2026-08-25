@@ -9,7 +9,13 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -27,12 +33,15 @@ from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Workflow, WorkflowContentType
+from wagtail.permissions import policy_registry
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
+    AdvertTag,
+    AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
@@ -41,7 +50,8 @@ from wagtail.test.testapp.models import (
     SnippetChooserModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.testapp.wagtail_hooks import FullFeaturedPermissionPolicy
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.utils.timestamps import render_timestamp
 
@@ -56,6 +66,21 @@ class TestIncorrectRegistration(SimpleTestCase):
         self.assertIn("ModelViewSet", message)
         self.assertIn(
             "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
+
+
+class TestIncorrectConverter(SimpleTestCase):
+    def test_unknown_converter(self):
+        class BadViewSet(SnippetViewSet):
+            model = AdvertTag
+            pk_path_converter = "foo"
+
+        with self.assertRaises(ImproperlyConfigured) as cm:
+            register_snippet(BadViewSet)
+        message = str(cm.exception)
+        self.assertEqual(
+            "BadViewSet.pk_path_converter is not a registered path converter",
             message,
         )
 
@@ -291,6 +316,22 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         self.assertEqual(response_json["result"]["string"], "New snippet")
 
 
+class TestSnippetChooserViewSetWidgetClass(SimpleTestCase):
+    def test_widget_class_returns_class(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        widget_class = chooser_viewset.widget_class
+
+        self.assertIsInstance(widget_class, type)
+        self.assertTrue(issubclass(widget_class, AdminSnippetChooser))
+        self.assertEqual(widget_class.model, FullFeaturedSnippet)
+        self.assertEqual(widget_class.icon, "cog")
+
+        widget_instance = widget_class()
+        self.assertIsInstance(widget_instance, widget_class)
+        self.assertEqual(widget_instance.model, FullFeaturedSnippet)
+        self.assertEqual(widget_instance.icon, "cog")
+
+
 class TestAdminURLs(BaseSnippetViewSetTests):
     def test_default_url_namespace(self):
         snippet = Advert.objects.create(text="foo")
@@ -383,6 +424,20 @@ class TestAdminURLs(BaseSnippetViewSetTests):
             expected_choose_url,
         )
 
+    def test_cannot_reverse_mismatched_converter_value(self):
+        viewset = AdvertWithCustomUUIDPrimaryKey.snippet_viewset
+        with self.assertRaises(NoReverseMatch):
+            reverse(viewset.get_url_name("edit"), kwargs={"pk": 123})
+
+    def test_404_on_mismatched_converter_value(self):
+        viewsets = [
+            AdvertWithCustomUUIDPrimaryKey.snippet_viewset,
+            FullFeaturedSnippet.snippet_viewset,
+        ]
+        for viewset in viewsets:
+            response = self.client.get(f"/admin/{viewset.url_prefix}/edit/123abc/")
+            self.assertEqual(response.status_code, 404)
+
 
 class TestPagination(BaseSnippetViewSetTests):
     @classmethod
@@ -444,7 +499,7 @@ class TestPagination(BaseSnippetViewSetTests):
 class TestFilterSetClass(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -559,7 +614,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
         self.assertNotIn("some_number_max=200", params)
 
 
-class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
+@tag("transaction")
+class TestFilterSetClassSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -570,7 +628,7 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
             FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -611,7 +669,7 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
         self.date = now()
         self.date_str = self.date.isoformat()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -746,7 +804,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         cls.model.objects.create(text="From Indonesia", country_code="ID")
         cls.model.objects.create(text="From the UK", country_code="UK")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def test_custom_columns(self):
@@ -772,6 +830,36 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
 
         # The bulk actions column plus 6 columns defined in FullFeaturedSnippetViewSet
         self.assertEqual(len(headings), 7)
+
+    def test_choice_field_uses_choice_label_to_display(self):
+        response = self.get()
+        list_url = self.get_url("list")
+        sort_country_code_url = list_url + "?ordering=country_code"
+
+        soup = self.get_soup(response.content)
+        table = soup.select_one("main table")
+
+        # Find the Country code header
+        country_code_header = next(
+            (
+                header
+                for header in table.select("th")
+                if header.get_text(strip=True) == "Country code"
+            ),
+            None,
+        )
+        self.assertIsNotNone(country_code_header)
+
+        # Verify it's sortable
+        header_link = country_code_header.select_one("a")
+        self.assertIsNotNone(header_link)
+        self.assertEqual(header_link["href"], sort_country_code_url)
+
+        table_rows = table.select("tbody tr")
+        self.assertEqual(
+            [row.select("td")[2].get_text(strip=True) for row in table_rows],
+            ["Indonesia", "United Kingdom"],
+        )
 
     def test_falsy_value(self):
         # https://github.com/wagtail/wagtail/issues/10765
@@ -849,6 +937,24 @@ class TestRelatedFieldListDisplay(BaseSnippetViewSetTests):
         ]
         self.assertIn("Chosen snippet text", headers)
         self.assertContains(response, "<td>royale with cheese</td>", html=True)
+
+    def test_single_level_choice_relation_uses_choice_label(self):
+        self.ffs.country_code = FullFeaturedSnippet.CountryCode.INDONESIA
+        self.ffs.save()
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        table = soup.select_one("main table")
+        headers = [header.get_text(strip=True) for header in table.select("th")]
+        self.assertIn("Chosen snippet country code", headers)
+        table_rows = table.select("tbody tr")
+        self.assertEqual(
+            [row.select("td")[3].get_text(strip=True) for row in table_rows],
+            ["Indonesia"],
+        )
 
     def test_multi_level_relation(self):
         self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
@@ -1091,7 +1197,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             text="Python is a programming-bas, uh, language",
         )
 
-    def get(self, params={}, url_name="list"):
+    def get(self, params=None, url_name="list"):
         return self.client.get(self.get_url(url_name), params)
 
     def test_simple(self):
@@ -1658,6 +1764,7 @@ class TestCustomMethods(BaseSnippetViewSetTests):
             {
                 "data-controller": "w-teleport",
                 "data-w-teleport-target-value": "#w-slim-header-buttons",
+                "data-w-teleport-mode-value": "innerHTML",
             },
         )
         self.assertIsNotNone(template)
@@ -1675,6 +1782,7 @@ class TestCustomMethods(BaseSnippetViewSetTests):
             {
                 "data-controller": "w-teleport",
                 "data-w-teleport-target-value": "#w-slim-header-buttons",
+                "data-w-teleport-mode-value": "innerHTML",
             },
         )
         self.assertIsNotNone(template)
@@ -1702,6 +1810,11 @@ class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
         self.assertEqual(self.user.get_full_name(), "[FORBIDDEN] Joe")
         response = self.client.get(self.get_url("edit", args=(quote(self.object.pk),)))
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_registered_policy(self):
+        permission_policy = policy_registry.get_by_type(self.model)
+        self.assertIsInstance(permission_policy, FullFeaturedPermissionPolicy)
+        self.assertIs(permission_policy, self.model.snippet_viewset.permission_policy)
 
 
 class TestSnippetIndexViewBreadcrumbs(SimpleTestCase):

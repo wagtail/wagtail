@@ -84,7 +84,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
--   Django 4.2.x and 5.2.x
+-   Django 5.2.x, 6.0.x and 6.1.x
 -   Python 3.10, 3.11, 3.12, 3.13, and 3.14
 -   PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends
 
@@ -111,8 +111,6 @@ Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help impl
 ### 🔐 Security
 
 We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.org](mailto:security@wagtail.org) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a GitHub issue.
-
-If you want to send an encrypted email (optional), the public key ID for security@wagtail.org is 0xbed227b4daf93ff9, and this public key is available from most commonly-used keyservers.
 
 ### 🕒 Release schedule
 

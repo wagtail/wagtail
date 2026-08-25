@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,11 +35,28 @@ msgid "Delete"
 msgstr "Изтрий"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' изтрит."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Изтрий %(snippet_type_name)s"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Сигурен ли сте, че искате да изтриете %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
+
+msgid "No, don't delete"
+msgstr "Не, не го изтривай"
+
+msgid "Saving…"
+msgstr "Запазване..."
+
+msgid "Replace current draft"
+msgstr "Замени настоящата чернова"
 
 msgid "Save draft"
 msgstr "Запази като чернова"
@@ -55,3 +72,11 @@ msgstr "Име"
 
 msgid "Home"
 msgstr "Начало"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Избери %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Избери друг %(object)s"

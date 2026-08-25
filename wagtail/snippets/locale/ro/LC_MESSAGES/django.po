@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dan Braghis, 2014\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,26 +41,26 @@ msgid "Submit to %(workflow_name)s"
 msgstr "Trimite la %(workflow_name)s"
 
 msgid "Restart workflow "
-msgstr "Repornește flux de lucru"
+msgstr "Repornește fluxul de lucru"
 
 msgid "Cancel workflow "
-msgstr "Anulează flux de lucru"
+msgstr "Anulează fluxul de lucru"
 
 msgid "Unpublish"
-msgstr "Anulare publicare"
+msgstr "Anulează publicarea"
 
 msgid "Save"
 msgstr "Salvează"
 
 msgid "Locked"
-msgstr "A blocat"
+msgstr "Blocat"
 
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s și publică"
 
 msgid "Wagtail snippets"
-msgstr "Fragment Wagtail"
+msgstr "Fragmente Wagtail"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -70,7 +70,7 @@ msgstr "Șterge fragmentele selectate"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
-msgstr "%(model_name)s '%(object)s' a fost eliminat(ă)."
+msgstr "%(model_name)s '%(object)s' a fost șters(ă)."
 
 #, python-format
 msgid "%(count)d %(model_name)s deleted."
@@ -96,11 +96,11 @@ msgstr "Sigur doriți să ștergeți %(count)s %(snippet_type_name)s?"
 
 #, python-format
 msgid "You don't have permission to delete this %(snippet_type_name)s"
-msgstr "Nu aveți permisiunea de a șterge %(snippet_type_name)s"
+msgstr "Nu aveți permisiunea de a șterge acest %(snippet_type_name)s"
 
 #, python-format
 msgid "You don't have permission to delete these %(snippet_plural_name)s"
-msgstr "Nu aveți permisiunea să ștergeți aceste %(snippet_plural_name)s"
+msgstr "Nu aveți permisiunea de a șterge aceste %(snippet_plural_name)s"
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
@@ -111,7 +111,7 @@ msgstr "Nu, nu șterge"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un "
+"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu niciun "
 "fragment"
 
 #, python-format
@@ -120,27 +120,33 @@ msgid ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"Nu au fost create %(snippet_type_name)s. De să nu <a "
+"Nu ați creat niciun fragment %(snippet_type_name)s. De ce să nu <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">incepeți acum</a>?"
+"rel=\"noreferrer\">creați unul acum</a>?"
+
+msgid "Scheduling…"
+msgstr "Se programează…"
 
 msgid "Publishing…"
 msgstr "În curs de publicare…"
+
+msgid "Schedule to publish"
+msgstr "Programează publicarea"
 
 msgid "Publish this version"
 msgstr "Publică această versiune"
 
 msgid "Saving…"
-msgstr "În curs de salvare..."
+msgstr "În curs de salvare…"
 
 msgid "Replace current draft"
 msgstr "Înlocuiește ciorna curentă"
 
 msgid "Replace current revision"
-msgstr "Înlocuiește reviziunea curentă"
+msgstr "Înlocuiește revizia curentă"
 
 msgid "Save draft"
-msgstr "Salvare ciornă"
+msgstr "Salvează ciorna"
 
 msgid "Select all snippets in listing"
 msgstr "Selectează toate fragmentele din listă"
@@ -161,6 +167,14 @@ msgstr "Instanțe"
 msgid "More options for '%(title)s'"
 msgstr "Mai multe opțiuni pentru '%(title)s'"
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Solicitarea de a crea %(model_name)s a fost blocată de un hook."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Solicitarea de a edita %(model_name)s a fost blocată de un hook."
+
 msgid "Home"
 msgstr "Acasă"
 
@@ -174,4 +188,4 @@ msgstr "Alege alt %(object)s"
 
 #, python-format
 msgid "Edit this %(object)s"
-msgstr "Editează %(object)s"
+msgstr "Editează acest %(object)s"

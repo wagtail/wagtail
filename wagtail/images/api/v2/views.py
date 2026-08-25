@@ -1,4 +1,5 @@
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
+from wagtail.api.v2.utils import get_restricted_collection_ids
 from wagtail.api.v2.views import BaseAPIViewSet
 
 from ... import get_image_model
@@ -21,3 +22,11 @@ class ImagesAPIViewSet(BaseAPIViewSet):
     ]
     name = "images"
     model = get_image_model()
+
+    def get_queryset(self):
+        # Exclude images which aren't in visible collections
+        return (
+            super()
+            .get_queryset()
+            .exclude(collection__in=get_restricted_collection_ids(self.request))
+        )

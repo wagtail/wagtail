@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,21 +34,6 @@ msgstr "Хамгийн багадаа %(min_num)d хэсэг байна"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Хамгийн ихдээ %(max_num)d хэсэг байна"
-
-msgid "Move up"
-msgstr "Дээшээ зөөх"
-
-msgid "Move down"
-msgstr "Доошоо зөөх"
-
-msgid "Drag"
-msgstr "Чирэх"
-
-msgid "Delete"
-msgstr "Устгах"
-
-msgid "Add"
-msgstr "Нэмэх"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -71,6 +56,12 @@ msgstr "Түгжигдсэн"
 
 msgid "Unlocked"
 msgstr "Түгжигдээгүй"
+
+msgid "user"
+msgstr "хэрэглэгч"
+
+msgid "name"
+msgstr "нэр"
 
 msgid "content type"
 msgstr "контентын төрөл"
@@ -120,9 +111,6 @@ msgstr "цуглуулга харах хязгаарлалт"
 msgid "collection view restrictions"
 msgstr "цуглуулга харах хязгаарлалтууд"
 
-msgid "name"
-msgstr "нэр"
-
 msgid "collections"
 msgstr "цуглуулгууд"
 
@@ -140,6 +128,9 @@ msgstr "бүлэг цуглуулгын эрх"
 
 msgid "uploaded by user"
 msgstr "хэрэглэгчийн хуулсан"
+
+msgid "Add"
+msgstr "Нэмэх"
 
 msgid "Add/edit pages you own"
 msgstr "Өөрийн хуудсаа нэмэх/засах"
@@ -168,6 +159,12 @@ msgstr "Ямар ч хуудсыг нийтлэх"
 msgid "Unlock"
 msgstr "Түгжээг тайлах"
 
+msgid "page"
+msgstr "хуудас"
+
+msgid "pages"
+msgstr "хуудсууд"
+
 msgid "title"
 msgstr "гарчиг"
 
@@ -183,17 +180,11 @@ msgstr "URL зам"
 msgid "owner"
 msgstr "эзэмшигч"
 
-msgid "show in menus"
-msgstr "цэсэнд харуулах"
-
 msgid "latest revision created at"
 msgstr "сүүлийн засвар үүссэн"
 
-msgid "page"
-msgstr "хуудас"
-
-msgid "pages"
-msgstr "хуудсууд"
+msgid "show in menus"
+msgstr "цэсэнд харуулах"
 
 msgid "page view restriction"
 msgstr "хуудас харах хязгаарлалт"
@@ -206,9 +197,6 @@ msgstr "Өгөгдмөл"
 
 msgid "created at"
 msgstr "үүссэн"
-
-msgid "user"
-msgstr "хэрэглэгч"
 
 msgid "content JSON"
 msgstr "контент JSON"
@@ -293,6 +281,9 @@ msgstr "Үргэлжлүүлэх"
 
 msgid "Edited"
 msgstr "Засагдсан"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Unpublish"
 msgstr "Нийтлэхгүй"

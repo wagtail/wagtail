@@ -4,7 +4,6 @@ import pickle
 import tempfile
 import unittest
 from io import BytesIO
-from pathlib import Path
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -29,7 +28,8 @@ from wagtail.coreutils import (
     safe_snake_case,
     string_to_ascii,
 )
-from wagtail.models import Page, Site
+from wagtail.models import Site
+from wagtail.test.utils import Page
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.templates import template_is_overridden
 from wagtail.utils.utils import deep_update, flatten_choices
@@ -185,14 +185,14 @@ class TestInvokeViaAttributeShortcut(SimpleTestCase):
             raise AssertionError(
                 "An error occurred when attempting to pickle %r: %s"
                 % (self.test_object, e)
-            )
+            ) from e
         try:
             self.test_object = pickle.loads(pickled)
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occurred when attempting to unpickle %r: %s"
                 % (self.test_object, e)
-            )
+            ) from e
 
         # Confirm unpickled object works the same
         self.target_object = self.test_object.obj
@@ -527,24 +527,26 @@ class TestDeepUpdate(TestCase):
 
 
 class HashFileLikeTestCase(SimpleTestCase):
-    test_file = Path.cwd() / "LICENSE"
-
     def test_hashes_io(self):
         self.assertEqual(
             hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
         )
 
     def test_hashes_file(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        # Use a real file path to avoid Windows NamedTemporaryFile locking quirks
+        tmp_path = os.path.join(tempfile.gettempdir(), "wagtail_test.txt")
+        with open(tmp_path, "wb") as f:
+            f.write(b"test")
 
-    def test_hashes_file_bytes(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        try:
+            with open(tmp_path, "rb") as f:
+                # The SHA1 of b"test" is a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+                self.assertEqual(
+                    hash_filelike(f), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+                )
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
 
     def test_hashes_django_uploaded_file(self):
         """
@@ -573,7 +575,6 @@ class HashFileLikeTestCase(SimpleTestCase):
                 self.iterations -= 1
                 if not self.iterations:
                     return b""
-
                 return b"A" * bytes
 
         self.assertEqual(

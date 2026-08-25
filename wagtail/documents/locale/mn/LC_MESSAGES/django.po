@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,19 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Файлууд"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэт том хэмжээтэй байна (%(file_size)s). Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 msgid "Collection"
 msgstr "Цуглуулга"
@@ -69,6 +82,10 @@ msgstr "Үгүй, устгахгүй"
 
 msgid "Latest documents"
 msgstr "Сүүлийн файлууд"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "\"<em>%(search_query)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Энэ цуглуулгад ямар нэг файл нэмээгүй байна."
@@ -174,10 +191,6 @@ msgstr "Алдаанаас шалтгаалж файл хадгалагдсан�
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' файл шинэчлэгдлээ"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
 
 msgid "Delete document"
 msgstr "Файл устгах"

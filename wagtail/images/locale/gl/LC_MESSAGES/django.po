@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2025
+# X Bello <xbello@gmail.com>, 2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,9 @@ msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr ""
 "Este arquivo é demasiado grande. Tamaño máximo de arquivo %(max_filesize)s."
 
+msgid "unknown number"
+msgstr "número descoñecido"
+
 msgid "Full width"
 msgstr "Ancho completo"
 
@@ -94,9 +97,6 @@ msgstr "Colección"
 
 msgid "Format"
 msgstr "Formato"
-
-msgid "Filter"
-msgstr "Filtro"
 
 msgid "Original size"
 msgstr "Tamaño orixinal"
@@ -115,6 +115,9 @@ msgstr "Redimensionar ao máx"
 
 msgid "Resize to fill"
 msgstr "Redimensionar para encher"
+
+msgid "Filter"
+msgstr "Filtro"
 
 msgid "Width"
 msgstr "Ancho"
@@ -248,6 +251,9 @@ msgstr "Non, non eliminar."
 
 msgid "Popular tags"
 msgstr "Etiquetas populares"
+
+msgid "Layout"
+msgstr "Deseño"
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
@@ -393,8 +399,11 @@ msgstr ""
 "Non subiches ningunha imaxe. ¿Por que non <a "
 "href=\"%(wagtailimages_add_image_url)s\">subes unha agora</a>?"
 
-msgid "Toggle layout"
-msgstr "Cambiar deseño"
+msgid "Grid layout"
+msgstr "Deseño de grilla"
+
+msgid "List layout"
+msgstr "Deseño de lista"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -465,10 +474,10 @@ msgid "Image updated."
 msgstr "Imaxe actualizada."
 
 msgid "Image permissions"
-msgstr "Permisos da imaxe"
+msgstr "Permisos de imaxe"
 
 msgid "Add an image permission"
-msgstr "Engadir un permiso á imaxe"
+msgstr "Engadir un permiso de imaxe"
 
 msgid "Tags"
 msgstr "Etiquetas"
@@ -509,6 +518,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "Eliminouse %(num_parent_objects)d imaxe"
 msgstr[1] "Elimináronse %(num_parent_objects)d imaxes"
 
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Creado"
+
 msgid "Choose an image"
 msgstr "Seleccionar unha imaxe"
 
@@ -545,12 +560,6 @@ msgstr "Veces usado: (de maior a menor)"
 msgid "Images"
 msgstr "Imaxes"
 
-msgid "Title"
-msgstr "Título"
-
-msgid "Created"
-msgstr "Creado"
-
 msgid "The image could not be saved due to errors."
 msgstr "A imaxe non puido ser gardada debido a erros"
 
@@ -567,6 +576,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Xerar URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "As opcións de filtrado seleccionadas non son válidas."
 
 msgid "Delete image"
 msgstr "Eliminar imaxe"

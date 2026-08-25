@@ -4,7 +4,7 @@
 
 {% block before_results %}
     {{ block.super }}
-    <template data-controller="w-teleport" data-w-teleport-target-value="#layout-switch-control" data-w-teleport-reset-value="true">
+    <template data-controller="w-teleport" data-w-teleport-target-value="#layout-switch-control" data-w-teleport-mode-value="innerHTML">
         {% include "wagtailimages/images/layout_toggle_button.html" %}
     </template>
 {% endblock %}

@@ -1,4 +1,4 @@
-import { Widget, CheckboxInput, RadioSelect, Select } from './index';
+import { CheckboxInput, RadioSelect, Select, Widget } from './index';
 
 describe('Widget', () => {
   let boundWidget;

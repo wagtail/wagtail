@@ -4,6 +4,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
+from django.utils.html import format_html
+
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .oembed import OEmbedFinder
@@ -52,24 +54,24 @@ class InstagramOEmbedFinder(OEmbedFinder):
             params["omitscript"] = "true"
 
         # Configure request
-        request = Request(endpoint + "?" + urlencode(params))
+        request = Request(endpoint + "?" + urlencode(params))  # noqa: S310 - scheme controlled through configured endpoints, not exploitable
         request.add_header("Authorization", f"Bearer {self.app_id}|{self.app_secret}")
 
         # Perform request
         try:
-            r = urllib_request.urlopen(request)
+            r = urllib_request.urlopen(request)  # noqa: S310 - scheme controlled through configured endpoints, not exploitable
         except (HTTPError, URLError) as e:
             if isinstance(e, HTTPError) and e.code == 404:
-                raise EmbedNotFoundException
+                raise EmbedNotFoundException from e
             elif isinstance(e, HTTPError) and e.code in [400, 401, 403]:
-                raise AccessDeniedInstagramOEmbedException
+                raise AccessDeniedInstagramOEmbedException from e
             else:
-                raise EmbedNotFoundException
+                raise EmbedNotFoundException from e
         oembed = json.loads(r.read().decode("utf-8"))
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="{}" alt="">'.format(oembed["url"])
+            html = format_html('<img src="{}" alt="">', oembed["url"])
         else:
             html = oembed.get("html")
 

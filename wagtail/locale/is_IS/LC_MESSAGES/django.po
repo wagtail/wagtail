@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2025
 # saevarom <saevar@saevar.is>, 2019-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2019-2025\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2021,2023-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -37,24 +38,6 @@ msgstr "Fjöldi eininga má minnst vera %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Fjöldi eininga má mest vera %(max_num)d"
 
-msgid "Move up"
-msgstr "Færa upp"
-
-msgid "Move down"
-msgstr "Færa niður"
-
-msgid "Drag"
-msgstr "Draga"
-
-msgid "Duplicate"
-msgstr "Afrita"
-
-msgid "Delete"
-msgstr "Eyða"
-
-msgid "Add"
-msgstr "Bæta við"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: þessi blokk hefur engar stillingar."
@@ -64,6 +47,9 @@ msgstr "Þessi blokk hefur enga valmöguleika."
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Group"
+msgstr "Hópur"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
@@ -76,6 +62,9 @@ msgstr "Wagtail sitemaps"
 
 msgid "Unknown content type"
 msgstr "Óþekkt efnistegund"
+
+msgid "Date cannot be in the future."
+msgstr "Dagsetning má ekki vera í framtíðinni."
 
 msgid "Password"
 msgstr "Lylkilorð"
@@ -173,6 +162,12 @@ msgstr "Læst af tímastillingu"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Er læst og fer í loftið á stilltum tíma"
 
+msgid "user"
+msgstr "notandi"
+
+msgid "name"
+msgstr "nafn"
+
 msgid "content type"
 msgstr "efnistegund"
 
@@ -259,9 +254,6 @@ msgstr "skoðunartakmörkun safns"
 msgid "collection view restrictions"
 msgstr "skoðunartakmarkanir safns"
 
-msgid "name"
-msgstr "nafn"
-
 msgid "collections"
 msgstr "söfn"
 
@@ -282,6 +274,9 @@ msgstr "fyrir efnistegund"
 
 msgid "uploaded by user"
 msgstr "hlaðið inn af"
+
+msgid "Add"
+msgstr "Bæta við"
 
 msgid "Add/edit pages you own"
 msgstr "Bæta við/breyta síðum sem þú átt"
@@ -316,6 +311,12 @@ msgstr "Aflæsa"
 msgid "Unlock any page"
 msgstr "Aflæsa einhverri síðu"
 
+msgid "page"
+msgstr "síða"
+
+msgid "pages"
+msgstr "síður"
+
 msgid "title"
 msgstr "titill"
 
@@ -338,13 +339,16 @@ msgstr "Slóð"
 msgid "owner"
 msgstr "eigandi"
 
-msgid "title tag"
-msgstr "titill síðu"
+msgid "latest revision created at"
+msgstr "síðasta útgáfa búin til"
 
+#, python-format
 msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "Nafn síðunnar sem birtist á leitarvélum sem smellanleg fyrirsögn"
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir yfirsíðunni "
+"'%(parent_url_path)s'"
 
 msgid "show in menus"
 msgstr "sýna í valmyndum"
@@ -352,6 +356,17 @@ msgstr "sýna í valmyndum"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Segir til um hvor hlekkur á þessa síðu verður til í valmyndum"
+
+msgid "For site menus"
+msgstr "Fyrir valmyndir"
+
+msgid "title tag"
+msgstr "titill síðu"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Nafn síðunnar sem birtist á leitarvélum sem smellanleg fyrirsögn"
 
 msgid "meta description"
 msgstr "lýsing"
@@ -361,28 +376,8 @@ msgid ""
 "results."
 msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 
-msgid "latest revision created at"
-msgstr "síðasta útgáfa búin til"
-
 msgid "For search engines"
 msgstr "Fyrir leitarvélar"
-
-msgid "For site menus"
-msgstr "Fyrir valmyndir"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir yfirsíðunni "
-"'%(parent_url_path)s'"
-
-msgid "page"
-msgstr "síða"
-
-msgid "pages"
-msgstr "síður"
 
 msgid "group page permission"
 msgstr "síðuheimild hóps"
@@ -468,9 +463,6 @@ msgstr "mun fjarlægja vísunina"
 msgid "created at"
 msgstr "búin til"
 
-msgid "user"
-msgstr "notandi"
-
 msgid "content JSON"
 msgstr "efni JSON"
 
@@ -536,6 +528,12 @@ msgid ""
 msgstr ""
 "%(hostname)s er þegar stillt sem sjálfgefna síðan. Þú verður að afhaka við "
 "þá síðu áður en þú getur gert þessa að sjálfgefinni."
+
+msgid "group site permission"
+msgstr "vefsíðuheimild hóps"
+
+msgid "group site permissions"
+msgstr "vefsíðuheimildir hóps"
 
 msgid "Public"
 msgstr "Í birtingu"
@@ -741,6 +739,9 @@ msgstr "Bjó til"
 msgid "Edited"
 msgstr "Breytt"
 
+msgid "Delete"
+msgstr "Eyða"
+
 msgid "Deleted"
 msgstr "Eytt"
 
@@ -860,13 +861,6 @@ msgstr ""
 "Útgáfa %(revision_id)s frá %(created_at)s sett í tímastillta birtingu fyrir "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Síða tímasett fyrir birtingu %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Síða tímasett fyrir birtingu"
-
 msgid "Unschedule publication"
 msgstr "Hætta við tímasetta birtingu"
 
@@ -877,13 +871,6 @@ msgid ""
 msgstr ""
 "Útgáfa %(revision_id)s frá %(created_at)s tekin úr tímastilltri birtingu "
 "fyrir %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Tímastilling birtingar %(go_live_at)s tekin af síðu"
-
-msgid "Page unscheduled from publishing"
-msgstr "Tímastilling birtingar tekin af síðu"
 
 msgid "Add view restrictions"
 msgstr "Bæta við skoðunartakmörkunum"

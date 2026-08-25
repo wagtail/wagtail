@@ -1,46 +1,24 @@
-from django.dispatch import receiver
-from django.test.signals import setting_changed
+import warnings
 
-from wagtail.images import get_image_model
-from wagtail.images.models import Image
-from wagtail.permission_policies.collections import CollectionOwnershipPermissionPolicy
+from wagtail.images import get_image_model, get_permission_policy
+from wagtail.permissions import policy_registry
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
-permission_policy = None
-
-
-class ImagesPermissionPolicyGetter:
-    """
-    A helper to retrieve the current permission policy dynamically.
-    Following the descriptor protocol, this should be used as a class attribute::
-
-        class MyImageView(PermissionCheckedMixin, ...):
-            permission_policy = ImagesPermissionPolicyGetter()
-    """
-
-    def __get__(self, obj, objtype=None):
-        return permission_policy
-
-
-def set_permission_policy():
-    """Sets the permission policy for the current image model."""
-
-    global permission_policy
-    permission_policy = CollectionOwnershipPermissionPolicy(
-        get_image_model(), auth_model=Image, owner_field_name="uploaded_by_user"
+warnings.warn(
+    "wagtail.images.permissions.permission_policy is deprecated. "
+    "Use wagtail.permissions.policy_registry.get_by_type(get_image_model()) instead.",
+    RemovedInWagtail90Warning,
+    stacklevel=2,
+)
+# Do not use a fallback here, as it would prevent the real permission policy
+# from being registered if there is code that imports this module before the
+# app's ready() is called.
+permission_policy = policy_registry.get_by_type(get_image_model(), fallback=False)
+if not permission_policy:
+    permission_policy = get_permission_policy()
+    warnings.warn(
+        "wagtail.images.permissions was imported before wagtail.images app is "
+        "ready. Avoid importing wagtail.images.permissions at the module level.",
+        RuntimeWarning,
+        stacklevel=2,
     )
-
-
-@receiver(setting_changed)
-def update_permission_policy(signal, sender, setting, **kwargs):
-    """
-    Updates the permission policy when the `WAGTAILIMAGES_IMAGE_MODEL` setting changes.
-    This is useful in tests where we override the base image model and expect the
-    permission policy to have changed accordingly.
-    """
-
-    if setting == "WAGTAILIMAGES_IMAGE_MODEL":
-        set_permission_policy()
-
-
-# Set the permission policy for the first time.
-set_permission_policy()

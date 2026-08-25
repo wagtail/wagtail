@@ -1,8 +1,12 @@
 from urllib.parse import urlparse
 
 from django import http
-from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
+
+try:
+    from django.middleware import MiddlewareMixin
+except ImportError:  # DJANGO_VERSION < (6, 2)
+    from django.utils.deprecation import MiddlewareMixin
 
 from wagtail.contrib.redirects import models
 from wagtail.models import Site
@@ -24,11 +28,12 @@ def _get_redirect(request, path):
         return None
 
 
-def get_redirect(request, path):
-    redirect = _get_redirect(request, path)
-    if not redirect:
-        # try unencoding the path
-        redirect = _get_redirect(request, uri_to_iri(path))
+def get_redirect(request, encoded_path):
+    # Receives the ASCII percent-encoded path as obtained from request.get_full_path()
+    decoded_path = uri_to_iri(encoded_path)
+    redirect = _get_redirect(request, decoded_path)
+    if not redirect and decoded_path != encoded_path:
+        redirect = _get_redirect(request, encoded_path)
     return redirect
 
 
@@ -39,8 +44,11 @@ class RedirectMiddleware(MiddlewareMixin):
         if response.status_code != 404:
             return response
 
-        # Get the path
-        path = models.Redirect.normalise_path(request.get_full_path())
+        # Normalise the path, but without decoding unicode characters. get_redirect() will take care of that
+        # if it cannot find a match for the path that was actually requested.
+        path = models.Redirect.normalise_path(
+            request.get_full_path(), decode_unicode=False
+        )
 
         # Find redirect
         redirect = get_redirect(request, path)

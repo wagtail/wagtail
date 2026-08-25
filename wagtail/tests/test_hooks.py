@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 
 from wagtail import hooks
-from wagtail.models import Page, PageViewRestriction
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import PageViewRestriction
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.views import serve, serve_chain
 from wagtail.wagtail_hooks import check_view_restrictions
 
@@ -15,7 +15,7 @@ def test_hook():
     pass
 
 
-class TestLoginView(WagtailTestUtils, TestCase):
+class TestLoginView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -43,7 +43,7 @@ class TestLoginView(WagtailTestUtils, TestCase):
             self.assertEqual(hook_fns, [test_hook, after_hook])
 
 
-class TestServeHooks(WagtailTestUtils, TestCase):
+class TestServeHooks(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

@@ -1,0 +1,910 @@
+import { Application } from '@hotwired/stimulus';
+
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import {
+  AutosaveController,
+  ClientErrorCode,
+  HydrationError,
+} from './AutosaveController';
+
+jest.useFakeTimers();
+
+describe('AutosaveController', () => {
+  let application;
+  // rAF doesn't work with jest fake timers
+  // https://github.com/jestjs/jest/issues/5147
+  const mockRAF = jest.fn((callback) => callback());
+
+  const setup = async (inner = '') => {
+    document.body.innerHTML = /* html */ `
+      <form
+        action="/autosave/"
+        method="post"
+        data-controller="w-autosave w-unsaved"
+        data-action="w-unsaved:add->w-autosave#save"
+      >
+        <input type="text" name="title" value="Autosave title" />
+        ${inner}
+      </form>
+    `;
+
+    application = Application.start();
+    application.register('w-autosave', AutosaveController);
+    // Not registering w-unsaved to keep the test focused on AutosaveController
+
+    await Promise.resolve();
+
+    return document.querySelector('form');
+  };
+
+  const dispatchUnsaved = async (form) => {
+    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
+    form.dispatchEvent(unsavedEvent);
+    return unsavedEvent;
+  };
+
+  beforeEach(() => {
+    fetch.mockReset();
+    jest.spyOn(window.history, 'replaceState');
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF);
+  });
+
+  afterEach(() => {
+    application?.stop();
+    application = undefined;
+    document.body.innerHTML = '';
+    fetch.mockReset();
+    window.history.replaceState.mockRestore();
+    window.requestAnimationFrame.mockRestore();
+    jest.clearAllTimers();
+  });
+
+  describe('basic behavior', () => {
+    it('submits form data via fetch and dispatches success event', async () => {
+      const form = await setup();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+
+      const saveHandler = jest.fn();
+      const errorHandler = jest.fn();
+
+      form.addEventListener('w-autosave:save', saveHandler, { once: true });
+      form.addEventListener('w-autosave:error', errorHandler, { once: true });
+      const successEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:success', (event) => resolve(event), {
+          once: true,
+        });
+      });
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const [url, init] = fetch.mock.calls[0];
+      expect(url).toBe('http://localhost/autosave/');
+      expect(init.method).toBe('post');
+      expect(init.headers[WAGTAIL_CONFIG.CSRF_HEADER_NAME]).toBe(
+        WAGTAIL_CONFIG.CSRF_TOKEN,
+      );
+      expect(init.headers['X-Requested-With']).toBeUndefined();
+
+      const payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+
+      expect(saveHandler).toHaveBeenCalledTimes(1);
+      expect(errorHandler).not.toHaveBeenCalled();
+
+      const { detail: successEventDetail } = await successEvent;
+
+      expect(mockRAF).toHaveBeenCalledTimes(1);
+      const { response, trigger } = successEventDetail;
+      expect(response).toEqual({
+        success: true,
+        pk: 123,
+        revision_id: 456,
+      });
+      expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('does not submit when save event is prevented', async () => {
+      const form = await setup();
+      const blockSave = jest.fn((event) => event.preventDefault());
+      form.addEventListener('w-autosave:save', blockSave, { once: true });
+
+      await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(blockSave).toHaveBeenCalledTimes(1);
+      expect(fetch).not.toHaveBeenCalled();
+    });
+
+    it('does not submit when the first autosave has not completed', async () => {
+      const form = await setup();
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBeNull();
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      // Mock a second response in case the controller (incorrectly) makes a
+      // second fetch before the first one resolves.
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+
+      // Use sync advanceTimersByTime and avoid `await` between the two events
+      // so that microtasks don't flush — this keeps the first fetch's
+      // response pending while we trigger the second autosave.
+      dispatchUnsaved(form);
+      jest.advanceTimersByTime(500);
+      dispatchUnsaved(form);
+      jest.advanceTimersByTime(500);
+
+      // No second fetch should have been issued because the first response
+      // (and its revision_id) hasn't been processed yet.
+      expect(fetch).toHaveBeenCalledTimes(1);
+
+      // Now flush microtasks so the first fetch resolves and the controller
+      // processes its response.
+      await jest.advanceTimersByTimeAsync(0);
+
+      const [, init] = fetch.mock.calls[0];
+      const payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).not.toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBe(
+        '456',
+      );
+    });
+
+    it('does not submit when an existing (non-first) request has not completed', async () => {
+      const form = await setup();
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBeNull();
+
+      // Set up the first autosave and let it complete so we have a revision_id
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const [, init] = fetch.mock.calls[0];
+      const payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).not.toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBe(
+        '456',
+      );
+
+      fetch.mockReset();
+      const saveHandler = jest.fn();
+      form.addEventListener('w-autosave:save', saveHandler);
+
+      const events = [...Array(5).keys()].map(() => {
+        // Mock a response in case the controller (incorrectly) makes a  fetch
+        // before the existing one resolves.
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+        );
+        // Use sync advanceTimersByTime and avoid `await` between events so that
+        // microtasks don't flush — this keeps the existing fetch's response
+        // pending while we trigger the next autosave.
+        const event = dispatchUnsaved(form);
+        jest.advanceTimersByTime(500);
+        return event;
+      });
+
+      // Wait for the final debounce
+      await jest.advanceTimersByTimeAsync(500);
+      form.removeEventListener('w-autosave:save', saveHandler);
+
+      // Only two requests from the loop should be fired: the first one and the
+      // last one (the intermediate ones are ignored).
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(saveHandler).toHaveBeenCalledTimes(2);
+      expect(saveHandler.mock.calls[0][0].detail.trigger).toBe(await events[0]);
+      expect(saveHandler.mock.calls[1][0].detail.trigger).toBe(await events[4]);
+    });
+
+    it('allows changing the interval value for the debounce', async () => {
+      const form = await setup();
+      form.setAttribute('data-w-autosave-interval-value', '1000');
+      await Promise.resolve();
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({
+          success: true,
+          pk: 123,
+          revision_id: 456,
+          url: '/edit/123/',
+        }),
+      );
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(700);
+      expect(fetch).toHaveBeenCalledTimes(0);
+      await jest.advanceTimersByTimeAsync(300);
+      expect(fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('handling response data', () => {
+    it('reuses revision_id as the overwrite_revision_id for subsequent saves', async () => {
+      const form = await setup();
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBeNull();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      const unsavedEvent1 = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      let [, init] = fetch.mock.calls[0];
+      let payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).not.toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+
+      expect(form.getAttribute('data-w-autosave-revision-id-value')).toBe(
+        '456',
+      );
+
+      // Second autosave
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ success: true, pk: 123, revision_id: 456 }),
+      );
+      const unsavedEvent2 = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(2);
+      [, init] = fetch.mock.calls[1];
+      payload = Array.from(init.body.entries());
+      expect(payload).toEqual(
+        expect.arrayContaining([['title', 'Autosave title']]),
+      );
+      expect(payload).toEqual(
+        expect.arrayContaining([['overwrite_revision_id', '456']]),
+      );
+    });
+
+    it('handles field_updates in the response by updating form fields', async () => {
+      const form = await setup(/* html */ `
+          <input type="hidden" name="child_items-INITIAL_FORMS" value="6" id="id_child_items-INITIAL_FORMS">
+        `);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({
+          success: true,
+          pk: 123,
+          revision_id: 456,
+          field_updates: {
+            'child_items-INITIAL_FORMS': '7',
+            // this field does not exist in the form and should be ignored
+            'nonexistent-field': '999',
+          },
+        }),
+      );
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const childItemsInitialForms = form.querySelector(
+        '#id_child_items-INITIAL_FORMS',
+      );
+      expect(childItemsInitialForms.value).toBe('7');
+    });
+
+    it('updates form action and address bar URL if provided in response', async () => {
+      const form = await setup();
+      expect(form.action).toBe('http://localhost/autosave/');
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({
+          success: true,
+          pk: 123,
+          revision_id: 456,
+          url: '/edit/123/',
+        }),
+      );
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(form.action).toBe('http://localhost/edit/123/');
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        null,
+        '',
+        '/edit/123/',
+      );
+    });
+
+    it('loads HTML partials into the partials target if provided in response', async () => {
+      const form = await setup(/* html */ `
+          <div data-w-autosave-target="partials"></div>
+        `);
+      const partialsTarget = form.querySelector(
+        '[data-w-autosave-target="partials"]',
+      );
+      expect(partialsTarget.innerHTML).toBe('');
+      const html = /* html */ `
+        <template data-controller="w-teleport" data-w-teleport-target-value="[data-w-breadcrumbs]" data-w-teleport-mode-value="outerHTML">
+          <div data-w-breadcrumbs="">
+            Updated breadcrumbs
+          </div>
+        </template>
+      `.trim();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({
+          success: true,
+          pk: 123,
+          revision_id: 456,
+          html,
+        }),
+      );
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(partialsTarget.innerHTML).toBe(html);
+    });
+  });
+
+  describe('hydrating the view via hydrate_url', () => {
+    let form;
+    let partialsTarget;
+    const successResponse = {
+      success: true,
+      pk: 123,
+      revision_id: 456,
+      hydrate_url: '/edit/123/?_w_hydrate_create_view=1',
+    };
+
+    beforeEach(async () => {
+      form = await setup(/* html */ `
+          <div data-w-autosave-target="partials"></div>
+        `);
+      partialsTarget = form.querySelector(
+        '[data-w-autosave-target="partials"]',
+      );
+      fetch.mockResponseSuccessJSON(JSON.stringify(successResponse));
+    });
+
+    it('fetches and injects HTML from hydrate_url into the partials target', async () => {
+      expect(partialsTarget.innerHTML).toBe('');
+
+      const hydrateHtml = /* html */ `
+        <template data-controller="w-teleport" data-w-teleport-target-value="[data-w-breadcrumbs]" data-w-teleport-mode-value="outerHTML">
+          <div data-w-breadcrumbs="">
+            Hydrated breadcrumbs
+          </div>
+        </template>
+      `.trim();
+
+      fetch.mockResponseSuccessText(hydrateHtml);
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(fetch.mock.calls[1][0]).toBe(
+        '/edit/123/?_w_hydrate_create_view=1',
+      );
+      expect(partialsTarget.innerHTML).toBe(hydrateHtml);
+    });
+
+    describe('error handling for hydration requests', () => {
+      it('gracefully ignores hydration if partials target is unavailable', async () => {
+        partialsTarget.remove();
+        fetch.mockResponseSuccessText('A bottle of water');
+
+        jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementationOnce((callback) => callback());
+        const successListener = jest.fn();
+        form.addEventListener('w-autosave:success', successListener, {
+          once: true,
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+        expect(document.body.innerHTML).not.toContain('A bottle of water');
+        expect(successListener).toHaveBeenCalledTimes(1);
+      });
+
+      it('dispatches an error event when the fetch fails', async () => {
+        expect(partialsTarget.innerHTML).toBe('');
+
+        fetch.mockResponseCrash();
+
+        const errorEvent = new Promise((resolve) => {
+          form.addEventListener('w-autosave:error', (event) => resolve(event), {
+            once: true,
+          });
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+
+        const { detail: errorEventDetail } = await errorEvent;
+
+        const { response, error, trigger, text } = errorEventDetail;
+        expect(response).toEqual(successResponse);
+        expect(error).toBeInstanceOf(HydrationError);
+        expect(error.code).toBe(ClientErrorCode.NETWORK_ERROR);
+        expect(trigger).toBe(unsavedEvent);
+        expect(text).toBe('A network error occurred.');
+      });
+
+      it('dispatches an error event when the server responds with an error', async () => {
+        expect(partialsTarget.innerHTML).toBe('');
+
+        fetch.mockResponseFailure();
+
+        const errorEvent = new Promise((resolve) => {
+          form.addEventListener('w-autosave:error', (event) => resolve(event), {
+            once: true,
+          });
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+
+        const { detail: errorEventDetail } = await errorEvent;
+
+        const { response, error, trigger, text } = errorEventDetail;
+        expect(response).toEqual(successResponse);
+        expect(error).toBeInstanceOf(HydrationError);
+        expect(error.code).toBe(ClientErrorCode.SERVER_ERROR);
+        expect(trigger).toBe(unsavedEvent);
+        expect(text).toBe('A server error occurred.');
+      });
+
+      it('dispatches an error event when fetch fails for any other reason', async () => {
+        expect(partialsTarget.innerHTML).toBe('');
+
+        fetch.mockImplementationOnce(() =>
+          Promise.resolve({
+            // Unlikely but possible case where fetch resolves but
+            // reading the body fails
+            text: () => Promise.reject(new Error('Unexpected error')),
+            ok: true,
+            status: 200,
+            statusText: 'OK',
+          }),
+        );
+
+        const errorEvent = new Promise((resolve) => {
+          form.addEventListener('w-autosave:error', (event) => resolve(event), {
+            once: true,
+          });
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+
+        const { detail: errorEventDetail } = await errorEvent;
+
+        const { response, error, trigger, text } = errorEventDetail;
+        expect(response).toEqual(successResponse);
+        expect(error).toBeInstanceOf(HydrationError);
+        expect(error.code).toBe(ClientErrorCode.SERVER_ERROR);
+        expect(trigger).toBe(unsavedEvent);
+        expect(text).toBe('A server error occurred.');
+      });
+    });
+  });
+
+  describe('error handling for autosave requests', () => {
+    it('dispatches an error event when the server responds with an error payload', async () => {
+      const form = await setup();
+
+      fetch.mockResponseBadRequest(
+        JSON.stringify({
+          success: false,
+          error_code: 'validation_error',
+          error_message: 'Validation error',
+        }),
+      );
+
+      const errorEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:error', (event) => resolve(event), {
+          once: true,
+        });
+      });
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      const { detail: errorEventDetail } = await errorEvent;
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const { response, error, trigger } = errorEventDetail;
+      expect(response).toEqual({
+        success: false,
+        error_code: 'validation_error',
+        error_message: 'Validation error',
+      });
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe('Validation error');
+      expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('deactivates autosave after an invalid_revision error', async () => {
+      const form = await setup();
+
+      const serverResponse = {
+        success: false,
+        error_code: 'invalid_revision',
+        error_message: 'Invalid revision',
+      };
+
+      fetch.mockResponseBadRequest(JSON.stringify(serverResponse));
+
+      const errorEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:error', (event) => resolve(event), {
+          once: true,
+        });
+      });
+      const finishError = Promise.withResolvers();
+      const deactivatedHandler = jest.fn();
+      const deactivatedEvent = new Promise((resolve) => {
+        form.addEventListener(
+          'w-autosave:deactivated',
+          async (event) => {
+            // Ensure deactivated event is dispatched after error event
+            await finishError.promise;
+            deactivatedHandler();
+            resolve(event);
+          },
+          {
+            once: true,
+          },
+        );
+      });
+
+      const unsavedEvent1 = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(1);
+
+      const { detail: errorEventDetail } = await errorEvent;
+      expect(errorEventDetail.response).toEqual(serverResponse);
+      expect(errorEventDetail.error).toBeInstanceOf(Error);
+      expect(errorEventDetail.error.message).toBe('Invalid revision');
+      expect(errorEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).not.toHaveBeenCalled();
+
+      finishError.resolve();
+
+      const { detail: deactivatedEventDetail } = await deactivatedEvent;
+      expect(deactivatedEventDetail.response).toEqual(serverResponse);
+      expect(deactivatedEventDetail.error).toBeInstanceOf(Error);
+      expect(deactivatedEventDetail.error.message).toBe('Invalid revision');
+      expect(deactivatedEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).toHaveBeenCalledTimes(1);
+
+      // Should have deactivated autosave
+      expect(form.getAttribute('data-w-autosave-active-value')).toBe('false');
+
+      // Subsequent unsaved events do not trigger autosave
+      const unsavedEvent2 = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(1); // still 1, no new call
+    });
+
+    it('dispatches an error event when the server response with an unknown JSON response', async () => {
+      const form = await setup();
+
+      fetch.mockResponseSuccessJSON(JSON.stringify({ unexpected: 'value' }));
+
+      const errorEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:error', (event) => resolve(event), {
+          once: true,
+        });
+      });
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      const { detail: errorEventDetail } = await errorEvent;
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const { response, error, trigger } = errorEventDetail;
+      // Response is defined because JSON parsing succeeded
+      expect(response).toEqual({ unexpected: 'value' });
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe('Unknown error');
+      expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('dispatches an error event when the server response with a non-JSON response', async () => {
+      const form = await setup();
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: async () => JSON.parse('Invalid JSON'),
+        }),
+      );
+
+      const errorEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:error', (event) => resolve(event), {
+          once: true,
+        });
+      });
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      const { detail: errorEventDetail } = await errorEvent;
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const { response, error, trigger } = errorEventDetail;
+      // Response only defined when JSON parsing succeeds
+      expect(response).toBeNull();
+      expect(error).toBeInstanceOf(SyntaxError);
+      expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('dispatches an error event when fetch rejects', async () => {
+      const form = await setup();
+
+      fetch.mockResponseCrash();
+
+      const errorEvent = new Promise((resolve) => {
+        form.addEventListener('w-autosave:error', (event) => resolve(event), {
+          once: true,
+        });
+      });
+
+      const unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+
+      const { detail: errorEventDetail } = await errorEvent;
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const { response, error, trigger } = errorEventDetail;
+      expect(response).toBeNull();
+      expect(error).toEqual({ status: 500, statusText: 'Internal Error' });
+      expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('retries with exponential backoff on network errors', async () => {
+      const form = await setup();
+      const networkError = new TypeError('Failed to fetch');
+
+      const errorListener = jest.fn();
+      form.addEventListener('w-autosave:error', errorListener);
+
+      let unsavedEvent = await dispatchUnsaved(form);
+
+      const expectSaveAttempt = async (n) => {
+        // Fetch not fired until the 500ms debounce
+        expect(fetch).toHaveBeenCalledTimes(n - 1);
+        fetch.mockImplementationOnce(() => Promise.reject(networkError));
+        await jest.advanceTimersByTimeAsync(500);
+        expect(fetch).toHaveBeenCalledTimes(n);
+        expect(errorListener).toHaveBeenCalledTimes(n);
+        const errorEventDetail = errorListener.mock.calls[n - 1][0].detail;
+        const { response, error, trigger } = errorEventDetail;
+        expect(response).toBeNull();
+        expect(error).toEqual(networkError);
+        expect(trigger).toBe(unsavedEvent);
+      };
+
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate the user making another change in between retries
+      // (but before the 'unsaved' event is dispatched)
+      const input = form.querySelector('input[name="title"]');
+      input.value = 'Updated title';
+
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      // The retry should use the latest data in the payload
+      expect(fetch.mock.calls[3][1].body.get('title')).toBe('Updated title');
+
+      const saveHandler = jest.fn();
+      form.addEventListener('w-autosave:save', saveHandler, { once: true });
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      expect(saveHandler).toHaveBeenCalledTimes(1);
+
+      await jest.advanceTimersByTimeAsync(32500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      // Should trigger a new save immediately,
+      // and any errors should trigger a new retry sequence
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // If another save attempt is made in between retries, and it also fails,
+      // keep the existing retry schedule and don't start a new one
+      input.value = 'Yet another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(7000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(1000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      // If the error is a server error instead of a network error, do not retry
+      fetch.mockResponseFailure();
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+      await jest.advanceTimersByTimeAsync(32500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      // Trigger a new save attempt to ensure retries are cleared after a server error
+      input.value = 'Try again';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate another trigger (not from retry) in between retries and it's successful
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+      input.value = 'Now it succeeds';
+      unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(8500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(4);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Max retries';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(16000);
+      await expectSaveAttempt(5);
+      await jest.advanceTimersByTimeAsync(32000);
+      await expectSaveAttempt(6);
+      await jest.advanceTimersByTimeAsync(64500);
+      // 1 initial attempt, 5 retries max
+      expect(fetch).toHaveBeenCalledTimes(6);
+
+      form.removeEventListener('w-autosave:error', errorListener);
+    });
+  });
+
+  describe('indicator behavior', () => {
+    let form;
+
+    beforeEach(async () => {
+      form = await setup();
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+        <div
+          id="w-autosave-indicator"
+          data-controller="w-tooltip w-autosave"
+          data-w-tooltip-content-value=""
+          data-action="
+            w-autosave:save@document->w-autosave#updateIndicator
+            w-autosave:success@document->w-autosave#updateIndicator
+            w-autosave:error@document->w-autosave#updateIndicator
+            unknown-event@document->w-autosave#updateIndicator
+          "
+        >
+        </div>
+      `,
+      );
+      await Promise.resolve();
+    });
+
+    it('updates the state value and tooltip content based on events', async () => {
+      const indicator = document.getElementById('w-autosave-indicator');
+
+      const getIndicatorState = () =>
+        indicator.getAttribute('data-w-autosave-state-value');
+      const getTooltipContent = () =>
+        indicator.getAttribute('data-w-tooltip-content-value');
+
+      // Initial state
+      expect(getIndicatorState()).toBe(null);
+      expect(getTooltipContent()).toBe('');
+
+      // On save
+      const saveEvent = new CustomEvent('w-autosave:save', {
+        bubbles: true,
+      });
+      form.dispatchEvent(saveEvent);
+      await Promise.resolve();
+
+      expect(getIndicatorState()).toBe('saving');
+      expect(getTooltipContent()).toBe('Autosave in progress…');
+
+      // On success
+      const successEvent = new CustomEvent('w-autosave:success', {
+        bubbles: true,
+      });
+      form.dispatchEvent(successEvent);
+      await Promise.resolve();
+
+      expect(getIndicatorState()).toBe('saved');
+      expect(getTooltipContent()).toBe('Changes have been autosaved.');
+
+      // On error
+      const errorEvent = new CustomEvent('w-autosave:error', {
+        bubbles: true,
+        detail: {
+          text: 'Some error text.',
+        },
+      });
+      form.dispatchEvent(errorEvent);
+      await Promise.resolve();
+
+      expect(getIndicatorState()).toBe('paused');
+      expect(getTooltipContent()).toBe('Some error text.');
+
+      // On unknown event - should default to idle
+      const unknownEvent = new CustomEvent('unknown-event', {
+        bubbles: true,
+      });
+      form.dispatchEvent(unknownEvent);
+      await Promise.resolve();
+
+      expect(getIndicatorState()).toBe('idle');
+      expect(getTooltipContent()).toBe('');
+    });
+  });
+});

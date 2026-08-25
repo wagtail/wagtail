@@ -19,7 +19,7 @@ class ReorderView(PermissionCheckedMixin, View):
         return self.model._default_manager.all().order_by(self.sort_order_field)
 
     def post(self, request, *args, **kwargs):
-        item_to_move = get_object_or_404(self.model, pk=unquote(kwargs.get("pk")))
+        item_to_move = get_object_or_404(self.model, pk=unquote(str(kwargs.get("pk"))))
 
         try:
             # Position is an index in the list of items,

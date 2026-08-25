@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -51,6 +51,9 @@ msgstr "输入和上面一样的密码用于验证"
 msgid "Administrator"
 msgstr "管理员"
 
+msgid "Active"
+msgstr "有效"
+
 msgid "Delete"
 msgstr "删除"
 
@@ -69,8 +72,11 @@ msgstr "账号"
 msgid "Roles"
 msgstr "角色"
 
-msgid "Active"
-msgstr "有效"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr "没有用户. 为什么不 <a href=\"%(wagtailusers_add_url)s\">添加一个</a>?"
 
 msgid "Inactive"
 msgstr "无效"
@@ -86,6 +92,10 @@ msgstr "用户名"
 
 msgid "Admin"
 msgstr "管理"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "用户 '%(object)s' 已创建"
 
 msgid "Add user"
 msgstr "添加用户"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,29 +41,18 @@ msgstr "項目の最小数は%(min_num)dです。"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "項目の最大数は%(max_num)dです。"
 
-msgid "Move up"
-msgstr "上に移動"
-
-msgid "Move down"
-msgstr "下に移動"
-
-msgid "Drag"
-msgstr "ドラッグ"
-
-msgid "Duplicate"
-msgstr "複製"
-
-msgid "Delete"
-msgstr "削除"
-
-msgid "Add"
-msgstr "追加"
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: このブロックはオプションがありません。"
 
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
 
 msgid "This field is required."
 msgstr "この項目は必須です。"
+
+msgid "Group"
+msgstr "グループ"
 
 msgid "Password"
 msgstr "パスワード"
@@ -79,6 +68,12 @@ msgstr "ロックあり"
 
 msgid "Unlocked"
 msgstr "ロックなし"
+
+msgid "user"
+msgstr "ユーザ"
+
+msgid "name"
+msgstr "名前"
 
 msgid "content type"
 msgstr "コンテンツの種類"
@@ -143,9 +138,6 @@ msgstr "コレクションページ閲覧の権限"
 msgid "collection view restrictions"
 msgstr "コレクションページ閲覧の権限"
 
-msgid "name"
-msgstr "名前"
-
 msgid "collections"
 msgstr "コレクション"
 
@@ -163,6 +155,9 @@ msgstr "グループコレクションの権限"
 
 msgid "uploaded by user"
 msgstr "アップロードしたユーザ"
+
+msgid "Add"
+msgstr "追加"
 
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"
@@ -191,6 +186,12 @@ msgstr "ページを公開"
 msgid "Unlock"
 msgstr "ロックを解除"
 
+msgid "page"
+msgstr "ページ"
+
+msgid "pages"
+msgstr "ページ"
+
 msgid "title"
 msgstr "タイトル"
 
@@ -211,8 +212,8 @@ msgstr "URLパス"
 msgid "owner"
 msgstr "オーナー"
 
-msgid "title tag"
-msgstr "title タグ"
+msgid "latest revision created at"
+msgstr "最終更新日時"
 
 msgid "show in menus"
 msgstr "メニューに表示"
@@ -220,6 +221,12 @@ msgstr "メニューに表示"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "このページへのリンクを自動生成されたメニューに表示しますか？"
+
+msgid "For site menus"
+msgstr "サイトメニューのため"
+
+msgid "title tag"
+msgstr "title タグ"
 
 msgid "meta description"
 msgstr "meta description"
@@ -229,20 +236,8 @@ msgid ""
 "results."
 msgstr "検索エンジンの検索結果でヘッドラインの下に表示される説明テキスト。"
 
-msgid "latest revision created at"
-msgstr "最終更新日時"
-
 msgid "For search engines"
 msgstr "検索エンジンのため"
-
-msgid "For site menus"
-msgstr "サイトメニューのため"
-
-msgid "page"
-msgstr "ページ"
-
-msgid "pages"
-msgstr "ページ"
 
 msgid "group page permission"
 msgstr "グループページの権限"
@@ -288,9 +283,6 @@ msgstr "デフォルト"
 
 msgid "created at"
 msgstr "作成日"
-
-msgid "user"
-msgstr "ユーザ"
 
 msgid "content JSON"
 msgstr "JSONコンテンツ"
@@ -445,6 +437,9 @@ msgstr "作成"
 
 msgid "Edited"
 msgstr "編集"
+
+msgid "Delete"
+msgstr "削除"
 
 msgid "Unpublish"
 msgstr "非公開"

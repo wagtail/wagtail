@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -77,9 +77,6 @@ msgstr "Admin Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Desculpe, não tem permissão para aceder a esta área."
-
-msgid "You do not have permission to access the admin"
-msgstr "Não tem permissão para aceder à administração"
 
 msgid "None"
 msgstr "Nenhum"
@@ -158,9 +155,6 @@ msgstr ""
 "Selecione a posição hierárquica. Nota: a coleção não pode ser filha de si "
 "própria nem dos seus descendentes."
 
-msgid "Please select another parent"
-msgstr "Por favor selecione outro progenitor"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Não é permitido ter múltiplos registos de permissões para a mesma coleção. "
@@ -188,9 +182,6 @@ msgstr "Não pode alterar o comentário de outro utilizador"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "A data/hora de publicação tem de ser anterior à data/hora final"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A data/hora final deve ficar no futuro"
 
 msgid "New title"
 msgstr "Novo título"
@@ -263,10 +254,6 @@ msgstr ""
 "Não pode copiar uma página para dentro dela própria quando está a copiar "
 "páginas-filha"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "A referência '%(page_slug)s' já está em uso dentro da página-mãe"
-
 msgid "Select a new parent for this page."
 msgstr "Selecione uma nova página-mãe para esta página"
 
@@ -275,11 +262,6 @@ msgstr "Página-mãe"
 
 msgid "Search…"
 msgstr "Procurar..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"As etiquetas %(value_too_long)s estão acima de %(max_tag_length)d caracteres"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -606,9 +588,6 @@ msgstr "A coleção foi tornada privada por uma coleção-mãe."
 msgid "You can edit the privacy settings on:"
 msgstr "Pode alterar as definições de privacidade em:"
 
-msgid "Save"
-msgstr "Gravar"
-
 msgid "Change privacy"
 msgstr "Alterar privacidade"
 
@@ -675,11 +654,13 @@ msgstr "Publicar %(model_name)s"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgid "Actions"
-msgstr "Ações"
-
 msgid "Comment"
 msgstr "Comentar"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Ações"
 
 msgid "Update"
 msgstr "Atualizar"
@@ -1195,23 +1176,15 @@ msgstr "Explorar as filhas da página '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar filha à página %(title)s"
 
-msgid "Drag"
-msgstr "Arrastar"
-
-msgid "Disable ordering of child pages"
-msgstr "Desativar ordenação de páginas-filha"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Ativar ordenação de páginas-filha"
-
 msgid "Sites menu"
 msgstr "Menu de Sites"
 
 msgid "Pagination"
 msgstr "Paginação"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Página %(page_number)s de %(num_pages)s."
 
 msgid "Previous"
 msgstr "Anterior"
@@ -1224,9 +1197,6 @@ msgstr "Esta página está protegida da visualização pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Adicionar página-filha"
 
 msgid "Page types"
 msgstr "Tipos de página"
@@ -1247,6 +1217,9 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Descer"
+
+msgid "Drag"
+msgstr "Arrastar"
 
 msgid "Collection management permissions"
 msgstr "Permissões de gestão de coleção"
@@ -1366,6 +1339,9 @@ msgstr "Não, não desmarcar"
 msgid "Other searches"
 msgstr "Outras pesquisas"
 
+msgid "Save"
+msgstr "Gravar"
+
 msgid "Comment notifications"
 msgstr "Notificações de comentário"
 
@@ -1389,14 +1365,12 @@ msgstr[0] "Utilizado %(usage_count)s vez"
 msgstr[1] "Utilizado %(usage_count)s vezes"
 msgstr[2] "Utilizado %(usage_count)s vezes"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "por %(user)s"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tem <span>alterações por gravar</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Tem <span>comentários por gravar </span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Tem <span>alterações</span> e <span>comentários</span> por gravar"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1432,6 +1406,9 @@ msgstr "Esta página ainda não foi enviada para moderação"
 
 msgid "Skip to main content"
 msgstr "Saltar para o conteúdo principal"
+
+msgid "Sort"
+msgstr "Ordenar"
 
 msgid "View Wagtail quick actions"
 msgstr "Visualizar as ações rápidas do Wagtail"
@@ -1598,14 +1575,17 @@ msgstr "%(time_period)s atrás"
 msgid "Log out"
 msgstr "Sair"
 
+msgid "Toggle sidebar"
+msgstr "Alternar estado da barra lateral"
+
 msgid "Undo"
 msgstr "Desfazer"
 
 msgid "Redo"
 msgstr "Refazer"
 
-msgid "Toggle sidebar"
-msgstr "Alternar estado da barra lateral"
+msgid "Bold"
+msgstr "Negrito"
 
 msgid "Italic"
 msgstr "Itálico"
@@ -1732,12 +1712,28 @@ msgstr "%(model_name)s '%(object)s' criado."
 msgid "Inspect"
 msgstr "Inspecionar"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Adicionar %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Não foi possível criar %(model_name)s devido a erros."
+
 msgid "Editing"
 msgstr "A alterar"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "O %(model_name)s não pôde ser gravado devido a erros."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' apagado."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Tem a certeza que quer apagar este %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Mais antigos"
@@ -1745,8 +1741,17 @@ msgstr "Mais antigos"
 msgid "Latest"
 msgstr "Mais recentes"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr ""
+"A publicação da versão %(revision_id)s de \"%(object)s\" foi desmarcada."
+
 msgid "Unschedule"
 msgstr "Desmarcar"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "versão %(revision_id)s de \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1806,9 +1811,6 @@ msgstr "Página '%(page_title)s' criada e publicada."
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Página '%(page_title)s' criada e enviada para moderação."
-
-msgid "The page could not be created due to validation errors"
-msgstr "Esta página não pôde ser criada devido a erros de validação"
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -1870,12 +1872,6 @@ msgstr "A página '%(page_title)s' foi enviada para moderação."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "O fluxo de trabalho na página '%(page_title)s' foi reiniciado."
 
-msgid "The page could not be saved as it is locked"
-msgstr "A página não pôde ser guardada por estar trancada"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "A página não pôde ser guardada devido a erros de validação"
-
 msgid "Owner"
 msgstr "Dono"
 
@@ -1885,17 +1881,12 @@ msgstr "Site"
 msgid "Yes"
 msgstr "Sim"
 
+msgid "Add child page"
+msgstr "Adicionar página-filha"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "A página '%(page_title)s' foi destrancada."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"A referência '%(page_slug)s' já está em uso na página-mãe selecionada. "
-"Certifique-se que a referência é única e tente outra vez."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2063,9 +2054,6 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloco de citação"
-
-msgid "Bold"
-msgstr "Negrito"
 
 msgid "Link"
 msgstr "Ligação"

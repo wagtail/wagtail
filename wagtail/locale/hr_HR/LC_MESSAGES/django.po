@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -36,21 +36,6 @@ msgstr "Minimalni broj stavki iznosi %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksimalni broj stavki iznosi %(max_num)d"
-
-msgid "Move up"
-msgstr "Pomakni prema gore"
-
-msgid "Move down"
-msgstr "Pomakni prema dolje"
-
-msgid "Drag"
-msgstr "Povucite"
-
-msgid "Delete"
-msgstr "Izbriši"
-
-msgid "Add"
-msgstr "Dodaj"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -115,6 +100,12 @@ msgstr "Otključano"
 
 msgid "Locked by workflow"
 msgstr "Zaključao tijek rada"
+
+msgid "user"
+msgstr "korisnik"
+
+msgid "name"
+msgstr "naziv"
 
 msgid "content type"
 msgstr "vrsta sadržaja"
@@ -185,9 +176,6 @@ msgstr "ograničenje pogleda zbirke"
 msgid "collection view restrictions"
 msgstr "ograničenje pogleda zbirki"
 
-msgid "name"
-msgstr "naziv"
-
 msgid "collections"
 msgstr "zbirke"
 
@@ -205,6 +193,9 @@ msgstr "Grupne dozvole zbirke"
 
 msgid "uploaded by user"
 msgstr "Prenio korisnik"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi vlastite stranice"
@@ -239,6 +230,12 @@ msgstr "Otključavanje"
 msgid "Unlock any page"
 msgstr "Otključavanje bilo koje stranice"
 
+msgid "page"
+msgstr "stranica"
+
+msgid "pages"
+msgstr "stranice"
+
 msgid "title"
 msgstr "naslov"
 
@@ -261,6 +258,17 @@ msgstr "URL putanja"
 msgid "owner"
 msgstr "vlasnik"
 
+msgid "latest revision created at"
+msgstr "zadnja revizija stvorena"
+
+msgid "show in menus"
+msgstr "prikaži u izborniku"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Hoće li se poveznica na ovu stranicu pojavljivati u generiranim izbornicima"
+
 msgid "title tag"
 msgstr "Oznaka naslova"
 
@@ -271,14 +279,6 @@ msgstr ""
 "Naziv stranice prikazan u rezultatima tražilica kao naslov koji se može "
 "kliknuti."
 
-msgid "show in menus"
-msgstr "prikaži u izborniku"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Hoće li se poveznica na ovu stranicu pojavljivati u generiranim izbornicima"
-
 msgid "meta description"
 msgstr "meta opis"
 
@@ -287,15 +287,6 @@ msgid ""
 "results."
 msgstr ""
 "Tekstualni opis prikazan ispod naslova stranice u rezultatima tražilica."
-
-msgid "latest revision created at"
-msgstr "zadnja revizija stvorena"
-
-msgid "page"
-msgstr "stranica"
-
-msgid "pages"
-msgstr "stranice"
 
 msgid "group page permission"
 msgstr "Grupna dozvola stranice"
@@ -336,9 +327,6 @@ msgstr "%(model_name)s će također biti izbrisano"
 
 msgid "created at"
 msgstr "stvoreno u"
-
-msgid "user"
-msgstr "korisnik"
 
 msgid "content JSON"
 msgstr "sadržaj JSON"
@@ -576,6 +564,9 @@ msgstr "Stvoreno"
 msgid "Edited"
 msgstr "Uređeno"
 
+msgid "Delete"
+msgstr "Izbriši"
+
 msgid "Deleted"
 msgstr "Izbrisano"
 
@@ -669,22 +660,8 @@ msgstr "Premješteno"
 msgid "Schedule publication"
 msgstr "Zakaži objavu"
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Stranici je zakazano objavljivanje u %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Stranici je zakazano objavljivanje"
-
 msgid "Unschedule publication"
 msgstr "Otkaži objavu"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Stranici je otkazano objavljivanje u %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Stranici je otkazano objavljivanje"
 
 msgid "Add view restrictions"
 msgstr "Dodaj ograničenja pogleda"

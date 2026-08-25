@@ -16,7 +16,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.models import Page
+from wagtail.models import AbstractPage
 from wagtail.utils.registry import ModelFieldRegistry
 
 # Define a registry of form field properties to override for a given model field
@@ -71,7 +71,7 @@ register_form_field_override(
 # Page chooser
 register_form_field_override(
     models.ForeignKey,
-    to=Page,
+    to=AbstractPage,
     override=lambda db_field: {
         "widget": widgets.AdminPageChooser(target_models=[db_field.remote_field.model])
     },
@@ -91,8 +91,8 @@ register_form_field_override(
     override={"widget": widgets.SlugInput},
 )
 
-# Remove the following block when the minimum Django version is >= 5.0.
-if (5, 0) <= DJANGO_VERSION < (6, 0):
+# Remove the following block when the minimum Django version is >= 6.0.
+if DJANGO_VERSION < (6, 0):
     register_form_field_override(
         models.URLField,
         override={"assume_scheme": "https"},
@@ -136,12 +136,21 @@ class WagtailAdminModelForm(
         self.for_user = kwargs.get("for_user")
         self.deferred_required_fields = []
         self.deferred_formset_min_nums = {}
+        self.is_deferred_validation = False
         super().__init__(*args, **kwargs)
 
     def defer_required_fields(self):
-        if self.deferred_required_fields or self.deferred_formset_min_nums:
+        if self.is_deferred_validation:
             # defer_required_fields has already been called
             return
+        self.is_deferred_validation = True
+
+        for field in self.fields.values():
+            # Set a flag on the field to indicate a deferred validation
+            # is in effect, regardless of its required attribute and regardless
+            # of whether it was added to defer_required_on_fields, to allow
+            # custom form fields to adjust their validation behavior accordingly.
+            field.is_deferred_validation = True
 
         for field_name in self._meta.defer_required_on_fields:
             try:
@@ -159,6 +168,9 @@ class WagtailAdminModelForm(
                 formset.min_num = 0
 
     def restore_required_fields(self):
+        if not self.is_deferred_validation:
+            # Has been restored or defer_required_fields has not been called
+            return
         for name, formset in self.formsets.items():
             for form in formset:
                 form.restore_required_fields()
@@ -169,6 +181,47 @@ class WagtailAdminModelForm(
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True
         self.deferred_required_fields = []
+
+        for field in self.fields.values():
+            del field.is_deferred_validation
+
+        self.is_deferred_validation = False
+
+    def get_field_updates_for_resave(self):
+        """
+        Following a successful save (as a background HTTP request), returns a list of
+        form field updates - as (name, new_value) tuples - that can be applied to the
+        form in the still-open page to make it valid for subsequent submissions. This
+        includes populating the IDs of child objects within formsets - without this,
+        subsequent submissions would create duplicates of these objects.
+        """
+        updates = []
+        for formset in self.formsets.values():
+            if formset.total_form_count() != formset.initial_form_count():
+                updates.append(
+                    (
+                        f"{formset.management_form.prefix}-INITIAL_FORMS",
+                        str(formset.total_form_count()),
+                    )
+                )
+
+            for form in formset.forms:
+                id_field_name = f"{form.prefix}-id"
+
+                if formset.can_delete and formset._should_delete_form(form):
+                    if self.data.get(id_field_name):
+                        # Form will remain in the formset as a deleted form;
+                        # clear its ID so that it's skipped over on next submission
+                        # like an added-and-immediately-deleted form would be
+                        updates.append((id_field_name, ""))
+                else:
+                    updates.extend(form.get_field_updates_for_resave())
+                    if form.instance.pk and not self.data.get(id_field_name):
+                        # instance has a PK but the form data doesn't include it - it must have
+                        # been created during the save we just performed
+                        updates.append((id_field_name, str(form.instance.pk)))
+
+        return updates
 
     class Meta:
         formfield_callback = formfield_for_dbfield

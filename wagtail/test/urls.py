@@ -9,6 +9,7 @@ from wagtail.admin.views import home
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.api.v2.tests.test_pages import Test10411APIViewSet
 from wagtail.api.v2.views import PagesAPIViewSet
+from wagtail.api.v3.urls import api as v3_api
 from wagtail.contrib.redirects.api import RedirectsAPIViewSet
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.sitemaps import views as sitemaps_views
@@ -34,6 +35,7 @@ urlpatterns = [
     path("testimages/", include(wagtailimages_test_urls)),
     path("images/", include(wagtailimages_urls)),
     path("api/main/", api_router.urls),
+    path("api/v3/", v3_api.urls),
     path("sitemap.xml", sitemaps_views.sitemap),
     path(
         "sitemap-index.xml",

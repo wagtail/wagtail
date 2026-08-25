@@ -10,16 +10,16 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2022
+# Marco Badan <marco.badan@gmail.com>, 2022,2026
 # Marco Lerco <marcolerco@gmail.com>, 2021
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-msgid "default"
-msgstr "default"
-
 msgid "Sites"
 msgstr "Siti"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s permessi"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
@@ -41,6 +42,9 @@ msgstr "%(site_setting)s per %(site)s"
 
 msgid "Site"
 msgstr "Sito"
+
+msgid "default"
+msgstr "default"
 
 msgid "Settings"
 msgstr "Impostazioni"

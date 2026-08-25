@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -31,26 +31,18 @@ msgstr "Minimálne množstvo je %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maximálne množstvo je %(max_num)d"
 
-msgid "Move up"
-msgstr "Posunúť vyššie"
-
-msgid "Move down"
-msgstr "Posunúť nižšie"
-
-msgid "Drag"
-msgstr "Potiahnuť"
-
-msgid "Delete"
-msgstr "Vymazať"
-
-msgid "Add"
-msgstr "Pridať"
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: tento odstavec nemá žiadne voľby."
 
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "Group"
+msgstr "Skupina"
 
 msgid "Password"
 msgstr "Heslo"
@@ -63,6 +55,12 @@ msgstr "Zamknuté"
 
 msgid "Unlocked"
 msgstr "Odomknuté"
+
+msgid "user"
+msgstr "používateľ"
+
+msgid "name"
+msgstr "názov"
 
 msgid "content type"
 msgstr "typ obsahu"
@@ -109,9 +107,6 @@ msgstr "obmedzenie zobrazenia kolekcie"
 msgid "collection view restrictions"
 msgstr "obmedzenia zobrazenia kolekcie"
 
-msgid "name"
-msgstr "názov"
-
 msgid "collections"
 msgstr "kolekcie"
 
@@ -126,6 +121,9 @@ msgstr "oprávnenia skupiny ku kolekcii"
 
 msgid "uploaded by user"
 msgstr "nahral používateľ"
+
+msgid "Add"
+msgstr "Pridať"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"
@@ -151,6 +149,12 @@ msgstr "Publikovať"
 msgid "Publish any page"
 msgstr "Publikovať akúkoľvek stránku"
 
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
 msgid "title"
 msgstr "titulok"
 
@@ -173,21 +177,15 @@ msgstr "URL cesta"
 msgid "owner"
 msgstr "vlastník"
 
+msgid "latest revision created at"
+msgstr "posledná revízia vytvorená"
+
 msgid "show in menus"
 msgstr "zobraziť v menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
-
-msgid "latest revision created at"
-msgstr "posledná revízia vytvorená"
-
-msgid "page"
-msgstr "stránka"
-
-msgid "pages"
-msgstr "stránky"
 
 msgid "group page permission"
 msgstr "skupinové oprávnenie stránky"
@@ -206,9 +204,6 @@ msgstr "Predvolené"
 
 msgid "created at"
 msgstr "vytvorené"
-
-msgid "user"
-msgstr "používateľ"
 
 msgid "content JSON"
 msgstr "obsah JSON"
@@ -309,6 +304,9 @@ msgstr "Pokračovať"
 
 msgid "Edited"
 msgstr "Upravené"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "Unpublish"
 msgstr "Odpublikovať"

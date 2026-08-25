@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -49,24 +49,6 @@ msgstr "条目的最小数是%(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "条目的最大数是%(max_num)d"
 
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Drag"
-msgstr "拖曳"
-
-msgid "Duplicate"
-msgstr "创建副本"
-
-msgid "Delete"
-msgstr "删除"
-
-msgid "Add"
-msgstr "添加"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s：这个区块没有选项。"
@@ -76,6 +58,9 @@ msgstr "这个区块没有选项"
 
 msgid "This field is required."
 msgstr "这个字段是必需的。"
+
+msgid "Group"
+msgstr "组"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail 前端缓存"
@@ -97,6 +82,12 @@ msgstr "已锁定"
 
 msgid "Unlocked"
 msgstr "已解锁"
+
+msgid "user"
+msgstr "用户"
+
+msgid "name"
+msgstr "名字"
 
 msgid "content type"
 msgstr "内容类型"
@@ -181,9 +172,6 @@ msgstr "集合查看限制"
 msgid "collection view restrictions"
 msgstr "集合查看限制"
 
-msgid "name"
-msgstr "名字"
-
 msgid "collections"
 msgstr "集合"
 
@@ -201,6 +189,9 @@ msgstr "群组集合权限"
 
 msgid "uploaded by user"
 msgstr "用户上传"
+
+msgid "Add"
+msgstr "添加"
 
 msgid "Add/edit pages you own"
 msgstr "添加/编辑所属的页面"
@@ -235,6 +226,12 @@ msgstr "解锁"
 msgid "Unlock any page"
 msgstr "解锁任意页面"
 
+msgid "page"
+msgstr "页面"
+
+msgid "pages"
+msgstr "页面"
+
 msgid "title"
 msgstr "标题"
 
@@ -255,13 +252,8 @@ msgstr "URL路径"
 msgid "owner"
 msgstr "所有者"
 
-msgid "title tag"
-msgstr "标题标签"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "显示在搜索引擎结果中，作为可点击的标题的页面名称。"
+msgid "latest revision created at"
+msgstr "最近修订版本创建于"
 
 msgid "show in menus"
 msgstr "在菜单中显示"
@@ -269,6 +261,17 @@ msgstr "在菜单中显示"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否需要在自动生成的菜单中出现此页面的链接。"
+
+msgid "For site menus"
+msgstr "用于站点菜单"
+
+msgid "title tag"
+msgstr "标题标签"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "显示在搜索引擎结果中，作为可点击的标题的页面名称。"
 
 msgid "meta description"
 msgstr "元描述"
@@ -278,20 +281,8 @@ msgid ""
 "results."
 msgstr "显示在搜索引擎结果中，位于标题之下的描述性文字。"
 
-msgid "latest revision created at"
-msgstr "最近修订版本创建于"
-
 msgid "For search engines"
 msgstr "用于搜索引擎"
-
-msgid "For site menus"
-msgstr "用于站点菜单"
-
-msgid "page"
-msgstr "页面"
-
-msgid "pages"
-msgstr "页面"
 
 msgid "group page permission"
 msgstr "群组页面权限"
@@ -352,9 +343,6 @@ msgstr "对象ID"
 
 msgid "created at"
 msgstr "创建时间"
-
-msgid "user"
-msgstr "用户"
 
 msgid "content JSON"
 msgstr "内容JSON"
@@ -572,6 +560,9 @@ msgstr "已创建"
 msgid "Edited"
 msgstr "已编辑"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Deleted"
 msgstr "已删除"
 
@@ -690,13 +681,6 @@ msgid ""
 msgstr ""
 "修订版本%(revision_id)s创建于%(created_at)s，已计划在%(go_live_at)s发布。"
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "页面已计划在%(go_live_at)s发布"
-
-msgid "Page scheduled for publishing"
-msgstr "页面已计划发布"
-
 msgid "Unschedule publication"
 msgstr "取消计划发布"
 
@@ -706,13 +690,6 @@ msgid ""
 "%(go_live_at)s."
 msgstr ""
 "修订版本%(revision_id)s创建于%(created_at)s，已取消计划在%(go_live_at)s发布。"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "页面已取消计划在%(go_live_at)s发布"
-
-msgid "Page unscheduled from publishing"
-msgstr "页面已取消计划发布"
 
 msgid "Add view restrictions"
 msgstr "添加查看限制"

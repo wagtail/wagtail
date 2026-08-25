@@ -22,26 +22,32 @@ class TestServeView(TestCase):
         self.pdf_document.file.save(
             "serve_view.pdf", ContentFile(b"A boring example document")
         )
+        self.responses = []
 
-    def tearDown(self):
-        if hasattr(self, "response"):
-            # Make sure the response is fully read before deleting the document so
-            # that the file is closed by the view.
+    def read_response(self, response):
+        if hasattr(response, "streaming_content"):
+            # Make sure the response is fully read so that the file is closed by the view.
             # This is required on Windows as the below line that deletes the file
             # will crash if the file is still open.
-            b"".join(self.response.streaming_content)
+            b"".join(response.streaming_content)
+
+    def tearDown(self):
+        for response in self.responses:
+            self.read_response(response)
 
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
         self.pdf_document.file.delete()
 
-    def get(self, document=None):
+    def get(self, document=None, headers=None):
         document = document or self.document
-        self.response = self.client.get(
-            reverse("wagtaildocs_serve", args=(document.id, document.filename))
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(document.id, document.filename)),
+            headers=headers,
         )
-        return self.response
+        self.responses.append(response)
+        return response
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -59,10 +65,12 @@ class TestServeView(TestCase):
         )
 
     def test_content_security_policy(self):
-        self.assertEqual(self.get()["Content-Security-Policy"], "default-src 'none'")
+        response = self.get()
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
 
         with self.settings(WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT=False):
-            self.assertNotIn("Content-Security-Policy", self.get().headers)
+            response = self.get()
+            self.assertNotIn("Content-Security-Policy", response.headers)
 
     def test_no_sniff_content_type(self):
         self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
@@ -78,6 +86,7 @@ class TestServeView(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -109,6 +118,7 @@ class TestServeView(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -169,6 +179,48 @@ class TestServeView(TestCase):
 
     def test_has_etag_header(self):
         self.assertEqual(self.get()["ETag"], '"123456"')
+
+    def test_respects_if_match_header(self):
+        self.assertEqual(
+            self.get(headers={"If-Match": '"123456"'}).status_code, 200
+        )  # ETag matches
+
+        self.assertEqual(
+            self.get(headers={"If-Match": '"654321"'}).status_code, 412
+        )  # ETag does not match
+
+    def test_respects_if_none_match_header(self):
+        self.assertEqual(
+            self.get(headers={"If-None-Match": '"123456"'}).status_code, 304
+        )  # ETag matches
+
+        self.assertEqual(
+            self.get(headers={"If-None-Match": '"654321"'}).status_code, 200
+        )  # ETag does not match
+
+    def test_ignores_if_match_header_with_incorrect_filename(self):
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-Match": '"123456"'},
+        )
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-Match": '"654321"'},
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_ignores_if_none_match_header_with_incorrect_filename(self):
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-None-Match": '"123456"'},
+        )
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(
+            reverse("wagtaildocs_serve", args=(self.document.id, "incorrectfilename")),
+            headers={"If-None-Match": '"654321"'},
+        )
+        self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -285,8 +337,8 @@ class TestServeViewWithSendfile(TestCase):
         # django-sendfile module is not installed
         try:
             import sendfile  # noqa: F401
-        except ImportError:
-            raise unittest.SkipTest("django-sendfile not installed")
+        except ImportError as e:
+            raise unittest.SkipTest("django-sendfile not installed") from e
 
         self.document = models.Document(title="Test document")
         self.document.file.save(
@@ -367,19 +419,31 @@ class TestServeWithUnicodeFilename(TestCase):
             self.document.file.save(
                 self.filename, ContentFile("A boring example document")
             )
-        except UnicodeEncodeError:
-            raise unittest.SkipTest("Filesystem doesn't support unicode filenames")
+        except UnicodeEncodeError as e:
+            raise unittest.SkipTest(
+                "Filesystem doesn't support unicode filenames"
+            ) from e
 
     def tearDown(self):
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
 
+    def read_response(self, response):
+        if hasattr(response, "streaming_content"):
+            # Make sure the response is fully read so that the file is closed by the view.
+            # This is required on Windows as the below line that deletes the file
+            # will crash if the file is still open.
+            b"".join(response.streaming_content)
+
     def test_response_code(self):
         response = self.client.get(
             reverse("wagtaildocs_serve", args=(self.document.id, self.filename))
         )
-        self.assertEqual(response.status_code, 200)
+        try:
+            self.assertEqual(response.status_code, 200)
+        finally:
+            self.read_response(response)
 
     @mock.patch("wagtail.documents.views.serve.hooks")
     @mock.patch("wagtail.documents.views.serve.get_object_or_404")
@@ -397,6 +461,7 @@ class TestServeWithUnicodeFilename(TestCase):
         mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
+        mock_doc.file_hash = "123456"
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks

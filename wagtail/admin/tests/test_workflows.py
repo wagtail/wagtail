@@ -3,6 +3,7 @@ import json
 import logging
 from unittest import expectedFailure, mock, skip
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -30,7 +31,6 @@ from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
-    Page,
     PageViewRestriction,
     Task,
     TaskState,
@@ -51,7 +51,7 @@ from wagtail.test.testapp.models import (
     SimpleTask,
     UserApprovalTask,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
@@ -143,7 +143,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         ]
         WorkflowPage.objects.bulk_create(workflow_pages)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
     def test_simple(self):
@@ -339,7 +339,7 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse(self.url_name), params)
 
     def test_simple(self):
@@ -417,10 +417,10 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
             FullFeaturedSnippet
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_workflows:add"), post_data)
 
     def test_get(self):
@@ -676,12 +676,12 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), post_data
         )
@@ -1001,7 +1001,7 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertFalse(self.workflow.workflow_content_types.exists())
 
 
-class TestRemoveWorkflow(WagtailTestUtils, TestCase):
+class TestRemoveWorkflow(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1028,7 +1028,7 @@ class TestRemoveWorkflow(WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:remove", args=[self.page.id, self.workflow.id]
@@ -1082,7 +1082,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:task_index"), params)
 
     def test_simple(self):
@@ -1370,7 +1370,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_task"))
 
-    def get(self, url_kwargs=None, params={}):
+    def get(self, url_kwargs=None, params=None):
         url_kwargs = url_kwargs or {}
         url_kwargs.setdefault("app_label", SimpleTask._meta.app_label)
         url_kwargs.setdefault("model_name", SimpleTask._meta.model_name)
@@ -1378,7 +1378,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             reverse("wagtailadmin_workflows:add_task", kwargs=url_kwargs), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:add_task",
@@ -1504,12 +1504,12 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), post_data
         )
@@ -2014,11 +2014,12 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -2366,11 +2367,12 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -3154,6 +3156,34 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "This title was edited while approving",
         )
 
+    def test_workflow_action_valid_with_cancelled_workflow(self):
+        """
+        https://github.com/wagtail/wagtail/issues/13856
+
+        Approving a workflow that has been cancelled after the page was loaded
+        should result in a normal save instead of an error or a publish action.
+        """
+        workflow_state = self.object.current_workflow_state
+        workflow_state.cancel(user=self.superuser)
+        self.object.refresh_from_db()
+
+        response = self.post(
+            "workflow-action",
+            {
+                self.title_field: "Edited Title",
+                "workflow-action-name": "approve",
+                "action-workflow-action": "True",
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+        self.assertEqual(
+            getattr(self.object.get_latest_revision_as_object(), self.title_field),
+            "Edited Title",
+        )
+
 
 class TestApproveRejectSnippetWorkflow(
     TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
@@ -3434,10 +3464,12 @@ class TestPageWorkflowReportResults(TestPageWorkflowReport):
     header_buttons_parent_selector = (
         '[data-controller="w-teleport"]'
         '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
     )
     drilldown_selector = (
         '[data-controller="w-teleport"]'
         '[data-w-teleport-target-value="#filters-drilldown"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
     )
     extra_params = "&_w_filter_fragment=true"
 
@@ -4174,7 +4206,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_get_with_non_task_create_model_selected(self):
         response = self.client.get(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page"
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page")
         )
 
         self.assertEqual(response.status_code, 404)
@@ -4289,7 +4322,8 @@ class TestTaskChooserView(WagtailTestUtils, TestCase):
     def test_post_with_non_task_create_model_selected(self):
         response = self.client.post(
             reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?create_model=wagtailcore.Page",
+            + "?create_model="
+            + swapper.get_model_name("wagtailcore", "Page"),
             self.get_post_data(),
         )
 
@@ -4515,19 +4549,68 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
 
         response = self.client.get(self.get_url("edit"))
         html = response.content.decode("utf-8")
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=1,  # the "submitted" item
+            html=True,
+        )
+
         self.assertIn(
-            "In progress\n        </span>\n                        {}".format(
-                self.task_1.name
-            ),
+            f"In progress\n        </span>\n                        \n                        {self.task_1.name}",
             html,
         )
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+
         self.assertIn(
-            "Not started\n        </span>\n                        {}".format(
-                self.task_2.name
-            ),
+            f"Not started\n        </span>\n                        \n                        {self.task_2.name}",
             html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=2,
+            html=True,
         )
         self.assertIn(self.get_url("history"), html)
+
+        # now approve
+        response = self.workflow_action("approve")
+        html = response.content.decode("utf-8")
+        self.assertIn(
+            f"Approved\n        </span>\n                        \n                        {self.task_1.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=2,  # the "submitted" item, and task 1
+            html=True,
+        )
+
+        self.assertIn(
+            f"In progress\n        </span>\n                        \n                        {self.task_2.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=1,
+            html=True,
+        )
 
     def test_status_through_workflow_cycle(self):
         self.login(self.superuser)

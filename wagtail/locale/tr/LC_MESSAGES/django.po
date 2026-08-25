@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -37,24 +37,6 @@ msgstr "Asgari öğe sayısı %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Azami öğe sayısı %(max_num)d"
 
-msgid "Move up"
-msgstr "Yukarı çıkar"
-
-msgid "Move down"
-msgstr "Aşağı indir"
-
-msgid "Drag"
-msgstr "Sürükle"
-
-msgid "Duplicate"
-msgstr "Çoğalt"
-
-msgid "Delete"
-msgstr "Sil"
-
-msgid "Add"
-msgstr "Ekle"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: bu blokta seçenek yok."
@@ -64,6 +46,9 @@ msgstr "Bu blokta seçenek yok."
 
 msgid "This field is required."
 msgstr "Bu alan gerekli."
+
+msgid "Group"
+msgstr "Grup"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail ön uç önbelleği"
@@ -164,6 +149,12 @@ msgstr ""
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Şu anda kilitli ve zamanlanmış tarihte yayına alınacak"
 
+msgid "user"
+msgstr "kullanıcı"
+
+msgid "name"
+msgstr "isim"
+
 msgid "content type"
 msgstr "içerik türü"
 
@@ -241,9 +232,6 @@ msgstr "koleksiyon görme kısıtı"
 msgid "collection view restrictions"
 msgstr "koleksiyon görme kısıtları"
 
-msgid "name"
-msgstr "isim"
-
 msgid "collections"
 msgstr "koleksiyonlar"
 
@@ -261,6 +249,9 @@ msgstr "grup koleksiyon izinleri"
 
 msgid "uploaded by user"
 msgstr "yükleyen kullanıcı"
+
+msgid "Add"
+msgstr "Ekle"
 
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"
@@ -292,6 +283,12 @@ msgstr "Herhangi bir sayfayı yayınla"
 msgid "Unlock"
 msgstr "Kilidini aç"
 
+msgid "page"
+msgstr "sayfa"
+
+msgid "pages"
+msgstr "sayfalar"
+
 msgid "title"
 msgstr "başlık"
 
@@ -313,11 +310,8 @@ msgstr "URL yolu"
 msgid "owner"
 msgstr "sahibi"
 
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Arama motoru sonuçlarında tıklanabilir başlık olarak görüntülenen sayfa adı."
+msgid "latest revision created at"
+msgstr "en son oluşturulan revizyon zamanı"
 
 msgid "show in menus"
 msgstr "menülerde göster"
@@ -328,29 +322,19 @@ msgstr ""
 "Otomatik olarak oluşturulan menülerde, bu sayfaya bir bağlantı olacaktır"
 
 msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Arama motoru sonuçlarında tıklanabilir başlık olarak görüntülenen sayfa adı."
+
+msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
 msgstr ""
 "Arama motoru sonuçlarında başlık altında görüntülenen açıklayıcı metin."
 
-msgid "latest revision created at"
-msgstr "en son oluşturulan revizyon zamanı"
-
 msgid "For search engines"
 msgstr "Arama motorları için"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Slug '%(page_slug)s' zaten '%(parent_url_path)s' alt sayfasında kullanılıyor."
-
-msgid "page"
-msgstr "sayfa"
-
-msgid "pages"
-msgstr "sayfalar"
 
 msgid "group page permission"
 msgstr "grup sayfası izni"
@@ -429,9 +413,6 @@ msgstr "referansı kaldıracaktır."
 
 msgid "created at"
 msgstr "oluşturulma zamanı"
-
-msgid "user"
-msgstr "kullanıcı"
 
 msgid "content JSON"
 msgstr "JSON içerik"
@@ -658,8 +639,14 @@ msgstr[1] "%(count)s alt koleksiyonlar"
 msgid "Create"
 msgstr "Oluştur"
 
+msgid "Created"
+msgstr "Oluşturulma zamanı"
+
 msgid "Edited"
 msgstr "Düzenlendi"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "Unpublish"
 msgstr "Yayından kaldır"
@@ -747,13 +734,6 @@ msgstr ""
 " %(revision_id)s revizyonu, %(created_at)s tarihinde oluşturuldu ve "
 "%(go_live_at)s tarihinde yayınlanmak üzere zamanlandı."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr " '%(go_live_at)s' olarak yayınlama zamanlandı."
-
-msgid "Page scheduled for publishing"
-msgstr "Sayfa yayınlama zamanlandı."
-
 msgid "Unschedule publication"
 msgstr "Yayınlama zamanlamasını kaldır"
 
@@ -764,13 +744,6 @@ msgid ""
 msgstr ""
 "%(revision_id)s revizyonu, %(created_at)s tarihinde oluşturuldu ve "
 "%(go_live_at)s tarihinde yayınlama zamanlaması kaldırıldı."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "%(go_live_at)s -> yayınlama zamanlaması kaldırıldı."
-
-msgid "Page unscheduled from publishing"
-msgstr "Sayfa yayınlamadan zamanlaması kaldırıldı."
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"

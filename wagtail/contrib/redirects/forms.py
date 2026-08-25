@@ -95,7 +95,7 @@ class ConfirmImportManagementForm(forms.Form):
             try:
                 cleaned_data[key] = self.signer.unsign(cleaned_data[key])
             except BadSignature as e:
-                raise forms.ValidationError(e.message)
+                raise forms.ValidationError(e.message) from e
         return cleaned_data
 
 

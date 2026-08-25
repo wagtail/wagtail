@@ -15,6 +15,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.log_actions import registry as log_action_registry
@@ -82,7 +83,7 @@ class LogEntryQuerySet(models.QuerySet):
             else:
                 # The model class for the logged instance no longer exists,
                 # so we have no instance to return. Return None instead.
-                model_instances = {object_id: None for object_id in object_ids}
+                model_instances = dict.fromkeys(object_ids, None)
 
             for object_id, instance in model_instances.items():
                 instances_by_id[(content_type_id, str(object_id))] = instance
@@ -90,6 +91,35 @@ class LogEntryQuerySet(models.QuerySet):
         for log_entry in log_entries:
             lookup_key = (log_entry.content_type_id, str(log_entry.object_id))
             yield (log_entry, instances_by_id.get(lookup_key))
+
+    def latest_uuid_for_user_revision_action(self, user, revision, action):
+        return (
+            self.filter(
+                user=user,
+                revision=revision,
+                action=action,
+                uuid__isnull=False,
+            )
+            .order_by("-timestamp")
+            .values_list("uuid", flat=True)
+            .first()
+        )
+
+    def latest_by_uuid_and_action(self):
+        latest_id_for_uuid_action = (
+            self.model._default_manager.filter(
+                uuid=models.OuterRef("uuid"),
+                action=models.OuterRef("action"),
+            )
+            .order_by("-timestamp", "-id")
+            .values("id")[:1]
+        )
+        return self.filter(
+            # Include log entries with null UUID, as these are not grouped
+            models.Q(uuid__isnull=True)
+            # Pick the latest log entry for each combination of UUID and action
+            | models.Q(id=latest_id_for_uuid_action)
+        )
 
 
 class BaseLogEntryManager(models.Manager):
@@ -237,6 +267,9 @@ class BaseLogEntry(models.Model):
         verbose_name = _("log entry")
         verbose_name_plural = _("log entries")
         ordering = ["-timestamp"]
+        indexes = [
+            models.Index(fields=["uuid", "action", "-timestamp"]),
+        ]
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -257,7 +290,7 @@ class BaseLogEntry(models.Model):
         return "LogEntry %d: '%s' on '%s'" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
         )
 
     @cached_property
@@ -287,7 +320,7 @@ class BaseLogEntry(models.Model):
         if model_class is None:
             return self.content_type_id
 
-        return model_class._meta.verbose_name.title
+        return model_class._meta.verbose_name
 
     def object_id(self):
         raise NotImplementedError
@@ -299,7 +332,7 @@ class BaseLogEntry(models.Model):
     @cached_property
     def message(self):
         if self.formatter:
-            return self.formatter.format_message(self)
+            return capfirst(self.formatter.format_message(self))
         else:
             return _("Unknown %(action)s") % {"action": self.action}
 
@@ -334,7 +367,7 @@ class ModelLogEntry(BaseLogEntry):
 
     objects = ModelLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("model log entry")
         verbose_name_plural = _("model log entries")
@@ -343,6 +376,6 @@ class ModelLogEntry(BaseLogEntry):
         return "ModelLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.object_id,
         )

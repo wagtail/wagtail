@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -104,6 +104,12 @@ msgstr "vartotojo profilis"
 msgid "user profiles"
 msgstr "vartotojų profiliai"
 
+msgid "Active"
+msgstr "Aktyvus"
+
+msgid "View history"
+msgstr "Peržiūrėti istoriją"
+
 msgid "Delete"
 msgstr "Ištrinti"
 
@@ -169,11 +175,26 @@ msgstr "Vartotojas"
 msgid "Roles"
 msgstr "Rolės"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nėra sukonfigūruotas joks vartotojas. Kodėl gi <a "
+"href=\"%(wagtailusers_add_url)s\">nesukūrus vieno</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "vartotojas %(id)s (ištrintas)"
+
+msgid "User"
+msgstr "Vartotojas"
+
+msgid "Created"
+msgstr "Sukurtas"
+
 msgid "Delete selected users"
 msgstr "Ištrinti pasirinktus vartotojus"
-
-msgid "Active"
-msgstr "Aktyvus"
 
 msgid "Inactive"
 msgstr "Neaktyvus"
@@ -222,6 +243,10 @@ msgstr "Vartotojo vardas"
 
 msgid "Admin"
 msgstr "Administratorius"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Vartotojas '%(object)s' sukurtas."
 
 msgid "Add user"
 msgstr "Pridėti vartotoją"

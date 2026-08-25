@@ -22,12 +22,12 @@ class PublishPageAPIAction(APIAction):
         try:
             action = self._action_from_data(instance, data)
         except RuntimeError as e:
-            raise BadRequestError(e.args[0])
+            raise BadRequestError(e.args[0]) from e
 
         try:
             action.execute()
         except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+            raise ValidationError(e.message_dict) from e
 
         new_page = instance.specific_class.objects.get(pk=instance.pk)
         serializer = self.view.get_serializer(new_page)

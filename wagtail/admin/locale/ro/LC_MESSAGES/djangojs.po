@@ -1,14 +1,13 @@
-#
 # Translators:
 # Julian C <jcuotpc@gmail.com>, 2022
-# Alex Morega, 2023
 # Loic Teixeira, 2024
 # Bogdan Mateescu, 2025
-# Dan Braghis, 2025
+# Dan Braghis, 2026
+# Alex Morega, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dan Braghis, 2025\n"
+"Last-Translator: Alex Morega, 2026\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -19,7 +18,7 @@ msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s elemente noi în acest meniu)"
 
 msgid "(1 new item in this menu)"
-msgstr "(1 articol nou în acest meniu)"
+msgstr "(1 element nou în acest meniu)"
 
 msgid "(New)"
 msgstr "(Nou)"
@@ -30,14 +29,35 @@ msgstr[0] "%(num)s eroare"
 msgstr[1] "%(num)s erori"
 msgstr[2] "%(num)s de erori"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
+msgstr[2] "%(num)s min"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixeli"
 msgstr[2] "%(num)s de pixeli"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "A apărut o eroare de rețea."
+
+msgid "A server error occurred."
+msgstr "A apărut o eroare de server."
+
 msgid "Actions"
 msgstr "Acțiuni"
+
+msgid "Add"
+msgstr "Adaugă"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"
@@ -46,7 +66,10 @@ msgid "Alt text"
 msgstr "Text alternativ"
 
 msgid "Are you sure?"
-msgstr "Ești sigur?"
+msgstr "Sunteți sigur?"
+
+msgid "Autosave in progress…"
+msgstr "Salvare automată în curs…"
 
 msgid "Blocks"
 msgstr "Blocuri"
@@ -57,20 +80,27 @@ msgstr "Link nefuncțional"
 msgid "Cancel"
 msgstr "Anulează"
 
+msgid "Changes have been autosaved."
+msgstr "Modificările au fost salvate automat."
+
 msgid "Character count:"
 msgstr "Număr de caractere:"
 
 msgid "Close"
-msgstr "Închideți"
+msgstr "Închide"
 
 msgid "Collapse all"
-msgstr "Restrânge toate"
+msgstr "Restrânge tot"
 
 msgid "Comment"
 msgstr "Comentariu"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexă"
+
 msgid "Dashboard"
-msgstr "Bord"
+msgstr "Tablou de bord"
 
 msgid "Decorative image"
 msgstr "Imagine decorativă"
@@ -84,6 +114,12 @@ msgstr "Eroare de ștergere"
 msgid "Deleting"
 msgstr "În curs de ștergere"
 
+msgid "Drag"
+msgstr "Glisează"
+
+msgid "Duplicate"
+msgstr "Duplică"
+
 msgid "Edit"
 msgstr "Editează"
 
@@ -91,19 +127,26 @@ msgid "Edit '%(title)s'"
 msgstr "Editează '%(title)s'"
 
 msgid "Enter your comments..."
-msgstr "Introduceți comentariile Dvs"
+msgstr "Introduceți comentariile dvs.…"
 
 msgid "Enter your reply..."
-msgstr "Introduceți răspunsul Dvs"
+msgstr "Introduceți răspunsul dvs.…"
 
 msgid "Error while sending preview data."
 msgstr "Eroare în timpul transmiterii datelor pentru previzualizare."
 
 msgid "Expand all"
-msgstr "Extinde toate"
+msgstr "Extinde tot"
+
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Acceptabilă"
 
 msgid "Focus comment"
-msgstr "Focalizează comentariu"
+msgstr "Evidențiază comentariul"
+
+msgid "Good"
+msgstr "Bună"
 
 msgid "Horizontal line"
 msgstr "Linie orizontală"
@@ -126,11 +169,17 @@ msgstr "Document lipsă"
 msgid "More actions"
 msgstr "Mai multe acțiuni"
 
+msgid "Move down"
+msgstr "Mută în jos"
+
+msgid "Move up"
+msgstr "Mută în sus"
+
 msgid "No"
 msgstr "Nu"
 
 msgid "No results"
-msgstr "Nici un rezultat"
+msgstr "Niciun rezultat"
 
 msgid "Page"
 msgstr "Pagină"
@@ -145,7 +194,7 @@ msgid "Pin toolbar"
 msgstr "Fixează bara de instrumente"
 
 msgid "Preview"
-msgstr "Examinare"
+msgstr "Previzualizare"
 
 msgid "Reload saved content"
 msgstr "Reîncarcă conținutul salvat"
@@ -154,17 +203,17 @@ msgid "Reload the page"
 msgstr "Reîncarcă pagina"
 
 msgid "Reply"
-msgstr "Raspunde"
+msgstr "Răspunde"
 
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
 msgstr ""
-"Raportează această eroare admistratorului site-ului cu următoarele "
-"informații:"
+"Raportați această eroare administratorului site-ului, împreună cu "
+"următoarele informații:"
 
 msgid "Resolve"
-msgstr "Rezolva"
+msgstr "Rezolvă"
 
 msgid "Retry"
 msgstr "Încearcă din nou"
@@ -175,20 +224,11 @@ msgstr "Salvează"
 msgid "Save error"
 msgstr "Eroare de salvare"
 
-msgid "Save the page to add this comment"
-msgstr "Salvează pagina pentru a adăuga acest comentariu"
-
-msgid "Save the page to save this comment"
-msgstr "Salvează pagina pentru a păstra acest comentariu"
-
-msgid "Save the page to save this reply"
-msgstr "Salvează pagina pentru a păstra acest răspuns"
-
 msgid "Saving..."
-msgstr "În curs de salvare..."
+msgstr "În curs de salvare…"
 
 msgid "Search"
-msgstr "Căută"
+msgstr "Caută"
 
 msgid "Search options…"
 msgstr "Opțiuni de căutare…"
@@ -199,6 +239,9 @@ msgstr "Vezi toate"
 msgid "Server Error"
 msgstr "Eroare de server"
 
+msgid "Settings"
+msgstr "Setări"
+
 msgid "Show error"
 msgstr "Afișează eroare"
 
@@ -206,11 +249,13 @@ msgid "Show latest content"
 msgstr "Afișează conținutul cel mai recent"
 
 msgid "Split block"
-msgstr "Despică bloc"
+msgstr "Împarte blocul"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+msgstr ""
+"Editorul a întâmpinat o eroare. Conținutul a fost readus la ultima versiune "
+"salvată."
 
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Numărul maxim de articole este %(max_num)d"
@@ -225,22 +270,22 @@ msgid "Toggle section"
 msgstr "Comută secțiunea"
 
 msgid "Toggle side panel"
-msgstr "Comută panou lateral"
+msgstr "Comută panoul lateral"
 
 msgid "Toggle sidebar"
-msgstr "Comutați bara laterală"
+msgstr "Comută bara laterală"
 
 msgid "Unfocus comment"
-msgstr "Defocalizează comentariu"
+msgstr "Anulează evidențierea comentariului"
 
 msgid "Unpin toolbar"
 msgstr "Anulează fixarea barei de instrumente"
 
 msgid "View child pages of '%(title)s'"
-msgstr "Vezi pagini descendente la '%(title)s'"
+msgstr "Vezi subpaginile '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
-msgstr "Scrie ceva, sau ‘/‘ pentru a insera un bloc"
+msgstr "Scrie ceva sau tastează ‘/’ pentru a insera un bloc"
 
 msgid "Yes"
 msgstr "Da"

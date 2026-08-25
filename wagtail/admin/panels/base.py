@@ -309,14 +309,14 @@ class Panel:
                 if field_name not in rendered_fields
             ]
 
-            return mark_safe("".join(missing_fields_html))
+            return mark_safe("".join(missing_fields_html))  # noqa: S308 - expected to return safe HTML
 
         def render_form_content(self):
             """
             Render this as an 'object', ensuring that all fields necessary for a valid form
             submission are included
             """
-            return mark_safe(self.render_html() + self.render_missing_fields())
+            return mark_safe(self.render_html() + self.render_missing_fields())  # noqa: S308 - arguments already contain trusted HTML
 
         def __repr__(self):
             return "<{} with model={} instance={} request={} form={}>".format(

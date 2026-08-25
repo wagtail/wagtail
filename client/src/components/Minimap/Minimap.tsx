@@ -1,14 +1,14 @@
 import React, {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
   useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 
+import { toggleCollapsiblePanel } from '../../includes/panels';
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
-import { toggleCollapsiblePanel } from '../../includes/panels';
 import Icon from '../Icon/Icon';
 
 import CollapseAll from './CollapseAll';
@@ -30,9 +30,9 @@ const observerOptions = {
   threshold: 0.1,
 };
 
-type LinkIntersections = {
+interface LinkIntersections {
   [href: string]: boolean;
-};
+}
 
 const mapIntersections = (
   acc: LinkIntersections,
@@ -120,7 +120,15 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
     [expanded, setExpanded],
   );
   // Collapse all yes/no state.
-  const [panelsExpanded, setPanelsExpanded] = useState<boolean>(true);
+  const [panelsExpandedByTab, setPanelsExpandedByTab] = useState<
+    Record<string, boolean>
+  >({});
+  const containerId = anchorsContainer?.id ?? '';
+  const panelsExpanded = panelsExpandedByTab[containerId] ?? true;
+  const setPanelsExpanded = (value: boolean) => {
+    setPanelsExpandedByTab((prev) => ({ ...prev, [containerId]: value }));
+  };
+
   const [intersections, setIntersections] = useState<LinkIntersections>({});
   const observer = useRef<IntersectionObserver | null>(null);
   const lastIntersections = useRef({});
@@ -194,12 +202,6 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       obs.disconnect();
     };
   }, [links, container]);
-
-  useEffect(() => {
-    // Reset the "collapse all" when switching tabs.
-    setPanelsExpanded(true);
-  }, [anchorsContainer, setPanelsExpanded]);
-
   return (
     <div>
       <CollapseAll

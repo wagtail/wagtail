@@ -21,7 +21,6 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     ModelLogEntry,
-    Page,
     PageLogEntry,
     Site,
 )
@@ -31,7 +30,7 @@ from wagtail.test.testapp.models import (
     EventPageSpeaker,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
@@ -50,17 +49,20 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             cls.header_buttons_parent_selector = (
                 '[data-controller="w-teleport"]'
                 '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+                '[data-w-teleport-mode-value="innerHTML"]'
             )
             cls.drilldown_selector = (
                 '[data-controller="w-teleport"]'
                 '[data-w-teleport-target-value="#filters-drilldown"]'
+                '[data-w-teleport-mode-value="innerHTML"]'
             )
             cls.extra_params = "&_w_filter_fragment=true"
 
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}, **kwargs):
+    def get(self, params=None, **kwargs):
+        params = params or {}
         if self.results_only:
             params["_w_filter_fragment"] = "true"
         return self.client.get(self.url, params, **kwargs)
@@ -131,12 +133,15 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(
-            f"{self.drilldown_selector} select[name='locked_by'] option"
+        locked_by_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='locked_by']"
         )
+        label = soup.select_one(f"label[for='{locked_by_select.get('id')}']")
+        locked_by_options = locked_by_select.select("option")
+        self.assertEqual(label.text.strip(), "Locked by")
         # No user locked anything, so there should be no option for the filter
         self.assertEqual(len(locked_by_options), 1)
-        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertEqual(locked_by_options[0].text, "Anyone")
         self.assertEqual(locked_by_options[0].get("value"), "")
         self.assertActiveFilterNotRendered(soup)
         self.assertPageTitle(soup, "Locked pages - Wagtail")
@@ -186,7 +191,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         )
         # The options should only display users who have locked pages
         self.assertEqual(len(locked_by_options), 2)
-        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertEqual(locked_by_options[0].text, "Anyone")
         self.assertIsNone(locked_by_options[0].value)
         self.assertEqual(locked_by_options[1].text, str(self.user))
         self.assertEqual(locked_by_options[1].get("value"), str(self.user.pk))
@@ -316,7 +321,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
-class TestFilteredLockedPagesView(BaseReportViewTestCase):
+class TestFilteredLockedPagesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:locked_pages"
 
@@ -365,7 +370,7 @@ class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
     results_only = True
 
 
-class TestFilteredLogEntriesView(BaseReportViewTestCase):
+class TestFilteredLogEntriesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:site_history"
 
@@ -1061,7 +1066,7 @@ class TestAgingPagesViewPermissions(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestFilteredAgingPagesView(BaseReportViewTestCase):
+class TestFilteredAgingPagesView(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:aging_pages"
 
@@ -1117,7 +1122,7 @@ class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
     results_only = True
 
 
-class PageTypesUsageReportViewTest(BaseReportViewTestCase):
+class PageTypesUsageReportViewTest(PageFixturesMixin, BaseReportViewTestCase):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 
@@ -1419,7 +1424,9 @@ class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
     results_only = True
 
 
-class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
+class TestPageTypesUsageReportViewPermissions(
+    PageFixturesMixin, BaseReportViewTestCase
+):
     fixtures = ["test.json"]
     url_name = "wagtailadmin_reports:page_types_usage"
 

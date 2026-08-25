@@ -5,6 +5,7 @@
   $root: &;
   @include transition(border-color $menu-transition-duration ease);
   position: relative;
+  border-inline-start: 2px solid transparent;
 
   &__link {
     @apply w-text-14 w-leading-none w-transition;
@@ -53,6 +54,7 @@
   &--active {
     @apply w-bg-surface-menu-item-active;
     text-shadow: -1px -1px 0 theme('colors.black-35');
+    border-inline-start-color: theme('colors.border-button-outline-default');
 
     > a {
       color: theme('colors.text-label-menus-active');

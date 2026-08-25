@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.apps import apps
 from django.contrib.admin.utils import unquote
 from django.contrib.contenttypes.models import ContentType
@@ -11,28 +13,28 @@ from django.views.decorators.http import require_POST
 from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.editing_sessions import EditingSessionsList
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page, Revision, RevisionMixin, WorkflowMixin
+from wagtail.models import AbstractPage, Revision, RevisionMixin, WorkflowMixin
+from wagtail.permissions import policy_registry
 
 
 @require_POST
 def ping(request, app_label, model_name, object_id, session_id):
     try:
         model = apps.get_model(app_label, model_name)
-    except LookupError:
-        raise Http404
+    except LookupError as e:
+        raise Http404 from e
 
     unquoted_object_id = unquote(object_id)
 
     content_type = ContentType.objects.get_for_model(model)
 
     obj = get_object_or_404(model, pk=unquoted_object_id)
-    if isinstance(obj, Page):
+    if isinstance(obj, AbstractPage):
         can_edit = obj.permissions_for_user(request.user).can_edit()
     else:
-        try:
-            permission_policy = model.snippet_viewset.permission_policy
-        except AttributeError:
-            # model is neither a Page nor a snippet
+        permission_policy = policy_registry.get_by_type(model, fallback=False)
+        if not permission_policy:
+            # Model likely was not registered with Wagtail
             raise Http404
 
         can_edit = permission_policy.user_has_permission_for_instance(
@@ -74,10 +76,10 @@ def ping(request, app_label, model_name, object_id, session_id):
         session.save()
 
     other_sessions = (
-        EditingSession.objects.filter(
+        EditingSession.objects.available()
+        .filter(
             content_type=content_type,
             object_id=unquoted_object_id,
-            last_seen_at__gte=timezone.now() - timezone.timedelta(minutes=1),
         )
         .exclude(id=session.id)
         .select_related("user", "user__wagtail_userprofile")
@@ -97,6 +99,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                 "user": other_session.user,
                 "last_seen_at": other_session.last_seen_at,
                 "is_editing": other_session.is_editing,
+                "is_idle": other_session.is_idle,
                 "revision_id": None,
             }
         else:
@@ -108,11 +111,22 @@ def ping(request, app_label, model_name, object_id, session_id):
         all_revisions = obj.revisions.defer("content")
         try:
             original_revision = all_revisions.get(id=revision_id)
-        except Revision.DoesNotExist:
-            raise Http404
+        except Revision.DoesNotExist as e:
+            raise Http404 from e
 
+        try:
+            # The created_at of the latest revision when the session was created
+            created_at = datetime.fromisoformat(
+                request.POST.get("revision_created_at", "")
+            )
+        except ValueError:
+            # Invalid or missing, assume it's the same as the real created_at
+            created_at = original_revision.created_at
+
+        # The newest revision may have been updated via autosave after the
+        # session was created, so filter by created_at rather than the pk.
         newest_revision = (
-            all_revisions.filter(created_at__gt=original_revision.created_at)
+            all_revisions.filter(created_at__gt=created_at)
             .order_by("-created_at", "-pk")
             .select_related("user")
             .first()
@@ -127,6 +141,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "user": newest_revision.user,
                     "last_seen_at": newest_revision.created_at,
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": newest_revision.id,
                 }
             else:
@@ -185,6 +200,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "user": get_user_display_name(other_session["user"]),
                     "last_seen_at": other_session["last_seen_at"].isoformat(),
                     "is_editing": other_session["is_editing"],
+                    "is_idle": other_session["is_idle"],
                     "revision_id": other_session["revision_id"],
                 }
                 for other_session in other_sessions

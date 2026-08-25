@@ -4,7 +4,10 @@ import functools
 import logging
 import posixpath
 import uuid
+import warnings
+from typing import TYPE_CHECKING
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericRelation
@@ -12,6 +15,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
+    ImproperlyConfigured,
+    PermissionDenied,
     ValidationError,
 )
 from django.db import models, transaction
@@ -22,17 +27,19 @@ from django.dispatch import receiver
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
+from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property
+from django.utils.functional import Promise, cached_property, classproperty
 from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
 )
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
@@ -51,6 +58,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
@@ -59,6 +67,7 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -75,16 +84,21 @@ from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 from .workflows import WorkflowMixin
 
+# Ensure that the setting for swapping the Page model is named WAGTAIL_PAGE_MODEL rather than WAGTAILCORE_PAGE_MODEL
+swapper.set_app_prefix("wagtailcore", "wagtail")
+
 logger = logging.getLogger("wagtail")
 
 PAGE_TEMPLATE_VAR = "page"
 COMMENTS_RELATION_NAME = getattr(
     settings, "WAGTAIL_COMMENTS_RELATION_NAME", "wagtail_admin_comments"
 )
+BASE_PAGE_MODEL_NAME = swapper.get_model_name("wagtailcore", "Page")
 
 
 @receiver(pre_validate_delete, sender=Locale)
 def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
+    Page = swapper.load_model("wagtailcore", "Page")
     # if we're deleting the locale used on the root page node, reassign that to a new locale first
     root_page_with_this_locale = Page.objects.filter(depth=1, locale=instance)
     if root_page_with_this_locale.exists():
@@ -118,6 +132,7 @@ def get_page_content_types(include_base_page_type=True):
     """
     models = get_page_models()
     if not include_base_page_type:
+        Page = swapper.load_model("wagtailcore", "Page")
         models.remove(Page)
 
     content_type_ids = [
@@ -135,9 +150,27 @@ def get_streamfield_names(model_class):
     )
 
 
-class BasePageManager(models.Manager):
+# Make sure that this list is sorted by the codename (first item in the tuple)
+# so that we can follow the same order when querying the Permission objects.
+# Note: codenames will be suffixed with the model name of the base page model
+# (e.g. "add" becomes "add_page" or "add_custompage").
+PAGE_PERMISSION_TYPES = [
+    ("add", _("Add"), _("Add/edit pages you own")),
+    ("bulk_delete", _("Bulk delete"), _("Delete pages with children")),
+    ("change", _("Edit"), _("Edit any page")),
+    ("lock", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("publish", _("Publish"), _("Publish any page")),
+    ("unlock", _("Unlock"), _("Unlock any page")),
+]
+
+
+class BasePageManager(MP_NodeManager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
+
+    def get_by_natural_key(self, url_path):
+        """Get page by URL"""
+        return self.get(url_path=url_path)
 
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
@@ -183,6 +216,7 @@ class BasePageManager(models.Manager):
         to ensure any references to the queryset in the view's context are updated
         (e.g. when using ``context_object_name``).
         """
+        Page = swapper.load_model("wagtailcore", "Page")
         parent_page_paths = {
             Page._get_parent_path_from_path(page.path) for page in pages
         }
@@ -199,11 +233,76 @@ class BasePageManager(models.Manager):
             page._parent_page = parent_page
 
 
-PageManager = BasePageManager.from_queryset(PageQuerySet)
+if TYPE_CHECKING:
+    # Fake the result of from_queryset() which combines methods from QuerySet
+    # and Manager at runtime. Safe enough for real use cases, since we should
+    # not use internal QuerySet methods on the manager anyway.
+    # https://stackoverflow.com/a/79230607
+    class PageManagerQuerySet(BasePageManager, PageQuerySet): ...
+
+
+PageManager: type[PageManagerQuerySet] = BasePageManager.from_queryset(PageQuerySet)
+
+
+class AbstractPageMeta:
+    """
+    Meta class to be used for base Page models (i.e. direct subclasses of AbstractPage).
+    """
+
+    verbose_name = _("page")
+    verbose_name_plural = _("pages")
+    unique_together = [("translation_key", "locale")]
+
+
+class PagePermissionCodenames:
+    def __init__(self, model_name):
+        self.ADD = f"add_{model_name}"
+        self.CHANGE = f"change_{model_name}"
+        self.DELETE = f"delete_{model_name}"
+        self.PUBLISH = f"publish_{model_name}"
+        self.LOCK = f"lock_{model_name}"
+        self.UNLOCK = f"unlock_{model_name}"
 
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
+
+    def __new__(cls, name, bases, dct, **kwargs):
+        meta = dct.get("Meta", None)
+        is_abstract = meta is not None and getattr(meta, "abstract", False)
+
+        # This class is a base page model if A) it is not abstract itself, and B) it does not inherit directly
+        # or indirectly from any concrete models.
+        is_base_page_model = not is_abstract and not any(
+            isinstance(base, models.base.ModelBase)
+            and (base._meta.all_parents or not base._meta.abstract)
+            for base in bases
+        )
+
+        if is_base_page_model:
+            # ensure that a Meta class descending from AbstractPageMeta exists
+            if meta is None:
+                meta = type("Meta", (AbstractPageMeta,), {})
+                dct["Meta"] = meta
+            elif not issubclass(meta, AbstractPageMeta):
+                raise ImproperlyConfigured(
+                    f"Meta class for base page model {name} must inherit from AbstractPageMeta"
+                )
+
+            model_name = name.lower()
+
+            if not hasattr(meta, "permissions"):
+                # Make sure that we auto-create Permission objects that are defined in
+                # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
+                meta.permissions = [
+                    (f"{codename}_{model_name}", name)
+                    for codename, _, name in PAGE_PERMISSION_TYPES
+                    if codename not in {"add", "change", "delete", "view"}
+                ]
+
+            dct["PERMISSION_CODENAMES"] = PagePermissionCodenames(model_name)
+
+        return super().__new__(cls, name, bases, dct, **kwargs)
 
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
@@ -225,13 +324,21 @@ class PageBase(models.base.ModelBase):
             None  # to be filled in on first call to cls.clean_parent_page_models
         )
 
-        # All pages should be creatable unless explicitly set otherwise.
-        # This attribute is not inheritable.
-        if "is_creatable" not in dct:
-            cls.is_creatable = not cls._meta.abstract
+        # Find the base page model that this model inherits from.
+        base_page_model = cls.base_page_model
 
-        if not cls._meta.abstract:
-            # register this type in the list of page content types
+        # Set the (non-inheritable) is_creatable attribute. If this has been explicitly set on the
+        # model, use it; otherwise, default to False for base page models and abstract models,
+        # and True for others.
+        if "is_creatable" not in dct:
+            cls.is_creatable = not cls._meta.abstract and cls is not base_page_model
+
+        # register this type in the list of page content types, only if it descends from the
+        # base page model set in WAGTAIL_PAGE_MODEL
+        if (
+            not cls._meta.abstract
+            and base_page_model._meta.label == BASE_PAGE_MODEL_NAME
+        ):
             PAGE_MODEL_CLASSES.append(cls)
 
 
@@ -243,40 +350,19 @@ class AbstractPage(
     RevisionMixin,
     TranslatableMixin,
     SpecificMixin,
+    index.Indexed,
+    ClusterableModel,
     MP_Node,
+    metaclass=PageBase,
 ):
     """
-    Abstract superclass for Page. According to Django's inheritance rules, managers set on
-    abstract models are inherited by subclasses, but managers set on concrete models that are extended
-    via multi-table inheritance are not. We therefore need to attach PageManager to an abstract
-    superclass to ensure that it is retained by subclasses of Page.
+    Abstract superclass for page models.
     """
 
+    # According to Django's inheritance rules, managers set on abstract models are inherited by
+    # subclasses, so this will be inherited by the concrete Page model and its subclasses.
     objects = PageManager()
 
-    class Meta:
-        abstract = True
-
-
-# Make sure that this list is sorted by the codename (first item in the tuple)
-# so that we can follow the same order when querying the Permission objects.
-PAGE_PERMISSION_TYPES = [
-    ("add_page", _("Add"), _("Add/edit pages you own")),
-    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
-    ("change_page", _("Edit"), _("Edit any page")),
-    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("publish_page", _("Publish"), _("Publish any page")),
-    ("unlock_page", _("Unlock"), _("Unlock any page")),
-]
-
-PAGE_PERMISSION_TYPE_CHOICES = [
-    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
-]
-
-PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
-
-
-class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
         verbose_name=_("title"),
         max_length=255,
@@ -311,31 +397,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         related_name="owned_pages",
     )
     owner.wagtail_reference_index_ignore = True
-
-    seo_title = models.CharField(
-        verbose_name=_("title tag"),
-        max_length=255,
-        blank=True,
-        help_text=_(
-            "The name of the page displayed on search engine results as the clickable headline."
-        ),
-    )
-
-    show_in_menus_default = False
-    show_in_menus = models.BooleanField(
-        verbose_name=_("show in menus"),
-        default=False,
-        help_text=_(
-            "Whether a link to this page will appear in automatically generated menus"
-        ),
-    )
-    search_description = models.TextField(
-        verbose_name=_("meta description"),
-        blank=True,
-        help_text=_(
-            "The descriptive text displayed underneath a headline in search engine results."
-        ),
-    )
 
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
@@ -380,7 +441,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # This means the page is kept in sync with the live version
     # of the linked pages and is not editable by users.
     alias_of = models.ForeignKey(
-        "self",
+        swapper.get_model_name("wagtailcore", "Page"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -400,16 +461,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         index.FilterField("path"),
         index.FilterField("depth"),
         index.FilterField("locked"),
-        index.FilterField("show_in_menus"),
         index.FilterField("first_published_at"),
         index.FilterField("last_published_at"),
         index.FilterField("latest_revision_created_at"),
         index.FilterField("locale"),
         index.FilterField("translation_key"),
     ]
-
-    # Do not allow plain Page instances to be created through the Wagtail admin
-    is_creatable = False
 
     # Define the maximum number of instances this page type can have. Default to unlimited.
     max_count = None
@@ -441,33 +498,33 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         PanelPlaceholder("wagtail.admin.panels.TitleFieldPanel", ["title"], {}),
     ]
     promote_panels = [
-        PanelPlaceholder(
-            "wagtail.admin.panels.MultiFieldPanel",
-            [
-                [
-                    "slug",
-                    "seo_title",
-                    "search_description",
-                ],
-                _("For search engines"),
-            ],
-            {},
-        ),
-        PanelPlaceholder(
-            "wagtail.admin.panels.MultiFieldPanel",
-            [
-                [
-                    "show_in_menus",
-                ],
-                _("For site menus"),
-            ],
-            {},
-        ),
+        PanelPlaceholder("wagtail.admin.panels.FieldPanel", ["slug"], {}),
     ]
     settings_panels = [
         PanelPlaceholder("wagtail.admin.panels.PublishingPanel", [], {}),
         CommentPanelPlaceholder(),
     ]
+
+    @classproperty
+    def base_page_model(cls):
+        """
+        Returns the topmost concrete model in the MTI chain.
+        """
+        parents = cls._meta.all_parents
+        return parents[-1] if parents else cls
+
+    @classproperty
+    def permission_types(cls):
+        model_name = cls.base_page_model._meta.model_name
+        return [
+            (f"{codename}_{model_name}", short_label, long_label)
+            for codename, short_label, long_label in PAGE_PERMISSION_TYPES
+        ]
+
+    @classproperty
+    def permission_codenames(cls):
+        model_name = cls.base_page_model._meta.model_name
+        return [f"{codename}_{model_name}" for codename, *_ in PAGE_PERMISSION_TYPES]
 
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
@@ -512,13 +569,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return request._wagtail_route_for_request
 
-    @staticmethod
-    def find_for_request(request: HttpRequest, path: str) -> Page | None:
+    @classmethod
+    def find_for_request(cls, request: HttpRequest, path: str) -> AbstractPage | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via ``request._wagtail_route_for_request``.
         """
-        result = Page.route_for_request(request, path)
+        result = cls.base_page_model.route_for_request(request, path)
         if result is not None:
             return result[0]
 
@@ -538,9 +595,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # set content type to correctly represent the model class
                 # that this was created as
                 self.content_type = ContentType.objects.get_for_model(self)
-            if "show_in_menus" not in kwargs:
-                # if the value is not set on submit refer to the model setting
-                self.show_in_menus = self.show_in_menus_default
 
     def __str__(self):
         return self.title
@@ -559,6 +613,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def get_content_type(self):
         return self.content_type
+
+    def get_base_page(self):
+        """
+        Returns this page in "non-specific" form - that is, as an instance of the
+        base page model that this page inherits from.
+        """
+        parent_link = self._meta.get_ancestor_link(self.base_page_model)
+        if parent_link:
+            return getattr(self, parent_link.name)
+        else:
+            return self
 
     @classmethod
     def get_streamfield_names(cls):
@@ -601,7 +666,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         suffix = 1
         parent_page = self.get_parent()
 
-        while not Page._slug_is_available(candidate_slug, parent_page, self):
+        while not self._slug_is_available(candidate_slug, parent_page, self):
             # try with incrementing suffix until we find a slug which is available
             suffix += 1
             candidate_slug = "%s-%d" % (base_slug, suffix)
@@ -637,7 +702,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Set default values for core fields (slug, draft_title, locale) that need to be
         in place before validating or saving
         """
-        if not self.slug:
+
+        # If path is unset, then this cleaning step must be happening in advance of the
+        # final save, and there is no point trying to auto-generate a slug yet, as we
+        # don't know the set of sibling pages to de-duplicate against. In this case,
+        # this method will be called again as part of the call to `save()` after the
+        # path is populated, and we will auto-generate the slug at that point if
+        # necessary.
+        # However, if the parent is known (e.g. when creating a new page under an
+        # existing page), we can auto-generate the slug and check for duplicates.
+        parent_is_known = bool(self.path or getattr(self, "_cached_parent_obj", None))
+        if (not self.slug) and parent_is_known:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
             base_slug = slugify(self.title, allow_unicode=allow_unicode)
@@ -659,7 +734,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def _check_slug_is_unique(self):
         parent_page = self.get_parent()
-        if not Page._slug_is_available(self.slug, parent_page, self):
+        if not self._slug_is_available(self.slug, parent_page, self):
             raise ValidationError(
                 {
                     "slug": _(
@@ -746,7 +821,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants. Even though we might not need it,
                 # the specific page is fetched here for sending to the 'page_slug_changed' signal.
-                old_record = Page.objects.get(id=self.id).specific
+                old_record = self.specific_class.objects.get(id=self.id)
                 if old_record.slug != self.slug:
                     self.set_url_path(self.get_parent())
                     slug_changed = True
@@ -871,7 +946,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
         (
-            Page.objects.filter(path__startswith=self.path)
+            self.base_page_model.objects.filter(path__startswith=self.path)
             .exclude(pk=self.pk)
             .update(
                 url_path=Concat(
@@ -903,8 +978,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # And update = False
                 subpage._cached_parent_obj = self
 
-            except Page.DoesNotExist:
-                raise Http404
+            except self.base_page_model.DoesNotExist as e:
+                raise Http404 from e
 
             return subpage.specific.route(request, remaining_components)
 
@@ -925,6 +1000,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # in a fixture or migration that didn't explicitly handle draft_title)
         return self.draft_title or self.title
 
+    @transaction.atomic
     def save_revision(
         self,
         user=None,
@@ -933,6 +1009,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         log_action=False,
         previous_revision=None,
         clean=True,
+        overwrite_revision=None,
     ):
         # Raise error if this is not the specific version of the page
         if not isinstance(self, self.specific_class):
@@ -956,14 +1033,42 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
 
-        revision = Revision.objects.create(
-            content_object=self,
-            base_content_type=self.get_base_content_type(),
-            user=user,
-            approved_go_live_at=approved_go_live_at,
-            content=self.serializable_data(),
-            object_str=str(self),
-        )
+        if overwrite_revision:
+            # the revision being overwritten must be the latest revision for the current page, and must match
+            # the current user (if any)
+            latest_revision = self.get_latest_revision()
+            if overwrite_revision != latest_revision:
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": self.base_page_model._meta.verbose_name}
+                )
+
+            if overwrite_revision.user_id != (user and user.pk):
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
+                )
+
+            overwrite_revision.created_at = timezone.now()
+            overwrite_revision.content = self.serializable_data()
+            overwrite_revision.approved_go_live_at = approved_go_live_at
+            overwrite_revision.object_str = str(self)
+            overwrite_revision.save()
+            revision = overwrite_revision
+        else:
+            revision = Revision.objects.create(
+                content_object=self,
+                base_content_type=self.get_base_content_type(),
+                user=user,
+                approved_go_live_at=approved_go_live_at,
+                content=self.serializable_data(),
+                object_str=str(self),
+            )
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -993,14 +1098,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
         if log_action:
             if not previous_revision:
+                action = log_action if isinstance(log_action, str) else "wagtail.edit"
+                uuid = None
+                if overwrite_revision:
+                    # When overwriting a revision, use the same uuid for all
+                    # edit log entries, so we can group them as one entry and
+                    # avoid the history view becoming too noisy.
+                    logs = log_registry.get_logs_for_instance(self)
+                    uuid = logs.latest_uuid_for_user_revision_action(
+                        user, overwrite_revision, action
+                    )
+
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=action,
                     user=user,
                     revision=revision,
                     content_changed=changed,
+                    uuid=uuid,
                 )
             else:
                 log(
@@ -1126,6 +1241,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision
             alias_updated.draft_title = alias_updated.title
             alias_updated.latest_revision_created_at = self.latest_revision_created_at
+            alias_updated.last_published_at = self.last_published_at
 
             alias_updated.save(clean=False)
 
@@ -1262,13 +1378,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def _get_site_root_paths(self, request=None):
+    def _get_site_root_paths(self, cache_object=None, **kwargs):
         """
         Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        cache_object if available.
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
-        cache_object = request if request else self
+        if "request" in kwargs:
+            warnings.warn(
+                "The `request` kwarg in `Page._get_site_root_paths()` is now `cache_object`.",
+                category=RemovedInWagtail90Warning,
+            )
+            cache_object = cache_object or kwargs["request"]
+        # if we have a cache_object, use that to cache site_root_paths; otherwise, use self
+        cache_object = cache_object if cache_object else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
@@ -1488,7 +1610,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 ]
 
                 for model in cls._clean_subpage_models:
-                    if not issubclass(model, Page):
+                    if not issubclass(model, cls.base_page_model):
                         raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_subpage_models
@@ -1513,7 +1635,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 ]
 
                 for model in cls._clean_parent_page_models:
-                    if not issubclass(model, Page):
+                    if not issubclass(model, cls.base_page_model):
                         raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_parent_page_models
@@ -1560,7 +1682,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Checks if this page type can exist as a subpage under a parent page
         instance.
 
-        See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
+        See also: :func:`AbstractPage.can_create_at` and :func:`AbstractPage.can_move_to`
         """
         return cls in parent.specific_class.allowed_subpage_models()
 
@@ -1594,7 +1716,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not parent_is_root and parent.locale_id != self.locale_id:
             return False
 
-        return self.can_exist_under(parent)
+        # Must be able to exist under parent
+        if not self.can_exist_under(parent):
+            return False
+
+        # If the page has a max_count_per_parent, check for a page of this type under the destination
+        if self.max_count_per_parent is not None:
+            return (
+                parent.get_children().type(self.specific_class).not_page(self).count()
+                < self.max_count_per_parent
+            )
+
+        return True
 
     @classmethod
     def get_verbose_name(cls):
@@ -1824,21 +1957,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Returns a queryset of the current page's ancestors, starting at the root page
         and descending to the parent, or to the current page itself if ``inclusive`` is true.
         """
-        return Page.objects.ancestor_of(self, inclusive)
+        return self.base_page_model.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
         """
         Returns a queryset of all pages underneath the current page, any number of levels deep.
         If ``inclusive`` is true, the current page itself is included in the queryset.
         """
-        return Page.objects.descendant_of(self, inclusive)
+        return self.base_page_model.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
         """
         Returns a queryset of all other pages with the same parent as the current page.
         If ``inclusive`` is true, the current page itself is included in the queryset.
         """
-        return Page.objects.sibling_of(self, inclusive)
+        return self.base_page_model.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__gte=self.path).order_by("path")
@@ -1892,6 +2025,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
             "wagtailcore/password_required.html",
         )
+
+        # Ensuring preview attributes exist
+        if not hasattr(request, "is_preview"):
+            request.is_preview = False
+        if not hasattr(request, "preview_mode"):
+            request.preview_mode = None
 
         context = self.get_context(request)
         context["form"] = form
@@ -2028,17 +2167,97 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 workflow = None
             return workflow
 
+    def natural_key(self):
+        """Return the URL path as the natural key"""
+        return (self.url_path,)
+
     class Meta:
-        verbose_name = _("page")
-        verbose_name_plural = _("pages")
-        unique_together = [("translation_key", "locale")]
-        # Make sure that we auto-create Permission objects that are defined in
-        # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
-        permissions = [
-            (codename, name)
-            for codename, _, name in PAGE_PERMISSION_TYPES
-            if codename not in {"add_page", "change_page", "delete_page", "view_page"}
-        ]
+        abstract = True
+
+
+class ShowInMenusMixin(models.Model):
+    show_in_menus_default = False
+    show_in_menus = models.BooleanField(
+        verbose_name=_("show in menus"),
+        default=False,
+        help_text=_(
+            "Whether a link to this page will appear in automatically generated menus"
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db
+            if "show_in_menus" not in kwargs:
+                # if the value is not set on submit refer to the model setting
+                self.show_in_menus = self.show_in_menus_default
+
+    search_fields = [
+        index.FilterField("show_in_menus"),
+    ]
+
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+class DefaultBasePageMixin(ShowInMenusMixin):
+    seo_title = models.CharField(
+        verbose_name=_("title tag"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "The name of the page displayed on search engine results as the clickable headline."
+        ),
+    )
+
+    search_description = models.TextField(
+        verbose_name=_("meta description"),
+        blank=True,
+        help_text=_(
+            "The descriptive text displayed underneath a headline in search engine results."
+        ),
+    )
+
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "slug",
+                    "seo_title",
+                    "search_description",
+                ],
+                _("For search engines"),
+            ],
+            {},
+        )
+    ] + ShowInMenusMixin.promote_panels
+
+    class Meta:
+        abstract = True
+
+
+class Page(AbstractPage, DefaultBasePageMixin):
+    search_fields = AbstractPage.search_fields + DefaultBasePageMixin.search_fields
+    promote_panels = DefaultBasePageMixin.promote_panels
+
+    class Meta(AbstractPageMeta):
+        swappable = swapper.swappable_setting("wagtailcore", "Page")
 
 
 # set module path of Page so that when Sphinx autodoc sees Page in type annotations
@@ -2052,10 +2271,11 @@ class GroupPagePermissionManager(models.Manager):
         # of permission or permission_type to be passed in.
         permission = kwargs.get("permission")
         permission_type = kwargs.pop("permission_type", None)
+        model_name = swapper.split(BASE_PAGE_MODEL_NAME)[1].lower()
         if not permission and permission_type:
             kwargs["permission"] = Permission.objects.get(
                 content_type=get_default_page_content_type(),
-                codename=f"{permission_type}_page",
+                codename=f"{permission_type}_{model_name}",
             )
         return super().create(**kwargs)
 
@@ -2068,7 +2288,7 @@ class GroupPagePermission(models.Model):
         on_delete=models.CASCADE,
     )
     page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         related_name="group_permissions",
         on_delete=models.CASCADE,
@@ -2103,10 +2323,10 @@ class GroupPagePermission(models.Model):
 
 class PagePermissionTester:
     def __init__(self, user, page):
-        from wagtail.permissions import page_permission_policy
+        from wagtail.permissions import policy_registry
 
         self.user = user
-        self.permission_policy = page_permission_policy
+        self.permission_policy = policy_registry.get(page)
         self.page = page
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
@@ -2129,8 +2349,16 @@ class PagePermissionTester:
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
+
         specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if specific_class is None:
+            return False
+
+        creatable_subpage_models = specific_class.creatable_subpage_models()
+        if not any(
+            subpage_model.can_create_at(self.page)
+            for subpage_model in creatable_subpage_models
+        ):
             return False
         return self.user.is_superuser or ("add" in self.permissions)
 
@@ -2297,7 +2525,7 @@ class PagePermissionTester:
         return self.can_delete(ignore_bulk=True)
 
     def can_copy(self):
-        return not self.page_is_root
+        return self.can_edit()
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
@@ -2344,6 +2572,9 @@ class PagePermissionTester:
             return True
 
     def can_copy_to(self, destination, recursive=False):
+        if not self.can_copy():
+            return False
+
         # reject the logically impossible cases first
         # recursive can't copy to the same tree otherwise it will be on infinite loop
         if recursive and (
@@ -2366,14 +2597,7 @@ class PagePermissionTester:
         # Inspect permissions on the destination
         destination_perms = destination.permissions_for_user(self.user)
 
-        if not destination.specific_class.creatable_subpage_models():
-            return False
-
-        # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
-            return False
-
-        return True
+        return destination_perms.can_add_subpage()
 
     def can_view_revisions(self):
         return not self.page_is_root
@@ -2381,7 +2605,7 @@ class PagePermissionTester:
 
 class PageViewRestriction(BaseViewRestriction):
     page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         related_name="view_restrictions",
         on_delete=models.CASCADE,
@@ -2448,7 +2672,7 @@ class PageViewRestriction(BaseViewRestriction):
 
 class WorkflowPage(models.Model):
     page = models.OneToOneField(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         on_delete=models.CASCADE,
         primary_key=True,
@@ -2467,7 +2691,7 @@ class WorkflowPage(models.Model):
 
         This includes all descendants of the page excluding any that have other ``WorkflowPage``(s).
         """
-        descendant_pages = Page.objects.descendant_of(self.page, inclusive=True)
+        descendant_pages = self.page.get_descendants(inclusive=True)
         descendant_workflow_pages = WorkflowPage.objects.filter(
             page_id__in=descendant_pages.values_list("id", flat=True)
         ).exclude(pk=self.pk)
@@ -2491,11 +2715,13 @@ class PageLogEntryQuerySet(LogEntryQuerySet):
         # for reporting purposes, pages of all types are combined under a single "Page"
         # object type
         if self.exists():
+            Page = swapper.load_model("wagtailcore", "Page")
             return {ContentType.objects.get_for_model(Page).pk}
         else:
             return set()
 
     def filter_on_content_type(self, content_type):
+        Page = swapper.load_model("wagtailcore", "Page")
         if content_type == ContentType.objects.get_for_model(Page):
             return self
         else:
@@ -2514,9 +2740,12 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
-        from wagtail.permissions import page_permission_policy
+        from wagtail.permissions import policy_registry
 
-        explorable_instances = page_permission_policy.explorable_instances(user)
+        Page = swapper.load_model("wagtailcore", "Page")
+
+        permission_policy = policy_registry.get_by_type(Page)
+        explorable_instances = permission_policy.explorable_instances(user)
         q = Q(page__in=explorable_instances.values_list("pk", flat=True))
 
         root_page_permissions = Page.get_first_root_node().permissions_for_user(user)
@@ -2540,7 +2769,7 @@ class PageLogEntryManager(BaseLogEntryManager):
 
 class PageLogEntry(BaseLogEntry):
     page = models.ForeignKey(
-        "wagtailcore.Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name="+",
@@ -2548,7 +2777,7 @@ class PageLogEntry(BaseLogEntry):
 
     objects = PageLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("page log entry")
         verbose_name_plural = _("page log entries")
@@ -2557,9 +2786,13 @@ class PageLogEntry(BaseLogEntry):
         return "PageLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.page_id,
         )
+
+    @cached_property
+    def object_verbose_name(self):
+        return Page._meta.verbose_name
 
     @cached_property
     def object_id(self):
@@ -2580,7 +2813,9 @@ class Comment(ClusterableModel):
     """
 
     page = ParentalKey(
-        Page, on_delete=models.CASCADE, related_name=COMMENTS_RELATION_NAME
+        swapper.get_model_name("wagtailcore", "Page"),
+        on_delete=models.CASCADE,
+        related_name=COMMENTS_RELATION_NAME,
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -2754,7 +2989,11 @@ class PageSubscription(models.Model):
         on_delete=models.CASCADE,
         related_name="page_subscriptions",
     )
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="subscribers")
+    page = models.ForeignKey(
+        swapper.get_model_name("wagtailcore", "Page"),
+        on_delete=models.CASCADE,
+        related_name="subscribers",
+    )
 
     comment_notifications = models.BooleanField()
 

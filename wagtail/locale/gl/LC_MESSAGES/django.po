@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2025
+# X Bello <xbello@gmail.com>, 2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "API Wagtail v2"
 
+msgid "Wagtail API v3"
+msgstr "API Wagtail v3"
+
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
 
 msgid "Add Comment"
 msgstr "Engadir comentario"
+
+msgid "- Select an option -"
+msgstr "- Seleccione unha opción -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -38,24 +44,6 @@ msgstr "O mínimo número de ítems é %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "O máximo número de ítems é %(max_num)d"
-
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Baixar"
-
-msgid "Drag"
-msgstr "Levar"
-
-msgid "Duplicate"
-msgstr "Duplicado"
-
-msgid "Delete"
-msgstr "Eliminar"
-
-msgid "Add"
-msgstr "Engadir"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -66,6 +54,9 @@ msgstr "Este bloque non ten opcións."
 
 msgid "This field is required."
 msgstr "Este campo é requirido."
+
+msgid "Group"
+msgstr "Grupo"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache frontal Wagtail"
@@ -176,6 +167,30 @@ msgstr "Bloqueado por adiamento"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Agora mesmo bloqueado e publicarase na data programada"
 
+msgid "user"
+msgstr "usuario"
+
+msgid "name"
+msgstr "nome"
+
+msgid "A human-readable label to identify this token."
+msgstr "Unha etiqueta lexible por humáns para identificar este token."
+
+msgid "created"
+msgstr "creado"
+
+msgid "revoked at"
+msgstr "revocado o"
+
+msgid "last used at"
+msgstr "usado por última vez o"
+
+msgid "API token"
+msgstr "Token API"
+
+msgid "API tokens"
+msgstr "Tokens API"
+
 msgid "content type"
 msgstr "tipo de contigo"
 
@@ -262,9 +277,6 @@ msgstr "restricción na vista da colección"
 msgid "collection view restrictions"
 msgstr "restriccións na vista da colección"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collections"
 msgstr "coleccións"
 
@@ -285,6 +297,9 @@ msgstr "para tipo de contido"
 
 msgid "uploaded by user"
 msgstr "subido por usuario"
+
+msgid "Add"
+msgstr "Engadir"
 
 msgid "Add/edit pages you own"
 msgstr "Engadir/editar páxinas que posúes"
@@ -319,6 +334,12 @@ msgstr "Desbloquear"
 msgid "Unlock any page"
 msgstr "Desbloquear calquer páxina"
 
+msgid "page"
+msgstr "páxina"
+
+msgid "pages"
+msgstr "páxinas"
+
 msgid "title"
 msgstr "título"
 
@@ -341,6 +362,39 @@ msgstr "ruta URL"
 msgid "owner"
 msgstr "propietario"
 
+msgid "latest revision created at"
+msgstr "última revisión creada en"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"O slug '%(page_slug)s' xa se está usando dentro da páxina nai en "
+"'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Non se pode sobreescribir unha revisión que non sexa a última para este "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Non se pode sobreescribir unha revisión que non fora creada polo usuario "
+"actual."
+
+msgid "show in menus"
+msgstr "mostrar en menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Un enlace a esta páxina aparecerá en menús xerados automáticamente"
+
+msgid "For site menus"
+msgstr "Para os menús de sitio"
+
 msgid "title tag"
 msgstr "etiqueta de título"
 
@@ -350,13 +404,6 @@ msgid ""
 msgstr ""
 "O nome da páxina amosado nos resultados dos motores de búsqueda como o "
 "titular enlazado."
-
-msgid "show in menus"
-msgstr "mostrar en menús"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "Un enlace a esta páxina aparecerá en menús xerados automáticamente"
 
 msgid "meta description"
 msgstr "meta descripción"
@@ -368,28 +415,8 @@ msgstr ""
 "O texto descriptivo que se amosa baixo o titular dos resultados dun motor de "
 "busca."
 
-msgid "latest revision created at"
-msgstr "última revisión creada en"
-
 msgid "For search engines"
 msgstr "Para os motores de busca"
-
-msgid "For site menus"
-msgstr "Para os menús de sitio"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"O slug '%(page_slug)s' xa se está usando dentro da páxina nai en "
-"'%(parent_url_path)s'"
-
-msgid "page"
-msgstr "páxina"
-
-msgid "pages"
-msgstr "páxinas"
 
 msgid "group page permission"
 msgstr "permiso de grupo da páxina"
@@ -474,9 +501,6 @@ msgstr "anulará a referencia"
 
 msgid "created at"
 msgstr "creada en"
-
-msgid "user"
-msgstr "usuario"
 
 msgid "content JSON"
 msgstr "contenido JSON"
@@ -756,8 +780,23 @@ msgstr "Creada "
 msgid "Edited"
 msgstr "Editado"
 
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Deleted"
 msgstr "Eliminada"
+
+msgid "Create API token"
+msgstr "Crear token API"
+
+msgid "API token created"
+msgstr "Token API creado"
+
+msgid "Revoke API token"
+msgstr "Revocar token API"
+
+msgid "API token revoked"
+msgstr "Token API revocado"
 
 msgid "Published"
 msgstr "Publicada"
@@ -876,11 +915,12 @@ msgstr ""
 "%(go_live_at)s."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Páxina adiada para publicarse en %(go_live_at)s"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s adiado para publicarse o %(go_live_at)s"
 
-msgid "Page scheduled for publishing"
-msgstr "Páxina adiada para publicarse"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s adiado para publicarse"
 
 msgid "Unschedule publication"
 msgstr "Desadiar publicación"
@@ -894,11 +934,12 @@ msgstr ""
 "%(go_live_at)s."
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Páxina desadiada para publicarse en %(go_live_at)s"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s desadiada para publicarse o %(go_live_at)s"
 
-msgid "Page unscheduled from publishing"
-msgstr "Páxina desadiada para publicarse"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "%(model_name)s desadiado para publicarse"
 
 msgid "Add view restrictions"
 msgstr "Engadir restriccións de vista"

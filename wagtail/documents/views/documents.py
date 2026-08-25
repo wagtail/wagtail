@@ -9,7 +9,6 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -24,10 +23,9 @@ from wagtail.admin.utils import get_valid_next_url_from_request, set_query_param
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
-from wagtail.documents.permissions import permission_policy
 from wagtail.models import ReferenceIndex
+from wagtail.permissions import policy_registry
 
-permission_checker = PermissionPolicyChecker(permission_policy)
 Document = get_document_model()
 
 
@@ -51,7 +49,9 @@ class DocumentTable(Table):
 
 
 class DocumentsFilterSet(BaseMediaFilterSet):
-    permission_policy = permission_policy
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(Document)
 
     class Meta:
         model = Document
@@ -59,7 +59,6 @@ class DocumentsFilterSet(BaseMediaFilterSet):
 
 
 class IndexView(generic.IndexView):
-    permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
     page_title = gettext_lazy("Documents")
@@ -85,12 +84,20 @@ class IndexView(generic.IndexView):
             self.request.user, ["change", "delete"]
         ).select_related("collection")
 
-        # Annotate with usage count from the ReferenceIndex
-        documents = documents.annotate(
-            usage_count=ReferenceIndex.usage_count_subquery(self.model)
-        )
+        if self.needs_usage_count_subquery:
+            # Annotate usage_count on the whole queryset to allow ordering/filtering
+            # (On some databases, this can be slow when there are many objects)
+            documents = documents.annotate(
+                usage_count=ReferenceIndex.usage_count_subquery(self.model)
+            )
 
         return documents
+
+    @cached_property
+    def needs_usage_count_subquery(self):
+        return self.ordering in ["usage_count", "-usage_count"] or (
+            self.is_filtering and "usage_count" in self.filters.form.cleaned_data
+        )
 
     @cached_property
     def current_collection(self):
@@ -118,7 +125,9 @@ class IndexView(generic.IndexView):
                 "usage_count",
                 label=_("Usage"),
                 width="16%",
-                sort_key="usage_count",
+                # Ordering by usage count not currently available when searching,
+                # due to https://github.com/wagtail/django-modelsearch/issues/51
+                sort_key="usage_count" if not self.is_searching else None,
             ),
         ]
         if self.filters and "collection_id" in self.filters.filters:
@@ -127,15 +136,6 @@ class IndexView(generic.IndexView):
                 Column("collection", label=_("Collection"), accessor="collection.name"),
             )
         return columns
-
-    @cached_property
-    def collections(self):
-        collections = permission_policy.collections_user_has_any_permission_for(
-            self.request.user, ["add", "change"]
-        )
-        if len(collections) < 2:
-            collections = None
-        return collections
 
     def get_next_url(self):
         next_url = self.index_url
@@ -162,14 +162,29 @@ class IndexView(generic.IndexView):
         kwargs["is_searching"] = self.is_searching
         return kwargs
 
+    def decorate_paginated_queryset(self, object_list):
+        if self.needs_usage_count_subquery:
+            # Already annotated in get_base_queryset
+            return object_list
+
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        counts = ReferenceIndex.get_count_references_to_in_bulk(list(object_list))
+        for obj in object_list:
+            obj.usage_count = counts.get(obj, 0)
+        return object_list
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_collection"] = self.current_collection
+        context["object_list"] = self.decorate_paginated_queryset(
+            context["object_list"]
+        )
         return context
 
 
 class CreateView(generic.CreateView):
-    permission_policy = permission_policy
     index_url_name = "wagtaildocs:index"
     add_url_name = "wagtaildocs:add"
     edit_url_name = "wagtaildocs:edit"
@@ -201,7 +216,6 @@ class CreateView(generic.CreateView):
 
 
 class EditView(generic.EditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "document_id"
     error_message = gettext_lazy("The document could not be saved due to errors.")
     template_name = "wagtaildocs/documents/edit.html"
@@ -274,7 +288,6 @@ class EditView(generic.EditView):
 class DeleteView(generic.DeleteView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "delete"
     header_icon = "doc-full-inverse"
     usage_url_name = "wagtaildocs:document_usage"
@@ -306,7 +319,6 @@ class DeleteView(generic.DeleteView):
 class UsageView(generic.UsageView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "change"
     header_icon = "doc-full-inverse"
     index_url_name = "wagtaildocs:index"

@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -7,13 +8,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
-
-# The panels module extends Page with some additional attributes required by
-# wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
-# wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
-# system checks.
-from wagtail.admin import panels  # NOQA: F401
-from wagtail.models import Page
 
 
 # A dummy model that exists purely to attach the access_admin permission type to, so that it
@@ -30,6 +24,7 @@ class Admin(models.Model):
 def get_object_usage(obj):
     """Returns a queryset of pages that link to a particular object"""
 
+    Page = swapper.load_model("wagtailcore", "Page")
     pages = Page.objects.none()
 
     # get all the relation objects for obj
@@ -74,6 +69,21 @@ def popular_tags_for_model(model, count=10):
     )
 
 
+class EditingSessionQuerySet(models.QuerySet):
+    def stale(self):
+        return self.filter(
+            last_seen_at__lt=timezone.now() - EditingSession.STALE_TIMEOUT
+        )
+
+    def available(self):
+        return self.filter(
+            last_seen_at__gte=timezone.now() - EditingSession.AVAILABLE_TIMEOUT
+        )
+
+
+EditingSessionManager = models.Manager.from_queryset(EditingSessionQuerySet)
+
+
 class EditingSession(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -89,14 +99,116 @@ class EditingSession(models.Model):
     )
     last_seen_at = models.DateTimeField()
     is_editing = models.BooleanField(default=False)
+    objects = EditingSessionManager()
 
-    @staticmethod
-    def cleanup():
-        EditingSession.objects.filter(
-            last_seen_at__lt=timezone.now() - timezone.timedelta(hours=1)
-        ).delete()
+    IDLE_TIMEOUT = timezone.timedelta(minutes=10)
+    AVAILABLE_TIMEOUT = timezone.timedelta(minutes=25)
+    STALE_TIMEOUT = timezone.timedelta(hours=1)
+
+    @classmethod
+    def cleanup(cls):
+        """Delete all editing sessions that have not pinged in the last hour."""
+        cls.objects.stale().delete()
+
+    @property
+    def is_idle(self):
+        """
+        Whether this session is idle. A session is considered idle when the user
+        has not pinged in the last 10 minutes.
+        """
+        return self.last_seen_at < timezone.now() - self.IDLE_TIMEOUT
+
+    @property
+    def is_available(self):
+        """
+        Whether this session is available. A session is considered available when
+        the user has pinged in the last 25 minutes.
+        """
+        return self.last_seen_at >= timezone.now() - self.AVAILABLE_TIMEOUT
 
     class Meta:
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
+
+
+class FormStateQuerySet(models.QuerySet):
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id="" if instance._state.adding else str(instance.pk),
+        )
+
+    def for_preview(self, user, instance, parent_object_id=""):
+        return self.filter(user=user, parent_object_id=parent_object_id).for_instance(
+            instance
+        )
+
+    def stale(self):
+        return self.filter(last_updated_at__lt=timezone.now() - FormState.STALE_TIMEOUT)
+
+
+class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
+    def update_or_create_by_instance(
+        self,
+        instance,
+        parent_object_id="",
+        **kwargs,
+    ):
+        return super().update_or_create(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id="" if instance._state.adding else str(instance.pk),
+            parent_object_id=parent_object_id,
+            **kwargs,
+        )
+
+
+class FormState(models.Model):
+    """The form state of a create or edit form for a given user and object."""
+
+    data = models.TextField()
+    """The form data as a URL-encoded string."""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="wagtail_form_states",
+    )
+    """The user that the form state belongs to."""
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
+    """The content type of the object being created or edited."""
+    object_id = models.CharField(max_length=255)
+    """The ID of the object being edited, empty if the object is being created."""
+    content_object = GenericForeignKey(
+        "content_type",
+        "object_id",
+        for_concrete_model=False,
+    )
+    """The object being edited or created."""
+    parent_object_id = models.CharField(max_length=255)
+    """
+    The ID of the parent object, if the object is being created under a parent
+    (e.g. for pages). Empty otherwise.
+    """
+    last_updated_at = models.DateTimeField()
+    """The last time the form state was updated."""
+
+    objects = FormStateManager()
+
+    STALE_TIMEOUT = timezone.timedelta(hours=24)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["user", "content_type", "object_id", "parent_object_id"],
+                name="formstate_user_object",
+            ),
+        ]
+        ordering = ["-last_updated_at"]

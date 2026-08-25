@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,9 +67,6 @@ msgstr "Διαχείριση"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Δεν έχετε πρόσβαση στην περιοχή."
-
-msgid "You do not have permission to access the admin"
-msgstr "Δεν έχετε πρόσβαση στη διαχείριση."
 
 msgid "None"
 msgstr "None"
@@ -142,9 +139,6 @@ msgstr ""
 "Διαλέξτε θέση ιεραρχίας. Σημείωση: μια συλλογή δεν μπορεί να γίνει παιδί του "
 "εαυτού της ή ενός από τους απογόνους της."
 
-msgid "Please select another parent"
-msgstr "Παρακαλώ επιλέξτε άλλη πατρική"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
 
@@ -172,9 +166,6 @@ msgstr "Δεν μπορείτε να επεξεργαστείτε το σχόλ�
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Η live ημερομηνία/ώρα πρέπει να είναι πριν από την ημερομηνία/ώρα λήξης"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 msgid "New title"
 msgstr "Νέος τίτλος"
@@ -378,6 +369,10 @@ msgid "Add an external link"
 msgstr "Προσθήκη εξωτερικής σύνδεσης"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Επιλογή %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
 
@@ -386,9 +381,6 @@ msgstr "Εξερεύνηση"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
-
-msgid "Save"
-msgstr "Αποθηκευση"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -440,11 +432,13 @@ msgstr "Όχι, να μην γίνει κατάργηση της δημοσίε�
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-msgid "Actions"
-msgstr "Ενέργειες"
-
 msgid "Comment"
 msgstr "Σχόλιο"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Ενέργειες"
 
 msgid "Update"
 msgstr "Ενημέρωση"
@@ -629,6 +623,14 @@ msgstr "Διαγραμμένα σχόλια"
 msgid "New replies:"
 msgstr "Νέες απαντήσεις:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε στην εργασία \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε κατά την εργασία \"%(workflow)s\""
+
 msgid "Saving…"
 msgstr "Γίνεται αποθήκευση…"
 
@@ -758,20 +760,15 @@ msgstr "Εξερεύνηση των σελίδων - παιδιών του '%(ti
 msgid "Add a child page to '%(title)s'"
 msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
 
-msgid "Drag"
-msgstr "Τραβήξτε"
-
-msgid "Disable ordering of child pages"
-msgstr "Απενεργοποίηση ταξινόμησης σελίδων - παιδιά"
-
-msgid "Enable ordering of child pages"
-msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παιδιά"
-
 msgid "Sites menu"
 msgstr "Μενού ιστοτόπων"
 
 msgid "Pagination"
 msgstr "Σελιδοποίηση"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Σελίδα %(page_number)s από %(num_pages)s."
 
 msgid "Previous"
 msgstr "Προηγούμενο"
@@ -782,20 +779,24 @@ msgstr "Επόμενο"
 msgid "This page is protected from public view"
 msgstr "Αυτή η σελίδα προστατεύεται από τη δημοσιότητα"
 
-msgid "Add child page"
-msgstr "Προσθήκη σελίδας-παιδί"
-
 msgid "Page types"
 msgstr "Τύποι σελίδας"
 
 msgid "Enter a search term above"
 msgstr "Εισάγετε όρο αναζήτησης"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Προσθήκη %(label)s"
+
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
 
 msgid "Move down"
 msgstr "Μετακίνηση κάτω"
+
+msgid "Drag"
+msgstr "Τραβήξτε"
 
 msgid "Type"
 msgstr "Τύπος"
@@ -849,6 +850,9 @@ msgstr "Σελίδα %(page_num)s από %(total_pages)s"
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"
 
+msgid "Save"
+msgstr "Αποθηκευση"
+
 msgid "Unlocked"
 msgstr "Ξεκλειδωμενο"
 
@@ -868,6 +872,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "από %(user)s"
 
 msgid "Edited"
 msgstr "Διορθωμένη"
@@ -983,12 +991,28 @@ msgstr "%(model_name)s '%(object)s' δημιουργήθηκε"
 msgid "Inspect"
 msgstr "Επιθεωρείστε"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Προσθήκη %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Το %(model_name)s δεν μπόρεσε να δημιουργηθεί λόγω σφαλμάτων."
+
 msgid "Editing"
 msgstr "Διόρθωση"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s δεν μπορεί να αποθηκευτεί λόγω σφαλμάτων."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' διαγράφηκε."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το %(model_name)s;"
 
 msgid "Earliest"
 msgstr "Πιο πρόσφατες"
@@ -1056,12 +1080,13 @@ msgstr "Η σελίδα '%(page_title)s' δημιουργήθηκε και δη�
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Η σελίδα '%(page_title)s' δημιουργήθηκε και στάλθηκε προς έλεγχο."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '%(page_title)s'."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Επεξεργάζεται %(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -1079,12 +1104,6 @@ msgstr "Η σελίδα '%(page_title)s' εκδόθηκε."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Η σελίδα '%(page_title)s' υποβλήθηκε για έλεγχο."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
-
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
@@ -1093,6 +1112,9 @@ msgstr "Ιστότοπος"
 
 msgid "Yes"
 msgstr "Ναι"
+
+msgid "Add child page"
+msgstr "Προσθήκη σελίδας-παιδί"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -1112,6 +1134,10 @@ msgstr "Οι σελίδες που το χρησιμοποιούν"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Η σελίδα '%(page_title)s' δεν είναι για έλεγχο."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Επεξεργάζεται %(task_type)s"
 
 msgid "Reports"
 msgstr "Αναφορές"

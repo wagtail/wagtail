@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 # Azat, 2024
 # Azat, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Azat, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,12 @@ msgstr ""
 "Language: ug\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "default"
-msgstr "كۆڭۈلدىكى"
-
 msgid "Sites"
 msgstr "بېكەت"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s ئىجازىتى"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
@@ -33,6 +34,9 @@ msgstr "%(site_setting)s /%(site)s"
 
 msgid "Site"
 msgstr "بېكەت"
+
+msgid "default"
+msgstr "كۆڭۈلدىكى"
 
 msgid "Settings"
 msgstr "تەڭشەك"

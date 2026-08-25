@@ -21,14 +21,14 @@ const definitions = [
 ];
 
 const Template = ({ debug = false }) => {
-  const [submitCount, updateSubmitCount] = useState(0);
+  const [submitCount, setSubmitCount] = useState(0);
 
   return (
     <StimulusWrapper debug={debug} definitions={definitions}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          updateSubmitCount(submitCount + 1);
+          setSubmitCount(submitCount + 1);
         }}
       >
         <select

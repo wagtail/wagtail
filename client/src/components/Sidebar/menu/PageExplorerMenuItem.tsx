@@ -1,17 +1,17 @@
+import Tippy from '@tippyjs/react';
 import * as React from 'react';
 
 import { Provider } from 'react-redux';
-import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
-import { MenuItemProps } from './MenuItem';
-import { LinkMenuItemDefinition } from './LinkMenuItem';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import {
-  openPageExplorer,
   closePageExplorer,
+  openPageExplorer,
 } from '../../PageExplorer/actions';
-import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
+import { SidebarPanel } from '../SidebarPanel';
+import { LinkMenuItemDefinition } from './LinkMenuItem';
+import { MenuItemProps } from './MenuItem';
 import SubMenuCloseButton from './SubMenuCloseButton';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
@@ -29,6 +29,12 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   }
 
   const onCloseExplorer = () => {
+    // Reset the sidebar navigation state so the menu item reflects
+    // aria-expanded="false". This is redundant when closing was already
+    // triggered by a navigation path change, but necessary when the
+    // FocusTrap deactivates via an outside click within the sidebar.
+    dispatch({ type: 'set-navigation-path', path: '' });
+
     // When a submenu is closed, we have to wait for the close animation
     // to finish before making it invisible
     setTimeout(() => {
@@ -70,6 +76,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   const className =
     'sidebar-menu-item sidebar-page-explorer-item' +
     (isActive ? ' sidebar-menu-item--active' : '') +
+    (isOpen ? ' sidebar-sub-menu-item--open' : '') +
     (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
   const sidebarTriggerIconClassName =

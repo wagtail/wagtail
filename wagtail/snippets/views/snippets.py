@@ -12,7 +12,10 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.panels import (
+    ObjectList,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
@@ -43,11 +46,16 @@ from wagtail.models import (
     RevisionMixin,
     WorkflowMixin,
 )
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
+from wagtail.snippets.models import (
+    SNIPPET_MODELS,
+    SnippetAdminURLFinder,
+    get_snippet_models,
+)
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.utils.decorators import cached_classmethod
 
 
 # == Helper functions ==
@@ -58,8 +66,8 @@ def get_snippet_model_from_url_params(app_name, model_name):
     """
     try:
         model = apps.get_model(app_name, model_name)
-    except LookupError:
-        raise Http404
+    except LookupError as e:
+        raise Http404 from e
     if model not in get_snippet_models():
         # don't allow people to hack the URL to edit content types that aren't registered as snippets
         raise Http404
@@ -111,7 +119,7 @@ class ModelIndexView(generic.BaseListingView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_list_url(self, model):
-        if model.snippet_viewset.permission_policy.user_has_any_permission(
+        if policy_registry.get_by_type(model).user_has_any_permission(
             self.request.user,
             {"add", "change", "delete", "view"},
         ):
@@ -235,10 +243,27 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     template_name = "wagtailsnippets/snippets/create.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_create_snippet", self.request, self.model)
+        response = self.run_hook("before_create_snippet", self.request, self.model)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_create_snippet", self.request, self.object)
+        response = self.run_hook("after_create_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -253,6 +278,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 ),
                 locale=self.locale,
                 translations=self.translations,
+                # Show skeleton for usage info if usage_url_name is set
+                usage_url="" if self.usage_url_name else None,
             )
         ]
         if self.preview_enabled and self.form.instance.is_previewable():
@@ -276,15 +303,35 @@ class CopyView(generic.CopyViewMixin, CreateView):
     pass
 
 
-class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
+class EditView(
+    generic.CreateEditViewOptionalFeaturesMixin,
+    generic.EditView,
+):
     view_name = "edit"
     template_name = "wagtailsnippets/snippets/edit.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_edit_snippet", self.request, self.object)
+        response = self.run_hook("before_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to edit %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_edit_snippet", self.request, self.object)
+        response = self.run_hook("after_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(
@@ -313,13 +360,19 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 last_updated_info=self.get_last_updated_info(),
             )
         ]
-        if self.preview_enabled and self.object.is_previewable():
+        if (
+            not self.expects_json_response
+            and self.preview_enabled
+            and self.object.is_previewable()
+        ):
             side_panels.append(
                 PreviewSidePanel(
                     self.object, self.request, preview_url=self.get_preview_url()
                 )
             )
-            side_panels.append(ChecksSidePanel(self.object, self.request))
+            # We don't need to re-render the checks panel when hydrating create view
+            if not self.hydrate_create_view:
+                side_panels.append(ChecksSidePanel(self.object, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
@@ -616,10 +669,6 @@ class SnippetViewSet(ModelViewSet):
         )
         return revisions_revert_view_class
 
-    @property
-    def permission_policy(self):
-        return ModelPermissionPolicy(self.model)
-
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
@@ -853,8 +902,9 @@ class SnippetViewSet(ModelViewSet):
 
         **Deprecated** - the preferred way to customise this is to define a ``menu_order`` property.
         """
-        # By default, put it at the last item before Reports, whose order is 9000.
-        return 8999
+        # Returning None defers to the default ordering applied by
+        # get_menu_item_order (just before Reports, whose order is 9000).
+        return None
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
@@ -1040,20 +1090,26 @@ class SnippetViewSet(ModelViewSet):
     @property
     def url_finder_class(self):
         return type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+            "_SnippetAdminURLFinder",
+            (SnippetAdminURLFinder,),
+            {
+                "model": self.model,
+                "edit_url_name": self.get_url_name("edit"),
+            },
         )
 
     def get_urlpatterns(self):
+        conv = self.pk_path_converter
         urlpatterns = [
             path("", self.index_view, name="list"),
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
-            path("edit/<str:pk>/", self.edit_view, name="edit"),
-            path("delete/<str:pk>/", self.delete_view, name="delete"),
-            path("usage/<str:pk>/", self.usage_view, name="usage"),
-            path("history/<str:pk>/", self.history_view, name="history"),
+            path(f"edit/<{conv}:pk>/", self.edit_view, name="edit"),
+            path(f"delete/<{conv}:pk>/", self.delete_view, name="delete"),
+            path(f"usage/<{conv}:pk>/", self.usage_view, name="usage"),
+            path(f"history/<{conv}:pk>/", self.history_view, name="history"),
             path(
-                "history-results/<str:pk>/",
+                f"history-results/<{conv}:pk>/",
                 self.history_results_view,
                 name="history_results",
             ),
@@ -1061,22 +1117,22 @@ class SnippetViewSet(ModelViewSet):
 
         if self.reorder_view_enabled:
             urlpatterns += [
-                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+                path(f"reorder/<{conv}:pk>/", self.reorder_view, name="reorder")
             ]
 
         if self.copy_view_enabled:
-            urlpatterns += [path("copy/<str:pk>/", self.copy_view, name="copy")]
+            urlpatterns += [path(f"copy/<{conv}:pk>/", self.copy_view, name="copy")]
 
         if self.inspect_view_enabled:
             urlpatterns += [
-                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+                path(f"inspect/<{conv}:pk>/", self.inspect_view, name="inspect")
             ]
 
         if self.preview_enabled:
             urlpatterns += [
                 path("preview/", self.preview_on_add_view, name="preview_on_add"),
                 path(
-                    "preview/<str:pk>/",
+                    f"preview/<{conv}:pk>/",
                     self.preview_on_edit_view,
                     name="preview_on_edit",
                 ),
@@ -1086,7 +1142,7 @@ class SnippetViewSet(ModelViewSet):
             if self.preview_enabled:
                 urlpatterns += [
                     path(
-                        "history/<str:pk>/revisions/<int:revision_id>/view/",
+                        f"history/<{conv}:pk>/revisions/<int:revision_id>/view/",
                         self.revisions_view,
                         name="revisions_view",
                     )
@@ -1094,7 +1150,7 @@ class SnippetViewSet(ModelViewSet):
 
             urlpatterns += [
                 path(
-                    "history/<str:pk>/revisions/<int:revision_id>/revert/",
+                    f"history/<{conv}:pk>/revisions/<int:revision_id>/revert/",
                     self.revisions_revert_view,
                     name="revisions_revert",
                 ),
@@ -1108,43 +1164,43 @@ class SnippetViewSet(ModelViewSet):
         if self.draftstate_enabled:
             urlpatterns += [
                 path(
-                    "history/<str:pk>/revisions/<int:revision_id>/unschedule/",
+                    f"history/<{conv}:pk>/revisions/<int:revision_id>/unschedule/",
                     self.revisions_unschedule_view,
                     name="revisions_unschedule",
                 ),
-                path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
+                path(f"unpublish/<{conv}:pk>/", self.unpublish_view, name="unpublish"),
             ]
 
         if self.locking_enabled:
             urlpatterns += [
-                path("lock/<str:pk>/", self.lock_view, name="lock"),
-                path("unlock/<str:pk>/", self.unlock_view, name="unlock"),
+                path(f"lock/<{conv}:pk>/", self.lock_view, name="lock"),
+                path(f"unlock/<{conv}:pk>/", self.unlock_view, name="unlock"),
             ]
 
         if self.workflow_enabled:
             urlpatterns += [
                 path(
-                    "workflow/action/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    f"workflow/action/<{conv}:pk>/<slug:action_name>/<int:task_state_id>/",
                     self.workflow_action_view,
                     name="workflow_action",
                 ),
                 path(
-                    "workflow/collect_action_data/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    f"workflow/collect_action_data/<{conv}:pk>/<slug:action_name>/<int:task_state_id>/",
                     self.collect_workflow_action_data_view,
                     name="collect_workflow_action_data",
                 ),
                 path(
-                    "workflow/confirm_cancellation/<str:pk>/",
+                    f"workflow/confirm_cancellation/<{conv}:pk>/",
                     self.confirm_workflow_cancellation_view,
                     name="confirm_workflow_cancellation",
                 ),
                 path(
-                    "workflow_history/<str:pk>/",
+                    f"workflow_history/<{conv}:pk>/",
                     self.workflow_history_view,
                     name="workflow_history",
                 ),
                 path(
-                    "workflow_history/<str:pk>/detail/<int:workflow_state_id>/",
+                    f"workflow_history/<{conv}:pk>/detail/<int:workflow_state_id>/",
                     self.workflow_history_detail_view,
                     name="workflow_history_detail",
                 ),
@@ -1153,7 +1209,7 @@ class SnippetViewSet(ModelViewSet):
             if self.preview_enabled:
                 urlpatterns += [
                     path(
-                        "workflow/preview/<str:pk>/<int:task_id>/",
+                        f"workflow/preview/<{conv}:pk>/<int:task_id>/",
                         self.workflow_preview_view,
                         name="workflow_preview",
                     ),
@@ -1187,13 +1243,22 @@ class SnippetViewSet(ModelViewSet):
         checks.register(snippets_model_check, "panels")
 
     def register_snippet_model(self):
-        snippet_models = get_snippet_models()
-        if self.model in snippet_models:
+        # Do not use get_snippet_models here to avoid searching for hooks. We
+        # only care if the model is already registered, not any other models
+        # that may be registered later.
+        if self.model in SNIPPET_MODELS:
             raise ImproperlyConfigured(
                 f"The {self.model.__name__} model is already registered as a snippet"
             )
-        snippet_models.append(self.model)
-        snippet_models.sort(key=lambda x: x._meta.verbose_name)
+        SNIPPET_MODELS.append(self.model)
+        SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
+
+    def attach_model_edit_handler(self):
+        @cached_classmethod
+        def _get_edit_handler(cls):
+            return self.get_edit_handler()
+
+        self.model.get_edit_handler = _get_edit_handler
 
     def on_register(self):
         super().on_register()
@@ -1203,6 +1268,7 @@ class SnippetViewSet(ModelViewSet):
         self.register_chooser_viewset()
         self.register_model_check()
         self.register_snippet_model()
+        self.attach_model_edit_handler()
 
 
 class SnippetViewSetGroup(ModelViewSetGroup):

@@ -27,8 +27,11 @@ $(function () {
           });
 
           data.context.find('.preview .thumb').each(function (index, elm) {
-            $(elm).find('.icon').remove();
-            $(elm).append(data.files[index].preview);
+            const preview = data.files[index].preview;
+            if (preview) {
+              $(elm).find('.icon').remove();
+              $(elm).append(preview);
+            }
           });
         })
         .done(function () {
@@ -133,6 +136,7 @@ $(function () {
 
     done: function (e, data) {
       var itemElement = $(data.context);
+
       var response = JSON.parse(data.result);
 
       if (response.success) {

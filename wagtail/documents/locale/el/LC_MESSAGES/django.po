@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,6 +32,18 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Αρχεία Wagtail"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο (%(file_size)s). Μέγιστο μέγεθος αρχείου  "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Συλλογή"
@@ -198,12 +210,6 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφ
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '%(document_title)s'"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
-"διαγράψετε το έγγραφο"
 
 msgid "Delete document"
 msgstr "Διαγραφή εγγράφου"

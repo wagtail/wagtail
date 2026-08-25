@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Madalin Popa, 2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,19 +26,19 @@ msgid "Wagtail sites"
 msgstr "Site-uri Wagtail"
 
 msgid "Choose a root page"
-msgstr "Alege o pagină de bază"
+msgstr "Alege o pagină rădăcină"
 
 msgid "Choose a different root page"
-msgstr "Alege o altă pagină de bază"
+msgstr "Alege o altă pagină rădăcină"
 
 msgid "Sites"
-msgstr "Saituri"
+msgstr "Site-uri"
 
 msgid "Add a site"
-msgstr "Adaugă un sait"
+msgstr "Adaugă un site"
 
 msgid "Site"
-msgstr "Sait"
+msgstr "Site"
 
 msgid "Default?"
 msgstr "Implicit?"
@@ -47,25 +47,25 @@ msgid "Default"
 msgstr "Implicit"
 
 msgid "Add site"
-msgstr "Adaugă sait"
+msgstr "Adaugă site"
 
 #, python-format
 msgid "Site '%(object)s' created."
-msgstr "Sait-ul '%(object)s' a fost creat."
+msgstr "Site-ul '%(object)s' a fost creat."
 
 msgid "The site could not be saved due to errors."
-msgstr "Sait-ul nu a fost salvat din cauza erorilor."
+msgstr "Site-ul nu a fost salvat din cauza erorilor."
 
 #, python-format
 msgid "Site '%(object)s' updated."
-msgstr "Sait-ul '%(object)s' a fost actualizat."
+msgstr "Site-ul '%(object)s' a fost actualizat."
 
 #, python-format
 msgid "Site '%(object)s' deleted."
-msgstr "Sait-ul '%(object)s' a fost șters."
+msgstr "Site-ul '%(object)s' a fost șters."
 
 msgid "Delete site"
-msgstr "Șterge sait"
+msgstr "Șterge site-ul"
 
 msgid "Are you sure you want to delete this site?"
-msgstr "Sigur doriți să ștergeți acest sait?"
+msgstr "Sigur doriți să ștergeți acest site?"

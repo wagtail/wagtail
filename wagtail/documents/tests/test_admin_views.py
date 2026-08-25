@@ -4,20 +4,24 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, TransactionTestCase
+from django.template.defaultfilters import filesizeformat
+from django.template.loader import render_to_string
+from django.test import RequestFactory, TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.html import escape
+from django.utils.encoding import force_str
+from django.utils.html import escape, escapejs
 from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
-    Page,
     ReferenceIndex,
     UploadedFile,
 )
@@ -28,7 +32,7 @@ from wagtail.test.testapp.models import (
     EventPageRelatedLink,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
@@ -37,7 +41,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def test_simple(self):
@@ -50,6 +54,9 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "Add a document")
         self.assertContains(response, "Hello document")
         self.assertContains(response, "Bonjour document")
+
+        with self.assertNumQueries(12):
+            self.get()
 
     def make_docs(self):
         for i in range(50):
@@ -340,7 +347,11 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             "-usage_count": [doc1, doc2],
         }
         for ordering, expected_order in cases.items():
-            with self.subTest(ordering=ordering):
+            response = self.client.get(
+                reverse("wagtaildocs:index"),
+                {"ordering": ordering},
+            )
+            with self.subTest(ordering=ordering), self.assertNumQueries(11):
                 response = self.client.get(
                     reverse("wagtaildocs:index"),
                     {"ordering": ordering},
@@ -391,13 +402,28 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             [doc3],
         )
 
+    def test_bulk_action_rendered(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
 
+
+@tag("transaction")
 class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def make_docs(self):
@@ -495,13 +521,39 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
                 self.assertIn("ordering", response.context)
                 self.assertEqual(response.context["ordering"], ordering)
 
+    def test_order_by_usage_count_disabled_when_searching(self):
+        # Ordering by usage count not currently available when searching,
+        # due to https://github.com/wagtail/django-modelsearch/issues/51
+        doc1 = models.Document.objects.create(title="Used twice document")
+        doc2 = models.Document.objects.create(title="Used once document")
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc2)
 
+        response = self.client.get(
+            reverse("wagtaildocs:index"),
+            {"q": "used", "ordering": "-usage_count"},
+        )
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        # Will fall back to default ordering (by title)
+        self.assertSequenceEqual(context["page_obj"].object_list, [doc2, doc1])
+
+        soup = self.get_soup(response.content)
+        ths = soup.select("main table th")
+        self.assertTrue(ths)
+        usage_count_th = ths[-1]
+        self.assertEqual(usage_count_th.text.strip(), "Usage")
+        self.assertIsNone(usage_count_th.select_one("a"))
+
+
+@tag("transaction")
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index_results"), params)
 
     def test_search(self):
@@ -569,7 +621,7 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",
@@ -691,6 +743,29 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # error message should be output on the page as a non-field error
         self.assertContains(
             response, "Custom document with this Title and Collection already exists."
+        )
+
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1)
+    def test_add_too_large_file(self):
+        file_content = b"Simple text document"
+
+        response = self.client.post(
+            reverse("wagtaildocs:add"),
+            {
+                "title": "Test document",
+                "file": SimpleUploadedFile("test.txt", file_content),
+            },
+        )
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
+
+        # The form should have an error
+        self.assertFormError(
+            response.context["form"],
+            "file",
+            f"This file is too big ({filesizeformat(len(file_content))}). Maximum filesize {filesizeformat(1)}.",
         )
 
 
@@ -1039,7 +1114,7 @@ class TestDocumentEditViewWithCustomDocumentModel(WagtailTestUtils, TestCase):
 
         self.storage = self.document.file.storage
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtaildocs:edit", args=(self.document.id,)), params
         )
@@ -1267,6 +1342,40 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertEqual(response.status_code, 200)
         # collection chooser should have selected collection passed with parameter
         self.assertContains(response, f'<option value="{collection.pk}" selected>')
+
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1000)
+    def test_add_max_file_size_context_variables(self):
+        response = self.client.get(reverse("wagtaildocs:add_multiple"))
+
+        self.assertEqual(response.context["max_filesize"], 1000)
+        self.assertEqual(
+            response.context["error_max_file_size"],
+            "This file is too big. Maximum filesize 1000\xa0bytes.",
+        )
+
+    def test_add_error_max_file_size_escaped(self):
+        url = reverse("wagtaildocs:add_multiple")
+        template_name = "wagtaildocs/multiple/add.html"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Too big. <br/><br/><a href='/admin/documents/add/'>Try this.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context["error_max_file_size"] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
 
     def test_add_post(self):
         """
@@ -1914,7 +2023,7 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",
@@ -2033,7 +2142,10 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Root</td>", html=True)
 
 
-class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
+@tag("transaction")
+class TestDocumentChooserViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -2215,7 +2327,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(WagtailTestUtils, Test
         self.assertEqual(doc.get().collection, self.evil_plans_collection)
 
 
-class TestUsageCount(WagtailTestUtils, TestCase):
+class TestUsageCount(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2251,7 +2363,9 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertContains(response, "Used 0 times")
 
 
-class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestGetUsage(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

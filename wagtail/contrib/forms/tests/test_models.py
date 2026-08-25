@@ -9,7 +9,6 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_redirect,
     make_types_test_form_page,
 )
-from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
@@ -18,7 +17,7 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestFormSubmission(TestCase):
@@ -799,7 +798,7 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 21.12.1910 21:19", mail.outbox[0].body)
 
 
-class TestIssue798(WagtailTestUtils, TestCase):
+class TestIssue798(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -840,7 +839,7 @@ class TestIssue798(WagtailTestUtils, TestCase):
         )
 
 
-class TestNonHtmlExtension(TestCase):
+class TestNonHtmlExtension(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_non_html_extension(self):
@@ -850,7 +849,7 @@ class TestNonHtmlExtension(TestCase):
         )
 
 
-class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
+class TestFormFieldCleanNameCreation(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -867,6 +866,21 @@ class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
             label="Telefón-nummer",
             field_type="number",
         )
+
+        self.assertEqual(field.clean_name, "telefon_nummer")
+
+    def test_form_field_clean_name_set_when_blank_on_save(self):
+        """clean_name should be derived on save whenever it's still blank"""
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label="",
+            field_type="number",
+        )
+        self.assertEqual(field.clean_name, "")
+
+        field.label = "Telefón-nummer"
+        field.save()
 
         self.assertEqual(field.clean_name, "telefon_nummer")
 

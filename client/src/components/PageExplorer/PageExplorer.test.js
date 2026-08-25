@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import { Provider } from 'react-redux';
 import {
   applyMiddleware,
@@ -7,10 +7,10 @@ import {
   legacy_createStore as createStore,
 } from 'redux';
 import { thunk } from 'redux-thunk';
+import PageExplorer from './PageExplorer';
 import * as actions from './actions';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
-import PageExplorer from './PageExplorer';
 
 const rootReducer = combineReducers({
   explorer,

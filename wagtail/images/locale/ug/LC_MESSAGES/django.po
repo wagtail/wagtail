@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -90,9 +90,6 @@ msgstr "توپلام"
 msgid "Format"
 msgstr "پىچىم"
 
-msgid "Filter"
-msgstr "سۈزگۈچ"
-
 msgid "Original size"
 msgstr "ئەسلى چوڭلۇقى"
 
@@ -110,6 +107,9 @@ msgstr "ئەڭ چوڭ چوڭلۇققا ماسلاشتۇر"
 
 msgid "Resize to fill"
 msgstr "تولدۇرۇشقا ماسلاشتۇر"
+
+msgid "Filter"
+msgstr "سۈزگۈچ"
 
 msgid "Width"
 msgstr "كەڭلىك"
@@ -242,6 +242,9 @@ msgstr "ياق، ئۆچۈرمە"
 msgid "Popular tags"
 msgstr "ئاۋات بەلگىلەر"
 
+msgid "Layout"
+msgstr "جايلاشتۇرۇش"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -273,6 +276,15 @@ msgstr "سىز بۇ توپلامغا ھېچقانداق سۈرەت يۈكلىم�
 
 msgid "You haven't uploaded any images."
 msgstr "سىز ھېچقانداق سۈرەت يۈكلىمىدىڭىز."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"نېمىشقا <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ھازىر بىرنى يۈكلە</a>مەيسىز؟"
 
 msgid "Choose a format"
 msgstr "پىچىم تاللىنىدۇ"
@@ -376,6 +388,12 @@ msgid ""
 msgstr ""
 "ھېچقانداق سۈرەت يۈكلىمىدىڭىز. نېمىشقا <a "
 "href=\"%(wagtailimages_add_image_url)s\">ھازىر بىرنى يۈكلە</a>مەيسىز؟"
+
+msgid "Grid layout"
+msgstr "شادا جايلاشتۇرۇش"
+
+msgid "List layout"
+msgstr "تىزىم جايلاشتۇرۇش"
 
 msgid "Preview"
 msgstr "ئالدىن كۆزەت"
@@ -489,6 +507,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 msgstr[1] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 
+msgid "Title"
+msgstr "ماۋزۇ"
+
+msgid "Created"
+msgstr "قۇرغان ۋاقىت"
+
 msgid "Choose an image"
 msgstr "سۈرەت تاللىنىدۇ"
 
@@ -516,14 +540,14 @@ msgstr "ھۆججەت چوڭلۇقى: (كىچىكتىن چوڭغا)"
 msgid "File size: (high to low)"
 msgstr "ھۆججەت چوڭلۇقى: (چوڭدىن كىچىككە)"
 
+msgid "Usage count: (low to high)"
+msgstr "ئىشلىتىش سانى: (ئازدىن كۆپكە)"
+
+msgid "Usage count: (high to low)"
+msgstr "ئىشلىتىش سانى: (كۆپتىن ئازغا)"
+
 msgid "Images"
 msgstr "سۈرەت"
-
-msgid "Title"
-msgstr "ماۋزۇ"
-
-msgid "Created"
-msgstr "قۇرغان ۋاقىت"
 
 msgid "The image could not be saved due to errors."
 msgstr "خاتالىق سەۋەبىدىن سۈرەتنى ساقلىغىلى بولمىدى."
@@ -539,6 +563,9 @@ msgstr "مەنبە ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگ�
 
 msgid "Generate URL"
 msgstr "تور ئادرېسى ھاسىللايدۇ"
+
+msgid "The filter options you have selected are not valid."
+msgstr "سىز تاللىغان سۈزگۈچ تاللانمىسى ئىناۋەتسىز."
 
 msgid "Delete image"
 msgstr "سۈرەت ئۆچۈر"

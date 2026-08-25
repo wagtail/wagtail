@@ -1,3 +1,4 @@
+import re
 import unittest
 
 from django.conf import settings
@@ -13,12 +14,12 @@ from wagtail.admin.rich_text.converters.editor_html import (
 )
 from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.blocks import RichTextBlock
-from wagtail.models import Page, get_page_models
+from wagtail.models import get_page_models
 from wagtail.rich_text import RichText
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.testapp.models import SingleEventPage
 from wagtail.test.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):
@@ -260,9 +261,7 @@ class TestOverriddenDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTes
 
 @override_settings(
     WAGTAILADMIN_RICH_TEXT_EDITORS={
-        "default": {
-            "WIDGET": "wagtail.admin.tests.test_rich_text.TestCustomDefaultRichText"
-        },
+        "default": {"WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea"},
         "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
     }
 )
@@ -491,7 +490,7 @@ class TestDraftailWithAdditionalFeatures(
         self.assertNotIn('"type": "ITALIC"', data)
 
 
-class TestPageLinkHandler(WagtailTestUtils, TestCase):
+class TestPageLinkHandler(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
@@ -637,6 +636,26 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertIn("/admin/images/chooser/", html)
         self.assertIn("/admin/embeds/chooser/", html)
         self.assertIn("/admin/documents/chooser/", html)
+
+    def test_link_allowlist_protocols(self):
+        features = FeatureRegistry()
+        link = features.get_editor_plugin("draftail", "link")
+
+        self.assertIsNotNone(link)
+        self.assertIn("allowlist", link.data)
+        self.assertIn("href", link.data["allowlist"])
+
+        href_pattern = link.data["allowlist"]["href"]
+        pattern = re.compile(href_pattern)
+
+        # Allowed protocols
+        self.assertTrue(pattern.match("#example"))
+        self.assertTrue(pattern.match("http://example.com"))
+        self.assertTrue(pattern.match("https://example.com"))
+        self.assertTrue(pattern.match("mailto:test@example.com"))
+
+        # Disallowded protocol (security guard)
+        self.assertFalse(pattern.match("javascript:alert(1)"))
 
 
 class TestDraftailLazyTranslations(SimpleTestCase):

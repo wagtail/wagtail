@@ -47,7 +47,7 @@ def get_backends(backend_settings=None, backends=None):
         except ImportError as e:
             raise InvalidFrontendCacheBackendError(
                 f"Could not find backend '{backend}': {e}"
-            )
+            ) from e
 
         backend_objects[backend_name] = backend_cls(backend_config)
 

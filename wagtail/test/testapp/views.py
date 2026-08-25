@@ -24,10 +24,11 @@ from wagtail.admin.views.generic import (
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.viewsets.pages import PageListingViewSet
+from wagtail.admin.viewsets.pages import PageListingViewSet, PageViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
     Advert,
+    EventIndex,
     EventPage,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
@@ -69,6 +70,7 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 class TestIndexView(IndexView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     index_url_name = "testapp_generic_index"
     template_name = "tests/generic_view_templates/index.html"
     paginate_by = 20
@@ -96,6 +98,7 @@ class TestCreateView(CreateView):
 
 class TestEditView(EditView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/edit.html"
     index_url_name = "testapp_generic_index"
@@ -109,6 +112,7 @@ class TestEditView(EditView):
 
 class TestDeleteView(DeleteView):
     model = ModelWithStringTypePrimaryKey
+    permission_policy = None
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/delete.html"
     index_url_name = "testapp_generic_index"
@@ -123,6 +127,7 @@ class CalendarViewSet(ViewSet):
     icon = "date"
     name = "calendar"
     template_name = "tests/misc/calendar.html"
+    menu_order = 9999
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name, **kwargs)
@@ -183,6 +188,25 @@ class GreetingsViewSet(ViewSet):
 class MiscellaneousViewSetGroup(ViewSetGroup):
     items = (CalendarViewSet, GreetingsViewSet)
     menu_label = "Miscellaneous"
+    submenu_hook = "register_submenu_greetings"
+
+
+class SubmenuHookGreetingsViewSet(ViewSet):
+    menu_label = "Submenu Hook Greetings"
+    icon = "user"
+    url_namespace = "submenu_hook_greetings"
+    url_prefix = "submenu_hook_greetingz"
+    menu_hook = "register_submenu_greetings"
+
+    def index(self, request):
+        return render(
+            request,
+            "tests/misc/greetings.html",
+            {"page_title": "Submenu Hook Greetings", "header_icon": self.icon},
+        )
+
+    def get_urlpatterns(self):
+        return [path("", self.index, name="index")]
 
 
 class JSONStreamModelViewSet(ModelViewSet):
@@ -334,6 +358,10 @@ class EventPageFilterSet(PageListingViewSet.filterset_class):
         fields = ["audience"]
 
 
+class EventPageIndexView(PageListingViewSet.index_view_class):
+    list_export = ["pk", "title", "audience", "date_from"]
+
+
 class EventPageListingViewSet(PageListingViewSet):
     model = EventPage
     icon = "calendar"
@@ -342,10 +370,49 @@ class EventPageListingViewSet(PageListingViewSet):
     columns = PageListingViewSet.columns + [
         Column("audience", label="Audience", sort_key="audience"),
     ]
+    index_view_class = EventPageIndexView
     filterset_class = EventPageFilterSet
 
 
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
+
+
+def get_view_by_name_override(self, name):
+    cls = self.__class__
+    view = super(cls, self).get_view_by_name(name)
+
+    # Mark the view with a custom header, so we can check that the correct
+    # view is being used in tests. Override get_view_by_name() instead of
+    # construct_view() to also support function-based views.
+    def marked_view(*args, **kwargs):
+        response = view(*args, **kwargs)
+        response.headers["X-Wagtail-ViewSet"] = cls.__name__
+        return response
+
+    return marked_view
+
+
+class EventPageViewSet(PageViewSet):
+    model = EventPage
+    parent_models = [EventIndex]
+    icon = "calendar"
+    list_display = PageViewSet.columns.copy()
+    list_display.append("audience")
+    list_filter = ["audience"]
+    list_export = ["pk", "title", "audience", "date_from"]
+    list_per_page = 10
+    ordering = ("date_from", "title")
+    get_view_by_name = get_view_by_name_override
+
+
+event_page_viewset = EventPageViewSet()
+
+
+class CustomPageViewSet(PageViewSet):
+    get_view_by_name = get_view_by_name_override
+
+
+custom_page_viewset = CustomPageViewSet()
 
 
 class PlayView(View):
@@ -382,3 +449,18 @@ class OperaViewSet(PlayViewSet):
 
 
 opera_viewset = OperaViewSet("opera")
+
+
+class AdvertModelForm(forms.ModelForm):
+    class Meta:
+        model = Advert
+        fields = ["text", "url"]
+
+
+class AdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False
+    creation_form_class = "wagtail.test.testapp.views.AdvertModelForm"
+
+
+advert_chooser_viewset = AdvertChooserViewSet("advert_chooser")

@@ -1,5 +1,6 @@
 from collections import namedtuple
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -10,6 +11,8 @@ from django.db.models import Case, IntegerField, Q, When
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
+
+swapper.set_app_prefix("wagtailcore", "wagtail")
 
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
@@ -64,7 +67,17 @@ def get_site_for_hostname(hostname, port):
 
 class SiteManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().order_by(Lower("hostname"))
+        return (
+            super()
+            .get_queryset()
+            .order_by(
+                Case(
+                    When(site_name="", then=Lower("hostname")),
+                    default=Lower("site_name"),
+                ),
+                Lower("hostname"),
+            )
+        )
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
@@ -96,7 +109,7 @@ class Site(models.Model):
         help_text=_("Human-readable name for the site."),
     )
     root_page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("root page"),
         related_name="sites_rooted_here",
         on_delete=models.CASCADE,

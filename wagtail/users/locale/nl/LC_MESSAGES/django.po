@@ -8,16 +8,16 @@
 # Joeri Vlekken, 2024
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2023
-# Storm Heg <storm@stormbase.digital>, 2021-2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,47 @@ msgstr "gebruikersprofiel"
 
 msgid "user profiles"
 msgstr "gebruikersprofielen"
+
+msgid "Yes, revoke"
+msgstr "Ja, intrekken"
+
+msgid "No, don't revoke"
+msgstr "Nee, niet intrekken"
+
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ""
+"API-token \"%(name)s\" is aangemaakt. Kopieer de code nu, je krijgt deze "
+"nooit meer te zien. "
+
+msgid "API token"
+msgstr "API-token"
+
+msgid "Copy token"
+msgstr "Kopieer API-token"
+
+msgid "Back to API tokens"
+msgstr "Terug naar API-tokens"
+
+msgid "Copied to clipboard"
+msgstr "Gekopieerd naar klembord"
+
+msgid "Copying failed — please select and copy the token manually."
+msgstr "Kopiëren mislukt — selecteer en kopieer het token handmatig."
+
+msgid "Status: "
+msgstr "Status:"
+
+msgid "Revoked"
+msgstr "Ingetrokken"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "View history"
+msgstr "Bekijk historie"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -335,6 +376,43 @@ msgstr "Kan bekijken"
 msgid "user %(id)s (deleted)"
 msgstr "gebruiker %(id)s (verwijderd)"
 
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Last used"
+msgstr "Laatst gebruikt"
+
+msgid "Token"
+msgstr "API-token"
+
+msgid "Revoke"
+msgstr "Intrekken"
+
+msgid "API token created"
+msgstr "API-token aangemaakt"
+
+msgid "Token secrets are only displayed once, immediately after creation."
+msgstr ""
+"De geheime code wordt éénmalig getoond nadat een API-token is aangemaakt"
+
+msgid "Never"
+msgstr "Nog nooit"
+
+msgid "Are you sure you want to revoke this API token?"
+msgstr ""
+"Dit API-token echt intrekken? Deze kan niet meer gebruikt worden door "
+"gekoppelde integraties."
+
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr "API-token '%(name)s' ingetrokken."
+
+msgid "API tokens"
+msgstr "API-tokens"
+
 msgid "Assign role to selected users"
 msgstr "Wijs rol toe aan geselecteerde gebruikers"
 
@@ -352,9 +430,6 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d gebruiker is verwijderd"
 msgstr[1] "%(num_parent_objects)d gebruikers zijn verwijderd"
-
-msgid "Active"
-msgstr "Actief"
 
 msgid "Inactive"
 msgstr "Inactief"

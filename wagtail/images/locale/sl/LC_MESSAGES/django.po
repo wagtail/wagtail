@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: UP, 2021\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,9 +99,6 @@ msgstr "Zbirka"
 msgid "Format"
 msgstr "Format"
 
-msgid "Filter"
-msgstr "Filter"
-
 msgid "Original size"
 msgstr "Velikost originala"
 
@@ -119,6 +116,9 @@ msgstr "Spremeni velikost po največji vrednosti"
 
 msgid "Resize to fill"
 msgstr "Spremeni velikost na točne mere"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Width"
 msgstr "Širina"
@@ -512,6 +512,12 @@ msgstr[1] "%(num_parent_objects)d sliki so bili izbrisani"
 msgstr[2] "%(num_parent_objects)d slike so bile izbrisane"
 msgstr[3] "%(num_parent_objects)d slike so bile izbrisane"
 
+msgid "Title"
+msgstr "Naziv"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
 msgid "Choose an image"
 msgstr "Izberi sliko"
 
@@ -541,12 +547,6 @@ msgstr "Velikost datoteke: (od velike proti majhni)"
 
 msgid "Images"
 msgstr "Slike"
-
-msgid "Title"
-msgstr "Naziv"
-
-msgid "Created"
-msgstr "Ustvarjeno"
 
 msgid "The image could not be saved due to errors."
 msgstr "Slike, zaradi napak, ni bilo možno shraniti."

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Alex Morega, 2023
-# Alex Morega, 2023
+# Alex Morega, 2023,2026
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2022,2024
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Bogdan Mateescu, 2019\n"
+"Last-Translator: Alex Morega, 2023,2026\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "API-ul Wagtail v3"
+
 msgid "Wagtail core"
 msgstr "Nucleu Wagtail"
 
 msgid "Add Comment"
 msgstr "Adaugă comentariu"
+
+msgid "- Select an option -"
+msgstr "- Selectați o opțiune -"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -41,33 +47,18 @@ msgstr "Numărul minim de articole este %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Numărul maxim de articole este %(max_num)d"
 
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-msgid "Move down"
-msgstr "Deplasează în jos"
-
-msgid "Drag"
-msgstr "Glisează"
-
-msgid "Duplicate"
-msgstr "Duplică"
-
-msgid "Delete"
-msgstr "Șterge"
-
-msgid "Add"
-msgstr "Adaugă"
-
 #, python-format
 msgid "%(label)s: this block has no options."
-msgstr "%(label)s: acest bloc nu are opțiuni"
+msgstr "%(label)s: acest bloc nu are opțiuni."
 
 msgid "This block has no options."
-msgstr "Acest bloc nu are nici o opțiune."
+msgstr "Acest bloc nu are nicio opțiune."
 
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
+
+msgid "Group"
+msgstr "Grup"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache-ul frontend Wagtail"
@@ -80,6 +71,9 @@ msgstr "Hărți de site Wagtail"
 
 msgid "Unknown content type"
 msgstr "Tip de conținut necunoscut"
+
+msgid "Date cannot be in the future."
+msgstr "Data nu poate fi în viitor."
 
 msgid "Password"
 msgstr "Parolă"
@@ -140,24 +134,24 @@ msgid ""
 "<b>'{workflow_name}'</b> workflow."
 msgstr ""
 "Acest {model_name} așteaptă <b>'{task_name}'</b> în fluxul de lucru "
-"<b>'{workflow_name}'</b> ."
+"<b>'{workflow_name}'</b>."
 
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Numai revizorii pentru această sarcină pot edita %(model_name)s."
 
 msgid "Unlocked"
-msgstr "A deblochat"
+msgstr "A deblocat"
 
 msgid "Locked by workflow"
-msgstr "Blocat din fluxul de lucru"
+msgstr "Blocat de fluxul de lucru"
 
 #, python-format
 msgid ""
 "Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
 "from editing"
 msgstr ""
-"Revizorii pot edita acest %(model_name)s – blocați pentru a împiedica alți "
+"Revizorii pot edita acest %(model_name)s – blocați-l pentru a împiedica alți "
 "revizori să editeze"
 
 #, python-format
@@ -178,6 +172,30 @@ msgstr "Blocat conform programului"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Blocat în prezent și va fi publicat la data programată"
 
+msgid "user"
+msgstr "utilizator"
+
+msgid "name"
+msgstr "nume"
+
+msgid "A human-readable label to identify this token."
+msgstr "Un nume descriptiv care să identifice acest token."
+
+msgid "created"
+msgstr "creat"
+
+msgid "revoked at"
+msgstr "revocat la"
+
+msgid "last used at"
+msgstr "folosit ultima dată la"
+
+msgid "API token"
+msgstr "Token de API"
+
+msgid "API tokens"
+msgstr "Token-uri de API"
+
 msgid "content type"
 msgstr "tip de conținut"
 
@@ -192,7 +210,7 @@ msgstr "intrări jurnal"
 
 #, python-format
 msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Acțiunea de jurnal '%(action_name)s' a fost înregistrată."
+msgstr "Acțiunea de jurnal '%(action_name)s' nu a fost înregistrată."
 
 msgid "system"
 msgstr "sistem"
@@ -208,7 +226,7 @@ msgid "model log entries"
 msgstr "intrări jurnal pentru model"
 
 msgid "live"
-msgstr "live"
+msgstr "publicată"
 
 msgid "has unpublished changes"
 msgstr "conține modificări nepublicate"
@@ -217,19 +235,19 @@ msgid "first published at"
 msgstr "publicată pentru prima dată la"
 
 msgid "last published at"
-msgstr "publicată pentru prima dată la"
+msgstr "publicată ultima dată la"
 
 msgid "live revision"
 msgstr "revizie live"
 
 msgid "go live date/time"
-msgstr "data/timpul de publicare"
+msgstr "data/ora publicării"
 
 msgid "expiry date/time"
-msgstr "data/timpul de expirare"
+msgstr "data/ora expirării"
 
 msgid "expired"
-msgstr "expirat"
+msgstr "expirată"
 
 msgid "scheduled"
 msgstr "programată"
@@ -238,10 +256,13 @@ msgid "draft"
 msgstr "ciornă"
 
 msgid "live + scheduled"
-msgstr "live + programată"
+msgstr "publicată + programată"
 
 msgid "live + draft"
-msgstr "live + ciornă"
+msgstr "publicată + ciornă"
+
+msgid "locale"
+msgstr "localizare"
 
 msgid "locked"
 msgstr "blocat"
@@ -259,10 +280,7 @@ msgid "collection view restriction"
 msgstr "restricție de vizualizare colecție"
 
 msgid "collection view restrictions"
-msgstr "restricție de vizualizare colecții"
-
-msgid "name"
-msgstr "nume"
+msgstr "restricții de vizualizare colecție"
 
 msgid "collections"
 msgstr "colecții"
@@ -283,10 +301,13 @@ msgid "for content type"
 msgstr "pentru tipul de conținut"
 
 msgid "uploaded by user"
-msgstr "încărcată de utlizator"
+msgstr "încărcat de utilizator"
+
+msgid "Add"
+msgstr "Adăugare"
 
 msgid "Add/edit pages you own"
-msgstr "Adaugă/editeaza pagini deținute"
+msgstr "Adaugă/editează pagini proprii"
 
 msgid "Bulk delete"
 msgstr "Șterge în masă"
@@ -295,28 +316,34 @@ msgid "Delete pages with children"
 msgstr "Șterge pagini cu descendenți"
 
 msgid "Edit"
-msgstr "Editează"
+msgstr "Editare"
 
 msgid "Edit any page"
 msgstr "Editează orice pagină"
 
 msgid "Lock"
-msgstr "Încuie"
+msgstr "Blocare"
 
 msgid "Lock/unlock pages you've locked"
-msgstr "Blochează/deblochează paginile tale blocate"
+msgstr "Blochează/deblochează paginile blocate de dvs."
 
 msgid "Publish"
-msgstr "Publică"
+msgstr "Publicare"
 
 msgid "Publish any page"
 msgstr "Publică orice pagină"
 
 msgid "Unlock"
-msgstr "Deblochează"
+msgstr "Deblocare"
 
 msgid "Unlock any page"
 msgstr "Deblochează orice pagină"
+
+msgid "page"
+msgstr "pagină"
+
+msgid "pages"
+msgstr "pagini"
 
 msgid "title"
 msgstr "titlu"
@@ -335,10 +362,45 @@ msgstr ""
 "blog/[my-slug]/"
 
 msgid "URL path"
-msgstr "Cale"
+msgstr "Cale URL"
 
 msgid "owner"
 msgstr "proprietar"
+
+msgid "latest revision created at"
+msgstr "ultima revizie creată la"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Slug-ul '%(page_slug)s' este deja folosit în cadrul paginii părinte de la "
+"'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Nu se poate suprascrie o revizie care nu este cea mai recentă pentru "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Nu se poate suprascrie o revizie care nu a fost creată de utilizatorul "
+"curent."
+
+msgid "show in menus"
+msgstr "arată în meniuri"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Dacă un link către această pagină va apărea în meniurile generate în mod "
+"automat"
+
+msgid "For site menus"
+msgstr "Pentru meniurile site-ului"
 
 msgid "title tag"
 msgstr "etichetă de titlu"
@@ -350,15 +412,6 @@ msgstr ""
 "Numele paginii afișat ca title pe care se poate face clic în rezultatele "
 "motoarelor de căutare."
 
-msgid "show in menus"
-msgstr "arată în meniuri"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Dacă un link către această pagină va apărea în meniurile generate în mod "
-"automat"
-
 msgid "meta description"
 msgstr "descriere meta"
 
@@ -368,31 +421,11 @@ msgid ""
 msgstr ""
 "Textul descriptiv afișat sub titluri în rezultatele motoarelor de căutare."
 
-msgid "latest revision created at"
-msgstr "ultima revizie creată la"
-
 msgid "For search engines"
 msgstr "Pentru motoare de căutare"
 
-msgid "For site menus"
-msgstr "Pentru meniuri"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Slug-ul '%(page_slug)s' este deja folosit în cadrul paginii părinte la "
-"'%(parent_url_path)s'"
-
-msgid "page"
-msgstr "pagină"
-
-msgid "pages"
-msgstr "pagini"
-
 msgid "group page permission"
-msgstr "permisie grup pagină"
+msgstr "permisiune grup pagină"
 
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
@@ -428,10 +461,10 @@ msgid "comments"
 msgstr "comentarii"
 
 msgid "comment reply"
-msgstr "comentariu răspuns "
+msgstr "răspuns la comentariu"
 
 msgid "comment replies"
-msgstr "comentarii răspuns"
+msgstr "răspunsuri la comentarii"
 
 msgid "Default"
 msgstr "Implicit"
@@ -463,7 +496,7 @@ msgid "will do nothing"
 msgstr "nu va face nimic"
 
 msgid "may prevent deletion"
-msgstr "poate previne ștergerea"
+msgstr "poate preveni ștergerea"
 
 #, python-format
 msgid "will be set to a %(model_name)s specified by the system"
@@ -475,9 +508,6 @@ msgstr "va șterge referința"
 msgid "created at"
 msgstr "creat la"
 
-msgid "user"
-msgstr "utilizator"
-
 msgid "content JSON"
 msgstr "conținut JSON"
 
@@ -488,7 +518,7 @@ msgid "revision"
 msgstr "revizie"
 
 msgid "revisions"
-msgstr "reviziuni"
+msgstr "revizii"
 
 msgid "latest revision"
 msgstr "ultima revizie"
@@ -504,35 +534,35 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Dacă aveți nevoie ca un număr de port specific să apară în adrese de "
-"internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
-"decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
-"vor continua să funcționeze."
+"Setați altceva decât 80 dacă aveți nevoie ca un anumit număr de port să "
+"apară în URL-uri (de exemplu, dezvoltare pe portul 8000). Nu afectează "
+"gestionarea solicitărilor (redirecționarea porturilor funcționează în "
+"continuare)."
 
 msgid "site name"
-msgstr "nume sait"
+msgstr "nume site"
 
 msgid "Human-readable name for the site."
-msgstr "Titlu sait lizibil pentru om"
+msgstr "Numele site-ului, lizibil pentru oameni."
 
 msgid "root page"
-msgstr "pagină de bază"
+msgstr "pagină rădăcină"
 
 msgid "is default site"
-msgstr "sait implicit"
+msgstr "site implicit"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Dacă e 'true', acest sait va gestiona solicitări pentru toate hostname-urile "
-"fără setări separate"
+"Dacă este bifat, acest site va gestiona solicitările pentru toate celelalte "
+"nume de gazdă care nu au propria intrare de site"
 
 msgid "site"
-msgstr "Sait"
+msgstr "site"
 
 msgid "sites"
-msgstr "saituri"
+msgstr "site-uri"
 
 msgid "default"
 msgstr "implicit"
@@ -542,8 +572,14 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s este definit deja ca sait implicit și trebuie schimbat pentru a "
-"putea seta acest sit ca implicit "
+"%(hostname)s este deja configurat ca site implicit. Trebuie să debifați acea "
+"setare înainte de a putea salva acest site ca implicit."
+
+msgid "group site permission"
+msgstr "permisiune de site pentru grup"
+
+msgid "group site permissions"
+msgstr "permisiuni de site pentru grup"
 
 msgid "Public"
 msgstr "Public"
@@ -552,29 +588,29 @@ msgid "Private, accessible with a shared password"
 msgstr "Privat, accesibil cu o parolă partajată"
 
 msgid "Private, accessible to any logged-in users"
-msgstr "Privat, accesibil oricărui utlizator autentificat"
+msgstr "Privat, accesibil oricărui utilizator autentificat"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
 
 msgid "shared password"
-msgstr "parola comună"
+msgstr "parolă partajată"
 
 msgid ""
 "Shared passwords should not be used to protect sensitive content. Anyone who "
 "has this password will be able to view the content."
 msgstr ""
-"Nu folosiți parolele partajate pentru a proteja conținut senzitiv. Oricine "
-"are această parolă va putea vedea conținutul."
+"Parolele partajate nu ar trebui folosite pentru a proteja conținut sensibil. "
+"Oricine are această parolă va putea vedea conținutul."
 
 msgid "groups"
 msgstr "grupuri"
 
 msgid "view restriction"
-msgstr "vezi restricție"
+msgstr "restricție de vizualizare"
 
 msgid "view restrictions"
-msgstr "vezi restricții"
+msgstr "restricții de vizualizare"
 
 msgid "In progress"
 msgstr "În desfășurare"
@@ -601,8 +637,8 @@ msgid ""
 "There may only be one in progress or needs changes workflow state per page/"
 "snippet."
 msgstr ""
-"Poate exista o singură stare a fluxului de lucru \"în lucru\" sau \"necesită "
-"schimbări\" per pagină/fragment."
+"Poate exista o singură stare de flux de lucru \"în desfășurare\" sau "
+"\"necesită modificări\" per pagină/fragment."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
@@ -614,10 +650,10 @@ msgid "Not started"
 msgstr "Neînceput"
 
 msgid "Workflow state"
-msgstr "Statut flux de lucru"
+msgstr "Stare flux de lucru"
 
 msgid "Workflow states"
-msgstr "Statuturi flux de lucru"
+msgstr "Stări flux de lucru"
 
 msgid "active"
 msgstr "activ"
@@ -671,7 +707,7 @@ msgid "Approve with comment"
 msgstr "Aprobă cu comentariu"
 
 msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Mebrii Grupurilor Wagtail selectați pot aproba această sarcină"
+msgstr "Membrii grupurilor Wagtail alese pot aproba această sarcină"
 
 msgid "Group approval task"
 msgstr "Sarcină de aprobare de grup"
@@ -686,7 +722,7 @@ msgid "Skipped"
 msgstr "Omis"
 
 msgid "workflow state"
-msgstr "statut flux de lucru"
+msgstr "stare flux de lucru"
 
 msgid "started at"
 msgstr "început la"
@@ -705,16 +741,16 @@ msgid "Task state"
 msgstr "Stare sarcină"
 
 msgid "Task states"
-msgstr "Stări de sarcină"
+msgstr "Stări sarcină"
 
 msgid "in moderation"
 msgstr "în moderare"
 
 msgid "live + in moderation"
-msgstr "live + în moderare"
+msgstr "publicată + în moderare"
 
 msgid "Log in"
-msgstr "Logare"
+msgstr "Autentificare"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
@@ -724,8 +760,8 @@ msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "
 "with an account that has access."
 msgstr ""
-"Nu aveți access la această pagină. Pentru a continua, vă rugăm să vă logați "
-"cu un cont care are acces."
+"Contul dvs. nu are acces la această pagină. Pentru a continua, vă rugăm să "
+"vă autentificați cu un cont care are acces."
 
 msgid "Password required"
 msgstr "Parolă necesară"
@@ -740,11 +776,11 @@ msgstr "Continuă"
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s colecție descendentă"
-msgstr[1] "%(count)s colecții desdendente"
-msgstr[2] "%(count)scolecții desdendente"
+msgstr[1] "%(count)s colecții descendente"
+msgstr[2] "%(count)s de colecții descendente"
 
 msgid "Create"
-msgstr "Creeare"
+msgstr "Creare"
 
 msgid "Created"
 msgstr "A creat"
@@ -752,14 +788,29 @@ msgstr "A creat"
 msgid "Edited"
 msgstr "Editat"
 
+msgid "Delete"
+msgstr "Ștergere"
+
 msgid "Deleted"
 msgstr "A șters"
+
+msgid "Create API token"
+msgstr "Crează un token de API"
+
+msgid "API token created"
+msgstr "Token-ul API a fost creat"
+
+msgid "Revoke API token"
+msgstr "Revocă un token de API"
+
+msgid "API token revoked"
+msgstr "Token-ul de API a fost revocat"
 
 msgid "Published"
 msgstr "Publicată"
 
 msgid "Publish scheduled draft"
-msgstr "Publicare ciornei programate"
+msgstr "Publicare ciornă programată"
 
 msgid "Published scheduled draft"
 msgstr "A publicat ciorna programată"
@@ -768,13 +819,13 @@ msgid "Unpublish"
 msgstr "Anulare publicare"
 
 msgid "Unpublished"
-msgstr "Publicare anulată"
+msgstr "A anulat publicarea"
 
 msgid "Unpublish scheduled draft"
-msgstr "Anularea publicarii ciornei programate"
+msgstr "Anulare publicare ciornă programată"
 
 msgid "Unpublished scheduled draft"
-msgstr "Publicarea ciornei programate a fost anulată"
+msgstr "A anulat publicarea ciornei programate"
 
 msgid "Reject"
 msgstr "Respingere"
@@ -790,29 +841,29 @@ msgid "Renamed"
 msgstr "A redenumit"
 
 msgid "Revert"
-msgstr "Inversare"
+msgstr "Revenire"
 
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
 msgstr ""
-"A revenit la versiunea precendentă cu id %(revision_id)s de la %(created_at)s"
+"A revenit la revizia precedentă cu id-ul %(revision_id)s din %(created_at)s"
 
 msgid "Reverted to previous revision"
-msgstr "A revenit la versiunea precedentă"
+msgstr "A revenit la revizia precedentă"
 
 msgid "Copy"
 msgstr "Copiere"
 
 #, python-format
 msgid "Copied from %(title)s"
-msgstr "A fost copiată de la %(title)s"
+msgstr "A copiat de la %(title)s"
 
 msgid "Copied"
-msgstr "A fost copiată"
+msgstr "A copiat"
 
 msgid "Copy for translation"
-msgstr "Copie pentru traducere"
+msgstr "Copiere pentru traducere"
 
 #, python-format
 msgid "Copied for translation from %(title)s (%(locale)s)"
@@ -832,7 +883,7 @@ msgid "Created an alias"
 msgstr "A creat un alias"
 
 msgid "Convert alias into ordinary page"
-msgstr "A convertit un alias în pagină obișnuită"
+msgstr "Convertire alias în pagină obișnuită"
 
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
@@ -869,18 +920,19 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
 "%(go_live_at)s."
 msgstr ""
-"Revizia %(revision_id)s de la %(created_at)s a fost programată pentru "
-"publicare la %(go_live_at)s"
+"Revizia %(revision_id)s din %(created_at)s a fost programată pentru "
+"publicare la %(go_live_at)s."
 
 #, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Pagina a fost programată pentru publicare la %(go_live_at)s"
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s a fost programat(ă) pentru publicare la %(go_live_at)s"
 
-msgid "Page scheduled for publishing"
-msgstr "Pagina a fost programată pentru publicare"
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s a fost programat(ă) pentru publicare"
 
 msgid "Unschedule publication"
-msgstr "Anulare programarii de publicare"
+msgstr "Anulare programare publicare"
 
 #, python-format
 msgid ""
@@ -891,11 +943,13 @@ msgstr ""
 "la %(go_live_at)s a fost anulată"
 
 #, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Programarea paginii pentru publicare la %(go_live_at)s a fost anulată"
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr ""
+"Programarea %(model_name)s pentru publicare la %(go_live_at)s a fost anulată"
 
-msgid "Page unscheduled from publishing"
-msgstr "Programarea paginii pentru publicare a fost anulată"
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "Programarea %(model_name)s pentru publicare a fost anulată"
 
 msgid "Add view restrictions"
 msgstr "Adăugare restricții de vizualizare"
@@ -923,14 +977,13 @@ msgstr "Eliminare restricții de vizualizare"
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction. The page is public."
 msgstr ""
-"A fost eliminată restricția de vizualizare '%(restriction)s'. Pagina este "
-"publică."
+"A eliminat restricția de vizualizare '%(restriction)s'. Pagina este publică."
 
 msgid "Removed view restriction"
 msgstr "A eliminat restricția de vizualizare"
 
 msgid "Add comment"
-msgstr "Adaugă comentariu"
+msgstr "Adăugare comentariu"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -940,7 +993,7 @@ msgid "Added a comment"
 msgstr "A adăugat un comentariu"
 
 msgid "Edit comment"
-msgstr "Editează comentariu"
+msgstr "Editare comentariu"
 
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
@@ -950,7 +1003,7 @@ msgid "Edited a comment"
 msgstr "A editat un comentariu"
 
 msgid "Delete comment"
-msgstr "Șterge comentariu"
+msgstr "Ștergere comentariu"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -960,7 +1013,7 @@ msgid "Deleted a comment"
 msgstr "A șters un comentariu"
 
 msgid "Resolve comment"
-msgstr "Rezolvă comentariu"
+msgstr "Rezolvare comentariu"
 
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
@@ -970,7 +1023,7 @@ msgid "Resolved a comment"
 msgstr "A rezolvat un comentariu"
 
 msgid "Reply to comment"
-msgstr "Răspunde la comentariu"
+msgstr "Răspuns la comentariu"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -980,7 +1033,7 @@ msgid "Replied to a comment"
 msgstr "A răspuns la un comentariu"
 
 msgid "Edit reply to comment"
-msgstr "Editează răspuns la comentariu"
+msgstr "Editare răspuns la comentariu"
 
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
@@ -990,7 +1043,7 @@ msgid "Edited a reply"
 msgstr "A editat un răspuns"
 
 msgid "Delete reply to comment"
-msgstr "Șterge răspuns la comentariu"
+msgstr "Ștergere răspuns la comentariu"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -1004,7 +1057,7 @@ msgstr "Flux de lucru: începere"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "Fluxul de lucru %(workflow)s început. Sarcina următoare '%(task)s'"
+msgstr "Fluxul de lucru '%(workflow)s' a pornit. Pasul următor: '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Flux de lucru început"
@@ -1014,7 +1067,7 @@ msgstr "Flux de lucru: aprobare sarcină"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Aprobat la sarcina '%(task)s'. Faza următoare '%(next_task)s'"
+msgstr "Aprobat la sarcina '%(task)s'. Pasul următor: '%(next_task)s'"
 
 #, python-format
 msgid "Approved at '%(task)s'. '%(workflow)s' complete"
@@ -1022,27 +1075,27 @@ msgstr ""
 "Aprobat la sarcina '%(task)s'. Fluxul de lucru '%(workflow)s' finalizat"
 
 msgid "Workflow task approved"
-msgstr "Sarcina de lucru a fost aprobată"
+msgstr "Sarcină din fluxul de lucru aprobată"
 
 msgid "Workflow: reject task"
 msgstr "Flux de lucru: respingere sarcină"
 
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Respins la faza '%(task)s'. Au fost solicitate modificări"
+msgstr "Respins la sarcina '%(task)s'. Au fost solicitate modificări"
 
 msgid "Workflow task rejected. Workflow complete"
-msgstr "Sarcina de lucru respinsă. Flux de lucru finalizat"
+msgstr "Sarcină din fluxul de lucru respinsă. Flux de lucru finalizat"
 
 msgid "Workflow: resume task"
 msgstr "Flux de lucru: reluare sarcină"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed"
-msgstr "Sarcina '%(task)s' retrimisă. Flux de lucru rezumat"
+msgstr "Sarcina '%(task)s' a fost retrimisă. Fluxul de lucru a fost reluat"
 
 msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"
+msgstr "Sarcină retrimisă. Flux de lucru reluat"
 
 msgid "Workflow: cancel"
 msgstr "Flux de lucru: anulare"

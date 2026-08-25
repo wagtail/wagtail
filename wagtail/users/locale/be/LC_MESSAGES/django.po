@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -137,6 +137,9 @@ msgstr "профіль карыстальніка"
 
 msgid "user profiles"
 msgstr "профілі карыстальнікаў"
+
+msgid "Active"
+msgstr "Актыўны"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -304,6 +307,12 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "карыстальнік %(id)s (выдалены)"
 
+msgid "User"
+msgstr "Карыстальнік"
+
+msgid "Created"
+msgstr "Створаны"
+
 msgid "Assign role to selected users"
 msgstr "Прызначыць ролю выбраным карыстальнікам"
 
@@ -325,9 +334,6 @@ msgstr[0] "%(num_parent_objects)dкарыстальнік быў выдален�
 msgstr[1] "%(num_parent_objects)d карыстальніка выдалілі"
 msgstr[2] "%(num_parent_objects)d карыстальнікаў выдалілі"
 msgstr[3] "%(num_parent_objects)d карыстальнікаў выдалілі"
-
-msgid "Active"
-msgstr "Актыўны"
 
 msgid "Inactive"
 msgstr "Неактыўны"

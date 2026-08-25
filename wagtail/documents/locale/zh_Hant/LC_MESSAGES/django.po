@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -24,6 +24,15 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail 文件"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "文件過大 (%(file_size)s)，文件大小上限為 %(max_filesize)s。"
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "文件過大，文件大小上限為 %(max_filesize)s。"
 
 msgid "Collection"
 msgstr "集合"
@@ -78,6 +87,10 @@ msgstr "否，不刪除"
 
 msgid "Latest documents"
 msgstr "最新文件"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "對不起。沒找到符合\"<em>%(search_query)s</em>\"的文件"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "你尚未上傳任何文件在這個集合"
@@ -209,10 +222,6 @@ msgstr "無法儲存文件，出現錯誤。"
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "文件'%(document_title)s' 已更新"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "無法找到文件。請修改源或者刪除文件。"
 
 msgid "Delete document"
 msgstr "刪除文件"

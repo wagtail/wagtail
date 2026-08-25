@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
-import { transition } from '../utils/transition';
 import { runInlineScripts } from '../utils/runInlineScripts';
+import { transition } from '../utils/transition';
 
 /**
  * Adds the ability for a dynamic, expanding, formset leveraging the Django

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -30,6 +30,19 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este ficheiro é demasiado grande (%(file_size)s). Tamanho máximo "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este ficheiro é demasiado grande. Tamanho do ficheiro máximo "
+"%(max_filesize)s."
 
 msgid "Collection"
 msgstr "Coleção"
@@ -141,6 +154,10 @@ msgstr "Não, não apagar"
 
 msgid "Latest documents"
 msgstr "Últimos documentos"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde a \"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ainda não carregou nenhum documento para esta coleção."
@@ -309,11 +326,6 @@ msgstr "O documento não pôde ser guardado devido a erros."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' atualizado"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"O ficheiro não foi encontrado. Por favor mude a origem ou apague o documento"
 
 msgid "Delete document"
 msgstr "Apagar documento"

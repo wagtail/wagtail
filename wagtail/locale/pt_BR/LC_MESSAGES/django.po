@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -50,24 +50,6 @@ msgstr "O número mínimo de itens é %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "O número máximo de itens é %(max_num)d"
 
-msgid "Move up"
-msgstr "Mover para cima"
-
-msgid "Move down"
-msgstr "Mover para baixo"
-
-msgid "Drag"
-msgstr "Arrastar"
-
-msgid "Duplicate"
-msgstr "Duplicar"
-
-msgid "Delete"
-msgstr "Remover"
-
-msgid "Add"
-msgstr "Adicionar"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: este bloco não tem opções."
@@ -77,6 +59,9 @@ msgstr "Este bloco não possui opções."
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
+
+msgid "Group"
+msgstr "Grupo"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache de front-end Wagtail"
@@ -177,6 +162,12 @@ msgstr "Bloqueado por agendamento"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Atualmente bloqueado e entrará no ar na data agendada"
 
+msgid "user"
+msgstr "usuário"
+
+msgid "name"
+msgstr "nome"
+
 msgid "content type"
 msgstr "tipo de conteúdo"
 
@@ -260,9 +251,6 @@ msgstr "visualizar restrição na coleção"
 msgid "collection view restrictions"
 msgstr "visualizar restrições nas coleções"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collections"
 msgstr "coleções"
 
@@ -283,6 +271,9 @@ msgstr "para o tipo de conteúdo"
 
 msgid "uploaded by user"
 msgstr "enviado pelo usuário"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
 msgstr "Adicionar/editar suas páginas"
@@ -317,6 +308,12 @@ msgstr "Desbloquear"
 msgid "Unlock any page"
 msgstr "Desbloquear qualquer página"
 
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
 msgid "title"
 msgstr "título"
 
@@ -339,6 +336,20 @@ msgstr "Caminho URL"
 msgid "owner"
 msgstr "proprietário"
 
+msgid "latest revision created at"
+msgstr "revisão mais recente criada em"
+
+msgid "show in menus"
+msgstr "exibir nos menus"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Um link para esta página irá aparecer nos menus gerados automaticamente"
+
+msgid "For site menus"
+msgstr "Para menus de sites"
+
 msgid "title tag"
 msgstr "tag de título"
 
@@ -348,14 +359,6 @@ msgid ""
 msgstr ""
 "O nome da página exibida nos resultados do mecanismo de pesquisa como o "
 "título clicável."
-
-msgid "show in menus"
-msgstr "exibir nos menus"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Um link para esta página irá aparecer nos menus gerados automaticamente"
 
 msgid "meta description"
 msgstr "meta descrição"
@@ -367,20 +370,8 @@ msgstr ""
 "O texto descritivo exibido abaixo de um título nos resultados do mecanismo "
 "de pesquisa."
 
-msgid "latest revision created at"
-msgstr "revisão mais recente criada em"
-
 msgid "For search engines"
 msgstr "Para motores de busca"
-
-msgid "For site menus"
-msgstr "Para menus de sites"
-
-msgid "page"
-msgstr "página"
-
-msgid "pages"
-msgstr "páginas"
 
 msgid "group page permission"
 msgstr "grupo de permissão da página"
@@ -465,9 +456,6 @@ msgstr "irá desmarcar a referência"
 
 msgid "created at"
 msgstr "criado em"
-
-msgid "user"
-msgstr "usuário"
 
 msgid "content JSON"
 msgstr "conteúdo JSON"
@@ -712,6 +700,9 @@ msgstr "Criado"
 msgid "Edited"
 msgstr "Editado"
 
+msgid "Delete"
+msgstr "Remover"
+
 msgid "Deleted"
 msgstr "Excluído"
 
@@ -832,13 +823,6 @@ msgstr ""
 "Revisão %(revision_id)s de %(created_at)s agendado para publicação em "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Página agendada para publicação em %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Página agendada para publicação"
-
 msgid "Unschedule publication"
 msgstr "Cancelar o agendamento da publicação"
 
@@ -849,13 +833,6 @@ msgid ""
 msgstr ""
 "Revisão %(revision_id)s a partir de %(created_at)s não programado para "
 "publicação em %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Página não agendada para publicação em %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Página não agendada para publicação"
 
 msgid "Add view restrictions"
 msgstr "Adicionar restrições de visualização"

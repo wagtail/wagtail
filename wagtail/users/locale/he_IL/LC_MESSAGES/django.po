@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -87,6 +87,9 @@ msgstr "ברירת מחדל"
 msgid "user profile"
 msgstr "פרופיל משתמש"
 
+msgid "Active"
+msgstr "מופעל"
+
 msgid "Delete"
 msgstr "מחק"
 
@@ -131,8 +134,8 @@ msgstr "חשבון"
 msgid "Roles"
 msgstr "תפקידים"
 
-msgid "Active"
-msgstr "מופעל"
+msgid "User"
+msgstr "משתמש"
 
 msgid "Inactive"
 msgstr "כבוי"
@@ -181,6 +184,10 @@ msgstr "שם משתמש"
 
 msgid "Admin"
 msgstr "מנהל"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "משתמש '%(object)s' נוצר"
 
 msgid "Add user"
 msgstr "הוספת משתמש"

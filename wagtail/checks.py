@@ -1,10 +1,13 @@
+import swapper
 from django.core.checks import Warning, register
 
 
 @register("search")
 def page_search_fields_check(app_configs, **kwargs):
     """Checks each page model with search_fields to core fields are included"""
-    from wagtail.models import Page, get_page_models
+    from wagtail.models import get_page_models
+
+    Page = swapper.load_model("wagtailcore", "Page")
 
     page_models = get_page_models()
     errors = []

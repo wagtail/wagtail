@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,18 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Pukapuka-a-Wagtail"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"He nui rawa atu tēnei kōnae (%(file_size)s). Korahi whakatīeke ō te kōnae "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"He nui rawa atu tēnei kōnae. Korahi whakatieke ō te kōnae %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Kohikohinga"
@@ -69,6 +81,12 @@ msgstr "Kao, kaua e muku"
 
 msgid "Latest documents"
 msgstr "Pukapuka hōu"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(search_query)s</"
+"em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga."
@@ -195,12 +213,6 @@ msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Pukapuka '%(document_title)s' kua whakahou"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
-"pukapuka rānei."
 
 msgid "Delete document"
 msgstr "Mukuhia pukapuka"

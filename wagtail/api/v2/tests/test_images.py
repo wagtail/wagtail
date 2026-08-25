@@ -1,15 +1,18 @@
 import json
 from unittest import mock
 
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.images import get_image_model
+from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils import PageFixturesMixin
+from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
-class TestImageListing(TestCase):
+class TestImageListing(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -61,6 +64,49 @@ class TestImageListing(TestCase):
                 image["meta"]["detail_url"],
                 "http://localhost/api/main/images/%d/" % image["id"],
             )
+
+    def test_excludes_restricted_image(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_image.collection = restricted_collection
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_image.id, self.get_image_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_image_model().objects.count() - 1
+        )
+
+    def test_excludes_restricted_image_in_descendant_collection(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_image.collection = restricted_collection_descendant
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_image.id, self.get_image_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_image_model().objects.count() - 1
+        )
 
     #  FIELDS
 
@@ -363,7 +409,8 @@ class TestImageListing(TestCase):
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
 
-class TestImageListingSearch(TransactionTestCase):
+@tag("transaction")
+class TestImageListingSearch(PageFixturesMixin, TransactionTestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -407,7 +454,7 @@ class TestImageListingSearch(TransactionTestCase):
         )
 
 
-class TestImageDetail(TestCase):
+class TestImageDetail(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
@@ -466,6 +513,37 @@ class TestImageDetail(TestCase):
 
         self.assertIn("tags", content["meta"])
         self.assertEqual(content["meta"]["tags"], ["hello", "world"])
+
+    def test_excludes_restricted_image(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_image.collection = restricted_collection
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_image.id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_excludes_restricted_image_in_descendant_collection(self):
+        restricted_image = get_image_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_image.collection = restricted_collection_descendant
+        restricted_image.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_image.id)
+        self.assertEqual(response.status_code, 404)
 
     # FIELDS
 
@@ -535,7 +613,7 @@ class TestImageDetail(TestCase):
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
 
 
-class TestImageFind(TestCase):
+class TestImageFind(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -583,7 +661,7 @@ class TestImageFind(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestImageCacheInvalidation(TestCase):
+class TestImageCacheInvalidation(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     @classmethod

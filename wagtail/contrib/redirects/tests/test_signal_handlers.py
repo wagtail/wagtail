@@ -4,10 +4,10 @@ from django.test import TestCase, override_settings
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.testapp.models import EventIndex
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 User = get_user_model()
 
@@ -20,7 +20,7 @@ User = get_user_model()
         },
     },
 )
-class TestAutocreateRedirects(WagtailTestUtils, TestCase):
+class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

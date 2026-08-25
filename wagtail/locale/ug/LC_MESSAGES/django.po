@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -36,24 +36,6 @@ msgstr "ئەڭ ئاز تۈر سانى %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "ئەڭ كۆپ تۈر سانى  %(max_num)d"
 
-msgid "Move up"
-msgstr "يۇقىرىغا"
-
-msgid "Move down"
-msgstr "تۆۋەنگە"
-
-msgid "Drag"
-msgstr "سۆرە"
-
-msgid "Duplicate"
-msgstr "تەكرار"
-
-msgid "Delete"
-msgstr "ئۆچۈر"
-
-msgid "Add"
-msgstr "قوش"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: بۇ بۆلەكنىڭ تاللانمىسى يوق."
@@ -63,6 +45,9 @@ msgstr "بۇ بۆلەكتنىڭ تاللانمىسى يوق."
 
 msgid "This field is required."
 msgstr "بۇ بۆلەك زۆرۈر."
+
+msgid "Group"
+msgstr "گۇرۇپپا"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail ئالدى ئۇچ غەملەك"
@@ -75,6 +60,9 @@ msgstr "Wagtail بېكەت خەرىتىسى"
 
 msgid "Unknown content type"
 msgstr "نامەلۇم مەزمۇن تىپى"
+
+msgid "Date cannot be in the future."
+msgstr "چېسلا كەلگۈسىدە بولماسلىقى كېرەك."
 
 msgid "Password"
 msgstr "ئىم"
@@ -171,6 +159,12 @@ msgstr "كۈنتەرتىپ قۇلۇپلىغان"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "ھازىر قۇلۇپلاندى، كۈنتەرتىپتىكى ۋاقىتتا بىۋاسىتە تارقىتىلىدۇ"
 
+msgid "user"
+msgstr "ئىشلەتكۈچى"
+
+msgid "name"
+msgstr "ئاتى"
+
 msgid "content type"
 msgstr "مەزمۇن تۈرى"
 
@@ -257,9 +251,6 @@ msgstr "توپلام كۆرۈش چەكلىمىسى"
 msgid "collection view restrictions"
 msgstr "توپلام كۆرۈش چەكلىمىسى"
 
-msgid "name"
-msgstr "ئاتى"
-
 msgid "collections"
 msgstr "توپلام"
 
@@ -280,6 +271,9 @@ msgstr "مەزمۇن تۈرى"
 
 msgid "uploaded by user"
 msgstr "ئىشلەتكۈچى يۈكلىگەن"
+
+msgid "Add"
+msgstr "قوش"
 
 msgid "Add/edit pages you own"
 msgstr "ئۆزىڭىزنىڭ بېتىڭىزنى قوشىدۇ/تەھرىرلەيدۇ"
@@ -314,6 +308,12 @@ msgstr "قۇلۇپ ئاچ"
 msgid "Unlock any page"
 msgstr "ھەر قانداق بەتنىڭ قۇلۇپىنى ئاچىدۇ"
 
+msgid "page"
+msgstr "بەت"
+
+msgid "pages"
+msgstr "بەت"
+
 msgid "title"
 msgstr "ماۋزۇ"
 
@@ -336,6 +336,19 @@ msgstr "تور ئادرېس يولى"
 msgid "owner"
 msgstr "ئىگىدار"
 
+msgid "latest revision created at"
+msgstr "ئاخىرقى تۈزىتىلمە قۇرۇلغان ۋاقىت"
+
+msgid "show in menus"
+msgstr "تىزىملىكتە كۆرسەت"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "بۇ بەتنىڭ ئۇلانمىسى ئاپتوماتىك ھاسىل قىلىنغان تىزىملىكتە كۆرۈنەمدۇ يوق"
+
+msgid "For site menus"
+msgstr "بېكەت تىزىملىكى ئۈچۈن"
+
 msgid "title tag"
 msgstr "ماۋزۇ بەلگىسى"
 
@@ -346,13 +359,6 @@ msgstr ""
 "ئىزدەش موتورىنىڭ نەتىجىسىدە كۆرۈنىدىغان چەككىلى بولىدىغان بەت ئىسمىنىڭ "
 "ماۋزۇسى."
 
-msgid "show in menus"
-msgstr "تىزىملىكتە كۆرسەت"
-
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr "بۇ بەتنىڭ ئۇلانمىسى ئاپتوماتىك ھاسىل قىلىنغان تىزىملىكتە كۆرۈنەمدۇ يوق"
-
 msgid "meta description"
 msgstr "تەپسىلىي چۈشەندۈرۈشى"
 
@@ -362,27 +368,8 @@ msgid ""
 msgstr ""
 "ئىزدەش موتورىنىڭ نەتىجىسىدە ماۋزۇنىڭ ئاستىدا كۆرۈنىدىغان چۈشەندۈرۈش تېكىستى."
 
-msgid "latest revision created at"
-msgstr "ئاخىرقى تۈزىتىلمە قۇرۇلغان ۋاقىت"
-
 msgid "For search engines"
 msgstr "ئىزدەش موتورى"
-
-msgid "For site menus"
-msgstr "بېكەت تىزىملىكى ئۈچۈن"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"قىسقارتىلما «%(page_slug)s» ئانا بەت «%(parent_url_path)s» تە ئىشلىتىلىۋاتىدۇ"
-
-msgid "page"
-msgstr "بەت"
-
-msgid "pages"
-msgstr "بەت"
 
 msgid "group page permission"
 msgstr "گۇرۇپپا بېتى ئىجازىتى"
@@ -468,9 +455,6 @@ msgstr "نەقىلنى تەڭشىمەيدۇ"
 msgid "created at"
 msgstr "قۇرۇلغان ۋاقتى"
 
-msgid "user"
-msgstr "ئىشلەتكۈچى"
-
 msgid "content JSON"
 msgstr "JSON مەزمۇنى"
 
@@ -536,6 +520,12 @@ msgid ""
 msgstr ""
 "%(hostname)s كۆڭۈلدىكى بېكەت قىلىپ سەپلەندى. بۇ بېكەتنى كۆڭۈلدىكى بېكەتكە "
 "تەڭشەشتىن ئىلگىرى ئۇنى كۆڭۈلدىكى بېكەتتىن تەڭشەپ چىقىرىۋېتىڭ."
+
+msgid "group site permission"
+msgstr "گۇرۇپپا بېكەت ئىجازىتى"
+
+msgid "group site permissions"
+msgstr "گۇرۇپپا بېكەت ئىجازىتى"
 
 msgid "Public"
 msgstr "ئاممىۋى"
@@ -741,6 +731,9 @@ msgstr "قۇرغان ۋاقىت"
 msgid "Edited"
 msgstr "تەھرىرلەنگەن ۋاقىت"
 
+msgid "Delete"
+msgstr "ئۆچۈر"
+
 msgid "Deleted"
 msgstr "ئۆچۈرۈلگەن ۋاقىت"
 
@@ -861,13 +854,6 @@ msgstr ""
 "%(go_live_at)s دە تارقىتىشقا كۈنتەرتىپكە تىزىلغان %(created_at)s نىڭ "
 "%(revision_id)s تۈزىتىلمىسى."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "%(go_live_at)s دە تارقىتىشقا كۈنتەرتىپكە تىزىلغان بەت"
-
-msgid "Page scheduled for publishing"
-msgstr "تارقىتىشقا كۈنتەرتىپكە تىزىلغان بەت"
-
 msgid "Unschedule publication"
 msgstr "كۈنتەرتىپكە تىزىلمىغان تارقىتىش"
 
@@ -878,13 +864,6 @@ msgid ""
 msgstr ""
 "%(go_live_at)s دە تارقىتىش كۈنتەرتىپكە تىزىلمىغان %(created_at)s نىڭ "
 "%(revision_id)s تۈزىتىلمىسى."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "%(go_live_at)s دە تارقىتىشقا كۈنتەرتىپكە تىزىلمىغان بەت"
-
-msgid "Page unscheduled from publishing"
-msgstr "تارقىتىشقا كۈنتەرتىپكە تىزىلمىغان بەت"
 
 msgid "Add view restrictions"
 msgstr "كۆرۈش چەكلىمىسى قوش"

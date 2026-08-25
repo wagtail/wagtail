@@ -28,11 +28,7 @@ class SiteSwitchForm(forms.Form):
         self.fields["site"].choices = [
             (
                 self.get_change_url(site, model),
-                (
-                    site.hostname + " [{}]".format(_("default"))
-                    if site.is_default_site
-                    else site.hostname
-                ),
+                str(site),
             )
             for site in sites
         ]

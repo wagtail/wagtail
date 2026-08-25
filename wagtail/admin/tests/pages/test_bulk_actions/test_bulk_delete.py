@@ -1,5 +1,6 @@
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest
@@ -9,10 +10,13 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.models import Page
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import SimplePage, VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
+
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
 
 
 class TestBulkDelete(WagtailTestUtils, TestCase):
@@ -59,8 +63,8 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
             reverse(
                 "wagtail_bulk_action",
                 args=(
-                    "wagtailcore",
-                    "page",
+                    page_app,
+                    page_model,
                     "delete",
                 ),
             )
@@ -441,7 +445,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -476,7 +480,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -522,7 +526,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )
@@ -574,7 +578,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         url = (
             reverse(
                 "wagtail_bulk_action",
-                args=("wagtailcore", "page", "delete"),
+                args=(page_app, page_model, "delete"),
             )
             + "?"
         )

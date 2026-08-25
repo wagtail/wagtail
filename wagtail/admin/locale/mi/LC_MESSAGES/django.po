@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -58,9 +58,6 @@ msgstr "Te kaiwhakahaere ō Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Aroha mai, ehara koe e whakaae ki roto i tēnei wāhi."
-
-msgid "You do not have permission to access the admin"
-msgstr "Ehara koe e whakaae ki te kai whakahaere"
 
 msgid "None"
 msgstr "Kore"
@@ -140,9 +137,6 @@ msgstr "Muku"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Me haere mataora rā/taima i mua te mōnehu rā/taima"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Me haere te mōnehu rā/taima ki roto ī te wāheke."
 
 msgid "New title"
 msgstr "Taitara hou"
@@ -350,14 +344,15 @@ msgstr "Tāpiri he hono mōwaho"
 msgid "Add a phone link"
 msgstr "Tāpiri he hono waea"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Kōwhiri %(title)s"
+
 msgid "This collection has been made private by a parent collection."
 msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Ka taea e koe ki te whakarerekē ngā tautuhinga paraiweti ki:"
-
-msgid "Save"
-msgstr "Puritia"
 
 msgid "Privacy"
 msgstr "Noho matatapu"
@@ -380,11 +375,13 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Actions"
-msgstr "Hohenga"
-
 msgid "Comment"
 msgstr "Tākupu"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Hohenga"
 
 msgid "Update"
 msgstr "Whakahou"
@@ -470,6 +467,10 @@ msgstr "Muku %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tāpiri %(label)s"
+
 msgid "Move up"
 msgstr "Mū ki runga"
 
@@ -502,6 +503,9 @@ msgstr "Tātari"
 
 msgid "Back"
 msgstr "Whakahoki"
+
+msgid "Save"
+msgstr "Puritia"
 
 msgid "Lock"
 msgstr "Raka"
@@ -551,12 +555,20 @@ msgstr "%(model_name)s '%(object)s' kua whakahou."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kua hangaia."
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Tāpiri %(model_name)s"
+
 msgid "Editing"
 msgstr "Whakarerekē"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' kua muku."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "E pirangi ana koe kī te mukuhia tēnei %(model_name)s?"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -568,6 +580,10 @@ msgstr "Papatohu"
 msgid "View live"
 msgstr "Mātaki mataora"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Whakarerekē %(page_type)s"
+
 msgid "Site"
 msgstr "Pae"
 
@@ -576,6 +592,10 @@ msgstr "Whakakite"
 
 msgid "Awaiting my review"
 msgstr "E tatari ana mō tōku arotake"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Whakarerekē %(task_type)s"
 
 msgid "Choose an item"
 msgstr "Kōwhiri he tūemi"

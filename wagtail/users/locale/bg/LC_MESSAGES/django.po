@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,14 +53,29 @@ msgstr "Въведете същата парола, като по-горе, за
 msgid "Administrator"
 msgstr "Администратор"
 
+msgid "Status: "
+msgstr "Статус:"
+
+msgid "Active"
+msgstr "Активен"
+
 msgid "Delete"
 msgstr "Изтрий"
 
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
 
+msgid "No, don't delete"
+msgstr "Не, не го изтривай"
+
 msgid "Name"
 msgstr "Име"
+
+msgid "Add"
+msgstr "Добави"
+
+msgid "Page"
+msgstr "Страница"
 
 msgid "Account"
 msgstr "Потребителски профил"
@@ -68,8 +83,16 @@ msgstr "Потребителски профил"
 msgid "Roles"
 msgstr "Роля"
 
-msgid "Active"
-msgstr "Активен"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Няма конфигурирани потребители. Защо не <a "
+"href=\"%(wagtailusers_add_url)s\">добавите един сега</a>?"
+
+msgid "User"
+msgstr "Потребител"
 
 msgid "Inactive"
 msgstr "Неактивен"
@@ -85,6 +108,10 @@ msgstr "Потребителско име"
 
 msgid "Admin"
 msgstr "Админ"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Потребител '%(object)s' създаден."
 
 msgid "Add user"
 msgstr "Добави потребител"

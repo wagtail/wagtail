@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.query import TreeQuerySet
 from wagtail.search import index
@@ -30,9 +30,21 @@ class CollectionQuerySet(TreeQuerySet):
         ]
 
 
-class BaseCollectionManager(models.Manager):
+class BaseCollectionManager(MP_NodeManager):
     def get_queryset(self):
         return CollectionQuerySet(self.model).order_by("path")
+
+    def get_by_natural_key(self, *path_names):
+        """Get collection by hierarchical path"""
+        if not path_names:
+            raise ValueError("At least one path name must be provided")
+
+        current = self.get_queryset().get(depth=1, name=path_names[0])
+
+        for name in path_names[1:]:
+            current = current.get_children().get(name=name)
+
+        return current
 
 
 CollectionManager = BaseCollectionManager.from_queryset(CollectionQuerySet)
@@ -111,12 +123,18 @@ class Collection(MP_Node):
             # NOTE: &#x21b3 is the hex HTML entity for ↳.
             return format_html(
                 "{indent}{icon} {name}",
-                indent=mark_safe("&nbsp;" * 4 * display_depth),
-                icon=mark_safe("&#x21b3"),
+                indent=mark_safe("&nbsp;" * 4 * display_depth),  # noqa: S308 - no security implications
+                icon=mark_safe("&#x21b3"),  # noqa: S308 - no security implications
                 name=self.name,
             )
         # Output unicode plain-text version
         return "{}↳ {}".format(" " * 4 * display_depth, self.name)
+
+    def natural_key(self):
+        """Return the hierarchical path as the natural key"""
+        return tuple(
+            collection.name for collection in self.get_ancestors(inclusive=True)
+        )
 
     class Meta:
         verbose_name = _("collection")

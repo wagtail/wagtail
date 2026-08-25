@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-
-msgid "default"
-msgstr "الإفتراضي"
 
 msgid "Sites"
 msgstr "مواقع"
@@ -46,6 +43,9 @@ msgstr " %(site_setting)s الخاص ب%(site)s"
 
 msgid "Site"
 msgstr "موقع"
+
+msgid "default"
+msgstr "الإفتراضي"
 
 msgid "Settings"
 msgstr "اعدادات"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -103,6 +103,9 @@ msgstr "Predvolené"
 msgid "user profile"
 msgstr "používatelský profil"
 
+msgid "Active"
+msgstr "Aktívne"
+
 msgid "Delete"
 msgstr "Vymazať"
 
@@ -163,8 +166,16 @@ msgstr "Účet"
 msgid "Roles"
 msgstr "Role"
 
-msgid "Active"
-msgstr "Aktívne"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú vytvorení žiadni používatelia. Prečo nejakých ne<a "
+"href=\"%(wagtailusers_add_url)s\">vytvoriť</a>?"
+
+msgid "User"
+msgstr "Používateľ"
 
 msgid "Inactive"
 msgstr "Neaktívne"
@@ -213,6 +224,10 @@ msgstr "Používateľské meno"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Používateľ '%(object)s' bol vytvorený."
 
 msgid "Add user"
 msgstr "Pridať používateľa"

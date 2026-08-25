@@ -2,6 +2,7 @@ import logging
 
 from django.core.exceptions import PermissionDenied
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
 from wagtail.signals import unpublished
 
@@ -16,7 +17,11 @@ class UnpublishPermissionError(PermissionDenied):
     pass
 
 
-class UnpublishAction:
+class UnpublishAction(BaseAction):
+    action_name = "unpublish"
+    permission_policy_action = "publish"
+    permission_error_class = UnpublishPermissionError
+
     def __init__(
         self,
         object,
@@ -25,21 +30,11 @@ class UnpublishAction:
         user=None,
         log_action=True,
     ):
+        super().__init__(object, user=user)
         self.object = object
         self.set_expired = set_expired
         self.commit = commit
-        self.user = user
         self.log_action = log_action
-
-    def check(self, skip_permission_checks=False):
-        if (
-            self.user
-            and not skip_permission_checks
-            and not self.object.permissions_for_user(self.user).can_unpublish()
-        ):
-            raise UnpublishPermissionError(
-                "You do not have permission to unpublish this object."
-            )
 
     def _commit_unpublish(self, object):
         object.save()

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -76,10 +76,6 @@ msgstr "Wagtail Admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
-
-msgid "You do not have permission to access the admin"
-msgstr ""
-"Nincs megfelelő engedélye, hogy hozzáférjen az adminisztrációs felülethez."
 
 msgid "None"
 msgstr "Üres"
@@ -168,9 +164,6 @@ msgstr ""
 "Válassza ki a kívánt helyet a fastruktúrában. Megjegyzés: a gyűjtemény nem "
 "lehet saját maga, vagy egy saját gyermekének a gyermeke."
 
-msgid "Please select another parent"
-msgstr "Kérjül válasszon másik szülőt"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
 
@@ -197,9 +190,6 @@ msgstr "Másik felhasználó megjegyzését nem lehet szerkeszteni."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "A megjelenés dátumának/idejének a lejárat ideje előttinek kell lennie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
 
 msgid "New title"
 msgstr "Új oldalcím"
@@ -266,10 +256,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Aloldalak másolásakor nem lehet egy oldalt saját magára másolni"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "A(z) '%(page_slug)s' rövidítés már használatban van a szülőoldal alatt"
-
 msgid "Select a new parent for this page."
 msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
 
@@ -293,11 +279,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Keresés..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"Cím(ek) %(value_too_long)s túl lépik a %(max_tag_length)d karakterszámot "
 
 msgid "Visibility"
 msgstr "Láthatóság"
@@ -637,9 +618,6 @@ msgstr "Ez a gyűjtemény privát a szülő gyűjtemény beállításai miatt."
 msgid "You can edit the privacy settings on:"
 msgstr "A láthatósági beállításokat itt szerkesztheti:"
 
-msgid "Save"
-msgstr "Mentés"
-
 msgid "Change privacy"
 msgstr "Láthatóság megváltoztatása"
 
@@ -733,11 +711,13 @@ msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
 msgid "Cancel"
 msgstr "Mégsem"
 
-msgid "Actions"
-msgstr "Akciók"
-
 msgid "Comment"
 msgstr "Megjegyzés"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Akciók"
 
 #, python-format
 msgid ""
@@ -1677,26 +1657,6 @@ msgstr "'%(title)s' gyermek oldalainak tallózása"
 msgid "Add a child page to '%(title)s'"
 msgstr "Gyermek oldal hozzáadása ehhez: '%(title)s'"
 
-msgid "Drag"
-msgstr "Megragadás"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "%(index)s / %(total)s elem"
-
-msgid "Disable ordering of child pages"
-msgstr "Aloldalak sorrendezésének tiltása"
-
-msgid "Sort"
-msgstr "Sorbarendezés"
-
-msgid "Enable ordering of child pages"
-msgstr "Aloldalak sorba rendezésének engedélyezése"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s - %(end_index)s / %(items_count)s a teljes oldalon."
-
 msgid "No results across entire site."
 msgstr "Nincs találat a teljes oldalon."
 
@@ -1705,24 +1665,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Keresés itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s - %(end_index)s / %(items_count)s itt: '<span class=\"w-"
-"title-ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Nincs találat itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Keresés a teljes oldalon"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s - %(end_index)s / %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Webhely menü"
@@ -1745,9 +1693,6 @@ msgstr "Ez az oldal védett a közönségtől"
 
 msgid "Confirm"
 msgstr "Megerősítés"
-
-msgid "Add child page"
-msgstr "Gyermek oldal hozzáadása"
 
 msgid "Page types"
 msgstr "Oldal típusok"
@@ -1776,6 +1721,9 @@ msgstr "Mozgatás fel"
 
 msgid "Move down"
 msgstr "Mozgatás le"
+
+msgid "Drag"
+msgstr "Megragadás"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1949,9 +1897,6 @@ msgstr "Rendszer"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s elmentett egy új verziót"
 
-msgid "Refresh"
-msgstr "Frissítés"
-
 msgid "You have unsaved changes in another window"
 msgstr "Egy másik ablakban mentetlen változtatások vannak"
 
@@ -1968,38 +1913,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "1 másik felhasználó nézi jelenleg"
 msgstr[1] "%(num_user)s másik felhasználó nézi jelenleg"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket a másik "
-"ablakban hajtott végre. A frissítés lehetőséget használva az oldal "
-"megmutatja a másik ablakban végrehajtott változtatásokat, de az ebben az "
-"ablakban módosított adatok eltűnnek."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket %(user_name)s "
-"hajtott végre. A frissítés lehetőséget használva az oldal megmutatja a másik "
-"ablakban végrehajtott változtatásokat, de az ebben az ablakban módosított "
-"adatok eltűnnek."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Az oldal frissítése a mentetlen változtatások elvesztésével jár"
-
-msgid "Refresh page"
-msgstr "Oldal frissítése"
-
 msgid "Continue"
 msgstr "Folytatás"
-
-msgid "Refresh the page"
-msgstr "Az oldal frissítése"
 
 msgid "Download XLSX"
 msgstr "XSLX letöltése"
@@ -2073,6 +1988,9 @@ msgstr "Nem, mégsem vonom vissza"
 
 msgid "Other searches"
 msgstr "További keresések"
+
+msgid "Save"
+msgstr "Mentés"
 
 msgid "Minimap"
 msgstr "Minitérkép"
@@ -2209,6 +2127,9 @@ msgstr "Betöltés"
 msgid "Refreshing…"
 msgstr "Frissítés..."
 
+msgid "Refresh"
+msgstr "Frissítés"
+
 msgid "Preview is out of date"
 msgstr "Az előnézet már nem aktuális"
 
@@ -2229,14 +2150,6 @@ msgstr "Mentse el a változtatásokat, mielőtt elhagyja az oldalt"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Az oldalon <span>mentetlen megjegyzések</span> vannak"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Az oldalon <span>mentetlen változtatások</span> és <span>kommentek</span> "
-"vannak"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2317,11 +2230,18 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s / %(total)s elem"
+
+msgid "Sort"
+msgstr "Sorbarendezés"
+
 msgid "View Wagtail quick actions"
 msgstr "Gyors akciók megtekintése"
 
-msgid "Accessibility"
-msgstr "Akadálymentesség"
+msgid "Checks"
+msgstr "Ellenőrzések"
 
 msgid "Warnings"
 msgstr "Figyelmeztetések"
@@ -2560,8 +2480,17 @@ msgstr "%(task_name)s lépésben %(started_at)s óta"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
-msgid "Common actions"
-msgstr "Gyakori műveletek"
+msgid "Toggle sidebar"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Toggle minimap"
+msgstr "Tartalom térkép kapcsolása"
+
+msgid "Save changes"
+msgstr "Változtatások mentése"
+
+msgid "Add or show comments"
+msgstr "Megjegyzések megtekintése vagy hozzáadása"
 
 msgid "Cut"
 msgstr "Másolás"
@@ -2581,32 +2510,19 @@ msgstr "Visszavonás"
 msgid "Redo"
 msgstr "Újra"
 
-msgid "Save changes"
-msgstr "Változtatások mentése"
-
-msgid "Toggle sidebar"
-msgstr "Oldalsáv kapcsolása"
-
-msgid "Toggle minimap"
-msgstr "Tartalom térkép kapcsolása"
-
-msgid "Add or show comments"
-msgstr "Megjegyzések megtekintése vagy hozzáadása"
-
-msgid "Text content"
-msgstr "Szöveges tartalom"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Szövegformázás"
 
 msgid "Insert or edit a link"
 msgstr "Hivatkozás beillesztése vagy szerkesztése"
 
-msgid "Text formatting"
-msgstr "Szövegformázás"
+msgid "Bold"
+msgstr "Félkövér"
 
 msgid "Italic"
 msgstr "Dőlt"
-
-msgid "Underline"
-msgstr "Aláhúzás"
 
 msgid "Monospace (code)"
 msgstr "Monospace (kód)"
@@ -2638,9 +2554,6 @@ msgstr "Megjegyzések"
 msgid "Toggle checks"
 msgstr "Ellenőrzések kapcsolása"
 
-msgid "Checks"
-msgstr "Ellenőrzések"
-
 msgid "Toggle preview"
 msgstr "Előnézet kapcsolása"
 
@@ -2654,6 +2567,17 @@ msgstr "Rendezés '%(label)s' szerint növekvő sorrendben."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Rendezés '%(label)s' szerint csökkenő sorrendben."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' mozgatása sikeres volt."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókuszáljon a fogd-és-vidd ikonra, majd a fel/le nyilak segítségével "
+"mozgassa az elemet, majd nyomjon entert a változtatások mentéséhez."
 
 #, python-format
 msgid ""
@@ -2811,10 +2735,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "'%(title)s' %(model_name)szárolása fel lett oldva."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "A(z) %(model_name)s mentése nem sikerült, mert zárolva van."
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s'%(object)s' frissítve."
 
@@ -2861,6 +2781,10 @@ msgstr ""
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr ""
 "A munkafolyamat a(z) '%(object)s' %(model_name)s esetén meg lett szakítva."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "A(z) %(model_name)s mentése nem sikerült, mert zárolva van."
 
 #, python-format
 msgid ""
@@ -3107,9 +3031,6 @@ msgstr " '%(page_title)s' létrehozva és közzétéve."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr " '%(page_title)s' be lett nyújtva moderálásra."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' oldal törölve."
@@ -3171,12 +3092,6 @@ msgstr "'%(page_title)s' be lett nyújtva moderálásra."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "A munkafolyamat a(z) '%(page_title)s' oldal esetén újra lett indítva."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Az oldal mentése nem sikerült, mert zárolva van."
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
-
 msgid "Is commenting action"
 msgstr "Hozzászólás akció"
 
@@ -3207,28 +3122,12 @@ msgstr "Oldal típusa"
 msgid "Exploring"
 msgstr "Felfedezés"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Fókuszáljon a fogd-és-vidd ikonra, majd a fel/le nyilak segítségével "
-"mozgassa az elemet, majd nyomjon entert a változtatások mentéséhez."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' mozgatása sikeres volt."
+msgid "Add child page"
+msgstr "Gyermek oldal hozzáadása"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' oldal zárolása fel lett oldva."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"A '%(page_slug)s' domain-darabka már használatban van a kiválasztott "
-"szülőoldalon. Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3457,9 +3356,6 @@ msgstr "Sorszámozott lista"
 
 msgid "Blockquote"
 msgstr "Idézet"
-
-msgid "Bold"
-msgstr "Félkövér"
 
 msgid "Link"
 msgstr "Link"

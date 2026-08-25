@@ -1,6 +1,7 @@
 import datetime
 import os
 
+import swapper
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
@@ -15,6 +16,8 @@ from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
+
+swapper.set_app_prefix("wagtailcore", "wagtail")
 
 FORM_FIELD_CHOICES = (
     ("singleline", _("Single line text")),
@@ -42,7 +45,9 @@ class AbstractFormSubmission(models.Model):
     """
 
     form_data = models.JSONField(encoder=DjangoJSONEncoder)
-    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    page = models.ForeignKey(
+        swapper.get_model_name("wagtailcore", "Page"), on_delete=models.CASCADE
+    )
 
     submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
 
@@ -94,6 +99,8 @@ class AbstractFormField(Orderable):
         verbose_name=_("field type"), max_length=16, choices=FORM_FIELD_CHOICES
     )
     # field_type must be populated for previews to build the form field.
+    # Set required_on_save=True on the model field in case the FieldPanel has
+    # been overridden.
     field_type.required_on_save = True
     required = models.BooleanField(verbose_name=_("required"), default=True)
     choices = models.TextField(
@@ -118,7 +125,10 @@ class AbstractFormField(Orderable):
         FieldPanel("label"),
         FieldPanel("help_text"),
         FieldPanel("required"),
-        FieldPanel("field_type", classname="formbuilder-type"),
+        # field_type must be populated for previews to build the form field.
+        # Set required_on_save=True on the field panel in case the model field
+        # has been overridden.
+        FieldPanel("field_type", classname="formbuilder-type", required_on_save=True),
         FieldPanel("choices", classname="formbuilder-choices"),
         FieldPanel("default_value", classname="formbuilder-default"),
     ]
@@ -152,10 +162,8 @@ class AbstractFormField(Orderable):
         as this would invalidate any previously submitted data.
         """
 
-        is_new = self.pk is None
-        if is_new:
-            clean_name = self.get_field_clean_name()
-            self.clean_name = clean_name
+        if not self.clean_name:
+            self.clean_name = self.get_field_clean_name()
 
         super().save(*args, **kwargs)
 
@@ -228,6 +236,9 @@ class FormMixin:
         """
 
         return FormSubmission
+
+    def get_submissions(self):
+        return self.get_submission_class()._default_manager.filter(page=self)
 
     def get_submissions_list_view_class(self):
         from .views import SubmissionsListView

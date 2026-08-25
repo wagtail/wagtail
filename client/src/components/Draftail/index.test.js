@@ -1,9 +1,9 @@
 import draftail, {
-  wrapWagtailIcon,
-  Link,
   Document,
-  ImageBlock,
   EmbedBlock,
+  ImageBlock,
+  Link,
+  wrapWagtailIcon,
 } from './index';
 
 window.comments = {

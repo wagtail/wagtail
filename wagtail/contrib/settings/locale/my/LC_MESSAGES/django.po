@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,3 +34,7 @@ msgstr "ဘယ်ဆိုက်မှ မသတ်မှတ်ထားသေ�
 
 msgid "The setting could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် ဆက်တင်ကို မသိမ်းဆည်းနိုင်ပါ။"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s မြှင့်တင်ပြီးပါပြီ။"

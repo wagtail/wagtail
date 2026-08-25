@@ -1,7 +1,6 @@
-import { Controller } from '@hotwired/stimulus';
-
 import type { ActionController } from './ActionController';
 import type { DropdownController } from './DropdownController';
+import { Controller } from '@hotwired/stimulus';
 
 /**
  * Drilldown menu interaction combined with URL-driven

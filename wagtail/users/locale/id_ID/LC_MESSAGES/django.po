@@ -4,15 +4,16 @@
 #
 # Translators:
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Imanu Wardi, 2025
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Last-Translator: Imanu Wardi, 2025\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
-msgstr "Wagtail pengguna"
+msgstr "Pengguna Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Harus diisi. Gunakan hanya huruf, angka, dan simbol @/./+/-/."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Hanya dapat berisi karakter huruf, angka dan @/./+/-/_ saja."
@@ -108,6 +112,9 @@ msgstr "Utama"
 msgid "user profile"
 msgstr "profil pengguna"
 
+msgid "Active"
+msgstr "Aktif"
+
 msgid "Delete"
 msgstr "Hapus"
 
@@ -165,8 +172,13 @@ msgstr "Akun"
 msgid "Roles"
 msgstr "Role"
 
-msgid "Active"
-msgstr "Aktif"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Tidak ada pengguna yang terkonfigurasi. Mengapa <a "
+"href=\"%(wagtailusers_add_url)s\">tidak menambahnya</a>?"
 
 msgid "Inactive"
 msgstr "Tidak Aktif"
@@ -212,6 +224,10 @@ msgstr "Username"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Pengguna '%(object)s' dibuat."
 
 msgid "Add user"
 msgstr "Tambah pengguna"

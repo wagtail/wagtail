@@ -7,7 +7,7 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrei Satsevich, 2023-2024
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2024
+# Andrei Satsevich, 2024,2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Twixxik, 2025\n"
+"Last-Translator: Andrei Satsevich, 2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -121,9 +121,6 @@ msgstr "Коллекция"
 msgid "Format"
 msgstr "Формат"
 
-msgid "Filter"
-msgstr "Фильтр"
-
 msgid "Original size"
 msgstr "Оригинальный размер"
 
@@ -141,6 +138,9 @@ msgstr "Изменение размера до максимального"
 
 msgid "Resize to fill"
 msgstr "Изменение размера для заполнения"
+
+msgid "Filter"
+msgstr "Фильтр"
 
 msgid "Width"
 msgstr "Ширина"
@@ -294,6 +294,9 @@ msgstr "Нет, не удалять"
 
 msgid "Popular tags"
 msgstr "Популярные теги"
+
+msgid "Layout"
+msgstr "Расположение"
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
@@ -451,8 +454,11 @@ msgstr ""
 "Вы не загрузили ни одного изображения. Почему бы <a "
 "href=\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
-msgid "Toggle layout"
-msgstr "Изменить макет"
+msgid "Grid layout"
+msgstr "Расположение сеткой"
+
+msgid "List layout"
+msgstr "Расположение списком"
 
 msgid "Preview"
 msgstr "Превью"
@@ -574,6 +580,12 @@ msgstr[1] "%(num_parent_objects)d изображений было удалено
 msgstr[2] "%(num_parent_objects)d изображений было удалено"
 msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Created"
+msgstr "Создан"
+
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -610,12 +622,6 @@ msgstr "Количество использований: (по убыванию)
 msgid "Images"
 msgstr "Изображения"
 
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "Created"
-msgstr "Создан"
-
 msgid "The image could not be saved due to errors."
 msgstr "Это изображение не может быть сохранено из-за ошибок."
 
@@ -632,6 +638,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Сгенерировать URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr " Выбранные вами параметры фильтрации недействительны."
 
 msgid "Delete image"
 msgstr "Удалить изображение"

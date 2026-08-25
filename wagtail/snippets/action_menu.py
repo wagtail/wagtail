@@ -7,6 +7,7 @@ from django.contrib.admin.utils import quote
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -54,8 +55,8 @@ class ActionMenuItem(Component):
             parent_context.get("draftstate_enabled")
             and instance
             and instance.go_live_at
+            and instance.go_live_at > timezone.now()
         )
-
         context.update(
             {
                 "label": self.label,

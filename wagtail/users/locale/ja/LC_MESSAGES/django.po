@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -114,6 +114,9 @@ msgstr "プロフィール"
 msgid "user profiles"
 msgstr "プロフィール"
 
+msgid "Active"
+msgstr "有効"
+
 msgid "Delete"
 msgstr "削除"
 
@@ -176,8 +179,19 @@ msgstr "アカウント"
 msgid "Roles"
 msgstr "役割"
 
-msgid "Active"
-msgstr "有効"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"まだユーザが設定されていません。<a href=\"%(wagtailusers_add_url)s\">設定</a>"
+"しますか？"
+
+msgid "User"
+msgstr "ユーザー"
+
+msgid "Created"
+msgstr "作成"
 
 msgid "Inactive"
 msgstr "無効"
@@ -226,6 +240,10 @@ msgstr "ユーザ名"
 
 msgid "Admin"
 msgstr "管理者"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "ユーザ '%(object)s' が作成されました。"
 
 msgid "Add user"
 msgstr "ユーザを追加"

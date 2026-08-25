@@ -7,14 +7,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Matt Westcott <matthew@torchbox.com>, 2021
-# X Bello <xbello@gmail.com>, 2022-2025
+# X Bello <xbello@gmail.com>, 2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,12 @@ msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Por favor especifica polo menos unha recomendación para este termo de "
 "procura."
+
+msgid "query"
+msgstr "termo"
+
+msgid "queries"
+msgstr "termos"
 
 msgid "Query Daily Hits"
 msgstr "Consultas Diarias Exitosas"
@@ -193,15 +199,15 @@ msgstr "Resultado de procura promocionada"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Seleccións do editor para '%(query)s' creadas."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "As recomendaciones non foron creadas debido a erros"
+msgid "Recommendations have not been created due to errors."
+msgstr "As recomendacións non foron creadas debido a erros."
 
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Seleccións do editor para '%(query)s' actualizadas."
 
-msgid "Recommendations have not been saved due to errors"
-msgstr "As recomendaciones non foron gardadas debido a erros"
+msgid "Recommendations have not been saved due to errors."
+msgstr "As recomendacións non foron gardadas debido a erros."
 
 msgid "Editor's picks deleted."
 msgstr "Seleccións do editor eliminadas."

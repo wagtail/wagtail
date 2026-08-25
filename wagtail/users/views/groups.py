@@ -42,19 +42,33 @@ class PermissionPanelFormsMixin:
 
         return kwargs
 
-    def get_permission_panel_forms(self):
+    @cached_property
+    def permission_panel_forms(self):
         return [
             cls(**self.get_permission_panel_form_kwargs(cls))
             for cls in get_permission_panel_classes()
         ]
 
+    def is_valid(self, form):
+        """
+        Check if the form and all permission panel forms are valid.
+        """
+        if not super().is_valid(form):
+            return False
+
+        for panel in self.permission_panel_forms:
+            if not panel.is_valid():
+                self.produced_error_message = self.get_error_message()
+                return False
+
+        return True
+
     def process_form(self):
         form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+        if self.is_valid(form):
             response = self.form_valid(form)
 
-            for panel in permission_panels:
+            for panel in self.permission_panel_forms:
                 panel.save()
 
             return response
@@ -63,7 +77,7 @@ class PermissionPanelFormsMixin:
 
     def get_context_data(self, **kwargs):
         if "permission_panels" not in kwargs:
-            kwargs["permission_panels"] = self.get_permission_panel_forms()
+            kwargs["permission_panels"] = self.permission_panel_forms
 
         context = super().get_context_data(**kwargs)
 

@@ -1,6 +1,5 @@
-import React from 'react';
-
 import type { Comment, CommentReply } from '../../state/comments';
+import React from 'react';
 
 interface PrefixedHiddenInputProps {
   prefix: string;

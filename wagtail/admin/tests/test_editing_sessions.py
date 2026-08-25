@@ -1,5 +1,6 @@
 import datetime
 
+import swapper
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
@@ -10,14 +11,20 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import (
+    GroupPagePermission,
+    PageLogEntry,
+    Workflow,
+    WorkflowContentType,
+)
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
+    FeatureCompleteToy,
     FullFeaturedSnippet,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 if settings.USE_TZ:
     TIMESTAMP_ANCIENT = timezone.make_aware(
@@ -25,6 +32,9 @@ if settings.USE_TZ:
     )
     TIMESTAMP_PAST = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
+    )
+    TIMESTAMP_IDLE = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 45, 0), timezone=datetime.timezone.utc
     )
     TIMESTAMP_1 = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 11, 59, 51), timezone=datetime.timezone.utc
@@ -44,11 +54,17 @@ if settings.USE_TZ:
 else:
     TIMESTAMP_ANCIENT = datetime.datetime(2019, 1, 1, 10, 30, 0)
     TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 10, 30, 0)
+    TIMESTAMP_IDLE = datetime.datetime(2020, 1, 1, 11, 45, 0)
     TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
     TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
     TIMESTAMP_3 = datetime.datetime(2020, 1, 1, 11, 59, 53)
     TIMESTAMP_4 = datetime.datetime(2020, 1, 1, 11, 59, 54)
     TIMESTAMP_NOW = datetime.datetime(2020, 1, 1, 12, 0, 0)
+
+
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
 
 
 class TestPingView(WagtailTestUtils, TestCase):
@@ -110,18 +126,62 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
-    def test_ping_non_page_non_snippet_model(self):
-        editors = Group.objects.get(name="Editors")
+    def test_ping_non_page_non_snippet_registered_model(self):
+        # FeatureCompleteToy is a model that was registered with a ModelViewSet.
+        # It is not a page nor a snippet, but we can still check for permissions
+        # and ping it to have an idle or is_editing state, if so desired.
+        toy = FeatureCompleteToy.objects.create(name="Buzz Lightyear")
         session = EditingSession.objects.create(
             user=self.user,
-            content_type=ContentType.objects.get_for_model(Group),
-            object_id=editors.pk,
+            content_type=ContentType.objects.get_for_model(FeatureCompleteToy),
+            object_id=toy.pk,
             last_seen_at=TIMESTAMP_1,
         )
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("auth", "group", str(editors.pk), session.id),
+                args=("tests", "featurecompletetoy", quote(toy.pk), session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], session.id)
+        self.assertEqual(response_json["other_sessions"], [])
+
+    def test_ping_non_page_non_snippet_registered_model_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        editors = Group.objects.get(name="Editors")
+        self.user.groups.add(editors)
+        toy = FeatureCompleteToy.objects.create(name="Buzz Lightyear")
+        session = EditingSession.objects.create(
+            user=self.user,
+            content_type=ContentType.objects.get_for_model(FeatureCompleteToy),
+            object_id=toy.pk,
+            last_seen_at=TIMESTAMP_1,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("tests", "featurecompletetoy", quote(toy.pk), session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_ping_non_registered_model(self):
+        # PageLogEntry is not a model that was registered to the admin at all,
+        # so we cannot check edit permissions for it, thus cannot ping it either
+        log_entry = PageLogEntry.objects.first()
+        session = EditingSession.objects.create(
+            user=self.user,
+            content_type=ContentType.objects.get_for_model(PageLogEntry),
+            object_id=log_entry.pk,
+            last_seen_at=TIMESTAMP_1,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "pagelogentry", str(log_entry.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -130,7 +190,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", 999999, self.session.id),
+                args=(page_app, page_model, 999999, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -140,7 +200,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -154,6 +214,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -175,7 +236,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"is_editing": "1"},
         )
@@ -192,6 +253,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -209,11 +271,62 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertTrue(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_other_idle_session(self):
+        idle_session = EditingSession.objects.create(
+            user=self.third_user,
+            content_type=ContentType.objects.get_for_model(Page),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_IDLE,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(page_app, page_model, self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # Should show the idle session with is_idle set to True
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "is_idle": False,
+                    "revision_id": None,
+                },
+                {
+                    "session_id": idle_session.id,
+                    "user": "Gordon Thirduser",
+                    "last_seen_at": TIMESTAMP_IDLE.isoformat(),
+                    "is_editing": False,
+                    "is_idle": True,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[1].text
+        self.assertIn("Gordon Thirduser", session_text)
+        self.assertIn("Currently idle", session_text)
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
     def test_ping_with_revision(self):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -230,6 +343,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -253,7 +367,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -270,6 +384,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
             ],
@@ -282,18 +397,22 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("Vic Otheruser saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -305,7 +424,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -323,6 +442,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
             ],
@@ -335,7 +455,9 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("Vic Otheruser saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
@@ -343,13 +465,187 @@ class TestPingView(WagtailTestUtils, TestCase):
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
+        )
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_overwritten_revision(self):
+        # Simulate other user creating a new revision to be used for autosave
+        with freeze_time(TIMESTAMP_1):
+            loaded_revision = self.page.save_revision(user=self.other_user)
+
+        loaded_timestamp = loaded_revision.created_at.isoformat()
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(page_app, page_model, self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # no revisions have been saved since the original revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "is_idle": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser", session_text)
+        self.assertIn("Currently viewing", session_text)
+        self.assertNotIn("saved a new version", session_text)
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        # Simulate other user doing an autosave by overwriting the same revision
+        # that we have loaded
+        with freeze_time(TIMESTAMP_3):
+            self.page.save_revision(
+                user=self.other_user,
+                overwrite_revision=loaded_revision,
+            )
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(page_app, page_model, self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the overwritten revision should be indicated in the response
+        # (and last_seen_at should reflect it), even though it has the same ID
+        # as the loaded revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "is_idle": False,
+                    "revision_id": loaded_revision.id,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
+        )
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        self.other_session.delete()
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(page_app, page_model, self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the overwritten revision should still appear as an "other session" in
+        # the response, even though the editing session record has been deleted
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": None,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "is_idle": False,
+                    "revision_id": loaded_revision.id,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "Vic Otheruser saved a new version",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -375,7 +671,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -394,6 +690,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Gordon Thirduser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": latest_revision.id,
                 },
                 {
@@ -405,6 +702,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     # it's not the latest one.
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -417,7 +715,9 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("Gordon Thirduser saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
@@ -425,13 +725,15 @@ class TestPingView(WagtailTestUtils, TestCase):
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Gordon Thirduser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
         other_session_text = rendered_sessions[1].text
         self.assertIn("Vic Otheruser", other_session_text)
@@ -451,7 +753,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -468,6 +770,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": latest_revision.id,
                 },
                 {
@@ -475,6 +778,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -487,7 +791,9 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("System saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
@@ -495,13 +801,15 @@ class TestPingView(WagtailTestUtils, TestCase):
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by System. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
         other_session_text = rendered_sessions[1].text
         self.assertIn("Vic Otheruser", other_session_text)
@@ -548,7 +856,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -564,6 +872,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Gordon Thirduser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 # Then any sessions that are currently editing
@@ -572,6 +881,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Chell Fifthuser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 # Then any other sessions, sorted ascending by session_id
@@ -580,6 +890,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 {
@@ -587,6 +898,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Alyx Fourthuser",
                     "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -600,7 +912,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -621,6 +933,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -631,7 +944,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             response_json["ping_url"],
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, session.id),
+                args=(page_app, page_model, self.page.id, session.id),
             ),
         )
 
@@ -654,7 +967,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             ),
             {"is_editing": "1"},
         )
@@ -676,6 +989,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -696,7 +1010,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -711,6 +1025,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 {
@@ -718,6 +1033,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -730,11 +1046,15 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("You have unsaved changes in another window", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNone(dialog_title)
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            "template"
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+            '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNone(dialog_subtitle)
         other_session_text = rendered_sessions[1].text
@@ -751,7 +1071,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -773,6 +1093,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -793,7 +1114,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -809,6 +1130,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -825,7 +1147,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, new_session_id),
+                args=(page_app, page_model, self.page.id, new_session_id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -851,6 +1173,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -858,6 +1181,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -867,7 +1191,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -886,6 +1210,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -893,6 +1218,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -905,7 +1231,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"revision_id": self.original_revision.id},
         )
@@ -925,6 +1251,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -932,9 +1259,35 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
+        )
+
+        # The rendered HTML should use special messaging if the newer revision
+        # is made by the same user ("in another window").
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[0].text
+        self.assertIn("You saved a new version in another window", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "You saved a new version in another window", dialog_title.text.strip()
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes you made in that window. "
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
     @freeze_time(TIMESTAMP_NOW)
@@ -950,13 +1303,15 @@ class TestPingView(WagtailTestUtils, TestCase):
         GroupPagePermission.objects.create(
             group=editors,
             page=self.other_page,
-            permission=Permission.objects.get(codename="change_page"),
+            permission=Permission.objects.get(
+                codename=Page.PERMISSION_CODENAMES.CHANGE
+            ),
         )
 
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -964,7 +1319,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.other_page.id, 999999),
+                args=(page_app, page_model, self.other_page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -988,7 +1343,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1003,7 +1358,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -1069,6 +1424,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1167,7 +1523,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, 999999),
+                args=(page_app, page_model, self.page.id, 999999),
             )
         )
         self.assertEqual(response.status_code, 405)
@@ -1180,7 +1536,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.id, self.session.id),
+                args=(page_app, page_model, self.page.id, self.session.id),
             ),
             {"is_editing": "invalid"},
         )
@@ -1210,6 +1566,13 @@ class TestCleanup(WagtailTestUtils, TestCase):
             object_id=self.page.id,
             last_seen_at=TIMESTAMP_1,
         )
+        self.idle_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_IDLE,
+            is_editing=True,
+        )
         self.old_session = EditingSession.objects.create(
             user=self.user,
             content_type=page_content_type,
@@ -1221,6 +1584,7 @@ class TestCleanup(WagtailTestUtils, TestCase):
     def test_cleanup(self):
         EditingSession.cleanup()
         self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertTrue(EditingSession.objects.filter(id=self.idle_session.id).exists())
         self.assertFalse(EditingSession.objects.filter(id=self.old_session.id).exists())
 
 
@@ -1331,6 +1695,13 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
             revision_input.get("value"),
             str(self.object.latest_revision.id),
         )
+        revision_created_at = soup.select_one('input[name="revision_created_at"]')
+        self.assertIsNotNone(revision_created_at)
+        self.assertEqual(revision_created_at.get("type"), "hidden")
+        self.assertEqual(
+            revision_created_at.get("value"),
+            self.object.latest_revision.created_at.isoformat(),
+        )
 
     @freeze_time(TIMESTAMP_NOW)
     def test_edit_view_with_default_interval(self):
@@ -1405,6 +1776,30 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
         # Should use the custom interval (30s)
         self.assertEqual(module.get("data-w-session-interval-value"), "30000")
         self.assertRevisionInput(module)
+
+        actions = set(module.get("data-action").split())
+        self.assertLessEqual(
+            {
+                # Disable when leaving the page to prevent false positive conflict
+                # alert when the user manually click Save and a ping is triggered
+                # before the new page is loaded (but after the revision has been
+                # created, which has a different ID and we have no way of knowing).
+                # Must use beforeunload, as pagehide is only fired when the browser
+                # has received the response for the new page, which is too late for
+                # our use case.
+                "beforeunload@window->w-session#pause",
+                # Release the session at the very last moment.
+                "pagehide@window->w-action#sendBeacon",
+                # Pause during autosaves to avoid race condition when a ping happens
+                # in between the autosave updating the revision and the client
+                # receiving the response.
+                "w-autosave:save@document->w-session#pause",
+                # Resume once autosave completes, regardless of result
+                "w-autosave:success@document->w-session#resume",
+                "w-autosave:error@document->w-session#resume",
+            },
+            actions,
+        )
 
 
 class TestModuleInEditViewWithRevisableSnippet(TestModuleInEditView):

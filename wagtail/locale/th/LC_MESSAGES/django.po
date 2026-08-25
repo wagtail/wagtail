@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,23 +34,9 @@ msgstr "ตัวเลขน้อยที่สุดของสิ่งน
 msgid "The maximum number of items is %(max_num)d"
 msgstr "จำนวนมากสุดของสิ่งนี้คือ %(max_num)d"
 
-msgid "Move up"
-msgstr "เลื่อนขึ้น,ขยับขึ้น"
-
-msgid "Move down"
-msgstr "เลื่อนลง,ขยับลง"
-
-msgid "Drag"
-msgstr "ลาก"
-
-msgid "Duplicate"
-msgstr "ทำซ้ำ"
-
-msgid "Delete"
-msgstr "ลบ,ลบทิ้ง"
-
-msgid "Add"
-msgstr "เพิ่ม"
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: บล็อคนี้ไม่มีตัวเลือก"
 
 msgid "This block has no options."
 msgstr "บล็อคนี้ไม่มีตัวเลือก"
@@ -78,6 +64,12 @@ msgstr "{model_name} '{title}' ถูกล็อค และมีกำหน
 
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "ถูกล็อคอยู่ในตอนนี้ และจะเผยแพร่เมื่อถึงวันที่กำหนด"
+
+msgid "user"
+msgstr "ผู้ใช้"
+
+msgid "name"
+msgstr "ชื่อ"
 
 msgid "content type"
 msgstr "ประเภทของเนื้อหา"
@@ -130,9 +122,6 @@ msgstr "การดูชุดมีข้อจำกัด"
 msgid "collection view restrictions"
 msgstr "การดูชุดมีข้อจำกัด"
 
-msgid "name"
-msgstr "ชื่อ"
-
 msgid "collections"
 msgstr "ของสะสมต่างๆ"
 
@@ -150,6 +139,9 @@ msgstr "การสะสมกลุ่มที่จะอนุญาต"
 
 msgid "uploaded by user"
 msgstr "อัพโหลดโดยผู้ใช้"
+
+msgid "Add"
+msgstr "เพิ่ม"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
@@ -175,6 +167,12 @@ msgstr "จัดพิมพ์,ตีพิมพ์"
 msgid "Publish any page"
 msgstr "จัดพิมพ์หน้าที่คุณเลือก"
 
+msgid "page"
+msgstr "หน้า"
+
+msgid "pages"
+msgstr "หลายๆหน้า"
+
 msgid "title"
 msgstr "หัวข้อ"
 
@@ -195,21 +193,15 @@ msgstr "ช่องทางของ URL"
 msgid "owner"
 msgstr "เจ้าของ"
 
+msgid "latest revision created at"
+msgstr "การแก้ไขครั้งล่าสุดเกิดขึ้นเมื่อ"
+
 msgid "show in menus"
 msgstr "ปรากฎในเมนู"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "อย่างไรก็ตามลิงค์ของหน้านี้จะปรากฎขึ้นโดยอัตโนมัติในเมนู"
-
-msgid "latest revision created at"
-msgstr "การแก้ไขครั้งล่าสุดเกิดขึ้นเมื่อ"
-
-msgid "page"
-msgstr "หน้า"
-
-msgid "pages"
-msgstr "หลายๆหน้า"
 
 msgid "group page permission"
 msgstr "การอนุญาตหลายๆหน้า"
@@ -231,9 +223,6 @@ msgstr "ต้นแบบ"
 
 msgid "created at"
 msgstr "สร้างขึ้นเมื่อ"
-
-msgid "user"
-msgstr "ผู้ใช้"
 
 msgid "content JSON"
 msgstr "ข้อมูลของ JSON"
@@ -333,6 +322,9 @@ msgstr "ต่อเนื่อง"
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
 
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
+
 msgid "Published"
 msgstr "เผยแพร่แล้ว"
 
@@ -347,11 +339,3 @@ msgstr "ก๊อปปี้,คัดลอก"
 
 msgid "Move"
 msgstr "เคลื่อนย้าย"
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "กำหนดให้หน้านี้ทำการเผยแพร่เมื่อ %(go_live_at)s"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "กำหนดให้หน้านี้ยุติการเผยแพร่เมื่อ %(go_live_at)s"

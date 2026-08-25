@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import Sortable from 'sortablejs';
+import Sortable, { SortableOptions } from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
@@ -56,7 +56,7 @@ export class OrderableController extends Controller<HTMLElement> {
   declare urlValue: string;
 
   order: string[];
-  sortable: ReturnType<typeof Sortable.create>;
+  declare sortable: Sortable;
 
   constructor(context) {
     super(context);
@@ -78,7 +78,7 @@ export class OrderableController extends Controller<HTMLElement> {
     });
   }
 
-  get options() {
+  get options(): SortableOptions {
     const identifier = this.identifier;
     return {
       ...(this.hasGhostClass ? { ghostClass: this.ghostClass } : {}),
@@ -91,15 +91,7 @@ export class OrderableController extends Controller<HTMLElement> {
       onStart: () => {
         this.element.classList.add(...this.activeClasses);
       },
-      onEnd: ({
-        item,
-        newIndex,
-        oldIndex,
-      }: {
-        item: HTMLElement;
-        oldIndex: number;
-        newIndex: number;
-      }) => {
+      onEnd: ({ item, newIndex, oldIndex }) => {
         this.element.classList.remove(...this.activeClasses);
         if (oldIndex === newIndex) return;
         this.order = this.sortable.toArray();
@@ -185,10 +177,10 @@ export class OrderableController extends Controller<HTMLElement> {
   }: {
     id: string;
     label: string;
-    newIndex: number;
+    newIndex?: number;
   }) {
     let url = this.urlValue.replace('999999', id);
-    if (newIndex !== null) {
+    if (newIndex !== undefined) {
       url += '?position=' + newIndex;
     }
 

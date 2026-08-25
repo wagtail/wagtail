@@ -229,7 +229,7 @@ This has now been changed to add some ``meta`` information:
         "id": 1,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://api.example.com/api/v1/images/1/"
+            "detail_url": "https://api.example.com/api/v1/images/1/"
         }
     }
 

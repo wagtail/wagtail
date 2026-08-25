@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -23,14 +23,14 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
-msgid "default"
-msgstr "numatytasis"
-
 msgid "Sites"
 msgstr "Tinklalapiai"
 
 msgid "Site"
 msgstr "Tinklalapis"
+
+msgid "default"
+msgstr "numatytasis"
 
 msgid "Settings"
 msgstr "Nustatymai"

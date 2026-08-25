@@ -11,8 +11,6 @@ describe.skip('Editbird', () => {
         visible: true,
       }),
     ]);
-    await expect(page).toPassAxeTests({
-      exclude: '[role="menuitem"]',
-    });
+    await expect(page).toPassAxeTests();
   });
 });

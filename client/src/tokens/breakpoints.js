@@ -9,6 +9,4 @@ const breakpoints = {
   xl: '100em', // 1600px
 };
 
-module.exports = {
-  breakpoints,
-};
+export { breakpoints };

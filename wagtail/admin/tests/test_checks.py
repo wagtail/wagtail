@@ -3,10 +3,10 @@ from django.test import TestCase, override_settings
 from django.utils.formats import reset_format_cache
 
 from wagtail.admin.checks import datetime_format_check
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestDateTimeChecks(WagtailTestUtils, TestCase):
+class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

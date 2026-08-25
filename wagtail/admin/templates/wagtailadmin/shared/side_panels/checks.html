@@ -1,21 +1,21 @@
 {% load i18n wagtailadmin_tags %}
 {% block result_template %}
-    <template id="w-a11y-result-row-template">
-        <div class="w-a11y-result__row" data-a11y-result-row>
+    <template id="w-content-checker-row-template">
+        <div class="w-content-checker__row" data-content-checker-row>
             <div>
-                <h3 class="w-a11y-result__header">
-                    <span class="w-a11y-result__name" data-a11y-result-name></span>
+                <h3 class="w-content-checker__header">
+                    <span class="w-content-checker__name" data-content-checker-name></span>
                 </h3>
-                <div class="w-a11y-result__help" data-a11y-result-help></div>
+                <div class="w-content-checker__help" data-content-checker-help></div>
             </div>
             <button
-                class="w-a11y-result__selector"
-                data-a11y-result-selector
+                class="w-content-checker__selector"
+                data-content-checker-selector
                 aria-label="{% trans 'Show issue' %}"
                 type="button"
             >
-                <span class="w-a11y-result__selector-text" data-a11y-result-selector-text></span>
-                {% icon name="link-external" classname="w-a11y-result__icon" %}
+                <span class="w-content-checker__selector-text" data-content-checker-selector-text></span>
+                {% icon name="link-external" classname="w-content-checker__icon" %}
             </button>
         </div>
     </template>
@@ -72,7 +72,7 @@
         {% block issues_section %}
             <div>
                 <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold">
-                    <span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span>
+                    <span>{% trans 'Issues found' %}</span><span class="w-content-checker__count" data-content-checker-count>0</span>
                 </h2>
                 {% block issues %}
                     <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
@@ -83,5 +83,5 @@
 {% endblock %}
 
 {% block axe_config %}
-    {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
+    {{ axe_configuration|json_script:"checker-axe-configuration" }}
 {% endblock %}

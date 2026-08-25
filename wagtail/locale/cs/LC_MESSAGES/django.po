@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -43,24 +43,6 @@ msgstr "Minimální počet položek je %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maximální počet položek je %(max_num)d"
-
-msgid "Move up"
-msgstr "Posunout nahoru"
-
-msgid "Move down"
-msgstr "Posunout dolů"
-
-msgid "Drag"
-msgstr "Přetáhnout myší"
-
-msgid "Duplicate"
-msgstr "Duplikovat"
-
-msgid "Delete"
-msgstr "Zrušit"
-
-msgid "Add"
-msgstr "Přidat"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -93,6 +75,12 @@ msgid ""
 "{datetime}"
 msgstr ""
 "{model_name} '{title}' je uzamčena a naplánována k zveřejnění {datetime}"
+
+msgid "user"
+msgstr "uživatel"
+
+msgid "name"
+msgstr "jméno"
 
 msgid "content type"
 msgstr "content type (typ obsahu)"
@@ -171,9 +159,6 @@ msgstr "omezení zobrazení kolekce"
 msgid "collection view restrictions"
 msgstr "omezení zobrazení kolekcí"
 
-msgid "name"
-msgstr "jméno"
-
 msgid "collections"
 msgstr "kolekce"
 
@@ -191,6 +176,9 @@ msgstr "skupinová oprávnění pro kolekci"
 
 msgid "uploaded by user"
 msgstr "nahráno uživatelem"
+
+msgid "Add"
+msgstr "Přidat"
 
 msgid "Add/edit pages you own"
 msgstr "Přidat/Editovat vámi vlastněné stránky"
@@ -225,6 +213,12 @@ msgstr "Odemknout"
 msgid "Unlock any page"
 msgstr "Odemknout jakoukoliv stránku"
 
+msgid "page"
+msgstr "stránka"
+
+msgid "pages"
+msgstr "stránky"
+
 msgid "title"
 msgstr "titulek"
 
@@ -245,13 +239,8 @@ msgstr "URL adresa"
 msgid "owner"
 msgstr "vlastník"
 
-msgid "title tag"
-msgstr "značka titulku (title tag)"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr "Jméno stránky na vyhledávači jako nadpis, na nějž lze kliknout."
+msgid "latest revision created at"
+msgstr "poslední verze vytvořena:"
 
 msgid "show in menus"
 msgstr "zobrazit v menu"
@@ -262,6 +251,17 @@ msgstr ""
 "Určuje, zda se bude odkaz na tuto stránku zobrazovat v automaticky "
 "generovaných menu"
 
+msgid "For site menus"
+msgstr "Pro menu webu"
+
+msgid "title tag"
+msgstr "značka titulku (title tag)"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Jméno stránky na vyhledávači jako nadpis, na nějž lze kliknout."
+
 msgid "meta description"
 msgstr "meta popis"
 
@@ -270,20 +270,8 @@ msgid ""
 "results."
 msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
 
-msgid "latest revision created at"
-msgstr "poslední verze vytvořena:"
-
 msgid "For search engines"
 msgstr "Pro vyhledávače"
-
-msgid "For site menus"
-msgstr "Pro menu webu"
-
-msgid "page"
-msgstr "stránka"
-
-msgid "pages"
-msgstr "stránky"
 
 msgid "group page permission"
 msgstr "skupinové oprávnění stránky"
@@ -332,9 +320,6 @@ msgstr "Default(ní)"
 
 msgid "created at"
 msgstr "vytvořeno:"
-
-msgid "user"
-msgstr "uživatel"
 
 msgid "content JSON"
 msgstr "obsah JSON"
@@ -553,6 +538,9 @@ msgstr "Vytvořeno"
 msgid "Edited"
 msgstr "Upraveno"
 
+msgid "Delete"
+msgstr "Zrušit"
+
 msgid "Deleted"
 msgstr "Zrušeno"
 
@@ -652,13 +640,6 @@ msgstr ""
 "Verze %(revision_id)s z %(created_at)s byla naplánována ke ke zveřejnění na "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Stránka byla naplánována ke ke zveřejnění na %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Stránka byla naplánována ke ke zveřejnění"
-
 msgid "Unschedule publication"
 msgstr "Odvolat plánované zveřejnění"
 
@@ -669,13 +650,6 @@ msgid ""
 msgstr ""
 "Verzi %(revision_id)s z %(created_at)s bylo zrušeno zveřejnění, plánované na "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Stránce bylo zrušeno plánované zveřejnění v %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Stránce bylo zrušeno plánované zveřejnění"
 
 msgid "Add view restrictions"
 msgstr "Přidat omezení zobrazení"

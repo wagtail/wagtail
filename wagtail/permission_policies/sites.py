@@ -9,9 +9,11 @@ from .base import BaseDjangoAuthPermissionPolicy
 class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
     """
     A permission policy for objects that are associated with site records, such as
-    wagtail.contrib.settings.models.BaseSiteSetting subclasses. Permissions may be
-    assigned globally through standard django.contrib.auth permissions, or for
-    individual sites through wagtail.models.GroupSitePermission records.
+    ``wagtail.contrib.settings.models.BaseSiteSetting`` subclasses (see
+    :ref:`settings_models`). Permissions may be
+    assigned globally through standard
+    :class:`~django.contrib.auth.models.Permission` objects, or for
+    individual sites through ``wagtail.models.GroupSitePermission`` records.
     """
 
     permission_cache_name = "_site_permission_cache"

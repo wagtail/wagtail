@@ -17,15 +17,15 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2026
 # Timothy Allen <flipper@peregrinesalon.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgid ""
 "Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"Image .%(extension)s non valide. L'extension de fichier ne correspond pas "
+"Image .%(extension)s non valide. L'extension de fichier ne correspond pas au "
 "format du fichier (%(image_format)s)"
 
 #, python-format
@@ -93,6 +93,9 @@ msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr ""
 "Ce fichier est trop gros. La taille de fichier maximale est %(max_filesize)s."
 
+msgid "unknown number"
+msgstr "nombre inconnu"
+
 msgid "Full width"
 msgstr "Pleine largeur"
 
@@ -107,9 +110,6 @@ msgstr "Collection"
 
 msgid "Format"
 msgstr "Format"
-
-msgid "Filter"
-msgstr "Filtre"
 
 msgid "Original size"
 msgstr "Taille d'origine"
@@ -128,6 +128,9 @@ msgstr "Redimensionner au maximum"
 
 msgid "Resize to fill"
 msgstr "Redimensionner pour occuper tout l'espace"
+
+msgid "Filter"
+msgstr "Filtre"
 
 msgid "Width"
 msgstr "Largeur"
@@ -282,6 +285,9 @@ msgstr "Non, ne pas supprimer"
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
 
+msgid "Layout"
+msgstr "Mise en page"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -430,8 +436,11 @@ msgstr ""
 "Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a "
 "href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
 
-msgid "Toggle layout"
-msgstr "Changer la mise en page"
+msgid "Grid layout"
+msgstr "Disposition en grille"
+
+msgid "List layout"
+msgstr "Disposition en liste"
 
 msgid "Preview"
 msgstr "Prévisualisation"
@@ -558,6 +567,12 @@ msgstr[0] "%(num_parent_objects)d image a été supprimée"
 msgstr[1] "%(num_parent_objects)d images ont été supprimées"
 msgstr[2] "%(num_parent_objects)d images ont été supprimées"
 
+msgid "Title"
+msgstr "Titre"
+
+msgid "Created"
+msgstr "Créé(e)"
+
 msgid "Choose an image"
 msgstr "Choisir une image"
 
@@ -594,12 +609,6 @@ msgstr "Nombre d'utilisations (descendant)"
 msgid "Images"
 msgstr "Images"
 
-msgid "Title"
-msgstr "Titre"
-
-msgid "Created"
-msgstr "Créé(e)"
-
 msgid "The image could not be saved due to errors."
 msgstr "L'image ne peut être enregistrée du fait d'erreurs."
 
@@ -616,6 +625,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Générer une URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Les options de filtre que vous avez sélectionnées ne sont pas valides."
 
 msgid "Delete image"
 msgstr "Supprimer l'image"

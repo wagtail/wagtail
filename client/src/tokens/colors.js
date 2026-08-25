@@ -322,7 +322,4 @@ const transparencies = {
   '--w-color-black-50': 'rgba(0, 0, 0, 0.50)',
 };
 
-module.exports = {
-  staticColors,
-  transparencies,
-};
+export { staticColors, transparencies };

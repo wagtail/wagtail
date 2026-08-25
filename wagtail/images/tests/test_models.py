@@ -12,7 +12,13 @@ from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -26,7 +32,8 @@ from wagtail.images.models import (
     get_rendition_storage,
 )
 from wagtail.images.rect import Rect
-from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
+from wagtail.models import Collection, GroupCollectionPermission, ReferenceIndex
+from wagtail.search.backends import get_search_backend
 from wagtail.test.dummy_external_storage import (
     DummyExternalStorage,
     DummyExternalStorageFile,
@@ -37,7 +44,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 from .utils import (
     Image,
@@ -197,18 +204,36 @@ class TestImage(TestCase):
         self.assertEqual(image.default_alt_text, image.title)
 
 
-class TestImageQuerySet(TransactionTestCase):
+@tag("transaction")
+class TestImageQuerySet(PageFixturesMixin, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
     def test_search_method(self):
         # Create an image for running tests on
         image = Image.objects.create(
             title="Test image",
+            description="A cool description",
             file=get_test_image_file(),
         )
 
         # Search for it
         results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.search("cool")
+        self.assertEqual(list(results), [image])
+
+    def test_autocomplete_method(self):
+        image = Image.objects.create(
+            title="Test image",
+            description="A cool description",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.autocomplete("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.autocomplete("cool")
         self.assertEqual(list(results), [image])
 
     def test_operators(self):
@@ -1094,7 +1119,7 @@ class TestRenditions(TestCase):
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 )
-class TestPrefetchRenditions(TestCase):
+class TestPrefetchRenditions(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1149,7 +1174,7 @@ class TestPrefetchRenditions(TestCase):
         self.assertListEqual(self.large_renditions, large_renditions)
 
 
-class TestUsageCount(TestCase):
+class TestUsageCount(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1171,7 +1196,7 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
-class TestGetUsage(TestCase):
+class TestGetUsage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1197,7 +1222,7 @@ class TestGetUsage(TestCase):
         self.assertIsInstance(self.image.get_usage()[0][1][0], ReferenceIndex)
 
 
-class TestGetWillowImage(TestCase):
+class TestGetWillowImage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1274,20 +1299,11 @@ class TestIssue573(TestCase):
         image.get_rendition("fill-800x600")
 
 
-@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
 class TestIssue613(WagtailTestUtils, TestCase):
-    def get_elasticsearch_backend(self):
-        from django.conf import settings
-
-        from wagtail.search.backends import get_search_backend
-
+    def setUp(self):
         if "elasticsearch" not in settings.WAGTAILSEARCH_BACKENDS:
             raise unittest.SkipTest("No elasticsearch backend active")
 
-        return get_search_backend("elasticsearch")
-
-    def setUp(self):
-        self.search_backend = self.get_elasticsearch_backend()
         self.login()
 
         management.call_command(
@@ -1352,16 +1368,26 @@ class TestIssue613(WagtailTestUtils, TestCase):
         # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
         # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
-        # Add an image with some tags
-        image = self.add_image(tags="hello")
-        self.search_backend.refresh_indexes()
+        backend_conf = settings.WAGTAILSEARCH_BACKENDS["elasticsearch"].copy()
+        backend_conf["AUTO_UPDATE"] = True
+        with self.settings(
+            WAGTAILSEARCH_BACKENDS={
+                "elasticsearch": backend_conf,
+            }
+        ):
+            search_backend = get_search_backend("elasticsearch")
 
-        # Search for it by tag
-        results = self.search_backend.search("hello", Image)
+            # Add an image with some tags
+            image = self.add_image(tags="hello")
 
-        # Check
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0].id, image.id)
+            search_backend.refresh_indexes()
+
+            # Search for it by tag
+            results = search_backend.search("hello", Image)
+
+            # Check
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].id, image.id)
 
     def test_issue_613_on_edit(self):
         # Note to future developer troubleshooting this test...
@@ -1370,16 +1396,26 @@ class TestIssue613(WagtailTestUtils, TestCase):
         # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
         # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
-        # Add an image with some tags
-        image = self.edit_image(tags="hello")
-        self.search_backend.refresh_indexes()
+        backend_conf = settings.WAGTAILSEARCH_BACKENDS["elasticsearch"].copy()
+        backend_conf["AUTO_UPDATE"] = True
+        with self.settings(
+            WAGTAILSEARCH_BACKENDS={
+                "elasticsearch": backend_conf,
+            }
+        ):
+            search_backend = get_search_backend("elasticsearch")
 
-        # Search for it by tag
-        results = self.search_backend.search("hello", Image)
+            # Add an image with some tags
+            image = self.edit_image(tags="hello")
 
-        # Check
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0].id, image.id)
+            search_backend.refresh_indexes()
+
+            # Search for it by tag
+            results = search_backend.search("hello", Image)
+
+            # Check
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].id, image.id)
 
 
 class TestIssue312(TestCase):

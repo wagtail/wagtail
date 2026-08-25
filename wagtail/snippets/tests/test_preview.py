@@ -1,12 +1,14 @@
 import datetime
 
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.views.generic.preview import PreviewOnEdit
 from wagtail.test.testapp.models import (
     EventCategory,
     MultiPreviewModesModel,
@@ -33,16 +35,17 @@ class TestPreview(WagtailTestUtils, TestCase):
             "wagtailsnippets_tests_previewablemodel:preview_on_edit",
             args=(self.snippet.pk,),
         )
-        self.session_key_prefix = "wagtail-preview-tests-previewablemodel"
-        self.edit_session_key = f"{self.session_key_prefix}-{self.snippet.pk}"
 
         self.post_data = {
             "text": "An edited previewable snippet",
             "categories": [self.parties_category.id, self.holidays_category.id],
         }
 
-    def test_preview_on_create_with_no_session_data(self):
-        self.assertNotIn(self.session_key_prefix, self.client.session)
+    def test_preview_on_create_with_no_form_data(self):
+        form_state = FormState.objects.filter(
+            user=self.user,
+        ).for_instance(PreviewableModel())
+        self.assertFalse(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
 
@@ -62,7 +65,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_invalid_data(self):
-        self.assertNotIn(self.session_key_prefix, self.client.session)
+        form_state = FormState.objects.filter(
+            user=self.user,
+        ).for_instance(PreviewableModel())
+        self.assertFalse(form_state.exists())
 
         response = self.client.post(self.preview_on_add_url, {"categories": [999999]})
 
@@ -73,8 +79,11 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"is_valid": False, "is_available": False},
         )
 
-        # The invalid data should not be saved in the session
-        self.assertNotIn(self.session_key_prefix, self.client.session)
+        # The invalid data should not be saved
+        form_state = FormState.objects.filter(
+            user=self.user,
+        ).for_instance(PreviewableModel())
+        self.assertFalse(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
 
@@ -104,7 +113,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        self.assertIn(self.session_key_prefix, self.client.session)
+        form_state = FormState.objects.filter(
+            user=self.user,
+        ).for_instance(PreviewableModel())
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
 
@@ -129,7 +141,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        self.assertIn(self.session_key_prefix, self.client.session)
+        form_state = FormState.objects.filter(
+            user=self.user,
+        ).for_instance(PreviewableModel())
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
 
@@ -145,6 +160,53 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_uuid_as_pk(self):
+        url = reverse(
+            "wagtailsnippets_tests_advertwithcustomuuidprimarykey:preview_on_add"
+        )
+        response = self.client.post(url, {"text": "A new advert", "url": ""})
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        response = self.client.get(url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+        self.assertContains(response, "<h1>A new advert</h1>", html=True)
+
+    def test_preview_on_create_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_add_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_create_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_add_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_preview_on_edit_with_m2m_field(self):
         response = self.client.post(self.preview_on_edit_url, self.post_data)
 
@@ -156,7 +218,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -188,7 +251,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -213,7 +277,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -229,10 +294,51 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_edit_with_multiple_modes(self):
+        snippet = MultiPreviewModesModel.objects.create(text="Multiple preview modes")
+        snippet.save_revision()
+        url = (
+            reverse(
+                "wagtailsnippets_tests_multipreviewmodesmodel:preview_on_edit",
+                args=(snippet.pk,),
+            )
+            + "?mode=alt%231"
+        )
+        response = self.client.post(url, {"text": "Multiple modes with alternate mode"})
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        form_state = FormState.objects.filter(user=self.user).for_instance(snippet)
+        self.assertTrue(form_state.exists())
+
+        response = self.client.get(url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model_alt.html")
+
+        # The text is empty
+        self.assertContains(
+            response,
+            "<title>Multiple modes with alternate mode (Alternate Preview)</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<h1>Multiple modes with alternate mode</h1>",
+            html=True,
+        )
+
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()
-        expiry_datetime = initial_datetime + datetime.timedelta(
-            seconds=PreviewOnEdit.preview_expiration_timeout + 1
+        expiry_datetime = (
+            initial_datetime + FormState.STALE_TIMEOUT + datetime.timedelta(seconds=1)
         )
 
         new_snippet = PreviewableModel.objects.create(text="A new previewable snippet")
@@ -242,6 +348,12 @@ class TestPreview(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
             response = self.client.get(self.preview_on_edit_url)
             self.assertEqual(response.status_code, 200)
+            form_state = (
+                FormState.objects.filter(user=self.user)
+                .for_instance(self.snippet)
+                .first()
+            )
+            self.assertIsNotNone(form_state)
 
             frozen_datetime.move_to(expiry_datetime)
 
@@ -255,16 +367,83 @@ class TestPreview(WagtailTestUtils, TestCase):
             response = self.client.get(preview_url)
             self.assertEqual(response.status_code, 200)
 
-            # Stale preview data should be removed from the session
-            self.assertNotIn(self.edit_session_key, self.client.session)
-            self.assertIn(
-                f"{self.session_key_prefix}-{new_snippet.pk}",
-                self.client.session,
+            # Stale preview data should be removed
+            self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
+            form_state = FormState.objects.filter(user=self.user).for_instance(
+                new_snippet
             )
+            self.assertTrue(form_state.exists())
+
+    def test_preview_on_edit_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_edit_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_edit_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_edit_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
+    def test_big_preview_with_signed_cookies(self):
+        self.login(self.user)
+        text = ", ".join(f"This text grows about {i} times " * i for i in range(1, 257))
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {**self.post_data, "text": text},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # After storing the preview data, cookie size must not exceed 4096 bytes
+        # (common limit in web browsers). Django's test client happily allows
+        # cookies larger than that, so we explicitly assert the approximate
+        # cookie size here. See: https://github.com/wagtail/wagtail/issues/4521
+        self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
+
+        # Check the user can refresh the preview
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
+        self.assertTrue(form_state.exists())
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+        self.assertContains(response, "This text grows about 256 times")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_create_clear_preview_data(self):
-        # Set a fake preview session data for the page
-        self.client.session[self.session_key_prefix] = "test data"
+        # Set fake preview data
+        form_state = FormState.objects.create(
+            user=self.user,
+            content_type=ContentType.objects.get_for_model(self.snippet),
+            object_id="",
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         response = self.client.delete(self.preview_on_add_url)
         self.assertEqual(response.status_code, 200)
@@ -273,8 +452,8 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(self.session_key_prefix, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
 
         response = self.client.get(self.preview_on_add_url)
 
@@ -294,8 +473,13 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_edit_clear_preview_data(self):
-        # Set a fake preview session data for the page
-        self.client.session[self.edit_session_key] = "test data"
+        # Set fake preview data
+        form_state = FormState.objects.create(
+            user=self.user,
+            content_object=self.snippet,
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         response = self.client.delete(self.preview_on_edit_url)
         self.assertEqual(response.status_code, 200)
@@ -304,8 +488,8 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(self.edit_session_key, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -329,22 +513,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         host = "other.example.com:8000"
         response = self.client.get(self.preview_on_edit_url, headers={"host": host})
 
+        # Snippets have no concept of the current site or fully qualified URLs,
+        # so the original request's host should be preserved.
+        self.assertEqual(
+            response.context["request"].get_host(),
+            "other.example.com:8000",
+        )
+
         # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tests/previewable_model.html")
         soup = self.get_soup(response.content)
         userbar = soup.select_one("wagtail-userbar")
         self.assertIsNotNone(userbar)
+        template = soup.select_one("#wagtail-userbar-template")
+        self.assertIsNotNone(template)
 
-        # Absolute URLs to static assets should be rendered with the original
-        # request's host as the base URL, as snippets have no concept of the
-        # current site or fully qualified URLs.
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
+        admin_url = reverse("wagtailadmin_home")
+        admin_link = template.select_one(f'a[href$="{admin_url}"]')
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link["href"], admin_url)
 
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
         css_links = soup.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
-                f"http://{host}{versioned_static('wagtailadmin/css/core.css')}",
+                versioned_static("wagtailadmin/css/core.css"),
                 "/path/to/my/custom.css",
             ],
         )
@@ -352,8 +550,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(
             [script.get("src") for script in scripts],
             [
-                f"http://{host}{versioned_static('wagtailadmin/js/vendor.js')}",
-                f"http://{host}{versioned_static('wagtailadmin/js/userbar.js')}",
+                versioned_static("wagtailadmin/js/vendor.js"),
+                versioned_static("wagtailadmin/js/userbar.js"),
             ],
         )
 
@@ -466,7 +664,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         new_tab_url = preview_url + "?mode="
         response = self.client.get(edit_url)
@@ -560,7 +758,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_custom_auto_update_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 
@@ -589,7 +787,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_disable_auto_update_using_zero_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 

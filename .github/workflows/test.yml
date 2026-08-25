@@ -17,21 +17,23 @@ concurrency:
 # - at least one test run for each older supported version of Python and Django
 # - at least one test run for each supported Elasticsearch version
 # - a test run against Django's git main and active stable branch (allowing failures)
-# - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - test runs with USE_EMAIL_USER_MODEL=yes, USE_CUSTOM_PAGE_MODEL=yes,
+#   DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 4.2, python 3.10, postgres:12, psycopg 2, parallel
-# - django 4.2, python 3.10, mysql:8.0
-# - django 4.2, python 3.11, mariadb:10.5
-# - django 5.2, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.2, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
+# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel, USE_CUSTOM_PAGE_MODEL=yes
+# - django 5.2, python 3.10, mysql:8.0
+# - django 6.0, python 3.12, mariadb:10.6
+# - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.1, python 3.12, mariadb:11.4, USE_CUSTOM_PAGE_MODEL=yes
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.2, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/5.2.x, python 3.14, postgres:15, psycopg 3 (allow failures)
+# - django 6.0, python 3.13, sqlite, parallel, USE_CUSTOM_PAGE_MODEL=yes
+# - django 6.1, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
+# - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
-# - elasticsearch 7, django 4.2, python 3.10, postgres:latest, psycopg 2
+# - elasticsearch 7, django 5.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
-# - elasticsearch 8, django 5.2, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 8, django 6.1, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -44,7 +46,8 @@ permissions:
 
 jobs:
   test-sqlite:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     strategy:
       matrix:
         include:
@@ -52,21 +55,26 @@ jobs:
             django: 'Django>=5.2,<5.3'
             check_template_number_format: '1'
             parallel: '--parallel'
+          - python: '3.13'
+            django: 'Django>=6.0,<6.1'
+            custompage: 'yes'
+            parallel: '--parallel'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install "${{ matrix.django }}"
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
@@ -74,54 +82,50 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
           WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
 
   test-postgres:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
-            psycopg: 'psycopg2>=2.6'
+            django: 'Django>=5.2,<5.3'
+            psycopg: 'psycopg2>=2.8.4'
             experimental: false
             parallel: '--parallel'
+            custompage: 'yes'
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.1,<6.2'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'git+https://github.com/django/django.git@stable/6.0.x#egg=Django'
+            django: 'git+https://github.com/django/django.git@stable/6.1.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
-              pip uninstall -y django-modelcluster
-              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
-              pip uninstall -y django-modelcluster
-              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
     services:
       postgres:
-        image: ${{ matrix.postgres || 'postgres:12' }}
+        image: ${{ matrix.postgres || 'postgres:14' }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -129,22 +133,27 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
           allow-prereleases: true
-          cache: 'pip'
+      - name: Install libpq-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install "${{ matrix.psycopg }}"
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install "${{ matrix.psycopg }}"
+          uv pip install "${{ matrix.django }}"
           ${{ matrix.install_extras }}
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
@@ -155,9 +164,10 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
@@ -172,9 +182,10 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when https://github.com/wagtail/Willow/issues/166 is resolved
+          # Remove when the project template is updated to use Django 6.1+
+          # and the MAILERS setting.
           filterwarnings(
-              "ignore", "The AVIF support in this library is marked as deprecated"
+              "ignore", "The EMAIL_BACKEND setting is deprecated."
           )
           EOF
           python manage.py makemigrations --check --dry-run
@@ -182,25 +193,26 @@ jobs:
           python manage.py check --fail-level WARNING
 
   test-mysql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
-            experimental: false
-          - python: '3.11'
-            django: 'Django>=4.2,<4.3'
-            experimental: false
-            mysql: 'mariadb:10.5'
-          - python: '3.12'
             django: 'Django>=5.2,<5.3'
+            experimental: false
+          - python: '3.12'
+            django: 'Django>=6.0,<6.1'
+            experimental: false
+            mysql: 'mariadb:10.6'
+          - python: '3.12'
+            django: 'Django>=6.1,<6.2'
             experimental: false
             mysql: 'mariadb:11.4'
-            emailuser: emailuser
+            custompage: 'yes'
           - python: '3.12'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mysql:8.4'
             emailuser: emailuser
@@ -218,20 +230,21 @@ jobs:
         options: --health-cmd=$HEALTH_CMD --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install mysqlclient
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install mysqlclient
+          uv pip install "${{ matrix.django }}"
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
@@ -242,73 +255,79 @@ jobs:
           DATABASE_USER: root
           DATABASE_PASSWORD: root
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
 
   test-sqlite-elasticsearch8:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     strategy:
       matrix:
         include:
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.1,<6.2'
             emailuser: emailuser
+    services:
+      elasticsearch8:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.11.2
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: false
+          ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -s http://localhost:9200/_cluster/health | grep 'status' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: getong/elasticsearch-action@v1.3
-        with:
-          elasticsearch version: 8.8.0
-          host port: 9200
-          container port: 9200
-          host node port: 9300
-          node port: 9300
-          discovery type: 'single-node'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=8,<9"
-          pip install certifi
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install "${{ matrix.django }}"
+          uv pip install "elasticsearch>=8,<9"
+          uv pip install certifi
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --elasticsearch8
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
 
   test-postgres-elasticsearch7:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=5.2,<5.3'
             experimental: false
 
     services:
@@ -319,34 +338,41 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+      elasticsearch7:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+        env:
+          discovery.type: single-node
+          ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -s http://localhost:9200/_cluster/health | grep 'status' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: elastic/elastic-github-actions/elasticsearch@master
-        with:
-          stack-version: 7.6.1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+      - name: Install libpq-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install "psycopg2>=2.6"
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=7,<8"
-          pip install certifi
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install "psycopg2>=2.6"
+          uv pip install "${{ matrix.django }}"
+          uv pip install "elasticsearch>=7,<8"
+          uv pip install certifi
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --elasticsearch7
@@ -356,15 +382,18 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
 
   test-sqlite-opensearch2:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -380,32 +409,35 @@ jobs:
           sudo sysctl -w vm.swappiness=1
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
-      - uses: ankane/setup-opensearch@v1
+      - uses: ankane/setup-opensearch@b73d8d2d65eaa5da2add094872f12f3ae6ef1eea # v1
         with:
           opensearch-version: 2
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
-          pip install "opensearch-py>=2,<3"
-          pip install certifi
+          uv sync --locked --extra testing --config-setting editable_mode=strict
+          uv pip install "${{ matrix.django }}"
+          uv pip install "opensearch-py>=2,<3"
+          uv pip install certifi
+          echo "$(pwd)/.venv/bin" >> "$GITHUB_PATH"
       - name: Test
         run: |
           coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --opensearch2
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          USE_CUSTOM_PAGE_MODEL: ${{ matrix.custompage }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
@@ -419,25 +451,28 @@ jobs:
       - test-sqlite-elasticsearch8
       - test-postgres-elasticsearch7
       - test-sqlite-opensearch2
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
+    timeout-minutes: 10
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: '3.10'
+          python-version: '3.14'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install coverage
+          uv pip install --system coverage
 
       - name: Download coverage data
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: coverage-data-*
           merge-multiple: true
@@ -452,14 +487,14 @@ jobs:
           coverage html --skip-covered --skip-empty
 
       - name: Upload HTML report as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-report
           path: coverage_html_report
           include-hidden-files: true
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           flags: backend
           token: ${{ secrets.CODECOV_TOKEN }}

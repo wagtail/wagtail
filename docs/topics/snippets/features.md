@@ -21,8 +21,8 @@ class Advert(PreviewableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     def get_preview_template(self, request, mode_name):
@@ -60,8 +60,8 @@ class Advert(PreviewableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -99,13 +99,13 @@ class Advert(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     search_fields = [
-        index.SearchField('text'),
-        index.AutocompleteField('text'),
+        index.SearchField("text"),
+        index.AutocompleteField("text"),
     ]
 ```
 
@@ -137,8 +137,8 @@ class Advert(RevisionMixin, models.Model):
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -173,7 +173,9 @@ class ShirtCategory(models.Model):
 
 class Shirt(RevisionMixin, ClusterableModel):
     name = models.CharField(max_length=255)
-    colour = models.ForeignKey("shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True)
+    colour = models.ForeignKey(
+        "shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True
+    )
     categories = ParentalManyToManyField("shirts.ShirtCategory", blank=True)
     revisions = GenericRelation("wagtailcore.Revision", related_query_name="shirt")
 
@@ -187,7 +189,9 @@ class Shirt(RevisionMixin, ClusterableModel):
 
 class ShirtImage(models.Model):
     shirt = ParentalKey("shirts.Shirt", related_name="images")
-    image = models.ForeignKey("wagtailimages.Image", on_delete=models.CASCADE, related_name="+")
+    image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
+    )
     caption = models.CharField(max_length=255, blank=True)
     panels = [
         FieldPanel("image"),
@@ -227,8 +231,8 @@ class Advert(DraftStateMixin, RevisionMixin, models.Model):
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
         PublishingPanel(),
     ]
 
@@ -272,8 +276,8 @@ class Advert(LockableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 ```
 
@@ -305,7 +309,9 @@ from wagtail.models import DraftStateMixin, LockableMixin, RevisionMixin, Workfl
 # ...
 
 
-class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
+class Advert(
+    WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model
+):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
@@ -318,8 +324,8 @@ class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, model
     )
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -329,7 +335,7 @@ class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, model
 
 The other mixins required by `WorkflowMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
 
-After enabling the mixin, you can assign a workflow to the snippet models through the workflow settings. For more information, see how to [configure workflows for moderation](https://guide.wagtail.org/en-latest/how-to-guides/configure-workflows-for-moderation/).
+After enabling the mixin, you can assign a workflow to the snippet models through the workflow settings. For more information, see how to [configure workflows for moderation](https://guide.wagtail.org/en/how-to-guides/configure-workflows-for-moderation/).
 
 The admin dashboard and workflow reports will also show you snippets (alongside pages) that have been submitted to workflows.
 
@@ -347,7 +353,9 @@ from taggit.managers import TaggableManager
 
 
 class AdvertTag(TaggedItemBase):
-    content_object = ParentalKey('demo.Advert', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        "demo.Advert", on_delete=models.CASCADE, related_name="tagged_items"
+    )
 
 
 class Advert(ClusterableModel):
@@ -356,7 +364,7 @@ class Advert(ClusterableModel):
 
     panels = [
         # ...
-        FieldPanel('tags'),
+        FieldPanel("tags"),
     ]
 ```
 
@@ -383,10 +391,7 @@ class BandMember(Orderable):
 @register_snippet
 class Band(ClusterableModel):
     name = models.CharField(max_length=255)
-    panels = [
-        FieldPanel("name"),
-        InlinePanel("members")
-    ]
+    panels = [FieldPanel("name"), InlinePanel("members")]
 ```
 
 The [documentation on how to use inline models with pages](inline_models) provides more information that is also applicable to snippets.

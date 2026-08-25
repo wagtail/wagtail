@@ -19,7 +19,7 @@ from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 from wagtail.log_actions import log
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.search.utils import normalise_query_string
 
 
@@ -35,7 +35,6 @@ class IndexView(generic.IndexView):
     page_title = gettext_lazy("Promoted search results")
     header_icon = "pick"
     paginate_by = 20
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
     index_results_url_name = "wagtailsearchpromotions:index_results"
     search_fields = ["query_string"]
@@ -63,6 +62,12 @@ class IndexView(generic.IndexView):
         ),
     ]
 
+    @cached_property
+    def permission_policy(self):
+        # This view works with Query objects, but we want to check permissions
+        # against the SearchPromotion model.
+        return policy_registry.get_by_type(SearchPromotion)
+
     def get_base_queryset(self):
         # Use a subquery to filter out the Query objects that do not have a
         # SearchPromotion instead of using .filter(editors_picks__isnull=False).
@@ -86,21 +91,20 @@ class IndexView(generic.IndexView):
 
 class SearchPromotionCreateEditMixin:
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
     edit_url_name = "wagtailsearchpromotions:edit"
     form_class = forms.QueryForm
     header_icon = "pick"
     page_subtitle = gettext_lazy("Promoted search result")
 
+    @cached_property
+    def permission_policy(self):
+        # This view works with Query objects, but we want to check permissions
+        # against the SearchPromotion model.
+        return policy_registry.get_by_type(SearchPromotion)
+
     def get_success_message(self, instance=None):
         return self.success_message % {"query": instance}
-
-    def get_error_message(self):
-        if formset_errors := self.searchpicks_formset.non_form_errors():
-            # formset level error (e.g. no forms submitted)
-            return " ".join(error for error in formset_errors)
-        return super().get_error_message()
 
     def get_breadcrumbs_items(self):
         breadcrumbs = super().get_breadcrumbs_items()
@@ -113,10 +117,23 @@ class SearchPromotionCreateEditMixin:
         context["media"] += self.searchpicks_formset.media
         return context
 
+    def is_valid(self, form):
+        if not super().is_valid(form):
+            return False
+
+        self.new_query = Query.get(form.cleaned_data["query_string"])
+        if not self.object:
+            self.object = self.new_query
+
+        result = self.searchpicks_formset.is_valid()
+        if not result:
+            formset_errors = self.searchpicks_formset.non_form_errors()
+            self.produced_error_message = " ".join(error for error in formset_errors)
+
+        return result
+
     def save_searchpicks(self, query, new_query):
         searchpicks_formset = self.searchpicks_formset
-        if not searchpicks_formset.is_valid():
-            return False
 
         # Set sort_order
         for i, form in enumerate(searchpicks_formset.ordered_forms):
@@ -152,8 +169,6 @@ class SearchPromotionCreateEditMixin:
                     if changed_fields:
                         log(search_pick, "wagtail.edit")
 
-        return True
-
     @cached_property
     def searchpicks_formset(self):
         if self.request.method == "POST":
@@ -164,19 +179,13 @@ class SearchPromotionCreateEditMixin:
 
     def form_valid(self, form):
         self.form = form
-        new_query = Query.get(form.cleaned_data["query_string"])
-        if not self.object:
-            self.object = new_query
-
-        if self.save_searchpicks(self.object, new_query):
-            messages.success(
-                self.request,
-                self.get_success_message(self.object),
-                buttons=self.get_success_buttons(),
-            )
-            return redirect(self.index_url_name)
-
-        return super().form_invalid(form)
+        self.save_searchpicks(self.object, self.new_query)
+        messages.success(
+            self.request,
+            self.get_success_message(self.object),
+            buttons=self.get_success_buttons(),
+        )
+        return redirect(self.index_url_name)
 
 
 class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
@@ -197,7 +206,6 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
 
 class DeleteView(generic.DeleteView):
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     pk_url_kwarg = "query_id"
     context_object_name = "query"
     success_message = gettext_lazy("Editor's picks deleted.")
@@ -205,6 +213,12 @@ class DeleteView(generic.DeleteView):
     delete_url_name = "wagtailsearchpromotions:delete"
     header_icon = "pick"
     template_name = "wagtailsearchpromotions/confirm_delete.html"
+
+    @cached_property
+    def permission_policy(self):
+        # This view works with Query objects, but we want to check permissions
+        # against the SearchPromotion model.
+        return policy_registry.get_by_type(SearchPromotion)
 
     def delete_action(self):
         editors_picks = self.object.editors_picks.all()
@@ -232,8 +246,8 @@ def chooser(request, get_results=False):
     paginator = Paginator(queries, per_page=10)
     try:
         queries = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
+    except InvalidPage as e:
+        raise Http404 from e
 
     # Render
     if get_results:

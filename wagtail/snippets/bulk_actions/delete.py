@@ -8,7 +8,6 @@ from django.utils.translation import ngettext
 from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.admin.views.generic import BeforeAfterHookMixin
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
-from wagtail.snippets.permissions import get_permission_name
 
 
 class DeleteBulkAction(BeforeAfterHookMixin, ReferenceIndexMixin, SnippetBulkAction):
@@ -50,12 +49,9 @@ class DeleteBulkAction(BeforeAfterHookMixin, ReferenceIndexMixin, SnippetBulkAct
         return self.run_hook("after_delete_snippet", self.request, objects)
 
     def check_perm(self, snippet):
-        if getattr(self, "can_delete_items", None) is None:
-            # since snippets permissions are not enforced per object, makes sense to just check once per model request
-            self.can_delete_items = self.request.user.has_perm(
-                get_permission_name("delete", self.model)
-            )
-        return self.can_delete_items
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, "delete", snippet
+        )
 
     @classmethod
     def execute_action(cls, objects, user=None, **kwargs):

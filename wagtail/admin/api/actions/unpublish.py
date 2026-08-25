@@ -29,7 +29,7 @@ class UnpublishPageAPIAction(APIAction):
         try:
             action.execute()
         except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+            raise ValidationError(e.message_dict) from e
 
         serializer = self.view.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)

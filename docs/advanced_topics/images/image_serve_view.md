@@ -62,17 +62,21 @@ Here's an example of this being used in a view:
 def display_image(request, image_id):
     image = get_object_or_404(Image, id=image_id)
 
-    return render(request, 'display_image.html', {
-        'image_url': generate_image_url(image, 'fill-100x100')
-    })
+    return render(
+        request,
+        "display_image.html",
+        {"image_url": generate_image_url(image, "fill-100x100")},
+    )
 ```
 
 Image operations can be chained by joining them with a `|` character:
 
 ```python
-return render(request, 'display_image.html', {
-    'image_url': generate_image_url(image, 'fill-100x100|jpegquality-40')
-})
+return render(
+    request,
+    "display_image.html",
+    {"image_url": generate_image_url(image, "fill-100x100|jpegquality-40")},
+)
 ```
 
 In your templates:
@@ -149,6 +153,7 @@ setting:
 from wagtail.images.views.serve import SendFileView
 from project.sendfile_backends import MyCustomBackend
 
+
 class MySendFileView(SendFileView):
     backend = MyCustomBackend
 ```
@@ -159,6 +164,7 @@ is to be authenticated (Django >= 1.9):
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin
 from wagtail.images.views.serve import SendFileView
+
 
 class PrivateSendFileView(LoginRequiredMixin, SendFileView):
     raise_exception = True

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Dan Braghis, 2015-2016,2019,2021\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,7 +21,7 @@ msgstr ""
 "2:1));\n"
 
 msgid "Wagtail style guide"
-msgstr "Ghid stilistic Wagtail"
+msgstr "Ghid de stil Wagtail"
 
 msgid "Minimap"
 msgstr "Minimapă"
@@ -30,16 +30,16 @@ msgid "Save"
 msgstr "Salvează"
 
 msgid "Delete image"
-msgstr "Șterge imagine"
+msgstr "Șterge imaginea"
 
 msgid "Styleguide"
 msgstr "Ghid de stil"
 
 msgid "Success message"
-msgstr "Mesaj de success"
+msgstr "Mesaj de succes"
 
 msgid "View live"
-msgstr "Vezi în direct"
+msgstr "Vezi pagina publicată"
 
 msgid "Edit"
 msgstr "Editează"

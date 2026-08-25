@@ -154,7 +154,9 @@ class LogEntriesView(ReportView):
             if queryset is None:
                 queryset = sub_queryset
             else:
-                queryset = queryset.union(sub_queryset)
+                # The log_model_index value makes duplicate rows impossible across the subqueries,
+                # so we pass all=True to union() to avoid unnecessary deduplication overhead.
+                queryset = queryset.union(sub_queryset, all=True)
 
         return queryset.order_by("-timestamp")
 

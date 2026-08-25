@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -143,6 +143,12 @@ msgstr "proffil defnyddiwr"
 
 msgid "user profiles"
 msgstr "proffiliau defnyddwyr"
+
+msgid "Copied to clipboard"
+msgstr "Wedi'i gopïo i'r clipfwrdd"
+
+msgid "Active"
+msgstr "Actif"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -353,9 +359,6 @@ msgstr[0] "Mae %(num_parent_objects)d defnyddiwr wedi cael eu dileu"
 msgstr[1] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu dileu"
 msgstr[2] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu dileu"
 msgstr[3] "Mae %(num_parent_objects)d defnyddwyr wedi cael eu dileu"
-
-msgid "Active"
-msgstr "Actif"
 
 msgid "Inactive"
 msgstr "Anactif"

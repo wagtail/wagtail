@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2016-2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -144,6 +144,18 @@ msgstr "用户资料"
 
 msgid "user profiles"
 msgstr "用户资料"
+
+msgid "Copied to clipboard"
+msgstr "已复制到剪贴板"
+
+msgid "Status: "
+msgstr "状态："
+
+msgid "Active"
+msgstr "有效"
+
+msgid "View history"
+msgstr "查看历史"
 
 #, python-format
 msgid "Assign role to 1 user"
@@ -289,6 +301,12 @@ msgstr ""
 msgid "user %(id)s (deleted)"
 msgstr "用户 %(id)s(已删除)"
 
+msgid "User"
+msgstr "用户"
+
+msgid "Created"
+msgstr "已创建"
+
 msgid "Assign role to selected users"
 msgstr "将角色分配给选择的用户"
 
@@ -304,9 +322,6 @@ msgstr "删除选择的用户"
 msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个用户"
-
-msgid "Active"
-msgstr "有效"
 
 msgid "Inactive"
 msgstr "无效"

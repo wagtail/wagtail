@@ -33,6 +33,7 @@ from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.search.index import class_is_indexed
 
 
@@ -257,8 +258,8 @@ class BaseChooseView(
         self.paginator = self.paginator_class(objects, per_page=self.per_page)
         try:
             return self.paginator.page(request.GET.get("p", 1))
-        except InvalidPage:
-            raise Http404
+        except InvalidPage as e:
+            raise Http404 from e
 
     def get(self, request):
         self.filter_form = self.get_filter_form()
@@ -319,7 +320,10 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
     create_action_label = _("Create")
     create_action_clicked_label = None
     create_url_name = None
-    permission_policy = None
+
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model_class)
 
     def get_permission_policy(self):
         if self.permission_policy:
@@ -516,9 +520,9 @@ class ChosenViewMixin(ModelLookupMixin):
 
     def get(self, request, pk):
         try:
-            item = self.get_object(unquote(pk))
-        except ObjectDoesNotExist:
-            raise Http404
+            item = self.get_object(unquote(str(pk)))
+        except ObjectDoesNotExist as e:
+            raise Http404 from e
 
         return self.get_chosen_response(item)
 

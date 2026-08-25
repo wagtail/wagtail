@@ -1,10 +1,12 @@
+import swapper
 from django.utils.functional import cached_property
 from django.utils.html import escape
 
-from wagtail.models import Page
 from wagtail.rich_text import features as feature_registry
 from wagtail.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
 from wagtail.whitelist import Whitelister, allow_without_attributes
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class WhitelistRule:

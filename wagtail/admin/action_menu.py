@@ -4,6 +4,7 @@ from django.conf import settings
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -89,7 +90,9 @@ class PublishMenuItem(ActionMenuItem):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         page = context.get("page")
-        context["is_scheduled"] = page and page.go_live_at
+        context["is_scheduled"] = (
+            page and page.go_live_at and page.go_live_at > timezone.now()
+        )
         context["is_revision"] = context["view"] == "revisions_revert"
         return context
 
@@ -126,8 +129,11 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             context["label"] = _("Resubmit to %(task_name)s") % {
                 "task_name": workflow_state.current_task_state.task.name
             }
-        elif page:
-            workflow = page.get_workflow()
+        else:
+            # If the page is being created, use the parent page to determine the
+            # associated workflow, otherwise use the page itself
+            workflow_page = page if page and page.pk else context["parent_page"]
+            workflow = workflow_page.get_workflow()
             if workflow:
                 context["label"] = _("Submit to %(workflow_name)s") % {
                     "workflow_name": workflow.name

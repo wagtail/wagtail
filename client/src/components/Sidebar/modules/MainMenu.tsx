@@ -1,48 +1,15 @@
+import Tippy from '@tippyjs/react';
 import * as React from 'react';
 
-import Tippy from '@tippyjs/react';
+import { updateDismissibles } from '../../../controllers/DismissibleController';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
+import { ModuleDefinition } from '../Sidebar';
+import { renderMenu } from '../menu';
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
-import { ModuleDefinition } from '../Sidebar';
-import { updateDismissibles } from '../../../controllers/DismissibleController';
-
-export function renderMenu(
-  path: string,
-  items: MenuItemDefinition[],
-  slim: boolean,
-  state: MenuState,
-  dispatch: (action: MenuAction) => void,
-  navigate: (url: string) => Promise<void>,
-) {
-  return (
-    <>
-      {items.map((item) =>
-        item.render({
-          path: `${path}.${item.name}`,
-          slim,
-          state,
-          dispatch,
-          navigate,
-        }),
-      )}
-    </>
-  );
-}
-
-export function isDismissed(item: MenuItemDefinition, state: MenuState) {
-  return (
-    // Non-dismissibles are considered as dismissed
-    !item.attrs['data-w-dismissible-id-value'] ||
-    // Dismissed on the server
-    'data-w-dismissible-dismissed-value' in item.attrs ||
-    // Dismissed on the client
-    state.dismissibles[item.name]
-  );
-}
 
 interface SetActivePath {
   type: 'set-active-path';
@@ -186,7 +153,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   // Whenever currentPath or menu changes, work out new activePath
   React.useEffect(() => {
-    const urlPathsToNavigationPaths: [string, string][] = [];
+    const urlPathsToNavigationPaths: Array<[string, string]> = [];
     const walkMenu = (path: string, walkingMenuItems: MenuItemDefinition[]) => {
       walkingMenuItems.forEach((item) => {
         const newPath = `${path}.${item.name}`;

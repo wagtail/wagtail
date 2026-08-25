@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 "<div id="the-id-chooser" class="chooser page-chooser" data-chooser-url="/admin/choose-page/">

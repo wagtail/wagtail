@@ -1,19 +1,20 @@
+/* eslint-disable no-underscore-dangle */
 /* global $ */
 
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  BaseSequenceBlock,
-  BaseSequenceChild,
-  BaseInsertionControl,
-} from './BaseSequenceBlock';
-import { escapeHtml as h } from '../../../utils/text';
-import { gettext } from '../../../utils/gettext';
-import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import { gettext } from '../../../utils/gettext';
+import { escapeHtml as h } from '../../../utils/text';
+import {
+  BaseInsertionControl,
+  BaseSequenceBlock,
+  BaseSequenceChild,
+} from './BaseSequenceBlock';
 
 /**
  * Wrapper for an item inside a ListBlock
@@ -61,7 +62,7 @@ class InsertPosition extends BaseInsertionControl {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-    const title = h(opts.strings.ADD);
+    const title = h(gettext('Add'));
     const button = $(`
       <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
@@ -228,7 +229,6 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
-    // eslint-disable-next-line no-underscore-dangle
     return this._insert(
       this.blockDef.childBlockDef,
       value,

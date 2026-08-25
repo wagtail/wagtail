@@ -13,7 +13,6 @@ from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
@@ -23,6 +22,7 @@ from wagtail.test.testapp.models import (
     JSONStreamModel,
     StreamPage,
 )
+from wagtail.test.utils import Page
 from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
 
@@ -369,10 +369,10 @@ class TestStreamFieldRenderingBase(TestCase):
         img_tag = self.image.get_rendition("original").img_tag()
         self.expected = "".join(
             [
-                '<div class="block-rich_text"><p>Rich text</p></div>',
-                '<div class="block-rich_text"><p>Привет, Микола</p></div>',
-                f'<div class="block-image">{img_tag}</div>',
-                '<div class="block-text">Hello, World!</div>',
+                '<div class="w-block-rich_text block-rich_text"><p>Rich text</p></div>',
+                '<div class="w-block-rich_text block-rich_text"><p>Привет, Микола</p></div>',
+                f'<div class="w-block-image block-image">{img_tag}</div>',
+                '<div class="w-block-text block-text">Hello, World!</div>',
             ]
         )
 

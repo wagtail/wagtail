@@ -1,16 +1,17 @@
+import swapper
 from django.db import migrations
 
 
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model("contenttypes.ContentType")
     Group = apps.get_model("auth.Group")
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
     Site = apps.get_model("wagtailcore.Site")
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
 
     # Create page content type
     page_content_type, created = ContentType.objects.get_or_create(
-        model="page", app_label="wagtailcore"
+        model=Page._meta.model_name, app_label=Page._meta.app_label
     )
 
     # Create root page

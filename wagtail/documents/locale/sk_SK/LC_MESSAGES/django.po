@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -26,6 +26,18 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenty"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tento súbor je príliž veľký (%(file_size)s). Maximálna povolená veľkosť je "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tento súbor je príliž veľký. Maximálna veľkosť súboru je %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Kolekcia"
@@ -89,6 +101,12 @@ msgstr "Nie, nezmazať"
 
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu "
+"\"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "Zmeniť dokument"
@@ -207,10 +225,6 @@ msgstr "Dokument nemohol byť uložený kvôli chybám."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument '%(document_title)s' bol aktualizovaný"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
 
 msgid "Delete document"
 msgstr "Zmazať dokument"

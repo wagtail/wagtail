@@ -1,7 +1,9 @@
 import collections
 import datetime
 import json
+from http import HTTPStatus
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -15,7 +17,7 @@ from wagtail.api.v2.tests.test_pages import (
     TestPageListing,
     TestPageListingSearch,
 )
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Locale, PageLogEntry
 from wagtail.test.demosite import models
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.testapp.models import (
@@ -25,6 +27,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     StreamPage,
 )
+from wagtail.test.utils import Page, PageFixturesMixin
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -116,6 +119,25 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             content["__types"]["demosite.EventPage"]["verbose_name_plural"],
             "event pages",
         )
+
+    def test_get_without_access_to_pages(self):
+        user = self.create_user(username="basic_user")
+
+        can_access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            content_type__model="admin",
+            codename="access_admin",
+        )
+        user.user_permissions.add(can_access_admin_permission)
+
+        self.client.force_login(user)
+
+        response = self.get_response()
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        content = json.loads(response.content.decode("UTF-8"))
+        self.assertEqual(content["meta"]["total_count"], 0)
+        self.assertEqual(content["items"], [])
 
     # Not applicable to the admin API
     test_unpublished_pages_dont_appear_in_list = None
@@ -247,6 +269,32 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "seo_title",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "status",
+            "latest_revision_created_at",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -266,31 +314,39 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "seo_title",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "status",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "slug",
+            "parent",
+            "html_url",
+            "search_description",
+            "locale",
+            "alias_of",
+            "children",
+            "descendants",
+            "ancestors",
+            "translations",
+            "latest_revision_created_at",
+        }
+        removed_fields = "*,-title,-admin_display_title,-date,-seo_title,-status"
+
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-admin_display_title,-date,-status"
+
         response = self.get_response(
             type="demosite.BlogEntryPage",
-            fields="*,-title,-admin_display_title,-date,-seo_title,-status",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -310,23 +366,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "slug",
-                    "parent",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                    "alias_of",
-                    "children",
-                    "descendants",
-                    "ancestors",
-                    "translations",
-                    "latest_revision_created_at",
-                },
+                expected_meta_keys,
             )
 
     def test_all_nested_fields(self):
@@ -660,6 +700,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         self.assertTrue(event_page_seen, msg="No event pages were found in the items")
 
     # Not applicable to the admin API
+    test_site_filter_nonexistent_site_gives_error = None
     test_site_filter_same_hostname_returns_error = None
     test_site_filter = None
 
@@ -729,6 +770,22 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(content["items"]), get_total_page_count())
+
+    def test_include_root(self):
+        response = self.get_response(include_root="true")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertIn(1, page_id_list)
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count() + 1)
+
+    def test_include_root_false(self):
+        response = self.get_response(include_root="false")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertNotIn(1, page_id_list)
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count())
 
 
 class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
@@ -852,7 +909,17 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         for carousel_item in content["carousel_items"]:
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "embed_url", "link", "caption", "image"},
+                {
+                    "id",
+                    "meta",
+                    "embed_url",
+                    "link",
+                    "caption",
+                    "image",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(set(carousel_item["meta"].keys()), {"type"})
 
@@ -861,7 +928,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(
             set(content["__types"].keys()),
             {
-                "wagtailcore.Page",
+                swapper.get_model_name("wagtailcore", "Page"),
                 "demosite.HomePage",
                 "demosite.BlogIndexPage",
                 "demosite.BlogEntryPageCarouselItem",
@@ -881,6 +948,21 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             content["__types"]["demosite.BlogIndexPage"]["verbose_name_plural"],
             "blog index pages",
         )
+
+    def test_get_without_access_to_given_page(self):
+        user = self.create_user(username="basic_user")
+
+        can_access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            content_type__model="admin",
+            codename="access_admin",
+        )
+        user.user_permissions.add(can_access_admin_permission)
+
+        self.client.force_login(user)
+
+        response = self.get_response(16)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     # overridden from public API tests
     def test_meta_parent_id_doesnt_show_root_page(self):
@@ -1061,9 +1143,13 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     # FIELDS
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-parent,-status"
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1119,7 +1205,7 @@ class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):
         return Page.objects.get(slug="home-page")
 
 
-class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
+class TestAdminPageDetailWithStreamField(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1162,7 +1248,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
         self.assertEqual(content["body"][0]["value"], 1)
 
 
-class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
+class TestCustomAdminDisplayTitle(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1193,7 +1279,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
         )
 
 
-class TestCopyPageAction(AdminAPITestCase, TestCase):
+class TestCopyPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1307,10 +1393,10 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
             },
         )
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to copy this page"}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
     def test_recursively_copy_into_self(self):
@@ -1345,10 +1431,10 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
             },
         )
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to copy this page"}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
     def test_without_publish_permissions_at_destination_with_keep_live(self):
@@ -1376,11 +1462,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
             content,
-            {
-                "detail": (
-                    "You do not have permission to publish a page at the destination."
-                )
-            },
+            {"detail": ("You do not have permission to copy this page")},
         )
 
     def test_respects_page_creation_rules(self):
@@ -1413,7 +1495,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         )
 
 
-class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
+class TestConvertAliasPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1461,7 +1543,7 @@ class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
                 }
             },
         )
-        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.page, self.alias_page.get_base_page())
         self.assertEqual(log.revision, revision)
         self.assertEqual(log.user, self.user)
 
@@ -1483,10 +1565,10 @@ class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
         self.user.save()
 
         response = self.get_response(self.alias_page.id)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
 
-class TestDeletePageAction(AdminAPITestCase, TestCase):
+class TestDeletePageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1514,17 +1596,17 @@ class TestDeletePageAction(AdminAPITestCase, TestCase):
         # delete
         response = self.get_response(4)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to delete this page."}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
         # Page is still there
         self.assertTrue(Page.objects.filter(id=4).exists())
 
 
-class TestPublishPageAction(AdminAPITestCase, TestCase):
+class TestPublishPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1562,10 +1644,10 @@ class TestPublishPageAction(AdminAPITestCase, TestCase):
 
         response = self.get_response(4)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to publish this page."}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
     def test_publish_alias_page(self):
@@ -1587,7 +1669,7 @@ class TestPublishPageAction(AdminAPITestCase, TestCase):
         )
 
 
-class TestUnpublishPageAction(AdminAPITestCase, TestCase):
+class TestUnpublishPageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1652,14 +1734,14 @@ class TestUnpublishPageAction(AdminAPITestCase, TestCase):
 
         response = self.get_response(3, {})
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to unpublish this page."}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
 
-class TestMovePageAction(AdminAPITestCase, TestCase):
+class TestMovePageAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1683,17 +1765,11 @@ class TestMovePageAction(AdminAPITestCase, TestCase):
 
         # Move
         response = self.get_response(4, {"destination_page_id": 3})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content,
-            {
-                "detail": (
-                    "You do not have permission to move the page to the "
-                    "target specified."
-                ),
-            },
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
     def test_move_page_without_destination_page_id(self):
@@ -1704,7 +1780,7 @@ class TestMovePageAction(AdminAPITestCase, TestCase):
         self.assertEqual(content, {"destination_page_id": ["This field is required."]})
 
 
-class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
+class TestCopyForTranslationAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1747,7 +1823,13 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
 
         self.assertEqual(response.status_code, 400)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"message": "Parent page is not translated."})
+        self.assertEqual(
+            content,
+            {
+                "message": "Parent page 'Welcome to the Wagtail test site!' "
+                "is not translated."
+            },
+        )
 
     def test_copy_childpage_with_copy_parents(self):
         response = self.get_response(
@@ -1857,8 +1939,61 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
         ][0]
         assert new_post_page.title == new_page_title
 
+    def test_without_translate_permission(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.root_page.id, permission_type="change"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
 
-class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_without_edit_permission(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="simple_translation",
+                codename="submit_translation",
+            )
+        )
+        # Grant edit permission over a page that is not the one being copied
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.en_eventindex.id, permission_type="change"
+        )
+
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_with_translate_and_edit_permissions(self):
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="simple_translation",
+                codename="submit_translation",
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page_id=self.root_page.id, permission_type="change"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 201)
+
+
+class TestCreatePageAliasAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1962,20 +2097,15 @@ class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
             self.events_index.id,
             data={"recursive": True, "update_slug": "new-events-index"},
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content,
-            {
-                "detail": (
-                    "You do not have permission to publish a page at the destination."
-                ),
-            },
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
 
-class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
+class TestRevertToPageRevisionAction(PageFixturesMixin, AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2024,11 +2154,11 @@ class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
         response = self.get_response(
             self.events_page.id, {"revision_id": self.first_revision.id}
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to edit this page."}
+            content, {"message": f"No {Page.__name__} matches the given query."}
         )
 
     def test_revert_to_page_revision_without_revision_id(self):

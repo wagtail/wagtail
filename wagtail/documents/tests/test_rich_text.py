@@ -10,10 +10,10 @@ from wagtail.documents.rich_text.editor_html import (
 )
 from wagtail.fields import RichTextField
 from wagtail.rich_text.feature_registry import FeatureRegistry
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
+class TestEditorHtmlDocumentLinkHandler(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
@@ -38,7 +38,7 @@ class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
         self.assertEqual(result, '<a data-linktype="document">')
 
 
-class TestFrontendDocumentLinkHandler(TestCase):
+class TestFrontendDocumentLinkHandler(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_expand_db_attributes_for_frontend(self):

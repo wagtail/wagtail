@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,9 +60,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Vabandame, teil puudub siia ligipääs."
-
-msgid "You do not have permission to access the admin"
-msgstr "Teil pole administraatorile juurdepääsu luba"
 
 msgid "None"
 msgstr "Puudub"
@@ -141,9 +138,6 @@ msgstr "Kustuta"
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Otseülekande kuupäev / kellaaeg peab olema enne aegumiskuupäeva / kellaaega"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Aegumiskuupäev / kellaaeg peavad olema tulevikus"
 
 msgid "New title"
 msgstr "Uus pealkiri"
@@ -345,6 +339,10 @@ msgid "Add a phone link"
 msgstr "Lisage telefoni link"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Vali %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Uurige ' %(title)s' alamlehti"
 
@@ -356,9 +354,6 @@ msgstr "Selle kogu on privaatseks muutnud vanemkogu."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Privaatsusseadeid saate muuta saidil:"
-
-msgid "Save"
-msgstr "Salvesta"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -408,11 +403,13 @@ msgstr "Ei, ärge avaldamist tühistage"
 msgid "Cancel"
 msgstr "Tühista"
 
-msgid "Actions"
-msgstr "Toimingud"
-
 msgid "Comment"
 msgstr "Kommentaar"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Toimingud"
 
 msgid "Update"
 msgstr "Uuenda"
@@ -724,23 +721,15 @@ msgstr "Avastage ' %(title)s' alamlehti"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisage alamleht lehele %(title)s"
 
-msgid "Drag"
-msgstr "Vedama"
-
-msgid "Disable ordering of child pages"
-msgstr "Keela alamlehtede järjestamine"
-
-msgid "Sort"
-msgstr "Sorteeri"
-
-msgid "Enable ordering of child pages"
-msgstr "Luba alamlehtede tellimine"
-
 msgid "Sites menu"
 msgstr "Saidimenüü"
 
 msgid "Pagination"
 msgstr "Lehekülgede otsimine"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Leht %(page_number)s %(num_pages)s lehest."
 
 msgid "Previous"
 msgstr "Eelmine"
@@ -753,9 +742,6 @@ msgstr "See leht on avalike vaadete eest kaitstud"
 
 msgid "Confirm"
 msgstr "Kinnitage"
-
-msgid "Add child page"
-msgstr "Lapse lisamine"
 
 msgid "Page types"
 msgstr "Lehe tüübid"
@@ -776,6 +762,9 @@ msgstr "Üles liikuma"
 
 msgid "Move down"
 msgstr "Liigu alla"
+
+msgid "Drag"
+msgstr "Vedama"
 
 msgid "Type"
 msgstr "Tüüp"
@@ -880,6 +869,9 @@ msgstr "Ei, ära ajakava tühista"
 msgid "Other searches"
 msgstr "Muud otsingud"
 
+msgid "Save"
+msgstr "Salvesta"
+
 msgid "Unlocked"
 msgstr "Lukustamata"
 
@@ -897,6 +889,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Kasutatud %(usage_count)s korda"
 msgstr[1] "Kasutatud %(usage_count)s korda"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "poolt %(user)s"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -932,6 +928,9 @@ msgstr "Seda lehte ei ole veel modereerimiseks esitatud"
 
 msgid "Skip to main content"
 msgstr "Otse põhisisu juurde"
+
+msgid "Sort"
+msgstr "Sorteeri"
 
 msgid "Add a child page"
 msgstr "Lisage lapse leht"
@@ -1095,6 +1094,9 @@ msgstr "Võta tagasi"
 msgid "Redo"
 msgstr "Tee uuesti"
 
+msgid "Bold"
+msgstr "Julge"
+
 msgid "Italic"
 msgstr "Kursiiv"
 
@@ -1194,12 +1196,28 @@ msgstr "%(model_name)s '%(object)s' on loodud."
 msgid "Inspect"
 msgstr "Kontrollige"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Lisage %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Rakendust %(model_name)s ei õnnestunud vigade tõttu luua."
+
 msgid "Editing"
 msgstr "Redigeerimine"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Rakendust %(model_name)s ei õnnestunud vigade tõttu salvestada."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' on kustutatud."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Kas sa oled kindel, et tahad kustutada seda %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Varaseim"
@@ -1207,8 +1225,16 @@ msgstr "Varaseim"
 msgid "Latest"
 msgstr "Uusim"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Versioon %(revision_id)s \"%(object)s\" ajastamata."
+
 msgid "Unschedule"
 msgstr "Ajakava tühistamine"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "versioon %(revision_id)s versioonidest \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1246,9 +1272,6 @@ msgstr "Leht '%(page_title)s' on loodud ja avaldatud."
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Leht %(page_title)s loodi ja saadeti modereerimiseks."
-
-msgid "The page could not be created due to validation errors"
-msgstr "Valideerimisvigade tõttu ei saanud lehte luua"
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -1309,29 +1332,18 @@ msgstr "Leht '%(page_title)s' on modereerimiseks esitatud."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Töövoog lehel %(page_title)s on taaskäivitatud."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Valideerimisvigade tõttu ei õnnestunud lehte salvestada"
-
 msgid "Site"
 msgstr "Sait"
 
 msgid "Yes"
 msgstr "Jah"
 
+msgid "Add child page"
+msgstr "Lapse lisamine"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Leht %(page_title)s on nüüd lukustamata."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Slug '%(page_slug)s'  on valitud vanemalehel juba kasutusel. Veenduge, et "
-"nälkjas on ainulaadne, ja proovige uuesti"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1485,9 +1497,6 @@ msgstr "Numbriloend"
 
 msgid "Blockquote"
 msgstr "Blokeeri pakkumine"
-
-msgid "Bold"
-msgstr "Julge"
 
 msgid "Link"
 msgstr "Link"

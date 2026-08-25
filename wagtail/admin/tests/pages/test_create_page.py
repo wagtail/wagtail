@@ -1,8 +1,10 @@
 import datetime
+import unittest
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -12,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.models import (
     GroupPagePermission,
     Locale,
-    Page,
     PageViewRestriction,
     Revision,
 )
@@ -32,7 +33,7 @@ from wagtail.test.testapp.models import (
     StandardChild,
     StandardIndex,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 
@@ -102,13 +103,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:add_subpage", args=(simple_parent_page.id,))
         )
-        self.assertEqual(response.status_code, 200)
-        # if there is no page_type available then this message should be shown.
-        self.assertContains(
-            response, "Sorry, you cannot create a page at this location."
-        )
-        self.assertNotContains(
-            response, "Choose which type of page you'd like to create."
+        # Raises a permission denied error
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
         )
 
     def test_add_subpage_with_one_valid_subpage_type(self):
@@ -209,7 +209,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             # test that workflow actions are shown
             self.assertContains(
                 response,
-                '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
+                '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">',
             )
 
             self.assertEqual(handler.call_count, 1)
@@ -226,7 +226,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'value="Submit for moderation"')
+        self.assertNotContains(response, 'value="Submit to Moderators approval"')
 
     def test_create_multipart(self):
         """
@@ -490,10 +490,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Title field should be present and have TitleFieldPanel behaviour
         # including syncing with slug
         self.assertContains(response, 'data-w-sync-target-value="#id_slug"')
-        # SEO title should be present in promote tab
-        self.assertContains(
-            response, "The name of the page displayed on search engine results"
-        )
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            # SEO title should be present in promote tab
+            self.assertContains(
+                response, "The name of the page displayed on search engine results"
+            )
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -558,6 +559,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
         self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
@@ -567,6 +572,32 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_simplepage_post_invalid_with_json_response(self):
+        post_data = {
+            "title": "",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
+            },
+        )
 
     def test_create_simplepage_post_with_blank_content(self):
         """
@@ -593,6 +624,63 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Should be redirected to edit page
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.title, post_data["title"])
+        self.assertEqual(page.draft_title, post_data["title"])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_create_simplepage_post_with_json_response(self):
+        post_data = {
+            "title": "New page",
+            "content": "hello world",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        revision = page.get_latest_revision()
+        response_json = response.json()
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.pk,))
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], page.pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+        self.assertEqual(response_json["field_updates"], {})
+        self.assertEqual(
+            response_json["comments"],
+            {
+                "comments": [],
+                "user": str(self.user.pk),
+                "authors": {},
+            },
+        )
+        self.assertEqual(response_json["url"], edit_url)
+        self.assertEqual(
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
         )
 
         self.assertEqual(page.title, post_data["title"])
@@ -790,6 +878,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
         self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
@@ -863,12 +955,100 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(len(page.body), 0)
         self.assertFalse(page.live)
 
+    def test_create_streampage_post_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="stream-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(len(page.body), 7)
+        self.assertFalse(page.live)
+
     def test_cannot_publish_streampage_with_blank_body(self):
         post_data = nested_form_data(
             {
                 "title": "Stream page",
                 "slug": "stream-page",
                 "body": streamfield([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised. The actual message as rendered
+        # ("This field is required.") is passed to the StreamBlock as part of
+        # StreamBlockValidationError.non_block_errors, whereas assertFormError
+        # only considers the message attribute (which is a generic error).
+        self.assertFormError(
+            response.context["form"], "body", "Validation error in StreamBlock"
+        )
+        self.assertContains(response, "This field is required.")
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="stream-page"
+            ).exists()
+        )
+
+    def test_cannot_publish_streampage_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
                 "action-publish": "Publish",
             }
         )
@@ -1665,6 +1845,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.context["form"], "title", "This field is required."
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "SEO title is not available on custom base page models",
+    )
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
             "title": "Hello",
@@ -1711,7 +1895,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         page = Page.objects.order_by("-id").first()
         self.assertEqual(page.title, "Hello")
         self.assertEqual(page.draft_title, "Hello")
-        self.assertEqual(page.seo_title, "hello SEO")
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            self.assertEqual(page.seo_title, "hello SEO")
 
     def test_long_slug(self):
         post_data = {
@@ -1791,6 +1976,52 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_before_create_page_hook_with_json_response(self):
+        def non_json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_page", non_json_hook_func):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
+            },
+        )
+
+        with self.register_hook("before_create_page", json_hook_func):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
     def test_before_create_page_hook_post(self):
         def hook_func(request, parent_page, page_class):
             self.assertIsInstance(request, HttpRequest)
@@ -1815,6 +2046,70 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
+    def test_before_create_page_hook_post_with_json_response(self):
+        def non_json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_page", non_json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
+            },
+        )
+
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
+        with self.register_hook("before_create_page", json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
 
         # page should not be created
         self.assertFalse(Page.objects.filter(title="New page!").exists())
@@ -1849,6 +2144,70 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+    def test_after_create_page_hook_with_json_response(self):
+        def non_json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("after_create_page", non_json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is ignored, since it's not a JSON response
+        self.assertEqual(response.json()["success"], True)
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+        with self.register_hook("after_create_page", json_hook_func):
+            post_data = {
+                "title": "Another new page!",
+                "content": "Some content",
+                "slug": "hello-another-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="Another new page!").exists())
 
     def test_after_create_page_hook_with_page_publish(self):
         def hook_func(request, page):
@@ -1945,7 +2304,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
     def test_display_moderation_button_by_default(self):
         """
-        Tests that by default the "Submit for Moderation" button is shown in the action menu.
+        Tests that by default the "Submit to Moderators approval" button is shown in the action menu.
         """
         response = self.client.get(
             reverse(
@@ -1955,15 +2314,15 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
             '<svg class="icon icon-resubmit icon" aria-hidden="true"><use href="#icon-resubmit"></use></svg>'
-            "Submit for moderation</button>",
+            "Submit to Moderators approval</button>",
         )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_hide_moderation_button(self):
         """
-        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit to Moderators approval" button is not shown.
         """
         response = self.client.get(
             reverse(
@@ -1973,7 +2332,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(
             response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>',
+            '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">Submit to Moderators approval</button>',
         )
 
     def test_create_sets_locale_to_parent_locale(self):
@@ -1996,8 +2355,58 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.context["page"].locale, fr_locale)
 
+    def test_create_shows_status_side_panel_skeleton(self):
+        self.user.first_name = "Chrismansyah"
+        self.user.last_name = "Rahadi"
+        self.user.save()
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            )
+        )
+        soup = self.get_soup(response.content)
+        panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(panel)
 
-class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
+        def assert_panel_section(label_id, label_text, description):
+            section = panel.select_one(f'[aria-labelledby="{label_id}"]')
+            self.assertIsNotNone(section)
+            label = section.select_one(f"#{label_id}")
+            self.assertIsNotNone(label)
+            self.assertEqual(label.get_text(separator="\n", strip=True), label_text)
+            self.assertEqual(
+                section.get_text(separator="\n", strip=True),
+                f"{label_text}\n{description}",
+            )
+
+        assert_panel_section(
+            "status-sidebar-draft",
+            "Draft",
+            "To be created by Chrismansyah Rahadi",
+        )
+
+        assert_panel_section(
+            "status-sidebar-unlocked",
+            "Locking:\nUnlocked",
+            "Anyone can edit this page",
+        )
+
+        assert_panel_section(
+            "status-sidebar-visible-to-all",
+            "Page visibility:\nVisible to all",
+            "Once live anyone can view",
+        )
+
+        usage_section = panel.select("section")[-1]
+        self.assertIsNotNone(usage_section)
+        self.assertEqual(
+            usage_section.get_text(separator="\n", strip=True),
+            "Usage\nReferenced 0 times",
+        )
+
+
+class TestPermissionedFieldPanels(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2356,7 +2765,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(new_page.social_links.count(), 1)
 
 
-class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
+class TestInlinePanelNonFieldErrors(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test that non field errors will render for InlinePanels
     https://github.com/wagtail/wagtail/issues/3890
@@ -2410,7 +2819,7 @@ class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2489,7 +2898,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
+class TestLocaleSelectorOnRootPage(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2706,6 +3115,57 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("page-edit-form", form["id"])
         self.assertIn("w-init", form["data-controller"])
         self.assertEqual("", form["data-w-init-event-value"])
+
+    def test_new_comment_json(self):
+        post_data = {
+            "title": "New page",
+            "content": "hello world",
+            "slug": "hello-world",
+            "comments-TOTAL_FORMS": "1",
+            "comments-INITIAL_FORMS": "0",
+            "comments-MIN_NUM_FORMS": "0",
+            "comments-MAX_NUM_FORMS": "",
+            "comments-0-DELETE": "",
+            "comments-0-resolved": "",
+            "comments-0-id": "",
+            "comments-0-contentpath": "title",
+            "comments-0-text": "A test comment",
+            "comments-0-position": "",
+            "comments-0-replies-TOTAL_FORMS": "0",
+            "comments-0-replies-INITIAL_FORMS": "0",
+            "comments-0-replies-MIN_NUM_FORMS": "0",
+            "comments-0-replies-MAX_NUM_FORMS": "0",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        pk = response_json["pk"]
+        new_page = SimplePage.objects.get(pk=pk)
+
+        # Check the comment was added
+        comment = new_page.wagtail_admin_comments.get()
+        self.assertEqual(comment.text, "A test comment")
+
+        # Should include serialized comments data in the response
+        comments_json = response_json["comments"]
+        self.assertEqual(len(comments_json["comments"]), 1)
+        comment_json = comments_json["comments"][0]
+        self.assertEqual(comment_json["pk"], comment.pk)
+        self.assertEqual(comment_json["page"], new_page.pk)
+        self.assertEqual(comment_json["user"], str(self.user.pk))
+        self.assertEqual(comment_json["text"], "A test comment")
+        self.assertEqual(comment_json["contentpath"], "title")
+        self.assertEqual(comments_json["user"], str(self.user.pk))
+        self.assertIn(str(self.user.pk), comments_json["authors"])
 
 
 class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):

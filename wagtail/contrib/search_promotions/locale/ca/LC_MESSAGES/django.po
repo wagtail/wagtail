@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,12 @@ msgstr "Seleccioneu només una pàgina O un enllaç extern."
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifiqueu com a mínim una recomanació per a aquest terme de cerca."
+
+msgid "query"
+msgstr "consulta"
+
+msgid "queries"
+msgstr "consultes"
 
 msgid "Query Daily Hits"
 msgstr "Consultar Visites Diàries"
@@ -191,15 +197,15 @@ msgstr "Resultat de carca promocionada"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Selecció de l'editor per a '%(query)s' creada."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "No s'han creat les recomanacions a causa d'errors"
+msgid "Recommendations have not been created due to errors."
+msgstr "No s'han creat les recomanacions per causa d'errors."
 
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Selecció de l'editor per '%(query)s' actualitzada."
 
-msgid "Recommendations have not been saved due to errors"
-msgstr "No s'han desat les recomanacions a causa d'errors"
+msgid "Recommendations have not been saved due to errors."
+msgstr "No s'han desat les recomanacions per causa d'errors."
 
 msgid "Editor's picks deleted."
 msgstr "Selecció de l'editor esborrada."

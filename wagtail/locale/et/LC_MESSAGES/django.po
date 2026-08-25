@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,21 +35,6 @@ msgstr "Minimaalne üksuste arv on %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksimaalne üksuste arv on %(max_num)d"
-
-msgid "Move up"
-msgstr "Üles liikuma"
-
-msgid "Move down"
-msgstr "Mine alla"
-
-msgid "Drag"
-msgstr "Vedama"
-
-msgid "Delete"
-msgstr "Kustuta"
-
-msgid "Add"
-msgstr "Lisama"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -75,6 +60,12 @@ msgstr "Lukustatud"
 
 msgid "Unlocked"
 msgstr "Lukustamata"
+
+msgid "user"
+msgstr "kasutaja"
+
+msgid "name"
+msgstr "nimi"
 
 msgid "content type"
 msgstr "sisu tüüp"
@@ -149,9 +140,6 @@ msgstr "kogu vaatamise piirang"
 msgid "collection view restrictions"
 msgstr "kogu vaatamise piirangud"
 
-msgid "name"
-msgstr "nimi"
-
 msgid "collections"
 msgstr "kollektsioonid"
 
@@ -169,6 +157,9 @@ msgstr "grupikogude load"
 
 msgid "uploaded by user"
 msgstr "kasutaja üles laaditud"
+
+msgid "Add"
+msgstr "Lisama"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"
@@ -203,6 +194,12 @@ msgstr "Ava"
 msgid "Unlock any page"
 msgstr "Avage mis tahes leht"
 
+msgid "page"
+msgstr "lehele"
+
+msgid "pages"
+msgstr "lehekülgi"
+
 msgid "title"
 msgstr "pealkiri"
 
@@ -225,21 +222,15 @@ msgstr "URL-i tee"
 msgid "owner"
 msgstr "omanik"
 
+msgid "latest revision created at"
+msgstr "viimane redaktsioon loodud aadressil"
+
 msgid "show in menus"
 msgstr "saade menüüdes"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
-
-msgid "latest revision created at"
-msgstr "viimane redaktsioon loodud aadressil"
-
-msgid "page"
-msgstr "lehele"
-
-msgid "pages"
-msgstr "lehekülgi"
 
 msgid "group page permission"
 msgstr "grupilehe luba"
@@ -276,9 +267,6 @@ msgstr "Vaikimisi"
 
 msgid "created at"
 msgstr "loodud aadressil"
-
-msgid "user"
-msgstr "kasutaja"
 
 msgid "content JSON"
 msgstr "sisu JSON"
@@ -498,6 +486,9 @@ msgstr "Loodud"
 msgid "Edited"
 msgstr "Redigeeritud"
 
+msgid "Delete"
+msgstr "Kustuta"
+
 msgid "Deleted"
 msgstr "Kustutatud"
 
@@ -579,13 +570,6 @@ msgstr ""
 "Versiooni %(revision_id)s plaaniline %(created_at)s avaldamine "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on kavandatud kell %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Lehe avaldamine on kavandatud"
-
 msgid "Unschedule publication"
 msgstr "Väljaandmise ajagraafik"
 
@@ -596,13 +580,6 @@ msgid ""
 msgstr ""
 "Versiooni %(revision_id)s  plaaniväline %(created_at)s avaldamine "
 "%(go_live_at)s asemel."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on ajakavas %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Lehe avaldamine on ajastatud"
 
 msgid "Add view restrictions"
 msgstr "Lisage vaate piirangud"

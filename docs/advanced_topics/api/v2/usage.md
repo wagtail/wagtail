@@ -52,7 +52,7 @@ Content-Type: application/json
             "id": 1,
             "meta": {
                 "type": "app_name.ModelName",
-                "detail_url": "http://api.example.com/api/v2/endpoint_name/1/"
+                "detail_url": "https://api.example.com/api/v2/endpoint_name/1/"
             },
             "field": "value"
         },
@@ -60,7 +60,7 @@ Content-Type: application/json
             "id": 2,
             "meta": {
                 "type": "app_name.ModelName",
-                "detail_url": "http://api.example.com/api/v2/endpoint_name/2/"
+                "detail_url": "https://api.example.com/api/v2/endpoint_name/2/"
             },
             "field": "different value"
         }
@@ -99,8 +99,8 @@ Content-Type: application/json
             "id": 1,
             "meta": {
                 "type": "blog.BlogPage",
-                "detail_url": "http://api.example.com/api/v2/pages/1/",
-                "html_url": "http://www.example.com/blog/my-blog-post/",
+                "detail_url": "https://api.example.com/api/v2/pages/1/",
+                "html_url": "https://www.example.com/blog/my-blog-post/",
                 "slug": "my-blog-post",
                 "first_published_at": "2016-08-30T16:52:00Z"
             },
@@ -284,8 +284,8 @@ Content-Type: application/json
             "id": 10,
             "meta": {
                 "type": "standard.StandardPage",
-                "detail_url": "http://api.example.com/api/v2/pages/10/",
-                "html_url": "http://www.example.com/about/",
+                "detail_url": "https://api.example.com/api/v2/pages/10/",
+                "html_url": "https://www.example.com/about/",
                 "slug": "about",
                 "first_published_at": "2016-08-30T16:52:00Z"
             },
@@ -322,8 +322,8 @@ Content-Type: application/json
             "id": 3,
             "meta": {
                 "type": "blog.BlogIndexPage",
-                "detail_url": "http://api.example.com/api/v2/pages/3/",
-                "html_url": "http://www.example.com/blog/",
+                "detail_url": "https://api.example.com/api/v2/pages/3/",
+                "html_url": "https://www.example.com/blog/",
                 "slug": "blog",
                 "first_published_at": "2016-09-21T13:54:00Z"
             },
@@ -333,8 +333,8 @@ Content-Type: application/json
             "id": 10,
             "meta": {
                 "type": "standard.StandardPage",
-                "detail_url": "http://api.example.com/api/v2/pages/10/",
-                "html_url": "http://www.example.com/about/",
+                "detail_url": "https://api.example.com/api/v2/pages/10/",
+                "html_url": "https://www.example.com/about/",
                 "slug": "about",
                 "first_published_at": "2016-08-30T16:52:00Z"
             },
@@ -435,8 +435,8 @@ Content-Type: application/json
             "id": 10,
             "meta": {
                 "type": "standard.StandardPage",
-                "detail_url": "http://api.example.com/api/v2/pages/10/",
-                "html_url": "http://www.example.com/usa-page/",
+                "detail_url": "https://api.example.com/api/v2/pages/10/",
+                "html_url": "https://www.example.com/usa-page/",
                 "slug": "usa-page",
                 "first_published_at": "2016-08-30T16:52:00Z",
                 "locale": "en-us"
@@ -469,8 +469,8 @@ Content-Type: application/json
             "id": 11,
             "meta": {
                 "type": "standard.StandardPage",
-                "detail_url": "http://api.example.com/api/v2/pages/11/",
-                "html_url": "http://www.example.com/gb-page/",
+                "detail_url": "https://api.example.com/api/v2/pages/11/",
+                "html_url": "https://www.example.com/gb-page/",
                 "slug": "gb-page",
                 "first_published_at": "2016-08-30T16:52:00Z",
                 "locale": "en-gb"
@@ -481,8 +481,8 @@ Content-Type: application/json
             "id": 12,
             "meta": {
                 "type": "standard.StandardPage",
-                "detail_url": "http://api.example.com/api/v2/pages/12/",
-                "html_url": "http://www.example.com/fr-page/",
+                "detail_url": "https://api.example.com/api/v2/pages/12/",
+                "html_url": "https://www.example.com/fr-page/",
                 "slug": "fr-page",
                 "first_published_at": "2016-08-30T16:52:00Z",
                 "locale": "fr"

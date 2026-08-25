@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -77,9 +77,6 @@ msgstr "우측 정렬"
 msgid "Collection"
 msgstr "모음"
 
-msgid "Filter"
-msgstr "필터"
-
 msgid "Original size"
 msgstr "원본 사이즈"
 
@@ -97,6 +94,9 @@ msgstr "최대 사이즈에 따라 사이즈 조정"
 
 msgid "Resize to fill"
 msgstr "꽉 채우도록 사이즈 조정"
+
+msgid "Filter"
+msgstr "필터"
 
 msgid "Width"
 msgstr "너비"
@@ -175,6 +175,10 @@ msgstr "신규"
 
 msgid "Latest images"
 msgstr "최근 이미지"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s 선택"
 
 msgid "Choose a format"
 msgstr "포맷 선택"
@@ -323,6 +327,12 @@ msgstr "컬렉션에 추가"
 msgid "Delete"
 msgstr "삭제"
 
+msgid "Title"
+msgstr "제목"
+
+msgid "Created"
+msgstr "생성일"
+
 msgid "Choose an image"
 msgstr "이미지 선택"
 
@@ -340,12 +350,6 @@ msgstr "오래된순"
 
 msgid "Images"
 msgstr "이미지"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "Created"
-msgstr "생성일"
 
 msgid "The image could not be saved due to errors."
 msgstr "에러로 인해 이미지를 저장할 수 없습니다."

@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,6 @@ msgstr "مجموعة"
 msgid "Format"
 msgstr "تنسيق"
 
-msgid "Filter"
-msgstr "تصفية"
-
 msgid "Original size"
 msgstr "الحجم الأصلي"
 
@@ -115,6 +112,9 @@ msgstr "تغيير الحجم إلى الحد الأقصى"
 
 msgid "Resize to fill"
 msgstr "تغيير الحجم لملء الفراغ"
+
+msgid "Filter"
+msgstr "تصفية"
 
 msgid "Width"
 msgstr "عرض"
@@ -284,6 +284,9 @@ msgstr "لا، لا تحذف"
 msgid "Popular tags"
 msgstr "الوسوم الشائعة"
 
+msgid "Layout"
+msgstr "نسق"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -440,8 +443,11 @@ msgstr ""
 "لم تقم برفع أي صور. لماذا لا <a "
 "href=\"%(wagtailimages_add_image_url)s\">ترفع واحدة الآن</a>؟"
 
-msgid "Toggle layout"
-msgstr "تبديل التصميم"
+msgid "Grid layout"
+msgstr "نسق شبكي"
+
+msgid "List layout"
+msgstr "نسق قائمة"
 
 msgid "Preview"
 msgstr "معاينة"
@@ -564,6 +570,12 @@ msgstr[3] "تم حذف %(num_parent_objects)d صور"
 msgstr[4] "تم حذف %(num_parent_objects)d صورة"
 msgstr[5] "تم حذف %(num_parent_objects)d صورتين"
 
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
 msgid "Choose an image"
 msgstr "اختر صورة"
 
@@ -600,12 +612,6 @@ msgstr "عدد مرات الاستخدام : (من الأعلى إلى الأق�
 msgid "Images"
 msgstr "الصور"
 
-msgid "Title"
-msgstr "العنوان"
-
-msgid "Created"
-msgstr "تاريخ الإنشاء"
-
 msgid "The image could not be saved due to errors."
 msgstr "تعذر حفظ الصورة بسبب أخطاء."
 
@@ -620,6 +626,9 @@ msgstr "تعذر العثور على ملف الصورة المصدر. الرج�
 
 msgid "Generate URL"
 msgstr "إنشاء رابط"
+
+msgid "The filter options you have selected are not valid."
+msgstr "خيارات التصفية التي اخترتها غير صالحة."
 
 msgid "Delete image"
 msgstr "حذف صورة"

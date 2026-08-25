@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,16 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail پۈتۈك"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"بۇ ھۆججەت بەك چوڭ (%(file_size)s). ئەڭ چوڭ ھۆججەت چوڭلۇقى %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "بۇ ھۆججەت بەك چوڭ. ئەڭ چوڭ ھۆججەت چوڭلۇقى %(max_filesize)s."
 
 msgid "Collection"
 msgstr "توپلام"
@@ -149,6 +159,15 @@ msgstr "سىز بۇ توپلامغا ھېچقانداق پۈتۈك يۈكلىم�
 
 msgid "You haven't uploaded any documents."
 msgstr "سىز ھېچقانداق پۈتۈك يۈكلىمىدىڭىز."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"نېمىشقا <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ھازىر بىرنى يۈكلە</a>مەيسىز؟"
 
 msgid "Change document:"
 msgstr "پۈتۈك ئۆزگەرت:"
@@ -320,8 +339,8 @@ msgid "Document '%(document_title)s' updated"
 msgstr "«%(document_title)s» پۈتۈك يېڭىلاندى"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگەرتىڭ ياكى پۈتۈكنى ئۆچۈرۈڭ"
+"The file could not be found. Please change the source or delete the document."
+msgstr "ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگەرتىڭ ياكى پۈتۈكنى ئۆچۈرۈڭ."
 
 msgid "Delete document"
 msgstr "پۈتۈك ئۆچۈر"

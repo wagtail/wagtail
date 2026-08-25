@@ -3,12 +3,13 @@ import json
 import unittest
 from unittest.mock import Mock
 
+import swapper
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
@@ -23,7 +24,6 @@ from wagtail.models import (
     Comment,
     GroupApprovalTask,
     Locale,
-    Page,
     PageLogEntry,
     PageManager,
     PageViewRestriction,
@@ -71,15 +71,16 @@ from wagtail.test.testapp.models import (
     TaggedGrandchildPage,
     TaggedPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 def get_ct(model):
     return ContentType.objects.get_for_model(model)
 
 
-class TestValidation(TestCase):
+class TestValidation(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_can_create(self):
@@ -219,7 +220,7 @@ class TestAsyncMethods(TestCase):
         "unknown.site.com",
     ]
 )
-class TestSiteRouting(TestCase):
+class TestSiteRouting(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -363,8 +364,21 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
+    def test_get_site_root_paths_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "The `request` kwarg in `Page._get_site_root_paths()` "
+            "is now `cache_object`.",
+        ):
+            self.assertEqual(
+                self.events_site.root_page._get_site_root_paths(
+                    request=get_dummy_request()
+                ),
+                Site.get_site_root_paths(),
+            )
 
-class TestRouting(TestCase):
+
+class TestRouting(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
@@ -827,7 +841,7 @@ class TestRoutingWithI18N(TestRouting):
             )
 
 
-class TestServeView(TestCase):
+class TestServeView(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -931,7 +945,7 @@ class TestServeView(TestCase):
         self.assertContains(response, "bad googlebot no cookie")
 
 
-class TestMovePage(TestCase):
+class TestMovePage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_move_page(self):
@@ -952,7 +966,7 @@ class TestMovePage(TestCase):
         self.assertEqual(christmas.url_path, "/home/about-us/events/christmas/")
 
 
-class TestPrevNextSiblings(TestCase):
+class TestPrevNextSiblings(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_get_next_siblings(self):
@@ -985,7 +999,7 @@ class TestPrevNextSiblings(TestCase):
         )
 
 
-class TestSaveRevision(TestCase):
+class TestSaveRevision(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_raises_error_if_non_specific_page_used(self):
@@ -1013,8 +1027,172 @@ class TestSaveRevision(TestCase):
                 approved_go_live_at=timezone.now() + datetime.timedelta(days=1)
             )
 
+    def test_overwrite_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
 
-class TestLiveRevision(TestCase):
+    def test_overwrite_revision_reuses_log_action_uuid(self):
+        user = self.create_test_user()
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=user, log_action=True)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        logs = PageLogEntry.objects.filter(revision=revision1)
+        self.assertEqual(logs.count(), 1)
+        first_entry = logs.first()
+        self.assertEqual(first_entry.action, "wagtail.edit")
+
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            overwrite_revision=revision1,
+            user=user,
+            log_action=True,
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+        # Should create a new log entry but with the same uuid to allow grouping
+        self.assertEqual(logs.count(), 2)
+        second_entry = logs.exclude(id=first_entry.id).first()
+        self.assertEqual(second_entry.uuid, first_entry.uuid)
+        self.assertEqual(second_entry.action, "wagtail.edit")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        christmas_event.title = "Three French hens"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        other_event = EventPage.objects.get(
+            url_path="/home/events/tentative-unpublished-event/"
+        )
+        other_event.title = "The final event"
+        revision2 = other_event.save_revision()
+        self.assertEqual(other_event.revisions.count(), 1)
+
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision2)
+
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "A partridge in a pear tree")
+
+        self.assertEqual(other_event.revisions.count(), 1)
+        latest_revision = other_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "The final event")
+
+    def test_overwrite_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_moderator)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            user=event_moderator, overwrite_revision=revision1
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+
+class TestLiveRevision(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     @freeze_time("2017-01-01 12:00:00")
@@ -1217,7 +1395,7 @@ class TestLiveRevision(TestCase):
             )
 
 
-class TestPageGetSpecific(TestCase):
+class TestPageGetSpecific(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1338,8 +1516,19 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(1):
             self.assertTrue(result.content)
 
+    def test_get_base_page(self):
+        result = self.page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
 
-class TestCopyPage(TestCase):
+        specific_page = self.page.specific
+        self.assertIsInstance(specific_page, SimplePage)
+        result = specific_page.get_base_page()
+        self.assertIs(type(result), Page)
+        self.assertEqual(result.id, self.page.id)
+
+
+class TestCopyPage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_copy_page_copies(self):
@@ -1873,12 +2062,12 @@ class TestCopyPage(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -2317,7 +2506,7 @@ class TestCopyPage(TestCase):
         self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
 
 
-class TestCreateAlias(TestCase):
+class TestCreateAlias(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_create_alias(self):
@@ -2551,12 +2740,12 @@ class TestCreateAlias(TestCase):
         # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
         self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
         self.assertNotEqual(
-            saint_patrick_event.eventpage_ptr.page_ptr.id,
-            new_saint_patrick_event.eventpage_ptr.page_ptr.id,
+            saint_patrick_event.id,
+            new_saint_patrick_event.id,
         )
 
         # Check that the url path was updated
@@ -2825,7 +3014,7 @@ class TestCreateAlias(TestCase):
         self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
 
 
-class TestUpdateAliases(TestCase):
+class TestUpdateAliases(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_update_aliases(self):
@@ -2923,8 +3112,33 @@ class TestUpdateAliases(TestCase):
             ).exists()
         )
 
+    def test_update_aliases_sets_last_published_at(self):
+        """
+        update_aliases() should sync last_published_at from the source page to
+        the alias. This is not carried over from the revision content because
+        the revision is created before publish (when last_published_at is still
+        None), so it must be set explicitly.
+        """
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-class TestCopyForTranslation(TestCase):
+        # Simulate the page having been saved as a draft before first publish
+        event_page.live = False
+        event_page.last_published_at = None
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug="new-event-page")
+        self.assertIsNone(alias.last_published_at)
+
+        event_page.save_revision().publish()
+
+        event_page.refresh_from_db()
+        alias.refresh_from_db()
+
+        self.assertIsNotNone(alias.last_published_at)
+        self.assertEqual(alias.last_published_at, event_page.last_published_at)
+
+
+class TestCopyForTranslation(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3209,7 +3423,7 @@ class TestSubpageTypeBusinessRules(WagtailTestUtils, TestCase):
         self.assertFalse(SingletonPage.can_create_at(root_page))
 
 
-class TestIssue735(TestCase):
+class TestIssue735(PageFixturesMixin, TestCase):
     """
     Issue 735 reports that URL paths of child pages are not
     updated correctly when slugs of parent pages are updated
@@ -3250,7 +3464,7 @@ class TestIssue756(TestCase):
         self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
 
 
-class TestIssue1216(TestCase):
+class TestIssue1216(PageFixturesMixin, TestCase):
     """
     Test that url paths greater than 255 characters are supported
     """
@@ -3371,7 +3585,7 @@ class TestPageManager(TestCase):
         self.assertIs(type(MyCustomPage.objects), CustomManager)
 
 
-class TestIssue2024(TestCase):
+class TestIssue2024(PageFixturesMixin, TestCase):
     """
     This tests that deleting a content type can't delete any Page objects.
     """
@@ -3394,11 +3608,11 @@ class TestIssue2024(TestCase):
         )
 
 
-class TestMakePreviewRequest(TestCase):
+class TestMakePreviewRequest(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_make_preview_request_for_accessible_page(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3425,7 +3639,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_accessible_page_https(self):
         Site.objects.update(port=443)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3452,7 +3666,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_accessible_page_non_standard_port(self):
         Site.objects.update(port=8888)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3477,7 +3691,7 @@ class TestMakePreviewRequest(TestCase):
         self.assertIn("wsgi.run_once", request.META)
 
     def test_make_preview_request_for_accessible_page_with_original_request(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         original_headers = {
             "REMOTE_ADDR": "192.168.0.1",
             "HTTP_X_FORWARDED_FOR": "192.168.0.2,192.168.0.3",
@@ -3527,7 +3741,7 @@ class TestMakePreviewRequest(TestCase):
 
     @override_settings(ALLOWED_HOSTS=["production.example.com"])
     def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3541,7 +3755,7 @@ class TestMakePreviewRequest(TestCase):
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
         self,
     ):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3550,7 +3764,7 @@ class TestMakePreviewRequest(TestCase):
         self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
         event_index.add_child(instance=stream_page)
         plain_stream_page = Page.objects.get(id=stream_page.id)
@@ -3570,7 +3784,11 @@ class TestMakePreviewRequest(TestCase):
             self.assertTrue(event_index.is_previewable())
 
 
-class TestShowInMenusDefaultOption(TestCase):
+@unittest.skipIf(
+    swapper.is_swapped("wagtailcore", "Page"),
+    "show_in_menus is not available on custom base page models",
+)
+class TestShowInMenusDefaultOption(PageFixturesMixin, TestCase):
     """
     This tests that a page model can define the default for 'show_in_menus'
     """
@@ -3592,7 +3810,7 @@ class TestShowInMenusDefaultOption(TestCase):
         self.assertTrue(page.show_in_menus)
 
 
-class TestPageWithContentJSON(TestCase):
+class TestPageWithContentJSON(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_with_content_json_preserves_values(self):
@@ -3620,7 +3838,6 @@ class TestPageWithContentJSON(TestCase):
             locked_at="2000-01-01T00:00:00Z",
             has_unpublished_changes=not original_page.has_unpublished_changes,
             content_type=eventpage_content_type.id,
-            show_in_menus=not original_page.show_in_menus,
             owner=1,
         )
 
@@ -3628,7 +3845,7 @@ class TestPageWithContentJSON(TestCase):
         updated_page = original_page.with_content_json(content)
 
         # The following attributes values should have changed
-        for attr_name in ("title", "slug", "content", "url_path", "show_in_menus"):
+        for attr_name in ("title", "slug", "content", "url_path"):
             self.assertNotEqual(
                 getattr(original_page, attr_name), getattr(updated_page, attr_name)
             )
@@ -3691,7 +3908,7 @@ class TestPageWithContentJSON(TestCase):
         )
 
 
-class TestUnpublish(TestCase):
+class TestUnpublish(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_unpublish_doesnt_call_full_clean_before_save(self):
@@ -3819,7 +4036,7 @@ class TestDefaultLocale(TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocalized(TestCase):
+class TestLocalized(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3838,9 +4055,11 @@ class TestLocalized(TestCase):
 
     def test_localized_different_language(self):
         with translation.override("fr"):
-            self.assertEqual(self.event_page.localized, self.fr_event_page.page_ptr)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized, self.fr_event_page.get_base_page()
+            )
+            self.assertEqual(
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -3858,7 +4077,7 @@ class TestLocalized(TestCase):
         with translation.override("fr"):
             self.assertEqual(self.event_page.localized, self.event_page)
             self.assertEqual(
-                self.event_page.localized_draft, self.fr_event_page.page_ptr
+                self.event_page.localized_draft, self.fr_event_page.get_base_page()
             )
 
     def test_localized_with_non_content_active_locale(self):
@@ -3889,7 +4108,7 @@ class TestLocalized(TestCase):
             self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)
 
 
-class TestGetLock(TestCase):
+class TestGetLock(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_when_unlocked(self):
@@ -4047,7 +4266,7 @@ class TestGetLock(TestCase):
         self.assertTrue(lock.for_user(superuser))
 
 
-class TestPageCacheKey(TestCase):
+class TestPageCacheKey(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -4070,7 +4289,7 @@ class TestPageCacheKey(TestCase):
         self.assertNotEqual(self.page.cache_key, original_cache_key)
 
 
-class TestPageCachedParentObjExists(TestCase):
+class TestPageCachedParentObjExists(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_cached_parent_obj_exists(self):
@@ -4147,3 +4366,57 @@ class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
 
         self.assertFalse("Cache-Control" in response)
         self.assertFalse("Expires" in response)
+
+
+class TestPageNaturalKey(TestCase):
+    def setUp(self):
+        self.home_page = Page.objects.get(slug="home")
+
+    def test_page_natural_key(self):
+        natural_key = self.home_page.natural_key()
+        self.assertEqual(natural_key, ("/home/",))
+
+        retrieved_page = Page.objects.get_by_natural_key("/home/")
+        self.assertEqual(retrieved_page, self.home_page)
+
+
+class TestPageCreationWithoutPromotePanels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_page = Page.objects.get(url_path="/home/")
+
+    def _submit_page_form(self, model_name, title):
+        url = reverse(
+            "wagtailadmin_pages:add", args=("tests", model_name, self.root_page.id)
+        )
+
+        get_response = self.client.get(url)
+        self.assertEqual(get_response.status_code, 200)
+
+        form = get_response.context["form"]
+        post_data = form.data.copy()
+
+        for key, value in list(post_data.items()):
+            if value is None:
+                post_data[key] = ""
+
+        post_data.update(
+            {
+                "title": title,
+                "action-save": "Save draft",
+            }
+        )
+
+        post_response = self.client.post(url, post_data)
+        return post_response
+
+    def test_create_simple_page_with_auto_slug(self):
+        response_1 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_1.status_code, 302)
+        self.assertTrue(Page.objects.filter(title="New York", slug="new-york").exists())
+
+        response_2 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_2.status_code, 302)
+        self.assertTrue(
+            Page.objects.filter(title="New York", slug="new-york-2").exists()
+        )

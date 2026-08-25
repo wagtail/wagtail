@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -43,9 +43,6 @@ msgstr "Stránka je uzamknutá"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
-
-msgid "You do not have permission to access the admin"
-msgstr "Na prístup do administrácie nemáte práva."
 
 msgid "None"
 msgstr "Nič"
@@ -114,9 +111,6 @@ msgstr "Vymazať"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Dátum publikácie musí byť pred dátumom expirácie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -288,9 +282,6 @@ msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavenie súkromia môžete zmeniť na:"
 
-msgid "Save"
-msgstr "Uložiť"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -329,6 +320,8 @@ msgstr "Áno, odpublikovať"
 msgid "No, don't unpublish"
 msgstr "Nie, nepublikovať"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Akcie"
 
@@ -513,17 +506,12 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridajte podstránku do '%(title)s'"
 
-msgid "Drag"
-msgstr "Potiahnuť"
-
-msgid "Disable ordering of child pages"
-msgstr "Zakázať usporiadanie podstránok"
-
-msgid "Enable ordering of child pages"
-msgstr "Povoliť usporiadanie child stránok"
-
 msgid "Sites menu"
 msgstr "Menu sídiel"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Strana %(page_number)s z %(num_pages)s."
 
 msgid "Previous"
 msgstr "Predchádzajúca"
@@ -534,17 +522,21 @@ msgstr "Následujúca"
 msgid "This page is protected from public view"
 msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 
-msgid "Add child page"
-msgstr "Pridať podstránku"
-
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pridať %(label)s"
 
 msgid "Move up"
 msgstr "Posunúť vyššie"
 
 msgid "Move down"
 msgstr "Posunúť nižšie"
+
+msgid "Drag"
+msgstr "Potiahnuť"
 
 msgid "Type"
 msgstr "Typ"
@@ -583,6 +575,9 @@ msgstr "Strana %(page_num)s z %(total_pages)s"
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
 
+msgid "Save"
+msgstr "Uložiť"
+
 msgid "Minimap"
 msgstr "Minimapa"
 
@@ -594,6 +589,10 @@ msgstr "Zamknúť"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
+
+#, python-format
+msgid "by %(user)s"
+msgstr "od %(user)s"
 
 msgid "Edited"
 msgstr "Upravené"
@@ -665,11 +664,39 @@ msgstr "Živá verzia"
 msgid "Current draft"
 msgstr "Aktuálny koncept"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' aktualizované."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' vytvorené."
+
 msgid "Inspect"
 msgstr "Skontrolovať"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Pridať %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s nemôže byť vytvorené kvôli chybám."
+
 msgid "Editing"
 msgstr "Editácia"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s nemôže byť uložené kvôli chybám."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' zmazané."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Naozaj chcete zmazať tento %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Najstaršie"
@@ -716,12 +743,13 @@ msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Stránka '%(page_title)s' bola úspešne vytvorená a odoslaná na moderáciu."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stránka '%(page_title)s' bola zmazaná."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Úprava %(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -739,17 +767,14 @@ msgstr "Stránka '%(page_title)s' bola publikovaná."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Stránka '%(page_title)s' bola odoslaná na moderáciu."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
-
 msgid "Owner"
 msgstr "Vlastník"
 
 msgid "Site"
 msgstr "Sídlo"
+
+msgid "Add child page"
+msgstr "Pridať podstránku"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -769,6 +794,10 @@ msgstr "Stránky požívajúce"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Stránka '%(page_title)s'  momentálne čaká na moderáciu"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Úprava %(task_type)s"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

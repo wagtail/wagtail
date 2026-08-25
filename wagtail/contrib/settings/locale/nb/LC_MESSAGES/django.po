@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -21,9 +21,6 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "default"
-msgstr "standard"
-
 msgid "Sites"
 msgstr "Nettsteder"
 
@@ -33,6 +30,9 @@ msgstr "%(site_setting)s for %(site)s"
 
 msgid "Site"
 msgstr "Nettsted"
+
+msgid "default"
+msgstr "standard"
 
 msgid "Settings"
 msgstr "Innstillinger"

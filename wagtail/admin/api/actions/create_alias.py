@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.shortcuts import get_object_or_404
 from rest_framework import fields, status
@@ -10,9 +11,10 @@ from wagtail.actions.create_alias import (
     CreatePageAliasIntegrityError,
 )
 from wagtail.api.v2.utils import BadRequestError
-from wagtail.models import Page
 
 from .base import APIAction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class CreatePageAliasAPIActionSerializer(Serializer):
@@ -43,9 +45,9 @@ class CreatePageAliasAPIAction(APIAction):
         try:
             new_page = action.execute()
         except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+            raise ValidationError(e.message_dict) from e
         except CreatePageAliasIntegrityError as e:
-            raise BadRequestError(e.args[0])
+            raise BadRequestError(e.args[0]) from e
 
         serializer = self.view.get_serializer(new_page)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

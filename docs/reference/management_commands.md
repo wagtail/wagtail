@@ -77,7 +77,7 @@ If deletion of a revision is not desirable, mark `Revision` with `on_delete=mode
 manage.py purge_embeds
 ```
 
-This command deletes all the cached embed objects from the database. It is recommended to run this command after changes are made to any embed settings so that subsequent embed usage does not from the database cache.
+This command deletes all the cached embed objects from the database. It is recommended to run this command after changes are made to any embed settings, or if a provider changes its embed policies, so that subsequent embed usage does not read from the database cache.
 
 (update_index)=
 

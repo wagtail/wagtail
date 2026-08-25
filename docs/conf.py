@@ -70,11 +70,17 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinxcontrib.openapi",
+    "sphinxcontrib.httpdomain",
 ]
 
 autodoc_type_aliases = {
     "File": "django.core.files.File",
 }
+autodoc_member_order = "groupwise"
+
+# Warn about all references where the target cannot be found.
+nitpicky = True
 
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
@@ -102,11 +108,17 @@ suppress_warnings = [
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")
 
+if on_rtd or os.environ.get("BUILD_LLMS_TXT", ""):
+    extensions.append("sphinx_llm.txt")
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = ".rst"
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
@@ -165,7 +177,7 @@ pygments_style = None
 # If true, keep warnings as "system message" paragraphs in the built documents.
 # keep_warnings = False
 
-# splhinxcontrib.spelling settings
+# sphinxcontrib.spelling settings
 
 spelling_lang = "en_GB"
 spelling_word_list_filename = "spelling_wordlist.txt"
@@ -181,7 +193,7 @@ intersphinx_mapping = {
         None,
     ),
     "treebeard": (
-        "https://django-treebeard.readthedocs.io/en/stable/",
+        "https://django-treebeard.readthedocs.io/en/5.3.0/",
         None,
     ),
     "sphinx": (
@@ -428,8 +440,19 @@ def setup(app):
         indextemplate="pair: %s; field lookup type",
     )
 
-    # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
-    # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+    from django.db.models import Model
     from django.http import HttpRequest
 
-    HttpRequest.__module__ = "django.http"
+    from wagtail.admin.ui.components import Component
+
+    module_overrides = {
+        # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
+        # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+        HttpRequest: "django.http",
+        Model: "django.db.models",
+        # Document `Component` as part of our own API instead of Laces for
+        # cross-linking, as the latter does not use Sphinx for docs.
+        Component: "wagtail.admin.ui.components",
+    }
+    for obj, module in module_overrides.items():
+        obj.__module__ = module

@@ -4,15 +4,16 @@
 #
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
+# Imanu Wardi, 2026
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
+"Last-Translator: Imanu Wardi, 2026\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -21,21 +22,29 @@ msgstr ""
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "default"
-msgstr "default"
-
 msgid "Sites"
-msgstr "Daftar Situs"
+msgstr "Situs"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "Izin %(model)s"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s untuk %(site)s"
 
 msgid "Site"
 msgstr "Situs"
+
+msgid "default"
+msgstr "bawaan"
 
 msgid "Settings"
 msgstr "Pengaturan"
 
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
-"Pengaturan ini tidak dapat dibuka karena tidak ada situs yang didefinisikan."
+"Pengaturan ini tidak dapat dibuka karena tidak ada situs yang ditentukan."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Pengaturan tidak dapat disimpan karena terdapat kesalahan."

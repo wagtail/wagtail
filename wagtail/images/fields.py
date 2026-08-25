@@ -9,6 +9,7 @@ from django.forms.fields import FileField, ImageField
 from django.forms.widgets import FileInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
+from PIL import Image as PILImage
 
 from wagtail.images.utils import get_accept_attributes, get_allowed_image_extensions
 
@@ -117,12 +118,34 @@ class WagtailImageField(ImageField):
             )
 
     def check_image_pixel_size(self, f):
-        # Upload pixel size checking can be disabled by setting max upload pixel to None
+        try:
+            # Check the pixel size
+            width, height = f.image.get_size()
+        except (
+            PILImage.DecompressionBombWarning,
+            PILImage.DecompressionBombError,
+        ) as e:
+            # Pillow issues a warning for MAX_IMAGE_PIXELS, and raises an error
+            # for twice that value. Warnings can be turned into errors with a
+            # filter, so check the exception for accuracy.
+            pil_max = PILImage.MAX_IMAGE_PIXELS
+            if isinstance(e, PILImage.DecompressionBombError):
+                pil_max *= 2
+            max_pixels_count = min(self.max_image_pixels or pil_max, pil_max)
+            raise ValidationError(
+                self.error_messages["file_too_many_pixels"]
+                % {
+                    "num_pixels": _("unknown number"),
+                    "max_pixels_count": max_pixels_count,
+                },
+                code="file_too_many_pixels",
+            ) from None
+
+        # Upload pixel size checking can be disabled by setting max upload pixel to None.
+        # The image is still opened to see if the image library raises errors.
         if self.max_image_pixels is None:
             return
 
-        # Check the pixel size
-        width, height = f.image.get_size()
         frames = f.image.get_frame_count()
         num_pixels = width * height * frames
 

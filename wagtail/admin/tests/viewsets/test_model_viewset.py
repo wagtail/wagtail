@@ -6,7 +6,9 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.test import TestCase
+from django.test.utils import isolate_apps
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
@@ -15,8 +17,11 @@ from openpyxl import load_workbook
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
     JSONStreamModel,
@@ -25,6 +30,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -89,6 +95,19 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         self.assertNotContains(response, reverse("minmaxcount_streammodel:index"))
         self.assertNotContains(response, "JSON BlockCounts StreamModel")
         self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
+
+
+class TestAdminURLs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_cannot_reverse_mismatched_converter_value(self):
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:edit", kwargs={"pk": "123abc"})
+
+    def test_404_on_mismatched_converter_value(self):
+        response = self.client.get("/admin/streammodel/edit/123abc/")
+        self.assertEqual(response.status_code, 404)
 
 
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
@@ -1675,10 +1694,6 @@ class TestEditHandler(WagtailTestUtils, TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/panel.html")
-        # Many features from the Panels API are powered by client-side JS in
-        # _editor_js.html. We need to make sure that this template is included
-        # in the response for now.
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_editor_js.html", count=1)
 
         soup = self.get_soup(response.content)
 
@@ -1818,7 +1833,16 @@ class TestHeaderButtons(WagtailTestUtils, TestCase):
         response = self.client.get(self.edit_url)
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
-        header_buttons = soup.select(".w-slim-header .w-dropdown a")
+        dropdown = soup.select_one(".w-slim-header .w-dropdown")
+        self.assertIsNotNone(dropdown)
+        self.assertLessEqual(
+            {
+                "w-breadcrumbs:opened@document->w-dropdown#hide",
+                "w-breadcrumbs:closed@document->w-dropdown#hide",
+            },
+            set(dropdown.get("data-action").split()),
+        )
+        header_buttons = dropdown.select("a")
         expected_buttons = [
             ("Copy", self.copy_url),
             ("Delete", self.delete_url),
@@ -2150,3 +2174,47 @@ class TestReorderView(WagtailTestUtils, TestCase):
         # Check if obj1 is now the second item by taking obj2's sort_order
         # and decrementing sort_order of the other items before it by 1
         self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])
+
+
+class TestPermissionPolicyRegistration(WagtailTestUtils, TestCase):
+    @isolate_apps("wagtail")
+    def test_fallback_policy_registration(self):
+        class Toy(models.Model):
+            pass
+
+        class SomeToyViewSet(ModelViewSet):
+            model = Toy
+
+        viewset = SomeToyViewSet()
+        viewset.register_permissions()
+        # Upon registration, the registry creates a fallback policy for the model
+        policy = policy_registry.get_by_type(Toy)
+        self.assertIsInstance(policy, ModelPermissionPolicy)
+        self.assertIs(policy, viewset.permission_policy)
+        self.assertIs(policy_registry.get_fallback_policy(Toy), policy)
+
+    @isolate_apps("wagtail")
+    def test_deprecated_policy_registration(self):
+        class CustomToy(models.Model):
+            pass
+
+        class CustomToyViewSet(ModelViewSet):
+            model = CustomToy
+            permission_policy = ModelPermissionPolicy(
+                CustomToy, auth_model="wagtailadmin.Admin"
+            )
+
+        viewset = CustomToyViewSet()
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "A permission policy for CustomToy was registered via CustomToyViewSet. "
+            "Please register the policy with "
+            "wagtail.permissions.register_permission_policy(CustomToy, <policy_instance>) "
+            "instead.",
+        ):
+            viewset.register_permissions()
+            policy = policy_registry.get_by_type(CustomToy)
+            self.assertIsInstance(policy, ModelPermissionPolicy)
+            self.assertEqual(policy.auth_model._meta.label, "wagtailadmin.Admin")
+            self.assertIs(policy, viewset.permission_policy)
+            self.assertIsNone(policy_registry.get_fallback_policy(CustomToy))

@@ -33,23 +33,20 @@ When adding logging, you need to log the action or actions that happen to the ob
 ```
 
 ```python
+# mypackage/views.py
+from wagtail.log_actions import log
 
-    # mypackage/views.py
-    from wagtail.log_actions import log
 
-    def copy_for_translation(page):
-        # ...
-        page.copy(log_action='mypackage.copy_for_translation')
+def copy_for_translation(page):
+    # ...
+    page.copy(log_action="mypackage.copy_for_translation")
 
-    def my_method(request, page):
-        # ..
-        # Manually log an action
-        data = {
-            'make': {'it': 'so'}
-        }
-        log(
-            instance=page, action='mypackage.custom_action', data=data
-        )
+
+def my_method(request, page):
+    # ..
+    # Manually log an action
+    data = {"make": {"it": "so"}}
+    log(instance=page, action="mypackage.custom_action", data=data)
 ```
 
 ## Log actions provided by Wagtail
@@ -59,18 +56,20 @@ When adding logging, you need to log the action or actions that happen to the ob
 | `wagtail.create`                  | The object was created                                                           |
 | `wagtail.edit`                    | The object was edited (for pages, saved as a draft)                              |
 | `wagtail.delete`                  | The object was deleted. Will only surface in the Site History for administrators |
-| `wagtail.publish`                 | The page was published                                                           |
+| `wagtail.publish`                 | The object was published                                                         |
 | `wagtail.publish.schedule`        | The draft is scheduled for publishing                                            |
 | `wagtail.publish.scheduled`       | Draft published via `publish_scheduled` management command                       |
 | `wagtail.schedule.cancel`         | Draft scheduled for publishing canceled via "Cancel scheduled publish"           |
-| `wagtail.unpublish`               | The page was unpublished                                                         |
-| `wagtail.unpublish.scheduled`     | Page unpublished via `publish_scheduled` management command                      |
-| `wagtail.lock`                    | Page was locked                                                                  |
-| `wagtail.unlock`                  | Page was unlocked                                                                |
+| `wagtail.unpublish`               | The object was unpublished                                                       |
+| `wagtail.unpublish.scheduled`     | Object unpublished via `publish_scheduled` management command                    |
+| `wagtail.lock`                    | Object was locked                                                                |
+| `wagtail.unlock`                  | Object was unlocked                                                              |
 | `wagtail.rename`                  | A page was renamed                                                               |
-| `wagtail.revert`                  | The page was reverted to a previous draft                                        |
+| `wagtail.revert`                  | The object was reverted to a previous draft                                      |
 | `wagtail.copy`                    | The page was copied to a new location                                            |
 | `wagtail.copy_for_translation`    | The page was copied into a new locale for translation                            |
+| `wagtail.create_alias`            | An alias of the page was created                                                 |
+| `wagtail.convert_alias`           | An alias was converted into an ordinary page                                     |
 | `wagtail.move`                    | The page was moved to a new location                                             |
 | `wagtail.reorder`                 | The order of the page under its parent was changed                               |
 | `wagtail.view_restriction.create` | The page was restricted                                                          |
@@ -81,6 +80,13 @@ When adding logging, you need to log the action or actions that happen to the ob
 | `wagtail.workflow.reject`         | The draft was rejected, and changes were requested at a Workflow Task            |
 | `wagtail.workflow.resume`         | The draft was resubmitted to the workflow                                        |
 | `wagtail.workflow.cancel`         | The workflow was canceled                                                        |
+| `wagtail.comments.create`         | A comment was added to a field on the page                                       |
+| `wagtail.comments.edit`           | A comment was edited                                                             |
+| `wagtail.comments.resolve`        | A comment was resolved                                                           |
+| `wagtail.comments.delete`         | A comment was deleted                                                            |
+| `wagtail.comments.create_reply`   | A reply was added to a comment                                                   |
+| `wagtail.comments.edit_reply`     | A reply to a comment was edited                                                  |
+| `wagtail.comments.delete_reply`   | A reply to a comment was deleted                                                 |
 
 ## Log context
 
@@ -90,14 +96,16 @@ such as import scripts:
 ```python
 from wagtail.log_actions import LogContext
 
-with LogContext(user=User.objects.get(username='admin')):
+with LogContext(user=User.objects.get(username="admin")):
     # ...
-    log(page, 'wagtail.edit')
+    log(page, "wagtail.edit")
     # ...
-    log(page, 'wagtail.publish')
+    log(page, "wagtail.publish")
 ```
 
 All `log` calls within the block will then be attributed to the specified user, and assigned a common UUID. A log context is created automatically for views within the Wagtail admin.
+
+(custom_audit_log_models)=
 
 ## Log models
 
@@ -114,7 +122,8 @@ model, and registering that model with the log registry's `register_model` metho
 from myapp.models import Sprocket, SprocketLogEntry
 # here SprocketLogEntry is a subclass of BaseLogEntry
 
-@hooks.register('register_log_actions')
+
+@hooks.register("register_log_actions")
 def sprocket_log_model(actions):
     actions.register_model(Sprocket, SprocketLogEntry)
 ```

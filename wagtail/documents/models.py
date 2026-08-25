@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 from wagtail.models import CollectionMember, ReferenceIndex
+from wagtail.permissions import policy_registry
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 from wagtail.utils.file import hash_filelike
@@ -76,7 +77,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             try:
                 validate(self.file)
             except ValidationError as e:
-                raise ValidationError({"file": e.messages[0]})
+                raise ValidationError({"file": e.messages[0]}) from e
 
     def is_stored_locally(self):
         """
@@ -179,9 +180,11 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         return reverse("wagtaildocs:document_usage", args=(self.id,))
 
     def is_editable_by_user(self, user):
-        from wagtail.documents.permissions import permission_policy
+        from wagtail.documents import get_document_model
 
-        return permission_policy.user_has_permission_for_instance(user, "change", self)
+        return policy_registry.get_by_type(
+            get_document_model()
+        ).user_has_permission_for_instance(user, "change", self)
 
     @property
     def content_type(self):

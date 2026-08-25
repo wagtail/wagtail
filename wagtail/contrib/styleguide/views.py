@@ -1,8 +1,8 @@
-import itertools
 import os
 import re
 from collections import defaultdict
 
+import swapper
 from django import forms
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
@@ -26,8 +26,9 @@ from wagtail.admin.widgets import (
 from wagtail.compat import URLField
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
-from wagtail.models import Page
 from wagtail.snippets.widgets import AdminSnippetChooser
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class FakeAdminSnippetChooser(AdminSnippetChooser):
@@ -150,10 +151,10 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
         return context
 
     def get_icons(self):
-        icon_hooks = hooks.get_hooks("register_icons")
-        registered_icons = itertools.chain.from_iterable(
-            hook([]) for hook in icon_hooks
-        )
+        registered_icons = []
+        for fn in hooks.get_hooks("register_icons"):
+            registered_icons = fn(registered_icons)
+        registered_icons = sorted(registered_icons)
         all_icons = defaultdict(list)
         for icon_path in registered_icons:
             folder, filename = os.path.split(icon_path)

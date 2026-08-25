@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,16 +26,33 @@ msgid "Wagtail forms"
 msgstr "Formulare Wagtail"
 
 msgid "Date from"
-msgstr "Data din"
+msgstr "De la data"
 
 msgid "Date to"
-msgstr "Data la"
+msgstr "Până la data"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Numele '%(duplicate_clean_name)s' este deja atribuit acestui câmp și nu "
+"poate fi schimbat. Introduceți o altă etichetă pentru câmpul aflat în "
+"conflict."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"Numele de câmp '%(duplicate_clean_name)s' este în conflict cu alt câmp. "
+"Schimbați eticheta."
 
 msgid "Single line text"
-msgstr "Linie de text"
+msgstr "Text pe o singură linie"
 
 msgid "Multi-line text"
-msgstr "Linii de text"
+msgstr "Text pe mai multe linii"
 
 msgid "Email"
 msgstr "E-mail"
@@ -44,19 +61,19 @@ msgid "Number"
 msgstr "Număr"
 
 msgid "URL"
-msgstr "Adresă de internet"
+msgstr "URL"
 
 msgid "Checkbox"
-msgstr "Casetă"
+msgstr "Casetă de bifat"
 
 msgid "Checkboxes"
-msgstr "Casete"
+msgstr "Casete de bifat"
 
 msgid "Drop down"
 msgstr "Listă derulantă"
 
 msgid "Multiple select"
-msgstr "Selecțtie multiplă"
+msgstr "Selecție multiplă"
 
 msgid "Radio buttons"
 msgstr "Butoane radio"
@@ -65,19 +82,19 @@ msgid "Date"
 msgstr "Dată"
 
 msgid "Date/time"
-msgstr "Dată/Timp"
+msgstr "Dată/oră"
 
 msgid "Hidden field"
 msgstr "Câmp ascuns"
 
 msgid "submit time"
-msgstr "timput trimiterii"
+msgstr "momentul trimiterii"
 
 msgid "form submission"
-msgstr "înregistrare formular"
+msgstr "înregistrare de formular"
 
 msgid "form submissions"
-msgstr "depuneri formular"
+msgstr "înregistrări de formular"
 
 msgid "name"
 msgstr "nume"
@@ -91,13 +108,13 @@ msgid "label"
 msgstr "etichetă"
 
 msgid "The label of the form field"
-msgstr "Etichetă pentru câmp de formular"
+msgstr "Eticheta câmpului de formular"
 
 msgid "field type"
 msgstr "tip câmp"
 
 msgid "required"
-msgstr "necesar"
+msgstr "obligatoriu"
 
 msgid "choices"
 msgstr "opțiuni"
@@ -106,8 +123,8 @@ msgid ""
 "Comma or new line separated list of choices. Only applicable in checkboxes, "
 "radio and dropdown."
 msgstr ""
-"Listă de opțiuni separate prin virgulă sau linii noi. Se aplică numai în "
-"casetele de selectare, butoane radio și liste derulante."
+"Listă de opțiuni separate prin virgulă sau pe linii noi. Se aplică numai la "
+"casete de bifat, butoane radio și liste derulante."
 
 msgid "default value"
 msgstr "valoare implicită"
@@ -115,8 +132,8 @@ msgstr "valoare implicită"
 msgid ""
 "Default value. Comma or new line separated values supported for checkboxes."
 msgstr ""
-"Valoare implicită. Suportă valori separate prin virgule sau linii noi pentru "
-"casetele de selectare."
+"Valoare implicită. Pentru casetele de bifat sunt acceptate valori separate "
+"prin virgulă sau pe linii noi."
 
 msgid "help text"
 msgstr "text de ajutor"
@@ -128,40 +145,40 @@ msgid "Form"
 msgstr "Formular"
 
 msgid "Landing page"
-msgstr "Pagina principală"
+msgstr "Pagină de destinație"
 
 msgid "to address"
-msgstr "adresă la"
+msgstr "adresa destinatarului"
 
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
-"Opțional. Înregistrările de formular vor fi trimise la această adresă de "
-"email. Separează mai multe adrese prin virgulă."
+"Opțional. Înregistrările de formular vor fi trimise prin e-mail la aceste "
+"adrese. Separați adresele multiple prin virgulă."
 
 msgid "from address"
-msgstr "adresa de la"
+msgstr "adresa expeditorului"
 
 msgid "subject"
 msgstr "subiect"
 
 #, python-format
 msgid "%(model_name)s submissions"
-msgstr "%(model_name)s depuneri"
+msgstr "Înregistrări %(model_name)s"
 
 #, python-format
 msgid "Delete form data %(title)s"
-msgstr "Șterge datele formularui %(title)s"
+msgstr "Șterge datele formularului %(title)s"
 
 msgid "Delete form data"
-msgstr "Șterge date formular"
+msgstr "Șterge datele formularului"
 
 msgid "Are you sure you want to delete this form submission?"
 msgid_plural "Are you sure you want to delete these form submissions?"
-msgstr[0] "Sigur doriți să ștergeți această depunere de formular?"
-msgstr[1] "Sigur doriți să ștergeți aceste depuneri de formular?"
-msgstr[2] "Sigur doriți să ștergeți aceste depuneri de formular?"
+msgstr[0] "Sigur doriți să ștergeți această înregistrare de formular?"
+msgstr[1] "Sigur doriți să ștergeți aceste înregistrări de formular?"
+msgstr[2] "Sigur doriți să ștergeți aceste înregistrări de formular?"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -171,7 +188,7 @@ msgstr "Șterge înregistrările selectate"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nu sunt înregistrări pentru formularul '%(title)s'"
+msgstr "Nu există înregistrări pentru formularul '%(title)s'."
 
 msgid "Total submissions"
 msgstr "Total înregistrări"

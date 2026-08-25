@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,9 +63,6 @@ msgstr "Админ панел"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Танд энэ хэсэгт хандах эрх алга."
-
-msgid "You do not have permission to access the admin"
-msgstr "Та админ панел руу нэвтрэх эрхгүй"
 
 msgid "None"
 msgstr "Хоосон"
@@ -136,9 +133,6 @@ msgid ""
 msgstr ""
 "Байршлын дарааллыг сонгох. Жич: колекцыг хүү эсвэл удамшуулах боломжгүй."
 
-msgid "Please select another parent"
-msgstr "Өөр эцэг төрслийг сонгоно уу"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
 
@@ -165,9 +159,6 @@ msgstr "Та өөр хэрэглэгчийн сэтгэгдлийг засах �
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Нийтлэх өдөр/цаг нь хаагдах цаг/өдрөөсөө өмнө байх ёстой"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Хаагдах өдөр/цаг нь ирээдүй цагт байх ёстой"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -235,20 +226,11 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Дэд хуудсуудтай хуулж байгаа үед өөрийн дэд хуудас руу хуулах боломжгүй"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "%(page_slug)s ийм нэртэй холбоос эцэг хуудсанд ашиглагдаж байна."
-
 msgid "Select a new parent for this page."
 msgstr "Энэ хуудасны эцгийг шинээр сонгох"
 
 msgid "Parent page"
 msgstr "Эцэг хуудас"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"Таг нь %(max_tag_length)d тэмдэгтийн урттай байхаас %(value_too_long)s байна."
 
 msgid "Visibility"
 msgstr "Харагдац"
@@ -425,9 +407,6 @@ msgstr "Гадаад холбоос оруулах"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:"
-
-msgid "Save"
-msgstr "Хадгалах"
 
 msgid "Change privacy"
 msgstr "Нууцлалыг өөрлчөх"
@@ -723,20 +702,15 @@ msgstr "'%(title)s'-ын дэд хуудсуудыг харах"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s'-д дэд хуудас нэмэх"
 
-msgid "Drag"
-msgstr "Чирэх"
-
-msgid "Disable ordering of child pages"
-msgstr "Дэд хуудсуудын эрэмбийг болиулах"
-
-msgid "Enable ordering of child pages"
-msgstr "Дэд хуудсуудыг эрэмбэлэх"
-
 msgid "Sites menu"
 msgstr "Сайтын цэс"
 
 msgid "Pagination"
 msgstr "Хуудаслах"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Нийт %(num_pages)s -с %(page_number)s -р хуудас"
 
 msgid "Previous"
 msgstr "Өмнөх"
@@ -746,9 +720,6 @@ msgstr "Дараагийнх"
 
 msgid "This page is protected from public view"
 msgstr "Энэ хуудас олон нийтэд харагдахгүй хамгаалагдсан"
-
-msgid "Add child page"
-msgstr "Шинэ мэдээ нэмэх"
 
 msgid "Page types"
 msgstr "Хуудасны төрөл"
@@ -765,6 +736,9 @@ msgstr "Дээш зөөх"
 
 msgid "Move down"
 msgstr "Доош зөөх"
+
+msgid "Drag"
+msgstr "Чирэх"
 
 msgid "Type"
 msgstr "Төрөл"
@@ -821,6 +795,9 @@ msgstr "Үгүй, төлөвлөгөөг болиулахгүй"
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
 
+msgid "Save"
+msgstr "Хадгалах"
+
 msgid "Unlocked"
 msgstr "Түгжигдээгүй"
 
@@ -835,6 +812,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
 msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "%(user)s"
 
 msgid "Edited"
 msgstr "Засагдсан"
@@ -863,6 +844,9 @@ msgstr "Буцаах"
 
 msgid "Redo"
 msgstr "Давтах"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -926,12 +910,28 @@ msgstr "%(model_name)s%(object)s боллоо."
 msgid "Inspect"
 msgstr "Шалгалт"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s нэмэх"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s -г үүсгэхэд алдаа гарлаа."
+
 msgid "Editing"
 msgstr "Засч байна"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Алдаануудаас болж %(model_name)s хадгалагдсангүй."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s%(object)s устгагдлаа."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "%(model_name)sүнэхээр устгах уу?"
 
 msgid "Earliest"
 msgstr "Хамгийн эхний"
@@ -941,6 +941,10 @@ msgstr "Хамгийн сүүлийн"
 
 msgid "Unschedule"
 msgstr "Төлөвлөгөөг болиулах"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "\"%(object)s\"-с %(revision_id)s дэх хувилбар"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -976,12 +980,13 @@ msgstr "'%(page_title)s' хуудас үүсч, нийтлэгдлээ."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "'%(page_title)s' хуудас үүсч, хянуулахаар илгээгдлээ."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Баталгаажуулалтын алдаанаас болж хуудас үүсгэж чадсангүй"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' хуудас устлаа."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s засч байна"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -995,14 +1000,11 @@ msgstr "'%(page_title)s' хуудас нийтлэгдлээ."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар илгээгдлээ."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Түгжигдсэн хуудсыг засах хадгалах боломжгүй"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
-
 msgid "Site"
 msgstr "Сайт"
+
+msgid "Add child page"
+msgstr "Шинэ мэдээ нэмэх"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -1023,6 +1025,10 @@ msgstr "Ашиглаж буй хуудсууд"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
 
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s засч байна"
+
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"
 
@@ -1031,9 +1037,6 @@ msgstr "Дугаарласан жагсаалт"
 
 msgid "Blockquote"
 msgstr "Эшлэл"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Link"
 msgstr "Холбоос"

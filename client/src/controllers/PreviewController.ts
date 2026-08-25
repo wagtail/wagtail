@@ -1,29 +1,30 @@
+import type { ContextObject } from 'axe-core';
+import type { ProgressController } from './ProgressController';
+import { Controller } from '@hotwired/stimulus';
 import axe from 'axe-core';
 
-import { Controller } from '@hotwired/stimulus';
-import type { ContextObject } from 'axe-core';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import {
-  getAxeConfiguration,
-  getA11yReport,
-  renderA11yResults,
   WagtailAxeConfiguration,
   addCustomChecks,
-} from '../includes/a11y-result';
-import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+  getAxeConfiguration,
+  getCheckerReport,
+  renderCheckerResults,
+} from '../includes/contentChecker';
 import {
-  ContentExtractorOptions,
-  getPreviewContent,
-  getReadingTime,
+  type ContentExtractorOptions,
+  type ContentMetrics,
+  type ExtractedContent,
   getLIXScore,
+  getPreviewContent,
   getReadabilityScore,
+  getReadingTime,
   getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
-import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { debounce, DebouncedFunction } from '../utils/debounce';
+import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
-import type { ProgressController } from './ProgressController';
-import { setOptionalInterval } from '../utils/interval';
 import { GetScrollPosition, getWagtailMessage } from '../utils/message';
 
 interface PreviewDataResponse {
@@ -103,6 +104,7 @@ export class PreviewController extends Controller<HTMLElement> {
     deviceWidthProperty: { default: '--preview-device-width', type: String },
     panelWidthProperty: { default: '--preview-panel-width', type: String },
     renderUrl: { default: '', type: String },
+    stale: { default: true, type: Boolean },
     url: { default: '', type: String },
   };
 
@@ -167,6 +169,8 @@ export class PreviewController extends Controller<HTMLElement> {
    * Useful for headless setups where the front-end may be hosted at a different URL.
    */
   declare renderUrlValue: string;
+  /** Whether the preview data is considered stale and needs an update. */
+  declare staleValue: boolean;
   /** URL for updating the preview data. Also used for rendering the preview if `renderUrlValue` is unset. */
   declare readonly urlValue: string;
 
@@ -178,8 +182,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
 
-  /** Template for rendering a row of accessibility check results. */
-  declare a11yRowTemplate: HTMLTemplateElement | null;
+  /** Template for rendering a row of content check results. */
+  declare checkerRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
   /** Configuration for Wagtail's Axe content extractor plugin instance. */
@@ -207,6 +211,10 @@ export class PreviewController extends Controller<HTMLElement> {
    * Normally, this is the parent element of the controller element.
    */
   declare sidePanelContainer: HTMLDivElement;
+
+  declare setPreviewDataLazy: DebouncibleFunction<
+    () => Promise<boolean> | undefined
+  >;
 
   // Instance variables with initial values set here
 
@@ -260,18 +268,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   available = true;
 
-  /**
-   * Serialized form payload to be compared in between intervals to determine
-   * whether an update should be performed. Note that we currently do not handle
-   * file inputs.
-   */
-  formPayload = '';
-
   /** Timeout before displaying the loading spinner. */
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
-
-  /** Interval for the auto-update. */
-  updateInterval: ReturnType<typeof setOptionalInterval> = null;
 
   /**
    * Promise for the current update request. This is resolved as soon as the
@@ -291,7 +289,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /**
    * Promise for the current content checks request. This resolved when both
-   * the content checks and the accessibility checks are completed. Useful for
+   * the content metrics and the Axe checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
    */
   contentChecksPromise: Promise<void> | null = null;
@@ -315,6 +313,22 @@ export class PreviewController extends Controller<HTMLElement> {
     return url;
   }
 
+  get shouldAutoUpdate() {
+    return (
+      // Auto-update is enabled
+      this.autoUpdateIntervalValue > 0 &&
+      // And either the preview panel or the checks side panel (if enabled) is visible
+      (!this.sidePanelContainer.hidden ||
+        (this.checksSidePanel && !this.checksSidePanel.hidden))
+    );
+  }
+
+  initialize(): void {
+    this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
+    this.runChecks = this.runChecks.bind(this);
+    this.setPreviewData = this.setPreviewData.bind(this);
+  }
+
   connect() {
     if (!this.urlValue) {
       throw new Error(
@@ -336,24 +350,27 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
-    this.activatePreview = this.activatePreview.bind(this);
-    this.deactivatePreview = this.deactivatePreview.bind(this);
-    this.setPreviewData = this.setPreviewData.bind(this);
-    this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
-    this.runChecks = this.runChecks.bind(this);
-
-    this.sidePanelContainer.addEventListener('show', this.activatePreview);
-    this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
+    this.sidePanelContainer.addEventListener(
+      'show',
+      this.checkAndUpdatePreview,
+    );
 
     this.setUpContentChecks();
 
     this.restoreLastSavedPreferences();
+
+    if (
+      !this.sidePanelContainer.hidden ||
+      (this.checksSidePanel && !this.checksSidePanel.hidden)
+    ) {
+      this.checkAndUpdatePreview();
+    }
   }
 
   setUpContentChecks() {
     this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
-    this.a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
-      '#w-a11y-result-row-template',
+    this.checkerRowTemplate = document.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-row-template',
     );
     this.checksPanel = document.querySelector<HTMLElement>(
       '[data-checks-panel]',
@@ -363,14 +380,14 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
     );
     this.checksPanelCounter = document.querySelector<HTMLElement>(
-      '[data-side-panel="checks"] [data-a11y-result-count]',
+      '[data-side-panel="checks"] [data-content-checker-count]',
     );
 
     if (
       !(
         this.checksSidePanel &&
         this.checksPanel &&
-        this.a11yRowTemplate &&
+        this.checkerRowTemplate &&
         this.axeConfig &&
         this.checksToggleCounter &&
         this.checksPanelCounter
@@ -402,8 +419,7 @@ export class PreviewController extends Controller<HTMLElement> {
     axe.configure(addCustomChecks(this.axeConfig.spec));
     axe.registerPlugin(wagtailPreviewPlugin);
 
-    this.checksSidePanel.addEventListener('show', this.activatePreview);
-    this.checksSidePanel.addEventListener('hide', this.deactivatePreview);
+    this.checksSidePanel.addEventListener('show', this.checkAndUpdatePreview);
 
     // Add the message event listener here instead of using a Stimulus action,
     // as message events may originate from other sources and thus will add
@@ -420,17 +436,6 @@ export class PreviewController extends Controller<HTMLElement> {
       this.renderUrlValue = this.urlValue;
     }
     this.updateNewTabLink();
-  }
-
-  autoUpdateIntervalValueChanged() {
-    // If the value is changed, only update the interval if it's currently active
-    // as we don't want to start the interval when the panel is hidden
-    if (this.updateInterval) {
-      this.addInterval();
-    } else if (!this.autoUpdateIntervalValue) {
-      // If the auto-update interval is unset, clear the interval
-      this.clearInterval();
-    }
   }
 
   /**
@@ -454,65 +459,6 @@ export class PreviewController extends Controller<HTMLElement> {
     // not trigger the togglePreviewSize method, so we need to apply the
     // selected size class manually.
     this.applySelectedSizeClass(lastDeviceInput.value);
-  }
-
-  /**
-   * Activates the preview mechanism.
-   * The preview data is immediately updated. If auto-update is enabled,
-   * an interval is set up to automatically check the form and update the
-   * preview data.
-   */
-  activatePreview() {
-    // Immediately update the preview when the panel is opened
-    this.checkAndUpdatePreview();
-
-    // Only set the interval while the panel is shown
-    this.addInterval();
-  }
-
-  /**
-   * Sets the interval for auto-updating the preview and applies debouncing to
-   * `setPreviewData` for subsequent calls.
-   */
-  addInterval() {
-    this.clearInterval();
-    // This interval performs the checks for changes but not necessarily the
-    // update itself
-    this.updateInterval = setOptionalInterval(
-      this.checkAndUpdatePreview,
-      this.autoUpdateIntervalValue,
-    );
-
-    if (this.updateInterval) {
-      // Apply debounce for subsequent updates if an interval was set
-      this.setPreviewData = debounce(
-        this.setPreviewData,
-        this.autoUpdateIntervalValue,
-      );
-    }
-  }
-
-  /**
-   * Clears the auto-update interval.
-   */
-  clearInterval() {
-    // Restore the original function if it was previously debounced
-    if ('restore' in this.setPreviewData) {
-      this.setPreviewData =
-        this.setPreviewData.restore() as typeof this.setPreviewData;
-    }
-    if (!this.updateInterval) return;
-    window.clearInterval(this.updateInterval);
-    this.updateInterval = null;
-  }
-
-  /**
-   * Deactivates the preview mechanism.
-   *
-   * If auto-update is enabled, clear the auto-update interval.
-   */
-  deactivatePreview() {
-    this.clearInterval();
   }
 
   /**
@@ -578,6 +524,25 @@ export class PreviewController extends Controller<HTMLElement> {
       this.deviceWidthPropertyValue,
       deviceWidth as string,
     );
+    this.sendScaleToIframe();
+  }
+
+  /**
+   * Send the current preview scale ratio to the iframe so inline
+   * annotations can apply an inverse transform to remain legible.
+   * Mirrors the CSS formula: min(1, panel-width / device-width).
+   */
+  private sendScaleToIframe() {
+    const panelWidth = this.element.clientWidth;
+    const deviceWidth = parseFloat(
+      this.element.style.getPropertyValue(this.deviceWidthPropertyValue),
+    );
+    if (!panelWidth || !deviceWidth || !this.iframeTarget.contentWindow) return;
+    const ratio = Math.max(1, deviceWidth / panelWidth);
+    this.iframeTarget.contentWindow.postMessage(
+      { wagtail: { type: 'w-preview:set-scale', scale: ratio } },
+      '*',
+    );
   }
 
   /**
@@ -600,41 +565,54 @@ export class PreviewController extends Controller<HTMLElement> {
    * This is used to maintain the simulated device width as the side panel is resized.
    */
   observePanelSize() {
-    const resizeObserver = new ResizeObserver((entries) =>
+    const resizeObserver = new ResizeObserver((entries) => {
       this.element.style.setProperty(
         this.panelWidthPropertyValue,
         entries[0].contentRect.width.toString(),
-      ),
-    );
+      );
+      this.sendScaleToIframe();
+    });
     resizeObserver.observe(this.element);
     return resizeObserver;
   }
 
   /**
-   * Like `setPreviewData`, but only updates the preview if there is no pending
-   * update and the form has not changed.
+   * Like `setPreviewData`, but only updates the preview if the form has not changed.
    * @returns whether the data is valid
    */
   async checkAndUpdatePreview() {
-    // Small performance optimization: the hasChanges() method will not be called
-    // if there is a pending update due to the || operator short-circuiting
-    if (this.updatePromise || !this.hasChanges()) return undefined;
+    // If there are no changes, return the existing update promise (if any)
+    if (!this.staleValue) return this.updatePromise;
     return this.setPreviewData();
   }
 
   /**
-   * Checks whether the form data has changed since the last call to this method.
-   * @returns whether the form data has changed
+   * Automatically updates the preview if it is stale and auto-update is enabled.
+   * @returns whether the data is valid
    */
-  hasChanges() {
-    // https://github.com/microsoft/TypeScript/issues/30584
-    const newPayload = new URLSearchParams(
-      new FormData(this.editForm) as unknown as Record<string, string>,
-    ).toString();
-    const changed = this.formPayload !== newPayload;
+  async autoUpdateStalePreview() {
+    if (this.ready && this.staleValue && this.shouldAutoUpdate) {
+      return this.setPreviewDataLazy();
+    }
+    return undefined;
+  }
 
-    this.formPayload = newPayload;
-    return changed;
+  /**
+   * Marks the preview data as stale, indicating it needs an update.
+   * Accepts an optional `stale` parameter to explicitly override the value.
+   */
+  setStale(event?: Event & { params?: { stale: boolean } }) {
+    this.staleValue = event?.params?.stale ?? true;
+  }
+
+  staleValueChanged() {
+    this.autoUpdateStalePreview();
+  }
+
+  autoUpdateIntervalValueChanged(newValue?: number) {
+    // Update the debounce function with the new interval, without cancelling
+    // any pending calls to ensure they are still executed.
+    this.setPreviewDataLazy = debounce(this.setPreviewData, newValue);
   }
 
   /**
@@ -643,9 +621,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * display an error message.
    * @returns whether the data is valid
    */
-  setPreviewData:
-    | (() => Promise<boolean | undefined>)
-    | DebouncedFunction<[], boolean | undefined> = async () => {
+  setPreviewData() {
     // Bail out if there is already a pending update
     if (this.updatePromise) return this.updatePromise;
 
@@ -704,9 +680,10 @@ export class PreviewController extends Controller<HTMLElement> {
         throw error;
       }
     })();
+    this.staleValue = false;
 
     return this.updatePromise;
-  };
+  }
 
   /**
    * Clears the preview data from the session.
@@ -799,7 +776,7 @@ export class PreviewController extends Controller<HTMLElement> {
     this.dispatch('loaded', { cancelable: false });
 
     // Finish the update process. Instead of calling `runChecks()` here,
-    // accessibility and content checks will be triggered by the userbar in the
+    // content metrics and checks will be triggered by the userbar in the
     // new iframe via the `w-userbar:axe-ready` message event. This ensures that
     // Axe in this window does not instruct the new iframe's Axe to immediately
     // run the checks, which might fail if it is still running the initial
@@ -900,7 +877,7 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the content and accessibility checks.
+   * Runs the content metrics and checks.
    * This is called when the iframe sends a message event from the userbar
    * indicating that it has finished running the checks within itself.
    * @param event The message event from the userbar
@@ -917,6 +894,10 @@ export class PreviewController extends Controller<HTMLElement> {
         return this.contentChecksPromise;
     }
 
+    // The iframe's userbar has finished initialising and annotations now
+    // exist, so send the current scale for counter-scaling.
+    this.sendScaleToIframe();
+
     // If the content checks are already running, wait for them to finish before
     // re-running them, as Axe does not allow concurrent runs.
     if (this.contentChecksPromise) {
@@ -924,7 +905,7 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.contentChecksPromise = (async () => {
-      await this.runAccessibilityChecks();
+      await this.runAxeChecks();
       await this.runContentChecks();
       this.contentChecksPromise = null;
     })();
@@ -933,26 +914,25 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the accessibility checks using Axe.
+   * Runs content checks using Axe.
    */
-  async runAccessibilityChecks() {
-    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
+  async runAxeChecks() {
+    const { results, issueCount } = await getCheckerReport(this.axeConfig!);
 
-    this.checksToggleCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksToggleCounter!.hidden = a11yErrorsNumber === 0;
-    this.checksPanelCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksPanelCounter!.classList.toggle(
-      'has-errors',
-      a11yErrorsNumber > 0,
-    );
+    this.checksToggleCounter!.textContent = issueCount.toString();
+    this.checksToggleCounter!.hidden = issueCount === 0;
+    this.checksPanelCounter!.textContent = issueCount.toString();
+    this.checksPanelCounter!.classList.toggle('has-errors', issueCount > 0);
 
-    renderA11yResults(
+    renderCheckerResults(
       this.checksPanel!,
       results,
       this.axeConfig!,
-      this.a11yRowTemplate!,
+      this.checkerRowTemplate!,
       () => this.newTabTarget.click(),
     );
+
+    return { results, issueCount };
   }
 
   /**
@@ -966,15 +946,23 @@ export class PreviewController extends Controller<HTMLElement> {
     // previewed page shows an error response), skip doing anything with it.
     if (!content) return;
 
-    const wordCount = getWordCount(content.lang, content.innerText);
-    const readingTime = getReadingTime(content.lang, wordCount);
-    const lixScore = getLIXScore(content.lang, content.innerText);
-    const readabilityScore = getReadabilityScore(lixScore);
-    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
+    const metrics = this.extractMetrics(content);
 
     this.dispatch('content', { detail: { content, metrics } });
 
     renderContentMetrics(metrics);
+  }
+
+  /**
+   * Computes content metrics (word count, reading time, LIX, readability) from
+   * extracted preview content.
+   */
+  extractMetrics(content: ExtractedContent): ContentMetrics {
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    return { wordCount, readingTime, lixScore, readabilityScore };
   }
 
   /**
@@ -1023,6 +1011,11 @@ export class PreviewController extends Controller<HTMLElement> {
     this.#reloadPromiseResolve?.();
     this.reloadPromise = null;
     this.#reloadPromiseResolve = null;
+
+    // If the preview data became stale while this update was in progress
+    // (e.g. the user kept editing during the fetch/iframe load), schedule
+    // another update now that we are free to do so.
+    this.autoUpdateStalePreview();
   }
 
   /**
@@ -1071,13 +1064,17 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   disconnect(): void {
-    this.sidePanelContainer.removeEventListener('show', this.activatePreview);
-    this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
+    this.sidePanelContainer.removeEventListener(
+      'show',
+      this.checkAndUpdatePreview,
+    );
 
     if (this.contentChecksEnabled) {
       window.removeEventListener('message', this.runChecks);
-      this.checksSidePanel!.removeEventListener('show', this.activatePreview);
-      this.checksSidePanel!.removeEventListener('hide', this.deactivatePreview);
+      this.checksSidePanel!.removeEventListener(
+        'show',
+        this.checkAndUpdatePreview,
+      );
     }
 
     this.resizeObserver.disconnect();

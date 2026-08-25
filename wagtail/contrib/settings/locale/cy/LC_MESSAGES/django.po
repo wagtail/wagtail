@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,9 +23,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
-msgid "default"
-msgstr "diofyn"
-
 msgid "Sites"
 msgstr "Safleoedd"
 
@@ -35,6 +32,9 @@ msgstr "%(site_setting)s i %(site)s"
 
 msgid "Site"
 msgstr "Safle"
+
+msgid "default"
+msgstr "diofyn"
 
 msgid "Settings"
 msgstr "Gosodiadau"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -25,6 +25,17 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumentai"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Byla yra per didelė (%(file_size)s). Didžiausias bylos dydis yra "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Byla yra per didelė. Didžiausias bylos dydis yra %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Kolekcija"
@@ -82,6 +93,10 @@ msgstr "Ne, neištrinti"
 
 msgid "Latest documents"
 msgstr "Paskutiniai dokumentai"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "Keisti dokumentą:"
@@ -193,10 +208,6 @@ msgstr "Dokumentas negali būti išsaugotas dėl klaidų."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumentas '%(document_title)s' atnaujintas"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
 
 msgid "Delete document"
 msgstr "Ištrinti dokumentą"

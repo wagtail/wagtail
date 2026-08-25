@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -85,9 +85,6 @@ msgstr "Zbirka"
 msgid "Format"
 msgstr "Format"
 
-msgid "Filter"
-msgstr "Filter"
-
 msgid "Original size"
 msgstr "Izvorna veličina"
 
@@ -105,6 +102,9 @@ msgstr "Obzirom na najveću dimenziju"
 
 msgid "Resize to fill"
 msgstr "Upotpuni"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Width"
 msgstr "Širina"
@@ -189,6 +189,10 @@ msgstr "Novi"
 
 msgid "Latest images"
 msgstr "Najnovije slike"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Označi %(title)s"
 
 msgid "Choose a format"
 msgstr "Odaberi format"
@@ -322,6 +326,12 @@ msgstr "Dodaj u zbirku"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Created"
+msgstr "Stvoreno"
+
 msgid "Choose an image"
 msgstr "Odaberi sliku"
 
@@ -330,12 +340,6 @@ msgstr "Uredi ovu sliku"
 
 msgid "Images"
 msgstr "Slike"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "Created"
-msgstr "Stvoreno"
 
 msgid "The image could not be saved due to errors."
 msgstr "Nije moguće sačuvati sliku zbog grešaka."

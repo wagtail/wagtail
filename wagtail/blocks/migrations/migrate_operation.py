@@ -1,6 +1,7 @@
 import json
 import logging
 from collections import OrderedDict
+import swapper
 from django.db.models import JSONField, F, Q, Subquery, OuterRef
 from django.db.models.functions import Cast
 from django.db.migrations import RunPython
@@ -155,8 +156,15 @@ class MigrateStreamData(RunPython):
 
         updated_revisions_buffer = []
         for revision in revision_queryset.iterator(chunk_size=self.chunk_size):
+            try:
+                json_data = revision.content[self.field_name]
+            except KeyError:
+                # The requested field doesn't exist on this revision. The revision may
+                # have been created before the creation of the field. Don't process this
+                # revision.
+                continue
 
-            raw_data = json.loads(revision.content[self.field_name])
+            raw_data = json.loads(json_data)
             for operation, block_path_str in self.operations_and_block_paths:
                 try:
                     raw_data = utils.apply_changes_to_raw_data(
@@ -242,7 +250,7 @@ class Wagtail3RevisionQueryMaker(AbstractRevisionQueryMaker):
         return self.apps.get_model("wagtailcore", "PageRevision")
 
     def get_has_revisions(self):
-        return issubclass(self.model, self.apps.get_model("wagtailcore", "Page"))
+        return issubclass(self.model, self.apps.get_model(swapper.get_model_name("wagtailcore", "Page")))
 
     def append_instance_data_for_revision_query(self, instance):
         if self.has_revisions:

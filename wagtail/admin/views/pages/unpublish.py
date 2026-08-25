@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
@@ -7,11 +8,12 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.admin.views.generic.models import UnpublishView
-from wagtail.models import Page
+from wagtail.admin.views.generic.models import UnpublishView as GenericUnpublishView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
-class Unpublish(UnpublishView):
+class UnpublishView(GenericUnpublishView):
     model = Page
     index_url_name = "wagtailadmin_explore"
     edit_url_name = "wagtailadmin_pages:edit"

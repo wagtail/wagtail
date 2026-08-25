@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -58,3 +59,6 @@ msgstr "عنوان يحدد الموضوع العام للجدول، ومفيد 
 
 msgid "Table"
 msgstr "جدول"
+
+msgid "Select a header option"
+msgstr "حدد خيار عنوان"

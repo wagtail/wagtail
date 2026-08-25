@@ -78,7 +78,7 @@ class WagtailCoreExtension(Extension):
         if context.eval_ctx.autoescape:
             return escape(result)
         else:
-            return Markup(result)
+            return Markup(result)  # noqa: S704 - result is safe
 
 
 # Nicer import names

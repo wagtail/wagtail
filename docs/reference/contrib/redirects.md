@@ -15,15 +15,13 @@ The `redirects` module is not enabled by default. To install it, add `wagtail.co
 ```python
 INSTALLED_APPS = [
     # ...
-
-    'wagtail.contrib.redirects',
+    "wagtail.contrib.redirects",
 ]
 
 MIDDLEWARE = [
     # ...
     # all other django middleware first
-
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 ```
 
@@ -33,7 +31,7 @@ This app contains migrations so make sure you run the `migrate` django-admin com
 
 Once installed, a new menu item called "Redirects" should appear in the "Settings" menu. This is where you can add arbitrary redirects to your site.
 
-For an editor's guide to the interface, see our how-to guide: [Manage redirects](https://guide.wagtail.org/en-latest/how-to-guides/manage-redirects/).
+For an editor's guide to the interface, see our how-to guide: [Manage redirects](https://guide.wagtail.org/en/how-to-guides/manage-redirects/).
 
 ## Automatic redirect creation
 
@@ -43,7 +41,7 @@ Wagtail automatically creates permanent redirects for pages (and their descendan
 
 If your project uses `RoutablePageMixin` to create pages with alternative routes, you might want to consider overriding the `get_route_paths()` method for those page types. Adding popular route paths to this list will result in the creation of additional redirects; helping visitors to alternative routes to get to the right place also.
 
-For more information, please see {meth}`~wagtail.models.Page.get_route_paths`.
+For more information, please see {meth}`~wagtail.models.AbstractPage.get_route_paths`.
 
 ### Disabling automatic redirect creation
 
@@ -51,8 +49,8 @@ Wagtail's default implementation works best for small-to-medium sized projects (
 
 Overrides to the following `Page` methods are respected when generating redirects, but use of specific page fields in those overrides will trigger additional database queries.
 
--   {meth}`~wagtail.models.Page.get_url_parts()`
--   {meth}`~wagtail.models.Page.get_route_paths()`
+-   {meth}`~wagtail.models.AbstractPage.get_url_parts()`
+-   {meth}`~wagtail.models.AbstractPage.get_route_paths()`
 
 If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
 
@@ -107,7 +105,7 @@ Add the following code to add the redirects endpoint:
 ```python
 from wagtail.contrib.redirects.api import RedirectsAPIViewSet
 
-api_router.register_endpoint('redirects', RedirectsAPIViewSet)
+api_router.register_endpoint("redirects", RedirectsAPIViewSet)
 ```
 
 With this configuration, redirects will be available at `/api/v2/redirects/`.

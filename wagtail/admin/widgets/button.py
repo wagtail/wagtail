@@ -1,12 +1,9 @@
-from warnings import warn
-
 from django.forms.utils import flatatt
 from django.utils.functional import cached_property
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.menus import MenuItem
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class BaseButton(Component):
@@ -19,21 +16,30 @@ class BaseButton(Component):
     allow_in_dropdown = False
 
     def __init__(
-        self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
+        self,
+        label="",
+        url=None,
+        classname="",
+        icon_name=None,
+        attrs=None,
+        priority=1000,
     ):
+        self.attrs = self.attrs.copy()
         if label:
             self.label = label
 
         if url:
             self.url = url
+        else:
+            self.attrs["type"] = "button"
 
         self.classname = classname
 
         if icon_name:
             self.icon_name = icon_name
 
-        self.attrs = self.attrs.copy()
-        self.attrs.update(attrs)
+        if attrs:
+            self.attrs.update(attrs)
         self.priority = priority
 
     def get_context_data(self, parent_context):
@@ -101,7 +107,11 @@ class BaseButton(Component):
 
 
 class Button(BaseButton):
-    """Plain link button with a label and optional icon."""
+    """
+    Plain button with a label and optional icon.
+    If ``url`` is provided, it will be rendered as an ``<a>`` element;
+    otherwise, it will be rendered as a ``<button type="button">`` element.
+    """
 
     allow_in_dropdown = True
 
@@ -115,12 +125,12 @@ class HeaderButton(BaseButton):
         url=None,
         classname="",
         icon_name=None,
-        attrs={},
+        attrs=None,
         icon_only=False,
         **kwargs,
     ):
         classname = f"{classname} w-header-button button".strip()
-        attrs = attrs.copy()
+        attrs = attrs.copy() if attrs else {}
         if icon_only:
             controller = f"{attrs.get('data-controller', '')} w-tooltip".strip()
             attrs["data-controller"] = controller
@@ -146,16 +156,6 @@ class ListingButton(BaseButton):
     def __init__(self, label="", url=None, classname="", **kwargs):
         classname = f"{classname} button button-small button-secondary".strip()
         super().__init__(label=label, url=url, classname=classname, **kwargs)
-
-
-class PageListingButton(ListingButton):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "`PageListingButton` is deprecated. "
-            "Use `wagtail.admin.widgets.button.ListingButton` instead.",
-            category=RemovedInWagtail80Warning,
-        )
-        super().__init__(*args, **kwargs)
 
 
 class BaseDropdownMenuButton(BaseButton):

@@ -4,7 +4,7 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
-from django import VERSION as DJANGO_VERSION
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -45,7 +45,7 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.images import get_image_model
-from wagtail.models import Comment, CommentReply, Page, Site
+from wagtail.models import Comment, CommentReply, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     Advert,
@@ -61,7 +61,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     ValidatedPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestGetFormForModel(TestCase):
@@ -227,11 +227,7 @@ class TestGetFormForModel(TestCase):
 
         field = form.fields["signup_link"]
         self.assertEqual(type(field), forms.URLField)
-
-        # Remove the condition and keep the assertion when the minimum Django
-        # version is >= 5.0.
-        if DJANGO_VERSION >= (5, 0):
-            self.assertEqual(field.assume_scheme, "https")
+        self.assertEqual(field.assume_scheme, "https")
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(
@@ -973,8 +969,6 @@ class TestFieldPanel(TestCase):
         # NOTE: Tests with and without providing POST data to the form to
         # prove that posted values have no impact on the output for
         # read-only panels.
-        expected_value_output = self.event.date_to.strftime("%B %-d, %Y")
-
         for panel, data in (
             (self.read_only_end_date_panel, None),
             (
@@ -992,7 +986,7 @@ class TestFieldPanel(TestCase):
                 self.assertNotIn("<input", result)
 
                 # Though, we should still see a representation of the value
-                self.assertIn(expected_value_output, result)
+                self.assertIn("July 21, 2014", result)
 
                 # Help text should still be rendered, too
                 self.assertIn("Not required if event is on a single day", result)
@@ -1191,7 +1185,7 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.assertNotIn("error-message", result)
 
 
-class TestPageChooserPanel(TestCase):
+class TestPageChooserPanel(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1226,7 +1220,9 @@ class TestPageChooserPanel(TestCase):
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_html()
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
 
         self.assertIn(expected_js, result)
@@ -1248,7 +1244,9 @@ class TestPageChooserPanel(TestCase):
 
         # the canChooseRoot flag on PageChooser should now be true
         expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
-            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
+            id="id_page",
+            model=swapper.get_model_name("wagtailcore", "Page").lower(),
+            parent=self.events_index_page.id,
         )
         self.assertIn(expected_js, result)
 
@@ -1347,7 +1345,7 @@ class TestPageChooserPanel(TestCase):
         self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
 
-class TestInlinePanel(WagtailTestUtils, TestCase):
+class TestInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1594,7 +1592,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             )
 
 
-class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
+class TestNonOrderableInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1630,7 +1628,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestInlinePanelGetComparison(TestCase):
+class TestInlinePanelGetComparison(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1738,7 +1736,7 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         delattr(EventPageSpeaker, "content_panels")
 
 
-class TestCommentPanel(WagtailTestUtils, TestCase):
+class TestCommentPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2076,7 +2074,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         # The existing reply was from the same user, so should be deletable
 
 
-class TestPublishingPanel(WagtailTestUtils, TestCase):
+class TestPublishingPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2141,7 +2139,7 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         self.assertIn("expire_at", form.base_fields)
 
 
-class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
+class TestMultipleChooserPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2165,7 +2163,7 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
 
 
-class TestMultipleChooserPanelGetComparison(TestCase):
+class TestMultipleChooserPanelGetComparison(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2346,7 +2344,7 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
                 self.assertIn(f"#icon-{expected_icon}", html)
 
 
-class TestTitleFieldPanel(WagtailTestUtils, TestCase):
+class TestTitleFieldPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

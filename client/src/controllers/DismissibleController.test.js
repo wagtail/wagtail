@@ -147,6 +147,6 @@ describe('updateDismissibles', () => {
     updateDismissibles(data);
 
     global.fetch.mockRejectedValueOnce(new Error('error'));
-    await expect(updateDismissibles(data)).rejects.toThrowError('error');
+    await expect(updateDismissibles(data)).rejects.toThrow('error');
   });
 });

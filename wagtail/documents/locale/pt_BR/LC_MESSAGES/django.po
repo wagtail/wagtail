@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -30,6 +30,16 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Esse arquivo é muito grande (%(file_size)s). Tamanho máximo %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Esse arquivo é muito grande. Tamanho máximo %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Coleção"
@@ -339,12 +349,6 @@ msgstr "O documento não pôde ser salvo devido à erros."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Documento '%(document_title)s' atualizado"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
-"documento"
 
 msgid "Delete document"
 msgstr "Apagar documento"

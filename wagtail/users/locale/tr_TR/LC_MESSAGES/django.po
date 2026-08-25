@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -115,6 +115,9 @@ msgstr "kullanıcı profili"
 msgid "user profiles"
 msgstr "kullanıcı profilleri"
 
+msgid "Active"
+msgstr "Aktif"
+
 msgid "Delete"
 msgstr "Sil"
 
@@ -174,8 +177,16 @@ msgstr "Hesap"
 msgid "Roles"
 msgstr "Roller"
 
-msgid "Active"
-msgstr "Aktif"
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Hiç kullanıcı ayarlanmadı. Neden <a href=\"%(wagtailusers_add_url)s\">bir "
+"kaç tane eklemiyorsunuz</a>?"
+
+msgid "User"
+msgstr "Kullanıcı"
 
 msgid "Inactive"
 msgstr "Pasif"
@@ -224,6 +235,10 @@ msgstr "Kullanıcı adı"
 
 msgid "Admin"
 msgstr "Yönetici"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "'%(object)s' kullanıcısı oluşturuldu."
 
 msgid "Add user"
 msgstr "Kullanıcı ekle"

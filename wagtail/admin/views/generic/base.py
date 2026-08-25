@@ -82,7 +82,15 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
                 ButtonWithDropdown(
                     buttons=more_buttons,
                     icon_name="dots-horizontal",
-                    attrs={"aria-label": _("Actions")},
+                    attrs={
+                        "aria-label": _("Actions"),
+                        # Hide the dropdown when the breadcrumbs are opened or closed, which
+                        # would make the dropdown's position off from the toggle button.
+                        "data-action": (
+                            "w-breadcrumbs:opened@document->w-dropdown#hide "
+                            "w-breadcrumbs:closed@document->w-dropdown#hide"
+                        ),
+                    },
                     classname="w-h-slim-header",
                 )
             )
@@ -199,6 +207,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     search_backend_name = "default"
     default_ordering = None
     filterset_class = None
+    verbose_name = None
     verbose_name_plural = None
     paginator_class = WagtailPaginator
 
@@ -458,6 +467,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
+        context["verbose_name"] = self.verbose_name
         context["verbose_name_plural"] = self.verbose_name_plural
         context["no_results_message"] = self.no_results_message
         context["ordering"] = self.ordering

@@ -1,9 +1,9 @@
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.test import TestCase
 
-from wagtail.models import GroupPagePermission, Page, get_default_page_content_type
+from wagtail.models import GroupPagePermission, get_default_page_content_type
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.tests.permission_policies.test_permission_policies import (
     PermissionPolicyTestUtils,
 )
@@ -27,7 +27,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=root_editors_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.CHANGE
             ),
         )
 
@@ -36,7 +36,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_editors_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.CHANGE
             ),
         )
 
@@ -45,7 +45,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_adders_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="add_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.ADD
             ),
         )
 

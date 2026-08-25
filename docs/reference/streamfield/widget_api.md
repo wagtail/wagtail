@@ -6,19 +6,16 @@ For the StreamField editing interface to dynamically create form fields, any Dja
 
 This implementation can be driven by [Stimulus](extending_client_side_stimulus) or for deeper integrations you can leverage telepath.
 
-The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.admin.telepath.register`.
-
-```{versionchanged} 7.1
-The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`, and `WidgetAdapter` should be imported from `wagtail.admin.telepath.widgets` rather than `wagtail.widget_adapters`.
-```
+The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.admin.telepath.widgets.WidgetAdapter` and register it with `wagtail.admin.telepath.register`.
 
 ```python
 from wagtail.admin.telepath import register
 from wagtail.admin.telepath.widgets import WidgetAdapter
 
+
 class FancyInputAdapter(WidgetAdapter):
     # Identifier matching the one registered on the client side
-    js_constructor = 'myapp.widgets.FancyInput'
+    js_constructor = "myapp.widgets.FancyInput"
 
     # Arguments passed to the client-side object
     def js_args(self, widget):
@@ -26,14 +23,14 @@ class FancyInputAdapter(WidgetAdapter):
             # Arguments typically include the widget's HTML representation
             # rendered with __NAME__ and __ID__ placeholders, for use in the
             # client-side render() method
-            widget.render('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.render("__NAME__", None, attrs={"id": "__ID__"}),
             widget.extra_options,
         ]
 
     class Media:
         # JS / CSS includes required in addition to the widget's own media;
         # generally this will include the client-side adapter definition
-        js = ['myapp/js/fancy-input-adapter.js']
+        js = ["myapp/js/fancy-input-adapter.js"]
 
 
 register(FancyInputAdapter(), FancyInput)

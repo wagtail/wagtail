@@ -12,14 +12,14 @@ We recommend [Redis](https://redis.io/) as a fast, persistent cache. Install Red
 
 ```python
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/dbname',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/dbname",
         # for django-redis < 3.8.0, use:
         # 'LOCATION': '127.0.0.1:6379',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
     }
 }
 ```
@@ -30,15 +30,13 @@ To use a different cache backend for [caching image renditions](caching_image_re
 
 ```python
 CACHES = {
-    'default': {...},
-    'renditions': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 600,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
-    }
+    "default": {...},
+    "renditions": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
+        "TIMEOUT": 600,
+        "OPTIONS": {"MAX_ENTRIES": 1000},
+    },
 }
 ```
 
@@ -64,7 +62,7 @@ When using a queryset to render a list of images or objects with images, you can
 
 ## Frontend caching proxy
 
-Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/), [Squid](http://www.squid-cache.org/), [Cloudflare](https://www.cloudflare.com/) or [CloudFront](https://aws.amazon.com/cloudfront/) to support high volumes of traffic with excellent response times. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/), [Squid](https://www.squid-cache.org/), [Cloudflare](https://www.cloudflare.com/) or [CloudFront](https://aws.amazon.com/cloudfront/) to support high volumes of traffic with excellent response times. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
 
@@ -82,7 +80,7 @@ When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageu
 
 ## Search
 
-Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](http://www.searchly.com/).
+Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](https://www.searchly.com/).
 
 For details on configuring Wagtail for Elasticsearch, see [](wagtailsearch_backends_elasticsearch).
 
@@ -106,7 +104,7 @@ Django supports [template fragment caching](<inv:django:std:label#topics/cache:t
 
 ## Page cache key
 
-It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.Page.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
+It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.AbstractPage.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
 
 ```python
 from django.core.cache import cache
@@ -118,7 +116,7 @@ cache.set("expensive_result_" + page.cache_key, result, 3600)
 cache.get("expensive_result_" + page.cache_key)
 ```
 
-To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.Page.get_cache_key_components`:
+To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.AbstractPage.get_cache_key_components`:
 
 ```python
 def get_cache_key_components(self):

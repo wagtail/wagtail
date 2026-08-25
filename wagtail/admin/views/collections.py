@@ -8,11 +8,9 @@ from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.models import Collection
-from wagtail.permissions import collection_permission_policy
 
 
 class Index(IndexView):
-    permission_policy = collection_permission_policy
     model = Collection
     context_object_name = "collections"
     results_template_name = "wagtailadmin/collections/index_results.html"
@@ -41,7 +39,6 @@ class Index(IndexView):
 
 
 class Create(CreateView):
-    permission_policy = collection_permission_policy
     model = Collection
     form_class = CollectionForm
     page_title = gettext_lazy("Add collection")
@@ -68,7 +65,6 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    permission_policy = collection_permission_policy
     model = Collection
     form_class = CollectionForm
     template_name = "wagtailadmin/collections/edit.html"
@@ -136,7 +132,6 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
-    permission_policy = collection_permission_policy
     model = Collection
     success_message = gettext_lazy("Collection '%(object)s' deleted.")
     index_url_name = "wagtailadmin_collections:index"

@@ -89,12 +89,13 @@ class CaptionedImageBlock(StructBlock):
     image = ImageBlock(required=True)
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
+
     class Meta:
         icon = "image"
         template = "base/blocks/captioned_image_block.html"
 ```
 
-`CaptionedImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `CaptionedImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageBlock` field block type. With `ImageBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
+`CaptionedImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `CaptionedImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageBlock` field block type. With `ImageBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en/concepts/wagtail-interfaces/#admin-interface) if you want to.
 
 Just like `CaptionedImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Let's look at those.
 
@@ -111,12 +112,13 @@ class HeadingBlock(StructBlock):
         blank=True,
         required=False,
     )
+
     class Meta:
         icon = "title"
         template = "base/blocks/heading_block.html"
 ```
 
-The first child block, `heading_text`, uses `CharBlock` for specifying the heading text, and it's required. The second child block, `size`, uses `ChoiceBlock` for selecting the heading size. It provides options for **h2**, **h3**, and **h4**. Both `blank=True` and `required=False` make the heading text optional in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
+The first child block, `heading_text`, uses `CharBlock` for specifying the heading text, and it's required. The second child block, `size`, uses `ChoiceBlock` for selecting the heading size. It provides options for **h2**, **h3**, and **h4**. Both `blank=True` and `required=False` make the heading text optional in your [admin interface](https://guide.wagtail.org/en/concepts/wagtail-interfaces/#admin-interface).
 
 Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you would like to include in all of the StreamField sections across a project. This class gives you a baseline collection of common blocks that you can reuse and customize for all the different page types where you use StreamField. For example, you will definitely want editors to be able to add images and paragraph text to all their pages, but you might want to create a special pull quote block that is only used on blog pages.
 
@@ -178,6 +180,7 @@ Now create a `portfolio/blocks.py` file and import the block you intend to use a
 
 ```python
 from base.blocks import BaseStreamBlock
+
 
 class PortfolioStreamBlock(BaseStreamBlock):
     pass
@@ -250,6 +253,7 @@ from wagtail.images.blocks import ImageBlock
 
 from base.blocks import BaseStreamBlock
 
+
 # add CardBlock:
 class CardBlock(StructBlock):
     heading = CharBlock()
@@ -260,6 +264,7 @@ class CardBlock(StructBlock):
         icon = "form"
         template = "portfolio/blocks/card_block.html"
 
+
 # add FeaturedPostsBlock:
 class FeaturedPostsBlock(StructBlock):
     heading = CharBlock()
@@ -269,6 +274,7 @@ class FeaturedPostsBlock(StructBlock):
     class Meta:
         icon = "folder-open-inverse"
         template = "portfolio/blocks/featured_posts_block.html"
+
 
 class PortfolioStreamBlock(BaseStreamBlock):
     # delete the pass statement
@@ -333,7 +339,7 @@ To add your resume to your portfolio site, follow these steps:
 
     a. Restart your server.
     b. Go to your admin interface.
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/#the-sidebar).
     d. Click `Home`.
     e. Click the `+` icon (Add child page) at the top of the resulting page.
     f. Click `Portfolio Page`.

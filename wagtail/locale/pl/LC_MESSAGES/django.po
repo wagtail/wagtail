@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,24 +46,6 @@ msgstr "Minimalna ilość elementów to %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksymalna ilość elementów to %(max_num)d"
 
-msgid "Move up"
-msgstr "Przesuń w górę"
-
-msgid "Move down"
-msgstr "Przesuń w dół"
-
-msgid "Drag"
-msgstr "Przeciągnij"
-
-msgid "Duplicate"
-msgstr "Duplikuj"
-
-msgid "Delete"
-msgstr "Usuń"
-
-msgid "Add"
-msgstr "Dodaj"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: ten blok nie ma opcji."
@@ -73,6 +55,9 @@ msgstr "Ten block nie posiada opcji."
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "Group"
+msgstr "Grupa"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache frontend Wagtail"
@@ -173,6 +158,12 @@ msgstr "Zablokowany przez oznaczony termin"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Obecnie zablokowany i będzie opublikowany w oznaczonym terminie"
 
+msgid "user"
+msgstr "użytkownik"
+
+msgid "name"
+msgstr "nazwa"
+
 msgid "content type"
 msgstr "typ treści"
 
@@ -259,9 +250,6 @@ msgstr "restrykcja widoczności kolekcji"
 msgid "collection view restrictions"
 msgstr "restrykcje widoczności kolekcji"
 
-msgid "name"
-msgstr "nazwa"
-
 msgid "collections"
 msgstr "kolekcje"
 
@@ -282,6 +270,9 @@ msgstr "dla typu treści"
 
 msgid "uploaded by user"
 msgstr "wgrane przez użytkownika"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/edytuj swoje strony"
@@ -316,6 +307,12 @@ msgstr "Odblokowanie"
 msgid "Unlock any page"
 msgstr "Odblokowanie dowolnej strony"
 
+msgid "page"
+msgstr "strona"
+
+msgid "pages"
+msgstr "strony"
+
 msgid "title"
 msgstr "tytuł"
 
@@ -338,14 +335,8 @@ msgstr "Ścieżka URL"
 msgid "owner"
 msgstr "właściciel"
 
-msgid "title tag"
-msgstr "Tag tytuł"
-
-msgid ""
-"The name of the page displayed on search engine results as the clickable "
-"headline."
-msgstr ""
-"Nazwa strony wyświetlana w wynikach wyszukiwania jako klikalny nagłówek."
+msgid "latest revision created at"
+msgstr "ostatnia rewizja utworzona"
 
 msgid "show in menus"
 msgstr "pokazuj w menu"
@@ -355,6 +346,18 @@ msgid ""
 msgstr ""
 "Czy link do tej strony zostanie wyświetlony w menu tworzonym automatycznie."
 
+msgid "For site menus"
+msgstr "Dla menu serwisów"
+
+msgid "title tag"
+msgstr "Tag tytuł"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Nazwa strony wyświetlana w wynikach wyszukiwania jako klikalny nagłówek."
+
 msgid "meta description"
 msgstr "opis meta"
 
@@ -363,28 +366,8 @@ msgid ""
 "results."
 msgstr "Tekst opisu wyświetlany pod nagłówkiem w wynikach wyszukiawania."
 
-msgid "latest revision created at"
-msgstr "ostatnia rewizja utworzona"
-
 msgid "For search engines"
 msgstr "Dla silników wyszukiwania"
-
-msgid "For site menus"
-msgstr "Dla menu serwisów"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Slug '%(page_slug)s' został już użyty w ramach strony rodzica "
-"'%(parent_url_path)s'"
-
-msgid "page"
-msgstr "strona"
-
-msgid "pages"
-msgstr "strony"
 
 msgid "group page permission"
 msgstr "uprawnienie grupy do strony"
@@ -458,9 +441,6 @@ msgstr "może uniemożliwić usunięcie"
 
 msgid "created at"
 msgstr "utworzono dnia"
-
-msgid "user"
-msgstr "użytkownik"
 
 msgid "content JSON"
 msgstr "zawartość JSON"
@@ -718,6 +698,9 @@ msgstr "Utworzone"
 msgid "Edited"
 msgstr "Edytowane"
 
+msgid "Delete"
+msgstr "Usuń"
+
 msgid "Deleted"
 msgstr "Usunięte"
 
@@ -838,13 +821,6 @@ msgstr ""
 "Rewizja %(revision_id)s z %(created_at)s zaplanowana do publikacji dnia "
 "%(go_live_at)s."
 
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Strony zaplanowane do publikacji dnia %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Strony zaplanowane do publikacji"
-
 msgid "Unschedule publication"
 msgstr "Cofnij zaplanowanie publikacji"
 
@@ -855,13 +831,6 @@ msgid ""
 msgstr ""
 "Rewizja %(revision_id)s z dnia %(created_at)s odplanowana z publikacji dnia "
 "%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Strona odplanowana z publikacji dnia %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Strona odplanowana z publikacji"
 
 msgid "Add view restrictions"
 msgstr "Dodaj ograniczenia wyświetlania"
