@@ -995,6 +995,7 @@
 * Ta Duc Thien
 * tinyb0y
 * Piyush Bhakuni
+* Dmitry Khlopyev
 
 ## Translators
 
