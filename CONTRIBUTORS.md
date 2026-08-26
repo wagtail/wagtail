@@ -997,6 +997,7 @@
 * Piyush Bhakuni
 * Dmitry Khlopyev
 * DresdenGman
+* Mason Lyons
 
 ## Translators
 

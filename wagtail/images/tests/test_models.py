@@ -918,6 +918,102 @@ class TestRenditions(TestCase):
         new_rendition = self.image.get_rendition("width-500")
         self.assertFalse(hasattr(new_rendition, "_mark"))
 
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        },
+    )
+    def test_get_rendition_does_not_rewrite_cache_on_cache_hit(self):
+        # LocMemCache instances with no explicit LOCATION share their
+        # underlying store process-wide, so guard against leaking into
+        # (or being polluted by) other tests that use the same cache.
+        self.addCleanup(Rendition.cache_backend.clear)
+        Rendition.cache_backend.clear()
+
+        # Populate the cache with an initial request
+        self.image.get_rendition("width-500")
+
+        # A subsequent request for the same rendition should be served from
+        # the cache, and should NOT write back to the cache again
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            rendition = self.image.get_rendition("width-500")
+        mock_set.assert_not_called()
+
+        # Sanity check: the underlying cache write does happen for a
+        # rendition that hasn't been cached before
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            self.image.get_rendition("width-100")
+        mock_set.assert_called_once()
+
+        # The rendition returned via the cache hit should still be correct
+        self.assertEqual(rendition.filter_spec, "width-500")
+
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        },
+    )
+    def test_get_renditions_does_not_rewrite_cache_on_cache_hit(self):
+        # LocMemCache instances with no explicit LOCATION share their
+        # underlying store process-wide, so guard against leaking into
+        # (or being polluted by) other tests that use the same cache.
+        self.addCleanup(Rendition.cache_backend.clear)
+        Rendition.cache_backend.clear()
+
+        # Populate the cache with an initial request
+        self.image.get_renditions("width-500", "width-600")
+
+        # A subsequent request for the same renditions should be served
+        # from the cache, and should NOT write back to the cache again
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            renditions = self.image.get_renditions("width-500", "width-600")
+        mock_set_many.assert_not_called()
+
+        # Sanity check: the underlying cache write does happen for
+        # renditions that haven't been cached before
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            self.image.get_renditions("width-100", "width-200")
+        mock_set_many.assert_called_once()
+
+        # The renditions returned via the cache hit should still be correct
+        self.assertEqual(renditions["width-500"].filter_spec, "width-500")
+        self.assertEqual(renditions["width-600"].filter_spec, "width-600")
+
+    def test_get_rendition_does_not_rewrite_cache_on_prefetch(self):
+        # Populate a rendition
+        self.image.get_rendition("width-500")
+
+        # Refetch the image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_rendition() should use the prefetched rendition, and should
+        # NOT write it back to the cache
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            rendition = image.get_rendition("width-500")
+        mock_set.assert_not_called()
+
+        self.assertEqual(rendition.filter_spec, "width-500")
+
+    def test_get_renditions_does_not_rewrite_cache_on_prefetch(self):
+        # Populate renditions
+        self.image.get_renditions("width-500", "width-600")
+
+        # Refetch the image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_renditions() should use the prefetched renditions, and should
+        # NOT write them back to the cache
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            renditions = image.get_renditions("width-500", "width-600")
+        mock_set_many.assert_not_called()
+
+        self.assertEqual(renditions["width-500"].filter_spec, "width-500")
+        self.assertEqual(renditions["width-600"].filter_spec, "width-600")
+
     def test_prefers_rendition_cache_backend(self):
         with override_settings(
             CACHES={

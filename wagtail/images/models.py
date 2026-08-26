@@ -557,10 +557,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        cache_key = Rendition.construct_cache_key(
-            self, filter.get_cache_key(self), filter.spec
-        )
-        Rendition.cache_backend.set(cache_key, rendition)
+        # prevent writing of cached data back to the cache
+        if not getattr(rendition, "_from_cache", False):
+            cache_key = Rendition.construct_cache_key(
+                self, filter.get_cache_key(self), filter.spec
+            )
+            Rendition.cache_backend.set(cache_key, rendition)
 
         return rendition
 
@@ -708,6 +710,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 # The retrieved rendition needs to be associated with the current image instance, so that any
                 # locally-set properties such as contextual_alt_text are respected
                 rendition.image = self
+                # to prevent writing of cached data back to the cache
+                rendition._from_cache = True
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
