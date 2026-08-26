@@ -198,7 +198,7 @@ export const onPasteLink = (text, html, editorState, { setEditorState }) => {
     // Prefer the multi-line HTML clipboard data if present.
     // Strip embed tags from pasted HTML as they contain wagtail-specific
     // attributes (e.g. id) that the generic convertFromHTML cannot handle.
-    const safeHtml = html ? html.replace(/<embed[^>]*\/?>/gi, "") : null;
+    const safeHtml = html ? html.replace(/<embed[^>]*\/?>/gi, '') : null;
     setEditorState(insertContentWithLinks(editorState, safeHtml || text));
     return 'handled';
   }
