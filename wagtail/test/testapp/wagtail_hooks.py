@@ -5,6 +5,7 @@ import django_filters
 from django import forms
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
+from django.utils.translation import get_language_info
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
@@ -172,38 +173,57 @@ def register_intro_rule(features):
     )
 
 
-# register 'green' as a rich text feature which converts a `green` contentstate block
-# to a <green> tag in db HTML and vice versa, and registers a rewriter for it that
-# add an inline style
+# register a 'lang-<code>' rich text feature per language, which converts a run of text
+# to a <span lang="..."> tag in db HTML and vice versa, plus a rewriter that adds the
+# matching dir attribute on render
 @hooks.register("register_rich_text_features")
-def register_green_feature(features):
-    features.register_converter_rule(
-        "contentstate",
-        "green",
-        {
-            "from_database_format": {
-                "green": InlineStyleElementHandler("green"),
-            },
-            "to_database_format": {"style_map": {"green": "green"}},
-        },
-    )
+def register_language_features(features):
+    class LanguageDirectionRewriter:
+        FIND_LANG_SPAN = re.compile(r'<span\b[^>]*\blang="([\w-]+)"[^>]*>')
 
-    class GreenRewriter:
-        TAG_RE = re.compile(r"<green>(.+?)</green>")
+        def add_direction(self, match):
+            try:
+                is_rtl = get_language_info(match.group(1))["bidi"]
+            except KeyError:
+                is_rtl = False
 
-        def replace_tag(self, match):
-            content = match.groups(1)[0]
-            return '<span class="make-me-green">{content}</span>'.format(
-                content=content
-            )
-
-        def extract_references(self, html):
-            return []
+            tag = match.group(0)
+            return tag[:-1] + ' dir="rtl">' if is_rtl else tag
 
         def __call__(self, html):
-            return self.TAG_RE.sub(self.replace_tag, html)
+            return self.FIND_LANG_SPAN.sub(self.add_direction, html)
 
-    features.register_frontend_rewriter(GreenRewriter(), order=300)
+    for code in ["nl", "ar"]:
+        feature_name = f"lang-{code}"
+        style = f"LANG_{code.upper()}"
+
+        features.register_editor_plugin(
+            "draftail",
+            feature_name,
+            draftail_features.InlineStyleFeature(
+                {
+                    "type": style,
+                    "label": code,
+                    "description": get_language_info(code)["name_local"],
+                }
+            ),
+        )
+        features.register_converter_rule(
+            "contentstate",
+            feature_name,
+            {
+                "from_database_format": {
+                    f'span[lang="{code}"]': InlineStyleElementHandler(style),
+                },
+                "to_database_format": {
+                    "style_map": {
+                        style: {"element": "span", "props": {"lang": code}},
+                    },
+                },
+            },
+        )
+
+    features.register_frontend_rewriter(LanguageDirectionRewriter())
 
 
 # and use a second registered rich-text feature which collides with an existing rewriter but *should not* be triggered because of the ordering
@@ -242,7 +262,7 @@ def register_embed_overlapping_feature(features):
         def __call__(self, html):
             return self.TAG_RE.sub(self.replace_tag, html)
 
-    features.register_frontend_rewriter(EmbedOverlappingRewriter(), order=1)
+    features.register_frontend_rewriter(EmbedOverlappingRewriter(), order=-1)
 
 
 class PanicMenuItem(ActionMenuItem):

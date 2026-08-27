@@ -45,9 +45,9 @@ def get_rewriter():
         },
     )
 
-    features.register_frontend_rewriter(link_rewriter, 100)
-    features.register_frontend_rewriter(embed_rewriter, 200)
-    return MultiRuleRewriter(features.get_frontend_rewriters())
+    return MultiRuleRewriter(
+        features.get_frontend_rewriters([link_rewriter, embed_rewriter])
+    )
 
 
 def expand_db_html(html):

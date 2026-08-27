@@ -4,6 +4,7 @@ from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
+from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.fields import RichTextField
 from wagtail.models import Locale, Site
 from wagtail.rich_text import (
@@ -11,6 +12,9 @@ from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     RichTextMinLengthValidator,
     expand_db_html,
+    extract_references_from_rich_text,
+    features,
+    get_rewriter,
 )
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
@@ -271,23 +275,35 @@ class TestFeatureRegistry(TestCase):
         self.assertIsNone(features.get_editor_plugin("made_up_editor", "blockquote"))
         self.assertIsNone(features.get_editor_plugin("draftail", "made_up_feature"))
 
-    def test_rewriters_registry(self):
-        # testapp/wagtail_hooks.py defines a rich text feature and rewriter for
-        # each "green" and "embedoverlapping" - test that it comes back in the
-        # list, and is in the correct order
-        features = FeatureRegistry()
+    def test_frontend_rewriters_are_returned_in_order(self):
+        # testapp/wagtail_hooks.py registers an EmbedOverlappingRewriter (order=-1)
+        # and a LanguageDirectionRewriter (default order)
+        registry = FeatureRegistry()
 
-        rewriters = features.get_frontend_rewriters()
-        # Expect only the two added rewriters -- Link and Embed are added later
-        self.assertEqual(len(rewriters), 2)
-
-        embed_overlapping_rewriter = rewriters[0]
         self.assertEqual(
-            embed_overlapping_rewriter.__class__.__name__,
-            "EmbedOverlappingRewriter",
+            [type(r).__name__ for r in registry.get_frontend_rewriters()],
+            ["EmbedOverlappingRewriter", "LanguageDirectionRewriter"],
         )
-        green_rewriter = rewriters[-1]
-        self.assertEqual(green_rewriter.__class__.__name__, "GreenRewriter")
+
+    def test_builtin_rewriters_run_first_unless_order_is_negative(self):
+        registry = FeatureRegistry()
+
+        rewriters = registry.get_frontend_rewriters(["link", "embed"])
+        self.assertEqual(
+            [r if isinstance(r, str) else type(r).__name__ for r in rewriters],
+            ["EmbedOverlappingRewriter", "link", "embed", "LanguageDirectionRewriter"],
+        )
+
+    def test_frontend_rewriters_sort_is_stable(self):
+        registry = FeatureRegistry()
+        registry.has_scanned_for_features = True
+        registry.frontend_rewriters = []
+
+        registry.register_frontend_rewriter("late", order=999)
+        registry.register_frontend_rewriter("first")
+        registry.register_frontend_rewriter("second")
+
+        self.assertEqual(registry.get_frontend_rewriters(), ["first", "second", "late"])
 
 
 class TestLinkRewriterTagReplacing(TestCase):
@@ -471,10 +487,39 @@ class TestRichTextLengthValidators(TestCase):
 
 
 class TestCustomRichTextRewriter(TestCase):
-    def test_custom_tag_replacement(self):
-        expanded = expand_db_html("<green>traffic light</green>")
-        self.assertNotIn("<green>", expanded)
-        self.assertEqual(expanded, '<span class="make-me-green">traffic light</span>')
+    def test_left_to_right_language_is_left_alone(self):
+        self.assertEqual(
+            expand_db_html('<p>They call it <span lang="nl">geweldig</span>.</p>'),
+            '<p>They call it <span lang="nl">geweldig</span>.</p>',
+        )
+
+    def test_right_to_left_language_gains_a_direction(self):
+        self.assertEqual(
+            expand_db_html(
+                '<p>He said <span lang="ar">\u0645\u0631\u062d\u0628\u0627</span>.</p>'
+            ),
+            '<p>He said <span lang="ar" dir="rtl">\u0645\u0631\u062d\u0628\u0627</span>.</p>',
+        )
+
+    def test_other_attributes_are_preserved(self):
+        self.assertEqual(
+            expand_db_html('<span class="quote" lang="he">x</span>'),
+            '<span class="quote" lang="he" dir="rtl">x</span>',
+        )
+
+    def test_language_feature_round_trips_through_the_editor(self):
+        converter = ContentstateConverter(features=["lang-nl", "lang-ar"])
+        for code in ["nl", "ar"]:
+            with self.subTest(code=code):
+                db_html = (
+                    f'<p data-block-key="00000">x <span lang="{code}">y</span>.</p>'
+                )
+                self.assertEqual(
+                    converter.to_database_format(
+                        converter.from_database_format(db_html)
+                    ),
+                    db_html,
+                )
 
     def test_ordering_expecting_replacement(self):
         url = "https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg"
@@ -483,7 +528,6 @@ class TestCustomRichTextRewriter(TestCase):
                 url
             )
         )
-        self.assertIn("", expanded)
         self.assertIn('<audio controls src="{}"></audio>'.format(url), expanded)
         self.assertNotIn("dQw4w9WgXcQ", expanded)
 
@@ -493,3 +537,30 @@ class TestCustomRichTextRewriter(TestCase):
         )
         self.assertIn("dQw4w9WgXcQ", expanded)
         self.assertNotIn("audio controls", expanded)
+
+    def test_builtin_rewriters_are_slotted_into_the_ordering(self):
+        self.assertEqual(
+            [type(r).__name__ for r in get_rewriter().rewriters],
+            [
+                "EmbedOverlappingRewriter",
+                "LinkRewriter",
+                "EmbedRewriter",
+                "LanguageDirectionRewriter",
+            ],
+        )
+
+    def test_building_the_rewriter_does_not_mutate_the_registry(self):
+        before = list(features.get_frontend_rewriters())
+        get_rewriter.cache_clear()
+        try:
+            get_rewriter()
+            get_rewriter.cache_clear()
+            get_rewriter()
+        finally:
+            get_rewriter.cache_clear()
+        self.assertEqual(features.get_frontend_rewriters(), before)
+
+    def test_extract_references_is_optional(self):
+        self.assertEqual(
+            list(extract_references_from_rich_text('<span lang="nl">x</span>')), []
+        )
