@@ -21,32 +21,33 @@ features = FeatureRegistry()
 
 @lru_cache(maxsize=None)
 def get_rewriter():
-    embed_rules = features.get_embed_types()
     link_rules = features.get_link_types()
-    return MultiRuleRewriter(
-        [
-            LinkRewriter(
-                bulk_rules={
-                    linktype: handler.expand_db_attributes_many
-                    for linktype, handler in link_rules.items()
-                },
-                reference_extractors={
-                    linktype: handler.extract_references
-                    for linktype, handler in link_rules.items()
-                },
-            ),
-            EmbedRewriter(
-                bulk_rules={
-                    embedtype: handler.expand_db_attributes_many
-                    for embedtype, handler in embed_rules.items()
-                },
-                reference_extractors={
-                    embedtype: handler.extract_references
-                    for embedtype, handler in embed_rules.items()
-                },
-            ),
-        ]
+    link_rewriter = LinkRewriter(
+        bulk_rules={
+            linktype: handler.expand_db_attributes_many
+            for linktype, handler in link_rules.items()
+        },
+        reference_extractors={
+            linktype: handler.extract_references
+            for linktype, handler in link_rules.items()
+        },
     )
+
+    embed_rules = features.get_embed_types()
+    embed_rewriter = EmbedRewriter(
+        bulk_rules={
+            embedtype: handler.expand_db_attributes_many
+            for embedtype, handler in embed_rules.items()
+        },
+        reference_extractors={
+            embedtype: handler.extract_references
+            for embedtype, handler in embed_rules.items()
+        },
+    )
+
+    features.register_frontend_rewriter(link_rewriter, 100)
+    features.register_frontend_rewriter(embed_rewriter, 200)
+    return MultiRuleRewriter(features.get_frontend_rewriters())
 
 
 def expand_db_html(html):

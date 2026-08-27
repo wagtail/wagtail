@@ -38,6 +38,11 @@ class FeatureRegistry:
         # HTML fragment to replace it with
         self.embed_types = {}
 
+        # a series of rewriter classes, and their ordering, for rewriting custom tags in the
+        # database representation of richtext into the frontend representation. Used for adding an
+        # entirely new concept to rich text, outside of the default link and embed rewriters
+        self.frontend_rewriters = []
+
         # a dict of dicts, one for each converter backend (editorhtml, contentstate etc);
         # each dict is a mapping of feature names to 'rule' objects that define how to convert
         # that feature's elements between editor representation and database representation
@@ -103,6 +108,18 @@ class FeatureRegistry:
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return list(self.converter_rules_by_converter.get(converter_name, {}))
+
+    def register_frontend_rewriter(self, rewriter, order=300):
+        self.frontend_rewriters.append({"rewriter": rewriter, "order": order})
+
+    def get_frontend_rewriters(self):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+
+        return [
+            r["rewriter"]
+            for r in sorted(self.frontend_rewriters, key=lambda e: e["order"])
+        ]
 
     @staticmethod
     def function_as_entity_handler(identifier, fn):
