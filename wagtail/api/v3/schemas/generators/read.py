@@ -2,8 +2,9 @@ import copy
 from typing import Any, Callable, Literal, cast
 
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import ForeignKey, Model
+from django.db.models import Model
 from django.db.models.fields import Field
+from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from ninja import Schema
 from ninja.errors import ConfigError
@@ -293,9 +294,12 @@ class SchemaGenerator:
 
 
 def foreign_key_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
-    field = cast(ForeignKey, field)
+    field = cast(RelatedField, field)
     schema = generator.get_foreign_key_schema(field.related_model)
-    schema = (schema | None) if field.null else schema
+    if field.many_to_many or field.one_to_many:
+        schema = list[schema]  # ty: ignore[invalid-type-form]
+    elif field.null:
+        schema = schema | None
     return cast(type, schema), None, None
 
 
@@ -358,7 +362,7 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 
 
 read_generator = SchemaGenerator()
-read_generator.register_field_schema(ForeignKey, foreign_key_schema)
+read_generator.register_field_schema(RelatedField, foreign_key_schema)
 read_generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 read_generator.register_field_schema(StreamField, streamfield_schema)
 read_generator.register_field_schema(TaggableManager, tags_schema)

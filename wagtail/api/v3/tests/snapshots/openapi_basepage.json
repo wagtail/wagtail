@@ -811,6 +811,27 @@
         "title": "AdvertCreateSchema",
         "type": "object"
       },
+      "AdvertForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "AdvertForeignKeySchema",
+        "type": "object"
+      },
       "AdvertMetaSchema": {
         "properties": {
           "detail_url": {
@@ -1570,6 +1591,60 @@
         },
         "required": ["meta", "title"],
         "title": "BasePageSchema",
+        "type": "object"
+      },
+      "BlogCategoryForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BlogCategoryMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "BlogCategoryForeignKeySchema",
+        "type": "object"
+      },
+      "BlogCategoryMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.BlogCategory",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "BlogCategoryMetaSchema",
         "type": "object"
       },
       "BlogEntryPageCarouselItemCreateSchema": {
@@ -14965,14 +15040,14 @@
         "properties": {
           "adverts": {
             "items": {
-              "type": "integer"
+              "$ref": "#/components/schemas/AdvertForeignKeySchema"
             },
             "title": "Adverts",
             "type": "array"
           },
           "blog_categories": {
             "items": {
-              "type": "integer"
+              "$ref": "#/components/schemas/BlogCategoryForeignKeySchema"
             },
             "title": "Blog Categories",
             "type": "array"
@@ -15014,7 +15089,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "id", "title", "adverts", "blog_categories"],
+        "required": ["meta", "id", "title"],
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
@@ -17703,18 +17778,11 @@
       "PageWithGenericRelationSchema": {
         "properties": {
           "generic_relation": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Generic Relation"
+            "items": {
+              "$ref": "#/components/schemas/RelatedGenericRelationForeignKeySchema"
+            },
+            "title": "Generic Relation",
+            "type": "array"
           },
           "id": {
             "title": "Id",
@@ -18611,6 +18679,60 @@
           "created_at"
         ],
         "title": "RedirectSchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RelatedGenericRelationMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "RelatedGenericRelationForeignKeySchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.RelatedGenericRelation",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "RelatedGenericRelationMetaSchema",
         "type": "object"
       },
       "RequiredDatePageCreateMetaSchema": {
