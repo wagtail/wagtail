@@ -115,18 +115,16 @@ class SchemaGenerator:
         return self._reverse_related_schema_cache[model]
 
     def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
-        """Build a minimal schema for a foreign key's related model.
-
-        Rather than a full nested schema, this only exposes the related model's
-        primary key(s) (which may be composite) and a ``meta.type`` label, to
-        keep foreign key fields cheap and avoid unbounded recursion through
-        relations.
+        """Build a nested schema for a foreign key's related model, without
+        following any reverse relations (to avoid infinite recursion).
         """
         if model not in self._foreign_key_schema_cache:
-            pk_names = self._get_pk_names(model)
             name = f"{model._meta.object_name}ForeignKeySchema"
-            schema = create_schema(
-                model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
+            schema = self.build_schema(
+                model,
+                name=f"{name}Base",
+                base_class=BaseSchema,
+                follow_reverse_related=False,
             )
             meta_schema = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation, model
