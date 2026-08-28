@@ -1153,9 +1153,33 @@
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
           }
         },
-        "required": ["meta"],
+        "required": ["meta", "text"],
         "title": "AdvertForeignKeySchema",
         "type": "object"
       },
