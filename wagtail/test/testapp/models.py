@@ -301,6 +301,10 @@ class RelatedGenericRelation(models.Model):
 class PageWithGenericRelation(Page):
     generic_relation = GenericRelation("tests.RelatedGenericRelation")
 
+    api_fields = [
+        APIField("generic_relation"),
+    ]
+
 
 class PageWithOldStyleRouteMethod(Page):
     """
@@ -2290,6 +2294,12 @@ class ManyToManyBlogPage(Page):
     # make first_published_at editable on this page model
     settings_panels = Page.settings_panels + [
         FieldPanel("first_published_at"),
+    ]
+
+    api_fields = [
+        APIField("body", writable=True),
+        APIField("adverts", writable=True),
+        APIField("blog_categories", writable=True),
     ]
 
 
