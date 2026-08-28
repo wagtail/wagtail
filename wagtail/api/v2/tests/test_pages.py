@@ -739,6 +739,17 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16, 18, 19])
 
+    def test_child_of_draft_page_returns_empty_queryset(self):
+        page = models.BlogIndexPage.objects.get(id=5)
+        page.unpublish()
+
+        response = self.get_response(child_of=5)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["meta"]["total_count"], 0)
+        self.assertEqual(content["items"], [])
+
     def test_child_of_root(self):
         # "root" gets children of the homepage of the current site
         response = self.get_response(child_of="root")

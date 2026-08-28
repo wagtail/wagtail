@@ -174,7 +174,16 @@ class ChildOfFilter(BaseFilterBackend):
                 if parent_page_id < 0:
                     raise ValueError()
 
-                parent_page = view.get_base_queryset().get(id=parent_page_id)
+                parent_page = Page.objects.get(id=parent_page_id)
+
+                # Draft pages are valid parents, but their children must not
+                # be exposed through the public API.
+                if not parent_page.live:
+                    return queryset.none()
+
+                # Live pages must belong to the current site's public queryset.
+                if not view.get_base_queryset().filter(id=parent_page_id).exists():
+                    raise BadRequestError("parent page doesn't exist")
             except ValueError as e:
                 if request.GET["child_of"] == "root":
                     parent_page = view.get_root_page()
@@ -234,7 +243,16 @@ class DescendantOfFilter(BaseFilterBackend):
                 if parent_page_id < 0:
                     raise ValueError()
 
-                parent_page = view.get_base_queryset().get(id=parent_page_id)
+                parent_page = Page.objects.get(id=parent_page_id)
+
+                # Draft pages are valid ancestors, but their descendants must
+                # not be exposed through the public API.
+                if not parent_page.live:
+                    return queryset.none()
+
+                # Live pages must belong to the current site's public queryset.
+                if not view.get_base_queryset().filter(id=parent_page_id).exists():
+                    raise BadRequestError("ancestor page doesn't exist")
             except ValueError as e:
                 if request.GET["descendant_of"] == "root":
                     parent_page = view.get_root_page()
