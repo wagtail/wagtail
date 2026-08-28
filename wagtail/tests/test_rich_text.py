@@ -281,17 +281,11 @@ class TestFeatureRegistry(TestCase):
         registry = FeatureRegistry()
 
         self.assertEqual(
-            [type(r).__name__ for r in registry.get_frontend_rewriters()],
-            ["EmbedOverlappingRewriter", "LanguageDirectionRewriter"],
-        )
-
-    def test_builtin_rewriters_run_first_unless_order_is_negative(self):
-        registry = FeatureRegistry()
-
-        rewriters = registry.get_frontend_rewriters(["link", "embed"])
-        self.assertEqual(
-            [r if isinstance(r, str) else type(r).__name__ for r in rewriters],
-            ["EmbedOverlappingRewriter", "link", "embed", "LanguageDirectionRewriter"],
+            [
+                (type(r).__name__, order)
+                for r, order in registry.get_frontend_rewriters()
+            ],
+            [("EmbedOverlappingRewriter", -1), ("LanguageDirectionRewriter", 0)],
         )
 
     def test_frontend_rewriters_sort_is_stable(self):
@@ -299,11 +293,14 @@ class TestFeatureRegistry(TestCase):
         registry.has_scanned_for_features = True
         registry.frontend_rewriters = []
 
-        registry.register_frontend_rewriter("late", order=999)
+        registry.register_frontend_rewriter("late", order=1)
         registry.register_frontend_rewriter("first")
         registry.register_frontend_rewriter("second")
 
-        self.assertEqual(registry.get_frontend_rewriters(), ["first", "second", "late"])
+        self.assertEqual(
+            [rewriter for rewriter, _ in registry.get_frontend_rewriters()],
+            ["first", "second", "late"],
+        )
 
 
 class TestLinkRewriterTagReplacing(TestCase):

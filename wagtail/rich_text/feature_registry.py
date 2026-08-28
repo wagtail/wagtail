@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from wagtail import hooks
 
 
@@ -110,23 +112,17 @@ class FeatureRegistry:
         return list(self.converter_rules_by_converter.get(converter_name, {}))
 
     def register_frontend_rewriter(self, rewriter, order=0):
-        self.frontend_rewriters.append({"rewriter": rewriter, "order": order})
+        self.frontend_rewriters.append((rewriter, order))
 
-    def get_frontend_rewriters(self, builtin_rewriters=()):
+    def get_frontend_rewriters(self):
         """
-        Return all registered rewriters in order, merged with `builtin_rewriters`.
-        Those are passed in rather than registered, so that building the rewriter
-        leaves the registry unchanged.
+        Return the registered (rewriter, order) pairs, sorted by order. A negative
+        order runs before Wagtail's own link and embed rewriters.
         """
         if not self.has_scanned_for_features:
             self._scan_for_features()
 
-        rewriters = [
-            *((0, rewriter) for rewriter in builtin_rewriters),
-            *((r["order"], r["rewriter"]) for r in self.frontend_rewriters),
-        ]
-        # sorted() is stable, so an equal order keeps the sequence above
-        return [rewriter for _, rewriter in sorted(rewriters, key=lambda pair: pair[0])]
+        return sorted(self.frontend_rewriters, key=itemgetter(1))
 
     @staticmethod
     def function_as_entity_handler(identifier, fn):

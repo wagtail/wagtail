@@ -331,13 +331,11 @@ Rewriters have no inherent specificity, so `register_frontend_rewriter` takes an
 
 Wagtail's own link and embed rewriters run before anything registered at the default order, so by default your rewriter sees fully expanded `<a href="...">` and embed markup rather than the `<a linktype="...">` and `<embed embedtype="..." />` tags held in the database. This is almost always what you want.
 
-Passing a negative `order` runs your rewriter before Wagtail's, letting you pre-empt them:
+A negative order runs your rewriter before Wagtail's own. That matters if your feature stores extra data on a tag Wagtail already handles: link and embed handlers build their opening tag from scratch, so `<a linktype="page" id="3" data-tone="quiet">` reaches the template as `<a href="/…/">`, and a rewriter at the default order never sees the extra attribute.
 
 ```python
-features.register_frontend_rewriter(MyEmbedOverride(), order=-1)
+features.register_frontend_rewriter(LinkToneRewriter(), order=-1)
 ```
-
-This is occasionally useful for overriding how Wagtail renders a tag, but registering a [link handler](rich_text_rewrite_handlers) or an embed handler is usually the better tool, since those are keyed on `linktype` / `embedtype` rather than having to re-match the tag yourself.
 
 ## Editor widgets
 

@@ -1,6 +1,7 @@
 import re
 from functools import lru_cache
 from html import unescape
+from operator import itemgetter
 
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db.models import Model
@@ -45,9 +46,11 @@ def get_rewriter():
         },
     )
 
-    return MultiRuleRewriter(
-        features.get_frontend_rewriters([link_rewriter, embed_rewriter])
+    rewriters = sorted(
+        [(link_rewriter, 0), (embed_rewriter, 0), *features.get_frontend_rewriters()],
+        key=itemgetter(1),
     )
+    return MultiRuleRewriter([rewriter[0] for rewriter in rewriters])
 
 
 def expand_db_html(html):
