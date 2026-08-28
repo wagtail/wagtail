@@ -14665,6 +14665,46 @@
       },
       "ManyToManyBlogPageCreateSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "$ref": "#/components/schemas/ManyToManyBlogPageCreateMetaSchema"
           },
@@ -14688,7 +14728,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
+        "required": ["meta", "title", "adverts", "blog_categories"],
         "title": "ManyToManyBlogPageCreateSchema",
         "type": "object"
       },
@@ -14827,6 +14867,60 @@
       },
       "ManyToManyBlogPagePatchSchema": {
         "properties": {
+          "adverts": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adverts"
+          },
+          "blog_categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blog Categories"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "anyOf": [
               {
@@ -14869,6 +14963,45 @@
       },
       "ManyToManyBlogPageSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body",
+            "x-rich-text-features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ]
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -14881,7 +15014,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "id", "title"],
+        "required": ["meta", "id", "title", "adverts", "blog_categories"],
         "title": "ManyToManyBlogPageSchema",
         "type": "object"
       },
@@ -17569,6 +17702,20 @@
       },
       "PageWithGenericRelationSchema": {
         "properties": {
+          "generic_relation": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generic Relation"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
