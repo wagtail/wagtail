@@ -133,6 +133,24 @@ class TestSnippetDelete(PageFixturesMixin, WagtailTestUtils, TestCase):
         # Check that the snippet is still here
         self.assertTrue(Advert.objects.filter(pk=self.test_snippet.pk).exists())
 
+    def test_delete_post_with_restricted_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_restrict=self.test_snippet
+            )
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        response = self.client.post(delete_url)
+
+        # The reference should prevent deletion rather than raising RestrictedError.
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the snippet is still here
+        self.assertTrue(Advert.objects.filter(pk=self.test_snippet.pk).exists())
+
     def test_usage_link(self):
         output = StringIO()
         management.call_command("rebuild_references_index", stdout=output)

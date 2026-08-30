@@ -507,7 +507,13 @@ class TestDescribeOnDelete(PageFixturesMixin, TestCase):
                 referrer, references = usage[0]
                 reference = references[0]
 
-                self.assertIs(usage.is_protected, "on_delete_protect" in init_kwargs)
+                self.assertIs(
+                    usage.is_protected,
+                    any(
+                        field_name in init_kwargs
+                        for field_name in ("on_delete_protect", "on_delete_restrict")
+                    ),
+                )
                 self.assertEqual(usage.count(), 1)
                 self.assertEqual(referrer, obj)
                 self.assertEqual(len(references), 1)

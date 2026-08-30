@@ -75,7 +75,10 @@ class ReferenceGroups:
 
     @cached_property
     def is_protected(self):
-        return any(reference.on_delete == models.PROTECT for reference in self.qs)
+        return any(
+            reference.on_delete in (models.PROTECT, models.RESTRICT)
+            for reference in self.qs
+        )
 
     def count(self):
         """
