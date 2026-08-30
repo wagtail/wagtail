@@ -285,6 +285,37 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: get_siblings
 
+    .. method:: get_next_sibling()
+
+        Returns the next sibling in the page tree order, or ``None`` if this is the last sibling. The page tree order can be changed in the Wagtail administration.
+
+    .. method:: get_prev_sibling()
+
+        Returns the previous sibling in the page tree order, or ``None`` if this is the first sibling. The page tree order can be changed in the Wagtail administration.
+
+        You can use these methods to provide previous and next page links in a template:
+
+        .. code-block:: django
+
+            {% load wagtailcore_tags %}
+
+            {% with previous_page=page.get_prev_sibling next_page=page.get_next_sibling %}
+                {% if previous_page %}
+                    <a href="{% pageurl previous_page %}">Previous: {{ previous_page.title }}</a>
+                {% endif %}
+                {% if next_page %}
+                    <a href="{% pageurl next_page %}">Next: {{ next_page.title }}</a>
+                {% endif %}
+            {% endwith %}
+
+    .. method:: is_sibling_of(page)
+
+        Returns ``True`` if the page has the same parent as the given ``page``.
+
+    .. method:: is_descendant_of(page)
+
+        Returns ``True`` if the page is a descendant of the given ``page``. The page itself is not considered a descendant.
+
     .. automethod:: get_translations
 
     .. automethod:: get_translation
@@ -448,9 +479,12 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: copy
 
-    .. method:: move(new_parent, pos=None)
+    .. method:: move(target, pos=None, user=None)
 
-        Move a page and all its descendants to a new parent.
+        Moves a page and all its descendants to a new position relative to ``target``. The ``pos`` argument determines whether the page becomes a child or sibling of ``target``.
+
+        Wagtail updates the moved page's URL path and those of its descendants, and sends the ``pre_page_move`` and ``post_page_move`` signals. Pass ``user`` to enforce the user's permission to move the page and record the action in the audit log.
+
         See :meth:`django-treebeard <treebeard.models.Node.move>` for more information.
 
 
