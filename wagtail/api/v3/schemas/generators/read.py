@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Callable, Literal, cast
+from typing import Any, Callable, Literal, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import ForeignKey, Model
@@ -17,7 +17,7 @@ from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
 
-FieldSchema = tuple[type, Any, Callable | None]
+FieldSchema = tuple[Any, Any, Callable | None]
 FieldSchemaFunc = Callable[["SchemaGenerator", Field], FieldSchema]
 
 
@@ -77,11 +77,18 @@ class SchemaGenerator:
         than having to reimplement each one for v3.
         """
 
-        from rest_framework.fields import SkipField
-        from rest_framework.serializers import Serializer
+        from rest_framework.fields import Field, SkipField
 
-        serializer = cast(Serializer, copy.deepcopy(api_field.serializer))
+        serializer = cast(Field, copy.deepcopy(api_field.serializer))
         serializer.bind(field_name=api_field.name, parent=None)
+        try:
+            return_type = get_type_hints(serializer.to_representation)["return"]
+        except (KeyError, NameError):
+            # No return type or it's only available when TYPE_CHECKING
+            return_type = Any
+        # allow_null / required may not reflect nullability as the field's
+        # source may resolve to None regardless of those flags.
+        return_type = return_type | None
 
         def resolve(obj: Model, context: dict) -> Any:
             try:
@@ -92,7 +99,7 @@ class SchemaGenerator:
                 return None
             return serializer.to_representation(value)
 
-        return Any, None, staticmethod(resolve)
+        return return_type, None, staticmethod(resolve)
 
     def register_field_schema(
         self,
@@ -172,8 +179,10 @@ class SchemaGenerator:
 
         Each entry in ``api_fields`` is classified as:
 
-        - a custom-serializer field: omitted, since inspecting arbitrary
-          DRF-style serializers is out of scope for now.
+        - a custom-serializer field: typed from the serializer's
+          ``to_representation`` return annotation (or ``Any`` if missing or
+          unresolvable), made nullable, and resolved via the serializer
+          itself - see ``_custom_serializer_schema``.
         - a ``StreamField``: typed as ``Any`` and resolved via
           ``StreamValue.stream_block.get_api_representation``, matching how
           API v2 serializes StreamField values.
