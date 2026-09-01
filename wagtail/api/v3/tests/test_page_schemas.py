@@ -1,14 +1,19 @@
 import json
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from django.test import TestCase
+from rest_framework.fields import Field
 
+from wagtail.api import APIField
 from wagtail.api.v3.schemas import BasePageSchema, read_generator
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.demosite.models import BlogEntryPage, BlogIndexPage, HomePage
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import Page
+
+if TYPE_CHECKING:
+    from wagtail.images.models import Rendition
 
 
 class TestGeneratePageSchema(TestCase):
@@ -131,6 +136,22 @@ class TestGeneratePageSchema(TestCase):
         )
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
         self.assertIsNone(instance.feed_image_thumbnail)
+
+    def test_custom_serializer_field_falls_back_to_any(self):
+        class UnannotatedField(Field):
+            def to_representation(self, value):
+                return value
+
+        class UnresolvableField(Field):
+            def to_representation(self, value) -> "Rendition":
+                return value
+
+        for field_class in (UnannotatedField, UnresolvableField):
+            with self.subTest(field_class=field_class.__name__):
+                annotation, _, _ = read_generator._custom_serializer_schema(
+                    APIField("thumbnail", serializer=field_class())
+                )
+                self.assertEqual(annotation, Any | None)
 
     def test_foreign_key_field(self):
         """
