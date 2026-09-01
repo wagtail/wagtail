@@ -38,6 +38,8 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
 
     def create_entity(self, name, attrs, state, contentstate):
         Image = get_image_model()
+        if "id" not in attrs:
+            return None
         try:
             image = Image.objects.get(id=attrs["id"])
             image_format = get_image_format(attrs["format"])
