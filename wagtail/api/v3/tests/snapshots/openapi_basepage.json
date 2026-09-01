@@ -811,6 +811,51 @@
         "title": "AdvertCreateSchema",
         "type": "object"
       },
+      "AdvertForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertForeignKeySchema",
+        "type": "object"
+      },
       "AdvertMetaSchema": {
         "properties": {
           "detail_url": {
@@ -1570,6 +1615,60 @@
         },
         "required": ["meta", "title"],
         "title": "BasePageSchema",
+        "type": "object"
+      },
+      "BlogCategoryForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BlogCategoryMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "BlogCategoryForeignKeySchema",
+        "type": "object"
+      },
+      "BlogCategoryMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.BlogCategory",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "BlogCategoryMetaSchema",
         "type": "object"
       },
       "BlogEntryPageCarouselItemCreateSchema": {
@@ -14665,6 +14764,46 @@
       },
       "ManyToManyBlogPageCreateSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "$ref": "#/components/schemas/ManyToManyBlogPageCreateMetaSchema"
           },
@@ -14688,7 +14827,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
+        "required": ["meta", "title", "adverts", "blog_categories"],
         "title": "ManyToManyBlogPageCreateSchema",
         "type": "object"
       },
@@ -14827,6 +14966,60 @@
       },
       "ManyToManyBlogPagePatchSchema": {
         "properties": {
+          "adverts": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adverts"
+          },
+          "blog_categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blog Categories"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "anyOf": [
               {
@@ -14869,6 +15062,45 @@
       },
       "ManyToManyBlogPageSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "$ref": "#/components/schemas/AdvertForeignKeySchema"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "$ref": "#/components/schemas/BlogCategoryForeignKeySchema"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body",
+            "x-rich-text-features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ]
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -17569,6 +17801,13 @@
       },
       "PageWithGenericRelationSchema": {
         "properties": {
+          "generic_relation": {
+            "items": {
+              "$ref": "#/components/schemas/RelatedGenericRelationForeignKeySchema"
+            },
+            "title": "Generic Relation",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -18464,6 +18703,60 @@
           "created_at"
         ],
         "title": "RedirectSchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RelatedGenericRelationMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "RelatedGenericRelationForeignKeySchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.RelatedGenericRelation",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "RelatedGenericRelationMetaSchema",
         "type": "object"
       },
       "RequiredDatePageCreateMetaSchema": {
