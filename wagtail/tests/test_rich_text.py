@@ -4,6 +4,7 @@ from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
+from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.fields import RichTextField
 from wagtail.models import Locale, Site
 from wagtail.rich_text import (
@@ -11,6 +12,9 @@ from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     RichTextMinLengthValidator,
     expand_db_html,
+    extract_references_from_rich_text,
+    features,
+    get_rewriter,
 )
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
@@ -271,6 +275,33 @@ class TestFeatureRegistry(TestCase):
         self.assertIsNone(features.get_editor_plugin("made_up_editor", "blockquote"))
         self.assertIsNone(features.get_editor_plugin("draftail", "made_up_feature"))
 
+    def test_frontend_rewriters_are_returned_in_order(self):
+        # testapp/wagtail_hooks.py registers an EmbedOverlappingRewriter (order=-1)
+        # and a LanguageDirectionRewriter (default order)
+        registry = FeatureRegistry()
+
+        self.assertEqual(
+            [
+                (type(r).__name__, order)
+                for r, order in registry.get_frontend_rewriters()
+            ],
+            [("EmbedOverlappingRewriter", -1), ("LanguageDirectionRewriter", 0)],
+        )
+
+    def test_frontend_rewriters_sort_is_stable(self):
+        registry = FeatureRegistry()
+        registry.has_scanned_for_features = True
+        registry.frontend_rewriters = []
+
+        registry.register_frontend_rewriter("late", order=1)
+        registry.register_frontend_rewriter("first")
+        registry.register_frontend_rewriter("second")
+
+        self.assertEqual(
+            [rewriter for rewriter, _ in registry.get_frontend_rewriters()],
+            ["first", "second", "late"],
+        )
+
 
 class TestLinkRewriterTagReplacing(TestCase):
     def test_should_follow_default_behaviour(self):
@@ -450,3 +481,83 @@ class TestRichTextLengthValidators(TestCase):
                 self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
                 # Counts symbols with zero-width joiners.
                 self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)
+
+
+class TestCustomRichTextRewriter(TestCase):
+    def test_left_to_right_language_is_left_alone(self):
+        self.assertEqual(
+            expand_db_html('<p>They call it <span lang="nl">geweldig</span>.</p>'),
+            '<p>They call it <span lang="nl">geweldig</span>.</p>',
+        )
+
+    def test_right_to_left_language_gains_a_direction(self):
+        self.assertEqual(
+            expand_db_html(
+                '<p>He said <span lang="ar">\u0645\u0631\u062d\u0628\u0627</span>.</p>'
+            ),
+            '<p>He said <span lang="ar" dir="rtl">\u0645\u0631\u062d\u0628\u0627</span>.</p>',
+        )
+
+    def test_other_attributes_are_preserved(self):
+        self.assertEqual(
+            expand_db_html('<span class="quote" lang="he">x</span>'),
+            '<span class="quote" lang="he" dir="rtl">x</span>',
+        )
+
+    def test_language_feature_round_trips_through_the_editor(self):
+        converter = ContentstateConverter(features=["lang-nl", "lang-ar"])
+        for code in ["nl", "ar"]:
+            with self.subTest(code=code):
+                db_html = (
+                    f'<p data-block-key="00000">x <span lang="{code}">y</span>.</p>'
+                )
+                self.assertEqual(
+                    converter.to_database_format(
+                        converter.from_database_format(db_html)
+                    ),
+                    db_html,
+                )
+
+    def test_ordering_expecting_replacement(self):
+        url = "https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg"
+        expanded = expand_db_html(
+            '<embed audio_source="{}" embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>'.format(
+                url
+            )
+        )
+        self.assertIn('<audio controls src="{}"></audio>'.format(url), expanded)
+        self.assertNotIn("dQw4w9WgXcQ", expanded)
+
+    def test_ordering_expecting_fallthrough(self):
+        expanded = expand_db_html(
+            '<embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>'
+        )
+        self.assertIn("dQw4w9WgXcQ", expanded)
+        self.assertNotIn("audio controls", expanded)
+
+    def test_builtin_rewriters_are_slotted_into_the_ordering(self):
+        self.assertEqual(
+            [type(r).__name__ for r in get_rewriter().rewriters],
+            [
+                "EmbedOverlappingRewriter",
+                "LinkRewriter",
+                "EmbedRewriter",
+                "LanguageDirectionRewriter",
+            ],
+        )
+
+    def test_building_the_rewriter_does_not_mutate_the_registry(self):
+        before = list(features.get_frontend_rewriters())
+        get_rewriter.cache_clear()
+        try:
+            get_rewriter()
+            get_rewriter.cache_clear()
+            get_rewriter()
+        finally:
+            get_rewriter.cache_clear()
+        self.assertEqual(features.get_frontend_rewriters(), before)
+
+    def test_extract_references_is_optional(self):
+        self.assertEqual(
+            list(extract_references_from_rich_text('<span lang="nl">x</span>')), []
+        )
