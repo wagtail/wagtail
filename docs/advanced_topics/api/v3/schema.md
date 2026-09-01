@@ -43,6 +43,58 @@ An unknown content type returns `404`.
 
 Schemas are generated at runtime from the project's models and panels, not hand-written. The read side comes from a model's `api_fields`, and the write side additionally requires a field to be a real editable model field declared `APIField(..., writable=True)`. A field that is readable but not exposed as writable appears in `read` but not in `create` or `patch`.
 
+### Exposing writable fields
+
+To allow a field to be submitted when creating or updating content through the API, declare it with `writable=True`:
+
+```python
+# blog/models.py
+
+from wagtail.api import APIField
+from wagtail.models import Page
+
+
+class BlogPage(Page):
+    body = RichTextField()
+    feed_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    internal_notes = models.TextField(blank=True)
+
+    api_fields = [
+        APIField("body", writable=True),
+        APIField("feed_image", writable=True),
+        APIField("internal_notes"),  # readable only — in read schema, not create/patch
+    ]
+```
+
+Fields without `writable=True` still appear in API read responses and the `read` schema, but are omitted from the `create` and `patch` schemas. Only real model fields can be writable: computed properties and custom `serializer` fields that do not map to an editable model field cannot be marked writable.
+
+For inline child relations (`InlinePanel` / `ParentalKey`), mark the relation writable and declare the child model's fields as writable too:
+
+```python
+from modelcluster.fields import ParentalKey
+from wagtail.models import Orderable
+
+
+class BlogPageCarouselItem(Orderable):
+    page = ParentalKey("blog.BlogPage", related_name="carousel_items")
+    caption = models.CharField(max_length=255)
+
+    api_fields = [
+        APIField("caption", writable=True),
+    ]
+
+
+class BlogPage(Page):
+    # ...
+
+    api_fields = [
+        APIField("body", writable=True),
+        APIField("carousel_items", writable=True),
+    ]
+```
+
 Because the generic `pages` entry is for discovery across all page types, only its `read` schema is populated today: its `create` and `patch` directions fall back to a `Not yet available` placeholder. Use a concrete page type registration (for example `tests.BlogPage`) to get actionable `create` and `patch` schemas.
 
 ## Compared with the v2 API

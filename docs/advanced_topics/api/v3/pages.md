@@ -132,7 +132,7 @@ A successful create returns `201` with the type-specific page detail. The creati
 Beyond `title`, `slug`, and the `meta` envelope, you can submit any of the following, subject to the page type's declared `api_fields`:
 
 -   Built-in writable page fields where present, for example `seo_title`, `search_description`, and `show_in_menus`;
--   Custom model fields the project exposes as writable API fields (declared `writable`);
+-   Custom model fields the project exposes as writable API fields (declared `APIField(..., writable=True)` — see [](api_v3_schema));
 -   StreamField values, as the internal list of blocks;
 -   Rich text field values, using the input formats described in [](api_v3);
 -   `ForeignKey` relations;
