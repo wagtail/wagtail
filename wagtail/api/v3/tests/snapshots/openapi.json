@@ -4947,28 +4947,7 @@
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
-      "CollectionForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/CollectionMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "CollectionForeignKeySchema",
-        "type": "object"
-      },
-      "CollectionMetaSchema": {
+      "CollectionForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtailcore.Collection",
@@ -4998,7 +4977,28 @@
           }
         },
         "required": ["type"],
-        "title": "CollectionMetaSchema",
+        "title": "CollectionForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "CollectionForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/CollectionForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "CollectionForeignKeySchema",
         "type": "object"
       },
       "CommentableJSONPageCreateMetaSchema": {
@@ -10037,28 +10037,7 @@
         "title": "DocumentDetailMetaSchema",
         "type": "object"
       },
-      "DocumentForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/DocumentMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "DocumentForeignKeySchema",
-        "type": "object"
-      },
-      "DocumentMetaSchema": {
+      "DocumentForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtaildocs.Document",
@@ -10088,7 +10067,28 @@
           }
         },
         "required": ["type"],
-        "title": "DocumentMetaSchema",
+        "title": "DocumentForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "DocumentForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DocumentForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "DocumentForeignKeySchema",
         "type": "object"
       },
       "DocumentPatchSchema": {
@@ -17342,28 +17342,7 @@
         "title": "ImageDetailMetaSchema",
         "type": "object"
       },
-      "ImageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/ImageMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "ImageForeignKeySchema",
-        "type": "object"
-      },
-      "ImageMetaSchema": {
+      "ImageForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtailimages.Image",
@@ -17393,7 +17372,28 @@
           }
         },
         "required": ["type"],
-        "title": "ImageMetaSchema",
+        "title": "ImageForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "ImageForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ImageForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "ImageForeignKeySchema",
         "type": "object"
       },
       "ImagePatchSchema": {
@@ -21904,6 +21904,39 @@
         "title": "PageFilterSchema",
         "type": "object"
       },
+      "PageForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "wagtailcore.Page",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "PageForeignKeyMetaSchema",
+        "type": "object"
+      },
       "PageForeignKeySchema": {
         "properties": {
           "id": {
@@ -21918,11 +21951,146 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__PageMetaSchema__2"
+            "$ref": "#/components/schemas/PageForeignKeyMetaSchema"
           }
         },
         "required": ["meta"],
         "title": "PageForeignKeySchema",
+        "type": "object"
+      },
+      "PageMetaSchema": {
+        "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "search_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search Description"
+          },
+          "seo_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seo Title"
+          },
+          "show_in_menus": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Show In Menus"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "const": "wagtailcore.Page",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type", "slug"],
+        "title": "PageMetaSchema",
         "type": "object"
       },
       "PageMoveSchema": {
@@ -22313,7 +22481,7 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__PageMetaSchema__1"
+            "$ref": "#/components/schemas/PageMetaSchema"
           },
           "title": {
             "title": "Title",
@@ -36795,174 +36963,6 @@
         },
         "required": ["meta", "id", "title"],
         "title": "FormPageSchema",
-        "type": "object"
-      },
-      "abc__PageMetaSchema__1": {
-        "properties": {
-          "alias_of": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SimpleBasePageSchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "detail_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Detail Url"
-          },
-          "first_published_at": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "First Published At"
-          },
-          "html_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Html Url"
-          },
-          "locale": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Locale"
-          },
-          "parent": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SimpleBasePageSchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "search_description": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Search Description"
-          },
-          "seo_title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Seo Title"
-          },
-          "show_in_menus": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Show In Menus"
-          },
-          "slug": {
-            "title": "Slug",
-            "type": "string"
-          },
-          "type": {
-            "const": "wagtailcore.Page",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type", "slug"],
-        "title": "PageMetaSchema",
-        "type": "object"
-      },
-      "abc__PageMetaSchema__2": {
-        "properties": {
-          "type": {
-            "const": "wagtailcore.Page",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "PageMetaSchema",
         "type": "object"
       },
       "abc__PersonPageCreateMetaSchema__1": {
