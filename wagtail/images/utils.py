@@ -159,3 +159,15 @@ def get_accept_attributes():
         accept_attrs += ", image/avif"
 
     return accept_attrs
+
+
+def get_image_pk_converter(model):
+    """
+    Returns the URL path converter to use for the given image model's primary key.
+    Returns "uuid" for UUIDField PKs, and "int" for all other types.
+    """
+    from django.db import models
+
+    if isinstance(model._meta.pk, models.UUIDField):
+        return "uuid"
+    return "int"
