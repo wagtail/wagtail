@@ -71,7 +71,7 @@ By default, Wagtail will try to use the cache called "renditions". If no such ca
 You can also directly use the image management command from the console to regenerate the renditions:
 
 ```sh
-./manage.py wagtail_update_image_renditions --purge
+./manage.py wagtail_update_image_renditions
 ```
 
 You can read more about this command from [](wagtail_update_image_renditions)
