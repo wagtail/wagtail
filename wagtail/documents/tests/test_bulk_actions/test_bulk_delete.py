@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.documents import get_document_model
+from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 
@@ -74,6 +75,26 @@ class TestDocumentBulkDeleteView(WagtailTestUtils, TestCase):
         # Documents should be deleted
         for document in self.documents:
             self.assertFalse(Document.objects.filter(id=document.id).exists())
+
+    def test_delete_logs_delete_action(self):
+        """
+        Bulk deletion logs a "wagtail.delete" action for each document, so that the
+        deletions show up in the site history report
+        """
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+
+        # self.documents are separate in-memory copies, so their pks are still available
+        for document in self.documents:
+            log_entries = ModelLogEntry.objects.for_instance(document).filter(
+                action="wagtail.delete"
+            )
+            self.assertEqual(log_entries.count(), 1)
+            log_entry = log_entries.first()
+            self.assertEqual(log_entry.user, self.user)
+            self.assertEqual(log_entry.label, document.title)
+            self.assertTrue(log_entry.deleted)
 
     def test_usage_link(self):
         response = self.client.get(self.url)

@@ -5,6 +5,7 @@ from django.utils.http import urlencode
 
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 
@@ -77,6 +78,26 @@ class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
         # Images should be deleted
         for image in self.images:
             self.assertFalse(Image.objects.filter(id=image.id).exists())
+
+    def test_delete_logs_delete_action(self):
+        """
+        Bulk deletion logs a "wagtail.delete" action for each image, so that the
+        deletions show up in the site history report
+        """
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+
+        # self.images are separate in-memory copies, so their pks are still available
+        for image in self.images:
+            log_entries = ModelLogEntry.objects.for_instance(image).filter(
+                action="wagtail.delete"
+            )
+            self.assertEqual(log_entries.count(), 1)
+            log_entry = log_entries.first()
+            self.assertEqual(log_entry.user, self.user)
+            self.assertEqual(log_entry.label, image.title)
+            self.assertTrue(log_entry.deleted)
 
     def test_usage_link(self):
         response = self.client.get(self.url)
