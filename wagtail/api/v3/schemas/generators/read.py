@@ -128,7 +128,9 @@ class SchemaGenerator:
                 model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
             )
             meta_schema = self._narrowed_meta_schema(
-                BaseSchema.model_fields["meta"].annotation, model
+                BaseSchema.model_fields["meta"].annotation,
+                model,
+                name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
             self._foreign_key_schema_cache[model] = self.extend_schema(
                 schema, name, {"meta": (meta_schema, ..., None)}
@@ -192,7 +194,11 @@ class SchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             extra_fields["meta"] = (
-                self._narrowed_meta_schema(meta_field.annotation, model),
+                self._narrowed_meta_schema(
+                    meta_field.annotation,
+                    model,
+                    name=f"{model._meta.object_name}MetaSchema",
+                ),
                 ...,
                 None,
             )
@@ -268,7 +274,7 @@ class SchemaGenerator:
 
     @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema], model: type[Model]
+        base_meta_schema: type[Schema], model: type[Model], *, name: str
     ) -> type[Schema]:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -281,11 +287,17 @@ class SchemaGenerator:
         ``build_schema``'s own ``meta`` field override, so the narrowing is
         baked into the same dynamic class as any other extra field rather
         than needing a second subclassing pass over the finished schema.
+
+        ``name`` is caller-supplied (rather than derived here from ``model``)
+        because different call sites narrow different base meta schemas for
+        the same model (e.g. the full read schema vs. a nested foreign-key
+        schema) - reusing one naming scheme for both would produce two
+        distinctly-shaped schemas under the same name.
         """
         return cast(
             type[Schema],
             type(base_meta_schema)(
-                f"{model._meta.object_name}MetaSchema",
+                name,
                 (base_meta_schema,),
                 {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
             ),
