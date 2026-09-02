@@ -2474,6 +2474,17 @@
             ]
           },
           "feed_image_thumbnail": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRenditionDict"
+              },
+              {
+                "$ref": "#/components/schemas/ImageRenditionErrorDict"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Feed Image Thumbnail"
           },
           "id": {
@@ -13475,6 +13486,45 @@
           }
         },
         "title": "ImagePatchSchema",
+        "type": "object"
+      },
+      "ImageRenditionDict": {
+        "properties": {
+          "alt": {
+            "title": "Alt",
+            "type": "string"
+          },
+          "full_url": {
+            "title": "Full Url",
+            "type": "string"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": ["url", "full_url", "width", "height", "alt"],
+        "title": "ImageRenditionDict",
+        "type": "object"
+      },
+      "ImageRenditionErrorDict": {
+        "properties": {
+          "error": {
+            "const": "SourceImageIOError",
+            "title": "Error",
+            "type": "string"
+          }
+        },
+        "required": ["error"],
+        "title": "ImageRenditionErrorDict",
         "type": "object"
       },
       "ImageSchema": {
