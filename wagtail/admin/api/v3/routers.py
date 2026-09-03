@@ -21,7 +21,11 @@ from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS
 from wagtail.api.v3.schemas.params import APIFieldFilterSchema
 from wagtail.query import PageQuerySet
 
-from .schemas import AdminExplorerPageSchema, AdminPageSchema
+from .schemas import (
+    AdminExplorerPageSchema,
+    AdminPageDetailSchema,
+    AdminPageSchema,
+)
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -68,6 +72,18 @@ def explore_pages(
     for hook in hooks.get_hooks("construct_explorer_page_queryset"):
         queryset = hook(parent, queryset, request)
     return queryset.defer_streamfields().specific()
+
+
+@router.get(
+    "/{page_id}/",
+    response=AdminPageDetailSchema,
+    url_name="detail_page",
+    summary="Page detail",
+    operation_id="pages_detail",
+)
+def get_page(request: HttpRequest, page_id: int):
+    page = get_object_or_404(get_pages_queryset(request), pk=page_id)
+    return page.specific
 
 
 @router.get(

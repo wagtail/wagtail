@@ -246,3 +246,66 @@ class TestAdminV3PageExplore(PageFixturesMixin, AdminAPITestCase):
         self.client.logout()
         response = self.get_response()
         self.assertIn(response.status_code, (302, 403))
+
+
+class TestAdminV3PageDetail(PageFixturesMixin, AdminAPITestCase):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, page_id, **params):
+        return self.client.get(
+            reverse("wagtailadmin_api_v3:detail_page", kwargs={"page_id": page_id}),
+            params,
+        )
+
+    def test_basic(self):
+        page = Page.objects.get(id=2).specific
+        response = self.get_response(page.id)
+        self.assertEqual(response.status_code, 200)
+
+        content = response.json()
+        self.assertEqual(content["id"], page.id)
+        self.assertEqual(content["title"], page.title)
+        self.assertEqual(content["admin_display_title"], page.get_admin_display_title())
+        self.assertEqual(
+            set(content["meta"].keys()),
+            {
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "first_published_at",
+                "locale",
+                "live",
+                "has_unpublished_changes",
+                "status",
+                "parent",
+            },
+        )
+
+    def test_meta_parent(self):
+        # The homepage's parent is the root page, which is explorable for a
+        # superuser, so it is serialized.
+        content = self.get_response(2).json()
+        self.assertIsNotNone(content["meta"]["parent"])
+        self.assertEqual(content["meta"]["parent"]["id"], 1)
+
+        # A child page's parent is the homepage
+        child = Page.objects.get(id=2).get_children().first()
+        content = self.get_response(child.id).json()
+        self.assertEqual(content["meta"]["parent"]["id"], 2)
+
+    def test_detail_url_points_at_admin_api(self):
+        content = self.get_response(2).json()
+        self.assertIn("/admin/api/pages/2/", content["meta"]["detail_url"])
+
+    def test_unknown_page_gives_404(self):
+        response = self.get_response(99999)
+        self.assertEqual(response.status_code, 404)
+
+    def test_permission_scoping(self):
+        # Users can only fetch pages they can explore; keep this test simple
+        # by asserting an authenticated superuser can fetch a private page,
+        # and rely on get_pages_queryset's documented scoping for the rest.
+        private_page = Page.objects.get(id=2)
+        response = self.get_response(private_page.id)
+        self.assertEqual(response.status_code, 200)

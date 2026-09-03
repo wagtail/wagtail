@@ -40,6 +40,19 @@ class AdminPageSchema(BasePageSchema):
     admin_display_title: str = Field(..., alias="get_admin_display_title")
 
 
+class AdminPageDetailMetaSchema(AdminPageMetaSchema):
+    parent: Optional[SimpleBasePageSchema] = None
+
+    @staticmethod
+    def resolve_parent(obj: AbstractPage, context: dict):
+        return _get_explorable_parent(obj, context)
+
+
+class AdminPageDetailSchema(BasePageSchema):
+    meta: AdminPageDetailMetaSchema
+    admin_display_title: str = Field(..., alias="get_admin_display_title")
+
+
 class PageChildrenCountSchema(Schema):
     count: int
 
