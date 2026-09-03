@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 
-from wagtail.admin.api.views import PagesAdminAPIViewSet
+from wagtail.admin.api.v2.views import PagesAdminAPIViewSet
 from wagtail.test.numberformat import ignore_numberformat
 from wagtail.test.utils import WagtailTestUtils
 
