@@ -155,12 +155,17 @@ class TestAdminV3PageExplore(PageFixturesMixin, AdminAPITestCase):
         content = self.get_response(child_of=2).json()
         self.assertGreater(len(content["items"]), 0)
         for item in content["items"]:
-            self.assertEqual(set(item.keys()), {"id", "admin_display_title", "meta"})
+            self.assertEqual(
+                set(item.keys()), {"id", "title", "admin_display_title", "meta"}
+            )
             self.assertEqual(
                 set(item["meta"].keys()),
                 {
                     "type",
-                    "parent",
+                    "detail_url",
+                    "html_url",
+                    "slug",
+                    "first_published_at",
                     "locale",
                     "children",
                     "live",
@@ -168,7 +173,10 @@ class TestAdminV3PageExplore(PageFixturesMixin, AdminAPITestCase):
                     "status",
                 },
             )
-            self.assertEqual(set(item["meta"]["children"].keys()), {"count"})
+            self.assertEqual(
+                set(item["meta"]["children"].keys()),
+                {"count", "listing_url"},
+            )
 
     def test_children_count(self):
         content = self.get_response(child_of=2).json()
@@ -187,13 +195,6 @@ class TestAdminV3PageExplore(PageFixturesMixin, AdminAPITestCase):
             {item["id"] for item in content["items"]},
             set(root.get_children().values_list("id", flat=True)),
         )
-
-    def test_parent_is_set_for_explorable_parent(self):
-        # Children of the homepage have an explorable parent (the homepage)
-        content = self.get_response(child_of=2).json()
-        for item in content["items"]:
-            self.assertIsNotNone(item["meta"]["parent"])
-            self.assertEqual(item["meta"]["parent"]["id"], 2)
 
     def test_missing_child_of_gives_error(self):
         response = self.get_response()
@@ -279,6 +280,7 @@ class TestAdminV3PageDetail(PageFixturesMixin, AdminAPITestCase):
                 "has_unpublished_changes",
                 "status",
                 "parent",
+                "children",
             },
         )
 
