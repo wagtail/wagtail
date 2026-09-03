@@ -1,11 +1,14 @@
-from typing import Optional, cast
+from typing import Literal, Optional, Union, cast
 
 import swapper
 from django.db.models import Model, Q
 from django.http import HttpRequest
+from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 from ninja.pagination import paginate
+from pydantic import PositiveInt
 
+from wagtail import hooks
 from wagtail.api.v3.pagination import WagtailLimitOffsetPagination
 from wagtail.api.v3.querysets import get_pages_queryset
 from wagtail.api.v3.routers.pages import (
@@ -18,7 +21,7 @@ from wagtail.api.v3.schemas.pages import BASE_PAGE_READ_FIELDS
 from wagtail.api.v3.schemas.params import APIFieldFilterSchema
 from wagtail.query import PageQuerySet
 
-from .schemas import AdminPageSchema
+from .schemas import AdminExplorerPageSchema, AdminPageSchema
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -38,6 +41,33 @@ class AdminPageFilterSchema(PageFilterSchema):
                 Q(numchild__gt=0) if self.has_children else Q(numchild=0)
             )
         return queryset
+
+
+@router.get(
+    "/explore/",
+    response=list[AdminExplorerPageSchema],
+    url_name="explore_pages",
+    summary="List child pages for the page explorer",
+    operation_id="pages_explore",
+)
+@paginate(
+    WagtailLimitOffsetPagination,
+    pass_parameter="pagination_info",  # noqa: S106 not a password
+)
+def explore_pages(
+    request: HttpRequest,
+    child_of: Union[PositiveInt, Literal["root"]],
+    **kwargs,
+):
+    if child_of == "root":
+        parent = Page.get_first_root_node()
+    else:
+        parent = get_object_or_404(get_pages_queryset(request), pk=child_of)
+
+    queryset = get_pages_queryset(request).child_of(parent)
+    for hook in hooks.get_hooks("construct_explorer_page_queryset"):
+        queryset = hook(parent, queryset, request)
+    return queryset.defer_streamfields().specific()
 
 
 @router.get(

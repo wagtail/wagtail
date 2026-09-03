@@ -2,7 +2,9 @@ from django.contrib.auth.models import Permission
 from django.test import override_settings
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.models import Locale
+from wagtail.test.demosite import models
 from wagtail.test.utils import Page, PageFixturesMixin
 
 from .utils import AdminAPITestCase
@@ -121,6 +123,124 @@ class TestAdminV3PageListing(PageFixturesMixin, AdminAPITestCase):
         content = response.json()
         self.assertEqual(content["count"], 0)
         self.assertEqual(content["items"], [])
+
+    def test_unauthenticated_request_rejected(self):
+        self.client.logout()
+        response = self.get_response()
+        self.assertIn(response.status_code, (302, 403))
+
+
+class TestAdminV3PageExplore(PageFixturesMixin, AdminAPITestCase):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailadmin_api_v3:explore_pages"), params)
+
+    def get_homepage_children_ids(self):
+        return set(Page.objects.get(id=2).get_children().values_list("id", flat=True))
+
+    def test_basic(self):
+        response = self.get_response(child_of=2)
+        self.assertEqual(response.status_code, 200)
+
+        content = response.json()
+        self.assertIn("count", content)
+        self.assertIn("items", content)
+        self.assertEqual(
+            {item["id"] for item in content["items"]},
+            self.get_homepage_children_ids(),
+        )
+
+    def test_item_shape(self):
+        content = self.get_response(child_of=2).json()
+        self.assertGreater(len(content["items"]), 0)
+        for item in content["items"]:
+            self.assertEqual(set(item.keys()), {"id", "admin_display_title", "meta"})
+            self.assertEqual(
+                set(item["meta"].keys()),
+                {
+                    "type",
+                    "parent",
+                    "locale",
+                    "children",
+                    "live",
+                    "has_unpublished_changes",
+                    "status",
+                },
+            )
+            self.assertEqual(set(item["meta"]["children"].keys()), {"count"})
+
+    def test_children_count(self):
+        content = self.get_response(child_of=2).json()
+        by_id = {item["id"]: item for item in content["items"]}
+        event_index = models.EventIndexPage.objects.first()
+        expected = Page.objects.child_of(event_index).count()
+        self.assertEqual(by_id[event_index.id]["meta"]["children"]["count"], expected)
+
+    def test_child_of_root(self):
+        # "root" means the first root node (depth 1); its children are depth 2
+        root = Page.get_first_root_node()
+        response = self.get_response(child_of="root")
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(
+            {item["id"] for item in content["items"]},
+            set(root.get_children().values_list("id", flat=True)),
+        )
+
+    def test_parent_is_set_for_explorable_parent(self):
+        # Children of the homepage have an explorable parent (the homepage)
+        content = self.get_response(child_of=2).json()
+        for item in content["items"]:
+            self.assertIsNotNone(item["meta"]["parent"])
+            self.assertEqual(item["meta"]["parent"]["id"], 2)
+
+    def test_missing_child_of_gives_error(self):
+        response = self.get_response()
+        self.assertEqual(response.status_code, 422)
+
+    def test_unknown_page_gives_404(self):
+        response = self.get_response(child_of=99999)
+        self.assertEqual(response.status_code, 404)
+
+    def test_construct_explorer_page_queryset_hook_applied(self):
+        def reverse_order(parent_page, queryset, request):
+            return queryset.reverse()
+
+        with hooks.register_temporarily(
+            "construct_explorer_page_queryset", reverse_order
+        ):
+            hooked = self.get_response(child_of=2).json()
+        unhooked = self.get_response(child_of=2).json()
+
+        hooked_ids = [item["id"] for item in hooked["items"]]
+        unhooked_ids = [item["id"] for item in unhooked["items"]]
+        self.assertEqual(set(hooked_ids), set(unhooked_ids))
+        self.assertEqual(hooked_ids, list(reversed(unhooked_ids)))
+
+    def test_pagination(self):
+        content = self.get_response(child_of=2, limit=1).json()
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["count"], len(self.get_homepage_children_ids()))
+
+    def test_permission_scoping(self):
+        # The parent page lookup is permission-scoped: a user with access to
+        # the admin but no page permissions cannot resolve page 2 as an
+        # explorable parent, so the request 404s rather than returning an
+        # empty listing (matching v2, which rejects with a 400 in this case).
+        user = self.create_user(username="explore_basic_user")
+
+        can_access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            content_type__model="admin",
+            codename="access_admin",
+        )
+        user.user_permissions.add(can_access_admin_permission)
+
+        self.client.force_login(user)
+
+        response = self.get_response(child_of=2)
+        self.assertEqual(response.status_code, 404)
 
     def test_unauthenticated_request_rejected(self):
         self.client.logout()
