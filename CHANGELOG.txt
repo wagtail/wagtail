@@ -12,6 +12,7 @@ Changelog
  * Fix: Prevent memory exhaustion through over-long inputs to `get_supported_content_language_variant` (Matt Westcott)
  * Fix: Use `add_unredirected_header` to pass authorization headers to Facebook/Instagram embed APIs (Matt Westcott)
  * Fix: Prevent failures when instantiating form pages within migrations (Satyam Laheri)
+ * Fix: Fix audit log actions for copy, copy-for-translation and create-alias to log the page being copied rather than its parent (Waqas Ahmed)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Maintenance: Drop support for Python 3.10
