@@ -69,20 +69,27 @@ class Command(BaseCommand):
             .iterator(chunk_size=options["chunk_size"])
         ):
             try:
-                with transaction.atomic():
-                    rendition_filter = rendition.filter
-                    rendition_image = rendition.image
+                rendition_filter = rendition.filter
+                rendition_image = rendition.image
 
-                    # Delete the existing rendition
+                # Delete the existing rendition in a transaction of its own.
+                # Rendition files are removed by a post_delete handler that
+                # defers the storage delete to transaction.on_commit, so that
+                # delete has to have run before the replacement is written.
+                # Otherwise, when the old file is already missing from storage
+                # and the regenerated file therefore lands on exactly the name
+                # the deleted rendition had, the deferred delete removes the
+                # file that was just created.
+                with transaction.atomic():
                     rendition.delete()
 
-                    _progress_bar = progress_bar(progress_bar_current, num_renditions)
-                    self.stdout.write(_progress_bar[0], ending=_progress_bar[1])
-                    progress_bar_current = progress_bar_current + 1
+                _progress_bar = progress_bar(progress_bar_current, num_renditions)
+                self.stdout.write(_progress_bar[0], ending=_progress_bar[1])
+                progress_bar_current = progress_bar_current + 1
 
-                    if not purge_only:
-                        # Create a new one
-                        rendition_image.get_rendition(rendition_filter)
+                if not purge_only:
+                    # Create a new one
+                    rendition_image.get_rendition(rendition_filter)
             except:  # noqa:E722
                 logger.exception("Error operating on rendition %d", rendition.id)
                 self.stderr.write(
