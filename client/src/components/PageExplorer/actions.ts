@@ -37,7 +37,7 @@ const getChildrenStart = createAction('GET_CHILDREN_START', (id: number) => ({
 }));
 const getChildrenSuccess = createAction(
   'GET_CHILDREN_SUCCESS',
-  (id, items: admin.WagtailPageAPI[], meta: any) => ({ id, items, meta }),
+  (id, items: admin.WagtailPageAPI[], count: number) => ({ id, items, count }),
 );
 const getChildrenFailure = createAction(
   'GET_CHILDREN_FAILURE',
@@ -56,13 +56,13 @@ function getChildren(id: number, offset = 0): ThunkActionType {
         offset: offset,
       })
       .then(
-        ({ items, meta }) => {
+        ({ count, items }) => {
           const nbPages = offset + items.length;
-          dispatch(getChildrenSuccess(id, items, meta));
+          dispatch(getChildrenSuccess(id, items, count));
 
           // Load more pages if necessary. Only one request is created even though
           // more might be needed, thus naturally throttling the loading.
-          if (nbPages < meta.total_count && nbPages < MAX_EXPLORER_PAGES) {
+          if (nbPages < count && nbPages < MAX_EXPLORER_PAGES) {
             dispatch(getChildren(id, nbPages));
           }
         },
@@ -92,7 +92,7 @@ function getTranslations(id) {
   return (dispatch) => {
     dispatch(getTranslationsStart(id));
 
-    return admin.getAllPageTranslations(id, { onlyWithChildren: true }).then(
+    return admin.getAllPageTranslations(id).then(
       (items) => {
         dispatch(getTranslationsSuccess(id, items));
       },

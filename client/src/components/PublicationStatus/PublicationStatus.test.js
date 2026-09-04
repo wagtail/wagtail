@@ -10,29 +10,13 @@ describe('PublicationStatus', () => {
 
   it('#status live', () => {
     expect(
-      shallow(
-        <PublicationStatus
-          status={{
-            status: 'live + draft',
-            live: true,
-            has_unpublished_changes: true,
-          }}
-        />,
-      ),
+      shallow(<PublicationStatus status="live + draft" live />),
     ).toMatchSnapshot();
   });
 
   it('#status not live', () => {
     expect(
-      shallow(
-        <PublicationStatus
-          status={{
-            status: 'live + draft',
-            live: false,
-            has_unpublished_changes: true,
-          }}
-        />,
-      ),
+      shallow(<PublicationStatus status="live + draft" live={false} />),
     ).toMatchSnapshot();
   });
 });

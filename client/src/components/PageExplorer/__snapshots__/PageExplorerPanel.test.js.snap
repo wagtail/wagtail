@@ -185,7 +185,9 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
                   "admin_display_title": "Test",
                   "id": 1,
                   "meta": {
-                    "status": {},
+                    "has_unpublished_changes": false,
+                    "live": true,
+                    "status": "live",
                     "type": "test",
                   },
                 }
@@ -199,7 +201,9 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
                   "admin_display_title": "Foo",
                   "id": 2,
                   "meta": {
-                    "status": {},
+                    "has_unpublished_changes": false,
+                    "live": true,
+                    "status": "live",
                     "type": "foo",
                   },
                 }
