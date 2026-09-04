@@ -388,7 +388,12 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
 def streamfield_schema(
     generator: InputSchemaGenerator, field: Field
 ) -> InputFieldSchema:
-    return list[Any], []
+    # Lazy import: blocks_write.py imports InputSchemaGenerator/
+    # RichTextInputSchema from this module, so importing it at module level
+    # here would be circular.
+    from .blocks_write import streamfield_schema as blocks_streamfield_schema
+
+    return blocks_streamfield_schema(generator, field)
 
 
 def tags_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
