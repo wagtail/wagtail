@@ -82,3 +82,25 @@ class TestBulkAddTags(WagtailTestUtils, TestCase):
             self.assertCountEqual(
                 get_tag_list(Image.objects.get(id=image.id)), self.new_tags
             )
+
+    def test_add_multi_word_tag(self):
+        # The tag widget quotes any tag containing a comma or a space, the same
+        # way taggit's edit_string_for_tags does, so the submitted value has to
+        # be parsed back rather than split on commas.
+        response = self.client.post(self.url, {"tags": 'sunset, "hello world"'})
+        self.assertEqual(response.status_code, 302)
+
+        for image in self.images:
+            self.assertCountEqual(
+                get_tag_list(Image.objects.get(id=image.id)),
+                ["sunset", "hello world"],
+            )
+
+    def test_add_tags_strips_surrounding_whitespace(self):
+        response = self.client.post(self.url, {"tags": " first ,second "})
+        self.assertEqual(response.status_code, 302)
+
+        for image in self.images:
+            self.assertCountEqual(
+                get_tag_list(Image.objects.get(id=image.id)), ["first", "second"]
+            )
