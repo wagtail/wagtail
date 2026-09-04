@@ -341,6 +341,23 @@ class TestAuditLog(TestCase):
             ["wagtail.publish", "wagtail.copy", "wagtail.create"],
         )
 
+        log_entry = PageLogEntry.objects.get(action="wagtail.copy")
+        source_title = self.home_page.get_admin_display_title()
+        # "source" should identify the page that was copied, not its parent
+        self.assertEqual(log_entry.data["source"]["id"], self.home_page.id)
+        self.assertEqual(log_entry.data["source"]["title"], source_title)
+        self.assertEqual(log_entry.message, f"Copied from {source_title}")
+
+    def test_page_create_alias(self):
+        self.home_page.create_alias(update_slug="the-alias")
+
+        log_entry = PageLogEntry.objects.get(action="wagtail.create_alias")
+        source_title = self.home_page.get_admin_display_title()
+        # "source" should identify the page the alias was created from, not its parent
+        self.assertEqual(log_entry.data["source"]["id"], self.home_page.id)
+        self.assertEqual(log_entry.data["source"]["title"], source_title)
+        self.assertEqual(log_entry.message, f"Created an alias of {source_title}")
+
     def test_page_reorder(self):
         section_1 = self.root_page.add_child(
             instance=SimplePage(title="Child 1", slug="child-1", content="hello")

@@ -193,7 +193,6 @@ class CreatePageAliasAction(BaseAction):
 
         # Log
         if log_action:
-            source_parent = specific_page.get_parent()
             log(
                 instance=alias,
                 action=log_action,
@@ -201,11 +200,9 @@ class CreatePageAliasAction(BaseAction):
                 data={
                     "page": {"id": alias.id, "title": alias.get_admin_display_title()},
                     "source": {
-                        "id": source_parent.id,
-                        "title": source_parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if source_parent
-                    else None,
+                        "id": specific_page.id,
+                        "title": specific_page.get_admin_display_title(),
+                    },
                     "destination": {
                         "id": parent.id,
                         "title": parent.specific_deferred.get_admin_display_title(),
