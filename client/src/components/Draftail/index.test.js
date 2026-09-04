@@ -221,4 +221,22 @@ describe('Draftail', () => {
     expect(draftail.ModalWorkflowSource).toBeDefined());
   it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
   it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
+
+  describe('DraftailRichTextArea', () => {
+    it('getDuplicatedState returns the serialized JSON value', () => {
+      document.body.innerHTML = '<div id="container"></div>';
+      const container = document.querySelector('#container');
+      const widget = new draftail.DraftailRichTextArea({});
+      const boundWidget = widget.render(
+        container,
+        'text',
+        'id-text',
+        '{"blocks": [{"text": "hello"}], "entityMap": {}}',
+        new Map(),
+      );
+      expect(boundWidget.getDuplicatedState()).toBe(
+        '{"blocks": [{"text": "hello"}], "entityMap": {}}',
+      );
+    });
+  });
 });
