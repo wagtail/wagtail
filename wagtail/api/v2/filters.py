@@ -181,6 +181,14 @@ class ChildOfFilter(BaseFilterBackend):
                 else:
                     raise BadRequestError("child_of must be a positive integer") from e
             except Page.DoesNotExist as e:
+                # `get_base_queryset()` excludes pages that are not live, so a
+                # draft parent lands here even though it exists. Headless
+                # previews legitimately ask for a draft page's children, and an
+                # unpublished page simply has none to return yet -- so answer
+                # with an empty result rather than an error. Anything genuinely
+                # missing, or live but outside this site, still gets the 400.
+                if Page.objects.filter(id=parent_page_id, live=False).exists():
+                    return queryset.none()
                 raise BadRequestError("parent page doesn't exist") from e
 
             queryset = queryset.child_of(parent_page)

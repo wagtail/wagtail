@@ -761,6 +761,20 @@ class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "parent page doesn't exist"})
 
+    def test_child_of_draft_page_returns_empty_result(self):
+        # A draft parent is missing from the base queryset but does exist. A
+        # headless preview asks for its children legitimately, so it should get
+        # an empty list rather than a 400. See #14085.
+        parent = Page.objects.get(id=5)
+        parent.live = False
+        parent.save(update_fields=["live"])
+
+        response = self.get_response(child_of=5)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
+
     def test_child_of_not_integer_gives_error(self):
         response = self.get_response(child_of="abc")
         content = json.loads(response.content.decode("UTF-8"))
