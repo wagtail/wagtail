@@ -3,7 +3,14 @@ import warnings
 from io import StringIO
 
 from django.core import management
-from django.test import TestCase, override_settings
+from django.test import (
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
+
+from wagtail.models import Collection
 
 from ..management.commands.wagtail_update_image_renditions import progress_bar
 from .utils import Image, get_test_image_file
@@ -137,4 +144,53 @@ class TestUpdateImageRenditions(TestCase):
         output_string = self.REAESC.sub("", output.read())
         self.assertIn(
             f"Successfully processed {total_renditions} rendition(s)\n", output_string
+        )
+
+
+@tag("transaction")
+class TestUpdateImageRenditionsFileDeletion(TransactionTestCase):
+    """
+    Rendition file deletion happens in a post_delete handler that defers the
+    storage delete to transaction.on_commit, so these have to run as a
+    TransactionTestCase for the callback to fire at all.
+    """
+
+    def setUp(self):
+        # TransactionTestCase does not load the migration fixtures.
+        Collection.objects.get_or_create(name="Root", path="0001", depth=1, numchild=0)
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename="test_image.png", colour="white"),
+        )
+
+    def test_regenerated_rendition_file_survives(self):
+        rendition = self.image.get_rendition("width-100")
+        storage = rendition.file.storage
+        filename = rendition.file.name
+        self.assertTrue(storage.exists(filename))
+
+        management.call_command("wagtail_update_image_renditions", stdout=StringIO())
+
+        rendition = self.image.renditions.get(filter_spec="width-100")
+        self.assertTrue(
+            rendition.file.storage.exists(rendition.file.name),
+            f"{rendition.file.name} was deleted after being regenerated",
+        )
+
+    def test_regenerated_rendition_file_survives_when_the_old_file_is_missing(self):
+        # The reported case: the rendition rows are in the database but
+        # /media/images has been emptied, so the regenerated file lands on
+        # exactly the name the deleted rendition had.
+        rendition = self.image.get_rendition("width-100")
+        storage = rendition.file.storage
+        filename = rendition.file.name
+        storage.delete(filename)
+        self.assertFalse(storage.exists(filename))
+
+        management.call_command("wagtail_update_image_renditions", stdout=StringIO())
+
+        rendition = self.image.renditions.get(filter_spec="width-100")
+        self.assertTrue(
+            rendition.file.storage.exists(rendition.file.name),
+            f"{rendition.file.name} was deleted after being regenerated",
         )
