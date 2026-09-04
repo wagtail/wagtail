@@ -306,6 +306,13 @@ class FieldPanel(Panel):
             if self.help_text:
                 widget_described_by_ids.append(help_text_id)
 
+            widget = self.bound_field.field.widget
+            if self.request and hasattr(widget, "user"):
+                # Pass the current user to the widget so that permission-aware widgets
+                # (e.g. chooser widgets) can withhold the edit link when the user does
+                # not have edit permission for the selected item.
+                widget.user = self.request.user
+
             if self.bound_field.errors:
                 widget = self.bound_field.field.widget
                 if hasattr(widget, "render_with_errors"):
