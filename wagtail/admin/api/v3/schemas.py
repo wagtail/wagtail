@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.conf import settings
 from django.urls import NoReverseMatch, reverse
 from ninja import Field, Schema
 
@@ -83,6 +84,8 @@ class AdminExplorerPageSchema(AdminPageSchema):
 
 class AdminPageDetailMetaSchema(AdminExplorerMetaSchema):
     parent: Optional[AdminSimpleBasePageSchema] = None
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        translations: list[AdminSimpleBasePageSchema] = []
 
     @staticmethod
     def resolve_parent(obj: AbstractPage, context: dict):
@@ -92,6 +95,10 @@ class AdminPageDetailMetaSchema(AdminExplorerMetaSchema):
         ):
             return None
         return parent
+
+    @staticmethod
+    def resolve_translations(obj: AbstractPage, context: dict):
+        return obj.get_translations()
 
 
 class AdminPageDetailSchema(AdminPageSchema):
