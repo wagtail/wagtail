@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.test import TestCase
 
@@ -521,3 +522,20 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
             ),
             [self.superuser],
         )
+
+    def test_instances_user_has_any_permission_for_collapses_nested_permissions(self):
+        # The report editor also gets change permission on an ancestor of the
+        # page they already have permission on, which makes the report
+        # permission redundant
+        self.report_editor.groups.add(Group.objects.get(name="Root editors"))
+        report_editor = get_user_model().objects.get(pk=self.report_editor.pk)
+
+        pages = self.policy.instances_user_has_any_permission_for(
+            report_editor, {"change"}
+        )
+
+        self.assertResultSetEqual(
+            pages, Page.objects.descendant_of(self.root_page, inclusive=True)
+        )
+        # only one subtree is queried for, rather than one per permission row
+        self.assertEqual(str(pages.query).count("LIKE"), 1)
