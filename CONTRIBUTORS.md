@@ -999,6 +999,7 @@
 * DresdenGman
 * Mason Lyons
 * Saksham Chawla
+* Ayush Kumar
 
 ## Translators
 
