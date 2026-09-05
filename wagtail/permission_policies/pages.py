@@ -112,26 +112,63 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
 
         return bool(self._get_permission_codenames(actions) & permissions)
 
+    @staticmethod
+    def _deduplicate_roots(pages):
+        """
+        Given an iterable of pages, return the subset that is not covered by
+        another page in the same iterable - i.e. drop duplicates and any page
+        that is a descendant of another one, as filtering on the ancestor
+        already covers it.
+        """
+        roots = []
+        for page in sorted(pages, key=lambda page: page.path):
+            if not (roots and page.path.startswith(roots[-1].path)):
+                roots.append(page)
+        return roots
+
+    def _descendants_q(self, pages):
+        q = Q()
+        for page in pages:
+            q |= Q(path__startswith=page.path, depth__gte=page.depth)
+        return q
+
     def instances_user_has_any_permission_for(self, user, actions):
         base_queryset = self._base_queryset_for_user(user)
         if base_queryset is not None:
             return base_queryset
 
-        pages = self.model._default_manager.none()
+        codenames = self._get_permission_codenames(actions)
+        add_codename = self._get_permission_codename("add")
+        # A user with only "add" permission can still edit their own pages, so
+        # "add" permissions grant "change" on pages owned by the user
+        owned_only = "add" not in actions and "change" in actions
+
+        all_pages = []
+        owned_pages = []
         for perm in self.get_cached_permissions_for_user(user):
-            if (
-                perm.permission.codename == self._get_permission_codename("add")
-                and "add" not in actions
-                and "change" in actions
-            ):
-                pages |= self.model._default_manager.descendant_of(
-                    perm.page, inclusive=True
-                ).filter(owner=user)
-            elif perm.permission.codename in self._get_permission_codenames(actions):
-                pages |= self.model._default_manager.descendant_of(
-                    perm.page, inclusive=True
-                )
-        return pages
+            if perm.permission.codename == add_codename and owned_only:
+                owned_pages.append(perm.page)
+            elif perm.permission.codename in codenames:
+                all_pages.append(perm.page)
+
+        # Collapse the permissions into the smallest set of subtrees that covers
+        # them, so the query gets one OR branch per subtree rather than one per
+        # permission row
+        all_pages = self._deduplicate_roots(all_pages)
+        all_paths = tuple(page.path for page in all_pages)
+        owned_pages = [
+            page
+            for page in self._deduplicate_roots(owned_pages)
+            if not page.path.startswith(all_paths)
+        ]
+
+        q = self._descendants_q(all_pages)
+        if owned_pages:
+            q |= self._descendants_q(owned_pages) & Q(owner=user)
+
+        if not q:
+            return self.model._default_manager.none()
+        return self.model._default_manager.filter(q)
 
     def users_with_any_permission_for_instance(
         self, actions, instance, include_superusers=True
@@ -220,8 +257,16 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         page_permissions = [
             perm.page for perm in self.get_cached_permissions_for_user(user)
         ]
-        for page in page_permissions:
-            explorable_pages |= self.model._default_manager.ancestor_of(page)
+        steplen = self.model.base_page_model.steplen
+        ancestor_paths = {
+            page.path[:pos]
+            for page in page_permissions
+            for pos in range(steplen, len(page.path), steplen)
+        }
+        if ancestor_paths:
+            explorable_pages |= self.model._default_manager.filter(
+                path__in=ancestor_paths
+            )
 
         # Remove unnecessary top-level ancestors that the user has no access to
         fca_page = self.model.base_page_model.objects.first_common_ancestor_of(
