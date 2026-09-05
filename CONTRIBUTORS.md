@@ -1007,6 +1007,7 @@
 * Waqas Ahmed
 * Keerthi Kumar
 * Damien Meur
+* Ayush Kumar
 
 ## Translators
 
