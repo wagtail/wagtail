@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/admin_base.html" %}
 {% load wagtailadmin_tags wagtailcore_tags i18n %}
-{% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
+{% block titletag %}{% trans "Error 404: Page not found!" %}{% endblock %}
 
 {# Avoid loading all of Wagtail’s icons sprite and JavaScript as they're unused here. #}
 {% block icons_sprite %}{% endblock %}
@@ -17,14 +17,14 @@
 
             <div class="page404__text-container">
                 <h1 class="page404__header">
-                    {% trans "Error 404" %}
+                    {% trans "Error 404!" %}
                 </h1>
 
                 <p class="page404__text">
-                    {% trans "The requested page could not be found." %}
+                    {% trans "The requested page could not be found here." %}
                 </p>
 
-                <a class="page404__button button" href="{% url 'wagtailadmin_home' %}">{% trans "Go to Wagtail admin" %}</a>
+                <a class="page404__button button" href="{% url 'wagtailadmin_home' %}">{% trans "Go to Wagtail admin panel" %}</a>
             </div>
         </div>
     </main>
