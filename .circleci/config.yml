@@ -34,7 +34,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:24.19.0
+      - image: cimg/node:24.20.0
     steps:
       - checkout
       - restore_cache:
