@@ -1,8 +1,10 @@
+from django.apps import apps
 from django.core import mail
 from django.core.exceptions import ValidationError
-from django.test import TestCase, override_settings
+from django.db.migrations.state import ProjectState
+from django.test import SimpleTestCase, TestCase, override_settings
 
-from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.models import FormMixin, FormSubmission
 from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
@@ -847,6 +849,23 @@ class TestNonHtmlExtension(PageFixturesMixin, TestCase):
         self.assertEqual(
             form_page.landing_page_template, "tests/form_page_landing.jade"
         )
+
+
+class TestFormMixin(SimpleTestCase):
+    def test_instantiate_historical_model(self):
+        historical_model = ProjectState.from_apps(apps).apps.get_model(
+            "tests", "FormPage"
+        )
+        self.assertEqual(historical_model(title="test").title, "test")
+
+    def test_landing_page_template_from_base_class(self):
+        class BaseForm:
+            landing_page_template = "custom_landing.html"
+
+        class Form(FormMixin, BaseForm):
+            template = "form.html"
+
+        self.assertEqual(Form().landing_page_template, "custom_landing.html")
 
 
 class TestFormFieldCleanNameCreation(PageFixturesMixin, WagtailTestUtils, TestCase):

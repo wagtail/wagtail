@@ -183,7 +183,7 @@ class FormMixin:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not hasattr(self, "landing_page_template"):
+        if not hasattr(self, "landing_page_template") and hasattr(self, "template"):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + "_landing" + ext
 
