@@ -17,9 +17,9 @@
   "minimumReleaseAge": "7 days",
 
   // Periodically refresh uv.lock to catch transitive dependency updates.
+  // Inherits the global monthly schedule.
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 6am on monday"],
   },
 
   "packageRules": [
