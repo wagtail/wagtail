@@ -953,6 +953,44 @@ class TestWagtailImageField(TestCase):
             self.assertIsInstance(to_python.image, WillowImageFile)
             self.assertEqual(to_python.content_type, "image/png")
 
+    def test_to_python_resets_file_position_with_inmemoryfile(self):
+        f = WagtailImageField()
+        self.image.seek(0)
+        content = self.image.read()
+        self.image.seek(0)
+        file = InMemoryUploadedFile(
+            self.image, "", self.filename, "image/png", self.image_size, None
+        )
+        to_python = f.to_python(file)
+        self.assertEqual(to_python.read(), content)
+
+    def test_to_python_resets_file_position_with_temporary_file(self):
+        f = WagtailImageField()
+        with TemporaryUploadedFile(
+            "test_temp.png", "image/png", self.image_size, None
+        ) as tmp_file:
+            self.image.seek(0)
+            content = self.image.read()
+            tmp_file.write(content)
+            tmp_file.seek(0)
+
+            to_python = f.to_python(tmp_file)
+            self.assertEqual(to_python.read(), content)
+
+    @override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=None)
+    def test_to_python_resets_file_position_with_pixel_size_check_disabled(self):
+        f = WagtailImageField()
+        with TemporaryUploadedFile(
+            "test_temp.png", "image/png", self.image_size, None
+        ) as tmp_file:
+            self.image.seek(0)
+            content = self.image.read()
+            tmp_file.write(content)
+            tmp_file.seek(0)
+
+            to_python = f.to_python(tmp_file)
+            self.assertEqual(to_python.read(), content)
+
     def test_to_python_raises_error_with_invalid_image_file(self):
         msg = (
             "Upload a valid image. The file you uploaded was either not an "

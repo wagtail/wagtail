@@ -190,13 +190,13 @@ class WagtailImageField(ImageField):
                 code="invalid_image",
             ) from exc
 
-        if hasattr(f, "seek") and callable(f.seek):
-            f.seek(0)
-
         if f is not None:
             self.check_image_file_size(f)
             self.check_image_file_format(f)
             self.check_image_pixel_size(f)
+
+        if hasattr(f, "seek") and callable(f.seek):
+            f.seek(0)
 
         return f
 
