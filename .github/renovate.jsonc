@@ -61,11 +61,13 @@
     // Group linter and formatter updates into a single PR. Regex patterns
     // (delimited by `/`) catch both the pep621 dep (e.g. "ruff") and any
     // related pre-commit hook (e.g. the repo URL "astral-sh/ruff-pre-commit"),
-    // so a single rule handles both managers.
+    // so a single rule handles both managers. django-stubs is included here
+    // to avoid standalone stub update PRs.
     {
       "matchPackageNames": [
         "/ruff/",
         "/ty/",
+        "/django-stubs/",
         "/doc8/",
         "/semgrep/",
         "/curlylint/",
