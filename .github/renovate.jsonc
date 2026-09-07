@@ -7,8 +7,8 @@
     "helpers:pinGitHubActionDigests",
   ],
 
-  // Run weekly.
-  "schedule": ["before 6am on monday"],
+  // Run once a month, on the first day of the month before 4am.
+  "schedule": ["* 0-3 1 * *"],
   "timezone": "Etc/UTC",
   "prConcurrentLimit": 10,
 
