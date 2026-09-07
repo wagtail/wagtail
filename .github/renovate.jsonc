@@ -108,5 +108,13 @@
       "matchCategories": ["ci"],
       "groupName": "CI configuration dependencies",
     },
+
+    // Elasticsearch service versions are deliberate test-matrix choices
+    // exercising supported upgrade paths, so major bumps are made by hand.
+    {
+      "matchPackageNames": ["docker.elastic.co/elasticsearch/elasticsearch"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+    },
   ],
 }
