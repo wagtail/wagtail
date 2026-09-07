@@ -74,6 +74,16 @@
       "groupName": "Python linters and formatters dependencies",
     },
 
+    // The wagtail version pinned in the project template is owned by the
+    // release process (updated in "Version bump to ..." commits), so ignore
+    // it here. Scoped by file path so any real wagtail dependency reported
+    // elsewhere is still tracked.
+    {
+      "matchFileNames": ["wagtail/project_template/requirements.txt"],
+      "matchPackageNames": ["wagtail"],
+      "enabled": false,
+    },
+
     // Front-end linters and formatters (prettier, eslint, stylelint plus
     // their plugins/configs) across package.json and .pre-commit-config.yaml.
     // `enabled: true` overrides the js-category disable above for just
