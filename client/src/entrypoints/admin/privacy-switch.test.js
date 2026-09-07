@@ -79,4 +79,23 @@ describe('privacy-switch entrypoint', () => {
     expect(listener).toHaveBeenCalledTimes(1);
     expect(close).toHaveBeenCalledTimes(1);
   });
+
+  it('should re-bind triggers when w-autosave:success is dispatched', () => {
+    const newTrigger = document.createElement('button');
+    newTrigger.type = 'button';
+    newTrigger.setAttribute('data-a11y-dialog-show', 'set-privacy');
+    newTrigger.setAttribute('data-url', '/new-privacy/');
+    document.body.appendChild(newTrigger);
+
+    document.dispatchEvent(new CustomEvent('w-autosave:success'));
+
+    newTrigger.click();
+
+    expect(window.ModalWorkflow).toHaveBeenCalledWith(
+      expect.objectContaining({
+        dialogId: 'set-privacy',
+        url: '/new-privacy/',
+      }),
+    );
+  });
 });
