@@ -23,6 +23,14 @@
   },
 
   "packageRules": [
+    // Major updates of ESLint dependencies usually require code changes
+    // (new config, renamed rules), so park them on the Dependency Dashboard
+    // for approval instead of opening long-lived PRs.
+    {
+      "matchPackageNames": ["/eslint/"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+    },
     {
       "matchCategories": ["js"],
       "enabled": false,
