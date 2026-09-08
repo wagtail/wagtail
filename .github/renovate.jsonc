@@ -22,17 +22,16 @@
   },
 
   "packageRules": [
-    // Major updates of ESLint dependencies usually require code changes
-    // (new config, renamed rules), so park them on the Dependency Dashboard
-    // for approval instead of opening long-lived PRs.
-    {
-      "matchPackageNames": ["/eslint/"],
-      "matchUpdateTypes": ["major"],
-      "dependencyDashboardApproval": true,
-    },
+    // Default to "off" for JS dependencies, specific ones are enabled below.
     {
       "matchCategories": ["js"],
       "enabled": false,
+    },
+
+    {
+      "matchPackageNames": ["/prettier/", "/stylelint/"],
+      "enabled": true,
+      "groupName": "Front-end linters and formatters dependencies",
     },
 
     // Runtime dependencies in [project.dependencies] are user-facing.
@@ -83,16 +82,6 @@
       "matchFileNames": ["wagtail/project_template/requirements.txt"],
       "matchPackageNames": ["wagtail"],
       "enabled": false,
-    },
-
-    // Front-end linters and formatters (prettier, eslint, stylelint plus
-    // their plugins/configs) across package.json and .pre-commit-config.yaml.
-    // `enabled: true` overrides the js-category disable above for just
-    // these packages so the npm versions get tracked too.
-    {
-      "matchPackageNames": ["/prettier/", "/eslint/", "/stylelint/"],
-      "enabled": true,
-      "groupName": "Front-end linters and formatters dependencies",
     },
 
     // Group all dependency updates inside the project template (its
