@@ -2,13 +2,15 @@
 
 ## Use of generative AI
 
-We recognize generative AI can be a useful tool for contributors, but like any tool should be used with critical thinking and good judgement when creating issues and pull requests.
+AI assistance when working on Wagtail is permitted. Purely AI-generated contributions are not - if we wanted those, we would prompt an AI agent ourselves.
 
-Any AI-generated code that you submit must be reviewed and tested by you. You are expected to understand the code, and take final accountability for it.
+As a contributor to the project, we would like you to consider what value you are providing beyond your ability to paste a bug report into an LLM. Even if you are not familiar with the Wagtail codebase, your experience as a Wagtail user or site builder is still valuable for providing guidance on how a feature should behave, how and where it should be documented, or manually replicating an issue and verifying that it has been fixed, perhaps with screenshots. All of this is information that we would like to see in a PR, as it demonstrates that a human has understood and thought about the issue being fixed.
 
-We ask that if you use generative AI for your contribution, you include a disclaimer, for example:
+For this reason, we ask you to write the pull request description yourself, and not offload that task to an AI agent.
 
-> _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
+If you use generative AI for your contribution, please fill in the "AI usage" portion of the PR description. For example:
+
+> _"This pull request includes code written by Claude Code. I have verified in-browser that this fixes the issue."_
 
 ### Acceptable uses
 
