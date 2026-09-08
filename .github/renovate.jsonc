@@ -7,7 +7,7 @@
     "helpers:pinGitHubActionDigests",
   ],
 
-  // Run once a month, on the first day of the month before 4am.
+  // First day of the month before 4am.
   "schedule": ["* 0-3 1 * *"],
   "timezone": "Etc/UTC",
   "prConcurrentLimit": 10,
@@ -16,8 +16,7 @@
 
   "minimumReleaseAge": "7 days",
 
-  // Periodically refresh uv.lock to catch transitive dependency updates.
-  // Inherits the global monthly schedule.
+  // Periodically refresh lockfiles to catch transitive dependency updates.
   "lockFileMaintenance": {
     "enabled": true,
   },
