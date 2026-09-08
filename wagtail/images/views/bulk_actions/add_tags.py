@@ -1,14 +1,13 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
-from taggit.utils import parse_tags
 
-from wagtail.admin import widgets
+from wagtail.admin.forms.tags import TagField
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
 class TagForm(forms.Form):
-    tags = forms.Field(label=_("Tags"), widget=widgets.AdminTagWidget)
+    tags = TagField(label=_("Tags"))
 
 
 class AddTagsBulkAction(ImageBulkAction):
@@ -25,10 +24,7 @@ class AddTagsBulkAction(ImageBulkAction):
         )
 
     def get_execution_context(self):
-        # The widget serialises tags the way taggit does, quoting any tag that
-        # contains a comma or a space, so it has to be parsed back with
-        # parse_tags rather than split on commas.
-        return {"tags": parse_tags(self.cleaned_form.cleaned_data["tags"])}
+        return {"tags": self.cleaned_form.cleaned_data["tags"]}
 
     @classmethod
     def execute_action(cls, images, tags=None, **kwargs):
