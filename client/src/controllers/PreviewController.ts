@@ -383,16 +383,14 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel="checks"] [data-content-checker-count]',
     );
 
-    if (
-      !(
-        this.checksSidePanel &&
-        this.checksPanel &&
-        this.checkerRowTemplate &&
-        this.axeConfig &&
-        this.checksToggleCounter &&
-        this.checksPanelCounter
-      )
-    ) {
+    if (!(
+      this.checksSidePanel &&
+      this.checksPanel &&
+      this.checkerRowTemplate &&
+      this.axeConfig &&
+      this.checksToggleCounter &&
+      this.checksPanelCounter
+    )) {
       this.contentChecksEnabled = false;
       return;
     }
