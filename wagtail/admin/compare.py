@@ -1,6 +1,6 @@
 import difflib
 
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.db import models
 from django.utils.encoding import force_str
 from django.utils.html import escape, format_html, format_html_join
@@ -510,6 +510,51 @@ class ForeignObjectComparison(FieldComparison):
                 return escape(force_str(obj_a))
             else:
                 return _("None")
+
+
+class OneToOneRelComparison(FieldComparison):
+    """Comparison for the reverse side of a OneToOneField (a ``OneToOneRel``)."""
+
+    is_field = True
+    is_child_relation = False
+
+    def __init__(self, field, obj_a, obj_b):
+        self.field = field
+
+        def get_related(obj):
+            if obj is None:
+                return None
+            try:
+                return getattr(obj, field.name)
+            except ObjectDoesNotExist:
+                return None
+
+        self.obj_a = get_related(obj_a)
+        self.obj_b = get_related(obj_b)
+
+    def htmldiff(self):
+        obj_a, obj_b = self.obj_a, self.obj_b
+
+        if obj_a != obj_b:
+            if obj_a and obj_b:
+                # Changed
+                return TextDiff(
+                    [("deletion", force_str(obj_a)), ("addition", force_str(obj_b))]
+                ).to_html()
+            elif obj_b:
+                # Added
+                return TextDiff([("addition", force_str(obj_b))]).to_html()
+            elif obj_a:
+                # Removed
+                return TextDiff([("deletion", force_str(obj_a))]).to_html()
+        else:
+            if obj_a:
+                return escape(force_str(obj_a))
+            else:
+                return _("None")
+
+    def has_changed(self):
+        return self.obj_a != self.obj_b
 
 
 class ChildRelationComparison:

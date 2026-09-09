@@ -4,9 +4,11 @@ from django.test import TestCase
 from django.utils.safestring import SafeString
 
 from wagtail.admin import compare
+from wagtail.admin.panels import FieldPanel
 from wagtail.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Page
 from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     EventCategory,
@@ -1149,6 +1151,59 @@ class TestForeignObjectComparison(TestCase):
         )
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
+
+
+class TestOneToOneRelComparison(TestCase):
+    """The reverse side of a OneToOneField should be comparable."""
+
+    fixtures = ["test.json"]
+    comparison_class = compare.OneToOneRelComparison
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        cls.other_event_page = EventPage.objects.get(
+            url_path="/home/events/saint-patrick/"
+        )
+
+    def _field(self):
+        return EventPage._meta.get_field("page_ptr").remote_field
+
+    def _comparison(self, obj_a, obj_b):
+        return self.comparison_class(self._field(), obj_a, obj_b)
+
+    def test_hasnt_changed(self):
+        comparison = self._comparison(self.event_page, self.event_page)
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertFalse(comparison.has_changed())
+        self.assertEqual(comparison.htmldiff(), str(self.event_page))
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_has_changed(self):
+        comparison = self._comparison(self.event_page, self.other_event_page)
+        self.assertTrue(comparison.has_changed())
+        self.assertEqual(
+            comparison.htmldiff(),
+            f'<span class="deletion">{self.event_page}</span>'
+            f'<span class="addition">{self.other_event_page}</span>',
+        )
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_one_side_missing(self):
+        comparison = self._comparison(None, self.event_page)
+        self.assertTrue(comparison.has_changed())
+        self.assertEqual(
+            comparison.htmldiff(),
+            f'<span class="addition">{self.event_page}</span>',
+        )
+
+    def test_panel_get_comparison_class(self):
+        # The panel comparison lookup must not raise AttributeError for the
+        # reverse side of a OneToOneField (which has no 'choices' attribute).
+        panel = FieldPanel("eventpage").bind_to_model(Page)
+        comparison_class = panel.get_comparison_class()
+        self.assertIs(comparison_class, compare.OneToOneRelComparison)
 
 
 class TestForeignObjectComparisonWithCustomPK(TestCase):
