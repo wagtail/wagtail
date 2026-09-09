@@ -2953,3 +2953,7 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class HeadlessForm(FormMixin, Page):
+    pass

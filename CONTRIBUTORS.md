@@ -1003,6 +1003,7 @@
 * Jawad Khan
 * Taras Panasiuk
 * Neda Gilanian
+* Satyam Laheri
 
 ## Translators
 
