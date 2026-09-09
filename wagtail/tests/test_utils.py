@@ -15,7 +15,9 @@ from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.coreutils import (
+    LANGUAGE_CODE_MAX_LENGTH,
     InvokeViaAttributeShortcut,
+    _get_supported_content_language_variant,
     accepts_kwarg,
     camelcase_to_underscore,
     cautious_slugify,
@@ -358,6 +360,35 @@ class TestGetSupportedContentLanguageVariant(TestCase):
             g("xyz")
         with self.assertRaises(LookupError):
             g("xy-zz")
+
+    def test_check_for_language_lang_code_max_length(self):
+        # Overly long codes are rejected before the cached lookup, so they are
+        # not retained as cache keys, potentially consuming too much memory.
+        # Codes at the maximum length can reach the cached lookup.
+        for length, is_valid, cache_size in [
+            (LANGUAGE_CODE_MAX_LENGTH - 1, True, 1),
+            (LANGUAGE_CODE_MAX_LENGTH, True, 1),
+            (LANGUAGE_CODE_MAX_LENGTH + 1, False, 0),
+        ]:
+            _get_supported_content_language_variant.cache_clear()
+            with self.subTest(length=length):
+                if is_valid:
+                    self.assertEqual(
+                        get_supported_content_language_variant(
+                            f"de-{'a' * (length - 3)}"
+                        ),
+                        "de",
+                    )
+                else:
+                    with self.assertRaises(LookupError):
+                        get_supported_content_language_variant(
+                            f"de-{'a' * (length - 3)}"
+                        )
+
+                self.assertEqual(
+                    _get_supported_content_language_variant.cache_info().currsize,
+                    cache_size,
+                )
 
     @override_settings(
         WAGTAIL_CONTENT_LANGUAGES=[

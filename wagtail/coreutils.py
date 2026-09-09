@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 
 WAGTAIL_APPEND_SLASH = getattr(settings, "WAGTAIL_APPEND_SLASH", True)
 
+LANGUAGE_CODE_MAX_LENGTH = 500
+
 
 def camelcase_to_underscore(str):
     # https://djangosnippets.org/snippets/585/
@@ -281,8 +283,14 @@ def get_content_languages():
     return dict(content_languages)
 
 
-@functools.lru_cache(maxsize=1000)
 def get_supported_content_language_variant(lang_code, strict=False):
+    if not lang_code or len(lang_code) > LANGUAGE_CODE_MAX_LENGTH:
+        raise LookupError(lang_code)
+    return _get_supported_content_language_variant(lang_code, strict=strict)
+
+
+@functools.lru_cache(maxsize=1000)
+def _get_supported_content_language_variant(lang_code, strict=False):
     """
     Return the language code that's listed in supported languages, possibly
     selecting a more generic variant. Raise LookupError if nothing is found.
@@ -295,25 +303,24 @@ def get_supported_content_language_variant(lang_code, strict=False):
     This is equvilant to Django's `django.utils.translation.get_supported_content_language_variant`
     but reads the `WAGTAIL_CONTENT_LANGUAGES` setting instead.
     """
-    if lang_code:
-        # If 'fr-ca' is not supported, try special fallback or language-only 'fr'.
-        possible_lang_codes = [lang_code]
-        try:
-            possible_lang_codes.extend(LANG_INFO[lang_code]["fallback"])
-        except KeyError:
-            pass
-        generic_lang_code = lang_code.split("-")[0]
-        possible_lang_codes.append(generic_lang_code)
-        supported_lang_codes = get_content_languages()
+    # If 'fr-ca' is not supported, try special fallback or language-only 'fr'.
+    possible_lang_codes = [lang_code]
+    try:
+        possible_lang_codes.extend(LANG_INFO[lang_code]["fallback"])
+    except KeyError:
+        pass
+    generic_lang_code = lang_code.split("-")[0]
+    possible_lang_codes.append(generic_lang_code)
+    supported_lang_codes = get_content_languages()
 
-        for code in possible_lang_codes:
-            if code in supported_lang_codes and check_for_language(code):
-                return code
-        if not strict:
-            # if fr-fr is not supported, try fr-ca.
-            for supported_code in supported_lang_codes:
-                if supported_code.startswith(generic_lang_code + "-"):
-                    return supported_code
+    for code in possible_lang_codes:
+        if code in supported_lang_codes and check_for_language(code):
+            return code
+    if not strict:
+        # if fr-fr is not supported, try fr-ca.
+        for supported_code in supported_lang_codes:
+            if supported_code.startswith(generic_lang_code + "-"):
+                return supported_code
     raise LookupError(lang_code)
 
 
@@ -341,7 +348,7 @@ def reset_cache(**kwargs):
     """
     if kwargs["setting"] in ("WAGTAIL_CONTENT_LANGUAGES", "LANGUAGES", "LANGUAGE_CODE"):
         get_content_languages.cache_clear()
-        get_supported_content_language_variant.cache_clear()
+        _get_supported_content_language_variant.cache_clear()
 
 
 def multigetattr(item, accessor):
