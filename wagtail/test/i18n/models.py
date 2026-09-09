@@ -60,3 +60,29 @@ class ClusterableTestModelTranslatableChild(TranslatableMixin, Orderable):
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
+
+
+class ClusterableTestModelNestedTranslatableChild(
+    TranslatableMixin, ClusterableModel, Orderable
+):
+    parent = ParentalKey(
+        ClusterableTestModel,
+        on_delete=models.CASCADE,
+        related_name="nested_translatable_children",
+    )
+    field = models.TextField()
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
+
+
+class ClusterableTestModelTranslatableGrandChild(TranslatableMixin, Orderable):
+    parent = ParentalKey(
+        ClusterableTestModelNestedTranslatableChild,
+        on_delete=models.CASCADE,
+        related_name="translatable_children",
+    )
+    field = models.TextField()
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass

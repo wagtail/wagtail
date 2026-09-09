@@ -51,6 +51,7 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     EventPageSpeaker,
+    EventPageSpeakerAward,
     ExcludedCopyPageNote,
     GenericSnippetPage,
     ManyToManyBlogPage,
@@ -3264,12 +3265,11 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         )
 
         # Add an award to the speaker
-        # TODO: Nested child objects not supported by page copy
         en_speaker = self.en_eventpage.speakers.get()
-        # en_award = EventPageSpeakerAward.objects.create(
-        #     speaker=en_speaker,
-        #     name="Golden Globe"
-        # )
+        en_award = EventPageSpeakerAward.objects.create(
+            speaker=en_speaker,
+            name="Golden Globe",
+        )
 
         fr_eventpage = self.en_eventpage.copy_for_translation(self.fr_locale)
 
@@ -3279,11 +3279,11 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         self.assertEqual(fr_speaker.translation_key, en_speaker.translation_key)
         self.assertEqual(list(fr_speaker.get_translations()), [en_speaker])
 
-        # TODO: Nested child objects not supported by page copy
-        # fr_award = fr_speaker.awards.get()
-        # self.assertEqual(ffr_award.locale, self.fr_locale)
-        # self.assertEqual(ffr_award.translation_key, en_award.translation_key)
-        # self.assertEqual(list(fr_award.get_translations()), [en_award])
+        # Check that the nested award was copied with the target locale too
+        fr_award = fr_speaker.awards.get()
+        self.assertEqual(fr_award.locale, self.fr_locale)
+        self.assertEqual(fr_award.translation_key, en_award.translation_key)
+        self.assertEqual(list(fr_award.get_translations()), [en_award])
 
     def test_copies_missing_parents_as_aliases(self):
         fr_eventpage = self.en_eventpage.copy_for_translation(
