@@ -40,7 +40,8 @@ class BaseChooser(widgets.Input):
     input_type = "hidden"
     is_hidden = False
 
-    def __init__(self, **kwargs):
+    def __init__(self, user=None, **kwargs):
+        self.user = user
         # allow attributes to be overridden by kwargs
         for var in [
             "choose_one_text",
@@ -95,7 +96,7 @@ class BaseChooser(widgets.Input):
             "value": bool(
                 value_data
             ),  # only used by chooser.html to identify blank values
-            "edit_url": value_data.get("edit_url", ""),
+            "edit_url": value_data.get("edit_url") or "",
             "display_title": value_data.get(self.display_title_key, ""),
             "chooser_url": self.get_chooser_modal_url(),
             "icon": self.icon,
@@ -137,7 +138,7 @@ class BaseChooser(widgets.Input):
         """
         return {
             "id": instance.pk,
-            "edit_url": AdminURLFinder().get_edit_url(instance),
+            "edit_url": AdminURLFinder(user=self.user).get_edit_url(instance),
             self.display_title_key: self.get_display_title(instance),
         }
 
