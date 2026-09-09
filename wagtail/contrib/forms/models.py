@@ -181,12 +181,6 @@ class FormMixin:
 
     submissions_list_view_class = None
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not hasattr(self, "landing_page_template"):
-            name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + "_landing" + ext
-
     def get_form_fields(self):
         """
         Form page expects `form_fields` to be declared.
@@ -225,7 +219,11 @@ class FormMixin:
         return form_class(*args, **form_params)
 
     def get_landing_page_template(self, *args, **kwargs):
-        return self.landing_page_template
+        if hasattr(self, "landing_page_template"):
+            return self.landing_page_template
+
+        name, ext = os.path.splitext(self.template)
+        return name + "_landing" + ext
 
     def get_submission_class(self):
         """
