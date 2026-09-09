@@ -10,6 +10,7 @@ Changelog
  * Fix: Prevent excessive memory usage when copying a page with many revisions (Taras Panasiuk)
  * Fix: Prevent nested submenu labels from becoming invisible when using the slim sidebar (Neda Gilanian, Sage Abdullah)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
+ * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Maintenance: Drop support for Python 3.10
  * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
 
