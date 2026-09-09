@@ -37,11 +37,13 @@
             {% endif %}
         </div>
 
+        {% if not help_text_after_input %}
         <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% endif %} data-field-help>
             {% if help_text %}
                 <div class="help">{{ help_text }}</div>
             {% endif %}
         </div>
+        {% endif %}
 
         {# Separate container for the widget with prefix icon and suffix comment button #}
         <div class="w-field__input" data-field-input>
@@ -58,5 +60,13 @@
                 </button>
             {% endif %}
         </div>
+
+        {% if help_text_after_input %}
+        <div class="w-field__help" {% if help_text_id %}id="{{ help_text_id }}"{% endif %} data-field-help>
+            {% if help_text %}
+                <div class="help">{{ help_text }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 </div>
