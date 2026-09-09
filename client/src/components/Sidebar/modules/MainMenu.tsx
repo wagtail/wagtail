@@ -28,9 +28,7 @@ interface SetDismissibleState {
 }
 
 export type MenuAction =
-  | SetActivePath
-  | SetNavigationPath
-  | SetDismissibleState;
+  SetActivePath | SetNavigationPath | SetDismissibleState;
 
 export interface MenuState {
   navigationPath: string;

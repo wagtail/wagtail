@@ -273,9 +273,7 @@ export class AutosaveController extends Controller<
           response.field_updates,
         )) {
           const field = form.elements.namedItem(fieldName) as
-            | HTMLInputElement
-            | HTMLTextAreaElement
-            | null;
+            HTMLInputElement | HTMLTextAreaElement | null;
           if (field) {
             field.value = fieldValue;
           }
