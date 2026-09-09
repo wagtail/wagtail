@@ -62,11 +62,6 @@ class CustomSubmissionsListView(SubmissionsListView):
     default_ordering = ("submit_time",)
     ordering_csv = ("-submit_time",)
 
-    def get_csv_filename(self):
-        """Returns the filename for CSV file with page title at start"""
-        filename = super().get_csv_filename()
-        return self.form_page.slug + "-" + filename
-
 
 class TestIndexView(IndexView):
     model = ModelWithStringTypePrimaryKey
