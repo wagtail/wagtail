@@ -7684,6 +7684,210 @@
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
+      "CustomRichBlockFieldPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextItem",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextItemCreate",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextItemPatch",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextLimitedItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text_limited",
+            "default": "rich_text_limited",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextLimitedItem",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextLimitedItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text_limited",
+            "default": "rich_text_limited",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextLimitedItemCreate",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextLimitedItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text_limited",
+            "default": "rich_text_limited",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "CustomRichBlockFieldPageBodyRichTextLimitedItemPatch",
+        "type": "object"
+      },
       "CustomRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -7715,10 +7919,36 @@
       "CustomRichBlockFieldPageCreateSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemCreate",
+                      "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemCreate"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemCreate"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "$ref": "#/components/schemas/CustomRichBlockFieldPageCreateMetaSchema"
@@ -7954,10 +8184,36 @@
       "CustomRichBlockFieldPagePatchSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemPatch",
+                      "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemPatch"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemPatch"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "anyOf": [
@@ -8041,7 +8297,23 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItem",
+                  "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -8779,6 +9051,108 @@
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
+      "DefaultRichBlockFieldPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "DefaultRichBlockFieldPageBodyRichTextItem",
+        "type": "object"
+      },
+      "DefaultRichBlockFieldPageBodyRichTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "DefaultRichBlockFieldPageBodyRichTextItemCreate",
+        "type": "object"
+      },
+      "DefaultRichBlockFieldPageBodyRichTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "DefaultRichBlockFieldPageBodyRichTextItemPatch",
+        "type": "object"
+      },
       "DefaultRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -8810,10 +9184,22 @@
       "DefaultRichBlockFieldPageCreateSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItemCreate"
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "$ref": "#/components/schemas/DefaultRichBlockFieldPageCreateMetaSchema"
@@ -9049,10 +9435,22 @@
       "DefaultRichBlockFieldPagePatchSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItemPatch"
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "anyOf": [
@@ -9136,7 +9534,9 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItem"
+            },
             "title": "Body",
             "type": "array"
           },
@@ -31812,6 +32212,1250 @@
         "title": "StandardPageSchema",
         "type": "object"
       },
+      "StreamPageBodyBooksAuthorItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksAuthorItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksAuthorItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksAuthorItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyBooksAuthorItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksAuthorItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyBooksItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/StreamPageBodyBooksAuthorItem",
+                  "title": "#/components/schemas/StreamPageBodyBooksTitleItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksTitleItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksAuthorItem"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyBooksItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "author": "#/components/schemas/StreamPageBodyBooksAuthorItemCreate",
+                      "title": "#/components/schemas/StreamPageBodyBooksTitleItemCreate"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksTitleItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksAuthorItemCreate"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyBooksItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "author": "#/components/schemas/StreamPageBodyBooksAuthorItemPatch",
+                      "title": "#/components/schemas/StreamPageBodyBooksTitleItemPatch"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksTitleItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksAuthorItemPatch"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyBooksTitleItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksTitleItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksTitleItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksTitleItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyBooksTitleItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyBooksTitleItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyImageItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyImageItem",
+        "type": "object"
+      },
+      "StreamPageBodyImageItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyImageItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyImageItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyImageItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAlt": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "StreamPageBodyImageWithAlt",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltCreate": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "StreamPageBodyImageWithAltCreate",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyImageWithAlt"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyImageWithAltItem",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyImageWithAltCreate"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyImageWithAltItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyImageWithAltPatch"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyImageWithAltItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltPatch": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "StreamPageBodyImageWithAltPatch",
+        "type": "object"
+      },
+      "StreamPageBodyProduct": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "StreamPageBodyProduct",
+        "type": "object"
+      },
+      "StreamPageBodyProductCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "StreamPageBodyProductCreate",
+        "type": "object"
+      },
+      "StreamPageBodyProductItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyProduct"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyProductItem",
+        "type": "object"
+      },
+      "StreamPageBodyProductItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyProductCreate"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyProductItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyProductItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StreamPageBodyProductPatch"
+              }
+            ]
+          }
+        },
+        "title": "StreamPageBodyProductItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyProductPatch": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "StreamPageBodyProductPatch",
+        "type": "object"
+      },
+      "StreamPageBodyRawHtmlItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRawHtmlItem",
+        "type": "object"
+      },
+      "StreamPageBodyRawHtmlItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRawHtmlItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyRawHtmlItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRawHtmlItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRichTextItem",
+        "type": "object"
+      },
+      "StreamPageBodyRichTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRichTextItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyRichTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyRichTextItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyTextItem",
+        "type": "object"
+      },
+      "StreamPageBodyTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyTextItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "StreamPageBodyTextItemPatch",
+        "type": "object"
+      },
+      "StreamPageBodyTitleListItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyTitleListItem",
+        "type": "object"
+      },
+      "StreamPageBodyTitleListItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyTitleListItemCreate",
+        "type": "object"
+      },
+      "StreamPageBodyTitleListItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyTitleListItemPatch",
+        "type": "object"
+      },
       "StreamPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -31843,10 +33487,60 @@
       "StreamPageCreateSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "books": "#/components/schemas/StreamPageBodyBooksItemCreate",
+                      "image": "#/components/schemas/StreamPageBodyImageItemCreate",
+                      "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItemCreate",
+                      "product": "#/components/schemas/StreamPageBodyProductItemCreate",
+                      "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItemCreate",
+                      "rich_text": "#/components/schemas/StreamPageBodyRichTextItemCreate",
+                      "text": "#/components/schemas/StreamPageBodyTextItemCreate",
+                      "title_list": "#/components/schemas/StreamPageBodyTitleListItemCreate"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyTextItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyRichTextItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyImageItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyProductItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyRawHtmlItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyTitleListItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyImageWithAltItemCreate"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "$ref": "#/components/schemas/StreamPageCreateMetaSchema"
@@ -32082,10 +33776,60 @@
       "StreamPagePatchSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "books": "#/components/schemas/StreamPageBodyBooksItemPatch",
+                      "image": "#/components/schemas/StreamPageBodyImageItemPatch",
+                      "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItemPatch",
+                      "product": "#/components/schemas/StreamPageBodyProductItemPatch",
+                      "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItemPatch",
+                      "rich_text": "#/components/schemas/StreamPageBodyRichTextItemPatch",
+                      "text": "#/components/schemas/StreamPageBodyTextItemPatch",
+                      "title_list": "#/components/schemas/StreamPageBodyTitleListItemPatch"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyTextItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyRichTextItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyImageItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyProductItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyRawHtmlItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyBooksItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyTitleListItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamPageBodyImageWithAltItemPatch"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "meta": {
             "anyOf": [
@@ -32169,7 +33913,47 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/StreamPageBodyBooksItem",
+                  "image": "#/components/schemas/StreamPageBodyImageItem",
+                  "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItem",
+                  "product": "#/components/schemas/StreamPageBodyProductItem",
+                  "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItem",
+                  "rich_text": "#/components/schemas/StreamPageBodyRichTextItem",
+                  "text": "#/components/schemas/StreamPageBodyTextItem",
+                  "title_list": "#/components/schemas/StreamPageBodyTitleListItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyProductItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRawHtmlItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTitleListItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageWithAltItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -34012,6 +35796,1258 @@
         "title": "TranslationFilterSchema",
         "type": "object"
       },
+      "UUIDSnippetWithRelationsBodyBooksAuthorItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksAuthorItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksAuthorItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksAuthorItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksAuthorItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "default": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksAuthorItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItem",
+                  "title": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItem"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "author": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemCreate",
+                      "title": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemCreate"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemCreate"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "default": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "author": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemPatch",
+                      "title": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemPatch"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemPatch"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksTitleItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksTitleItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksTitleItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksTitleItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksTitleItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "default": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyBooksTitleItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "default": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAlt": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAlt",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltCreate": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAlt"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltCreate"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "default": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltPatch"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltPatch": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProduct": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProduct",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProduct"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductCreate"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "default": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductPatch"
+              }
+            ]
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductPatch": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRawHtmlItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRawHtmlItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRawHtmlItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRawHtmlItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRawHtmlItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "default": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRawHtmlItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRichTextItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRichTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRichTextItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRichTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "default": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyRichTextItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTextItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTextItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTextItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTextItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "default": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTextItemPatch",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTitleListItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTitleListItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTitleListItemCreate": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTitleListItemCreate",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTitleListItemPatch": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "default": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyTitleListItemPatch",
+        "type": "object"
+      },
       "UUIDSnippetWithRelationsCreateMetaSchema": {
         "properties": {
           "type": {
@@ -34034,10 +37070,60 @@
       "UUIDSnippetWithRelationsCreateSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemCreate",
+                      "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemCreate",
+                      "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemCreate",
+                      "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemCreate",
+                      "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemCreate",
+                      "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemCreate",
+                      "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemCreate",
+                      "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemCreate"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemCreate"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemCreate"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "feed_image_id": {
             "anyOf": [
@@ -34157,10 +37243,60 @@
       "UUIDSnippetWithRelationsPatchSchema": {
         "properties": {
           "body": {
+            "anyOf": [
+              {
+                "items": {
+                  "discriminator": {
+                    "mapping": {
+                      "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemPatch",
+                      "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemPatch",
+                      "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemPatch",
+                      "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemPatch",
+                      "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemPatch",
+                      "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemPatch",
+                      "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemPatch",
+                      "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemPatch"
+                    },
+                    "propertyName": "type"
+                  },
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemPatch"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemPatch"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
             "default": [],
-            "items": {},
+            "description": "Best-effort shape hints per block type, for documentation and client codegen only. Not enforced: the API accepts any value that validates against the underlying block definitions at request time, which may differ from this schema.",
             "title": "Body",
-            "type": "array"
+            "x-wagtail-schema-advisory": true
           },
           "feed_image_id": {
             "anyOf": [
@@ -34223,7 +37359,47 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItem",
+                  "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItem",
+                  "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItem",
+                  "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItem",
+                  "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItem",
+                  "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItem",
+                  "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItem",
+                  "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
