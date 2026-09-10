@@ -2,6 +2,7 @@ import os.path
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -11,6 +12,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.views.generic.base import TemplateView, View
 
 from wagtail.admin.views.generic import PermissionCheckedMixin
+from wagtail.log_actions import log
 from wagtail.models import UploadedFile
 
 
@@ -145,6 +147,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
         if form.is_valid():
             # Save it
             self.object = self.save_object(form)
+            log(instance=self.object, action="wagtail.create", content_changed=True)
 
             # Success! Send back an edit form for this object to the user
             return JsonResponse(self.get_edit_object_response_data())
@@ -235,6 +238,11 @@ class EditView(PermissionCheckedMixin, View):
 
         if form.is_valid():
             self.save_object(form)
+            log(
+                instance=self.object,
+                action="wagtail.edit",
+                content_changed=form.has_changed(),
+            )
 
             return JsonResponse(
                 {
@@ -286,7 +294,10 @@ class DeleteView(PermissionCheckedMixin, View):
         ):
             raise PermissionDenied
 
-        self.object.delete()
+        with transaction.atomic():
+            # Log before deleting, while the object still exists.
+            log(instance=self.object, action="wagtail.delete", deleted=True)
+            self.object.delete()
 
         return JsonResponse(
             {
@@ -342,6 +353,7 @@ class CreateFromUploadView(View):
 
         if form.is_valid():
             self.save_object(form)
+            log(instance=self.object, action="wagtail.create", content_changed=True)
             self.upload.file.delete()
             self.upload.delete()
 
