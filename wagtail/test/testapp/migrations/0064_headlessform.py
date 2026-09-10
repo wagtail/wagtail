@@ -4,6 +4,11 @@ import django.db.models.deletion
 import wagtail.contrib.forms.models
 from django.conf import settings
 from django.db import migrations, models
+import swapper
+
+
+page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
+parent_rel_name = f"{page_model_name.lower()}_ptr"
 
 
 class Migration(migrations.Migration):
@@ -17,11 +22,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='HeadlessForm',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.WAGTAIL_PAGE_MODEL)),
+                (parent_rel_name, models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=swapper.get_model_name("wagtailcore", "Page"))),
             ],
             options={
                 'abstract': False,
             },
-            bases=(wagtail.contrib.forms.models.FormMixin, 'wagtailcore.page'),
+            bases=(wagtail.contrib.forms.models.FormMixin, swapper.get_model_name("wagtailcore", "Page")),
         ),
     ]
