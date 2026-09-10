@@ -807,6 +807,10 @@ class TestInstagramOEmbed(TestCase):
             "https://graph.facebook.com/v11.0/instagram_oembed?url=https%3A%2F%2Finstagram.com%2Fp%2FCHeRxmnDSYe%2F&format=json",
         )
         self.assertEqual(request.get_header("Authorization"), "Bearer 123|abc")
+        # the auth header must be unredirected, so it isn't leaked to a redirect target
+        self.assertNotIn("Authorization", request.headers)
+        self.assertIn("Authorization", request.unredirected_hdrs)
+        self.assertEqual(request.unredirected_hdrs["Authorization"], "Bearer 123|abc")
 
     @patch("urllib.request.urlopen")
     def test_instagram_oembed_photo_embed(self, urlopen):
@@ -915,6 +919,10 @@ class TestFacebookOEmbed(TestCase):
             "https://graph.facebook.com/v11.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json",
         )
         self.assertEqual(request.get_header("Authorization"), "Bearer 123|abc")
+        # the auth header must be unredirected, so it isn't leaked to a redirect target
+        self.assertNotIn("Authorization", request.headers)
+        self.assertIn("Authorization", request.unredirected_hdrs)
+        self.assertEqual(request.unredirected_hdrs["Authorization"], "Bearer 123|abc")
 
     def test_facebook_request_denied_401(self):
         err = HTTPError(
