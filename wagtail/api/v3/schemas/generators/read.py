@@ -2,8 +2,9 @@ import copy
 from typing import Any, Callable, Literal, cast
 
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import ForeignKey, Model
+from django.db.models import Model
 from django.db.models.fields import Field
+from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from ninja import Schema
 from ninja.errors import ConfigError
@@ -114,18 +115,16 @@ class SchemaGenerator:
         return self._reverse_related_schema_cache[model]
 
     def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
-        """Build a minimal schema for a foreign key's related model.
-
-        Rather than a full nested schema, this only exposes the related model's
-        primary key(s) (which may be composite) and a ``meta.type`` label, to
-        keep foreign key fields cheap and avoid unbounded recursion through
-        relations.
+        """Build a nested schema for a foreign key's related model, without
+        following any reverse relations (to avoid infinite recursion).
         """
         if model not in self._foreign_key_schema_cache:
-            pk_names = self._get_pk_names(model)
             name = f"{model._meta.object_name}ForeignKeySchema"
-            schema = create_schema(
-                model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
+            schema = self.build_schema(
+                model,
+                name=f"{name}Base",
+                base_class=BaseSchema,
+                follow_reverse_related=False,
             )
             meta_schema = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation, model
@@ -293,9 +292,12 @@ class SchemaGenerator:
 
 
 def foreign_key_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
-    field = cast(ForeignKey, field)
+    field = cast(RelatedField, field)
     schema = generator.get_foreign_key_schema(field.related_model)
-    schema = (schema | None) if field.null else schema
+    if field.many_to_many or field.one_to_many:
+        schema = list[schema]  # ty: ignore[invalid-type-form]
+    elif field.null:
+        schema = schema | None
     return cast(type, schema), None, None
 
 
@@ -358,7 +360,7 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 
 
 read_generator = SchemaGenerator()
-read_generator.register_field_schema(ForeignKey, foreign_key_schema)
+read_generator.register_field_schema(RelatedField, foreign_key_schema)
 read_generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 read_generator.register_field_schema(StreamField, streamfield_schema)
 read_generator.register_field_schema(TaggableManager, tags_schema)
