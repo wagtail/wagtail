@@ -1004,6 +1004,7 @@
 * Taras Panasiuk
 * Neda Gilanian
 * Ayush Kumar
+* Satyam Laheri
 
 ## Translators
 

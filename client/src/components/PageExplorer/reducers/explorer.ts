@@ -31,9 +31,7 @@ interface GotoPageAction {
 }
 
 export type Action =
-  | OpenPageExplorerAction
-  | ClosePageExplorerAction
-  | GotoPageAction;
+  OpenPageExplorerAction | ClosePageExplorerAction | GotoPageAction;
 
 /**
  * Oversees the state of the explorer. Defines:

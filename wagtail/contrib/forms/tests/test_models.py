@@ -845,7 +845,7 @@ class TestNonHtmlExtension(PageFixturesMixin, TestCase):
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
         self.assertEqual(
-            form_page.landing_page_template, "tests/form_page_landing.jade"
+            form_page.get_landing_page_template(), "tests/form_page_landing.jade"
         )
 
 

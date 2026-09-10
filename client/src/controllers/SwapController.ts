@@ -392,8 +392,7 @@ export class SwapController extends Controller<
    */
   async replace(
     urlSource?:
-      | string
-      | (CustomEvent<{ url: string }> & { params?: { url?: string } }),
+      string | (CustomEvent<{ url: string }> & { params?: { url?: string } }),
     data?: FormData,
   ) {
     const target = this.target;
