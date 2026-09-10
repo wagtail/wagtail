@@ -1,9 +1,23 @@
 from collections import OrderedDict
+from typing import Literal
 
 from rest_framework.fields import Field
+from typing_extensions import TypedDict
 
 from ..models import SourceImageIOError
 from ..utils import to_svg_safe_spec
+
+
+class ImageRenditionDict(TypedDict):
+    url: str
+    full_url: str
+    width: int
+    height: int
+    alt: str
+
+
+class ImageRenditionErrorDict(TypedDict):
+    error: Literal["SourceImageIOError"]
 
 
 class ImageRenditionField(Field):
@@ -33,7 +47,7 @@ class ImageRenditionField(Field):
         self.preserve_svg = preserve_svg
         super().__init__(*args, **kwargs)
 
-    def to_representation(self, image):
+    def to_representation(self, image) -> ImageRenditionDict | ImageRenditionErrorDict:
         try:
             if image.is_svg() and self.preserve_svg:
                 filter_spec = to_svg_safe_spec(self.filter_spec)
@@ -42,7 +56,7 @@ class ImageRenditionField(Field):
 
             thumbnail = image.get_rendition(filter_spec)
 
-            return OrderedDict(
+            result = OrderedDict(
                 [
                     ("url", thumbnail.url),
                     ("full_url", thumbnail.full_url),
@@ -51,9 +65,11 @@ class ImageRenditionField(Field):
                     ("alt", thumbnail.alt),
                 ]
             )
+            return ImageRenditionDict(result)
         except SourceImageIOError:
-            return OrderedDict(
+            result = OrderedDict(
                 [
                     ("error", "SourceImageIOError"),
                 ]
             )
+            return ImageRenditionErrorDict(result)
