@@ -3167,7 +3167,8 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
-            log_entry.message, "Copied for translation from Root (English)"
+            log_entry.message,
+            "Copied for translation from Welcome to the Wagtail test site! (English)",
         )
 
     def test_copy_homepage_slug_exists(self):
@@ -3212,8 +3213,7 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
-            log_entry.message,
-            "Copied for translation from Welcome to the Wagtail test site! (English)",
+            log_entry.message, "Copied for translation from Events (English)"
         )
 
     def test_copy_childpage_without_parent(self):
