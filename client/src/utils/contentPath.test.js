@@ -89,3 +89,35 @@ describe('getElementByContentPath', () => {
     expect(getElementByContentPath()).toBeNull();
   });
 });
+
+describe('getElementByContentPath with inline panel content', () => {
+  afterEach(() => {
+    window.location.hash = '';
+  });
+
+  it('should resolve a content path into an InlinePanel child field', () => {
+    document.body.innerHTML = /* html */ `
+      <section data-panel data-contentpath="speakers">
+        <div data-inline-panel-child data-contentpath-disabled data-contentpath="42">
+          <div class="w-field" data-field data-contentpath="image"></div>
+        </div>
+      </section>
+    `;
+
+    const element = getElementByContentPath('speakers.42.image');
+    expect(element).toBeTruthy();
+    expect(element.classList.contains('w-field')).toBe(true);
+  });
+
+  it('should not match InlinePanel children without a stored id', () => {
+    document.body.innerHTML = /* html */ `
+      <section data-panel data-contentpath="speakers">
+        <div data-inline-panel-child data-contentpath-disabled>
+          <div class="w-field" data-field data-contentpath="image"></div>
+        </div>
+      </section>
+    `;
+
+    expect(getElementByContentPath('speakers.42.image')).toBeNull();
+  });
+});
