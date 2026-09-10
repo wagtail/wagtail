@@ -2,7 +2,7 @@ from django.core import mail
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 
-from wagtail.contrib.forms.models import FormMixin, FormSubmission
+from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
@@ -847,14 +847,6 @@ class TestNonHtmlExtension(PageFixturesMixin, TestCase):
         self.assertEqual(
             form_page.get_landing_page_template(), "tests/form_page_landing.jade"
         )
-
-
-class TestMigrationSafeFormMixin(TestCase):
-    def test_form_mixin_can_be_instantiated_without_template(self):
-        class HistoricalFormPage(FormMixin):
-            pass
-
-        HistoricalFormPage()
 
 
 class TestFormFieldCleanNameCreation(PageFixturesMixin, WagtailTestUtils, TestCase):

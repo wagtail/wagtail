@@ -34,6 +34,7 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomSubmission,
     FormPageWithCustomSubmissionListView,
     FormPageWithRedirect,
+    HeadlessForm,
     JadeFormPage,
 )
 from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
@@ -178,6 +179,7 @@ class TestFormsIndex(PageFixturesMixin, WagtailTestUtils, TestCase):
             FormPageWithCustomSubmissionListView,
             JadeFormPage,
             FormPageDemo,
+            HeadlessForm,
         ]
         cls.make_form_pages()
 

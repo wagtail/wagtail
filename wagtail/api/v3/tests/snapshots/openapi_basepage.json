@@ -12339,6 +12339,256 @@
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
+      "HeadlessFormCreateMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "parent_id": {
+            "title": "Parent Id",
+            "type": "integer"
+          },
+          "type": {
+            "const": "tests.HeadlessForm",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type", "parent_id"],
+        "title": "HeadlessFormCreateMetaSchema",
+        "type": "object"
+      },
+      "HeadlessFormCreateSchema": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/HeadlessFormCreateMetaSchema"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
+            "title": "Slug"
+          },
+          "title": {
+            "description": "The page title as you'd like it to be seen by the public",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "title"],
+        "title": "HeadlessFormCreateSchema",
+        "type": "object"
+      },
+      "HeadlessFormMetaSchema": {
+        "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "detail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail Url"
+          },
+          "first_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Published At"
+          },
+          "html_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Html Url"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "type": {
+            "const": "tests.HeadlessForm",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type", "slug"],
+        "title": "HeadlessFormMetaSchema",
+        "type": "object"
+      },
+      "HeadlessFormPatchMetaSchema": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "const": "publish",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "const": "tests.HeadlessForm",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "required": ["type"],
+        "title": "HeadlessFormPatchMetaSchema",
+        "type": "object"
+      },
+      "HeadlessFormPatchSchema": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HeadlessFormPatchMetaSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
+            "title": "Slug"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The page title as you'd like it to be seen by the public",
+            "title": "Title"
+          }
+        },
+        "title": "HeadlessFormPatchSchema",
+        "type": "object"
+      },
+      "HeadlessFormSchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/HeadlessFormMetaSchema"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "id", "title"],
+        "title": "HeadlessFormSchema",
+        "type": "object"
+      },
       "HomePageCarouselItemCreateSchema": {
         "properties": {
           "caption": {
@@ -16676,6 +16926,7 @@
                 "tests.CustomPermissionPage",
                 "tests.RequiredDatePage",
                 "tests.CommentableJSONPage",
+                "tests.HeadlessForm",
                 "demosite.HomePage",
                 "demosite.StandardPage",
                 "demosite.StandardIndexPage",
@@ -16972,6 +17223,9 @@
               },
               {
                 "$ref": "#/components/schemas/CommentableJSONPageSchema"
+              },
+              {
+                "$ref": "#/components/schemas/HeadlessFormSchema"
               },
               {
                 "$ref": "#/components/schemas/HomePageSchema"
@@ -29639,6 +29893,7 @@
                   "tests.CustomPermissionPage",
                   "tests.RequiredDatePage",
                   "tests.CommentableJSONPage",
+                  "tests.HeadlessForm",
                   "demosite.HomePage",
                   "demosite.StandardPage",
                   "demosite.StandardIndexPage",
@@ -30107,6 +30362,9 @@
                     "$ref": "#/components/schemas/CommentableJSONPageCreateSchema"
                   },
                   {
+                    "$ref": "#/components/schemas/HeadlessFormCreateSchema"
+                  },
+                  {
                     "$ref": "#/components/schemas/HomePageCreateSchema"
                   },
                   {
@@ -30371,6 +30629,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -30719,6 +30980,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -31076,6 +31340,9 @@
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
                     },
                     {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/HomePageSchema"
                     },
                     {
@@ -31380,6 +31647,9 @@
                     "$ref": "#/components/schemas/CommentableJSONPagePatchSchema"
                   },
                   {
+                    "$ref": "#/components/schemas/HeadlessFormPatchSchema"
+                  },
+                  {
                     "$ref": "#/components/schemas/HomePagePatchSchema"
                   },
                   {
@@ -31644,6 +31914,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -31935,6 +32208,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -32249,6 +32525,9 @@
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
                     },
                     {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/HomePageSchema"
                     },
                     {
@@ -32548,6 +32827,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -32858,6 +33140,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -33190,6 +33475,9 @@
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
                     },
                     {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
+                    },
+                    {
                       "$ref": "#/components/schemas/HomePageSchema"
                     },
                     {
@@ -33479,6 +33767,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -33780,6 +34071,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
@@ -34088,6 +34382,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/CommentableJSONPageSchema"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HeadlessFormSchema"
                     },
                     {
                       "$ref": "#/components/schemas/HomePageSchema"
