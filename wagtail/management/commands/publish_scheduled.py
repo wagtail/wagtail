@@ -114,7 +114,15 @@ class Command(BaseCommand):
             else:
                 self.stdout.write("No objects to go live.")
         else:
+            published_count = 0
             for rp in revs_for_publishing:
+                obj = rp.content_object
+                publish_now = not obj.go_live_at or obj.go_live_at <= timezone.now()
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the object live
                 rp.publish(log_action="wagtail.publish.scheduled")
+                if publish_now:
+                    published_count += 1
+            self.stdout.write(
+                f"publish_scheduled complete - {published_count} pages published"
+            )
