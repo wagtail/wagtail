@@ -9,11 +9,9 @@ const mockProps = {
     admin_display_title: 'test',
     meta: {
       latest_revision_created_at: null,
-      status: {
-        live: true,
-        status: 'test',
-        has_unpublished_changes: false,
-      },
+      live: true,
+      status: 'test',
+      has_unpublished_changes: false,
       descendants: {
         count: 0,
       },
@@ -42,13 +40,13 @@ describe('PageExplorerItem', () => {
 
   it('should show a publication status with unpublished changes', () => {
     const props = { ...mockProps };
-    props.item.meta.status.has_unpublished_changes = true;
+    props.item.meta.has_unpublished_changes = true;
     expect(shallow(<PageExplorerItem {...props} />)).toMatchSnapshot();
   });
 
   it('should show a publication status if not live', () => {
     const props = { ...mockProps };
-    props.item.meta.status.live = false;
+    props.item.meta.live = false;
     expect(shallow(<PageExplorerItem {...props} />)).toMatchSnapshot();
   });
 });

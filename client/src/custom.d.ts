@@ -5,6 +5,7 @@ export interface WagtailConfig {
   ACTIVE_CONTENT_LOCALE?: string;
   ADMIN_API: {
     PAGES: string;
+    PAGES_EXPLORE: string;
     DOCUMENTS: string;
     IMAGES: string;
     EXTRA_CHILDREN_PARAMETERS: string;

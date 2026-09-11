@@ -28,8 +28,8 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
   navigate,
 }) => {
   const { id, admin_display_title: title, meta } = item;
-  const hasChildren = meta.children.count > 0;
-  const isPublished = meta.status.live && !meta.status.has_unpublished_changes;
+  const hasChildren = (meta.children?.count ?? 0) > 0;
+  const isPublished = meta.live && !meta.has_unpublished_changes;
   const localeName =
     meta.parent?.id === 1 &&
     meta.locale &&
@@ -48,7 +48,9 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
         {(!isPublished || localeName) && (
           <span className="c-page-explorer__meta">
             {localeName && <span className="c-status">{localeName}</span>}
-            {!isPublished && <PublicationStatus status={meta.status} />}
+            {!isPublished && (
+              <PublicationStatus status={meta.status} live={meta.live} />
+            )}
           </span>
         )}
       </Link>

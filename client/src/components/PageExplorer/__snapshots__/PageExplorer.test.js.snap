@@ -37,13 +37,13 @@ exports[`PageExplorer visible 1`] = `
         "isFetchingChildren": true,
         "isFetchingTranslations": false,
         "meta": {
-          "children": {},
-          "parent": null,
-          "status": {
-            "has_unpublished_changes": true,
-            "live": false,
-            "status": "",
+          "children": {
+            "count": 0,
           },
+          "has_unpublished_changes": true,
+          "live": false,
+          "parent": null,
+          "status": "",
         },
       },
     }

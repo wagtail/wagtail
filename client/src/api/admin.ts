@@ -5,28 +5,27 @@ const { ADMIN_API } = WAGTAIL_CONFIG;
 
 export interface WagtailPageAPI {
   id: number;
-  meta: {
-    status: {
-      status: string;
-      live: boolean;
+  admin_display_title?: string;
 
-      has_unpublished_changes: boolean;
-    };
-    children: any;
+  meta: {
+    type?: string;
     parent: {
       id: number;
     } | null;
-    locale?: string;
-    translations?: any;
-  };
+    children?: {
+      count: number;
+    };
 
-  admin_display_title?: string;
+    locale?: string;
+
+    live: boolean;
+    has_unpublished_changes: boolean;
+    status: string;
+  };
 }
 
 interface WagtailPageListAPI {
-  meta: {
-    total_count: number;
-  };
+  count: number;
   items: WagtailPageAPI[];
 }
 
@@ -37,29 +36,15 @@ export const getPage: (id: number) => Promise<WagtailPageAPI> = (id) => {
 };
 
 interface GetPageChildrenOptions {
-  fields?: string[];
-  onlyWithChildren?: boolean;
   offset?: number;
 }
 
 type GetPageChildren = (
   id: number,
-  options: GetPageChildrenOptions,
+  options?: GetPageChildrenOptions,
 ) => Promise<WagtailPageListAPI>;
 export const getPageChildren: GetPageChildren = (id, options = {}) => {
-  let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
-
-  if (options.fields) {
-    url += `&fields=parent,${window.encodeURIComponent(
-      options.fields.join(','),
-    )}`;
-  } else {
-    url += '&fields=parent';
-  }
-
-  if (options.onlyWithChildren) {
-    url += '&has_children=1';
-  }
+  let url = `${ADMIN_API.PAGES_EXPLORE}?child_of=${id}`;
 
   if (options.offset) {
     url += `&offset=${options.offset}`;
@@ -71,28 +56,15 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
 };
 
 interface GetPageTranslationsOptions {
-  fields?: string[];
-  onlyWithChildren?: boolean;
   offset?: number;
 }
+
 type GetPageTranslations = (
   id: number,
-  options: GetPageTranslationsOptions,
+  options?: GetPageTranslationsOptions,
 ) => Promise<WagtailPageListAPI>;
 export const getPageTranslations: GetPageTranslations = (id, options = {}) => {
-  let url = `${ADMIN_API.PAGES}?translation_of=${id}&limit=20`;
-
-  if (options.fields) {
-    url += `&fields=parent,${global.encodeURIComponent(
-      options.fields.join(','),
-    )}`;
-  } else {
-    url += '&fields=parent';
-  }
-
-  if (options.onlyWithChildren) {
-    url += '&has_children=1';
-  }
+  let url = `${ADMIN_API.PAGES}?translation_of=${id}&limit=20&has_children=true`;
 
   if (options.offset) {
     url += `&offset=${options.offset}`;
@@ -101,15 +73,9 @@ export const getPageTranslations: GetPageTranslations = (id, options = {}) => {
   return client.get(url);
 };
 
-interface GetAllPageTranslationsOptions {
-  fields?: string[];
-  onlyWithChildren?: boolean;
-}
-
 export const getAllPageTranslations = async (
   id: number,
-  options: GetAllPageTranslationsOptions,
-) => {
+): Promise<WagtailPageAPI[]> => {
   const items: WagtailPageAPI[] = [];
   let iterLimit = 100;
 
@@ -117,13 +83,12 @@ export const getAllPageTranslations = async (
     // eslint-disable-next-line no-await-in-loop
     const page = await getPageTranslations(id, {
       offset: items.length,
-      ...options,
     });
 
     page.items.forEach((item) => items.push(item));
 
     // eslint-disable-next-line no-plusplus
-    if (items.length >= page.meta.total_count || iterLimit-- <= 0) {
+    if (items.length >= page.count || iterLimit-- <= 0) {
       return items;
     }
   }

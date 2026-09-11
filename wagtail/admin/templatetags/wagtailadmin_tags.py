@@ -926,7 +926,8 @@ def wagtail_config(context):
         "CSRF_TOKEN": get_token(request),
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(settings.CSRF_HEADER_NAME),
         "ADMIN_API": {
-            "PAGES": reverse("wagtailadmin_api:pages:listing"),
+            "PAGES": reverse("wagtailadmin_api_v3:list_pages"),
+            "PAGES_EXPLORE": reverse("wagtailadmin_api_v3:explore_pages"),
             "DOCUMENTS": reverse("wagtailadmin_api:documents:listing"),
             "IMAGES": reverse("wagtailadmin_api:images:listing"),
             # Used to add an extra query string on all API requests. Example value: '&order=-id'
