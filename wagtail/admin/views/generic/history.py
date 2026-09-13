@@ -166,7 +166,7 @@ class ActionColumn(Column):
             if (
                 self.draftstate_enabled
                 and getattr(self.object, "live_revision_id", None)
-                and instance.revision_id != self.object.live_revision_id
+                and instance.revision_id
                 and instance.revision_id > self.object.live_revision_id
             ):
                 url = reverse(
