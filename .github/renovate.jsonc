@@ -19,6 +19,8 @@
   // Periodically refresh lockfiles to catch transitive dependency updates.
   "lockFileMaintenance": {
     "enabled": true,
+    // Has to be defined to override the Renovate default.
+    "schedule": ["* 0-3 1 * *"],
   },
 
   "packageRules": [
