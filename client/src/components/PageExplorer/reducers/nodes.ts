@@ -22,13 +22,11 @@ const defaultPageState: PageState = {
     count: 0,
   },
   meta: {
-    status: {
-      status: '',
-      live: false,
-      has_unpublished_changes: true,
-    },
+    live: false,
+    has_unpublished_changes: true,
+    status: '',
     parent: null,
-    children: {},
+    children: { count: 0 },
   },
 };
 
@@ -65,9 +63,7 @@ interface GetChildrenSuccess {
   type: typeof GET_CHILDREN_SUCCESS;
   payload: {
     id: number;
-    meta: {
-      total_count: number;
-    };
+    count: number;
     items: WagtailPageAPI[];
   };
 }
@@ -85,9 +81,6 @@ interface GetTranslationsSuccess {
   type: typeof GET_TRANSLATIONS_SUCCESS;
   payload: {
     id: number;
-    meta: {
-      total_count: number;
-    };
     items: WagtailPageAPI[];
   };
 }
@@ -154,7 +147,7 @@ const node = (
           items: state.children.items
             .slice()
             .concat(action.payload.items.map((item) => item.id)),
-          count: action.payload.meta.total_count,
+          count: action.payload.count,
         },
       };
 

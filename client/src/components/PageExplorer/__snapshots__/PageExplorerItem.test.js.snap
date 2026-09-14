@@ -90,13 +90,8 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
       className="c-page-explorer__meta"
     >
       <PublicationStatus
-        status={
-          {
-            "has_unpublished_changes": true,
-            "live": false,
-            "status": "test",
-          }
-        }
+        live={false}
+        status="test"
       />
     </span>
   </Link>
@@ -145,13 +140,8 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
       className="c-page-explorer__meta"
     >
       <PublicationStatus
-        status={
-          {
-            "has_unpublished_changes": true,
-            "live": true,
-            "status": "test",
-          }
-        }
+        live={true}
+        status="test"
       />
     </span>
   </Link>

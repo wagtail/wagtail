@@ -69,12 +69,22 @@ describe('PageExplorerPanel', () => {
               1: {
                 id: 1,
                 admin_display_title: 'Test',
-                meta: { status: {}, type: 'test' },
+                meta: {
+                  live: true,
+                  has_unpublished_changes: false,
+                  status: 'live',
+                  type: 'test',
+                },
               },
               2: {
                 id: 2,
                 admin_display_title: 'Foo',
-                meta: { status: {}, type: 'foo' },
+                meta: {
+                  live: true,
+                  has_unpublished_changes: false,
+                  status: 'live',
+                  type: 'foo',
+                },
               },
             }}
           />,
@@ -138,7 +148,12 @@ describe('PageExplorerPanel', () => {
             1: {
               id: 1,
               admin_display_title: 'Test',
-              meta: { status: {}, type: 'test' },
+              meta: {
+                live: true,
+                has_unpublished_changes: false,
+                status: 'live',
+                type: 'test',
+              },
             },
           }}
         />,
