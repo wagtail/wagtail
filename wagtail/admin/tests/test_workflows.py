@@ -3223,6 +3223,9 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def get(self, url, params=None):
         return self.client.get(url, params)
 
+    def post_report(self, url, params=None):
+        return self.client.post(url, query_params=params)
+
     def setup_workflow_and_tasks(self):
         self.workflow = Workflow.objects.create(name="test_workflow")
         self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
@@ -3298,12 +3301,12 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown form")
         unfiltered_url = reverse(self.workflow_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("action") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3335,12 +3338,12 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown form")
         unfiltered_url = reverse(self.workflow_tasks_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("action") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3380,7 +3383,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def test_workflow_report_export(self):
         for export_format in self.export_formats:
             with self.subTest(export_format=export_format):
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"export": export_format},
                 )
@@ -3391,7 +3394,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"export": export_format},
                 )
@@ -3404,7 +3407,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             with self.subTest(export_format=export_format):
                 # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
                 self.login(self.moderator)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3415,7 +3418,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3425,7 +3428,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
 
                 # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
                 self.login(self.submitter)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3435,7 +3438,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertNotIn("submitter", content)
                 self.assertNotIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
