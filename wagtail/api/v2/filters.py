@@ -28,6 +28,9 @@ class FieldsFilter(BaseFilterBackend):
             fields.remove("locale")
 
         for field_name, value in request.GET.items():
+            if not value:
+                continue
+
             if field_name in fields:
                 try:
                     field = queryset.model._meta.get_field(field_name)
@@ -122,41 +125,44 @@ class SearchFilter(BaseFilterBackend):
         Eg: ?search=James Joyce
         """
         search_enabled = getattr(settings, "WAGTAILAPI_SEARCH_ENABLED", True)
+        search_query = request.GET.get("search")
 
-        if "search" in request.GET:
-            if not search_enabled:
-                raise BadRequestError("search is disabled")
+        if not search_query:
+            return queryset
 
-            # Searching and filtering by tag at the same time is not supported
-            if getattr(queryset, "_filtered_by_tag", False):
-                raise BadRequestError(
-                    "filtering by tag with a search query is not supported"
+        if not search_enabled:
+            raise BadRequestError("search is disabled")
+
+        # Searching and filtering by tag at the same time is not supported
+        if getattr(queryset, "_filtered_by_tag", False):
+            raise BadRequestError(
+                "filtering by tag with a search query is not supported"
+            )
+
+        search_query = request.GET["search"]
+        search_operator = request.GET.get("search_operator", None)
+        order_by_relevance = "order" not in request.GET
+
+        sb = get_search_backend()
+        try:
+            queryset = sb.search(
+                search_query,
+                queryset,
+                operator=search_operator,
+                order_by_relevance=order_by_relevance,
+            )
+        except FilterFieldError as e:
+            raise BadRequestError(
+                "cannot filter by '{}' while searching (field is not indexed)".format(
+                    e.field_name
                 )
-
-            search_query = request.GET["search"]
-            search_operator = request.GET.get("search_operator", None)
-            order_by_relevance = "order" not in request.GET
-
-            sb = get_search_backend()
-            try:
-                queryset = sb.search(
-                    search_query,
-                    queryset,
-                    operator=search_operator,
-                    order_by_relevance=order_by_relevance,
+            ) from e
+        except OrderByFieldError as e:
+            raise BadRequestError(
+                "cannot order by '{}' while searching (field is not indexed)".format(
+                    e.field_name
                 )
-            except FilterFieldError as e:
-                raise BadRequestError(
-                    "cannot filter by '{}' while searching (field is not indexed)".format(
-                        e.field_name
-                    )
-                ) from e
-            except OrderByFieldError as e:
-                raise BadRequestError(
-                    "cannot order by '{}' while searching (field is not indexed)".format(
-                        e.field_name
-                    )
-                ) from e
+            ) from e
 
         return queryset
 
@@ -168,27 +174,31 @@ class ChildOfFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if "child_of" in request.GET:
-            try:
-                parent_page_id = int(request.GET["child_of"])
-                if parent_page_id < 0:
-                    raise ValueError()
+        child_of = request.GET.get("child_of")
 
-                parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError as e:
-                if request.GET["child_of"] == "root":
-                    parent_page = view.get_root_page()
-                else:
-                    raise BadRequestError("child_of must be a positive integer") from e
-            except Page.DoesNotExist as e:
-                raise BadRequestError("parent page doesn't exist") from e
+        if not child_of:
+            return queryset
 
-            queryset = queryset.child_of(parent_page)
+        try:
+            parent_page_id = int(request.GET["child_of"])
+            if parent_page_id < 0:
+                raise ValueError()
 
-            # Save the parent page on the queryset. This is required for the page
-            # explorer, which needs to pass the parent page into
-            # `construct_explorer_page_queryset` hook functions
-            queryset._filtered_by_child_of = parent_page
+            parent_page = view.get_base_queryset().get(id=parent_page_id)
+        except ValueError as e:
+            if request.GET["child_of"] == "root":
+                parent_page = view.get_root_page()
+            else:
+                raise BadRequestError("child_of must be a positive integer") from e
+        except Page.DoesNotExist as e:
+            raise BadRequestError("parent page doesn't exist") from e
+
+        queryset = queryset.child_of(parent_page)
+
+        # Save the parent page on the queryset. This is required for the page
+        # explorer, which needs to pass the parent page into
+        # `construct_explorer_page_queryset` hook functions
+        queryset._filtered_by_child_of = parent_page
 
         return queryset
 
@@ -200,19 +210,23 @@ class AncestorOfFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if "ancestor_of" in request.GET:
-            try:
-                descendant_page_id = int(request.GET["ancestor_of"])
-                if descendant_page_id < 0:
-                    raise ValueError()
+        ancestor_of = request.GET.get("ancestor_of")
 
-                descendant_page = view.get_base_queryset().get(id=descendant_page_id)
-            except ValueError as e:
-                raise BadRequestError("ancestor_of must be a positive integer") from e
-            except Page.DoesNotExist as e:
-                raise BadRequestError("descendant page doesn't exist") from e
+        if not ancestor_of:
+            return queryset
 
-            queryset = queryset.ancestor_of(descendant_page)
+        try:
+            descendant_page_id = int(request.GET["ancestor_of"])
+            if descendant_page_id < 0:
+                raise ValueError()
+
+            descendant_page = view.get_base_queryset().get(id=descendant_page_id)
+        except ValueError as e:
+            raise BadRequestError("ancestor_of must be a positive integer") from e
+        except Page.DoesNotExist as e:
+            raise BadRequestError("descendant page doesn't exist") from e
+
+        queryset = queryset.ancestor_of(descendant_page)
 
         return queryset
 
@@ -224,28 +238,30 @@ class DescendantOfFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if "descendant_of" in request.GET:
-            if hasattr(queryset, "_filtered_by_child_of"):
-                raise BadRequestError(
-                    "filtering by descendant_of with child_of is not supported"
-                )
-            try:
-                parent_page_id = int(request.GET["descendant_of"])
-                if parent_page_id < 0:
-                    raise ValueError()
+        descendant_of = request.GET.get("descendant_of")
 
-                parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError as e:
-                if request.GET["descendant_of"] == "root":
-                    parent_page = view.get_root_page()
-                else:
-                    raise BadRequestError(
-                        "descendant_of must be a positive integer"
-                    ) from e
-            except Page.DoesNotExist as e:
-                raise BadRequestError("ancestor page doesn't exist") from e
+        if not descendant_of:
+            return queryset
 
-            queryset = queryset.descendant_of(parent_page)
+        if hasattr(queryset, "_filtered_by_child_of"):
+            raise BadRequestError(
+                "filtering by descendant_of with child_of is not supported"
+            )
+        try:
+            parent_page_id = int(request.GET["descendant_of"])
+            if parent_page_id < 0:
+                raise ValueError()
+
+            parent_page = view.get_base_queryset().get(id=parent_page_id)
+        except ValueError as e:
+            if request.GET["descendant_of"] == "root":
+                parent_page = view.get_root_page()
+            else:
+                raise BadRequestError("descendant_of must be a positive integer") from e
+        except Page.DoesNotExist as e:
+            raise BadRequestError("ancestor page doesn't exist") from e
+
+        queryset = queryset.descendant_of(parent_page)
 
         return queryset
 
@@ -257,29 +273,33 @@ class TranslationOfFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if "translation_of" in request.GET:
-            try:
-                page_id = int(request.GET["translation_of"])
-                if page_id < 0:
-                    raise ValueError()
+        translation_of = request.GET.get("translation_of")
 
-                page = view.get_base_queryset().get(id=page_id)
-            except ValueError as e:
-                if request.GET["translation_of"] == "root":
-                    page = view.get_root_page()
-                else:
-                    raise BadRequestError(
-                        "translation_of must be a positive integer"
-                    ) from e
-            except Page.DoesNotExist as e:
-                raise BadRequestError("translation_of page doesn't exist") from e
+        if not translation_of:
+            return queryset
 
-            _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
+        try:
+            page_id = int(request.GET["translation_of"])
+            if page_id < 0:
+                raise ValueError()
 
-            queryset = queryset.translation_of(page)
+            page = view.get_base_queryset().get(id=page_id)
+        except ValueError as e:
+            if request.GET["translation_of"] == "root":
+                page = view.get_root_page()
+            else:
+                raise BadRequestError(
+                    "translation_of must be a positive integer"
+                ) from e
+        except Page.DoesNotExist as e:
+            raise BadRequestError("translation_of page doesn't exist") from e
 
-            if _filtered_by_child_of:
-                queryset._filtered_by_child_of = _filtered_by_child_of
+        _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
+
+        queryset = queryset.translation_of(page)
+
+        if _filtered_by_child_of:
+            queryset._filtered_by_child_of = _filtered_by_child_of
 
         return queryset
 
@@ -291,13 +311,17 @@ class LocaleFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if "locale" in request.GET:
-            _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
+        locale = request.GET.get("locale")
 
-            locale = get_object_or_404(Locale, language_code=request.GET["locale"])
-            queryset = queryset.filter(locale=locale)
+        if not locale:
+            return queryset
 
-            if _filtered_by_child_of:
-                queryset._filtered_by_child_of = _filtered_by_child_of
+        _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
+
+        locale = get_object_or_404(Locale, language_code=request.GET["locale"])
+        queryset = queryset.filter(locale=locale)
+
+        if _filtered_by_child_of:
+            queryset._filtered_by_child_of = _filtered_by_child_of
 
         return queryset
