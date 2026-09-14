@@ -1,4 +1,5 @@
 import swapper
+from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
@@ -29,6 +30,12 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
             context["object_list"]
         )
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        if not self.is_export:
+            return redirect(self.get_non_export_url())
+
+        return self.get(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
         if self.is_export:
