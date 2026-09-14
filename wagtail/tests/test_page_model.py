@@ -18,6 +18,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.actions.create_alias import CreatePageAliasPermissionError
 from wagtail.coreutils import get_dummy_request
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
@@ -66,6 +67,7 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     SingleEventPage,
     SingletonPage,
+    SingletonPageViaMaxCount,
     StandardIndex,
     StreamPage,
     TaggedGrandchildPage,
@@ -3012,6 +3014,39 @@ class TestCreateAlias(PageFixturesMixin, TestCase):
         )
         # check that the copied page child_page_2 does not have a view restriction
         self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_create_alias_with_max_count_reached(self):
+        root_page = Page.objects.get(id=2)
+        singleton_page = root_page.add_child(
+            instance=SingletonPageViaMaxCount(title="singleton", slug="singleton")
+        )
+
+        # A second page of this type cannot be created anywhere in the tree,
+        # so creating an alias of it must also be prevented.
+        with self.assertRaises(CreatePageAliasPermissionError):
+            singleton_page.create_alias(update_slug="singleton-alias")
+
+    def test_create_alias_with_max_count_per_parent_reached(self):
+        root_page = Page.objects.get(url_path="/home/")
+        parent1 = root_page.add_child(
+            instance=SimpleParentPage(title="parent 1", slug="parent-1")
+        )
+        parent2 = root_page.add_child(
+            instance=SimpleParentPage(title="parent 2", slug="parent-2")
+        )
+        child_page = parent1.add_child(
+            instance=SimpleChildPage(title="child", slug="child")
+        )
+
+        # parent1 already has one SimpleChildPage, so creating an alias of this
+        # page type under parent1 would exceed max_count_per_parent.
+        with self.assertRaises(CreatePageAliasPermissionError):
+            child_page.create_alias(parent=parent1, update_slug="child-alias")
+
+        # parent2 has no SimpleChildPage, so an alias can be created there.
+        alias = child_page.create_alias(parent=parent2, update_slug="child-alias-2")
+        self.assertEqual(alias.alias_of.specific, child_page)
+        self.assertEqual(alias.get_parent().id, parent2.id)
 
 
 class TestUpdateAliases(PageFixturesMixin, TestCase):

@@ -10,6 +10,7 @@ from wagtail.test.testapp.models import (
     EventPageSpeaker,
     PageWithExcludedCopyField,
     SimplePage,
+    SingletonPageViaMaxCount,
 )
 from wagtail.test.utils import Page, WagtailTestUtils
 
@@ -765,6 +766,32 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.assertFalse(
             any(Page.find_problems()), msg="treebeard found consistency problems"
         )
+
+    def test_page_copy_as_alias_with_max_count_reached(self):
+        singleton = self.root_page.add_child(
+            instance=SingletonPageViaMaxCount(title="Singleton", slug="singleton")
+        )
+
+        post_data = {
+            "new_title": "Singleton 2",
+            "new_slug": "singleton-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "alias": True,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(singleton.id,)), post_data
+        )
+
+        # The form should be re-shown with an error, and no alias should have
+        # been created.
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "new_parent_page",
+            f'You do not have permission to copy to page "{self.root_page.title}"',
+        )
+        self.assertEqual(SingletonPageViaMaxCount.objects.count(), 1)
 
     def test_page_copy_as_editor_without_edit_permission_at_source(self):
         """

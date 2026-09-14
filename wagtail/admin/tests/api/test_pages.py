@@ -25,6 +25,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     PageWithExcludedCopyField,
     SimplePage,
+    SingletonPageViaMaxCount,
     StreamPage,
 )
 from wagtail.test.utils import Page, PageFixturesMixin
@@ -2102,6 +2103,26 @@ class TestCreatePageAliasAction(PageFixturesMixin, AdminAPITestCase, TestCase):
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
             content, {"message": f"No {Page.__name__} matches the given query."}
+        )
+
+    def test_create_alias_with_max_count_reached(self):
+        root_page = Page.objects.get(url_path="/home/")
+        singleton = root_page.add_child(
+            instance=SingletonPageViaMaxCount(title="singleton", slug="singleton")
+        )
+
+        response = self.get_response(
+            singleton.id, data={"update_slug": "new-singleton"}
+        )
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content,
+            {
+                "message": "You do not have permission to create an alias of this "
+                "page because it cannot be created at the destination."
+            },
         )
 
 

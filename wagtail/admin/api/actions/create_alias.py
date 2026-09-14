@@ -9,6 +9,7 @@ from rest_framework.serializers import Serializer
 from wagtail.actions.create_alias import (
     CreatePageAliasAction,
     CreatePageAliasIntegrityError,
+    CreatePageAliasPermissionError,
 )
 from wagtail.api.v2.utils import BadRequestError
 
@@ -47,6 +48,8 @@ class CreatePageAliasAPIAction(APIAction):
         except DjangoValidationError as e:
             raise ValidationError(e.message_dict) from e
         except CreatePageAliasIntegrityError as e:
+            raise BadRequestError(e.args[0]) from e
+        except CreatePageAliasPermissionError as e:
             raise BadRequestError(e.args[0]) from e
 
         serializer = self.view.get_serializer(new_page)

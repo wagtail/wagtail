@@ -87,6 +87,28 @@ class CreatePageAliasAction(BaseAction):
                 "You cannot copy a tree branch recursively into itself"
             )
 
+        # Enforce max_count / max_count_per_parent when creating aliases.
+        # We intentionally do NOT check is_creatable / can_exist_under here:
+        # existing pages may reside at locations where is_creatable is False
+        # (e.g. the base Page type under root, used by copy_for_translation),
+        # and aliasing those pages should still be permitted.
+        if not skip_permission_checks:
+            specific_class = self.page.specific_class
+            max_count_ok = (
+                specific_class.max_count is None
+                or specific_class.objects.count() < specific_class.max_count
+            )
+            max_count_per_parent_ok = (
+                specific_class.max_count_per_parent is None
+                or parent.get_children().type(specific_class).count()
+                < specific_class.max_count_per_parent
+            )
+            if not max_count_ok or not max_count_per_parent_ok:
+                raise CreatePageAliasPermissionError(
+                    "You do not have permission to create an alias of this page "
+                    "because it cannot be created at the destination."
+                )
+
         if (
             self.user
             and not skip_permission_checks
