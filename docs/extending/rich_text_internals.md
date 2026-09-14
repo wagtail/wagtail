@@ -170,9 +170,9 @@ class UserLinkHandler(LinkHandler):
         return '<a href="mailto:%s">' % user.email
 ```
 
-### Registering rewrite handlers
+### Registering link rewrite handlers
 
-Rewrite handlers must also be registered with the feature registry via the [register rich text features](register_rich_text_features) hook. Independent methods for registering both link handlers and embed handlers are provided.
+Link rewrite handlers must also be registered with the feature registry via the [register rich text features](register_rich_text_features) hook. Independent methods for registering both link handlers and embed handlers are provided.
 
 ```{eval-rst}
 .. method:: FeatureRegistry.register_link_type(handler)
@@ -232,6 +232,109 @@ from my_app.handlers import MyCustomEmbedHandler
 @hooks.register("register_rich_text_features")
 def register_embed_handler(features):
     features.register_embed_type(MyCustomEmbedHandler)
+```
+
+### Registering front-end rewriters
+
+Link and embed handlers cover tags keyed on a `linktype` or `embedtype`. For a feature that stores some other markup of its own, you can register an arbitrary rewriter to be applied when the rich text is rendered.
+
+```{eval-rst}
+.. method:: FeatureRegistry.register_frontend_rewriter(rewriter, order=0)
+
+This method registers a callable to be applied to the database representation of rich text when rendering it on the front end.
+
+The ``rewriter`` must be a callable taking a single argument - the rich text HTML as a string - and returning the rewritten HTML. By convention these are written as classes with a ``__call__`` method, so that compiled regular expressions can be held as class attributes, but a plain function is also fine for simple replacements.
+
+A rewriter is instantiated once and reused for the lifetime of the process, across all requests and threads, so it must not store per-request state on ``self``.
+
+Optionally, a rewriter may also define an ``extract_references(html)`` method, yielding reference tuples in the same way as :ref:`rewrite handlers <rich_text_rewrite_handlers>`, so that objects referred to by your tag are recorded in the reference index. Rewriters that do not refer to model instances can leave it undefined.
+```
+
+The example below marks up a phrase in a different language, which [WCAG 2.1 success criterion 3.1.2](https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html) requires on pages that mix languages, so that a screen reader pronounces the phrase correctly.
+
+Storing the language needs no rewriter: a converter rule maps a Draftail inline style to a `<span lang="...">` tag in the database, and because `expand_db_html` leaves tags it does not recognize alone, that span reaches the template as it was stored. What the rewriter adds is the matching `dir` attribute. Deriving it on render rather than storing it means editors only record which language a phrase is in, and correcting or extending the logic later also fixes content that has already been published.
+
+```python
+# my_app/wagtail_hooks.py
+
+import re
+
+from django.utils.translation import get_language_info
+
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail import hooks
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    InlineStyleElementHandler,
+)
+
+
+class LanguageDirectionRewriter:
+    FIND_LANG_SPAN = re.compile(r'<span\b[^>]*\blang="([\w-]+)"[^>]*>')
+
+    def add_direction(self, match):
+        try:
+            is_rtl = get_language_info(match.group(1))["bidi"]
+        except KeyError:  # not a language Django knows about
+            is_rtl = False
+
+        tag = match.group(0)
+        return tag[:-1] + ' dir="rtl">' if is_rtl else tag
+
+    def __call__(self, html):
+        return self.FIND_LANG_SPAN.sub(self.add_direction, html)
+
+
+@hooks.register("register_rich_text_features")
+def register_language_features(features):
+    for code in ["nl", "ar"]:
+        feature_name = f"lang-{code}"
+        style = f"LANG_{code.upper()}"
+
+        # 1. Give Draftail a toolbar control for the language.
+        features.register_editor_plugin(
+            "draftail",
+            feature_name,
+            draftail_features.InlineStyleFeature(
+                {
+                    "type": style,
+                    "label": code,
+                    "description": get_language_info(code)["name_local"],
+                }
+            ),
+        )
+
+        # 2. Convert between that style and a <span lang="..."> tag in the database.
+        features.register_converter_rule(
+            "contentstate",
+            feature_name,
+            {
+                "from_database_format": {
+                    f'span[lang="{code}"]': InlineStyleElementHandler(style),
+                },
+                "to_database_format": {
+                    "style_map": {
+                        style: {"element": "span", "props": {"lang": code}},
+                    },
+                },
+            },
+        )
+
+    # 3. Derive the text direction when the content is rendered.
+    features.register_frontend_rewriter(LanguageDirectionRewriter())
+```
+
+With those features enabled on a rich text field, `<span lang="ar">مرحبا</span>` in the database renders as `<span lang="ar" dir="rtl">مرحبا</span>`.
+
+#### Rewriter ordering
+
+Rewriters have no inherent specificity, so `register_frontend_rewriter` takes an optional `order` argument for the cases where the order of execution matters. It follows the same convention as [`hooks.register`](admin_hooks): the default is `0`, rewriters sharing an order run in registration order, and a negative order runs earlier.
+
+Wagtail's own link and embed rewriters run before anything registered at the default order, so by default your rewriter sees fully expanded `<a href="...">` and embed markup rather than the `<a linktype="...">` and `<embed embedtype="..." />` tags held in the database. This is almost always what you want.
+
+A negative order runs your rewriter before Wagtail's own. That matters if your feature stores extra data on a tag Wagtail already handles: link and embed handlers build their opening tag from scratch, so `<a linktype="page" id="3" data-tone="quiet">` reaches the template as `<a href="/…/">`, and a rewriter at the default order never sees the extra attribute.
+
+```python
+features.register_frontend_rewriter(LinkToneRewriter(), order=-1)
 ```
 
 ## Editor widgets
