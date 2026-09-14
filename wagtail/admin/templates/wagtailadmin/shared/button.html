@@ -7,12 +7,21 @@
     {{ button.label }}
 {% endfragment %}
 
-{% if button.url %}
+{% if button.url and not button.is_post_request %}
     <a href="{{ button.url }}" class="{{ button.classname }}" {{ button.base_attrs_string }}>
         {{ content }}
     </a>
 {% else %}
-    <button class="{{ button.classname }}" {{ button.base_attrs_string }}>
-        {{ content }}
-    </button>
+    {% if button.url and button.is_post_request %}
+        <form action="{{ button.url }}" method="post">
+            {% csrf_token %}
+            <button class="{{ button.classname }}" {{ button.base_attrs_string }}>
+                {{ content }}
+            </button>
+        </form>
+    {% else %}
+        <button class="{{ button.classname }}" {{ button.base_attrs_string }}>
+            {{ content }}
+        </button>
+    {% endif %}
 {% endif %}
