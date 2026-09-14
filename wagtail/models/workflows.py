@@ -199,6 +199,7 @@ class WorkflowState(models.Model):
             "status": self.status,
         }
 
+    @transaction.atomic
     def resume(self, user=None):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
         from wagtail.models import AbstractPage
