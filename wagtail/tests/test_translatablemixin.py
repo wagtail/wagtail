@@ -9,7 +9,9 @@ from wagtail.models import Locale
 from wagtail.test.i18n.models import (
     ClusterableTestModel,
     ClusterableTestModelChild,
+    ClusterableTestModelNestedTranslatableChild,
     ClusterableTestModelTranslatableChild,
+    ClusterableTestModelTranslatableGrandChild,
     InheritedTestModel,
     TestModel,
 )
@@ -158,6 +160,38 @@ class TestTranslatableMixin(TestCase):
             instance_translatable_child.translation_key,
         )
         self.assertEqual(copy_translatable_child.locale, self.another_locale)
+
+    def test_copy_nested_translatable_clusterable_model_for_translation(self):
+        instance = ClusterableTestModel.objects.create(
+            title="A nested test clusterable model",
+            nested_translatable_children=[
+                ClusterableTestModelNestedTranslatableChild(
+                    field="A nested translatable child",
+                    translatable_children=[
+                        ClusterableTestModelTranslatableGrandChild(
+                            field="A translatable grandchild"
+                        ),
+                    ],
+                ),
+            ],
+        )
+
+        copy = instance.copy_for_translation(locale=self.another_locale)
+
+        instance_child = instance.nested_translatable_children.get()
+        copy_child = copy.nested_translatable_children.get()
+        instance_grandchild = instance_child.translatable_children.get()
+        copy_grandchild = copy_child.translatable_children.get()
+
+        # The nested translatable child and its translatable grandchild must have
+        # been copied with the target locale, otherwise saving the copy fails on
+        # the (translation_key, locale) unique constraint.
+        self.assertEqual(copy_child.translation_key, instance_child.translation_key)
+        self.assertEqual(copy_child.locale, self.another_locale)
+        self.assertEqual(
+            copy_grandchild.translation_key, instance_grandchild.translation_key
+        )
+        self.assertEqual(copy_grandchild.locale, self.another_locale)
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
