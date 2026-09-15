@@ -111,24 +111,11 @@ class Migration(migrations.Migration):
     dependencies = [
         ("contenttypes", "0002_remove_content_type_name"),
         ("taggit", "0003_taggeditem_add_unique_index"),
-        ("wagtailcore", "0073_page_latest_revision"),
-        ("wagtailcore", "0076_modellogentry_revision"),
-        ("wagtailcore", "0078_referenceindex"),
-        ("wagtailcore", "0083_workflowcontenttype"),
-        ("wagtailcore", "0088_fix_log_entry_json_timestamps"),
-        ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
-        ("wagtailcore", "0091_remove_revision_submitted_for_moderation"),
-        ("wagtailcore", "0093_uploadedfile"),
-        ("wagtailcore", "0094_alter_page_locale"),
-        ("wagtailcore", "0095_groupsitepermission"),
         ("wagtailcore", "0098_apitoken"),
-        ("wagtaildocs", "0005_alter_uploaded_by_user_on_delete_action"),
-        ("wagtaildocs", "0012_uploadeddocument"),
         ("wagtaildocs", "0014_alter_document_file_size"),
-        ("wagtailimages", "0010_change_on_delete_behaviour"),
-        ("wagtailimages", "0025_alter_image_file_alter_rendition_file"),
         ("wagtailimages", "0027_image_description"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.WAGTAIL_PAGE_MODEL),
     ]
 
     operations = [
