@@ -1366,6 +1366,29 @@ class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Mod
 register_snippet(DraftStateCustomPrimaryKeyModel)
 
 
+# Clusterable model with draft state, plus a child relation that is not
+# included in the panels. This reproduces the scenario in #14615, where saving
+# a draft of an unpublished object must not modify child relations that are
+# managed outside the form.
+class ClusterableDraftStateModel(DraftStateMixin, RevisionMixin, ClusterableModel):
+    text = models.TextField()
+
+    panels = ["text"]
+
+    def __str__(self):
+        return self.text
+
+
+class ClusterableDraftStateChild(models.Model):
+    text = models.TextField()
+    parent = ParentalKey(
+        ClusterableDraftStateModel, related_name="children", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.text
+
+
 # Models with PreviewableMixin
 class PreviewableModel(PreviewableMixin, ClusterableModel):
     text = models.TextField()

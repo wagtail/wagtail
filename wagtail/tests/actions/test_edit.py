@@ -11,6 +11,8 @@ from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.signals import published
 from wagtail.test.testapp.models import (
     Advert,
+    ClusterableDraftStateChild,
+    ClusterableDraftStateModel,
     DraftStateModel,
     LockableModel,
     RevisableModel,
@@ -19,6 +21,9 @@ from wagtail.test.utils import WagtailTestUtils
 
 AdvertForm = modelform_factory(Advert, fields=["text", "url", "tags"])
 DraftStateModelForm = modelform_factory(DraftStateModel, fields=["text"])
+ClusterableDraftStateModelForm = modelform_factory(
+    ClusterableDraftStateModel, fields=["text"]
+)
 
 
 class TestEditAction(WagtailTestUtils, TestCase):
@@ -152,6 +157,53 @@ class TestEditAction(WagtailTestUtils, TestCase):
         self.assertTrue(instance.live)
         self.assertEqual(instance.text, "Live")
         self.assertEqual(instance.latest_revision.content["text"], "Draft edit")
+
+    def test_edit_draftstate_clusterable_non_live_preserves_out_of_band_children(
+        self,
+    ):
+        # Regression test for #14615: saving a draft of an unpublished
+        # clusterable object must not modify child relations that are managed
+        # outside the form (and so not present in the latest revision).
+        instance = ClusterableDraftStateModel.objects.create(text="Original")
+        ClusterableDraftStateChild.objects.create(parent=instance, text="A")
+        instance = ClusterableDraftStateModel.objects.get(pk=instance.pk)
+        revision = instance.save_revision(user=self.user, log_action=False)
+        revision.publish(user=self.user, log_action=False)
+
+        # Children B and C are added directly to the database, outside the
+        # revision machinery, after the latest revision was created.
+        instance = ClusterableDraftStateModel.objects.get(pk=instance.pk)
+        ClusterableDraftStateChild.objects.create(parent=instance, text="B")
+        ClusterableDraftStateChild.objects.create(parent=instance, text="C")
+
+        # Unpublishing moves the object into draft state, so subsequent edits
+        # are based on the latest revision, which only contains child A.
+        instance.unpublish(user=self.user)
+        edit_object = instance.get_latest_revision_as_object()
+
+        form = ClusterableDraftStateModelForm({"text": "Edited"}, instance=edit_object)
+        self.assertTrue(form.is_valid())
+
+        EditAction(edit_object, user=self.user, form=form).execute()
+
+        # The edited scalar field has been saved to the database (see #9285)...
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "Edited")
+        # ...but the out-of-band children survive.
+        self.assertEqual(
+            list(ClusterableDraftStateChild.objects.values_list("text", flat=True)),
+            ["A", "B", "C"],
+        )
+        # And the draft content (including the revision's child A) lives in the
+        # latest revision, ready to be applied on publish.
+        self.assertEqual(edit_object.latest_revision.content["text"], "Edited")
+        self.assertEqual(
+            [
+                child["text"]
+                for child in edit_object.latest_revision.content["children"]
+            ],
+            ["A"],
+        )
 
     def test_content_changed_derived_from_form(self):
         advert = Advert.objects.create(text="Original", url="https://example.com")

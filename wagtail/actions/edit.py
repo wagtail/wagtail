@@ -137,6 +137,21 @@ class EditAction(BaseAction):
                 # the instance to the database.
                 self.instance = self.form.save(commit=False)
             # No form is given, leave the instance as-is.
+        elif self.draftstate_enabled and self.form:
+            # Saving a draft of a non-live object. Save the scalar fields edited
+            # on the form to the database, but leave child relations to be applied
+            # when the revision is published. Saving the instance through the form
+            # (`form.save()` with a full commit) would commit every child relation,
+            # deleting any related rows that are present in the database but not in
+            # the latest revision - e.g. relations managed outside the form (see #14615).
+            self.instance = self.form.save(commit=False)
+            update_fields = [
+                field.name
+                for field in self.instance._meta.local_concrete_fields
+                if field.name in self.form.changed_data
+            ]
+            if update_fields:
+                self.instance.save(update_fields=update_fields)
         else:
             if self.form:
                 self.instance = self.form.save()
