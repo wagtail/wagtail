@@ -139,6 +139,32 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("new_parent_page", form.errors)
 
+    def test_page_copy_logs_source_page(self):
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)),
+            post_data,
+        )
+
+        log_entry = PageLogEntry.objects.filter(
+            action="wagtail.copy",
+            page_id=self.test_page.id,
+        ).latest("timestamp")
+
+        self.assertEqual(log_entry.data["source"]["id"], self.test_page.id)
+        self.assertEqual(
+            log_entry.data["source"]["title"],
+            self.test_page.get_admin_display_title(),
+        )
+
     def test_page_copy_post(self):
         post_data = {
             "new_title": "Hello world 2",

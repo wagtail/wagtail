@@ -290,7 +290,7 @@ class CopyPageAction(BaseAction):
 
         # Log
         if self.log_action:
-            parent = specific_page.get_parent()
+            source = specific_page
             log(
                 instance=page_copy,
                 action=self.log_action,
@@ -305,11 +305,9 @@ class CopyPageAction(BaseAction):
                         },
                     },
                     "source": {
-                        "id": parent.id,
-                        "title": parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if parent
-                    else None,
+                        "id": source.id,
+                        "title": source.get_admin_display_title(),
+                    },
                     "destination": {
                         "id": to.id,
                         "title": to.specific_deferred.get_admin_display_title(),
