@@ -61,6 +61,15 @@ $header-button-size: theme('spacing.6');
   overflow: hidden;
 }
 
+.w-panel__heading-summary {
+  @apply w-help-text;
+  margin-inline-start: theme('spacing.1');
+}
+
+[aria-expanded='true'] + .w-panel__heading .w-panel__heading-summary {
+  @apply w-sr-only;
+}
+
 .w-panel__anchor,
 .w-panel__toggle,
 .w-panel__controls .button.button--icon {
