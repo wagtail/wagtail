@@ -20,6 +20,12 @@ INSTALLED_APPS = [
 
 The `wagtailfrontendcache` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the `wagtail.contrib.frontend_cache` app is loaded.
 
+```{warning}
+Frontend caches are most effective when responses can be shared between visitors. If your Wagtail pages send a `Vary: Cookie` header, many caching proxies and CDNs will treat those responses as user-specific and skip or fragment caching.
+
+This commonly happens when templates render the `wagtailuserbar` for logged-in editors, or when page rendering varies based on `request.user.is_authenticated`. For high-traffic deployments, it is worth checking that your public page responses do not vary on cookies unless that behavior is intentional.
+```
+
 ### Varnish/Squid
 
 Add a new item into the `WAGTAILFRONTENDCACHE` setting and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.HTTPBackend`. This backend requires an extra parameter `LOCATION` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
@@ -87,6 +93,8 @@ WAGTAILFRONTENDCACHE = {
     },
 }
 ```
+
+Cloudflare-specific cache rules often depend on your wider deployment setup. If you need to keep the Wagtail admin and editor features working while aggressively caching public pages, review your cache rules carefully rather than relying on a single generic configuration.
 
 (frontendcache_aws_cloudfront)=
 
