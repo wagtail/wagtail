@@ -127,6 +127,7 @@ class IndexView(generic.IndexView):
         "link": _("To"),
         "get_is_permanent_display": _("Type"),
     }
+    export_requires_post = True
 
     def get_base_queryset(self):
         return super().get_base_queryset().select_related("redirect_page", "site")
