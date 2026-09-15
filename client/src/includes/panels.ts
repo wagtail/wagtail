@@ -119,6 +119,21 @@ export function initAnchoredPanels(
     : getElementByContentPath();
 
   if (target) {
+    // Expand any collapsed panels between the target and the top of the page,
+    // otherwise scrollIntoView won't reveal a target inside collapsed content.
+    let panel: HTMLElement | null = target;
+    while (panel) {
+      if (panel.matches('[data-panel]')) {
+        const toggle = panel.querySelector<HTMLButtonElement>(
+          '[data-panel-toggle]',
+        );
+        if (toggle && toggle.getAttribute('aria-expanded') !== 'true') {
+          toggleCollapsiblePanel(toggle, true);
+        }
+      }
+      panel = panel.parentElement;
+    }
+
     setTimeout(() => {
       target.scrollIntoView({ behavior: 'smooth' });
     }, 100);
