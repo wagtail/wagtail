@@ -496,6 +496,12 @@ class IndexView(
             return self.as_spreadsheet([], request.GET.get("export"))
         return super().get(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        if not self.is_export:
+            return redirect(self.get_non_export_url())
+
+        return self.get(request, *args, **kwargs)
+
     def render_to_response(self, context, **response_kwargs):
         if self.is_export:
             return self.as_spreadsheet(
