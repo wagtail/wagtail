@@ -208,6 +208,28 @@ class TranslatableMixin(models.Model):
 
         has_unique_together = unique_constraint_fields in cls._meta.unique_together
 
+        # Scenario - 1
+        # Developer added a class Meta for an unrelated reason (e.g. verbose_name),
+        # now needs to add TranslatableMixin.Meta
+        if "unique_together" not in cls._meta.original_attrs and not (
+            has_unique_constraint or has_unique_together
+        ):
+            errors.append(
+                checks.Warning(
+                    "{0}.{1} inherits from TranslatableMixin, but its Meta does not inherit "
+                    "TranslatableMixin.Meta, so unique_together is lost.".format(
+                        cls._meta.app_label, cls.__name__
+                    ),
+                    hint="Add TranslatableMixin.Meta as parent class to {}.Meta".format(
+                        cls.__name__
+                    ),
+                    obj=cls,
+                    id="wagtailcore.W002",
+                )
+            )
+            return errors
+
+        # Scenario - 2
         # Raise error if subclass has removed constraints
         if not (has_unique_constraint or has_unique_together):
             errors.append(
@@ -229,6 +251,7 @@ class TranslatableMixin(models.Model):
                 )
             )
 
+        # Scenario - 3
         # Raise error if subclass has both UniqueConstraint and unique_together
         if has_unique_constraint and has_unique_together:
             errors.append(
