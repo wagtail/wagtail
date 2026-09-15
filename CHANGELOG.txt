@@ -17,6 +17,7 @@ Changelog
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Maintenance: Drop support for Python 3.10
  * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
+ * Maintenance: Squash testapp migrations (Sage Abdullah)
 
 
 8.0 (25.08.2026)
