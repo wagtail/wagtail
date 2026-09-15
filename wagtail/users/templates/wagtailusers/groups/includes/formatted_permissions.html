@@ -29,7 +29,16 @@
             <tbody>
                 {% for content_perms_dict in object_perms %}
                     <tr>
-                        <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
+                        <td class="title">
+                            <h3>{{ content_perms_dict.object|capfirst }}</h3>
+                            {% if content_perms_dict.is_user_model %}
+                                <p class="w-help-text w-text-grey-400 w-mt-1">
+                                    {% blocktrans trimmed %}
+                                        <strong>Warning:</strong> Granting user management permissions can allow privilege escalation. Only assign this to trusted users.
+                                    {% endblocktrans %}
+                                </p>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if content_perms_dict.add %}
                                 <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.add.perm.name }}</label>
