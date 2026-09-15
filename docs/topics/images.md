@@ -512,7 +512,7 @@ Note that this won't affect any previously generated images so you may want to d
 You can also directly use the image management command from the console for regenerating the renditions:
 
 ```sh
-./manage.py wagtail_update_image_renditions --purge
+./manage.py wagtail_update_image_renditions
 ```
 
 You can read more about this command from [](wagtail_update_image_renditions)
