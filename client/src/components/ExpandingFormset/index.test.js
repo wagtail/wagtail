@@ -86,6 +86,12 @@ describe('ExpandingFormset', () => {
     ).toHaveLength(3);
 
     expect(newFormHtml).toMatchSnapshot();
+
+    document
+      .getElementById(`${prefix}-ADD`)
+      .dispatchEvent(new MouseEvent('click'));
+
+    expect(handleLoadedEvent).toHaveBeenCalledTimes(2);
   });
 
   it('should not add an expanded item if the add button is disabled', () => {

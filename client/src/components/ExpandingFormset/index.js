@@ -52,9 +52,12 @@ export class ExpandingFormset {
     const template = document.createElement('template');
     template.innerHTML = newFormHtml;
     const fragment = template.content;
+    const insertedElements = Array.from(fragment.children);
 
     this.formContainer.appendChild(fragment);
-    runInlineScripts(this.formContainer);
+    insertedElements.forEach((element) => {
+      runInlineScripts(element);
+    });
 
     this.totalFormsInput.value = this.formCount + 1;
 
