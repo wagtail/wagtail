@@ -13,12 +13,18 @@ const runScripts = (element) => {
     : Array.from(element.querySelectorAll?.('script') || []);
 
   scripts.forEach((script) => {
-    const type = (script.type || '').toLowerCase();
+    const type = (script.type || '').split(';')[0].trim().toLowerCase();
     if (JS_TYPES.has(type)) {
       const newScript = document.createElement('script');
-      Array.from(script.attributes).forEach((attr) =>
-        newScript.setAttribute(attr.nodeName, attr.nodeValue || ''),
-      );
+      Array.from(script.attributes).forEach((attr) => {
+        if (attr.nodeName !== 'type') {
+          newScript.setAttribute(attr.nodeName, attr.nodeValue || '');
+        }
+      });
+      if (type === 'module') {
+        newScript.type = 'module';
+      }
+      newScript.async = false;
       newScript.text = script.text;
       script.replaceWith(newScript);
     }

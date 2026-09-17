@@ -299,7 +299,7 @@ describe('ExpandingFormset', () => {
         <li id="item-__prefix__">
           <input type="text" name="item-__prefix__-name">
         </li>
-        <script type="text/javascript">document.dispatchEvent(new CustomEvent('custom:typed-loaded', { bubbles: true }));</script>
+        <script type="text/javascript; charset=utf-8">document.dispatchEvent(new CustomEvent('custom:typed-loaded', { bubbles: true }));</script>
         <script src="/static/custom-widget.js"></script>
       </template>
     </div>`;
