@@ -1,4 +1,18 @@
-import { runInlineScripts } from '../../utils/runInlineScripts';
+const runScripts = (element) => {
+  const scripts = element.matches?.('script')
+    ? [element]
+    : Array.from(element.querySelectorAll?.('script') || []);
+  scripts.forEach((script) => {
+    if (!script.type || script.type === 'application/javascript') {
+      const newScript = document.createElement('script');
+      Array.from(script.attributes).forEach((attr) =>
+        newScript.setAttribute(attr.nodeName, attr.nodeValue || ''),
+      );
+      newScript.text = script.text;
+      script.replaceWith(newScript);
+    }
+  });
+};
 
 /**
  * Usage of this class directly is deprecated for admin core code use.
@@ -56,7 +70,7 @@ export class ExpandingFormset {
 
     this.formContainer.appendChild(fragment);
     insertedElements.forEach((element) => {
-      runInlineScripts(element);
+      runScripts(element);
     });
 
     this.totalFormsInput.value = this.formCount + 1;
