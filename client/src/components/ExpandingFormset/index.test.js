@@ -310,7 +310,9 @@ describe('ExpandingFormset', () => {
 
     expect(handleTypedEvent).toHaveBeenCalledTimes(1);
     const container = document.getElementById(`${prefix}-FORMS`);
-    const externalScript = container.querySelector('script[src="/static/custom-widget.js"]');
+    const externalScript = container.querySelector(
+      'script[src="/static/custom-widget.js"]',
+    );
     expect(externalScript).not.toBeNull();
   });
 });
