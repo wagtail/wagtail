@@ -1,12 +1,15 @@
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects.models import Redirect
+from wagtail.contrib.redirects.signal_handlers import BatchRedirectCreator
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Site
 from wagtail.test.routablepage.models import RoutablePageTest
-from wagtail.test.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex, SingleEventPage
 from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 User = get_user_model()
@@ -300,3 +303,47 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
             draft.move(self.other_page, pos="last-child")
 
         self.assertTrue(self.automatic_redirect_exists(draft_url_path))
+
+    def test_pre_process_with_empty_batch_does_not_delete_redirects(self):
+        # https://github.com/wagtail/wagtail/issues/11338
+        redirect = Redirect.objects.create(
+            old_path="/old-url",
+            site=self.site,
+            redirect_link="/new-url",
+            automatically_created=True,
+        )
+        batch = BatchRedirectCreator(max_size=2000, ignore_conflicts=True)
+        batch.process()
+
+        self.assertTrue(Redirect.objects.filter(pk=redirect.pk).exists())
+        self.assertFalse(Redirect.objects.exclude(pk=redirect.pk).exists())
+        self.assertEqual(len(PURGED_URLS), 0)
+
+    def test_slug_change_when_url_does_not_depend_on_slug(self):
+        # A page whose `get_url_parts()` does not use its slug (as can happen
+        # when the method is overridden) results in an empty batch, which must
+        # not delete unrelated automatically-created redirects
+        # https://github.com/wagtail/wagtail/issues/11338
+        redirect = Redirect.objects.create(
+            old_path="/events/old-url",
+            site=self.site,
+            redirect_link="/events",
+            automatically_created=True,
+        )
+        single_event = SingleEventPage.objects.get(url_path__endswith="saint-patrick/")
+
+        def slug_independent_get_url_parts(page_self, request=None):
+            site_id, root_url, page_path = page_self.get_parent().get_url_parts(request)
+            return site_id, root_url, f"{page_path}{page_self.id}/"
+
+        with mock.patch.object(
+            SingleEventPage, "get_url_parts", slug_independent_get_url_parts
+        ):
+            with self.captureOnCommitCallbacks(execute=True):
+                self.trigger_page_slug_changed_signal(single_event)
+
+        # The page's URL did not change, so no redirects should be created,
+        # and existing automatically-created redirects must be preserved
+        self.assertTrue(Redirect.objects.filter(pk=redirect.pk).exists())
+        self.assertFalse(Redirect.objects.exclude(pk=redirect.pk).exists())
+        self.assertEqual(len(PURGED_URLS), 0)
