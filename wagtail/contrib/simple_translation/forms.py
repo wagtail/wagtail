@@ -1,6 +1,6 @@
 from django import forms
 from django.urls import reverse
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.models import AbstractPage, Locale
@@ -102,20 +102,20 @@ class SubmitTranslationForm(forms.Form):
                 url = reverse(
                     "simple_translation:submit_page_translation", args=[parent.id]
                 )
-                help_text = ngettext(
-                    "A locale is disabled because a parent page is not translated.",
-                    "Some locales are disabled because some parent pages are not translated.",
-                    len(disabled_locales),
+                self.fields["locales"].help_text = format_html(
+                    '{}<br><a href="{}">{}</a>',
+                    ngettext(
+                        "A locale is disabled because a parent page is not translated.",
+                        "Some locales are disabled because some parent pages are not translated.",
+                        len(disabled_locales),
+                    ),
+                    url,
+                    ngettext(
+                        "Translate the parent page.",
+                        "Translate the parent pages.",
+                        len(disabled_locales),
+                    ),
                 )
-                help_text += "<br>"
-                help_text += f'<a href="{url}">'
-                help_text += ngettext(
-                    "Translate the parent page.",
-                    "Translate the parent pages.",
-                    len(disabled_locales),
-                )
-                help_text += "</a>"
-                self.fields["locales"].help_text = mark_safe(help_text)  # noqa: S308 - TODO: should this be rewritten to format_html?
 
             # For pages, if there is one locale or all locales are disabled.
             hide_select_all = (

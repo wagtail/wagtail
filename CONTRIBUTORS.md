@@ -1005,6 +1005,7 @@
 * Neda Gilanian
 * Satyam Laheri
 * Waqas Ahmed
+* Keerthi Kumar
 
 ## Translators
 

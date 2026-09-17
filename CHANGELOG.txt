@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Drop support for Python 3.10
  * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
  * Maintenance: Squash testapp migrations (Sage Abdullah)
+ * Maintenance: Use `format_html` for submit translation form help text (Keerthi Kumar)
 
 
 8.0 (25.08.2026)
