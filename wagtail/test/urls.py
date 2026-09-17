@@ -37,6 +37,7 @@ urlpatterns = [
     path("api/main/", api_router.urls),
     path("api/v3/", v3_api.urls),
     path("sitemap.xml", sitemaps_views.sitemap),
+    path("sitemap-simple.xml", sitemaps_views.sitemap, {"alternates": False}),
     path(
         "sitemap-index.xml",
         sitemaps_views.index,
