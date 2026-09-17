@@ -43,6 +43,7 @@ class PublishBulkAction(PageBulkAction):
             revision = page.get_latest_revision() or page.specific.save_revision(
                 user=user
             )
+            revision.as_object().full_clean()
             revision.publish(user=user)
             num_parent_objects += 1
 
