@@ -1,5 +1,6 @@
 import functools
 
+from django import forms
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import ForeignKey
 from django.forms.models import ModelChoiceIterator
@@ -275,6 +276,13 @@ class FieldPanel(Panel):
             if self.read_only:
                 return self.prefix
             return self.bound_field.id_for_label
+
+        @property
+        def use_fieldset(self):
+            return isinstance(
+                self.bound_field.field.widget,
+                (forms.RadioSelect, forms.CheckboxSelectMultiple),
+            )
 
         @property
         def comments_enabled(self):
