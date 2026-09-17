@@ -1,4 +1,29 @@
-import { runInlineScripts } from '../../utils/runInlineScripts';
+const JS_TYPES = new Set([
+  '',
+  'text/javascript',
+  'application/javascript',
+  'text/ecmascript',
+  'application/ecmascript',
+  'module',
+]);
+
+const runScripts = (element) => {
+  const scripts = element.matches?.('script')
+    ? [element]
+    : Array.from(element.querySelectorAll?.('script') || []);
+
+  scripts.forEach((script) => {
+    const type = (script.type || '').toLowerCase();
+    if (JS_TYPES.has(type)) {
+      const newScript = document.createElement('script');
+      Array.from(script.attributes).forEach((attr) =>
+        newScript.setAttribute(attr.nodeName, attr.nodeValue || ''),
+      );
+      newScript.text = script.text;
+      script.replaceWith(newScript);
+    }
+  });
+};
 
 /**
  * Usage of this class directly is deprecated for admin core code use.
@@ -56,7 +81,7 @@ export class ExpandingFormset {
 
     this.formContainer.appendChild(fragment);
     insertedElements.forEach((element) => {
-      runInlineScripts(element);
+      runScripts(element);
     });
 
     this.totalFormsInput.value = this.formCount + 1;
