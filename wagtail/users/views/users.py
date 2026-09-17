@@ -222,6 +222,9 @@ class IndexView(generic.IndexView):
         if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")
 
+        if not self.request.user.is_superuser:
+            users = users.exclude(is_superuser=True)
+
         return users
 
     def order_queryset(self, queryset):
@@ -239,6 +242,11 @@ class CreateView(generic.CreateView):
 
     success_message = gettext_lazy("User '%(object)s' created.")
     page_title = gettext_lazy("Add user")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["can_assign_superuser"] = self.request.user.is_superuser
+        return kwargs
 
     def run_before_hook(self):
         return self.run_hook(
@@ -266,6 +274,8 @@ class EditView(generic.EditView):
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.object = self.get_object()
+        if not request.user.is_superuser and self.object.is_superuser:
+            raise PermissionDenied
         self.can_delete = user_can_delete_user(request.user, self.object)
         self.editing_self = request.user == self.object
 
@@ -281,6 +291,7 @@ class EditView(generic.EditView):
         kwargs.update(
             {
                 "editing_self": self.editing_self,
+                "can_assign_superuser": self.request.user.is_superuser,
             }
         )
         return kwargs
@@ -339,6 +350,11 @@ class DeleteView(generic.DeleteView):
 
 
 class HistoryView(generic.HistoryView):
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        if not request.user.is_superuser and self.object.is_superuser:
+            raise PermissionDenied
+
     def get_page_subtitle(self):
         return get_user_display_name(self.object)
 
