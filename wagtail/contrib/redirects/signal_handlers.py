@@ -24,6 +24,8 @@ class BatchRedirectCreator(BatchCreator):
     model = Redirect
 
     def pre_process(self):
+        if not self.items:
+            return
         # delete any existing automatically-created redirects that might clash
         # with the items in `self.items`
         clashes_q = Q()
