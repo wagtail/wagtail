@@ -29,7 +29,7 @@ wagtail start mysite
 ```
 
 Running the command creates a new folder `mysite`, which is a template containing everything you need to get started.
-More information on this template is available in [the project template reference](/reference/project_template).
+More information on this template is available in [the project template reference](/docs/reference/project_template).
 
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
@@ -43,7 +43,7 @@ python manage.py runserver
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
 
 This sets you up with a new stand-alone Wagtail project.
-If you want to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/getting_started/integrating_into_django).
+If you want to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/docs/getting_started/integrating_into_django).
 
 There are a few optional packages that are not installed by default. You can install them to improve performance or add features to Wagtail. These optional packages include:
 
