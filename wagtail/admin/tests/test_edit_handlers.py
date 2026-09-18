@@ -1437,6 +1437,33 @@ class TestInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertIn("data-inline-panel-child-move-down", result)
         self.assertIn("data-inline-panel-child-drag", result)
 
+    def test_render_has_contentpath_attributes(self):
+        """
+        The usage view links to nested fields using a contentpath such as
+        ``speakers.{pk}.image``. The rendered InlinePanel must include matching
+        data-contentpath attributes on the panel and each child element so those
+        links resolve to the field in the edit page.
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="speaker")]
+        ).bind_to_model(EventPage)
+        EventPageForm = speaker_object_list.get_form_class()
+
+        event_page = EventPage.objects.get(slug="christmas")
+        speaker = event_page.speakers.first()
+        self.assertIsNotNone(speaker.pk)
+
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+
+        self.assertIn('data-contentpath="speakers"', result)
+        self.assertIn(f'data-contentpath="{speaker.pk}"', result)
+        self.assertIn('data-contentpath="image"', result)
+
     def test_render_with_panel_overrides(self):
         """
         Check that inline panel renders the panels listed in the InlinePanel definition
