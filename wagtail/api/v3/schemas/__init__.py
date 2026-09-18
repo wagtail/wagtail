@@ -8,6 +8,7 @@ from .base import (
 )
 from .generators import create_generator, patch_generator, read_generator
 from .pages import (
+    BasePageMetaSchema,
     BasePageSchema,
     PageCreateBaseSchema,
     PageCreateMetaSchema,
@@ -29,6 +30,7 @@ __all__ = [
     "create_generator",
     "patch_generator",
     "BasePageSchema",
+    "BasePageMetaSchema",
     "PageSchema",
     "PageCreateBaseSchema",
     "PageCreateMetaSchema",

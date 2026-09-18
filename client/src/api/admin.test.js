@@ -1,17 +1,16 @@
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { getPage, getPageChildren } from './admin';
+import { getPage, getPageChildren, getPageTranslations } from './admin';
 import client from './client';
 
 const { ADMIN_API } = WAGTAIL_CONFIG;
 
 jest.mock('./client', () => {
   const stubResult = {
-    __types: {
-      test: {
-        verbose_name: 'Test',
-      },
-    },
-    items: [{ meta: { type: 'test' } }, { meta: { type: 'foo' } }],
+    count: 2,
+    items: [
+      { id: 1, meta: { type: 'test' } },
+      { id: 2, meta: { type: 'foo' } },
+    ],
   };
 
   return {
@@ -25,28 +24,14 @@ describe('admin API', () => {
     it('works', () => {
       getPageChildren(3);
       expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent`,
-      );
-    });
-
-    it('#fields', () => {
-      getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
-      expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`,
-      );
-    });
-
-    it('#onlyWithChildren', () => {
-      getPageChildren(3, { onlyWithChildren: true });
-      expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&has_children=1`,
+        `${ADMIN_API.PAGES_EXPLORE}?child_of=3`,
       );
     });
 
     it('#offset', () => {
       getPageChildren(3, { offset: 5 });
       expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&offset=5`,
+        `${ADMIN_API.PAGES_EXPLORE}?child_of=3&offset=5`,
       );
     });
   });
@@ -55,6 +40,22 @@ describe('admin API', () => {
     it('should return a result by with a default id argument', () => {
       getPage(3);
       expect(client.get).toHaveBeenCalledWith(`${ADMIN_API.PAGES}3/`);
+    });
+  });
+
+  describe('getPageTranslations', () => {
+    it('works', () => {
+      getPageTranslations(3);
+      expect(client.get).toHaveBeenCalledWith(
+        `${ADMIN_API.PAGES}?translation_of=3&limit=20&has_children=true`,
+      );
+    });
+
+    it('#offset', () => {
+      getPageTranslations(3, { offset: 5 });
+      expect(client.get).toHaveBeenCalledWith(
+        `${ADMIN_API.PAGES}?translation_of=3&limit=20&has_children=true&offset=5`,
+      );
     });
   });
 

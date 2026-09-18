@@ -45,9 +45,7 @@ describe('nodes', () => {
       payload: {
         id: 1,
         items: [{ id: 3 }, { id: 4 }, { id: 5 }],
-        meta: {
-          total_count: 3,
-        },
+        count: 3,
       },
     };
     expect(nodes(state, action)).toMatchSnapshot();
