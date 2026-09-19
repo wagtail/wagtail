@@ -303,6 +303,8 @@ class AtomicBlockEntityElementHandler:
             attrs
         )  # convert attrs from list of (name, value) tuples to a dict
         entity = self.create_entity(name, attr_dict, state, contentstate)
+        if entity is None:
+            return
         key = contentstate.add_entity(entity)
 
         block = Block("atomic", depth=state.list_depth)
