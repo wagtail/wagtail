@@ -631,16 +631,12 @@ class CustomSubmissionsListView(SubmissionsListView):
     ordering_csv = (
         "-submit_time",
     )  # order csv export by newest first, normally oldest first
-
-    # override the method to generate csv filename
-    def get_csv_filename(self):
-        """Returns the filename for CSV file with page slug at start"""
-        filename = super().get_csv_filename()
-        return self.form_page.slug + "-" + filename
 ```
 
 ```python
 # myapp/models.py
+from modelcluster.fields import ParentalKey
+from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
