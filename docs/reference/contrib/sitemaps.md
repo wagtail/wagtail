@@ -80,6 +80,41 @@ change the site's port to `443`, the `https` scheme will be used:
 
 Find out more about [working with Sites](site_model_ref).
 
+(sitemap_multi_language_support)=
+
+## Multi-language support
+
+When `WAGTAIL_I18N_ENABLED` is `True`, alternate links will be automatically added for translations of each page.
+
+```xml
+<url>
+    <loc>http://mysite.com/en/</loc>
+    <lastmod>2025-03-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="http://mysite.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="http://mysite.com/fr/"/>
+</url>
+<url>
+    <loc>http://mysite.com/fr/</loc>
+    <lastmod>2025-03-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="http://mysite.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="http://mysite.com/fr/"/>
+</url>
+```
+
+This behaviour can be disabled by passing `{"alternates": False}` when defining the URL pattern:
+
+```python
+# /my_project/urls.py
+
+# ...
+
+urlpatterns = [
+    ...
+    path("sitemap.xml", sitemap, {"alternates": False}),
+    ...
+]
+```
+
 ## Customizing
 
 ### URLs
@@ -96,6 +131,7 @@ Each dictionary can contain the following:
 -   **lastmod** - A python date or datetime set to when the page was last modified.
 -   **changefreq**
 -   **priority**
+-   **alternates** - A list of dicts containing `location` and `lang_code` items, indicating translations of the page.
 
 You can add more but you will need to override the
 `sitemap.xml` template in order for them to be displayed in the sitemap.
