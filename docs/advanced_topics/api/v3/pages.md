@@ -46,7 +46,7 @@ The list endpoint supports filtering, ordering, and searching through query para
 -   **`locale`**: a language code, for example `en` or `fr`, to restrict to a single locale.
 -   **`site`**: restrict to a site, given by its hostname, port, site name, or ID.
 
-These tree-relative and translation parameters reference other pages. The referenced page must be visible in the current access tier (anonymous or authenticated).
+The tree-relative and translation parameters use the referenced page as an anchor or source page. The referenced page does not need to appear in the filtered API results itself; for example, an unpublished parent can be used as the `child_of` or `descendant_of` anchor while the response includes any matching pages that are visible in the current access tier. Returned pages are still subject to the normal site, visibility, and permission filtering for the request.
 
 Here are two examples:
 

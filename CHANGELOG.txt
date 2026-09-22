@@ -19,6 +19,7 @@ Changelog
  * Fix: Fix audit log actions for copy, copy-for-translation and create-alias to log the page being copied rather than its parent (Waqas Ahmed)
  * Fix: Respect EXIF orientation on avatar uploads (Damien Meur)
  * Fix: Improve performance of `instances_user_has_any_permission_for` and `explorable_instances` in `PagePermissionPolicy` (Ayush Kumar)
+ * Fix: Make `ancestor_of`, `child_of`, `descendant_of` and `translation_of` filters in V3 API correctly handle reference pages outside of the result set criteria (Satyam Laheri)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
