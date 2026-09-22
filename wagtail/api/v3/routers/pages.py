@@ -113,22 +113,22 @@ class PageFilterSchema(FilterSchema):
         return Site.find_for_request(request).root_page
 
     @staticmethod
-    def get_public_page(request: HttpRequest, page_id: int, loc: str) -> Page:
+    def get_page(page_id: int, loc: str) -> Page:
         try:
-            return get_pages_queryset(request).get(pk=page_id)
+            return Page.objects.get(pk=page_id)
         except Page.DoesNotExist as e:
             message = f"No {Page._meta.object_name} matches the given {loc} value."
             raise as_validation_error(e, message, loc=(loc,)) from e
 
     @staticmethod
-    def get_public_page_or_root(
+    def get_page_or_root(
         request: HttpRequest,
         page_id: RootRelativeFilter,
         loc: str,
     ) -> Page:
         if page_id == "root":
             return PageFilterSchema.get_request_root_page(request)
-        return PageFilterSchema.get_public_page(request, page_id, loc)
+        return PageFilterSchema.get_page(page_id, loc)
 
     def apply_ancestor_of(
         self,
@@ -137,7 +137,7 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.ancestor_of is None:
             return queryset
-        relative_to = self.get_public_page(request, self.ancestor_of, "ancestor_of")
+        relative_to = self.get_page(self.ancestor_of, "ancestor_of")
         return queryset.ancestor_of(relative_to)
 
     def apply_descendant_of(
@@ -149,7 +149,7 @@ class PageFilterSchema(FilterSchema):
         if relative_to is None:
             return queryset
         loc = "child_of" if self.child_of else "descendant_of"
-        relative_to = self.get_public_page_or_root(request, relative_to, loc)
+        relative_to = self.get_page_or_root(request, relative_to, loc)
         if self.child_of:
             return queryset.child_of(relative_to)
         return queryset.descendant_of(relative_to)
@@ -161,7 +161,7 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.translation_of is None:
             return queryset
-        relative_to = self.get_public_page_or_root(
+        relative_to = self.get_page_or_root(
             request, self.translation_of, "translation_of"
         )
         return queryset.translation_of(relative_to)
