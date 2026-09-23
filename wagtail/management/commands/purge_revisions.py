@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
@@ -77,6 +78,18 @@ def purge_revisions(days=None, pages=True, non_pages=True):
         purgeable_until = timezone.now() - timezone.timedelta(days=days)
         # only include revisions which were created before the cut off date
         purgeable_revisions = purgeable_revisions.filter(created_at__lt=purgeable_until)
+
+    # Exclude live (published) revisions from purging.
+    # DraftStateMixin.live_revision uses on_delete=SET_NULL, so deleting a
+    # live revision would silently NULL out the FK, leaving objects in a
+    # broken state (live=True, live_revision=None).
+    for model in apps.get_models():
+        if not model._meta.abstract and hasattr(model, "live_revision_id"):
+            purgeable_revisions = purgeable_revisions.exclude(
+                id__in=model.objects.filter(live_revision_id__isnull=False).values(
+                    "live_revision_id"
+                )
+            )
 
     deleted_revisions_count = 0
     protected_error_count = 0
