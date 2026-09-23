@@ -828,6 +828,12 @@ class AbstractPage(
                     old_url_path = old_record.url_path
                     new_url_path = self.url_path
 
+        if (
+            slug_changed
+            and "update_fields" in kwargs
+            and kwargs["update_fields"] is not None
+        ):
+            kwargs["update_fields"] = list(kwargs["update_fields"]) + ["url_path"]
         result = super().save(**kwargs)
 
         if slug_changed:
