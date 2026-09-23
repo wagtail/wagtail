@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from django_filters.filters import (
     ChoiceFilter,
     DateFromToRangeFilter,
@@ -142,7 +143,10 @@ class PageListingMixin:
             sort_key="title",
             classname="title",
         ),
-        ParentPageColumn("parent", label=_("Parent")),
+        ParentPageColumn(
+            "parent",
+            label=pgettext_lazy("parent page column header", "Parent"),
+        ),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),

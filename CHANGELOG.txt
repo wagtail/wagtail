@@ -29,6 +29,7 @@ Changelog
  * Maintenance: Add testing section to PR template (Srishti Jaiswal)
  * Maintenance: Remove jQuery usage in ExpandingFormset (Keerthi Kumar)
  * Maintenance: Rewrite page privacy ancestor link formatting to verify XSS safety (Keerthi Kumar, Matt Westcott)
+ * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
 
 
 8.0 (25.08.2026)

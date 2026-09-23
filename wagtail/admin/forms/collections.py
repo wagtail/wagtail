@@ -8,7 +8,7 @@ from django.db import transaction
 from django.db.models import Min
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, pgettext_lazy
 
 from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.models import (
@@ -91,7 +91,7 @@ class CollectionChoiceField(forms.ModelChoiceField):
 
 class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
-        label=gettext_lazy("Parent"),
+        label=pgettext_lazy("choose parent collection", "Parent"),
         queryset=Collection.objects.all(),
         required=True,
         help_text=gettext_lazy(
