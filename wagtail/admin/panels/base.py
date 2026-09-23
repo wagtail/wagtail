@@ -67,6 +67,7 @@ class Panel:
     :param base_form_class: The base form class to use for the panel. Defaults to the model's ``base_form_class``, before falling back to :class:`~wagtail.admin.forms.WagtailAdminModelForm`. This is only relevant for the top-level panel.
     :param icon: The name of the icon to display next to the panel heading.
     :param attrs: A dictionary of HTML attributes to add to the panel's HTML element.
+    :param label_format: A summary shown next to the panel's ``heading`` when it is collapsed and in the minimap. Set a string here with field names contained in braces - for example ``label_format = "{first_name} {last_name}"`` - to interpolate the current value of those fields. Only takes effect for panels that render their own collapsible heading.
     """
 
     BASE_ATTRS = {}
@@ -79,12 +80,14 @@ class Panel:
         base_form_class=None,
         icon="",
         attrs=None,
+        label_format=None,
     ):
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
         self.base_form_class = base_form_class
         self.icon = icon
+        self.label_format = label_format
         self.model = None
         self.attrs = self.BASE_ATTRS.copy()
 
@@ -109,6 +112,7 @@ class Panel:
             "classname": self.classname,
             "help_text": self.help_text,
             "base_form_class": self.base_form_class,
+            "label_format": self.label_format,
         }
 
     def get_form_options(self):
@@ -258,7 +262,16 @@ class Panel:
 
         @property
         def attrs(self):
-            return self.panel.attrs
+            if not self.panel.label_format:
+                return self.panel.attrs
+
+            attrs = dict(self.panel.attrs)
+            controllers = attrs.get("data-controller", "").split()
+            if "w-panel-label" not in controllers:
+                controllers.append("w-panel-label")
+            attrs["data-controller"] = " ".join(controllers)
+            attrs["data-w-panel-label-format-value"] = self.panel.label_format
+            return attrs
 
         @property
         def icon(self):
