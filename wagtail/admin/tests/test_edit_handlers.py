@@ -289,6 +289,64 @@ class TestPageEditHandlers(TestCase):
         # The generated form should inherit from WagtailAdminPageForm
         self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
 
+    @clear_edit_handler(EventPage)
+    def test_page_get_edit_handler_tabs_uses_default_tabs(self):
+        tabs = EventPage.get_edit_handler_tabs()
+
+        self.assertEqual(
+            [tab.heading for tab in tabs],
+            ["Content", "Promote", "Settings"],
+        )
+        self.assertTrue(all(isinstance(tab, ObjectList) for tab in tabs))
+
+    @clear_edit_handler(EventPage)
+    def test_page_get_edit_handler_tabs_override(self):
+        custom_tabs = [
+            ObjectList(EventPage.content_panels, heading="Content"),
+            ObjectList(EventPage.promote_panels, heading="Promote"),
+            ObjectList(EventPage.settings_panels, heading="Settings"),
+            ObjectList([HelpPanel("Watch out for asteroids")], heading="Dinosaurs"),
+        ]
+
+        with mock.patch.object(
+            EventPage,
+            "get_edit_handler_tabs",
+            new=classmethod(lambda cls: custom_tabs),
+        ):
+            edit_handler = EventPage.get_edit_handler()
+
+            self.assertEqual(
+                [tab.heading for tab in edit_handler.children],
+                ["Content", "Promote", "Settings", "Dinosaurs"],
+            )
+            self.assertIs(edit_handler.model, EventPage)
+
+    @clear_edit_handler(ValidatedPage)
+    def test_explicit_edit_handler_still_takes_precedence(self):
+        custom_tabs = [
+            ObjectList([FieldPanel("title")], heading="Explicit"),
+        ]
+        explicit_edit_handler = TabbedInterface(custom_tabs)
+
+        with mock.patch.object(
+            ValidatedPage,
+            "edit_handler",
+            new=explicit_edit_handler,
+            create=True,
+        ):
+            edit_handler = ValidatedPage.get_edit_handler()
+
+            self.assertEqual([tab.heading for tab in edit_handler.children], ["Explicit"])
+            self.assertIs(edit_handler.model, ValidatedPage)
+
+    @clear_edit_handler(EventPage)
+    def test_get_edit_handler_returns_bound_handler(self):
+        edit_handler = EventPage.get_edit_handler()
+
+        self.assertIs(edit_handler.model, EventPage)
+        self.assertTrue(hasattr(edit_handler, "children"))
+        self.assertIsNotNone(edit_handler.get_form_class())
+
     @clear_edit_handler(ValidatedPage)
     def test_get_form_for_page_with_custom_base(self):
         """
