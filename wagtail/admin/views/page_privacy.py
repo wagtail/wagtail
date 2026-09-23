@@ -3,7 +3,6 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
@@ -58,13 +57,13 @@ class SetPrivacyView(ModelFormMixin, ProcessFormView):
             inherit_from_parent_choice = (
                 BaseViewRestriction.NONE,
                 format_html(
-                    "<span>{}</span>",
-                    mark_safe(  # noqa: S308 - TODO: investigate if susceptible to XSS (through translations)
-                        _(
-                            "Privacy is inherited from the ancestor page - %(ancestor_page)s"
-                        )
-                        % {"ancestor_page": ancestor_page_link}
-                    ),
+                    "<span>"
+                    + _(
+                        "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+                    )
+                    % {"ancestor_page": "{ancestor_page}"}
+                    + "</span>",
+                    ancestor_page=ancestor_page_link,
                 ),
             )
             form.fields["restriction_type"].choices = [

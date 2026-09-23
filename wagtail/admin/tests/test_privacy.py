@@ -131,6 +131,29 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(ancestor_link)
         self.assertEqual(ancestor_link.text.strip(), "Private page (simple page)")
 
+    def test_get_private_child_escapes_ancestor_title(self):
+        self.private_page.title = "Private <script>alert('xss')</script> & page"
+        self.private_page.draft_title = "Private <script>alert('xss')</script> & page"
+        self.private_page.save()
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:set_privacy", args=(self.private_child_page.id,)
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        parent_edit_url = reverse(
+            "wagtailadmin_pages:edit",
+            args=(self.private_page.pk,),
+        )
+        json = response.json()
+        self.assertIn(
+            f'<a href="{parent_edit_url}">Private &lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt; &amp; page (simple page)</a>',
+            json["html"],
+        )
+        self.assertNotIn("<script>alert('xss')</script>", json["html"])
+
     def test_set_password_restriction(self):
         """
         This tests that setting a password restriction using the set_privacy view works
