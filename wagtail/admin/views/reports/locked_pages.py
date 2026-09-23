@@ -51,6 +51,7 @@ class LockedPagesView(PageReportView):
     index_url_name = "wagtailadmin_reports:locked_pages"
     index_results_url_name = "wagtailadmin_reports:locked_pages_results"
     permission_required = "unlock"
+    export_requires_post = True
 
     def get_filename(self):
         return "locked-pages-report-{}".format(

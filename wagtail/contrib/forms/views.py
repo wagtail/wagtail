@@ -223,6 +223,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     index_url_name = "wagtailforms:list_submissions"
     index_results_url_name = "wagtailforms:list_submissions_results"
     show_export_buttons = True
+    export_requires_post = True
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -239,6 +240,12 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
             self.export_headings = dict(data_fields)
 
         return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not self.is_export:
+            return redirect(self.get_non_export_url())
+
+        return self.get(request, *args, **kwargs)
 
     def get_filterset_kwargs(self):
         kwargs = super().get_filterset_kwargs()

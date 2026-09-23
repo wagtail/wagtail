@@ -174,6 +174,7 @@ class ModelIndexView(generic.BaseListingView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
+    export_requires_post = True
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request

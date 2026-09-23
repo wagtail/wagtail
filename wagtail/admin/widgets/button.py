@@ -1,4 +1,5 @@
 from django.forms.utils import flatatt
+from django.middleware.csrf import get_token
 from django.utils.functional import cached_property
 
 from wagtail import hooks
@@ -23,13 +24,17 @@ class BaseButton(Component):
         icon_name=None,
         attrs=None,
         priority=1000,
+        post=False,
     ):
         self.attrs = self.attrs.copy()
         if label:
             self.label = label
 
+        self.is_post_request = post
         if url:
             self.url = url
+            if self.is_post_request:
+                self.attrs["type"] = "submit"
         else:
             self.attrs["type"] = "button"
 
@@ -43,7 +48,9 @@ class BaseButton(Component):
         self.priority = priority
 
     def get_context_data(self, parent_context):
-        return {"button": self, "request": parent_context.get("request")}
+        request = parent_context.get("request")
+        csrf_token = request and get_token(request)
+        return {"button": self, "request": request, "csrf_token": csrf_token}
 
     @property
     def base_attrs_string(self):

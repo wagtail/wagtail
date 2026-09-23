@@ -107,6 +107,7 @@ class PageTypesUsageReportView(ReportView):
     index_url_name = "wagtailadmin_reports:page_types_usage"
     index_results_url_name = "wagtailadmin_reports:page_types_usage_results"
     any_permission_required = ["add", "change", "publish"]
+    export_requires_post = True
 
     @cached_property
     def permission_policy(self):
