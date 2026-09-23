@@ -3,10 +3,12 @@
  *
  * Converts the values of an HTML form into a URL-encoded query string using
  * `FormData` and `URLSearchParams`. Multiple values for the same field name are
- * preserved. File inputs are represented by their filename to match legacy
- * behavior where jQuery's `.serialize()` produced a string payload.
+ * preserved.
  *
- * Note: If you need to upload file contents, prefer sending the `FormData`
+ * Unlike jQuery's `.serialize()` (which completely omits file inputs), this
+ * helper represents `File` entries by their filename.
+ *
+ * Note: If you need to upload actual file contents, prefer sending the `FormData`
  * directly with `fetch` rather than using this helper.
  *
  * @param form - The HTML form element to serialize.

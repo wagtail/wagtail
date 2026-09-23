@@ -13,8 +13,20 @@ jest.mock('../../utils/domReady', () => ({
 describe('admin/privacy-switch entrypoint', () => {
   let trigger;
   let modalOptions;
+  let autosaveListeners = [];
+  const originalAddEventListener = document.addEventListener.bind(document);
 
   beforeEach(() => {
+    autosaveListeners = [];
+    jest
+      .spyOn(document, 'addEventListener')
+      .mockImplementation((type, listener, options) => {
+        if (type === 'w-autosave:success') {
+          autosaveListeners.push(listener);
+        }
+        return originalAddEventListener(type, listener, options);
+      });
+
     document.body.innerHTML = `
       <button
         data-a11y-dialog-show="set-privacy"
@@ -36,6 +48,13 @@ describe('admin/privacy-switch entrypoint', () => {
   });
 
   afterEach(() => {
+    autosaveListeners.forEach((listener) => {
+      document.removeEventListener('w-autosave:success', listener);
+    });
+    if (document.addEventListener.mockRestore) {
+      document.addEventListener.mockRestore();
+    }
+
     modalOptions = undefined;
     document.body.innerHTML = '';
     delete window.ModalWorkflow;
@@ -132,6 +151,7 @@ describe('admin/privacy-switch entrypoint', () => {
 
     newButton.click();
 
+    expect(window.ModalWorkflow).toHaveBeenCalledTimes(1);
     expect(window.ModalWorkflow).toHaveBeenCalledWith(
       expect.objectContaining({
         dialogId: 'set-privacy',
