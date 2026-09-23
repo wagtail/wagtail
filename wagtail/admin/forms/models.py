@@ -4,9 +4,15 @@ from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass, ClusterFormOptions
+from modelcluster.forms import (
+    BaseChildFormSet,
+    ClusterForm,
+    ClusterFormMetaclass,
+    ClusterFormOptions,
+)
 from permissionedforms import (
     PermissionedForm,
     PermissionedFormMetaclass,
@@ -117,11 +123,89 @@ class WagtailAdminModelFormOptions(PermissionedFormOptionsMixin, ClusterFormOpti
         self.defer_required_on_fields = getattr(options, "defer_required_on_fields", [])
 
 
+class WagtailBaseChildFormSet(BaseChildFormSet):
+    """
+    Custom formset that properly handles forms with default values for min_num validation.
+
+    Fixes issue #13546 where InlinePanel with min_num=1 fails validation when saving an
+    unchanged form that has default values, because Django's has_changed() returns False
+    for forms with only default values.
+    """
+
+    def clean(self):
+        """
+        Override clean to count forms with default values as valid submissions.
+
+        Django's formset validation uses has_changed() to determine if a form was
+        "submitted". Forms with only default values that weren't edited return
+        has_changed()=False, causing min_num validation to fail incorrectly.
+
+        This override counts forms with default values as valid submissions.
+        """
+        if self.validate_min and self.min_num:
+            valid_form_count = 0
+
+            for form in self.forms:
+                # Skip deleted forms
+                if form in self.deleted_forms:
+                    continue
+
+                # Count forms that either:
+                # 1. Have changes (standard Django behavior), OR
+                # 2. Have default values that make them valid
+                if form.has_changed() or self._form_has_default_values(form):
+                    valid_form_count += 1
+
+            # If we have enough forms (including those with defaults),
+            # temporarily disable min_num validation to prevent the error
+            if valid_form_count >= self.min_num:
+                original_validate_min = self.validate_min
+                self.validate_min = False
+                super().clean()
+                self.validate_min = original_validate_min
+                return
+
+        # Otherwise, use standard validation
+        super().clean()
+
+    def _form_has_default_values(self, form):
+        """
+        Check if a form has default values that should count as a valid submission.
+
+        Returns True if:
+        - The form's instance has a PK (existing object), OR
+        - Any field has a non-empty default value
+        """
+        # Existing objects always count as valid
+        if form.instance and form.instance.pk:
+            return True
+
+        # Check if any field has a non-None, non-empty default value
+        for field_name, field in form.fields.items():
+            # Skip formset management fields
+            if field_name in [DELETION_FIELD_NAME, ORDERING_FIELD_NAME]:
+                continue
+
+            # Check initial data or instance attribute
+            value = form.initial.get(field_name)
+            if value is None and hasattr(form.instance, field_name):
+                value = getattr(form.instance, field_name, None)
+
+            # If we find any non-empty value, this form has defaults
+            if value not in (None, "", []):
+                return True
+
+        return False
+
+
 class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetaclass):
     options_class = WagtailAdminModelFormOptions
 
     # set extra_form_count to 0, as we're creating extra forms in JS
     extra_form_count = 0
+    child_formset_class = (
+        WagtailBaseChildFormSet  # Use our custom formset for handling default values
+    )
 
     @classmethod
     def child_form(cls):
