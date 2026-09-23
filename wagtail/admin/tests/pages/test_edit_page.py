@@ -4248,6 +4248,100 @@ class TestNestedInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
         )
 
 
+class TestAutosaveTopLevelInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
+    """
+    Autosave coverage for a *newly added* child in a top-level InlinePanel.
+
+    TestNestedInlinePanel.test_post_edit_with_json_response only asserts
+    field_updates for a nested formset; the top-level `speakers` formset there
+    already carries an id, so the "new child in a top-level formset" path is
+    not exercised anywhere. If the id in field_updates never reaches the open
+    form, the next autosave posts the same id-less child again and the server
+    inserts a duplicate. See #14568.
+    """
+
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        self.speaker = self.christmas_page.speakers.first()
+        # Draft, so that form.save(commit=not page.live) commits child objects
+        # to the database, which is the state an editor is in while drafting.
+        self.christmas_page.unpublish()
+        self.user = self.login()
+
+    def _post_data(self, related_links):
+        return nested_form_data(
+            {
+                "title": "Christmas",
+                "date_from": "2017-12-25",
+                "date_to": "2017-12-25",
+                "slug": "christmas",
+                "audience": "public",
+                "location": "The North Pole",
+                "cost": "Free",
+                "carousel_items": inline_formset([]),
+                "speakers": inline_formset(
+                    [
+                        {
+                            "id": self.speaker.id,
+                            "first_name": "Jeff",
+                            "last_name": "Christmas",
+                            "awards": inline_formset([]),
+                        },
+                    ],
+                    initial=1,
+                ),
+                "related_links": related_links,
+                "head_counts": inline_formset([]),
+            }
+        )
+
+    def _autosave(self, post_data):
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertTrue(response_json["success"])
+        return response_json
+
+    def test_field_updates_carries_id_for_new_top_level_child(self):
+        post_data = self._post_data(
+            inline_formset(
+                [{"title": "Santa's blog", "link_external": "http://example.com/"}]
+            )
+        )
+        response_json = self._autosave(post_data)
+
+        new_link = self.christmas_page.related_links.get(title="Santa's blog")
+        self.assertEqual(
+            response_json["field_updates"],
+            {
+                "related_links-INITIAL_FORMS": "1",
+                "related_links-0-id": str(new_link.id),
+            },
+        )
+
+    def test_autosave_after_applying_field_updates_does_not_duplicate(self):
+        post_data = self._post_data(
+            inline_formset(
+                [{"title": "Santa's blog", "link_external": "http://example.com/"}]
+            )
+        )
+        response_json = self._autosave(post_data)
+        self.assertEqual(self.christmas_page.related_links.count(), 1)
+
+        # Apply field_updates to the payload, as AutosaveController is meant to
+        # apply them to the open form, then autosave again.
+        post_data.update(response_json["field_updates"])
+        self._autosave(post_data)
+
+        self.assertEqual(self.christmas_page.related_links.count(), 1)
+
+
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
