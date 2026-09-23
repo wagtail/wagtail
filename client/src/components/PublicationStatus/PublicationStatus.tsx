@@ -4,17 +4,13 @@ import React from 'react';
 /**
  * Displays the publication status of a page in a pill.
  */
-const PublicationStatus = ({ status }) => (
-  <span className={`c-status${status.live ? ' c-status--live' : ''}`}>
-    {status.status}
-  </span>
+const PublicationStatus = ({ status, live }) => (
+  <span className={`c-status${live ? ' c-status--live' : ''}`}>{status}</span>
 );
 
 PublicationStatus.propTypes = {
-  status: PropTypes.shape({
-    live: PropTypes.bool.isRequired,
-    status: PropTypes.string.isRequired,
-  }).isRequired,
+  live: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default PublicationStatus;

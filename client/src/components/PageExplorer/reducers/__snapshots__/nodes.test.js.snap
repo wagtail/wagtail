@@ -12,13 +12,13 @@ exports[`nodes GET_CHILDREN_FAILURE 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
@@ -36,13 +36,13 @@ exports[`nodes GET_CHILDREN_START 1`] = `
     "isFetchingChildren": true,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
@@ -64,13 +64,13 @@ exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
   "3": {
@@ -83,13 +83,13 @@ exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
   "4": {
@@ -102,13 +102,13 @@ exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
   "5": {
@@ -121,13 +121,13 @@ exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
@@ -145,13 +145,13 @@ exports[`nodes GET_PAGE_FAILURE 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
@@ -169,13 +169,13 @@ exports[`nodes GET_PAGE_SUCCESS 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
@@ -193,13 +193,13 @@ exports[`nodes OPEN_EXPLORER 1`] = `
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
+      "children": {
+        "count": 0,
       },
+      "has_unpublished_changes": true,
+      "live": false,
+      "parent": null,
+      "status": "",
     },
   },
 }
