@@ -4,6 +4,7 @@ import warnings
 from urllib.parse import urljoin, urlsplit
 
 from django import template
+from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
@@ -922,16 +923,18 @@ def get_comments_enabled():
 @register.simple_tag(takes_context=True)
 def wagtail_config(context):
     request = context["request"]
+    admin_api = {
+        "PAGES": reverse("wagtailadmin_api:pages:listing"),
+        "IMAGES": reverse("wagtailadmin_api:images:listing"),
+        "EXTRA_CHILDREN_PARAMETERS": "",
+    }
+    if apps.is_installed("wagtail.documents"):
+        admin_api["DOCUMENTS"] = reverse("wagtailadmin_api:documents:listing")
+
     config = {
         "CSRF_TOKEN": get_token(request),
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(settings.CSRF_HEADER_NAME),
-        "ADMIN_API": {
-            "PAGES": reverse("wagtailadmin_api:pages:listing"),
-            "DOCUMENTS": reverse("wagtailadmin_api:documents:listing"),
-            "IMAGES": reverse("wagtailadmin_api:images:listing"),
-            # Used to add an extra query string on all API requests. Example value: '&order=-id'
-            "EXTRA_CHILDREN_PARAMETERS": "",
-        },
+        "ADMIN_API": admin_api,
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
             "PAGES": reverse("wagtailadmin_explore_root"),
