@@ -22,6 +22,7 @@ class ChooserViewSet(ViewSet):
     """
 
     model = None
+    to_field_name = None
 
     icon = "snippet"  #: The icon to use in the header of the chooser modal, and on the chooser widget
     choose_one_text = _(
@@ -124,6 +125,7 @@ class ChooserViewSet(ViewSet):
                 "results_url_name": self.get_url_name("choose_results"),
                 "create_url_name": self.get_url_name("create"),
                 "per_page": self.per_page,
+                "to_field_name": self.to_field_name,
                 **kwargs,
             }
         )

@@ -238,7 +238,10 @@ class BaseChooseView(
                 accessor=str,
                 get_url=(
                     lambda obj: self.append_preserved_url_parameters(
-                        reverse(self.chosen_url_name, args=(quote(obj.pk),))
+                        reverse(
+                            self.chosen_url_name,
+                            args=(quote(getattr(obj, self.to_field_name) if getattr(self, "to_field_name", None) else obj.pk),),
+                        )
                     )
                 ),
                 link_attrs={"data-chooser-modal-choice": True},
@@ -519,7 +522,8 @@ class ChosenViewMixin(ModelLookupMixin):
     """
 
     def get_object(self, pk):
-        return self.model_class.objects.get(pk=pk)
+        lookup_field = getattr(self, "to_field_name", None) or "pk"
+        return self.model_class.objects.get(**{lookup_field: pk})
 
     def get(self, request, pk):
         try:
@@ -541,7 +545,8 @@ class ChosenMultipleViewMixin(ModelLookupMixin):
     """
 
     def get_objects(self, pks):
-        return self.model_class.objects.filter(pk__in=pks)
+        lookup_field = getattr(self, "to_field_name", None) or "pk"
+        return self.model_class.objects.filter(**{f"{lookup_field}__in": pks})
 
     def get(self, request):
         items = self.get_objects(request.GET.getlist("id"))
