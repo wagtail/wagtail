@@ -1,12 +1,12 @@
 from django import template
 from jinja2.ext import Extension
 
-from .models import Filter, Picture, ResponsiveImage
-from .shortcuts import get_rendition_or_not_found, get_renditions_or_not_found
-from .templatetags.wagtailimages_tags import image_url
 
 
 def image(image, filterspec, **attrs):
+    from .models import Filter
+    from .shortcuts import get_rendition_or_not_found
+
     if not image:
         return ""
 
@@ -25,6 +25,9 @@ def image(image, filterspec, **attrs):
 
 
 def srcset_image(image, filterspec, **attrs):
+    from .models import Filter, ResponsiveImage
+    from .shortcuts import get_renditions_or_not_found
+
     if not image:
         return ""
 
@@ -41,6 +44,9 @@ def srcset_image(image, filterspec, **attrs):
 
 
 def picture(image, filterspec, **attrs):
+    from .models import Filter, Picture
+    from .shortcuts import get_renditions_or_not_found
+
     if not image:
         return ""
 
@@ -58,6 +64,8 @@ def picture(image, filterspec, **attrs):
 
 class WagtailImagesExtension(Extension):
     def __init__(self, environment):
+        from .templatetags.wagtailimages_tags import image_url
+
         super().__init__(environment)
 
         self.environment.globals.update(
