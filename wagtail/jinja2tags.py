@@ -4,7 +4,6 @@ from jinja2.ext import Extension
 from markupsafe import Markup, escape
 
 
-
 class WagtailCoreExtension(Extension):
     tags = {"include_block"}
 

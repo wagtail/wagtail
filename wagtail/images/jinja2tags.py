@@ -2,7 +2,6 @@ from django import template
 from jinja2.ext import Extension
 
 
-
 def image(image, filterspec, **attrs):
     from .models import Filter
     from .shortcuts import get_rendition_or_not_found
