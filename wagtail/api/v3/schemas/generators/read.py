@@ -13,6 +13,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
 from wagtail.api.rich_text import APIRichText
+from wagtail.api.v3.fields import FieldSerializer
 from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
@@ -94,6 +95,30 @@ class SchemaGenerator:
             if value is None:
                 return None
             return serializer.to_representation(value)
+
+        return return_type, None, staticmethod(resolve)
+
+    @staticmethod
+    def _field_serializer_schema(api_field: APIField) -> FieldSchema:
+        """Generate a schema field for an ``APIField(serializer=...)`` using a
+        :class:`~wagtail.api.v3.fields.FieldSerializer`.
+
+        A copy is bound, then ``to_representation()`` is called on the
+        source-resolved value. The annotation is derived from
+        ``to_representation()``'s return type hint, with ``None`` added since
+        the source may resolve to ``None``.
+        """
+
+        field = cast(FieldSerializer, copy.deepcopy(api_field.serializer))
+        field.bind(field_name=api_field.name)
+        return_type = get_type_hints(field.to_representation).get("return", Any)
+        return_type = return_type | None
+
+        def resolve(obj: Model, context: dict) -> Any:
+            value = field.get_attribute(obj)
+            if value is None:
+                return None
+            return field.to_representation(value)
 
         return return_type, None, staticmethod(resolve)
 
@@ -201,9 +226,13 @@ class SchemaGenerator:
             )
 
         for field in APIField.get_fields_for_model(model):
-            # Legacy APIv2 APIField instance with a custom serializer.
+            # APIField with a custom serializer.
             if field.serializer is not None:
-                extra_fields[field.name] = self._custom_serializer_schema(field)
+                if isinstance(field.serializer, FieldSerializer):
+                    extra_fields[field.name] = self._field_serializer_schema(field)
+                else:
+                    # DRF serializer field - handle via the compat shim.
+                    extra_fields[field.name] = self._custom_serializer_schema(field)
                 continue
 
             try:
