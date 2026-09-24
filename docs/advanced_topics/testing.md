@@ -227,15 +227,28 @@ def test_content_page_subpages(self):
 
 ## Creating Page objects within tests
 
-If you want to create page objects within tests, you will need to go through some steps before actually creating the page you want to test.
+### Understanding the test database
 
--   Pages can't be created directly with `MyPage.objects.create()` as you would do with a regular Django model, they need to be added as children to a parent page with `parent.add_child(instance=child)`.
--   To start the page tree, you need a root page that can be created with `Page.get_first_root_node()`.
--   You also need a `Site` set up with the correct `hostname` and a `root_page`.
+When Wagtail's initial data migrations have run, they create the following objects:
+
+-   A **tree root** page (the internal root of Wagtail's page tree at depth 1).
+-   A **home page** at depth 2 (titled "Welcome to your new Wagtail site!").
+-   A **default Site** with `hostname="localhost"` and `is_default_site=True`, whose `root_page` points to the home page.
+
+The Wagtail project template additionally replaces the generic home page with a custom `HomePage` model via its own data migration.
+
+If your test database already contains the default site, retrieve it with `Site.objects.get(is_default_site=True)` rather than creating another default site.
+
+```{note}
+If you use `TransactionTestCase` (or `@pytest.mark.django_db(transaction=True)` with pytest), the database is flushed between tests, which removes migration-created data. In that case, your test setup must recreate the root page, site, and any parent pages it needs.
+```
+
+### Creating pages programmatically
+
+Pages cannot be created directly with `MyPage.objects.create()` as you would with a regular Django model. Instead, they must be added as children to a parent page using `parent.add_child(instance=child)`, which sets the tree hierarchy fields and saves the page to the database. You also need a `Site` set up with the correct `hostname` and a `root_page` for URL resolution and routing to work.
 
 ```python
 from wagtail.models import Page, Site
-from wagtail.rich_text import RichText
 from wagtail.test.utils import WagtailPageTestCase
 
 from home.models import HomePage, MyPage
@@ -295,19 +308,40 @@ class MyPageTest(WagtailPageTestCase):
         self.assertContains(response, "<p>Second paragraph</p>")
 ```
 
+### Using wagtail-factories
+
+Wagtail includes a bundled copy of [wagtail-factories](https://github.com/wagtail/wagtail-factories), which provides factory classes built on [Factory Boy](https://factoryboy.readthedocs.io/) for creating test pages and other Wagtail objects. These factories can be used with any test framework.
+
+To define a factory for a custom page model, inherit from `PageFactory` and set the model in `Meta`. When creating an instance, pass a `parent` page; the factory automatically calls `parent.add_child()`:
+
+```python
+from wagtail.models import Page, Site
+from wagtail.test.utils.wagtail_factories import PageFactory
+
+from myapp.models import ArticlePage
+
+
+class ArticlePageFactory(PageFactory):
+    class Meta:
+        model = ArticlePage
+
+    title = "Test Article"
+
+
+# Usage in any test (unittest or pytest):
+home_page = Site.objects.get(is_default_site=True).root_page
+article = ArticlePageFactory(parent=home_page)
+```
+
 (pytest_fixtures)=
 
-### Using pytest fixtures
+## Using pytest with Wagtail
 
-If your test suite uses [pytest](https://docs.pytest.org/) alongside [pytest-django](https://pytest-django.readthedocs.io/), you can define reusable Wagtail pages as fixtures in your test modules or `conftest.py`.
+If your test suite uses [pytest](https://docs.pytest.org/) with [pytest-django](https://pytest-django.readthedocs.io/), the page creation patterns described above can be wrapped in reusable [pytest fixtures](https://docs.pytest.org/en/stable/how-to/fixtures.html). Fixtures that access the database must use the `db` fixture provided by `pytest-django`.
 
-In Wagtail, pages cannot be created in isolation; they must be attached to a parent page in the tree using `parent.add_child()`. In standard Wagtail projects with migrations enabled, initial migrations set up the tree root page, a default home page, and a default **`Site`** (with **`is_default_site=True`**) pointing to that home page. If your test database retains this default site, retrieve it using **`Site.objects.get(is_default_site=True)`** rather than creating a new one, which would create a conflicting second default site.
+### Creating reusable page fixtures
 
-Fixtures that access the database must request the `db` fixture from `pytest-django`.
-
-#### Basic page fixture without factories
-
-The following example defines a fixture for the default home page and a child `ArticlePage`:
+The following example defines fixtures that retrieve the default home page and create an `ArticlePage` beneath it:
 
 ```python
 import pytest
@@ -334,72 +368,12 @@ def article_page(default_home_page):
     return page
 ```
 
-Calling `add_child(instance=page)` sets the tree hierarchy fields and saves the page to the database. Returning `page` allows pytest to inject the instance into tests or other fixtures.
-
-#### Setting up parent and child page trees
-
-You can compose multiple fixtures to set up deeper page trees. For example, a blog section where posts belong to a parent index page:
+### Writing tests with fixtures
 
 ```python
-from myapp.models import BlogIndexPage, BlogPostPage
-
-
-@pytest.fixture
-def blog_index(default_home_page):
-    """Create a blog index page under the default home page."""
-    index = BlogIndexPage(title="Blog", slug="blog")
-    default_home_page.add_child(instance=index)
-    return index
-
-
-@pytest.fixture
-def blog_post(blog_index):
-    """Create a blog post page under the blog index page."""
-    post = BlogPostPage(title="First Post", slug="first-post")
-    blog_index.add_child(instance=post)
-    return post
-```
-
-Because `blog_post` depends on `blog_index`, pytest creates the pages in the correct hierarchical order.
-
-#### Using wagtail-factories
-
-When tests require multiple page instances or randomized test data, [wagtail-factories](https://github.com/wagtail/wagtail-factories) provides a `PageFactory` class built on [Factory Boy](https://factoryboy.readthedocs.io/).
-
-When defining a factory for a custom page model, inherit from `wagtail_factories.PageFactory`. When instantiating the factory, provide the `parent` parameter; the factory automatically calls `parent.add_child()`:
-
-```python
-import wagtail_factories
-
-from myapp.models import ArticlePage
-
-
-class ArticlePageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = ArticlePage
-
-    title = "Test Article"
-
-
-@pytest.fixture
-def article_page(default_home_page):
-    """Create an ArticlePage using wagtail-factories."""
-    return ArticlePageFactory(parent=default_home_page)
-```
-
-#### Writing tests with fixtures
-
-To use these fixtures, pass their names as arguments to your test functions:
-
-```python
-def test_article_page_status(client, article_page):
+def test_article_page_renders(client, article_page):
     response = client.get(article_page.url)
     assert response.status_code == 200
-
-
-def test_blog_tree_structure(blog_index, blog_post):
-    assert blog_post.get_parent() == blog_index
-    assert blog_post in blog_index.get_children()
 ```
 
 (database_fixtures)=
