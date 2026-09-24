@@ -354,6 +354,16 @@ class BaseAPIViewSet(GenericViewSet):
             for field in cls.get_field_serializer_overrides(model).items()
             if field[0] in fields
         }
+
+        # Skip API v3 field serializers, which API v2 (DRF) cannot
+        # serialize; they are read-only anyway, so omit them entirely.
+        from wagtail.api.v3.fields import FieldSerializer
+
+        for field_name, serializer in list(field_serializer_overrides.items()):
+            if isinstance(serializer, FieldSerializer):
+                del field_serializer_overrides[field_name]
+                fields.remove(field_name)
+
         return get_serializer_class(
             model,
             fields,

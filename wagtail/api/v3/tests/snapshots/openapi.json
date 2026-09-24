@@ -3004,6 +3004,20 @@
             ],
             "title": "Feed Image Thumbnail"
           },
+          "feed_image_thumbnail_serializer": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRenditionDict"
+              },
+              {
+                "$ref": "#/components/schemas/ImageRenditionErrorDict"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image Thumbnail Serializer"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
