@@ -67,7 +67,7 @@ The API supports custom models set via `WAGTAILIMAGES_IMAGE_MODEL` (see [](custo
 [Renditions](image_renditions) are exposed per-project through `api_fields`, the same mechanism as [in the v2 API](api_v2_images):
 
 ```python
-from wagtail.images.api.fields import ImageRenditionField
+from wagtail.images.api.v3.fields import ImageRenditionField
 
 
 class BlogPage(Page):
@@ -78,7 +78,16 @@ class BlogPage(Page):
     ]
 ```
 
-There is no dedicated rendition endpoint in the v3 API. Serializer-backed API fields such as `ImageRenditionField` remain readable through the compatibility shim.
+The field takes a `filter_spec` and an optional `preserve_svg` argument, and serializes a rendition with `url`, `full_url`, `width`, `height`, and `alt` keys. Use `source` to derive the value from another attribute, for example:
+
+```python
+APIField(
+    "thumbnail",
+    serializer=ImageRenditionField("fill-300x300", source="feed_image"),
+)
+```
+
+There is no dedicated rendition endpoint in the v3 API.
 
 ## Example: upload an image and use it in a StreamField
 
