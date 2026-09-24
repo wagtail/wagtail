@@ -458,6 +458,9 @@ class ChosenResponseMixin:
     chosen_response_name = "chosen"
 
     def get_object_id(self, instance):
+        to_field_name = getattr(self, "to_field_name", None)
+        if to_field_name:
+            return getattr(instance, to_field_name)
         return instance.pk
 
     def get_display_title(self, instance):

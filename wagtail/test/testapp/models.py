@@ -2957,3 +2957,33 @@ class CommentableJSONPage(Page):
 
 class HeadlessForm(FormMixin, Page):
     pass
+
+
+class SnippetWithSlugPrimaryKey(models.Model):
+    """A snippet model with a unique slug field (not the primary key)."""
+    slug = models.SlugField(unique=True, max_length=250)
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+register_snippet(SnippetWithSlugPrimaryKey)
+
+
+class SnippetWithFKToSlug(models.Model):
+    """A snippet model with a ForeignKey to a non-pk field (slug) on SnippetWithSlugPrimaryKey."""
+    title = models.CharField(max_length=250)
+    related = models.ForeignKey(
+        SnippetWithSlugPrimaryKey,
+        to_field="slug",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.title
+
+
+register_snippet(SnippetWithFKToSlug)

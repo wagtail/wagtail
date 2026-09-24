@@ -51,6 +51,7 @@ class BaseChooser(widgets.Input):
             "show_clear_link",
             "icon",
             "linked_fields",
+            "to_field_name",
         ]:
             if var in kwargs:
                 setattr(self, var, kwargs.pop(var))
@@ -119,7 +120,8 @@ class BaseChooser(widgets.Input):
             return value
         else:  # assume instance ID
             try:
-                return self.model_class.objects.get(pk=value)
+                lookup_field = getattr(self, "to_field_name", None) or "pk"
+                return self.model_class.objects.get(**{lookup_field: value})
             except self.model_class.DoesNotExist:
                 return None
 
@@ -135,8 +137,10 @@ class BaseChooser(widgets.Input):
         and the client-side rendering code (via telepath) that contains all the information needed
         for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
         """
+        to_field_name = getattr(self, "to_field_name", None)
+        instance_id = getattr(instance, to_field_name) if to_field_name else instance.pk
         return {
-            "id": instance.pk,
+            "id": instance_id,
             "edit_url": AdminURLFinder().get_edit_url(instance),
             self.display_title_key: self.get_display_title(instance),
         }
