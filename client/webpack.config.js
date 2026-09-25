@@ -140,6 +140,14 @@ export default function exports(env, argv) {
         net: false,
         tls: false,
       },
+
+      // Backport of cyclic-graph support; https://github.com/wagtail/telepath-unpack/pull/5
+      // Can be deleted once that's merged.
+      alias: {
+        'telepath-unpack': path.resolve(
+          './client/src/vendor/telepath-unpack.js',
+        ),
+      },
     },
     externals: {
       jquery: 'jQuery',

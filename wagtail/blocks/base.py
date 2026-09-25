@@ -2,6 +2,7 @@ import collections
 import itertools
 import json
 import re
+from contextvars import ContextVar
 from functools import lru_cache
 from importlib import import_module
 
@@ -16,13 +17,14 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.telepath import JSContext
+from wagtail.admin.telepath import Adapter, JSContext
 from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
     "BaseBlock",
     "Block",
+    "BlockReference",
     "BoundBlock",
     "DeclarativeSubBlocksMetaclass",
     "BlockWidget",
@@ -97,6 +99,13 @@ class Block(metaclass=BaseBlock):
         Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
         Block.definition_registry[self.definition_prefix] = self
+
+        # Stable identity of the graph node this block represents. The migration lookup
+        # builder keys on this to recognise a node it is already (de)serialising, and so
+        # break a cyclic definition. Defaults to id(self); blocks rebuilt from a cyclic
+        # lookup overwrite it with their lookup index, so the fresh instance produced on
+        # each reference resolution still presents a single identity.
+        self._definition_id = id(self)
 
         self.label = self.meta.label or ""
         self.is_deferred_validation = False
@@ -625,6 +634,188 @@ class Block(metaclass=BaseBlock):
         )
 
 
+# Targets currently being walked through a BlockReference (keyed on Block._definition_id),
+# so that a definition-level walk (check / deferred validation) over a cyclic graph
+# terminates when it re-reaches a target already on the stack.
+reference_walk_in_progress = ContextVar("block_reference_walk", default=None)
+
+# Pairs of (node, node) being compared by BlockReference.__eq__, so that equality of two
+# cyclic block graphs terminates instead of recursing forever.
+reference_eq_in_progress = ContextVar("block_reference_eq", default=None)
+
+
+class BlockReference:
+    """
+    A lazy stand-in for a block, resolved on first use. This is the single mechanism behind
+    forward references and cyclic block graphs; the target need not exist at declaration
+    time::
+
+        class CommentBlock(blocks.StructBlock):
+            text = blocks.CharBlock()
+            replies = blocks.ListBlock(blocks.BlockReference(lambda: CommentBlock))
+
+    It is a proxy, not a Block: value operations and ``child_blocks`` are forwarded to the
+    resolved target via ``__getattr__``, so at runtime it behaves exactly as the block it
+    points to; that recursion is bounded by the (finite) data. The definition-level walks a
+    parent triggers (``check`` and deferred validation) are forwarded too, so a referenced
+    block is validated and deferred just like a direct child. Each is wrapped in a visited
+    set so a cycle terminates when it re-reaches a target already on the stack; the block
+    family's own deferred-validation guard keeps the shared instances of a cyclic target
+    from being deferred twice. ``check`` additionally reports a resolution failure as
+    ``wagtailcore.E009``.
+
+    A reference does not appear in migrations: the lookup builder serialises it as its
+    target, so a back-edge becomes a plain index pointing at an ancestor.
+    """
+
+    def __init__(self, to):
+        self._to = to
+        self._resolved = None
+        self.name = ""
+        # Share Block's global creation counter so a class-level reference sorts correctly
+        # alongside Block instances in the declarative metaclass.
+        self.creation_counter = Block.creation_counter
+        Block.creation_counter += 1
+
+    def resolve(self):
+        # Resolve the target (a dotted import path, a Block subclass, or a callable
+        # returning either) to a block instance, once, and memoise it.
+        if self._resolved is None:
+            to = self._to
+            if isinstance(to, str):
+                module_name, _, class_name = to.rpartition(".")
+                to = getattr(import_module(module_name), class_name)
+            if isinstance(to, type):
+                self._resolved = to()
+            elif callable(to):
+                result = to()
+                self._resolved = result if isinstance(result, Block) else result()
+            else:
+                raise TypeError(
+                    "BlockReference expected a callable or dotted import path; got %r."
+                    % (self._to,)
+                )
+            if self.name:
+                self._resolved.set_name(self.name)
+        return self._resolved
+
+    @property
+    def __class__(self):
+        # Overriding __class__ to report the wrapped object's type is the same proxy trick
+        # Django uses in LazyObject: isinstance()-based dispatch elsewhere then treats a
+        # reference exactly like the block it points to. While the target is not yet resolvable
+        # -- a forward or self reference during class definition -- this falls back to the real
+        # type, so it never raises and the order of any isinstance() check stays irrelevant.
+        try:
+            return self.resolve().__class__
+        except Exception:  # noqa: BLE001 - not resolvable yet; behave as a plain reference
+            return type(self)
+
+    def __getattr__(self, name):
+        # Runs only for attributes not defined on the proxy. Guard the internal names so a
+        # half-initialised proxy (or a copy/pickle) does not recurse via resolve(); forward
+        # everything else (the whole value API and child_blocks) to the target.
+        if name in ("_to", "_resolved"):
+            raise AttributeError(name)
+        return getattr(self.resolve(), name)
+
+    def __eq__(self, other):
+        # __getattr__ does not forward dunders, so the comparison protocol is implemented
+        # here. Two references (or a reference and a block) are equal when their resolved
+        # targets are. Comparison is coinductive: record the (node, node) pairs on the
+        # comparison stack and, on meeting one again, treat it as equal (matched so far).
+        # Keyed on _definition_id so the fresh instances a lookup produces line up.
+        if isinstance(other, BlockReference):
+            other = other.resolve()
+        if not isinstance(other, Block):
+            return NotImplemented
+        resolved = self.resolve()
+
+        pair = (resolved._definition_id, other._definition_id)
+        seen = reference_eq_in_progress.get()
+        token = None
+        if seen is None:
+            seen = set()
+            token = reference_eq_in_progress.set(seen)
+        try:
+            if pair in seen:
+                return True
+            seen.add(pair)
+            try:
+                return resolved == other
+            finally:
+                seen.discard(pair)
+        finally:
+            if token is not None:
+                reference_eq_in_progress.reset(token)
+
+    # Defining __eq__ makes this unhashable by default, matching Block.
+    __hash__ = None
+
+    def set_name(self, name):
+        self.name = name
+        if self._resolved is not None:
+            self._resolved.set_name(name)
+
+    def check(self, **kwargs):
+        # A reference can fail to resolve in several ways (ImportError, AttributeError, a
+        # raising lambda). A check() must turn any such failure into an error to report and
+        # never raise, or `manage.py check` crashes with a traceback; the original exception
+        # is included so the message stays accurate.
+        try:
+            self.resolve()
+        except Exception as exc:  # noqa: BLE001 - a check reports failures, it must not raise
+            return [
+                checks.Error(
+                    "BlockReference could not resolve its target %r: %s"
+                    % (self._to, exc),
+                    obj=self,
+                    id="wagtailcore.E009",
+                )
+            ]
+        return self.forward_walk("check", [], **kwargs)
+
+    def defer_required_validation(self):
+        self.forward_walk("defer_required_validation", None)
+
+    def restore_deferred_validation(self):
+        self.forward_walk("restore_deferred_validation", None)
+
+    def forward_walk(self, method, on_reentry, **kwargs):
+        # Forward a definition-level walk to the target, but stop if the target is already
+        # being walked higher up the stack, so a cycle terminates. Keyed on _definition_id
+        # so the fresh instances a reference resolves to line up across the recursion.
+        target = self.resolve()
+        seen = reference_walk_in_progress.get()
+        token = None
+        if seen is None:
+            seen = set()
+            token = reference_walk_in_progress.set(seen)
+        try:
+            if target._definition_id in seen:
+                return on_reentry
+            seen.add(target._definition_id)
+            return getattr(target, method)(**kwargs)
+        finally:
+            if token is not None:
+                reference_walk_in_progress.reset(token)
+
+
+class BlockReferenceAdapter(Adapter):
+    """
+    Packs a BlockReference for the editor as its resolved target, so a reference is fully
+    transparent in the StreamField editor. The cyclic-graph support in WagtailJSContext (an
+    ``_ref`` back to an already-packed node) terminates the recursion when a shared block is
+    reached again.
+    """
+
+    def build_node(self, obj, context):
+        return context.build_node(obj.resolve())
+
+
+register_telepath_adapter(BlockReferenceAdapter(), BlockReference)
+
+
 class BoundBlock:
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
@@ -670,7 +861,10 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         # These are available on the class as `declared_blocks`
         current_blocks = []
         for key, value in list(attrs.items()):
-            if isinstance(value, Block):
+            # A BlockReference is a declarable child too. It is matched explicitly because
+            # at class definition its target may not be resolvable yet, so it does not present
+            # as its block class and isinstance(value, Block) alone would miss it.
+            if isinstance(value, (Block, BlockReference)):
                 current_blocks.append((key, value))
                 value.set_name(key)
                 attrs.pop(key)
