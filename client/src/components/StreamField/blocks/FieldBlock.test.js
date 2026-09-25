@@ -18,14 +18,19 @@ let constructor = (
 ) => {};
 let setState = (_widgetName, _state) => {};
 let getState = (_widgetName) => {};
+let getDuplicatedState = (_widgetName) => {};
 let getValue = (_widgetName) => {};
 let setInvalid = (_widgetName, _invalid) => {};
 let focus = (_widgetName) => {};
 
 class DummyWidgetDefinition {
-  constructor(widgetName, { throwErrorOnRender = false } = {}) {
+  constructor(
+    widgetName,
+    { throwErrorOnRender = false, hasDuplicatedState = false } = {},
+  ) {
     this.widgetName = widgetName;
     this.throwErrorOnRender = throwErrorOnRender;
+    this.hasDuplicatedState = hasDuplicatedState;
   }
 
   render(placeholder, name, id, initialState, parentCapabilities, options) {
@@ -64,6 +69,14 @@ class DummyWidgetDefinition {
         setInvalid(widgetName, invalid);
       },
       idForLabel: id,
+      ...(this.hasDuplicatedState
+        ? {
+            getDuplicatedState() {
+              getDuplicatedState(widgetName);
+              return `duplicated: ${widgetName} - ${name}`;
+            },
+          }
+        : {}),
     };
   }
 }
@@ -81,6 +94,7 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     constructor = jest.fn();
     setState = jest.fn();
     getState = jest.fn();
+    getDuplicatedState = jest.fn();
     getValue = jest.fn();
     setInvalid = jest.fn();
     focus = jest.fn();
@@ -157,6 +171,36 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     const state = boundBlock.getState();
     expect(getState.mock.calls.length).toBe(1);
     expect(state).toEqual('state: The widget - the-prefix');
+  });
+
+  test('getDuplicatedState() falls back to widget getState() when widget has no getDuplicatedState()', () => {
+    const state = boundBlock.getDuplicatedState();
+    expect(getState.mock.calls.length).toBe(1);
+    expect(state).toEqual('state: The widget - the-prefix');
+  });
+
+  test('getDuplicatedState() calls widget getDuplicatedState() when widget implements it', () => {
+    const blockDef = new FieldBlockDefinition(
+      'test_field_dup',
+      new DummyWidgetDefinition('The widget with dup', {
+        hasDuplicatedState: true,
+      }),
+      {
+        label: 'Test Field With Dup',
+        icon: 'placeholder',
+        classname: 'w-field',
+      },
+    );
+    document.body.innerHTML = '<div id="placeholder-dup"></div>';
+    const boundBlockWithDup = blockDef.render(
+      $('#placeholder-dup'),
+      'the-dup-prefix',
+      'Test initial state',
+    );
+    const state = boundBlockWithDup.getDuplicatedState();
+    expect(getDuplicatedState.mock.calls.length).toBe(1);
+    expect(getState.mock.calls.length).toBe(0);
+    expect(state).toEqual('duplicated: The widget with dup - the-dup-prefix');
   });
 
   test('setState() calls widget setState()', () => {
