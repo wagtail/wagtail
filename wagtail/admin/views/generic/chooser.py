@@ -240,7 +240,13 @@ class BaseChooseView(
                     lambda obj: self.append_preserved_url_parameters(
                         reverse(
                             self.chosen_url_name,
-                            args=(quote(getattr(obj, self.request.GET.get("to_field_name")) if self.request.GET.get("to_field_name") else obj.pk),),
+                            args=(
+                                quote(
+                                    getattr(obj, self.request.GET.get("to_field_name"))
+                                    if self.request.GET.get("to_field_name")
+                                    else obj.pk
+                                ),
+                            ),
                         )
                     )
                 ),
@@ -463,7 +469,9 @@ class ChosenResponseMixin:
     @property
     def _to_field_name(self):
         """Get to_field_name from request GET params (set by widget) or viewset attribute."""
-        return self.request.GET.get("to_field_name") or getattr(self, "to_field_name", None)
+        return self.request.GET.get("to_field_name") or getattr(
+            self, "to_field_name", None
+        )
 
     def get_object_id(self, instance):
         to_field_name = self._to_field_name

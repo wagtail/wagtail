@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0061_revisablecluster_revisableclusterchild'),
+        ('tests', '0001_squashed_0065_instantiate_headless_form'),
     ]
 
     operations = [

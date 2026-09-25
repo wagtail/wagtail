@@ -2961,6 +2961,7 @@ class HeadlessForm(FormMixin, Page):
 
 class SnippetWithSlugPrimaryKey(models.Model):
     """A snippet model with a unique slug field (not the primary key)."""
+
     slug = models.SlugField(unique=True, max_length=250)
     name = models.CharField(max_length=250)
 
@@ -2973,6 +2974,7 @@ register_snippet(SnippetWithSlugPrimaryKey)
 
 class SnippetWithFKToSlug(models.Model):
     """A snippet model with a ForeignKey to a non-pk field (slug) on SnippetWithSlugPrimaryKey."""
+
     title = models.CharField(max_length=250)
     related = models.ForeignKey(
         SnippetWithSlugPrimaryKey,
