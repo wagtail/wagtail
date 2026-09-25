@@ -83,7 +83,11 @@ class BaseChooser(widgets.Input):
         )
 
     def get_chooser_modal_url(self):
-        return reverse(self.chooser_modal_url_name)
+        url = reverse(self.chooser_modal_url_name)
+        to_field_name = getattr(self, "to_field_name", None)
+        if to_field_name:
+            url += "?" + urllib.parse.urlencode({"to_field_name": to_field_name})
+        return url
 
     def get_context(self, name, value_data, attrs):
         original_field_html = self.render_hidden_input(

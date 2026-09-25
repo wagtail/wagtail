@@ -78,7 +78,7 @@ class PreserveURLParametersMixin:
     for links / form actions.
     """
 
-    preserve_url_parameters = ["multiple"]
+    preserve_url_parameters = ["multiple", "to_field_name"]
 
     @cached_property
     def _preserved_param_string(self):
@@ -240,7 +240,7 @@ class BaseChooseView(
                     lambda obj: self.append_preserved_url_parameters(
                         reverse(
                             self.chosen_url_name,
-                            args=(quote(getattr(obj, self.to_field_name) if getattr(self, "to_field_name", None) else obj.pk),),
+                            args=(quote(getattr(obj, self.request.GET.get("to_field_name")) if self.request.GET.get("to_field_name") else obj.pk),),
                         )
                     )
                 ),
@@ -460,8 +460,13 @@ class ChosenResponseMixin:
     response_data_title_key = "title"
     chosen_response_name = "chosen"
 
+    @property
+    def _to_field_name(self):
+        """Get to_field_name from request GET params (set by widget) or viewset attribute."""
+        return self.request.GET.get("to_field_name") or getattr(self, "to_field_name", None)
+
     def get_object_id(self, instance):
-        to_field_name = getattr(self, "to_field_name", None)
+        to_field_name = self._to_field_name
         if to_field_name:
             return getattr(instance, to_field_name)
         return instance.pk
@@ -522,7 +527,7 @@ class ChosenViewMixin(ModelLookupMixin):
     """
 
     def get_object(self, pk):
-        lookup_field = getattr(self, "to_field_name", None) or "pk"
+        lookup_field = self._to_field_name or "pk"
         return self.model_class.objects.get(**{lookup_field: pk})
 
     def get(self, request, pk):
@@ -545,7 +550,7 @@ class ChosenMultipleViewMixin(ModelLookupMixin):
     """
 
     def get_objects(self, pks):
-        lookup_field = getattr(self, "to_field_name", None) or "pk"
+        lookup_field = self._to_field_name or "pk"
         return self.model_class.objects.filter(**{f"{lookup_field}__in": pks})
 
     def get(self, request):
