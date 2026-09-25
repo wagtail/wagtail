@@ -4,7 +4,11 @@ from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
 )
-from wagtail.test.testapp.models import Advert, SnippetWithFKToSlug, SnippetWithSlugPrimaryKey
+from wagtail.test.testapp.models import (
+    Advert,
+    SnippetWithFKToSlug,
+    SnippetWithSlugPrimaryKey,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 

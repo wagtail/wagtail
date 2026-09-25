@@ -1,4 +1,5 @@
 import json
+import urllib.parse
 
 import swapper
 from django import forms
