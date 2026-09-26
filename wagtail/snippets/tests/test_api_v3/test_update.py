@@ -62,6 +62,19 @@ class TestV3SnippetUpdate(TestV3SnippetUpdateBase):
         self.advert.refresh_from_db()
         self.assertEqual(self.advert.text, "Updated")
 
+    def test_update_with_tag_array_preserves_commas(self):
+        self.advert.tags.add("Old tag")
+
+        response = self.patch(
+            self.advert.pk,
+            {"tags": ["London, UK", "Wagtail"]},
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.advert.refresh_from_db()
+        self.assertCountEqual(self.advert.tags.names(), ["London, UK", "Wagtail"])
+        self.assertCountEqual(response.json()["tags"], ["London, UK", "Wagtail"])
+
     def test_update_with_quotable_pk(self):
         advert = AdvertWithCustomPrimaryKey.objects.create(
             advert_id=QUOTABLE_PK, text="Old text"

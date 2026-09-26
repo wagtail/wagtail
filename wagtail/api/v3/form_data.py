@@ -13,6 +13,7 @@ from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.admin.forms.tags import TagField
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
 from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.errors import as_validation_error
@@ -382,6 +383,9 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
     """
     if isinstance(field, BlockField):
         flatten_block_value(field.block, value, name, data)
+    elif isinstance(field, TagField):
+        tags = [field.tag_model(name=tag_name) for tag_name in value]
+        data[name] = cast(Any, field.widget).format_value(tags)
     elif getattr(field.widget, "allow_multiple_selected", False):
         data.setlist(name, list(value) if value else [])
     elif hasattr(field.widget, "converter"):
@@ -473,9 +477,10 @@ def _set_formset_data(
 
 def _remove_omitted_formsets(form: BaseForm, data: MultiValueDict) -> None:
     """Leave nested relations out of partial updates when their key is absent."""
-    for rel_name, formset in list(getattr(form, "formsets", {}).items()):
+    formsets = cast(dict[str, Any], getattr(form, "formsets", {}))
+    for rel_name, formset in list(formsets.items()):
         if f"{formset.prefix}-TOTAL_FORMS" not in data:
-            del form.formsets[rel_name]
+            del formsets[rel_name]
             continue
 
         for child_form in formset.forms:

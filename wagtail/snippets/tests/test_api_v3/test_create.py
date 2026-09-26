@@ -61,6 +61,19 @@ class TestV3SnippetCreate(TestV3SnippetCreateBase):
         self.assertEqual(set(content.keys()), {"id", "url", "text", "tags", "meta"})
         self.assertEqual(content["text"], "New advert")
 
+    def test_create_with_tag_array_preserves_commas(self):
+        response = self.post(
+            {
+                **self.valid_payload,
+                "tags": ["London, UK", "Wagtail"],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+
+        advert = Advert.objects.get(pk=response.json()["id"])
+        self.assertCountEqual(advert.tags.names(), ["London, UK", "Wagtail"])
+        self.assertCountEqual(response.json()["tags"], ["London, UK", "Wagtail"])
+
     def test_user_without_add_permission_gets_403(self):
         user = self.create_user(username="noperms", password="password")
         self.login(user)
