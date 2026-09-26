@@ -26290,9 +26290,72 @@
               }
             ],
             "title": "Link External"
+          },
+          "links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionLinkCreateSchema"
+            },
+            "title": "Links",
+            "type": "array"
           }
         },
         "title": "UUIDSnippetWithRelationsSectionCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionLinkCreateSchema": {
+        "properties": {
+          "label": {
+            "maxLength": 255,
+            "title": "Label",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": ["label", "url"],
+        "title": "UUIDSnippetWithRelationsSectionLinkCreateSchema",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsSectionLinkPatchSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsSectionLinkPatchSchema",
         "type": "object"
       },
       "UUIDSnippetWithRelationsSectionMetaSchema": {
@@ -26374,6 +26437,14 @@
               }
             ],
             "title": "Link External"
+          },
+          "links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/UUIDSnippetWithRelationsSectionLinkPatchSchema"
+            },
+            "title": "Links",
+            "type": "array"
           }
         },
         "title": "UUIDSnippetWithRelationsSectionPatchSchema",
