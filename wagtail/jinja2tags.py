@@ -3,20 +3,20 @@ import jinja2.nodes
 from jinja2.ext import Extension
 from markupsafe import Markup, escape
 
-from .templatetags.wagtailcore_tags import (
-    fullpageurl,
-    pageurl,
-    richtext,
-    slugurl,
-    wagtail_site,
-    wagtail_version,
-)
-
 
 class WagtailCoreExtension(Extension):
     tags = {"include_block"}
 
     def __init__(self, environment):
+        from .templatetags.wagtailcore_tags import (
+            fullpageurl,
+            pageurl,
+            richtext,
+            slugurl,
+            wagtail_site,
+            wagtail_version,
+        )
+
         super().__init__(environment)
 
         self.environment.globals.update(

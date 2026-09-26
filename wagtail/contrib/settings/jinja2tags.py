@@ -4,10 +4,6 @@ import jinja2
 from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
-from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting
-from wagtail.contrib.settings.registry import registry
-from wagtail.models import Site
-
 # Settings are cached per template context, to prevent excessive database
 # lookups. The cached settings are disposed of once the template context is no
 # longer used.
@@ -42,6 +38,10 @@ class Setting(dict):
         except ValueError as e:
             raise KeyError(f"Invalid model name: `{key}`") from e
 
+        from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting
+        from wagtail.contrib.settings.registry import registry
+        from wagtail.models import Site
+
         Model = registry.get_by_natural_key(app_label, model_name)
         if Model is None:
             raise RuntimeError(f"Could not find model matching `{key}`.")
@@ -63,6 +63,8 @@ class Setting(dict):
 
 @jinja2.pass_context
 def get_setting(context, model_string, use_default_site=False):
+    from wagtail.models import Site
+
     cache_key = None
     if use_default_site:
         cache_key = Site.objects.get(is_default_site=True)
