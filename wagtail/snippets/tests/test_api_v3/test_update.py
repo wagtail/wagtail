@@ -476,6 +476,43 @@ class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
                 self.assertEqual(block["type"], block_type)
                 assert_api_value(block["value"])
 
+    def test_update_with_typed_table_block(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        snippet = UUIDSnippetWithRelations.objects.create(
+            text="Hello",
+            feed_image=image,
+            body=[
+                {
+                    "type": "typed_table",
+                    "value": {
+                        "columns": [{"type": "text", "heading": "Item"}],
+                        "rows": [{"values": ["Old"]}],
+                        "caption": "Old stock",
+                    },
+                }
+            ],
+        )
+        table = {
+            "columns": [
+                {"type": "text", "heading": "Item"},
+                {"type": "number", "heading": "Quantity"},
+            ],
+            "rows": [{"values": ["Apples", 3]}],
+            "caption": "Current stock",
+        }
+
+        response = self.patch(
+            snippet.pk,
+            {"body": [{"type": "typed_table", "value": table}]},
+        )
+        self.assertEqual(response.status_code, 200)
+
+        snippet.refresh_from_db()
+        value = snippet.body[0].value
+        self.assertEqual(value.caption, "Current stock")
+        self.assertEqual(value.row_data[0]["values"], ["Apples", 3])
+        self.assertEqual(response.json()["body"][0]["value"], table)
+
     def test_update_with_child_relations_replaces_them(self):
         snippet = UUIDSnippetWithRelations.objects.create(text="Hello")
         snippet.sections.create(caption="Old", link_external="http://example.com/old")

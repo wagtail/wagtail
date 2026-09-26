@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
+from django.utils.translation import gettext as _
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
 
@@ -22,6 +23,7 @@ from wagtail.blocks.field_block import RichTextBlock
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
+from wagtail.contrib.typed_table_block.blocks import BaseTypedTableBlock
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -297,6 +299,44 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
             data[f"{prefix}-{i}-deleted"] = ""
             data[f"{prefix}-{i}-order"] = str(i)
             flatten_block_value(block.child_block, item, f"{prefix}-{i}-value", data)
+    elif isinstance(block, BaseTypedTableBlock):
+        value = value or {}
+        columns = value.get("columns", [])
+        rows = value.get("rows", [])
+
+        data[f"{prefix}-caption"] = value.get("caption", "")
+        data[f"{prefix}-column-count"] = str(len(columns))
+        column_blocks = []
+        for i, column in enumerate(columns):
+            column_type = column["type"]
+            try:
+                column_block = block.child_blocks[column_type]
+            except KeyError:
+                raise ValidationError(
+                    _(
+                        "%(prefix)s: unrecognised typed table column type "
+                        "%(column_type)r."
+                    )
+                    % {"prefix": prefix, "column_type": column_type}
+                ) from None
+
+            column_blocks.append(column_block)
+            data[f"{prefix}-column-{i}-deleted"] = ""
+            data[f"{prefix}-column-{i}-order"] = str(i)
+            data[f"{prefix}-column-{i}-type"] = column_type
+            data[f"{prefix}-column-{i}-heading"] = column.get("heading", "")
+
+        data[f"{prefix}-row-count"] = str(len(rows))
+        for row_index, row in enumerate(rows):
+            data[f"{prefix}-row-{row_index}-deleted"] = ""
+            data[f"{prefix}-row-{row_index}-order"] = str(row_index)
+            for column_index, column_block in enumerate(column_blocks):
+                flatten_block_value(
+                    column_block,
+                    row["values"][column_index],
+                    f"{prefix}-cell-{row_index}-{column_index}",
+                    data,
+                )
     elif isinstance(block, BaseStructBlock):
         value = value or {}
         for name, child_block in block.child_blocks.items():

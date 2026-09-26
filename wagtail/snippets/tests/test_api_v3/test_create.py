@@ -357,6 +357,70 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
             errors=[{"msg": "body: unrecognised block type 'not_a_real_block'"}],
         )
 
+    def test_create_with_typed_table_block(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        table = {
+            "columns": [
+                {"type": "text", "heading": "Item"},
+                {"type": "number", "heading": "Quantity"},
+            ],
+            "rows": [
+                {"values": ["Apples", 3]},
+                {"values": ["Pears", 5]},
+            ],
+            "caption": "Stock",
+        }
+        response = self.post(
+            {
+                "text": "Hello",
+                "feed_image_id": image.pk,
+                "body": [{"type": "typed_table", "value": table}],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        value = snippet.body[0].value
+        self.assertEqual(value.caption, "Stock")
+        self.assertEqual(
+            [column["heading"] for column in value.columns], ["Item", "Quantity"]
+        )
+        self.assertEqual(
+            [row["values"] for row in value.row_data],
+            [["Apples", 3], ["Pears", 5]],
+        )
+        self.assertEqual(response.json()["body"][0]["value"], table)
+
+    def test_create_with_unknown_typed_table_column_returns_422(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.post(
+            {
+                "text": "Hello",
+                "feed_image_id": image.pk,
+                "body": [
+                    {
+                        "type": "typed_table",
+                        "value": {
+                            "columns": [{"type": "missing", "heading": "Item"}],
+                            "rows": [],
+                            "caption": "Stock",
+                        },
+                    }
+                ],
+            }
+        )
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            errors=[
+                {
+                    "msg": (
+                        "body-0-value: unrecognised typed table column type 'missing'."
+                    )
+                }
+            ],
+        )
+
     def test_create_with_child_relations(self):
         document = Document.objects.create(title="Test document")
         response = self.post(
