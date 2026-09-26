@@ -150,7 +150,9 @@ def build_page_form(
     form_data = build_form_data(form_class, payload)
     setattr(page, "_meta_warnings", get_warnings(form_data))
 
-    return form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
+    form = form_class(data=form_data, instance=page, parent_page=parent, for_user=user)
+    _remove_omitted_formsets(form, form_data)
+    return form
 
 
 def build_page_update_form(
@@ -188,12 +190,14 @@ def build_page_update_form(
     form_data = build_form_data(form_class, payload, instance=page)
     setattr(page, "_meta_warnings", get_warnings(form_data))
 
-    return form_class(
+    form = form_class(
         data=form_data,
         instance=page,
         parent_page=page.get_parent(),
         for_user=user,
     )
+    _remove_omitted_formsets(form, form_data)
+    return form
 
 
 def build_model_form(
@@ -218,7 +222,9 @@ def build_model_form(
     if issubclass(form_class, PermissionedForm):
         kwargs["for_user"] = user
 
-    return form_class(**kwargs)
+    form = form_class(**kwargs)
+    _remove_omitted_formsets(form, form_data)
+    return form
 
 
 def build_model_update_form(
@@ -245,7 +251,9 @@ def build_model_update_form(
     if issubclass(form_class, PermissionedForm):
         kwargs["for_user"] = user
 
-    return form_class(**kwargs)
+    form = form_class(**kwargs)
+    _remove_omitted_formsets(form, form_data)
+    return form
 
 
 def get_warnings(data: MultiValueDict) -> list[Any]:
@@ -351,6 +359,89 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
         data[name] = value
 
 
+def _set_formset_item_data(
+    data: MultiValueDict,
+    formset_class,
+    item: dict[str, Any],
+    prefix: str,
+    instance: Model | None,
+) -> None:
+    for field_name, field in formset_class.form.base_fields.items():
+        if field_name in item:
+            _set_field_value(field, f"{prefix}-{field_name}", item[field_name], data)
+
+    for rel_name, nested_formset_class in getattr(
+        formset_class.form, "formsets", {}
+    ).items():
+        if rel_name in item:
+            _set_formset_data(
+                data,
+                nested_formset_class,
+                item[rel_name],
+                f"{prefix}-{rel_name}",
+                instance,
+                rel_name,
+            )
+
+
+def _set_formset_data(
+    data: MultiValueDict,
+    formset_class,
+    items: list[dict[str, Any]],
+    prefix: str,
+    instance: Model | None,
+    rel_name: str,
+) -> None:
+    existing = list(getattr(instance, rel_name).all()) if instance is not None else []
+    existing_by_pk = {obj.pk: (i, obj) for i, obj in enumerate(existing)}
+    matched_pks: set[Any] = set()
+
+    data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
+    for i, obj in enumerate(existing):
+        data[f"{prefix}-{i}-id"] = obj.pk
+
+    new_items = []
+    for item in items:
+        matched_pk = item.get("id")
+        if matched_pk in existing_by_pk and matched_pk not in matched_pks:
+            matched_pks.add(matched_pk)
+            item_index, item_instance = existing_by_pk[matched_pk]
+            _set_formset_item_data(
+                data,
+                formset_class,
+                item,
+                f"{prefix}-{item_index}",
+                item_instance,
+            )
+        else:
+            new_items.append(item)
+
+    for i, obj in enumerate(existing):
+        if obj.pk not in matched_pks:
+            data[f"{prefix}-{i}-DELETE"] = "on"
+
+    data[f"{prefix}-TOTAL_FORMS"] = str(len(existing) + len(new_items))
+    for j, item in enumerate(new_items):
+        _set_formset_item_data(
+            data,
+            formset_class,
+            item,
+            f"{prefix}-{len(existing) + j}",
+            None,
+        )
+
+
+def _remove_omitted_formsets(form: BaseForm, data: MultiValueDict) -> None:
+    """Leave nested relations out of partial updates when their key is absent."""
+    for rel_name, formset in list(getattr(form, "formsets", {}).items()):
+        if f"{formset.prefix}-TOTAL_FORMS" not in data:
+            del form.formsets[rel_name]
+            continue
+
+        for child_form in formset.forms:
+            _remove_omitted_formsets(child_form, data)
+
+
 def build_form_data(
     form_class: type[BaseForm],
     payload: dict[str, Any],
@@ -392,49 +483,13 @@ def build_form_data(
     for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
         if rel_name not in payload:
             continue
-        items = payload[rel_name]
-        prefix = rel_name
-        child_fields = formset_class.form.base_fields
-
-        existing = (
-            list(getattr(instance, rel_name).all()) if instance is not None else []
+        _set_formset_data(
+            data,
+            formset_class,
+            payload[rel_name],
+            rel_name,
+            instance,
+            rel_name,
         )
-        existing_by_pk = {obj.pk: obj for obj in existing}
-        matched_pks: set[Any] = set()
-
-        data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
-        for i, obj in enumerate(existing):
-            data[f"{prefix}-{i}-id"] = obj.pk
-
-        new_items = []
-        for item in items:
-            matched_pk = item.get("id")
-            if matched_pk in existing_by_pk and matched_pk not in matched_pks:
-                matched_pks.add(matched_pk)
-                item_index = next(
-                    i for i, obj in enumerate(existing) if obj.pk == matched_pk
-                )
-                item_prefix = f"{prefix}-{item_index}"
-            else:
-                new_items.append(item)
-                continue
-            for field_name, field in child_fields.items():
-                if field_name in item:
-                    _set_field_value(
-                        field, f"{item_prefix}-{field_name}", item[field_name], data
-                    )
-
-        for i, obj in enumerate(existing):
-            if obj.pk not in matched_pks:
-                data[f"{prefix}-{i}-DELETE"] = "on"
-
-        data[f"{prefix}-TOTAL_FORMS"] = str(len(existing) + len(new_items))
-        for j, item in enumerate(new_items):
-            item_prefix = f"{prefix}-{len(existing) + j}"
-            for field_name, field in child_fields.items():
-                if field_name in item:
-                    _set_field_value(
-                        field, f"{item_prefix}-{field_name}", item[field_name], data
-                    )
 
     return data

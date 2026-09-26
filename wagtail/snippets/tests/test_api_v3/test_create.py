@@ -375,6 +375,32 @@ class TestV3SnippetCreateWithRelations(TestV3SnippetCreateBase):
         self.assertEqual(sections[0].caption, "First")
         self.assertEqual(sections[1].link_document_id, document.pk)
 
+    def test_create_with_nested_child_relations(self):
+        response = self.post(
+            {
+                "text": "Hello",
+                "sections": [
+                    {
+                        "caption": "Introduction",
+                        "link_external": "https://example.com/section",
+                        "links": [
+                            {
+                                "label": "Documentation",
+                                "url": "https://example.com/docs",
+                            }
+                        ],
+                    }
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+
+        snippet = UUIDSnippetWithRelations.objects.get(text="Hello")
+        section = snippet.sections.get()
+        link = section.links.get()
+        self.assertEqual(link.label, "Documentation")
+        self.assertEqual(link.url, "https://example.com/docs")
+
     def test_create_with_child_relation_missing_link_returns_422(self):
         response = self.post(
             {

@@ -556,6 +556,115 @@ class TestV3SnippetUpdateWithRelations(TestV3SnippetUpdateBase):
         self.assertEqual(len(sections), 1)
         self.assertEqual(sections[0].caption, "Kept")
 
+    def test_update_with_nested_child_relations_replaces_them(self):
+        snippet = UUIDSnippetWithRelations.objects.create(text="Hello")
+        section = snippet.sections.create(
+            caption="Introduction",
+            link_external="https://example.com/section",
+        )
+        kept_link = section.links.create(
+            label="Old documentation",
+            url="https://example.com/old-docs",
+        )
+        removed_link = section.links.create(
+            label="Remove me",
+            url="https://example.com/remove",
+        )
+        snippet.save()
+
+        response = self.patch(
+            snippet.pk,
+            {
+                "sections": [
+                    {
+                        "id": section.pk,
+                        "caption": section.caption,
+                        "link_external": section.link_external,
+                        "links": [
+                            {
+                                "id": kept_link.pk,
+                                "label": "Updated documentation",
+                                "url": "https://example.com/docs",
+                            },
+                            {
+                                "label": "New link",
+                                "url": "https://example.com/new",
+                            },
+                        ],
+                    }
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+        section.refresh_from_db()
+        links = list(section.links.order_by("pk"))
+        self.assertEqual(len(links), 2)
+        self.assertEqual(links[0].pk, kept_link.pk)
+        self.assertEqual(links[0].label, "Updated documentation")
+        self.assertNotEqual(links[1].pk, removed_link.pk)
+        self.assertEqual(links[1].label, "New link")
+
+    def test_nested_child_relations_untouched_when_omitted(self):
+        snippet = UUIDSnippetWithRelations.objects.create(text="Hello")
+        section = snippet.sections.create(
+            caption="Introduction",
+            link_external="https://example.com/section",
+        )
+        link = section.links.create(
+            label="Documentation",
+            url="https://example.com/docs",
+        )
+        snippet.save()
+
+        response = self.patch(
+            snippet.pk,
+            {
+                "sections": [
+                    {
+                        "id": section.pk,
+                        "caption": "Updated introduction",
+                        "link_external": section.link_external,
+                    }
+                ]
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+        section.refresh_from_db()
+        self.assertEqual(section.caption, "Updated introduction")
+        self.assertEqual(list(section.links.values_list("pk", flat=True)), [link.pk])
+
+    def test_nested_child_relations_cleared_with_empty_list(self):
+        snippet = UUIDSnippetWithRelations.objects.create(text="Hello")
+        section = snippet.sections.create(
+            caption="Introduction",
+            link_external="https://example.com/section",
+        )
+        section.links.create(
+            label="Documentation",
+            url="https://example.com/docs",
+        )
+        snippet.save()
+
+        response = self.patch(
+            snippet.pk,
+            {
+                "sections": [
+                    {
+                        "id": section.pk,
+                        "caption": section.caption,
+                        "link_external": section.link_external,
+                        "links": [],
+                    }
+                ]
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+        section.refresh_from_db()
+        self.assertFalse(section.links.exists())
+
     def test_update_with_child_relation_new_item_via_document_fk(self):
         document = Document.objects.create(title="Test document")
         snippet = UUIDSnippetWithRelations.objects.create(text="Hello")

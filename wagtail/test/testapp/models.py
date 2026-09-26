@@ -1149,7 +1149,7 @@ class AdvertWithCustomUUIDPrimaryKey(index.Indexed, PreviewableMixin, Clusterabl
 register_snippet(AdvertWithCustomUUIDPrimaryKey)
 
 
-class UUIDSnippetWithRelationsSection(models.Model):
+class UUIDSnippetWithRelationsSection(ClusterableModel):
     snippet = ParentalKey(
         "UUIDSnippetWithRelations", related_name="sections", on_delete=models.CASCADE
     )
@@ -1170,6 +1170,7 @@ class UUIDSnippetWithRelationsSection(models.Model):
         APIField("caption", writable=True),
         APIField("link_external", writable=True),
         APIField("link_document", writable=True),
+        APIField("links", writable=True),
         APIField("internal_note"),  # listed but not writable
     )
 
@@ -1177,6 +1178,27 @@ class UUIDSnippetWithRelationsSection(models.Model):
         FieldPanel("caption"),
         FieldPanel("link_external"),
         FieldPanel("link_document"),
+        InlinePanel("links", label="link"),
+    ]
+
+
+class UUIDSnippetWithRelationsSectionLink(models.Model):
+    section = ParentalKey(
+        UUIDSnippetWithRelationsSection,
+        related_name="links",
+        on_delete=models.CASCADE,
+    )
+    label = models.CharField(max_length=255)
+    url = models.URLField()
+
+    api_fields = (
+        APIField("label", writable=True),
+        APIField("url", writable=True),
+    )
+
+    panels = [
+        FieldPanel("label"),
+        FieldPanel("url"),
     ]
 
 
