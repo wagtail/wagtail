@@ -16,6 +16,7 @@ from wagtail.compat import HTTPMethod
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, PageLogEntry, PageViewRestriction
+from wagtail.models.sites import bind_site_scope_on_render
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
@@ -77,6 +78,15 @@ def check_view_restrictions(callback):
         return response
 
     return inner
+
+
+@hooks.register("on_serve_page", order=-1)
+def bind_site_scope_on_serve(next_serve_page):
+    def wrapper(page, request, serve_args, serve_kwargs):
+        response = next_serve_page(page, request, serve_args, serve_kwargs)
+        return bind_site_scope_on_render(response)
+
+    return wrapper
 
 
 @hooks.register("register_rich_text_features")
