@@ -148,6 +148,10 @@ Only fields using `RichTextField` need this applied in the template.
 {{ page.body|richtext }}
 ```
 
+```{note}
+On multi-site sites, page links in `{{ page.body|richtext }}` resolve against the current site when the template is rendered through Wagtail's page serve or preview views. Wagtail binds the site around deferred template rendering rather than passing `request` through rich text expansion — see :ref:`rich_text_page_links_multi_site`.
+```
+
 (responsive_embeds)=
 
 ### Responsive Embeds
