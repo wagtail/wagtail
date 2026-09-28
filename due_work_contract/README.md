@@ -11,8 +11,8 @@ process dies or a hand-off fails between commits
 
 They run Wagtail's own test project (`wagtail.test.settings`) on PostgreSQL with
 django-tasks-db's database backend, recovering with `db_worker`, as a deployment would.
-Each gap the harness finds is a strict xfail, and `test_what_each_failure_costs` pins
-what every history leaves behind.
+Each gap the harness finds is a strict xfail, and each history's `findings` pins what
+every run leaves behind, in the same run.
 
 This directory is separate from Wagtail's test suite: it is pytest-based, it is not
 collected by `runtests.py` (its tests are in `*_test.py`, which pytest
@@ -26,7 +26,7 @@ run) and, on top of Wagtail's testing dependencies:
 
 ```sh
 pip install -e ".[testing]"
-pip install "due-work-harness>=0.2.0" django-tasks-db "psycopg[binary]" pytest pytest-django
+pip install "due-work-harness>=0.5.0" django-tasks-db "psycopg[binary]" pytest pytest-django
 cd due_work_contract
 PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres pytest --create-db --due-work-verify
 ```

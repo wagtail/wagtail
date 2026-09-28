@@ -20,8 +20,8 @@ Three contracts, each a declaration and one decorated class:
 
 What the harness finds is declared as legacy gaps, each a strict xfail
 (https://github.com/wagtail/wagtail/issues/14652), and
-``test_what_each_failure_costs`` pins every history, so a change in Wagtail
-or in the harness shows exactly what moved. Beyond deaths after each commit,
+each history's ``findings`` pins what every run leaves, in the same run as the
+verdict, so a change in Wagtail or in the harness shows exactly what moved. Beyond deaths after each commit,
 the host fails each receiver of django.tasks' ``task_started`` and
 ``task_finished`` and of Wagtail's ``page_published``, as a receiver with a
 bug or an unreachable backend would.
@@ -30,7 +30,6 @@ bug or an unreachable backend would.
 from pathlib import Path
 from typing import Any
 
-import pytest
 from django.core.files.base import ContentFile
 from django.test import Client
 from due_work_harness import (
@@ -39,15 +38,14 @@ from due_work_harness import (
     Decline,
     DueWorkContract,
     DueWorkSource,
+    Findings,
     HandoffHistory,
     KnownGap,
     NotApplicable,
     Profile,
     SafetyContract,
     SafetyProfile,
-    assert_pinned_outcomes,
     due_work_contract_suite,
-    due_work_database,
 )
 from due_work_harness.crash_histories import ExternalCall
 from due_work_harness.integrations.django_tasks import (
@@ -141,17 +139,36 @@ def document_left(handle: tuple[int, str, Any]) -> Media:
     )
 
 
+# What each history leaves after the worker runs again, pinned in the same run as the
+# verdict: every entry but the benign ones is a loss the site's visitors, its editors or
+# its storage bill see. A history not listed must reach normal operation.
+KEPT = Media(row=True, file_in_storage=True)
+DELETED = Media(row=False, file_in_storage=False)
+ORPHANED = Media(row=False, file_in_storage=True)
+
+MEDIA_FINDINGS = {
+    # Benign: the request died before the row was deleted; the editor sees an error and can try again.
+    **{f"worker died after commit {k}": KEPT for k in range(1, 7)},
+    # FINDING: the row is deleted and the file stays in storage, with nothing left to delete it.
+    "worker died after commit 7": ORPHANED,
+    "worker died after commit 8": DELETED,
+    "after-commit callback 1 failed": ORPHANED,
+}
+
+
 DELETE_IMAGE = HandoffHistory(
     name="delete image",
     arrange=an_image,
     transition=delete_the_image,
     observe=image_left,
+    findings=Findings(DELETED, MEDIA_FINDINGS),
 )
 DELETE_DOCUMENT = HandoffHistory(
     name="delete document",
     arrange=a_document,
     transition=delete_the_document,
     observe=document_left,
+    findings=Findings(DELETED, MEDIA_FINDINGS),
 )
 
 WHY_NO_SWEEP = (
@@ -202,7 +219,7 @@ WAGTAIL_MEDIA = DueWorkContract(
         "transaction.on_commit, in its own autocommit write. A death between the two, or a "
         "failing enqueue, leaves the file in storage with nothing to delete it; served "
         "straight from storage, a deleted original stays reachable at its URL "
-        "(https://github.com/wagtail/wagtail/issues/14652). test_what_each_failure_costs "
+        "(https://github.com/wagtail/wagtail/issues/14652). MEDIA_FINDINGS "
         "pins each history",
     ),
 )
@@ -271,11 +288,30 @@ def what_visitors_get(handle: tuple[int, str, Any]) -> Published:
     )
 
 
+OLD_CONTENT = Published(live_content="9 to 5", purges=0)
+PURGED = Published(live_content="10 to 6", purges=1)
+STALE = Published(live_content="10 to 6", purges=0)
+
+PUBLISH_FINDINGS = {
+    # Benign: the new revision never went live.
+    "worker died after commit 1": OLD_CONTENT,
+    "worker died after commit 2": OLD_CONTENT,
+    # FINDING: the new content is live and the CDN keeps serving the old page.
+    "worker died after commit 3": STALE,
+    "worker died after commit 4": PURGED,
+    "worker died after commit 5": PURGED,
+    # FINDING: no death at all. The frontend cache's page_published receiver raises (its CDN API
+    # unreachable, or a bug), and the publish has already committed.
+    "signal receiver 1 failed": STALE,
+}
+
+
 PUBLISH_PAGE = HandoffHistory(
     name="publish page",
     arrange=a_live_page,
     transition=publish_new_hours,
     observe=what_visitors_get,
+    findings=Findings(PURGED, PUBLISH_FINDINGS),
 )
 
 WAGTAIL_PUBLISHING = DueWorkContract(
@@ -325,7 +361,7 @@ WAGTAIL_PUBLISHING = DueWorkContract(
             "from the page_published signal: a death between the page going live and the enqueue, or a "
             "page_published receiver failing ahead of the frontend cache's, leaves the new content live and "
             "the old one cached (https://github.com/wagtail/wagtail/issues/14652). "
-            "test_what_each_failure_costs pins each history"
+            "PUBLISH_FINDINGS pins each history"
         )
     },
 )
@@ -357,58 +393,6 @@ def purges(_task_id: str) -> int:
     return cdn.PURGED[URL]
 
 
-# django-tasks-db's own contract with its worker, bound to Wagtail's purge task: the framework's
-# dispositions, retention and gap probes come from the integration.
-DJANGO_TASKS_DB = worker_contract(
-    name="django-tasks-db: the worker running Wagtail's tasks",
-    enqueue=a_purge_owed,
-    effect=purges,
-    # EXTERNAL SEAM: the CDN's purge API.
-    external_calls=(ExternalCall(owner=cdn.RecordingCDN, attribute="purge"),),
-    delivery=WORKER,
-)
-WORKER_RUNS_A_PURGE = DJANGO_TASKS_DB.handoffs[0]
-
-
-# And for the worker underneath: the same generated cases any project on django-tasks-db
-# gets, here running Wagtail's purge task (django-tasks-db#5 and #62 show up as XFAILs).
-@due_work_contract_suite(DJANGO_TASKS_DB)
-class TestDjangoTasksDb:
-    """Every case in this class is generated from DJANGO_TASKS_DB; see the comment above."""
-
-
-# What each history leaves after the worker runs again, pinned: every entry but the
-# benign ones is a loss the site's visitors, its editors or its storage bill see.
-KEPT = Media(row=True, file_in_storage=True)
-DELETED = Media(row=False, file_in_storage=False)
-ORPHANED = Media(row=False, file_in_storage=True)
-OLD_CONTENT = Published(live_content="9 to 5", purges=0)
-PURGED = Published(live_content="10 to 6", purges=1)
-STALE = Published(live_content="10 to 6", purges=0)
-
-MEDIA_FINDINGS = {
-    # Benign: the request died before the row was deleted; the editor sees an error and can try again.
-    **{f"worker died after commit {k}": KEPT for k in range(1, 7)},
-    # FINDING: the row is deleted and the file stays in storage, with nothing left to delete it.
-    "worker died after commit 7": ORPHANED,
-    "worker died after commit 8": DELETED,
-    "after-commit callback 1 failed": ORPHANED,
-}
-
-PUBLISH_FINDINGS = {
-    # Benign: the new revision never went live.
-    "worker died after commit 1": OLD_CONTENT,
-    "worker died after commit 2": OLD_CONTENT,
-    # FINDING: the new content is live and the CDN keeps serving the old page.
-    "worker died after commit 3": STALE,
-    "worker died after commit 4": PURGED,
-    "worker died after commit 5": PURGED,
-    # FINDING: no death at all. The frontend cache's page_published receiver raises (its CDN API
-    # unreachable, or a bug), and the publish has already committed.
-    "signal receiver 1 failed": STALE,
-}
-
-
 def _task(status: str, purges: int) -> TaskOutcome:
     return TaskOutcome(status=status, effect=purges)
 
@@ -427,19 +411,25 @@ WORKER_FINDINGS = {
 }
 
 
-@due_work_database()
-@pytest.mark.parametrize(
-    ("history", "delivered", "findings"),
-    [
-        pytest.param(DELETE_IMAGE, DELETED, MEDIA_FINDINGS, id="delete image"),
-        pytest.param(DELETE_DOCUMENT, DELETED, MEDIA_FINDINGS, id="delete document"),
-        pytest.param(PUBLISH_PAGE, PURGED, PUBLISH_FINDINGS, id="publish page"),
-        pytest.param(
-            WORKER_RUNS_A_PURGE, _task("SUCCESSFUL", 1), WORKER_FINDINGS, id="worker"
-        ),
-    ],
+# django-tasks-db's own contract with its worker, bound to Wagtail's purge task: the framework's
+# dispositions, retention and gap probes come from the integration.
+DJANGO_TASKS_DB = worker_contract(
+    name="django-tasks-db: the worker running Wagtail's tasks",
+    enqueue=a_purge_owed,
+    effect=purges,
+    # EXTERNAL SEAM: the CDN's purge API.
+    external_calls=(ExternalCall(owner=cdn.RecordingCDN, attribute="purge"),),
+    delivery=WORKER,
+    findings=Findings(_task("SUCCESSFUL", 1), WORKER_FINDINGS),
 )
-def test_what_each_failure_costs(
-    history: HandoffHistory, delivered: Any, findings: dict[str, Any]
-) -> None:
-    assert_pinned_outcomes(WORKER, history, delivered=delivered, outcomes=findings)
+
+
+# And for the worker underneath: the same generated cases any project on django-tasks-db
+# gets, here running Wagtail's purge task (django-tasks-db#5 and #62 show up as XFAILs).
+@due_work_contract_suite(DJANGO_TASKS_DB)
+class TestDjangoTasksDb:
+    """Every case in this class is generated from DJANGO_TASKS_DB; see the comment above."""
+
+
+# What each history leaves after the worker runs again, pinned: every entry but the
+# benign ones is a loss the site's visitors, its editors or its storage bill see.
