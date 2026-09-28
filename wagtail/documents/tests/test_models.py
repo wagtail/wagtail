@@ -1,8 +1,11 @@
+import unittest
+from unittest import mock
+
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
-from django.db import transaction
+from django.db import OperationalError, transaction
 from django.test import TestCase, TransactionTestCase, tag
 from django.test.signals import setting_changed
 from django.test.utils import override_settings
@@ -201,6 +204,38 @@ class TestFilesDeletedForDefaultModels(PageFixturesMixin, TransactionTestCase):
             document.delete()
             self.assertTrue(document.file.storage.exists(filename))
         self.assertFalse(document.file.storage.exists(filename))
+
+    # Losing the hand-off leaves the file in storage with nothing to delete it.
+    # https://github.com/wagtail/wagtail/issues/14652
+    @unittest.expectedFailure
+    def test_document_file_deleted_when_enqueueing_deletion_fails(self):
+        document = get_document_model().objects.create(
+            title="Test document", file=get_test_image_file()
+        )
+        pk = document.pk
+        filename = document.file.name
+        storage = document.file.storage
+        self.addCleanup(storage.delete, filename)
+        self.assertTrue(storage.exists(filename))
+
+        # The task queue is unreachable when the deletion is handed off
+        # after commit (e.g. the database backend's connection dropped).
+        unreachable_task = mock.Mock()
+        unreachable_task.enqueue.side_effect = OperationalError(
+            "server closed the connection unexpectedly"
+        )
+        with mock.patch.object(
+            signal_handlers, "delete_file_from_storage_task", unreachable_task
+        ):
+            with self.assertRaisesMessage(
+                OperationalError, "server closed the connection unexpectedly"
+            ):
+                document.delete()
+
+        # The row's deletion had already committed when the hand-off failed
+        self.assertFalse(get_document_model().objects.filter(pk=pk).exists())
+        # The file should not outlive its document
+        self.assertFalse(storage.exists(filename))
 
 
 @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])

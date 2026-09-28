@@ -1,3 +1,4 @@
+import unittest
 from unittest import mock
 from urllib.error import HTTPError, URLError
 
@@ -5,6 +6,7 @@ import requests
 from azure.mgmt.cdn import CdnManagementClient
 from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
+from django.db import OperationalError
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 
@@ -745,6 +747,39 @@ class TestCachePurgingSignals(PageFixturesMixin, TestCase):
         with self.captureOnCommitCallbacks(execute=True):
             page = EventIndex.objects.get(url_path="/home/events/")
             page.save_revision().publish()
+        self.assertEqual(
+            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+        )
+
+    # Losing the hand-off leaves the new content live and the old page cached.
+    # https://github.com/wagtail/wagtail/issues/14652
+    @unittest.expectedFailure
+    def test_purge_on_publish_when_enqueueing_purge_fails(self):
+        page = EventIndex.objects.get(url_path="/home/events/")
+        page.title = "Upcoming events"
+        revision = page.save_revision()
+
+        # The task queue is unreachable when the purge is handed off
+        # (e.g. the database backend's connection dropped).
+        unreachable_task = mock.Mock()
+        unreachable_task.enqueue.side_effect = OperationalError(
+            "server closed the connection unexpectedly"
+        )
+        with mock.patch(
+            "wagtail.contrib.frontend_cache.tasks.purge_urls_from_cache_task",
+            unreachable_task,
+        ):
+            with self.assertRaisesMessage(
+                OperationalError, "server closed the connection unexpectedly"
+            ):
+                with self.captureOnCommitCallbacks(execute=True):
+                    revision.publish()
+
+        # The new revision had already gone live when the hand-off failed
+        page.refresh_from_db()
+        self.assertEqual(page.live_revision, revision)
+        self.assertEqual(page.title, "Upcoming events")
+        # The old page should not stay in the frontend cache
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )

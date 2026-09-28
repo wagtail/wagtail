@@ -1,4 +1,7 @@
-from django.db import transaction
+import unittest
+from unittest import mock
+
+from django.db import OperationalError, transaction
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 
 from wagtail.images import get_image_model, signal_handlers
@@ -48,6 +51,40 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             image.delete()
             self.assertTrue(image.file.storage.exists(filename))
         self.assertFalse(image.file.storage.exists(filename))
+
+    # Losing the hand-off leaves the file in storage with nothing to delete it.
+    # https://github.com/wagtail/wagtail/issues/14652
+    @unittest.expectedFailure
+    def test_image_file_deleted_when_enqueueing_deletion_fails(self):
+        image = get_image_model().objects.create(
+            title="Test Image",
+            description="A test description",
+            file=get_test_image_file(),
+        )
+        pk = image.pk
+        filename = image.file.name
+        storage = image.file.storage
+        self.addCleanup(storage.delete, filename)
+        self.assertTrue(storage.exists(filename))
+
+        # The task queue is unreachable when the deletion is handed off
+        # after commit (e.g. the database backend's connection dropped).
+        unreachable_task = mock.Mock()
+        unreachable_task.enqueue.side_effect = OperationalError(
+            "server closed the connection unexpectedly"
+        )
+        with mock.patch.object(
+            signal_handlers, "delete_file_from_storage_task", unreachable_task
+        ):
+            with self.assertRaisesMessage(
+                OperationalError, "server closed the connection unexpectedly"
+            ):
+                image.delete()
+
+        # The row's deletion had already committed when the hand-off failed
+        self.assertFalse(get_image_model().objects.filter(pk=pk).exists())
+        # The file should not outlive its image
+        self.assertFalse(storage.exists(filename))
 
     def test_rendition_file_deleted_oncommit(self):
         with transaction.atomic():
