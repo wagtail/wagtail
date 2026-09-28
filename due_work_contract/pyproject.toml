@@ -1,0 +1,27 @@
+# Not an installable project: this file configures pytest, ruff and the harness's
+# coverage check for this directory only. See README.md.
+
+[tool.pytest.ini_options]
+addopts = ["--ds=due_work_contract.settings", "-p", "no:cacheprovider", "-rxX"]
+pythonpath = [".."]
+
+# `due-work-harness check --root due_work_contract`: every hand-off Wagtail makes is
+# covered by a contract here, or listed in the baseline below.
+[tool.due-work-harness]
+production-packages = ["wagtail"]
+source-roots = [".."]
+test-paths = ["."]
+
+[tool.due-work-harness.baseline]
+# Feature detection, the slug-change hook and the reference index hand work off too:
+# no contract insures them yet.
+"wagtail.images.signal_handlers.post_save_image_feature_detection" = 1
+"wagtail.models.pages.AbstractPage.save" = 1
+"wagtail.signal_handlers.update_reference_index_on_save" = 1
+
+[tool.ruff]
+extend = "../ruff.toml"
+src = [".."]
+
+[tool.ruff.lint]
+extend-per-file-ignores = { "*" = ["S101", "S106"] }
