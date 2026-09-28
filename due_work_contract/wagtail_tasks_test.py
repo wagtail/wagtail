@@ -208,6 +208,18 @@ WAGTAIL_MEDIA = DueWorkContract(
 )
 
 
+# This is where the magic happens. The class is empty on purpose: the decorator reads the
+# WAGTAIL_MEDIA contract above and generates its tests, bound to Wagtail's real image and
+# document deletion, its post_delete handlers and django-tasks-db's db_worker. No test
+# case is written by hand.
+#
+# One of the generated cases is how #14652 was found: the handoff case replays a deletion
+# once per thing that can go wrong (the process dies after each commit, or the enqueue of
+# delete_file_from_storage_task fails) and compares each run with a normal deletion. A
+# death right after the row is deleted leaves the file in storage with nothing left to
+# delete it, so the case fails. The contract declares that as a gap, so it is reported as
+# a strict XFAIL; the day every run matches, it passes, and the strict marker fails the
+# run until the gap is removed.
 @due_work_contract_suite(
     WAGTAIL_MEDIA,
     covers=(
@@ -216,7 +228,7 @@ WAGTAIL_MEDIA = DueWorkContract(
     ),
 )
 class TestWagtailMedia:
-    pass
+    """Every case in this class is generated from WAGTAIL_MEDIA; see the comment above."""
 
 
 class Published(BaseModel):
@@ -319,11 +331,16 @@ WAGTAIL_PUBLISHING = DueWorkContract(
 )
 
 
+# The magic again, for publishing: the decorator generates this class's tests from
+# WAGTAIL_PUBLISHING, bound to Wagtail's real publish and its frontend cache purge task.
+# Its handoff case finds the stale CDN page in #14652: when the process dies between the
+# page going live and the purge being enqueued, or a page_published receiver raises ahead
+# of the frontend cache's, the new content is live and the CDN keeps serving the old one.
 @due_work_contract_suite(
     WAGTAIL_PUBLISHING, covers=(DueWorkSource(purge_urls_from_cache),)
 )
 class TestWagtailPublishing:
-    pass
+    """Every case in this class is generated from WAGTAIL_PUBLISHING; see the comment above."""
 
 
 URL = "http://localhost/opening-hours/"
@@ -353,9 +370,11 @@ DJANGO_TASKS_DB = worker_contract(
 WORKER_RUNS_A_PURGE = DJANGO_TASKS_DB.handoffs[0]
 
 
+# And for the worker underneath: the same generated cases any project on django-tasks-db
+# gets, here running Wagtail's purge task (django-tasks-db#5 and #62 show up as XFAILs).
 @due_work_contract_suite(DJANGO_TASKS_DB)
 class TestDjangoTasksDb:
-    pass
+    """Every case in this class is generated from DJANGO_TASKS_DB; see the comment above."""
 
 
 # What each history leaves after the worker runs again, pinned: every entry but the
