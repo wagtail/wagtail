@@ -928,7 +928,6 @@ def wagtail_config(context):
         "ADMIN_API": {
             "PAGES": reverse("wagtailadmin_api:pages:listing"),
             "DOCUMENTS": reverse("wagtailadmin_api:documents:listing"),
-            "IMAGES": reverse("wagtailadmin_api:images:listing"),
             # Used to add an extra query string on all API requests. Example value: '&order=-id'
             "EXTRA_CHILDREN_PARAMETERS": "",
         },

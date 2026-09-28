@@ -13,7 +13,6 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.images import admin_urls, get_image_model, image_operations
-from wagtail.images.api.admin.views import ImagesAdminAPIViewSet
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.rich_text import ImageEmbedHandler
 from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
@@ -32,11 +31,6 @@ def register_admin_urls():
     return [
         path("images/", include(admin_urls, namespace="wagtailimages")),
     ]
-
-
-@hooks.register("construct_admin_api")
-def construct_admin_api(router):
-    router.register_endpoint("images", ImagesAdminAPIViewSet)
 
 
 class ImagesMenuItem(MenuItem):
