@@ -6,7 +6,6 @@ export interface WagtailConfig {
   ADMIN_API: {
     PAGES: string;
     DOCUMENTS: string;
-    IMAGES: string;
     EXTRA_CHILDREN_PARAMETERS: string;
   };
   ADMIN_URLS: {
