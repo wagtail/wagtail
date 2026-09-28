@@ -1,6 +1,12 @@
 Changelog
 =========
 
+8.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Suppress warnings generated under sphinx-llm 1.1.0 (Matt Westcott)
+
+
 8.0 (25.08.2026)
 ~~~~~~~~~~~~~~~~
 
