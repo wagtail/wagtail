@@ -88,6 +88,14 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             "false",
         )
 
+    def test_has_level_one_heading(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        heading = soup.select_one("h1")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.get_text(strip=True), "New: Advert")
+
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
             reverse("wagtailsnippets_tests_advertwithtabbedinterface:add")

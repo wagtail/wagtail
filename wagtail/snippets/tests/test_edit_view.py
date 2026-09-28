@@ -187,6 +187,14 @@ class TestSnippetEditView(PageFixturesMixin, BaseTestSnippetEditView):
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
 
+    def test_has_level_one_heading(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        heading = soup.select_one("h1")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.get_text(strip=True), "Editing: test_advert")
+
     def test_get_hydrate_create_view(self):
         response = self.get(params={"_w_hydrate_create_view": "1"})
         self.assertEqual(response.status_code, 200)
