@@ -5,7 +5,6 @@ export interface WagtailConfig {
   ACTIVE_CONTENT_LOCALE?: string;
   ADMIN_API: {
     PAGES: string;
-    EXTRA_CHILDREN_PARAMETERS: string;
   };
   ADMIN_URLS: {
     DISMISSIBLES: string;

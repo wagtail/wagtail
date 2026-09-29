@@ -927,8 +927,6 @@ def wagtail_config(context):
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(settings.CSRF_HEADER_NAME),
         "ADMIN_API": {
             "PAGES": reverse("wagtailadmin_api:pages:listing"),
-            # Used to add an extra query string on all API requests. Example value: '&order=-id'
-            "EXTRA_CHILDREN_PARAMETERS": "",
         },
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
