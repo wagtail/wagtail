@@ -2,24 +2,13 @@ from collections import OrderedDict
 
 import swapper
 from django.conf import settings
-from django.http import Http404
 from django.urls import path
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.response import Response
 
 from wagtail.api.v2.utils import parse_boolean
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.permissions import policy_registry
 
-from .actions.convert_alias import ConvertAliasPageAPIAction
-from .actions.copy import CopyPageAPIAction
-from .actions.copy_for_translation import CopyForTranslationAPIAction
-from .actions.create_alias import CreatePageAliasAPIAction
-from .actions.delete import DeletePageAPIAction
-from .actions.move import MovePageAPIAction
-from .actions.publish import PublishPageAPIAction
-from .actions.revert_to_page_revision import RevertToPageRevisionAPIAction
-from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -29,18 +18,6 @@ Page = swapper.load_model("wagtailcore", "Page")
 class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
-
-    actions = {
-        "convert_alias": ConvertAliasPageAPIAction,
-        "copy": CopyPageAPIAction,
-        "delete": DeletePageAPIAction,
-        "publish": PublishPageAPIAction,
-        "unpublish": UnpublishPageAPIAction,
-        "move": MovePageAPIAction,
-        "copy_for_translation": CopyForTranslationAPIAction,
-        "create_alias": CreatePageAliasAPIAction,
-        "revert_to_page_revision": RevertToPageRevisionAPIAction,
-    }
 
     # Add has_children and for_explorer filters
     filter_backends = PagesAPIViewSet.filter_backends + [
@@ -133,20 +110,6 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         response = super().detail_view(request, pk)
         response.data["__types"] = self.get_type_info()
         return response
-
-    def action_view(self, request, pk, action_name):
-        instance = self.get_object()
-
-        if action_name not in self.actions:
-            raise Http404(f"unrecognised action '{action_name}'")
-
-        action = self.actions[action_name](self, request)
-        action_data = action.serializer(data=request.data)
-
-        if not action_data.is_valid():
-            return Response(action_data.errors, status=400)
-
-        return action.execute(instance, action_data.data)
 
     @classmethod
     def get_urlpatterns(cls):
