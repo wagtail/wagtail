@@ -10,7 +10,6 @@
 const wagtailConfig = {
   ADMIN_API: {
     PAGES: '/admin/api/main/pages/',
-    EXTRA_CHILDREN_PARAMETERS: '',
   },
   ADMIN_URLS: {
     PAGES: '/admin/pages/',
