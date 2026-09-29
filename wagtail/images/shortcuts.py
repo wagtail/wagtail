@@ -1,6 +1,3 @@
-from wagtail.images.models import SourceImageIOError
-
-
 def get_rendition_or_not_found(image, specs):
     """
     Tries to get / create the rendition for the image or renders a not-found image if it does not exist.
@@ -9,6 +6,8 @@ def get_rendition_or_not_found(image, specs):
     :param specs: str or Filter
     :return: Rendition
     """
+    from wagtail.images.models import SourceImageIOError
+
     try:
         return image.get_rendition(specs)
     except SourceImageIOError:
@@ -31,6 +30,8 @@ def get_renditions_or_not_found(image, specs):
     :param image: AbstractImage
     :param specs: iterable of str or Filter
     """
+    from wagtail.images.models import SourceImageIOError
+
     try:
         return image.get_renditions(*specs)
     except SourceImageIOError:
