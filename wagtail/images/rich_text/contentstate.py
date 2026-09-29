@@ -38,22 +38,28 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
 
     def create_entity(self, name, attrs, state, contentstate):
         Image = get_image_model()
-        try:
-            image = Image.objects.get(id=attrs["id"])
-            image_format = get_image_format(attrs["format"])
-            rendition = get_rendition_or_not_found(image, image_format.filter_spec)
-            src = rendition.url
-        except Image.DoesNotExist:
-            src = ""
+        image_id = attrs.get("id")
+        format_name = attrs.get("format")
+        src = ""
+
+        if image_id is not None:
+            try:
+                image = Image.objects.get(id=image_id)
+                image_format = get_image_format(format_name) if format_name else None
+                if image_format:
+                    rendition = get_rendition_or_not_found(image, image_format.filter_spec)
+                    src = rendition.url
+            except (Image.DoesNotExist, KeyError, ValueError):
+                src = ""
 
         return Entity(
             "IMAGE",
             "IMMUTABLE",
             {
-                "id": attrs["id"],
+                "id": image_id,
                 "src": src,
                 "alt": attrs.get("alt"),
-                "format": attrs["format"],
+                "format": format_name,
             },
         )
 
