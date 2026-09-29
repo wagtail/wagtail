@@ -124,6 +124,10 @@ class TestSnippetEditView(PageFixturesMixin, BaseTestSnippetEditView):
 
     def test_simple(self):
         response = self.get()
+        soup = self.get_soup(response.content)
+        heading = soup.select_one("h1.w-sr-only")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.get_text(strip=True), response.context["header_title"])
         html = response.content.decode()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
