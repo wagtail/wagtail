@@ -65,8 +65,6 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
     url += `&offset=${options.offset}`;
   }
 
-  url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
-
   return client.get(url);
 };
 
