@@ -42,6 +42,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   return (
     <form
       role="search"
+      aria-label={gettext('Search the admin')}
       className="w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0"
       action={searchUrl}
       aria-keyshortcuts="/"

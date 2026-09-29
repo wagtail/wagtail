@@ -24,6 +24,7 @@
                     method="get"
                     novalidate
                     role="search"
+                    aria-label="{% trans 'Search all pages' %}"
                 >
                     {% for field in search_form %}
                         {% formattedfield field=field sr_only_label=True icon="search" %}
