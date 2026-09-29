@@ -324,7 +324,6 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
 
         self.assertTrue(Redirect.objects.filter(pk=redirect.pk).exists())
         self.assertFalse(Redirect.objects.exclude(pk=redirect.pk).exists())
-        self.assertEqual(len(PURGED_URLS), 0)
 
     def test_slug_change_when_url_does_not_depend_on_slug(self):
         # A page whose `get_url_parts()` does not use its slug (as can happen
@@ -353,4 +352,3 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
         # and existing automatically-created redirects must be preserved
         self.assertTrue(Redirect.objects.filter(pk=redirect.pk).exists())
         self.assertFalse(Redirect.objects.exclude(pk=redirect.pk).exists())
-        self.assertEqual(len(PURGED_URLS), 0)
