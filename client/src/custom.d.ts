@@ -4,7 +4,7 @@ export interface WagtailConfig {
   /** For editing models that can be translated, the target locale's language code will be provided. */
   ACTIVE_CONTENT_LOCALE?: string;
   ADMIN_API: {
-    PAGES: string;
+    EXPLORER: string;
   };
   ADMIN_URLS: {
     DISMISSIBLES: string;

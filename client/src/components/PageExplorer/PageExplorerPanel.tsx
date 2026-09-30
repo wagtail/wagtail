@@ -78,7 +78,7 @@ class PageExplorerPanel extends React.Component<
     const { page, nodes } = this.props;
     let children;
 
-    if (!page.isFetchingChildren && !page.children.items) {
+    if (!page.isFetching && !page.children.items) {
       children = (
         <div key="empty" className="c-page-explorer__placeholder">
           {gettext('No results')}
@@ -102,7 +102,7 @@ class PageExplorerPanel extends React.Component<
     return (
       <div className="c-page-explorer__drawer">
         {children}
-        {page.isFetchingChildren || page.isFetchingTranslations ? (
+        {page.isFetching ? (
           <div key="fetching" className="c-page-explorer__placeholder">
             <LoadingSpinner />
           </div>
@@ -122,7 +122,7 @@ class PageExplorerPanel extends React.Component<
 
     return (
       <FocusTrap
-        paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
+        paused={!page || page.isFetching}
         focusTrapOptions={{
           onDeactivate: onClose,
           clickOutsideDeactivates: true,

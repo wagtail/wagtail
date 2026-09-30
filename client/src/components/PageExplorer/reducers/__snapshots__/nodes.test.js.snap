@@ -1,158 +1,53 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`nodes GET_CHILDREN_FAILURE 1`] = `
-{
-  "1": {
-    "children": {
-      "count": 0,
-      "items": [],
-    },
-    "id": 0,
-    "isError": true,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": true,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-}
-`;
-
-exports[`nodes GET_CHILDREN_START 1`] = `
-{
-  "1": {
-    "children": {
-      "count": 0,
-      "items": [],
-    },
-    "id": 0,
-    "isError": false,
-    "isFetchingChildren": true,
-    "isFetchingTranslations": false,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-}
-`;
-
-exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
-{
-  "1": {
-    "children": {
-      "count": 3,
-      "items": [
-        3,
-        4,
-        5,
-      ],
-    },
-    "id": 0,
-    "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-  "3": {
-    "children": {
-      "count": 0,
-      "items": [],
-    },
-    "id": 3,
-    "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-  "4": {
-    "children": {
-      "count": 0,
-      "items": [],
-    },
-    "id": 4,
-    "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-  "5": {
-    "children": {
-      "count": 0,
-      "items": [],
-    },
-    "id": 5,
-    "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
-    "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
-    },
-  },
-}
-`;
-
 exports[`nodes GET_PAGE_FAILURE 1`] = `
 {
   "1": {
+    "admin_display_title": "",
     "children": {
       "count": 0,
       "items": [],
     },
     "id": 0,
     "isError": true,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": true,
+    "isFetching": false,
+    "isLoaded": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
+      "depth": 0,
+      "has_children": false,
+      "has_unpublished_changes": true,
+      "live": false,
+      "locale": "",
+      "status": "",
+      "type": "",
     },
+    "title": "",
+  },
+}
+`;
+
+exports[`nodes GET_PAGE_START 1`] = `
+{
+  "1": {
+    "admin_display_title": "",
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetching": true,
+    "isLoaded": false,
+    "meta": {
+      "depth": 0,
+      "has_children": false,
+      "has_unpublished_changes": true,
+      "live": false,
+      "locale": "",
+      "status": "",
+      "type": "",
+    },
+    "title": "",
   },
 }
 `;
@@ -160,23 +55,82 @@ exports[`nodes GET_PAGE_FAILURE 1`] = `
 exports[`nodes GET_PAGE_SUCCESS 1`] = `
 {
   "1": {
+    "admin_display_title": "Home",
+    "children": {
+      "count": 5,
+      "items": [
+        3,
+        4,
+        5,
+      ],
+    },
+    "id": 1,
+    "isError": false,
+    "isFetching": false,
+    "isLoaded": true,
+    "meta": {
+      "depth": 2,
+      "has_children": true,
+      "has_unpublished_changes": false,
+      "live": true,
+      "locale": "en",
+      "parent": {
+        "id": 99,
+        "meta": {},
+        "title": "Root",
+      },
+      "status": "live",
+    },
+    "title": "",
+    "translations": Map {
+      "fr" => 7,
+      "de" => 8,
+    },
+  },
+  "3": {
+    "admin_display_title": "Three",
     "children": {
       "count": 0,
       "items": [],
     },
-    "id": 0,
+    "id": 3,
     "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
+    "isFetching": false,
+    "isLoaded": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
+      "depth": 3,
     },
+    "title": "",
+  },
+  "4": {
+    "admin_display_title": "Four",
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 4,
+    "isError": false,
+    "isFetching": false,
+    "isLoaded": false,
+    "meta": {
+      "depth": 3,
+    },
+    "title": "",
+  },
+  "5": {
+    "admin_display_title": "Five",
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 5,
+    "isError": false,
+    "isFetching": false,
+    "isLoaded": false,
+    "meta": {
+      "depth": 3,
+    },
+    "title": "",
   },
 }
 `;
@@ -184,23 +138,25 @@ exports[`nodes GET_PAGE_SUCCESS 1`] = `
 exports[`nodes OPEN_EXPLORER 1`] = `
 {
   "1": {
+    "admin_display_title": "",
     "children": {
       "count": 0,
       "items": [],
     },
     "id": 0,
     "isError": false,
-    "isFetchingChildren": false,
-    "isFetchingTranslations": false,
+    "isFetching": false,
+    "isLoaded": false,
     "meta": {
-      "children": {},
-      "parent": null,
-      "status": {
-        "has_unpublished_changes": true,
-        "live": false,
-        "status": "",
-      },
+      "depth": 0,
+      "has_children": false,
+      "has_unpublished_changes": true,
+      "live": false,
+      "locale": "",
+      "status": "",
+      "type": "",
     },
+    "title": "",
   },
 }
 `;
