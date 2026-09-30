@@ -129,6 +129,14 @@ class TestSnippetEditView(PageFixturesMixin, BaseTestSnippetEditView):
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
         self.assertNotContains(response, 'role="tablist"')
 
+        # The slim header must contain a level-one heading so screen readers
+        # and axe's `page-has-heading-one` rule can find the page's main
+        # heading (#14650).
+        soup = self.get_soup(response.content)
+        heading = soup.select_one(".w-slim-header h1")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.text.strip(), f"Editing: {self.test_snippet}")
+
         # Without DraftStateMixin, there should be no "No publishing schedule set" info
         self.assertNotContains(response, "No publishing schedule set")
 

@@ -88,6 +88,17 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             "false",
         )
 
+    def test_header_title_is_level_one_heading(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        # The slim header must contain a level-one heading so screen readers
+        # and axe's `page-has-heading-one` rule can find the page's main
+        # heading (#14650).
+        heading = soup.select_one(".w-slim-header h1")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.text.strip(), "New: Advert")
+
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
             reverse("wagtailsnippets_tests_advertwithtabbedinterface:add")
