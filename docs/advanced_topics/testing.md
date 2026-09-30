@@ -310,13 +310,23 @@ class MyPageTest(WagtailPageTestCase):
 
 ### Using wagtail-factories
 
-Wagtail includes a bundled copy of [wagtail-factories](https://github.com/wagtail/wagtail-factories), which provides factory classes built on [Factory Boy](https://factoryboy.readthedocs.io/) for creating test pages and other Wagtail objects. These factories can be used with any test framework.
+[wagtail-factories](https://github.com/wagtail/wagtail-factories) is a separate package that provides factory classes built on [Factory Boy](https://factoryboy.readthedocs.io/) for creating test pages and other Wagtail objects. These factories can be used with any test framework.
+
+Install it with pip:
+
+```console
+$ pip install wagtail-factories
+```
+
+```{note}
+Wagtail includes a bundled copy of wagtail-factories at `wagtail.test.utils.wagtail_factories`, but this exists solely for Wagtail's own internal tests (such as the streamfield migration helpers) and is not intended for use in external projects. For testing your own Wagtail site, install the `wagtail-factories` package as shown above to benefit from the latest bugfixes and updates.
+```
 
 To define a factory for a custom page model, inherit from `PageFactory` and set the model in `Meta`. When creating an instance, pass a `parent` page; the factory automatically calls `parent.add_child()`:
 
 ```python
-from wagtail.models import Page, Site
-from wagtail.test.utils.wagtail_factories import PageFactory
+from wagtail.models import Site
+from wagtail_factories import PageFactory
 
 from myapp.models import ArticlePage
 
