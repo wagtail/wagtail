@@ -211,6 +211,12 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_IN_PROGRESS
         self.save()
 
+        # Resuming is normally triggered by the author editing and resubmitting
+        # the object, so the copy of the object held by this state may predate
+        # the revision that was just saved. Re-read it so the restarted task is
+        # created against the latest revision rather than a stale one.
+        self.content_object.refresh_from_db()
+
         instance = self.content_object
         if isinstance(instance, AbstractPage):
             instance = self.content_object.specific

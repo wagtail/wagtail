@@ -2240,6 +2240,33 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         # check that the workflow remains on the rejecting task, rather than resetting
         self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
 
+    def test_resume_rejected_workflow_reviews_latest_revision(self):
+        # https://github.com/wagtail/wagtail/issues/14661
+        # Resubmitting after requested changes saves a new revision, so the
+        # resumed task must review that new revision rather than the one that
+        # the author has just replaced.
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
+        rejected_revision = workflow_state.current_task_state.revision
+
+        workflow_state.current_task_state.reject(user=self.moderator)
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
+
+        # the author edits the object and resubmits it for review
+        self.post("submit")
+
+        # the resubmission saved a new revision
+        self.object.refresh_from_db()
+        new_revision = self.object.latest_revision
+        self.assertNotEqual(new_revision, rejected_revision)
+
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
+
+        # the resumed task must be reviewing the new revision
+        self.assertEqual(workflow_state.current_task_state.revision, new_revision)
+
     def test_restart_rejected_workflow(self):
         # test that an existing workflow can be restarted when rejected
         self.workflow.start(self.object, user=self.submitter)
