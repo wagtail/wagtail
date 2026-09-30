@@ -76,6 +76,10 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   let handsontableConstructorMock;
   let renderMock;
   let updateSettingsMock;
+  let getDataMock;
+  let getCellsMetaMock;
+  let getPluginMock;
+  let getCellMock;
 
   /**
    * Call this to render the table block with the current settings
@@ -96,6 +100,10 @@ describe('telepath: wagtail.widgets.TableInput', () => {
     handsontableConstructorMock = jest.fn();
     renderMock = jest.fn();
     updateSettingsMock = jest.fn();
+    getDataMock = jest.fn(() => JSON.parse(JSON.stringify(testValue.data)));
+    getCellsMetaMock = jest.fn(() => []);
+    getPluginMock = jest.fn(() => ({ isEnabled: () => false }));
+    getCellMock = jest.fn(() => null);
 
     class HandsontableMock {
       constructor(...args) {
@@ -108,6 +116,22 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
       updateSettings(opts) {
         updateSettingsMock(opts);
+      }
+
+      getData() {
+        return getDataMock();
+      }
+
+      getCellsMeta() {
+        return getCellsMetaMock();
+      }
+
+      getPlugin(name) {
+        return getPluginMock(name);
+      }
+
+      getCell(row, col) {
+        return getCellMock(row, col);
       }
     }
 
@@ -203,5 +227,54 @@ describe('telepath: wagtail.widgets.TableInput', () => {
     expect(document.querySelector('input[name="the-name"]').value).toEqual(
       JSON.stringify(testValue),
     );
+  });
+
+  describe('direct DOM edits in contenteditable cells', () => {
+    const placeCell = (text) => {
+      const container = document.getElementById(
+        'the-id-handsontable-container',
+      );
+      container.innerHTML =
+        '<table><tbody><tr><td id="direct-cell"></td></tr></tbody></table>';
+      const cell = document.getElementById('direct-cell');
+      cell.textContent = text;
+      getCellMock.mockImplementation((row, col) =>
+        row === 0 && col === 0 ? cell : null,
+      );
+      return cell;
+    };
+
+    const persistedValue = () =>
+      JSON.parse(document.querySelector('input[name="the-name"]').value);
+
+    test('text typed directly into a cell is persisted', () => {
+      render();
+      const options = handsontableConstructorMock.mock.calls[0][1];
+      options.afterInit();
+      const cell = placeCell('Coordinate');
+      cell.dispatchEvent(new Event('input', { bubbles: true }));
+      const value = persistedValue();
+      expect(value.data[0][0]).toEqual('Coordinate');
+      expect(value.data[0][1]).toEqual('Heading');
+    });
+
+    test('clearing a cell directly is persisted', () => {
+      render();
+      const options = handsontableConstructorMock.mock.calls[0][1];
+      options.afterInit();
+      const cell = placeCell('');
+      cell.dispatchEvent(new Event('input', { bubbles: true }));
+      expect(persistedValue().data[0][0]).toEqual('');
+    });
+
+    test('untouched empty cells keep their null value', () => {
+      testValue.data[0][0] = null;
+      render();
+      const options = handsontableConstructorMock.mock.calls[0][1];
+      options.afterInit();
+      placeCell('');
+      options.afterSetCellMeta(0, 1, 'className', 'highlight');
+      expect(persistedValue().data[0][0]).toBeNull();
+    });
   });
 });
