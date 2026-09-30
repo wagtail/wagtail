@@ -1,60 +1,31 @@
-import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { getPage, getPageChildren } from './admin';
+import { getExplorerPage } from './admin';
 import client from './client';
 
-const { ADMIN_API } = WAGTAIL_CONFIG;
-
-jest.mock('./client', () => {
-  const stubResult = {
-    __types: {
-      test: {
-        verbose_name: 'Test',
-      },
-    },
-    items: [{ meta: { type: 'test' } }, { meta: { type: 'foo' } }],
-  };
-
-  return {
-    __esModule: true,
-    default: { get: jest.fn(() => Promise.resolve(stubResult)) },
-  };
-});
+jest.mock('./client', () => ({
+  __esModule: true,
+  default: {
+    get: jest.fn(() =>
+      Promise.resolve({
+        page: {},
+        translations: [],
+        children: { count: 0, items: [] },
+      }),
+    ),
+  },
+}));
 
 describe('admin API', () => {
-  describe('getPageChildren', () => {
+  describe('getExplorerPage', () => {
     it('works', () => {
-      getPageChildren(3);
-      expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent`,
-      );
-    });
-
-    it('#fields', () => {
-      getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
-      expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`,
-      );
-    });
-
-    it('#onlyWithChildren', () => {
-      getPageChildren(3, { onlyWithChildren: true });
-      expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&has_children=1`,
-      );
+      getExplorerPage(3);
+      expect(client.get).toHaveBeenCalledWith('/admin/api/explorer/3/');
     });
 
     it('#offset', () => {
-      getPageChildren(3, { offset: 5 });
+      getExplorerPage(3, { offset: 20 });
       expect(client.get).toHaveBeenCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&offset=5`,
+        '/admin/api/explorer/3/?offset=20',
       );
-    });
-  });
-
-  describe('getPage', () => {
-    it('should return a result by with a default id argument', () => {
-      getPage(3);
-      expect(client.get).toHaveBeenCalledWith(`${ADMIN_API.PAGES}3/`);
     });
   });
 
