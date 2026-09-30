@@ -154,6 +154,22 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     expect(document.getElementsByName('mytable-caption')[0].value).toBe('');
   });
 
+  test('duplicating a table retains the caption', () => {
+    const duplicatedState = boundBlock.getDuplicatedState();
+    expect(duplicatedState.caption).toBe('A shopping list');
+
+    // Render the duplicate from the duplicated state, as the editor does
+    document.body.innerHTML = '<div id="duplicate-placeholder"></div>';
+    blockDef.render(
+      document.getElementById('duplicate-placeholder'),
+      'mytable-copy',
+      duplicatedState,
+    );
+    expect(document.getElementsByName('mytable-copy-caption')[0].value).toBe(
+      'A shopping list',
+    );
+  });
+
   test('supports adding a caption', () => {
     boundBlock.setCaption('A shopping list');
     expect(document.getElementsByName('mytable-caption')[0].value).toBe(
