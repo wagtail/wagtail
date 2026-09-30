@@ -126,9 +126,28 @@ function initTable(id, tableOptions) {
       });
     }
 
+    // Cells are contenteditable for keyboard access (see keyboardAccessAttrs),
+    // so edits can be made directly in the DOM without Handsontable knowing -
+    // for example typing after a touch tap. Sync the rendered cell text over
+    // Handsontable's data so those edits are not lost when the page is saved.
+    const data = hot.getData().map((row) => row.slice());
+    data.forEach((row, rowIndex) => {
+      row.forEach((value, colIndex) => {
+        const td = hot.getCell(rowIndex, colIndex);
+        if (td) {
+          const cellText = td.textContent;
+          const dataText =
+            value === null || value === undefined ? '' : String(value);
+          if (cellText !== dataText) {
+            row[colIndex] = cellText;
+          }
+        }
+      });
+    });
+
     hiddenStreamInput.val(
       JSON.stringify({
-        data: hot.getData(),
+        data: data,
         cell: cell,
         mergeCells: mergeCells,
         first_row_is_table_header: tableHeader.val(),
@@ -228,6 +247,15 @@ function initTable(id, tableOptions) {
   }
 
   hot = new Handsontable(document.getElementById(containerId), finalOptions);
+
+  // Direct DOM edits in contenteditable cells do not fire Handsontable
+  // events, so persist whenever text is entered into a cell.
+  document.getElementById(containerId).addEventListener('input', (event) => {
+    if (isInitialized && event.target.closest('td, th')) {
+      persist();
+    }
+  });
+
   window.addEventListener('load', () => {
     // Render the table. Calling render also removes 'null' literals from empty cells.
     hot.render();
