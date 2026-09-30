@@ -86,6 +86,8 @@ class OrderingFilter(BaseFilterBackend):
         if not order_param:
             return queryset
 
+        _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
+
         order_by_list = order_param.split(",")
 
         # Handle random ordering separately
@@ -96,7 +98,11 @@ class OrderingFilter(BaseFilterBackend):
                 )
             if "offset" in request.GET:
                 raise BadRequestError("random ordering with offset is not supported")
-            return queryset.order_by("?")
+            queryset = queryset.order_by("?")
+
+            if _filtered_by_child_of:
+                queryset._filtered_by_child_of = _filtered_by_child_of
+            return queryset
 
         allowed_fields = view.get_available_fields(queryset.model, db_fields_only=True)
         validated_fields = []
@@ -108,11 +114,15 @@ class OrderingFilter(BaseFilterBackend):
             validated_fields.append(field)
 
         try:
-            return queryset.order_by(*validated_fields)
+            queryset = queryset.order_by(*validated_fields)
         except FieldError as e:
             raise BadRequestError(
                 f"cannot order by '{order_param}' (invalid field)"
             ) from e
+
+        if _filtered_by_child_of:
+            queryset._filtered_by_child_of = _filtered_by_child_of
+        return queryset
 
 
 class SearchFilter(BaseFilterBackend):

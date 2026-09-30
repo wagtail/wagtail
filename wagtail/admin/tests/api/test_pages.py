@@ -598,6 +598,14 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             },
         )
 
+    def test_for_explorer_filter_with_ordering(self):
+        response = self.get_response(for_explorer=1, child_of=2, order="id")
+
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content.decode("UTF-8"))
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, sorted(page_id_list))
+
     def test_for_explorer_construct_explorer_page_queryset_ordering(self):
         def set_custom_ordering(parent_page, pages, request):
             return pages.order_by("-title")
