@@ -77,10 +77,6 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
-    <Icon
-      className="icon--menuitem"
-      name="folder-inverse"
-    />
     <h3
       className="c-page-explorer__item__title"
     >
@@ -92,9 +88,8 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
       <PublicationStatus
         status={
           {
-            "has_unpublished_changes": true,
             "live": false,
-            "status": "test",
+            "status": "draft",
           }
         }
       />
@@ -108,17 +103,6 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
       className="icon--item-action"
       name="edit"
       title="Edit 'test'"
-    />
-  </Link>
-  <Link
-    className="c-page-explorer__item__action"
-    href="/admin/pages/5/"
-    onClick={[Function]}
-  >
-    <Icon
-      className="icon--item-action"
-      name="arrow-right"
-      title="View child pages of 'test'"
     />
   </Link>
 </div>
@@ -132,10 +116,6 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
-    <Icon
-      className="icon--menuitem"
-      name="folder-inverse"
-    />
     <h3
       className="c-page-explorer__item__title"
     >
@@ -147,9 +127,8 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
       <PublicationStatus
         status={
           {
-            "has_unpublished_changes": true,
             "live": true,
-            "status": "test",
+            "status": "live + draft",
           }
         }
       />
@@ -163,17 +142,6 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
       className="icon--item-action"
       name="edit"
       title="Edit 'test'"
-    />
-  </Link>
-  <Link
-    className="c-page-explorer__item__action"
-    href="/admin/pages/5/"
-    onClick={[Function]}
-  >
-    <Icon
-      className="icon--item-action"
-      name="arrow-right"
-      title="View child pages of 'test'"
     />
   </Link>
 </div>
