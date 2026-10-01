@@ -33,9 +33,10 @@ A top-level StreamBlock value is a JSON array of blocks:
 The `value` representation depends on the block type:
 
 -   **Nested StreamBlock** — a list of `{type, id, value}` blocks, recursively.
--   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`.
+-   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`. On input, an item can also be given as `{"type": "item", "id": ..., "value": ...}`, which keeps its `id`.
 -   **StructBlock** — an object keyed by the child block's field names.
 -   **RichTextBlock** — rich text, using the input and output formats described in [](api_v3_rich_text).
+-   **TypedTableBlock** — an object with `columns` (each with a `type` and a `heading`), `rows` (each with a `values` list holding one value per column, in that column block's own representation), and a `caption`.
 -   **Chooser and leaf blocks** (for example image and page choosers) — a scalar value such as the object's ID, or another widget-compatible value.
 
 Custom blocks can customise how they are read back through the API by [defining `get_api_representation(value, context=None)`](apiv2_streamfield_configuration), which takes precedence over the default representation.
@@ -49,6 +50,8 @@ StreamField values are submitted as part of a page or snippet create or update, 
 -   Omitting the StreamField field from an update leaves it unchanged.
 -   An **unknown block type** in the submitted list returns `422`.
 -   Values are validated by the block's real `clean()` method and the form widget, and chooser IDs are validated, so the same validation applies as in the editor.
+
+Built-in blocks need no extra code to be writable, and nor do custom blocks based on `StreamBlock`, `ListBlock`, `StructBlock`, or `FieldBlock` (including chooser blocks). A submitted value takes the same shape as the block's stored value, which for built-in blocks is also their default API representation. Writes don't use a custom `get_api_representation`, so a block that overrides it still accepts the stored shape on input. Each field block's value is passed through its form widget, as when submitted through the editor, and the whole value is validated by the blocks' `clean()` methods. Rich text is also converted from any accepted rich text input format. A custom block that contains other blocks but isn't based on `StreamBlock`, `ListBlock`, or `StructBlock` must define `map_child_values(value, func)` to be writable, returning its stored value with `func(child_block, child_value, child_path)` applied to each child value, so its children are handled in the same way. See `TypedTableBlock` for an example. Writing any other kind of custom block returns `422`.
 
 ```{note}
 Because updating replaces the whole value, build clients that send the complete StreamField list for the field rather than relying on partial, block-level updates.

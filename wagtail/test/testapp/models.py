@@ -41,6 +41,7 @@ from wagtail.api import APIField
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,
+    IntegerBlock,
     ListBlock,
     RawHTMLBlock,
     RichTextBlock,
@@ -64,6 +65,7 @@ from wagtail.contrib.settings.models import (
 )
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.documents import get_document_model
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import AbstractDocument, Document
@@ -2017,6 +2019,15 @@ class StreamPage(Page):
             ),
             ("image_with_alt", ImageBlock()),
             ("table", TableBlock()),
+            (
+                "typed_table",
+                TypedTableBlock(
+                    [
+                        ("text", CharBlock()),
+                        ("number", IntegerBlock()),
+                    ]
+                ),
+            ),
         ],
     )
 
