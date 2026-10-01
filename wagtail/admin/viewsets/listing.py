@@ -75,6 +75,15 @@ class ListingViewSetMixin:
             "export_headings": self.export_headings,
             "export_filename": self.export_filename,
             "filterset_class": self.filterset_class,
+            "queryset": self.get_base_queryset,
             **kwargs,
         }
         return view_kwargs
+
+    def get_base_queryset(self, request):
+        """
+        Returns a QuerySet of all model instances to be shown on the index view.
+        If ``None`` is returned (the default), the logic in
+        ``index_view.get_base_queryset()`` will be used instead.
+        """
+        return None
