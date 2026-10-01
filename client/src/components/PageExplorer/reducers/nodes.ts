@@ -1,9 +1,9 @@
-import { WagtailPageAPI } from '../../../api/admin';
+import { WagtailExplorerAPI, WagtailPageAPI } from '../../../api/admin';
 import { CLOSE_EXPLORER, OPEN_EXPLORER } from './explorer';
 
 export interface PageState extends WagtailPageAPI {
-  isFetchingChildren: boolean;
-  isFetchingTranslations: boolean;
+  isFetching: boolean;
+  isLoaded: boolean;
   isError: boolean;
   children: {
     items: any[];
@@ -14,21 +14,23 @@ export interface PageState extends WagtailPageAPI {
 
 const defaultPageState: PageState = {
   id: 0,
-  isFetchingChildren: false,
-  isFetchingTranslations: false,
+  title: '',
+  admin_display_title: '',
+  isFetching: false,
+  isLoaded: false,
   isError: false,
   children: {
     items: [],
     count: 0,
   },
   meta: {
-    status: {
-      status: '',
-      live: false,
-      has_unpublished_changes: true,
-    },
-    parent: null,
-    children: {},
+    type: '',
+    locale: '',
+    depth: 0,
+    status: '',
+    live: false,
+    has_unpublished_changes: true,
+    has_children: false,
   },
 };
 
@@ -43,52 +45,21 @@ interface ClosePageExplorerAction {
   type: typeof CLOSE_EXPLORER;
 }
 
+export const GET_PAGE_START = 'GET_PAGE_START';
+interface GetPageStart {
+  type: typeof GET_PAGE_START;
+  payload: {
+    id: number;
+  };
+}
+
 export const GET_PAGE_SUCCESS = 'GET_PAGE_SUCCESS';
 interface GetPageSuccess {
   type: typeof GET_PAGE_SUCCESS;
   payload: {
     id: number;
-    data: WagtailPageAPI;
-  };
-}
-
-export const GET_CHILDREN_START = 'GET_CHILDREN_START';
-interface GetChildrenStart {
-  type: typeof GET_CHILDREN_START;
-  payload: {
-    id: number;
-  };
-}
-
-export const GET_CHILDREN_SUCCESS = 'GET_CHILDREN_SUCCESS';
-interface GetChildrenSuccess {
-  type: typeof GET_CHILDREN_SUCCESS;
-  payload: {
-    id: number;
-    meta: {
-      total_count: number;
-    };
-    items: WagtailPageAPI[];
-  };
-}
-
-export const GET_TRANSLATIONS_START = 'GET_TRANSLATIONS_START';
-interface GetTranslationsStart {
-  type: typeof GET_TRANSLATIONS_START;
-  payload: {
-    id: number;
-  };
-}
-
-export const GET_TRANSLATIONS_SUCCESS = 'GET_TRANSLATIONS_SUCCESS';
-interface GetTranslationsSuccess {
-  type: typeof GET_TRANSLATIONS_SUCCESS;
-  payload: {
-    id: number;
-    meta: {
-      total_count: number;
-    };
-    items: WagtailPageAPI[];
+    data: WagtailExplorerAPI;
+    offset: number;
   };
 }
 
@@ -100,33 +71,22 @@ interface GetPageFailure {
   };
 }
 
-export const GET_CHILDREN_FAILURE = 'GET_CHILDREN_FAILURE';
-interface GetChildrenFailure {
-  type: typeof GET_CHILDREN_FAILURE;
-  payload: {
-    id: number;
-  };
-}
-
-export const GET_TRANSLATIONS_FAILURE = 'GET_TRANSLATIONS_FAILURE';
-interface GetTranslationsFailure {
-  type: typeof GET_TRANSLATIONS_FAILURE;
-  payload: {
-    id: number;
-  };
-}
-
 export type Action =
   | OpenPageExplorerAction
   | ClosePageExplorerAction
+  | GetPageStart
   | GetPageSuccess
-  | GetChildrenStart
-  | GetChildrenSuccess
-  | GetTranslationsStart
-  | GetTranslationsSuccess
-  | GetPageFailure
-  | GetChildrenFailure
-  | GetTranslationsFailure;
+  | GetPageFailure;
+
+/**
+ * Whether a response for more children doesn't follow on from the children
+ * already loaded, e.g. it belongs to a request made before the explorer was
+ * closed and reopened.
+ */
+const isStaleChildrenPage = (
+  state: PageState | undefined,
+  offset: number,
+): boolean => offset > 0 && offset !== state?.children.items.length;
 
 /**
  * A single page node in the explorer.
@@ -136,50 +96,38 @@ const node = (
   action: Action,
 ): PageState => {
   switch (action.type) {
-    case GET_PAGE_SUCCESS:
-      return { ...state, ...action.payload.data, isError: false };
+    case GET_PAGE_START:
+      return { ...state, isFetching: true };
 
-    case GET_CHILDREN_START:
-      return { ...state, isFetchingChildren: true };
+    case GET_PAGE_SUCCESS: {
+      const { data, offset } = action.payload;
+      const previousItems = offset > 0 ? state.children.items : [];
 
-    case GET_TRANSLATIONS_START:
-      return { ...state, isFetchingTranslations: true };
-
-    case GET_CHILDREN_SUCCESS:
       return {
         ...state,
-        isFetchingChildren: false,
+        ...data.page,
+        isFetching: false,
+        isLoaded: true,
         isError: false,
         children: {
-          items: state.children.items
-            .slice()
-            .concat(action.payload.items.map((item) => item.id)),
-          count: action.payload.meta.total_count,
+          items: previousItems.concat(
+            data.children.items.map((item) => item.id),
+          ),
+          count: data.children.count,
         },
+        translations: new Map(
+          data.translations.map((translation) => [
+            translation.locale,
+            translation.id,
+          ]),
+        ),
       };
-
-    case GET_TRANSLATIONS_SUCCESS:
-      // eslint-disable-next-line no-case-declarations
-      const translations = new Map();
-
-      action.payload.items.forEach((item) => {
-        translations.set(item.meta.locale, item.id);
-      });
-
-      return {
-        ...state,
-        isFetchingTranslations: false,
-        isError: false,
-        translations,
-      };
+    }
 
     case GET_PAGE_FAILURE:
-    case GET_CHILDREN_FAILURE:
-    case GET_TRANSLATIONS_FAILURE:
       return {
         ...state,
-        isFetchingChildren: false,
-        isFetchingTranslations: true,
+        isFetching: false,
         isError: true,
       };
 
@@ -206,30 +154,31 @@ export default function nodes(
       return { ...state, [action.payload.id]: { ...defaultPageState } };
     }
 
-    case GET_PAGE_SUCCESS:
-    case GET_CHILDREN_START:
-    case GET_TRANSLATIONS_START:
+    case GET_PAGE_START:
     case GET_PAGE_FAILURE:
-    case GET_CHILDREN_FAILURE:
-    case GET_TRANSLATIONS_FAILURE:
       return {
         ...state, // Delegate logic to single-node reducer.
         [action.payload.id]: node(state[action.payload.id], action),
       };
 
-    case GET_CHILDREN_SUCCESS:
-    case GET_TRANSLATIONS_SUCCESS:
-      // eslint-disable-next-line no-case-declarations
-      const newState = {
-        ...state,
-        [action.payload.id]: node(state[action.payload.id], action),
-      };
+    case GET_PAGE_SUCCESS: {
+      if (
+        isStaleChildrenPage(state[action.payload.id], action.payload.offset)
+      ) {
+        return state;
+      }
 
-      action.payload.items.forEach((item) => {
+      const newState = { ...state };
+
+      // Children are only partially known until they are loaded themselves.
+      action.payload.data.children.items.forEach((item) => {
         newState[item.id] = { ...defaultPageState, ...item };
       });
 
+      newState[action.payload.id] = node(state[action.payload.id], action);
+
       return newState;
+    }
 
     case CLOSE_EXPLORER: {
       return defaultState;
