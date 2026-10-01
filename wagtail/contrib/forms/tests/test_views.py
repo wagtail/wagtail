@@ -498,7 +498,9 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
             with self.subTest(format=format):
                 params = urlencode({"name": "Alice", "export": format})
                 expected_url = f"{list_url}?{params}"
-                self.assertContains(response, escape(expected_url))
+                # The download link should be a form POST
+                expected_attribute = f'action="{escape(expected_url)}"'
+                self.assertContains(response, expected_attribute)
 
     def make_list_submissions(self):
         """
@@ -741,9 +743,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         self.login()
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv"},
+            query_params={"export": "csv"},
         )
 
         # Check response
@@ -773,9 +775,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_xlsx_export(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "xlsx"},
+            query_params={"export": "xlsx"},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -821,15 +823,54 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
                 new_form_submission.submit_time = "2014-01-01T12:00:00"
             new_form_submission.save()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv"},
+            query_params={"export": "csv"},
         )
 
         # Check that csv export is not paginated
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(104, len(data_lines))
+
+    def test_export_requires_post(self):
+        for i in range(100):
+            new_form_submission = FormSubmission.objects.create(
+                page=self.form_page,
+                form_data={
+                    "your-email": "new@example-%s.com" % i,
+                    "your-message": "I like things x %s" % i,
+                },
+            )
+            if settings.USE_TZ:
+                new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
+            else:
+                new_form_submission.submit_time = "2014-01-01T12:00:00"
+            new_form_submission.save()
+
+        response = self.client.get(
+            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+            query_params={"export": "csv"},
+        )
+
+        # A GET request should ignore the export parameter and return the normal submissions list page
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+        # Response should be paginated, so only 20 submissions should be returned
+        self.assertContains(response, 'name="selected-submissions"', count=20)
+
+    def test_non_export_requires_get(self):
+        response = self.client.post(
+            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+            query_params={"date_from": "01/01/2014"},
+        )
+
+        # A POST request without an export parameter should redirect to the normal submissions list page
+        self.assertRedirects(
+            response,
+            reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+            + "?date_from=01%2F01%2F2014",
+        )
 
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(
         self,
@@ -838,9 +879,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         def construct_forms_for_user(user, queryset):
             return queryset.none()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv"},
+            query_params={"export": "csv"},
         )
 
         # An user can export form submissions without the hook
@@ -872,18 +913,18 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         with self.register_hook(
             "filter_form_submissions_for_user", construct_forms_for_user
         ):
-            response = self.client.get(
+            response = self.client.post(
                 reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-                {"export": "csv"},
+                query_params={"export": "csv"},
             )
 
         # An user can't export form submission with the hook
         self.assertRedirects(response, "/admin/")
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_from": "01/01/2014"},
+            query_params={"export": "csv", "date_from": "01/01/2014"},
         )
 
         # Check response
@@ -905,9 +946,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_to": "12/31/2013"},
+            query_params={"export": "csv", "date_to": "12/31/2013"},
         )
 
         # Check response
@@ -929,9 +970,13 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_csv_export_with_range_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_from": "12/31/2013", "date_to": "01/02/2014"},
+            query_params={
+                "export": "csv",
+                "date_from": "12/31/2013",
+                "date_to": "01/02/2014",
+            },
         )
 
         # Check response
@@ -963,9 +1008,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "01/02/2014", "export": "csv"},
+            query_params={"date_from": "01/02/2014", "export": "csv"},
         )
 
         # Check response
@@ -994,9 +1039,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "01/02/2014", "export": "csv"},
+            query_params={"date_from": "01/02/2014", "export": "csv"},
         )
 
         # Check response
@@ -1050,9 +1095,9 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         self.login()
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv"},
+            query_params={"export": "csv"},
         )
 
         # Check response
@@ -1083,9 +1128,9 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_from": "01/01/2014"},
+            query_params={"export": "csv", "date_from": "01/01/2014"},
         )
 
         # Check response
@@ -1108,9 +1153,9 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_to": "12/31/2013"},
+            query_params={"export": "csv", "date_to": "12/31/2013"},
         )
 
         # Check response
@@ -1133,9 +1178,13 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
             )
 
     def test_list_submissions_csv_export_with_range_filtering(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv", "date_from": "12/31/2013", "date_to": "01/02/2014"},
+            query_params={
+                "export": "csv",
+                "date_from": "12/31/2013",
+                "date_to": "01/02/2014",
+            },
         )
 
         # Check response
@@ -1169,9 +1218,9 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "01/02/2014", "export": "csv"},
+            query_params={"date_from": "01/02/2014", "export": "csv"},
         )
 
         # Check response
@@ -1201,9 +1250,9 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "01/02/2014", "export": "csv"},
+            query_params={"date_from": "01/02/2014", "export": "csv"},
         )
 
         # Check response
@@ -1784,9 +1833,9 @@ class TestFormsWithCustomSubmissionsList(WagtailTestUtils, TestCase):
         self.assertEqual(next_input.get("value"), f"{list_url}?p=2")
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"export": "csv"},
+            query_params={"export": "csv"},
         )
 
         # Check response

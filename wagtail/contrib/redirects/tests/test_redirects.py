@@ -659,6 +659,9 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:index"), params)
 
+    def post(self, params=None):
+        return self.client.post(reverse("wagtailredirects:index"), query_params=params)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -776,7 +779,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
 
         # Session, User, UserProfile, Redirects
         with self.assertNumQueries(4):
-            response = self.get(params={"export": "csv"})
+            response = self.post(params={"export": "csv"})
 
             csv_data = response.getvalue().decode().split("\n")
 
@@ -794,7 +797,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
 
         # Session, User, UserProfile, Redirects
         with self.assertNumQueries(4):
-            response = self.get(params={"export": "xlsx"})
+            response = self.post(params={"export": "xlsx"})
             workbook_data = response.getvalue()
 
         self.assertEqual(response.status_code, 200)
@@ -813,11 +816,11 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             models.Redirect.add_redirect(f"/from-site{i}", "/to", False, site=self.site)
             models.Redirect.add_redirect(f"/to-page{i}", page, False)
 
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
         csv_data = response.getvalue().decode().strip().split("\n")
         # Session, User, UserProfile, Redirects
         with self.assertNumQueries(4):
-            response = self.get(params={"export": "csv"})
+            response = self.post(params={"export": "csv"})
             csv_data = response.getvalue().decode().strip().split("\n")
 
         self.assertEqual(len(csv_data), 10)

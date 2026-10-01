@@ -996,7 +996,9 @@ class TestListExport(BaseSnippetViewSetTests):
         self.assertContains(response, self.get_url("list") + "?export=xlsx")
 
     def test_csv_export(self):
-        response = self.client.get(self.get_url("list"), {"export": "csv"})
+        response = self.client.post(
+            self.get_url("list"), query_params={"export": "csv"}
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -1018,8 +1020,14 @@ class TestListExport(BaseSnippetViewSetTests):
             f"Pot Noodle,UK,Foo UK,{self.some_date.isoformat()},0,\r",
         )
 
+    def test_csv_export_requires_post(self):
+        response = self.client.get(self.get_url("list"), query_params={"export": "csv"})
+        self.assertEqual(response.get("Content-Type"), "text/html; charset=utf-8")
+
     def test_xlsx_export(self):
-        response = self.client.get(self.get_url("list"), {"export": "xlsx"})
+        response = self.client.post(
+            self.get_url("list"), query_params={"export": "xlsx"}
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -1059,6 +1067,16 @@ class TestListExport(BaseSnippetViewSetTests):
         self.assertEqual(len(cell_array), 3)
 
         self.assertEqual(worksheet["F2"].number_format, ExcelDateFormatter().get())
+
+    def test_xlsx_export_requires_post(self):
+        response = self.client.get(
+            self.get_url("list"), query_params={"export": "xlsx"}
+        )
+        self.assertEqual(response.get("Content-Type"), "text/html; charset=utf-8")
+
+    def test_post_non_export_redirects_to_get(self):
+        response = self.client.post(self.get_url("list"))
+        self.assertRedirects(response, self.get_url("list"))
 
 
 class TestCustomTemplates(BaseSnippetViewSetTests):

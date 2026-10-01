@@ -1664,7 +1664,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_csv_export(self):
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
         data_lines = response.getvalue().decode().splitlines()
@@ -1679,7 +1679,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         )
 
     def test_xlsx_export(self):
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
         self.assertEqual(response.status_code, 200)
         workbook_data = response.getvalue()
         worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
