@@ -1,8 +1,12 @@
+import json
+
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.test import TestCase
+from django.urls import reverse
 
 from wagtail import blocks
+from wagtail.api.v3.tests.base import TestV3Base
 from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.struct_block import StructBlockValidationError
@@ -12,6 +16,8 @@ from wagtail.contrib.typed_table_block.blocks import (
     TypedTableBlockAdapter,
     TypedTableBlockValidationError,
 )
+from wagtail.test.testapp.models import StreamPage
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class CountryChoiceBlock(blocks.ChoiceBlock):
@@ -565,3 +571,130 @@ class TestBlockDefinitionLookup(TestCase):
         self.assertTrue(text_block.required)
         country_block = struct_block.child_blocks["country"]
         self.assertIsInstance(country_block, blocks.ChoiceBlock)
+
+
+class TestTypedTableBlockAPIv3(TestV3Base, WagtailTestUtils, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.root_page = Page.objects.get(depth=1)
+        self.user = self.login()
+        self.block = StreamPage._meta.get_field("body").stream_block.child_blocks[
+            "typed_table"
+        ]
+
+    def test_create_page(self):
+        typed_table = {
+            "columns": [
+                {"type": "text", "heading": "Name"},
+                {"type": "number", "heading": "Amount"},
+            ],
+            "rows": [{"values": ["Bread", 2]}, {"values": ["Milk", 1]}],
+            "caption": "Shopping",
+        }
+        response = self.client.post(
+            reverse("wagtailapi_v3:create_page"),
+            data=json.dumps(
+                {
+                    "meta": {
+                        "parent_id": self.root_page.pk,
+                        "type": "tests.StreamPage",
+                    },
+                    "title": "Stream page",
+                    "slug": "stream-page-typed-table",
+                    "body": [{"type": "typed_table", "value": typed_table}],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+
+        page = StreamPage.objects.get(slug="stream-page-typed-table")
+        self.assertEqual(page.body[0].block_type, "typed_table")
+        self.assertEqual(self.block.get_prep_value(page.body[0].value), typed_table)
+
+        [block] = response.json()["body"]
+        self.assertEqual(block["type"], "typed_table")
+        self.assertTrue(block["id"])
+        self.assertEqual(block["value"], typed_table)
+
+    def test_create_page_with_unknown_column_type_returns_422(self):
+        response = self.client.post(
+            reverse("wagtailapi_v3:create_page"),
+            data=json.dumps(
+                {
+                    "meta": {
+                        "parent_id": self.root_page.pk,
+                        "type": "tests.StreamPage",
+                    },
+                    "title": "Stream page",
+                    "slug": "stream-page-bad-typed-table",
+                    "body": [
+                        {
+                            "type": "typed_table",
+                            "value": {
+                                "columns": [{"type": "nope", "heading": "Bad"}],
+                                "rows": [{"values": ["x"]}],
+                                "caption": "",
+                            },
+                        }
+                    ],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assert_problem_response(response, status_code=422)
+        self.assertFalse(
+            StreamPage.objects.filter(slug="stream-page-bad-typed-table").exists()
+        )
+
+    def test_update_page(self):
+        original_typed_table = {
+            "columns": [
+                {"type": "text", "heading": "Name"},
+                {"type": "number", "heading": "Amount"},
+            ],
+            "rows": [{"values": ["Bread", 2]}],
+            "caption": "Original",
+        }
+        updated_typed_table = {
+            "columns": [
+                {"type": "number", "heading": "Amount"},
+                {"type": "text", "heading": "Name"},
+                {"type": "text", "heading": "Notes"},
+            ],
+            "rows": [
+                {"values": [3, "Eggs", "Free range"]},
+                {"values": [1, "Milk", ""]},
+            ],
+            "caption": "Updated",
+        }
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-typed-table",
+                body=[{"type": "typed_table", "value": original_typed_table}],
+                live=False,
+            )
+        )
+        response = self.client.patch(
+            reverse("wagtailapi_v3:update_page", kwargs={"page_id": page.pk}),
+            data=json.dumps(
+                {
+                    "meta": {"type": "tests.StreamPage"},
+                    "body": [{"type": "typed_table", "value": updated_typed_table}],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
+
+        page.refresh_from_db()
+        self.assertEqual(page.body[0].block_type, "typed_table")
+        self.assertEqual(
+            self.block.get_prep_value(page.body[0].value), updated_typed_table
+        )
+
+        [block] = response.json()["body"]
+        self.assertEqual(block["type"], "typed_table")
+        self.assertTrue(block["id"])
+        self.assertEqual(block["value"], updated_typed_table)
