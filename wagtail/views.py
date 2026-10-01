@@ -8,6 +8,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import PageViewRestriction
+from wagtail.models.sites import bind_site_scope_on_render, find_site_scope_for_page
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -61,4 +62,9 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     action_url = reverse(
         "wagtailcore_authenticate_with_password", args=[restriction.id, page.id]
     )
-    return page.serve_password_required_response(request, form, action_url)
+    page_site, page_site_root_paths = find_site_scope_for_page(page)
+    return bind_site_scope_on_render(
+        page.serve_password_required_response(request, form, action_url),
+        site=page_site,
+        site_root_paths=page_site_root_paths,
+    )

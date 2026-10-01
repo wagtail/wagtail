@@ -536,6 +536,28 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (for example ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
+
+    .. automethod:: clear_site_root_paths_cache
+```
+
+(bind_site_scope_on_render_ref)=
+
+## `bind_site_scope_on_render`
+
+```{eval-rst}
+.. autofunction:: wagtail.models.sites.bind_site_scope_on_render
+```
+
+`bind_site_scope_on_render()` patches a ``TemplateResponse`` so deferred rendering runs inside a Wagtail site scope. Wagtail registers an :ref:`on_serve_page <on_serve_page>` hook that calls this for page responses (using the site identified from the request hostname), and uses it at preview and password-required serve boundaries (using the site the page belongs to). Call it on responses from custom views that render front-end templates containing page links expanded without an explicit `request` (for example via the ``|richtext`` filter).
+
+If a site scope is already active, rendering proceeds unchanged.
+
+```{eval-rst}
+.. autofunction:: wagtail.models.sites.wagtail_site_stash_scope
+```
+
+```{eval-rst}
+.. autofunction:: wagtail.models.get_current_site
 ```
 
 (locale_model_ref)=

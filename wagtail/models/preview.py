@@ -10,6 +10,8 @@ from django.template.response import TemplateResponse
 from django.utils.cache import patch_cache_control
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.models.sites import bind_site_scope_on_render, find_site_scope_for_page
+
 
 class PreviewableMixin:
     """A mixin that allows a model to have previews."""
@@ -40,6 +42,10 @@ class PreviewableMixin:
                 setattr(request, k, v)
 
         obj = self
+        preview_site = None
+        preview_site_root_paths = None
+        if hasattr(obj, "_get_relevant_site_root_paths"):
+            preview_site, preview_site_root_paths = find_site_scope_for_page(obj)
 
         # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
         # the eventual view function called at the end of the middleware chain, rather than going
@@ -48,7 +54,11 @@ class PreviewableMixin:
             def _get_response(self, request):
                 request.is_preview = True
                 request.preview_mode = preview_mode
-                response = obj.serve_preview(request, preview_mode)
+                response = bind_site_scope_on_render(
+                    obj.serve_preview(request, preview_mode),
+                    site=preview_site,
+                    site_root_paths=preview_site_root_paths,
+                )
                 if hasattr(response, "render") and callable(response.render):
                     response = response.render()
                 patch_cache_control(response, private=True)
