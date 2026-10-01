@@ -187,6 +187,13 @@ class FieldRowPanel(PanelGroup):
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/field_row_panel.html"
 
+        @cached_property
+        def children(self):
+            children = super().children
+            for child in children:
+                child.help_text_after_input = True
+            return children
+
 
 class MultiFieldPanel(PanelGroup):
     class BoundPanel(PanelGroup.BoundPanel):
