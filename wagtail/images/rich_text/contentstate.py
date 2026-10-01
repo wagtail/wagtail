@@ -47,7 +47,9 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
                 image = Image.objects.get(id=image_id)
                 image_format = get_image_format(format_name) if format_name else None
                 if image_format:
-                    rendition = get_rendition_or_not_found(image, image_format.filter_spec)
+                    rendition = get_rendition_or_not_found(
+                        image, image_format.filter_spec
+                    )
                     src = rendition.url
             except (Image.DoesNotExist, KeyError, ValueError):
                 src = ""

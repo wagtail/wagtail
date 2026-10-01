@@ -159,7 +159,9 @@ class TestEntityFeatureChooserUrls(TestCase):
 
 class TestImageElementHandler(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.image = Image.objects.create(id=1, title="Test", file=get_test_image_file())
+        self.image = Image.objects.create(
+            id=1, title="Test", file=get_test_image_file()
+        )
         self.handler = ImageElementHandler()
 
     def test_create_entity_with_valid_attrs(self):
@@ -174,7 +176,9 @@ class TestImageElementHandler(WagtailTestUtils, TestCase):
         self.assertEqual(entity.data["id"], "1")
         self.assertEqual(entity.data["format"], "left")
         self.assertEqual(entity.data["alt"], "A test image")
-        self.assertTrue(entity.data["src"].endswith(".png") or "/images/" in entity.data["src"])
+        self.assertTrue(
+            entity.data["src"].endswith(".png") or "/images/" in entity.data["src"]
+        )
 
     def test_create_entity_with_missing_id(self):
         # Reproduces issue where pasting broken embed or image+link has no 'id' in attrs
