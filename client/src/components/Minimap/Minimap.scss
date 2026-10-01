@@ -83,12 +83,13 @@ $minimap-overflow: theme('spacing.2');
 .w-minimap__list {
   margin: 0;
   padding: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   list-style-type: none;
 
   :where(.w-minimap--expanded) & {
     padding-inline-start: $minimap-overflow;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   > li {
