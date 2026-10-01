@@ -123,11 +123,7 @@ class PageFilterSchema(FilterSchema):
 
     @staticmethod
     def get_page(page_id: int, loc: str) -> Page:
-        try:
-            return Page.objects.get(pk=page_id)
-        except Page.DoesNotExist as e:
-            message = f"No {Page._meta.object_name} matches the given {loc} value."
-            raise as_validation_error(e, message, loc=(loc,)) from e
+        return Page.objects.get(pk=page_id)
 
     @staticmethod
     def get_page_or_root(
@@ -146,7 +142,10 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.ancestor_of is None:
             return queryset
-        relative_to = self.get_page(self.ancestor_of, "ancestor_of")
+        try:
+            relative_to = self.get_page(self.ancestor_of, "ancestor_of")
+        except Page.DoesNotExist:
+            return queryset.none()
         return queryset.ancestor_of(relative_to)
 
     def apply_descendant_of(
@@ -158,7 +157,10 @@ class PageFilterSchema(FilterSchema):
         if relative_to is None:
             return queryset
         loc = "child_of" if self.child_of else "descendant_of"
-        relative_to = self.get_page_or_root(request, relative_to, loc)
+        try:
+            relative_to = self.get_page_or_root(request, relative_to, loc)
+        except Page.DoesNotExist:
+            return queryset.none()
         if self.child_of:
             return queryset.child_of(relative_to)
         return queryset.descendant_of(relative_to)
@@ -170,9 +172,12 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.translation_of is None:
             return queryset
-        relative_to = self.get_page_or_root(
-            request, self.translation_of, "translation_of"
-        )
+        try:
+            relative_to = self.get_page_or_root(
+                request, self.translation_of, "translation_of"
+            )
+        except Page.DoesNotExist:
+            return queryset.none()
         return queryset.translation_of(relative_to)
 
     def apply_custom_filters(
