@@ -10,6 +10,8 @@ from django.forms import BaseForm, Field
 from django.utils.datastructures import MultiValueDict
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
+from taggit.forms import TagField, TagWidget
+from taggit.models import Tag
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
@@ -347,6 +349,17 @@ def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) 
         # `from_database_format` contract - core ships only Draftail, but
         # third-party editors may implement the same converter pattern).
         data[name] = field.widget.format_value(value)
+    elif isinstance(field, TagField):
+        # The API takes a list of tag names, but the widget expects the same
+        # single edit string the admin renders. The widget's format_value()
+        # builds that from tag instances via taggit's edit_string_for_tags()
+        # (quoting names containing commas or spaces), which is the inverse
+        # of the parse_tags() the field runs on submission.
+        if isinstance(value, list):
+            tag_model = getattr(field, "tag_model", Tag)
+            widget = cast(TagWidget, field.widget)
+            value = widget.format_value([tag_model(name=n) for n in value])
+        data[name] = value
     else:
         data[name] = value
 

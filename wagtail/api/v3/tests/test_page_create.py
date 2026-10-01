@@ -1057,3 +1057,47 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 }
             ],
         )
+
+    def test_create_page_with_tags(self):
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "Tagged",
+                "slug": "tagged",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "tags": ["Shakespeare, William", "Poetry", "Sonnets and odes"],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = BlogEntryPage.objects.get(slug="tagged")
+        self.assertEqual(
+            sorted(page.tags.names()),
+            ["Poetry", "Shakespeare, William", "Sonnets and odes"],
+        )
+
+    def test_create_page_with_tag_containing_double_quote(self):
+        """
+        Tag names are converted to the same edit string the admin's tag
+        widget renders, which has no escape for double quotes - so, as in
+        the admin, a name containing one is split by taggit's parser.
+        """
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "Tagged",
+                "slug": "tagged",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "tags": ['O"Brien'],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = BlogEntryPage.objects.get(slug="tagged")
+        self.assertEqual(sorted(page.tags.names()), ["Brien", "O"])

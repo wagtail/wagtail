@@ -1069,3 +1069,69 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             [(item.pk, item.caption) for item in items],
             [(live_item.pk, "Live item (updated)"), (None, "New item")],
         )
+
+    def test_update_page_tags_replaces_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "tags": ["Shakespeare, William", "Poetry"],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(sorted(page.tags.names()), ["Poetry", "Shakespeare, William"])
+
+    def test_update_page_tags_omitted_is_untouched(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Kept")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "title": "Entry renamed",
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), ["Kept"])
+
+    def test_update_page_tags_empty_list_clears_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {"meta": {"type": "demosite.BlogEntryPage"}, "tags": []},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), [])
