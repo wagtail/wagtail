@@ -23,7 +23,6 @@ import wagtail.models.workflows
 import wagtail.test.testapp.fields
 import wagtail.test.testapp.models
 
-
 page_model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))[1]
 parent_rel_name = f"{page_model_name.lower()}_ptr"
 
@@ -5951,6 +5950,7 @@ class Migration(migrations.Migration):
                             ("title_list", 6),
                             ("image_with_alt", 7),
                             ("table", 8),
+                            ("typed_table", 10),
                         ],
                         block_lookup={
                             0: ("wagtail.blocks.CharBlock", (), {}),
@@ -5976,6 +5976,12 @@ class Migration(migrations.Migration):
                             8: (
                                 "wagtail.contrib.table_block.blocks.TableBlock",
                                 (),
+                                {},
+                            ),
+                            9: ("wagtail.blocks.IntegerBlock", (), {}),
+                            10: (
+                                "wagtail.contrib.typed_table_block.blocks.TypedTableBlock",
+                                [[("text", 0), ("number", 9)]],
                                 {},
                             ),
                         },

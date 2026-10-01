@@ -156,6 +156,47 @@ class BaseTypedTableBlock(Block):
             "caption": table.caption,
         }
 
+    def get_api_form_data(self, value, prefix, flatten_child):
+        """
+        Convert ``value``, in the shape returned by ``get_api_representation``,
+        to the form data that ``value_from_datadict`` reads. Used by the API to
+        bind the block's form field from JSON input.
+        """
+        value = value or {}
+        columns = value.get("columns") or []
+        rows = value.get("rows") or []
+        data = {
+            "%s-caption" % prefix: value.get("caption") or "",
+            "%s-column-count" % prefix: str(len(columns)),
+            "%s-row-count" % prefix: str(len(rows)),
+        }
+
+        column_blocks = []
+        for i, column in enumerate(columns):
+            try:
+                column_blocks.append(self.child_blocks[column["type"]])
+            except KeyError:
+                raise ValidationError(
+                    "%s: unrecognised column type %r" % (prefix, column["type"])
+                ) from None
+            data["%s-column-%d-type" % (prefix, i)] = column["type"]
+            data["%s-column-%d-order" % (prefix, i)] = str(i)
+            data["%s-column-%d-heading" % (prefix, i)] = column.get("heading") or ""
+            data["%s-column-%d-deleted" % (prefix, i)] = ""
+
+        for row_index, row in enumerate(rows):
+            data["%s-row-%d-order" % (prefix, row_index)] = str(row_index)
+            data["%s-row-%d-deleted" % (prefix, row_index)] = ""
+            values = row.get("values") or []
+            for col_index, column_block in enumerate(column_blocks):
+                flatten_child(
+                    column_block,
+                    values[col_index] if col_index < len(values) else None,
+                    "%s-cell-%d-%d" % (prefix, row_index, col_index),
+                )
+
+        return data
+
     def get_api_representation(self, table, context=None):
         return {
             "columns": [
