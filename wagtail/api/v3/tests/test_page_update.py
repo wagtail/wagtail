@@ -349,6 +349,29 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             "table_caption": "Updated table",
             "table_header_choice": "both",
         }
+        original_typed_table = {
+            "columns": [
+                {"type": "text", "heading": "Name"},
+                {"type": "number", "heading": "Amount"},
+            ],
+            "rows": [{"values": ["Bread", 2]}],
+            "caption": "Original",
+        }
+        updated_typed_table = {
+            "columns": [
+                {"type": "number", "heading": "Amount"},
+                {"type": "text", "heading": "Name"},
+                {"type": "text", "heading": "Notes"},
+            ],
+            "rows": [
+                {"values": [3, "Eggs", "Free range"]},
+                {"values": [1, "Milk", ""]},
+            ],
+            "caption": "Updated",
+        }
+        typed_table_block = StreamPage._meta.get_field(
+            "body"
+        ).stream_block.child_blocks["typed_table"]
         cases = [
             (
                 "product",
@@ -442,6 +465,15 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
                 updated_table,
                 lambda value: self.assertEqual(value, updated_table),
                 lambda value: self.assertEqual(value, updated_table),
+            ),
+            (
+                "typed_table",
+                original_typed_table,
+                updated_typed_table,
+                lambda value: self.assertEqual(
+                    typed_table_block.get_prep_value(value), updated_typed_table
+                ),
+                lambda value: self.assertEqual(value, updated_typed_table),
             ),
         ]
         for (

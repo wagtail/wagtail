@@ -267,8 +267,20 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
     real form field (and therefore any custom ``Block.clean()`` logic) run
     against JSON input, both at the top level and inside InlinePanel
     children.
+
+    A block with its own key scheme that isn't covered here (e.g.
+    ``TypedTableBlock``) can define ``get_api_form_data(value, prefix,
+    flatten_child)``, returning a dict of its own keys. It's given
+    ``flatten_child(child_block, child_value, child_prefix)`` to write
+    the values of any child blocks it contains.
     """
-    if isinstance(block, BaseStreamBlock):
+
+    def flatten_child(child_block, child_value: Any, child_prefix: str) -> None:
+        flatten_block_value(child_block, child_value, child_prefix, data)
+
+    if hasattr(block, "get_api_form_data"):
+        data.update(block.get_api_form_data(value, prefix, flatten_child))
+    elif isinstance(block, BaseStreamBlock):
         items = value or []
         data[f"{prefix}-count"] = str(len(items))
         for i, item in enumerate(items):

@@ -676,6 +676,17 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             "table_caption": "Minimal API table",
             "table_header_choice": "both",
         }
+        typed_table = {
+            "columns": [
+                {"type": "text", "heading": "Name"},
+                {"type": "number", "heading": "Amount"},
+            ],
+            "rows": [{"values": ["Bread", 2]}, {"values": ["Milk", 1]}],
+            "caption": "Shopping",
+        }
+        typed_table_block = StreamPage._meta.get_field(
+            "body"
+        ).stream_block.child_blocks["typed_table"]
         cases = [
             (
                 "text",
@@ -767,6 +778,14 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 table,
                 lambda value: self.assertEqual(value, table),
                 lambda value: self.assertEqual(value, table),
+            ),
+            (
+                "typed_table",
+                typed_table,
+                lambda value: self.assertEqual(
+                    typed_table_block.get_prep_value(value), typed_table
+                ),
+                lambda value: self.assertEqual(value, typed_table),
             ),
         ]
         for (
@@ -1101,3 +1120,26 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 201, response.content)
         page = BlogEntryPage.objects.get(slug="tagged")
         self.assertEqual(sorted(page.tags.names()), ["Brien", "O"])
+
+    def test_create_page_with_typed_table_unknown_column_type_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-bad-typed-table",
+                "body": [
+                    {
+                        "type": "typed_table",
+                        "value": {
+                            "columns": [{"type": "nope", "heading": "Bad"}],
+                            "rows": [{"values": ["x"]}],
+                            "caption": "",
+                        },
+                    }
+                ],
+            }
+        )
+        self.assert_problem_response(response, status_code=422)
+        self.assertFalse(
+            StreamPage.objects.filter(slug="stream-page-bad-typed-table").exists()
+        )
