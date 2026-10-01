@@ -35,6 +35,10 @@ describe('modal-workflow', () => {
       '<div id="content"><button data-chooser-action-choose id="trigger">Open</button></div>';
   });
 
+  afterEach(() => {
+    document.body.replaceWith(document.body.cloneNode(true));
+  });
+
   it('exposes module as global', () => {
     expect(window.ModalWorkflow).toBeDefined();
   });
@@ -176,5 +180,20 @@ describe('modal-workflow', () => {
       modalWorkflow,
       expect.objectContaining(response),
     );
+  });
+
+  it('should dispatch hidden.bs.modal native event on document.body when closed', () => {
+    const handleHiddenModal = jest.fn();
+    document.body.addEventListener('hidden.bs.modal', handleHiddenModal);
+
+    const modalWorkflow = window.ModalWorkflow({ url: 'path/to/endpoint' });
+
+    expect(handleHiddenModal).not.toHaveBeenCalled();
+
+    modalWorkflow.close();
+
+    expect(handleHiddenModal).toHaveBeenCalledTimes(1);
+
+    document.body.removeEventListener('hidden.bs.modal', handleHiddenModal);
   });
 });
