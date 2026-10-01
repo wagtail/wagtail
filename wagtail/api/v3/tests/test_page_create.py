@@ -653,6 +653,32 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             [{"msg": "body: unrecognised block type 'not_a_real_block'"}],
         )
 
+    def test_create_streamfield_page_with_invalid_chooser_value_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-invalid-chooser",
+                "body": [{"type": "image", "value": {"id": 1}}],
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(content["errors"], [{"msg": "body-0-value: invalid value"}])
+
+    def test_create_streamfield_page_with_invalid_struct_value_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-invalid-struct",
+                "body": [{"type": "product", "value": "not a struct"}],
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"], [{"msg": "body-0-value: value must be an object"}]
+        )
+
     def test_create_streamfield_page_with_rich_text_block(self):
         response = self.post(
             {
