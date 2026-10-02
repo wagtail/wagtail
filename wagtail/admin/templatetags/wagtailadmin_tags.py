@@ -3,7 +3,7 @@ import re
 import warnings
 from urllib.parse import urljoin, urlsplit
 
-from django import template
+from django import forms, template
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
@@ -1219,6 +1219,10 @@ def formattedfield(
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
+    use_fieldset = field and isinstance(
+        field.field.widget,
+        (forms.RadioSelect, forms.CheckboxSelectMultiple),
+    )
 
     context = {
         "classname": classname,
@@ -1231,6 +1235,7 @@ def formattedfield(
         "error_message_id": error_message_id,
         "wrapper_id": wrapper_id,
         "label_for": label_for,
+        "use_fieldset": use_fieldset,
         "label_id": f"{label_for}-label" if label_for else "",
         "label_text": label_text or (field and field.label) or "",
         "required": field and field.field.required,
