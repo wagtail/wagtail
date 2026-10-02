@@ -1137,6 +1137,46 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         page = BlogEntryPage.objects.get(pk=page.pk)
         self.assertEqual(list(page.tags.names()), [])
 
+    def test_update_page_child_relation_with_related_query_name(self):
+        """
+        tests.EventPage's speakers relation has related_query_name="speaker",
+        so Django's get_field() doesn't find it by its accessor name.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        ada = page.speakers.create(first_name="Ada", last_name="Lovelace")
+        page.speakers.create(first_name="Grace", last_name="Hopper")
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Augusta Ada", "last_name": "King"}
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            list(page.speakers.values_list("pk", "first_name", "last_name")),
+            [(ada.pk, "Augusta Ada", "King")],
+        )
+        self.assertEqual(
+            [speaker["first_name"] for speaker in response.json()["speakers"]],
+            ["Augusta Ada"],
+        )
+
     def test_patch_child_relations_keeps_submitted_order(self):
         page = self.root_page.add_child(
             instance=TestAppEventPage(
