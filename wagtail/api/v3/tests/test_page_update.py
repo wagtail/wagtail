@@ -1422,3 +1422,84 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200, response.content)
         self.assertEqual(self.get_speakers_state(page), before)
+
+    def test_patch_existing_child_omitted_fields_are_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        [first, second] = ada.awards.order_by("sort_order")
+        first.date_awarded = "1843-01-01"
+        first.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {
+                        "id": ada.pk,
+                        "first_name": "Augusta Ada",
+                        "awards": [
+                            {"id": first.pk, "name": "First programmer (updated)"},
+                            {"id": second.pk},
+                        ],
+                    },
+                    {"id": grace.pk},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        speakers = {
+            speaker.pk: speaker
+            for speaker in TestAppEventPage.objects.get(pk=page.pk).speakers.all()
+        }
+        # Only the supplied fields of an existing item are updated.
+        self.assertEqual(speakers[ada.pk].first_name, "Augusta Ada")
+        self.assertEqual(speakers[ada.pk].last_name, "Lovelace")
+        self.assertEqual(
+            (speakers[grace.pk].first_name, speakers[grace.pk].last_name),
+            ("Grace", "Hopper"),
+        )
+        # The same applies to nested child relations.
+        awards = {award.pk: award for award in speakers[ada.pk].awards.all()}
+        self.assertEqual(awards[first.pk].name, "First programmer (updated)")
+        self.assertEqual(str(awards[first.pk].date_awarded), "1843-01-01")
+        self.assertEqual(awards[second.pk].name, "Analytical engine")
+
+    def test_patch_existing_child_omitted_required_field_is_untouched(self):
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        head_count = page.head_counts.create(head_count=5)
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [{"custom_id": head_count.custom_id}],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        head_count.refresh_from_db()
+        self.assertEqual(head_count.head_count, 5)
+
+    def test_patch_existing_child_field_set_to_empty_clears_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "last_name": ""},
+                    {"id": grace.pk},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        ada.refresh_from_db()
+        self.assertEqual((ada.first_name, ada.last_name), ("Ada", ""))

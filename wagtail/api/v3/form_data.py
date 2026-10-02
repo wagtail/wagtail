@@ -9,6 +9,7 @@ from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.forms.formsets import ORDERING_FIELD_NAME
 from django.utils.datastructures import MultiValueDict
+from modelcluster.forms import BaseChildFormSet
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
 from taggit.forms import TagField, TagWidget
@@ -28,6 +29,47 @@ from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
 
 Page = swapper.load_model("wagtailcore", "Page")
+
+
+# Form data key, per existing child row, listing the fields the request
+# supplied for it. See PartialUpdateChildFormSet.
+SUPPLIED_FIELDS_KEY = "__supplied_fields"
+
+
+class PartialUpdateChildFormSet(BaseChildFormSet):
+    """Leave alone the fields of an existing child row that a request didn't
+    supply, rather than clearing them.
+
+    A formset's form class is shared by all its rows, so it can't be
+    narrowed to each row's own fields up front the way the top-level form
+    is (see ``get_api_form_class``'s ``field_names``). Instead, each existing
+    row's form drops the fields not listed under its ``SUPPLIED_FIELDS_KEY``
+    entry in the form data.
+    """
+
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is None or not self.is_bound:
+            return
+        key = form.add_prefix(SUPPLIED_FIELDS_KEY)
+        if key not in self.data:
+            return
+        supplied = set(cast(MultiValueDict, self.data).getlist(key))
+        for name in self.form.base_fields:
+            if name not in supplied:
+                form.fields.pop(name, None)
+
+
+def get_partial_update_formset(
+    formset: type[BaseChildFormSet],
+) -> type[PartialUpdateChildFormSet]:
+    """Combine ``PartialUpdateChildFormSet`` with a relation's own formset
+    class, if it has a custom one."""
+    if issubclass(formset, PartialUpdateChildFormSet):
+        return formset
+    return type(
+        f"PartialUpdate{formset.__name__}", (PartialUpdateChildFormSet, formset), {}
+    )
 
 
 def filter_form_options(
@@ -59,6 +101,9 @@ def filter_form_options(
             **formset_options,
             **filter_form_options(
                 child_model, formset_options, child_schema.model_fields.keys()
+            ),
+            "formset": get_partial_update_formset(
+                formset_options.get("formset", BaseChildFormSet)
             ),
         }
 
@@ -440,7 +485,9 @@ def _fill_formset(
     added *alongside* the existing rows instead of replacing them, since an
     all-zero ``INITIAL_FORMS`` (correct when there are no ``existing``
     rows, e.g. on create) tells the formset there's nothing existing to
-    reconcile against.
+    reconcile against. An existing row only has the fields its item
+    supplies updated; the rest keep their current values (see
+    ``PartialUpdateChildFormSet``).
 
     If the child form declares its own formsets, each one is filled the
     same way for every row, against that row's own existing children. A
@@ -484,6 +531,11 @@ def _fill_formset(
             # Existing rows keep their original form index, so set each
             # item's ORDER to its position in the submitted list instead.
             data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
+        if item is not None and obj is not None:
+            data.setlist(
+                f"{item_prefix}-{SUPPLIED_FIELDS_KEY}",
+                [name for name in child_fields if name in item],
+            )
         for field_name, field in child_fields.items():
             if item is not None and field_name in item:
                 _set_field_value(
