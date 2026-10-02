@@ -16,6 +16,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api import APIField
+from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText, RichTextInputFormat
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
@@ -151,7 +152,7 @@ class InputSchemaGenerator:
                 continue
 
             try:
-                model_field = model._meta.get_field(field.name)
+                model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
                 # Not a real Django field (e.g. a plain Python property) -
                 # there's no defined writable shape for it, so skip it.
