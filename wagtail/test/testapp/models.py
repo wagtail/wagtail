@@ -500,6 +500,8 @@ class EventPage(Page):
         APIField("location", writable=True),
         APIField("cost", writable=True),
         APIField("related_links", writable=True),
+        # A child relation whose model uses a custom primary key name.
+        APIField("head_counts", writable=True),
     )
 
     class Meta:
@@ -524,6 +526,8 @@ class HeadCountRelatedModelUsingPK(models.Model):
     )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
+
+    api_fields = (APIField("head_count", writable=True),)
 
 
 # Override the standard WagtailAdminPageForm to add field that is not in model
