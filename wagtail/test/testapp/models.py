@@ -41,6 +41,7 @@ from wagtail.api import APIField
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,
+    IntegerBlock,
     ListBlock,
     RawHTMLBlock,
     RichTextBlock,
@@ -64,6 +65,7 @@ from wagtail.contrib.settings.models import (
 )
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.documents import get_document_model
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import AbstractDocument, Document
@@ -362,6 +364,11 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
 
     panels = ["name", "date_awarded", "certificate"]
 
+    api_fields = (
+        APIField("name", writable=True),
+        APIField("date_awarded", writable=True),
+    )
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
@@ -394,6 +401,13 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
         MultiFieldPanel(LinkFields.panels, "Link"),
         InlinePanel("awards", label="award"),
     ]
+
+    api_fields = (
+        APIField("first_name", writable=True),
+        APIField("last_name", writable=True),
+        # A nested child relation (an InlinePanel within an InlinePanel).
+        APIField("awards", writable=True),
+    )
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -489,6 +503,18 @@ class EventPage(Page):
         FieldPanel("feed_image"),
     ]
 
+    api_fields = (
+        APIField("date_from", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("cost", writable=True),
+        # A reverse relation with a related_query_name that differs from
+        # its accessor (related_name).
+        APIField("speakers", writable=True),
+        # A child relation whose model uses a custom primary key name.
+        APIField("head_counts", writable=True),
+    )
+
     class Meta:
         permissions = [
             ("custom_see_panel_setting", "Can see the panel."),
@@ -511,6 +537,8 @@ class HeadCountRelatedModelUsingPK(models.Model):
     )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
+
+    api_fields = (APIField("head_count", writable=True),)
 
 
 # Override the standard WagtailAdminPageForm to add field that is not in model
@@ -1992,6 +2020,15 @@ class StreamPage(Page):
             ),
             ("image_with_alt", ImageBlock()),
             ("table", TableBlock()),
+            (
+                "typed_table",
+                TypedTableBlock(
+                    [
+                        ("text", CharBlock()),
+                        ("number", IntegerBlock()),
+                    ]
+                ),
+            ),
         ],
     )
 
