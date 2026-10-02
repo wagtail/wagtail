@@ -417,9 +417,12 @@ def build_form_data(
         existing_by_pk = {obj.pk: obj for obj in existing if obj.pk is not None}
         matched_pks: set[Any] = set()
 
+        # The formset identifies each existing row by its pk field's own name
+        # (e.g. `custom_id`), whereas the API always calls it `id`.
+        pk_name = formset_class.model._meta.pk.name
         data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
         for i, obj in enumerate(existing):
-            data[f"{prefix}-{i}-id"] = obj.pk
+            data[f"{prefix}-{i}-{pk_name}"] = obj.pk
 
         new_items = []
         for position, item in enumerate(items):
