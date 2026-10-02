@@ -11821,6 +11821,70 @@
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
+      "EventPageSpeakerAwardCreateSchema": {
+        "properties": {
+          "date_awarded": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Awarded"
+          },
+          "name": {
+            "maxLength": 255,
+            "title": "Award name",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
+        "title": "EventPageSpeakerAwardCreateSchema",
+        "type": "object"
+      },
+      "EventPageSpeakerAwardPatchSchema": {
+        "properties": {
+          "date_awarded": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Awarded"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Award name"
+          }
+        },
+        "title": "EventPageSpeakerAwardPatchSchema",
+        "type": "object"
+      },
       "FilePageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -36969,6 +37033,14 @@
       },
       "abc__EventPageSpeakerCreateSchema__1": {
         "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardCreateSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
           "first_name": {
             "anyOf": [
               {
@@ -37128,6 +37200,14 @@
       },
       "abc__EventPageSpeakerPatchSchema__1": {
         "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardPatchSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
           "first_name": {
             "anyOf": [
               {
