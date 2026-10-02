@@ -2,7 +2,7 @@
 
 <div class="filterable__filters">
     <h2>{% trans 'Filter' %}</h2>
-    <form method="get">
+    <form method="get" data-controller="w-rules" data-action="change->w-rules#resolve">
         <button
             class="button button-longrunning"
             type="submit"
