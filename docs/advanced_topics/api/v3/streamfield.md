@@ -61,15 +61,16 @@ Because updating replaces the whole value, build clients that send the complete 
 
 ## Child relations
 
-Relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. A relation is named by its accessor on the parent model: the `related_name` of the `ParentalKey`, or the default `<model name>_set` if it has none. Each child item includes its primary key under the primary key field's own name, usually `id`, or e.g. `custom_id` for a model with a custom primary key. When the relation and its child fields are writable, these follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
+Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. A relation is named by its accessor on the parent model: the `related_name` of the `ParentalKey`, or the default `<model name>_set` if it has none. When you supply a child relation on update:
 
--   existing children whose primary key matches are edited in place, so an item read from the API can be sent back as-is;
--   existing children you omit from the list are deleted when the relation is supplied;
+-   the relation's children are set to the list you submit. For an orderable child model, they are stored in the submitted order;
+-   an existing child is matched by its primary key, under the primary key field's name as returned when reading it (usually `id`, or e.g. `custom_id` for a model with a custom primary key), so an item read from the API can be sent back as-is;
+-   a matched child is updated with the fields you supply, and keeps the current values of the fields you omit. To clear a field, supply an empty value;
 -   children with unmatched or missing primary keys are created;
--   for an orderable child model, the children are saved in the order they're submitted;
+-   existing children you omit from the list are deleted;
 -   omitting the relation entirely leaves it untouched.
 
-Each submitted child item replaces that child's writable fields as a whole: a field you omit from an item is treated as empty, not left unchanged. Include all of an item's fields when editing it.
+As in the editor, required fields are only enforced when publishing, unless they can't be stored empty, such as a non-nullable foreign key. A new child with every field empty is ignored, unless the child model is orderable: its position in the list counts as a value, so it's created, or rejected if it fails validation.
 
 ### Nested child relations
 
