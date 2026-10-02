@@ -45,6 +45,7 @@ Changelog
  * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 / 6.1.2 (Sage Abdullah)
  * Fix: Prevent duplicate meta schemas for models used in foreign keys (Sage Abdullah)
  * Fix: Generate best-effort schema for API v3 `APIField`s with a custom serializer that has type hints on `to_representation` (Sage Abdullah)
+ * Fix: Prevent API v3 PATCH requests from discarding unpublished draft changes of live pages and snippets (Sage Abdullah)
 
 
 8.0 (25.08.2026)
