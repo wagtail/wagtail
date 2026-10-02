@@ -399,7 +399,7 @@ def build_form_data(
         existing = (
             list(getattr(instance, rel_name).all()) if instance is not None else []
         )
-        existing_by_pk = {obj.pk: obj for obj in existing}
+        existing_by_pk = {obj.pk: obj for obj in existing if obj.pk is not None}
         matched_pks: set[Any] = set()
 
         data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
