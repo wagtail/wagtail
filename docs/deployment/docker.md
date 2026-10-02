@@ -16,7 +16,7 @@ Create an environment file outside the Docker build context, for example `../dep
 
 ## Build the image
 
-The Dockerfile sets `DJANGO_SETTINGS_MODULE` to your project's production settings for both build commands and the application server. It runs `collectstatic` during the build using these settings, which configure `ManifestStaticFilesStorage` by default. If you customize the settings, ensure they can be loaded during the build and use the same static file storage configuration at runtime. Do not copy production secrets into the image.
+The Dockerfile sets `DJANGO_SETTINGS_MODULE` to your project's production settings for both build commands and the application server. It runs `collectstatic` during the build using these settings, which configure `ManifestStaticFilesStorage` by default. If you change the settings, ensure they can be loaded during the build and use the same static file storage configuration at runtime. Do not copy production secrets into the image.
 
 From the generated project's directory, build an image for the release:
 
@@ -48,4 +48,4 @@ For a declarative way to configure services, networks, and volumes, use [Docker 
 
 For automated deployments, use your hosting platform's release command or a single deployment job to run `python manage.py migrate --noinput` with the new image. Make successful completion of that job a prerequisite for rolling out application containers. Do not run migrations independently in each replica's startup command: multiple replicas may attempt the same migration concurrently.
 
-Starting, restarting, or scaling the application containers does not need to run migrations. When rolling out a new release while old containers are still serving requests, ensure its migrations are compatible with the old application code, or schedule downtime for the migration and rollout.
+Starting, restarting, or scaling the application containers does not need to run migrations. When rolling out a new release while old containers are still serving requests, ensure its migrations are compatible with the old application code, or schedule downtime for the migration and deployment.
