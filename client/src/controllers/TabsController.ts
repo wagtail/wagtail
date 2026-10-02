@@ -119,6 +119,20 @@ export class TabsController extends Controller {
       detail: { current: initialPanelId },
     });
 
+    // If a location hash targets a contentpath (e.g. a StreamField block)
+    // that has not finished rendering yet, retry once the rest of the
+    // page's initial render has completed.
+    if (
+      this.useLocationValue &&
+      window.location.hash &&
+      !this.locationPanelId
+    ) {
+      requestAnimationFrame(() => {
+        const panelId = this.locationPanelId;
+        if (panelId) this.activePanelIdValue = panelId;
+      });
+    }
+
     // Once ready, allow target changed callbacks to reset tabs
 
     const resetTabs = debounce(() => {
