@@ -1300,3 +1300,125 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         [head_count] = page.head_counts.all()
         self.assertNotEqual(head_count.custom_id, existing.custom_id)
         self.assertEqual(head_count.head_count, 10)
+
+    def create_speaker_event_page(self):
+        """
+        Create a tests.EventPage, whose speakers InlinePanel has its own
+        awards InlinePanel.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        ada = page.speakers.create(first_name="Ada", last_name="Lovelace")
+        ada.awards.create(name="First programmer")
+        ada.awards.create(name="Analytical engine")
+        grace = page.speakers.create(first_name="Grace", last_name="Hopper")
+        grace.awards.create(name="Compiler")
+        # Child relations of a ClusterableModel are only written on save.
+        page.save()
+        return page, ada, grace
+
+    def get_speakers_state(self, page):
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        return [
+            (
+                speaker.pk,
+                speaker.first_name,
+                list(speaker.awards.order_by("sort_order").values_list("pk", "name")),
+            )
+            for speaker in page.speakers.order_by("sort_order")
+        ]
+
+    def test_patch_nested_child_relation_replaces_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        [first, second] = ada.awards.order_by("sort_order")
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {
+                        "id": ada.pk,
+                        "first_name": "Augusta Ada",
+                        "awards": [
+                            {"id": first.pk, "name": "First programmer (updated)"},
+                            {"name": "New award"},
+                        ],
+                    },
+                    {"first_name": "New", "awards": [{"name": "Nested new"}]},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        state = self.get_speakers_state(page)
+        self.assertEqual(len(state), 2)
+        self.assertEqual(state[0][:2], (ada.pk, "Augusta Ada"))
+        self.assertEqual(
+            [award[1] for award in state[0][2]],
+            ["First programmer (updated)", "New award"],
+        )
+        # The existing award with a matching id is updated in place;
+        # the one omitted from the list is deleted.
+        self.assertEqual(state[0][2][0][0], first.pk)
+        self.assertNotIn(second.pk, [award[0] for award in state[0][2]])
+        # The speaker omitted from the list is deleted, with its awards.
+        self.assertNotIn(grace.pk, [speaker[0] for speaker in state])
+        self.assertEqual(state[1][1], "New")
+        self.assertEqual([award[1] for award in state[1][2]], ["Nested new"])
+
+    def test_patch_nested_child_relation_omitted_is_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Augusta Ada"},
+                    {"id": grace.pk, "first_name": "Grace"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        after = self.get_speakers_state(page)
+        self.assertEqual(after[0][1], "Augusta Ada")
+        # Awards of both speakers are unchanged: same rows, same values.
+        self.assertEqual(
+            [speaker[2] for speaker in after], [speaker[2] for speaker in before]
+        )
+
+    def test_patch_nested_child_relation_empty_list_clears_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Ada", "awards": []},
+                    {"id": grace.pk, "first_name": "Grace"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        after = self.get_speakers_state(page)
+        self.assertEqual(after[0][2], [])
+        self.assertEqual(after[1][2], before[1][2])
+
+    def test_patch_top_level_relation_omitted_leaves_nested_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {"meta": {"type": "tests.EventPage"}, "title": "Renamed"},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(self.get_speakers_state(page), before)
