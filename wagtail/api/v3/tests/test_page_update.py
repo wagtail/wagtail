@@ -1412,3 +1412,37 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200, response.content)
         self.assertEqual(self.get_speakers_state(page), before)
+
+    def test_patch_child_relations_keeps_submitted_order(self):
+        page, ada, grace = self.create_speaker_event_page()
+        [first, second] = ada.awards.order_by("sort_order")
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": grace.pk, "first_name": "Grace"},
+                    {"first_name": "New"},
+                    {
+                        "id": ada.pk,
+                        "first_name": "Ada",
+                        "awards": [
+                            {"name": "New award"},
+                            {"id": second.pk, "name": "Analytical engine"},
+                            {"id": first.pk, "name": "First programmer"},
+                        ],
+                    },
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        state = self.get_speakers_state(page)
+        self.assertEqual([speaker[1] for speaker in state], ["Grace", "New", "Ada"])
+        self.assertEqual(
+            [award[1] for award in state[2][2]],
+            ["New award", "Analytical engine", "First programmer"],
+        )
+        self.assertEqual(
+            [speaker["first_name"] for speaker in response.json()["speakers"]],
+            ["Grace", "New", "Ada"],
+        )

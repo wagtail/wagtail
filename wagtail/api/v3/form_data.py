@@ -7,6 +7,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
 from django.db.models import Model
 from django.forms import BaseForm, Field
+from django.forms.formsets import ORDERING_FIELD_NAME
 from django.utils.datastructures import MultiValueDict
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
@@ -439,7 +440,8 @@ def _fill_formset(
     added *alongside* the existing rows instead of replacing them, since an
     all-zero ``INITIAL_FORMS`` (correct when there are no ``existing``
     rows, e.g. on create) tells the formset there's nothing existing to
-    reconcile against.
+    reconcile against. For an orderable child model, the submitted order of
+    ``items`` is kept.
 
     If the child form declares its own formsets, each one is filled the
     same way for every row, against that row's own existing children. A
@@ -476,8 +478,13 @@ def _fill_formset(
         rows.append((len(existing) + j, item, None))
 
     data[f"{prefix}-TOTAL_FORMS"] = str(len(rows))
+    position = {id(item): i for i, item in enumerate(items)}
     for index, item, obj in rows:
         item_prefix = f"{prefix}-{index}"
+        if item is not None and formset_class.can_order:
+            # Existing rows keep their original form index, so set each
+            # item's ORDER to its position in the submitted list instead.
+            data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position[id(item)])
         for field_name, field in child_fields.items():
             if item is not None and field_name in item:
                 _set_field_value(
