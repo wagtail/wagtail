@@ -1,7 +1,9 @@
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
+from wagtail.fields import StreamField
 
 
 class PublishBulkAction(PageBulkAction):
@@ -43,6 +45,21 @@ class PublishBulkAction(PageBulkAction):
             revision = page.get_latest_revision() or page.specific.save_revision(
                 user=user
             )
+
+            page_object = revision.as_object()
+            is_valid = True
+
+            for field in page_object._meta.fields:
+                if isinstance(field, StreamField):
+                    try:
+                        field.formfield().clean(getattr(page_object, field.name))
+                    except ValidationError:
+                        is_valid = False
+                        break
+
+            if not is_valid:
+                continue
+
             revision.publish(user=user)
             num_parent_objects += 1
 

@@ -9,8 +9,9 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.signals import page_published
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import SimplePage, StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
+
 
 page_app, page_model = swapper.split(
     swapper.get_model_name("wagtailcore", "Page").lower()
@@ -171,6 +172,26 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
                 self.assertIsInstance(mock_call["instance"], child_page.specific_class)
         finally:
             page_published.disconnect(mock_handler)
+
+    def test_publish_page_with_required_streamfield_empty(self):
+        page = StreamPage(title="Stream page", live=False)
+        self.root_page.add_child(instance=page)
+        page.save_revision()
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    page_app,
+                    page_model,
+                    "publish",
+                ),
+            )
+            + f"?id={page.id}"
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        page.refresh_from_db()
+        self.assertFalse(page.live)
 
     def test_after_publish_page(self):
         def hook_func(request, action_type, pages, action_class_instance):
