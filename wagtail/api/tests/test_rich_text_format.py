@@ -3,7 +3,7 @@ from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.api.v2.serializers import RichTextFieldSerializer
-from wagtail.test.utils import Page
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
 class TestRichTextFormatResolution(SimpleTestCase):
@@ -31,7 +31,7 @@ class TestRichTextFormatResolution(SimpleTestCase):
         self.assertIn(APIRichText.SETTING_NAME, str(cm.exception))
 
 
-class TestSerializeRichText(TestCase):
+class TestSerializeRichText(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_db_html_returns_value_unchanged(self):
