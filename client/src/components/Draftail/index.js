@@ -160,6 +160,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
   const getSharedPropsFromOptions = (newOptions) => {
     let ariaDescribedBy = null;
+    let ariaLabelledBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
@@ -193,10 +194,28 @@ const initEditor = (selector, originalOptions, currentScript) => {
       ...type,
     }));
 
+    const label = document.querySelector(`label[for="${field.id}"]`);
+    if (label) {
+      const labelId = label.id || `${field.id}-label`;
+      if (!label.id) {
+        label.id = labelId;
+      }
+      ariaLabelledBy = labelId;
+    }
+
+    const helpTextId = `${field.id}-helptext`;
+    if (document.getElementById(helpTextId)) {
+      ariaDescribedBy = helpTextId;
+    }
+
     // Only initialize the character count / max length on fields explicitly requiring it.
     if (field.hasAttribute('maxlength')) {
       const maxLengthID = `${field.id}-length`;
-      ariaDescribedBy = maxLengthID;
+      if (ariaDescribedBy) {
+        ariaDescribedBy += ` ${maxLengthID}`;
+      } else {
+        ariaDescribedBy = maxLengthID;
+      }
       controls = controls.concat([
         {
           meta: (props) => (
@@ -249,6 +268,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       maxListNesting: 4,
       stripPastedStyles: false,
       ariaDescribedBy,
+      ariaLabelledBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
