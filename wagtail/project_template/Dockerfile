@@ -48,9 +48,11 @@ EXPOSE 8000
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
 # 3. Add the virtual environment to PATH.
+# 4. Use production settings for build commands and the application server.
 ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
-    PATH="/opt/venv/bin:$PATH"
+    PATH="/opt/venv/bin:$PATH" \
+    DJANGO_SETTINGS_MODULE={{ project_name }}.settings.production
 
 
 
