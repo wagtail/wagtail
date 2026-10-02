@@ -400,13 +400,14 @@ def build_form_data(
     edited. This replaces the relation's whole set rather than trying to
     diff it item by item: every one of ``instance``'s current rows
     for that relation becomes an initial form, and each submitted item
-    either binds to the existing row whose pk matches its own ``id`` (an
-    edit in place) or, lacking a matching ``id``, becomes a new
-    (non-initial) form. Any existing row no *submitted* item's ``id``
-    refers to is marked for deletion. Without this, the submitted items
-    would be added *alongside* the existing rows instead of replacing them,
-    since an all-zero ``INITIAL_FORMS`` (correct when there's no
-    ``instance``, i.e. on create) tells the formset there's
+    either binds to the existing row whose pk matches its own pk (an edit
+    in place) or, lacking a matching pk, becomes a new (non-initial) form.
+    Any existing row no *submitted* item's pk refers to is marked for
+    deletion. The pk is keyed by its field's own name (e.g. ``id`` or
+    ``custom_id``), as it is in the read schema and the formset. Without
+    this, the submitted items would be added *alongside* the existing rows
+    instead of replacing them, since an all-zero ``INITIAL_FORMS`` (correct
+    when there's no ``instance``, i.e. on create) tells the formset there's
     nothing existing to reconcile against.
     """
     data = MultiValueDict()
@@ -428,8 +429,6 @@ def build_form_data(
         existing_by_pk = {obj.pk: obj for obj in existing if obj.pk is not None}
         matched_pks: set[Any] = set()
 
-        # The formset identifies each existing row by its pk field's own name
-        # (e.g. `custom_id`), whereas the API always calls it `id`.
         pk_name = formset_class.model._meta.pk.name
         data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
         for i, obj in enumerate(existing):
@@ -437,7 +436,7 @@ def build_form_data(
 
         new_items = []
         for item in items:
-            matched_pk = item.get("id")
+            matched_pk = item.get(pk_name)
             if matched_pk in existing_by_pk and matched_pk not in matched_pks:
                 matched_pks.add(matched_pk)
                 item_index = next(
