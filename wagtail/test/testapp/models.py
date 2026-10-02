@@ -364,6 +364,11 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
 
     panels = ["name", "date_awarded", "certificate"]
 
+    api_fields = (
+        APIField("name", writable=True),
+        APIField("date_awarded", writable=True),
+    )
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
@@ -400,6 +405,8 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
     api_fields = (
         APIField("first_name", writable=True),
         APIField("last_name", writable=True),
+        # A nested child relation (an InlinePanel within an InlinePanel).
+        APIField("awards", writable=True),
     )
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
