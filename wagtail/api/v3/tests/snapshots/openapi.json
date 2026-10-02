@@ -16044,6 +16044,103 @@
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
+      "HeadCountRelatedModelUsingPKCreateSchema": {
+        "properties": {
+          "head_count": {
+            "title": "Head Count",
+            "type": "integer"
+          }
+        },
+        "required": ["head_count"],
+        "title": "HeadCountRelatedModelUsingPKCreateSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.HeadCountRelatedModelUsingPK",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "HeadCountRelatedModelUsingPKMetaSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKPatchSchema": {
+        "properties": {
+          "head_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Head Count"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          }
+        },
+        "title": "HeadCountRelatedModelUsingPKPatchSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKSchema": {
+        "properties": {
+          "custom_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          },
+          "head_count": {
+            "title": "Head Count",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKMetaSchema"
+          }
+        },
+        "required": ["meta", "head_count"],
+        "title": "HeadCountRelatedModelUsingPKSchema",
+        "type": "object"
+      },
       "HomePageCarouselItemCreateSchema": {
         "properties": {
           "caption": {
@@ -28760,6 +28857,14 @@
             ],
             "title": "Start date"
           },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKCreateSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
           "location": {
             "maxLength": 255,
             "title": "Location",
@@ -29040,6 +29145,14 @@
             ],
             "title": "Start date"
           },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKPatchSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
           "location": {
             "anyOf": [
               {
@@ -29160,6 +29273,14 @@
               }
             ],
             "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
           },
           "id": {
             "title": "Id",
@@ -35147,6 +35268,14 @@
             ],
             "title": "Start date"
           },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKCreateSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
           "location": {
             "maxLength": 255,
             "title": "Location",
@@ -35795,6 +35924,14 @@
               }
             ],
             "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKPatchSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
           },
           "location": {
             "anyOf": [
@@ -36487,6 +36624,14 @@
               }
             ],
             "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
           },
           "id": {
             "title": "Id",
