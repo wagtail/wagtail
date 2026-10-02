@@ -397,6 +397,11 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
         InlinePanel("awards", label="award"),
     ]
 
+    api_fields = (
+        APIField("first_name", writable=True),
+        APIField("last_name", writable=True),
+    )
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
@@ -490,6 +495,16 @@ class EventPage(Page):
         ),
         FieldPanel("feed_image"),
     ]
+
+    api_fields = (
+        APIField("date_from", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("cost", writable=True),
+        # A reverse relation with a related_query_name that differs from
+        # its accessor (related_name).
+        APIField("speakers", writable=True),
+    )
 
     class Meta:
         permissions = [

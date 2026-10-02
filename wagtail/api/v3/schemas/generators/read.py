@@ -12,6 +12,7 @@ from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
+from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
@@ -204,7 +205,7 @@ class SchemaGenerator:
                 continue
 
             try:
-                model_field = model._meta.get_field(field.name)
+                model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
                 # Not a real Django field, so treat it as a plain Python property.
                 extra_fields[field.name] = (Any, None, None)

@@ -15,6 +15,7 @@ from taggit.models import Tag
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import Panel, get_edit_handler, get_form_for_model
+from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText
 from wagtail.api.v3.errors import as_validation_error
 from wagtail.api.v3.registry import ContentTypeRegistration, registry
@@ -51,7 +52,7 @@ def filter_form_options(
     for name, formset_options in formsets.items():
         if name not in writable_fields:
             continue
-        child_model = cast(type[Model], model._meta.get_field(name).related_model)
+        child_model = cast(type[Model], get_model_field(model, name).related_model)
         child_schema = create_generator.get_child_relation_schema(child_model)
         filtered_formsets[name] = {
             **formset_options,
