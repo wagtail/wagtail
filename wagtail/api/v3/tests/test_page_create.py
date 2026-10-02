@@ -15,6 +15,7 @@ from wagtail.test.demosite.models import (
     EventPage,
     HomePage,
 )
+from wagtail.test.testapp.models import EventPage as SpeakerEventPage
 from wagtail.test.testapp.models import SimpleParentPage, StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
 
@@ -1101,3 +1102,41 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 201, response.content)
         page = BlogEntryPage.objects.get(slug="tagged")
         self.assertEqual(sorted(page.tags.names()), ["Brien", "O"])
+
+    def test_create_page_with_child_relation_with_related_query_name(self):
+        """
+        tests.EventPage's speakers relation has related_query_name="speaker",
+        so Django's get_field() doesn't find it by its accessor name.
+        """
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.EventPage"},
+                "title": "Event",
+                "slug": "event",
+                "date_from": "2026-01-01",
+                "audience": "public",
+                "location": "Bristol",
+                "cost": "Free",
+                "speakers": [
+                    {"first_name": "Ada", "last_name": "Lovelace"},
+                    {"first_name": "Grace", "last_name": "Hopper"},
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = SpeakerEventPage.objects.get(slug="event")
+        self.assertEqual(
+            list(
+                page.speakers.order_by("sort_order").values_list(
+                    "first_name", "last_name"
+                )
+            ),
+            [("Ada", "Lovelace"), ("Grace", "Hopper")],
+        )
+        self.assertEqual(
+            [
+                (speaker["first_name"], speaker["last_name"])
+                for speaker in response.json()["speakers"]
+            ],
+            [("Ada", "Lovelace"), ("Grace", "Hopper")],
+        )
