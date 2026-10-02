@@ -126,11 +126,14 @@ class InputSchemaGenerator:
             namespace: dict[str, Any] = {"__annotations__": {}}
             if self.for_update:
                 # Add the model's pk as an optional field, so a child relation
-                # can be identified by its id when updating an existing item.
+                # can be identified by its pk when updating an existing item.
+                # It uses the same name as the read schema (e.g. `custom_id`),
+                # so an item read from the API can be sent back as-is.
                 pk_schema = get_schema_field(model._meta.pk)
-                id_annotation, id_default = self._make_optional(pk_schema)
-                namespace["__annotations__"]["id"] = id_annotation
-                namespace["id"] = id_default
+                pk_annotation, pk_default = self._make_optional(pk_schema)
+                pk_name = model._meta.pk.name
+                namespace["__annotations__"][pk_name] = pk_annotation
+                namespace[pk_name] = pk_default
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
                 namespace[field_name] = default
