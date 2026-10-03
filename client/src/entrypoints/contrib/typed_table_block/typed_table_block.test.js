@@ -161,6 +161,14 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     );
   });
 
+  test.each(['A shopping list', ''])(
+    'getDuplicatedState retains caption %p',
+    (caption) => {
+      boundBlock.setCaption(caption);
+      expect(boundBlock.getDuplicatedState().caption).toBe(caption);
+    },
+  );
+
   test('supports inserting columns', () => {
     boundBlock.insertColumn(1, childBlockA);
     expect(boundBlock.columns.length).toBe(3);
@@ -334,43 +342,50 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
     boundBlock = streamBlockDef.render($('#placeholder'), 'the-prefix', []);
   });
 
-  test('duplicateBlock does not duplicate stream block ids in typed table blocks', () => {
-    // Insert a typed table block at the top level
-    boundBlock.insert(
-      {
-        type: 'table',
-        value: { rows: [], columns: [] },
-        id: 'old-id-1',
-      },
-      0,
-    );
+  test.each(['A shopping list', ''])(
+    'duplicateBlock retains caption %p without duplicating stream block ids in typed table blocks',
+    (caption) => {
+      // Insert a typed table block at the top level
+      boundBlock.insert(
+        {
+          type: 'table',
+          value: { rows: [], columns: [], caption },
+          id: 'old-id-1',
+        },
+        0,
+      );
 
-    const tableBlock = boundBlock.children[0].block;
+      const tableBlock = boundBlock.children[0].block;
 
-    // Add a column and row for the nested stream block
-    tableBlock.insertColumn(0, innerStreamDef);
-    tableBlock.insertRow(0);
-    const innerStreamBlock = tableBlock.rows[0].blocks[0];
+      // Add a column and row for the nested stream block
+      tableBlock.insertColumn(0, innerStreamDef);
+      tableBlock.insertRow(0);
+      const innerStreamBlock = tableBlock.rows[0].blocks[0];
 
-    // Insert a block into the inner stream
-    innerStreamBlock.insert(
-      { type: 'test_block_a', value: 'foobar', id: 'old-inner-stream-id-1' },
-      0,
-    );
+      // Insert a block into the inner stream
+      innerStreamBlock.insert(
+        { type: 'test_block_a', value: 'foobar', id: 'old-inner-stream-id-1' },
+        0,
+      );
 
-    // Duplicate the outermost block (typed table block)
-    boundBlock.duplicateBlock(0);
+      // Duplicate the outermost block (typed table block)
+      boundBlock.duplicateBlock(0);
 
-    // Check the ids on the top level blocks
-    expect(boundBlock.children[1]).not.toHaveSameBlockIdAs(
-      boundBlock.children[0],
-    );
+      expect(boundBlock.children[1].block.captionInput.value).toBe(caption);
+      expect(boundBlock.children[1].block.getState().caption).toBe(caption);
+      expect(tableBlock.captionInput.value).toBe(caption);
 
-    // Check the ids on the nested blocks
-    expect(
-      boundBlock.children[1].block.rows[0].blocks[0].children[0],
-    ).not.toHaveSameBlockIdAs(
-      boundBlock.children[0].block.rows[0].blocks[0].children[0],
-    );
-  });
+      // Check the ids on the top level blocks
+      expect(boundBlock.children[1]).not.toHaveSameBlockIdAs(
+        boundBlock.children[0],
+      );
+
+      // Check the ids on the nested blocks
+      expect(
+        boundBlock.children[1].block.rows[0].blocks[0].children[0],
+      ).not.toHaveSameBlockIdAs(
+        boundBlock.children[0].block.rows[0].blocks[0].children[0],
+      );
+    },
+  );
 });
