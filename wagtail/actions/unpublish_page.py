@@ -34,12 +34,14 @@ class UnpublishPageAction(UnpublishAction):
         self.include_descendants = include_descendants
 
     def check(self, skip_permission_checks=False):
-        try:
-            super().check(skip_permission_checks)
-        except UnpublishPermissionError as error:
+        if (
+            self.user
+            and not skip_permission_checks
+            and not self.object.permissions_for_user(self.user).can_unpublish()
+        ):
             raise UnpublishPagePermissionError(
                 "You do not have permission to unpublish this page."
-            ) from error
+            )
 
     def _commit_unpublish(self, object):
         # using clean=False to bypass validation

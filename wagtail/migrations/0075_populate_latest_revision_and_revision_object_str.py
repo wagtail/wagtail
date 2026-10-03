@@ -2,10 +2,20 @@
 
 from django.db import migrations, models
 from django.db.models.functions import Cast
+import swapper
 
 
 def populate_latest_revision(apps, schema_editor):
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
+    if Page._meta.app_label != "wagtailcore" or Page._meta.model_name != "page":
+        # Skip populating latest_revision_id if we are using a custom Page model.
+        # These were only introduced after this migration was created (so if a custom Page model is
+        # present we must be running this migration on a fresh database where no revisions exist)
+        # and this way we can postpone adding the latest_revision_id field until after the
+        # wagtailcore migrations have completed, rather than having messy interleaving of
+        # migrations between wagtailcore and the app containing the custom Page model.
+        return
+
     Revision = apps.get_model("wagtailcore.Revision")
     latest_revision_id = models.Subquery(
         Revision.objects.filter(

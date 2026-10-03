@@ -61,24 +61,24 @@ $(() => {
         filteredValues = optionData;
       } else {
         filteredValues = [];
-        for (let i = 0; i < optionData.length; i += 1) {
+        optionData.forEach((option) => {
           if (
-            optionData[i].value === '' ||
-            optionData[i].filterValue.indexOf(chosenFilter) !== -1
+            option.value === '' ||
+            option.filterValue.indexOf(chosenFilter) !== -1
           ) {
-            filteredValues.push(optionData[i]);
+            filteredValues.push(option);
           }
-        }
+        });
       }
 
       let foundValue = false;
-      for (let i = 0; i < filteredValues.length; i += 1) {
+      filteredValues.forEach((filtered) => {
         const option = $('<option>');
-        option.attr('value', filteredValues[i].value);
-        if (filteredValues[i].value === currentValue) foundValue = true;
-        option.text(filteredValues[i].label);
+        option.attr('value', filtered.value);
+        if (filtered.value === currentValue) foundValue = true;
+        option.text(filtered.label);
         self.append(option);
-      }
+      });
       if (foundValue) {
         self.val(currentValue);
       } else {

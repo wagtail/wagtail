@@ -33,7 +33,7 @@ def get_icons():
 
 @lru_cache(maxsize=None)
 def get_icon_sprite_hash():
-    return hashlib.sha1(get_icons().encode()).hexdigest()[:8]
+    return hashlib.sha1(get_icons().encode()).hexdigest()[:8]  # noqa: S324 -  use of sha1 is acceptable here and has no security purpose
 
 
 def get_icon_sprite_url():

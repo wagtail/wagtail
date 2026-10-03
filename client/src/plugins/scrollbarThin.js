@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-extraneous-dependencies
-const plugin = require('tailwindcss/plugin');
+import plugin from 'tailwindcss/plugin';
 
-module.exports = plugin(({ addComponents, theme }) => {
+export default plugin(({ addComponents, theme }) => {
   addComponents({
     // Scrollbar styling for firefox
     // https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color

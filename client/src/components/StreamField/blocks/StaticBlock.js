@@ -18,10 +18,8 @@ export class StaticBlock {
     setAttrs(element, this.blockDef.meta.attrs || {});
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setState(_state) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setError(_errorList) {}
 
   getState() {

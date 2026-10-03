@@ -2,7 +2,7 @@
 Draftail / contentstate conversion
 """
 
-from draftjs_exporter.dom import DOM
+from draftjs_exporter import DOM
 
 from wagtail.admin.rich_text.converters.html_to_contentstate import LinkElementHandler
 from wagtail.documents import get_document_model

@@ -360,6 +360,19 @@ class PictureTagTestCase(ImagesTestCase):
         """
         self.assertHTMLEqual(rendered, expected)
 
+    def test_picture_sizes_attribute_escaped(self):
+        rendered = self.render(
+            "{% picture myimage width-{200,400} sizes=size_value %}",
+            {
+                "myimage": self.image,
+                "size_value": '100vw" onload="alert(1)',
+            },
+        )
+        self.assertIn(
+            'sizes="100vw&quot; onload=&quot;alert(1)"',
+            rendered,
+        )
+
     def test_picture_formats_only(self):
         filename_jpeg = get_test_image_filename(self.image, "format-jpeg")
         filename_webp = get_test_image_filename(self.image, "format-webp")

@@ -1,16 +1,18 @@
 import logging
 from collections.abc import Iterable
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Q
 
 from wagtail.contrib.frontend_cache.utils import PurgeBatch
 from wagtail.coreutils import BatchCreator, get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 
 from .models import Redirect
 
+Page = swapper.load_model("wagtailcore", "Page")
 logger = logging.getLogger(__name__)
 
 
@@ -22,6 +24,8 @@ class BatchRedirectCreator(BatchCreator):
     model = Redirect
 
     def pre_process(self):
+        if not self.items:
+            return
         # delete any existing automatically-created redirects that might clash
         # with the items in `self.items`
         clashes_q = Q()
@@ -43,13 +47,23 @@ class BatchRedirectCreator(BatchCreator):
         batch.purge()
 
 
+def should_autocreate_redirects(page: Page) -> bool:
+    match getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+        case "always":
+            return True
+        case False:
+            return False
+        case _:
+            return page.live
+
+
 def autocreate_redirects_on_slug_change(
     instance_before: Page, instance: Page, **kwargs
 ):
     # NB: `page_slug_changed` provides specific page instances,
     # so we do not need to 'upcast' them for create_redirects here
 
-    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+    if not should_autocreate_redirects(instance_before):
         return None
 
     # Determine sites to create redirects for
@@ -69,7 +83,7 @@ def autocreate_redirects_on_page_move(
     url_path_before: str,
     **kwargs,
 ) -> None:
-    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+    if not should_autocreate_redirects(instance):
         return None
 
     if url_path_after == url_path_before:

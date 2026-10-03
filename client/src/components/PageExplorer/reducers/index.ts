@@ -1,8 +1,8 @@
 import {
-  State as PageExplorerState,
   Action as PageExplorerAction,
+  State as PageExplorerState,
 } from './explorer';
-import { State as NodeState, Action as NodeAction } from './nodes';
+import { Action as NodeAction, State as NodeState } from './nodes';
 
 export interface State {
   explorer: PageExplorerState;

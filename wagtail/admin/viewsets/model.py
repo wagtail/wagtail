@@ -1,3 +1,5 @@
+import warnings
+
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -17,13 +19,15 @@ from wagtail.admin.admin_url_finder import (
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
+from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permissions import policy_registry, register_permission_policy
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import ViewSet, ViewSetGroup
 
 
-class ModelViewSet(ViewSet):
+class ModelViewSet(ListingViewSetMixin, ViewSet):
     """
     A viewset to allow listing, creating, editing and deleting model instances.
 
@@ -70,11 +74,6 @@ class ModelViewSet(ViewSet):
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
-    #: The default ordering to use for the index view.
-    #: Can be a string or a list/tuple in the same format as Django's
-    #: :attr:`~django.db.models.Options.ordering`.
-    ordering = None
-
     #: Whether to enable the inspect view. Defaults to ``False``.
     inspect_view_enabled = False
 
@@ -104,9 +103,6 @@ class ModelViewSet(ViewSet):
     attribute (e.g.
     :attr:`Orderable.sort_order_field <wagtail.models.Orderable.sort_order_field>`),
     that will be used instead. To disable reordering, set this to ``None``.
-
-    .. versionadded:: 7.2
-       The ``sort_order_field`` attribute was added in Wagtail 7.2.
     """
 
     def __init__(self, name=None, **kwargs):
@@ -127,9 +123,20 @@ class ModelViewSet(ViewSet):
         ):
             self.sort_order_field = self.model.sort_order_field
 
-    @property
+    @cached_property
     def permission_policy(self):
-        return ModelPermissionPolicy(self.model)
+        """
+        The permission policy for the model.
+
+        .. versionchanged:: 8.0
+
+            This property is deprecated and will be removed in a future release.
+            Register the permission policy for the model via
+            :func:`wagtail.permissions.register_permission_policy()` instead.
+        """
+        # Upon access, this will either return an explicitly registered policy
+        # for the model, or create and register a fallback policy for the model.
+        return policy_registry.get_by_type(self.model)
 
     @cached_property
     def pk_path_converter(self):
@@ -138,9 +145,6 @@ class ModelViewSet(ViewSet):
         the model's primary key in URL patterns. Defaults to ``"int"`` for
         ``IntegerField``, ``"uuid"`` for ``UUIDField``, and ``"str"`` for all
         other types.
-
-        .. versionadded:: 7.3
-           The ``pk_path_converter`` property was added.
         """
         if isinstance(self.model_opts.pk, models.UUIDField):
             return "uuid"
@@ -165,7 +169,6 @@ class ModelViewSet(ViewSet):
         view_kwargs = super().get_common_view_kwargs(
             **{
                 "model": self.model,
-                "permission_policy": self.permission_policy,
                 "index_url_name": self.get_url_name("index"),
                 "index_results_url_name": self.get_url_name("index_results"),
                 "history_url_name": self.get_url_name("history"),
@@ -184,22 +187,15 @@ class ModelViewSet(ViewSet):
         return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
-        view_kwargs = {
-            "template_name": self.index_template_name,
-            "results_template_name": self.index_results_template_name,
-            "list_display": self.list_display,
-            "list_filter": self.list_filter,
-            "list_export": self.list_export,
-            "export_headings": self.export_headings,
-            "export_filename": self.export_filename,
-            "filterset_class": self.filterset_class,
-            "search_fields": self.search_fields,
-            "search_backend_name": self.search_backend_name,
-            "paginate_by": self.list_per_page,
-            **kwargs,
-        }
-        if self.ordering:
-            view_kwargs["default_ordering"] = self.ordering
+        view_kwargs = super().get_index_view_kwargs(
+            **{
+                "template_name": self.index_template_name,
+                "results_template_name": self.index_results_template_name,
+                "search_fields": self.search_fields,
+                "search_backend_name": self.search_backend_name,
+                **kwargs,
+            }
+        )
         if self.reorder_view_enabled:
             view_kwargs["sort_order_field"] = self.sort_order_field
             view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
@@ -446,59 +442,6 @@ class ModelViewSet(ViewSet):
         )
 
     @cached_property
-    def list_display(self):
-        """
-        A list or tuple, where each item is either:
-
-        - The name of a field on the model;
-        - The name of a callable or property on the model that accepts a single
-          parameter for the model instance; or
-        - An instance of the ``wagtail.admin.ui.tables.Column`` class.
-
-        If the name refers to a database field, the ability to sort the listing
-        by the database column will be offered and the field's verbose name
-        will be used as the column header.
-
-        If the name refers to a callable or property, an ``admin_order_field``
-        attribute can be defined on it to point to the database column for
-        sorting. A ``short_description`` attribute can also be defined on the
-        callable or property to be used as the column header.
-
-        This list will be passed to the ``list_display`` attribute of the index
-        view. If left unset, the ``list_display`` attribute of the index view
-        will be used instead, which by default is defined as
-        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
-
-        Note that the ``LocaleColumn`` is only included if the model is translatable.
-        """
-        return self.UNDEFINED
-
-    @cached_property
-    def list_filter(self):
-        """
-        A list or tuple, where each item is the name of model fields of type
-        ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``,
-        ``IntegerField`` or ``ForeignKey``.
-        Alternatively, it can also be a dictionary that maps a field name to a
-        list of lookup expressions.
-        This will be passed as django-filter's ``FilterSet.Meta.fields``
-        attribute. See
-        `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_
-        for more details.
-        If ``filterset_class`` is set, this attribute will be ignored.
-        """
-        return self.index_view_class.list_filter
-
-    @cached_property
-    def filterset_class(self):
-        """
-        A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a
-        subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
-        This will be passed to the ``filterset_class`` attribute of the index view.
-        """
-        return self.UNDEFINED
-
-    @cached_property
     def search_fields(self):
         """
         The fields to use for the search in the index view.
@@ -513,23 +456,7 @@ class ModelViewSet(ViewSet):
         The name of the Wagtail search backend to use for the search in the index view.
         If set to a falsy value, the search will fall back to use Django's QuerySet API.
         """
-        return self.index_view_class.search_backend_name
-
-    @cached_property
-    def list_export(self):
-        """
-        A list or tuple, where each item is the name of a field, an attribute,
-        or a single-argument callable on the model to be exported.
-        """
-        return self.index_view_class.list_export
-
-    @cached_property
-    def export_headings(self):
-        """
-        A dictionary of export column heading overrides in the format
-        ``{field_name: heading}``.
-        """
-        return self.index_view_class.export_headings
+        return self.UNDEFINED
 
     @cached_property
     def export_filename(self):
@@ -549,7 +476,8 @@ class ModelViewSet(ViewSet):
         from wagtail.admin.menu import MenuItem
 
         def is_shown(_self, request):
-            return self.permission_policy.user_has_any_permission(
+            permission_policy = policy_registry.get_by_type(self.model)
+            return permission_policy.user_has_any_permission(
                 request.user, self.index_view_class.any_permission_required
             )
 
@@ -636,7 +564,6 @@ class ModelViewSet(ViewSet):
             "_ModelAdminURLFinder",
             (ModelAdminURLFinder,),
             {
-                "permission_policy": self.permission_policy,
                 "edit_url_name": self.get_url_name("edit"),
             },
         )
@@ -667,6 +594,37 @@ class ModelViewSet(ViewSet):
 
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)
+
+        registered_policy = policy_registry.get_by_type(self.model, fallback=False)
+        if not registered_policy:
+            # If no explicit policy was registered by now, accessing
+            # self.permission_policy will create and register a fallback policy
+            # for the model...
+            permission_policy = self.permission_policy
+            # unless the cached property was overridden with a custom one, thus
+            # it is not the same as the fallback policy for the model.
+            has_custom_policy = (
+                permission_policy is not policy_registry.get_fallback_policy(self.model)
+            )
+
+            if has_custom_policy:
+                register_permission_policy(
+                    self.model,
+                    self.permission_policy,
+                    # Use exact_class so that subclasses of the model don't inherit
+                    # the ModelPermissionPolicy of its parents, as each concrete
+                    # model has its own set of Permission records, and historically
+                    # we've created a ModelPermissionPolicy for each concrete model.
+                    exact_class=True,
+                )
+
+                warnings.warn(
+                    f"A permission policy for {self.model.__name__} was registered "
+                    f"via {self.__class__.__name__}. Please register the policy with "
+                    f"wagtail.permissions.register_permission_policy("
+                    f"{self.model.__name__}, <policy_instance>) instead.",
+                    RemovedInWagtail90Warning,
+                )
 
     def get_urlpatterns(self):
         conv = self.pk_path_converter

@@ -1,3 +1,5 @@
+import type { CommentApp } from './components/CommentApp/main';
+
 export interface WagtailConfig {
   /** For editing models that can be translated, the target locale's language code will be provided. */
   ACTIVE_CONTENT_LOCALE?: string;
@@ -15,10 +17,10 @@ export interface WagtailConfig {
   CSRF_HEADER_NAME: string;
   CSRF_TOKEN: string;
   I18N_ENABLED: boolean;
-  LOCALES: {
+  LOCALES: Array<{
     code: string;
     display_name: string;
-  }[];
+  }>;
   KEYBOARD_SHORTCUTS_ENABLED: boolean;
 }
 
@@ -26,6 +28,7 @@ declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION__: any;
     telepath: any;
+    comments?: { commentApp: CommentApp };
   }
 
   const wagtailConfig: WagtailConfig;

@@ -1,14 +1,13 @@
 from functools import lru_cache
 
 from django.apps import apps as global_apps
-from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.db import DEFAULT_DB_ALIAS, models, router
-from django.urls import reverse
 from django.utils.module_loading import import_string
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder
 from wagtail.admin.viewsets import viewsets
 from wagtail.hooks import search_for_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
@@ -49,25 +48,8 @@ def get_editable_models(user):
     ]
 
 
-class SnippetAdminURLFinder:
-    # subclasses should define a 'model' attribute
-    def __init__(self, user=None):
-        if user:
-            from wagtail.snippets.permissions import get_permission_name
-
-            self.user_can_edit = user.has_perm(
-                get_permission_name("change", self.model)
-            )
-        else:
-            # skip permission checks
-            self.user_can_edit = True
-
-    def get_edit_url(self, instance):
-        if self.user_can_edit:
-            return reverse(
-                instance.snippet_viewset.get_url_name("edit"),
-                args=[quote(instance.pk)],
-            )
+class SnippetAdminURLFinder(ModelAdminURLFinder):
+    pass
 
 
 def register_snippet(registerable, viewset=None):

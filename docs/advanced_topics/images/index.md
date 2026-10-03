@@ -4,6 +4,7 @@
 ---
 maxdepth: 2
 ---
+overview
 renditions
 animated_gifs
 image_file_formats

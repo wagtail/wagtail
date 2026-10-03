@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -21,7 +22,7 @@ class Migration(migrations.Migration):
             model_name="searchpromotion",
             name="page",
             field=models.ForeignKey(
-                on_delete=models.CASCADE, to="wagtailcore.Page", verbose_name="page"
+                on_delete=models.CASCADE, to=swapper.get_model_name("wagtailcore", "Page"), verbose_name="page"
             ),
         ),
     ]

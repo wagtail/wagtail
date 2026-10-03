@@ -29,12 +29,11 @@ from wagtail.models import (
     GroupCollectionPermission,
     GroupPagePermission,
     LockableMixin,
-    Page,
 )
 from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
 from wagtail.test.customuser.viewsets import CustomUserViewSet
 from wagtail.test.testapp.models import VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import GroupForm
 from wagtail.users.models import UserProfile
@@ -42,12 +41,11 @@ from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import UserViewSet
 from wagtail.users.wagtail_hooks import get_viewset_cls
-from wagtail.users.widgets import UserListingButton
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
+view_user_perm_codename = f"view_{AUTH_USER_MODEL_NAME.lower()}"
 
 User = get_user_model()
 
@@ -79,7 +77,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index"), params)
 
     def test_simple(self):
@@ -422,43 +420,19 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(custom_button)
         self.assertEqual(custom_button.text.strip(), "Alrighty")
 
-    def test_buttons_hook_with_deprecated_class(self):
-        def hook(user, request_user):
-            self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile", f"/goes/to/a/url/{user.pk}", priority=20
-            )
-
-        with self.register_hook("register_user_listing_buttons", hook):
-            with self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`UserListingButton` is deprecated. "
-                "Use `wagtail.admin.widgets.button.Button` "
-                "or `wagtail.admin.widgets.button.ListingButton` instead.",
-            ):
-                response = self.get()
-
+    def test_bulk_action_rendered(self):
+        response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
         soup = self.get_soup(response.content)
-        row = soup.select_one(f"tbody tr:has([data-object-id='{self.test_user.pk}'])")
-        self.assertIsNotNone(row)
-
-        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
-        actions = row.select_one("td ul.actions")
-        custom_buttons = actions.select(f"a[href='{profile_url}']")
-        self.assertEqual(len(custom_buttons), 1)
-        top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNone(top_level_custom_button)
-        in_dropdown_custom_button = actions.select_one(
-            f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
-        )
-        self.assertIs(in_dropdown_custom_button, custom_buttons[0])
-        self.assertEqual(
-            in_dropdown_custom_button.text.strip(),
-            "Show profile",
-        )
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
 
 
 class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -473,7 +447,7 @@ class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCas
         )
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index_results"), params)
 
     def test_simple(self):
@@ -504,10 +478,10 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:add"), params)
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:add"), post_data, follow=follow
         )
@@ -768,12 +742,12 @@ class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.current_user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
         )
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)),
             post_data,
@@ -1030,13 +1004,13 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Login
         self.current_user = self.login()
 
-    def get(self, params={}, user_id=None):
+    def get(self, params=None, user_id=None):
         return self.client.get(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             params,
         )
 
-    def post(self, post_data={}, user_id=None, follow=False):
+    def post(self, post_data=None, user_id=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             post_data,
@@ -1448,6 +1422,10 @@ class TestUserCopyView(WagtailTestUtils, TestCase):
                 content_type__app_label=AUTH_USER_APP_LABEL,
                 codename=add_user_perm_codename,
             ),
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename=view_user_perm_codename,
+            ),
         )
 
         # Form should be prefilled
@@ -1633,7 +1611,7 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:index"), params)
 
     def test_simple(self):
@@ -1666,7 +1644,7 @@ class TestGroupIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:index_results"), params)
 
     def test_simple(self):
@@ -1692,10 +1670,10 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             content_type__app_label="wagtaildocs", codename="change_document"
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         post_defaults = {
             "page_permissions-TOTAL_FORMS": ["0"],
             "page_permissions-MAX_NUM_FORMS": ["1000"],
@@ -1750,7 +1728,10 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["change_page", "publish_page"],
+                "page_permissions-0-permissions": [
+                    Page.PERMISSION_CODENAMES.CHANGE,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
+                ],
                 "page_permissions-TOTAL_FORMS": ["1"],
                 "document_permissions-0-collection": [
                     Collection.get_first_root_node().pk
@@ -1778,9 +1759,9 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["publish_page"],
+                "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.PUBLISH],
                 "page_permissions-1-page": ["1"],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2080,21 +2061,21 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
-    def get(self, params={}, group_id=None):
+    def get(self, params=None, group_id=None):
         return self.client.get(
             reverse("wagtailusers_groups:edit", args=(group_id or self.test_group.pk,)),
             params,
         )
 
-    def post(self, post_data={}, group_id=None):
-        post_defaults = {
+    def post(self, post_data=None, group_id=None):
+        post_data_final = {
             "name": "test group",
             "permissions": [self.existing_permission.pk],
             "page_permissions-TOTAL_FORMS": ["1"],
             "page_permissions-MAX_NUM_FORMS": ["1000"],
             "page_permissions-INITIAL_FORMS": ["1"],
             "page_permissions-0-page": [self.root_page.pk],
-            "page_permissions-0-permissions": ["add_page"],
+            "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.ADD],
             "document_permissions-TOTAL_FORMS": ["1"],
             "document_permissions-MAX_NUM_FORMS": ["1000"],
             "document_permissions-INITIAL_FORMS": ["1"],
@@ -2107,11 +2088,11 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "collection_permissions-MAX_NUM_FORMS": ["1000"],
             "collection_permissions-INITIAL_FORMS": ["0"],
         }
-        for k, v in post_defaults.items():
-            post_data[k] = post_data.get(k, v)
+        if post_data:
+            post_data_final.update(post_data)
         return self.client.post(
             reverse("wagtailusers_groups:edit", args=(group_id or self.test_group.pk,)),
-            post_data,
+            post_data_final,
         )
 
     def add_non_registered_perm(self):
@@ -2204,9 +2185,9 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-0-permissions": [
-                    "add_page",
-                    "publish_page",
-                    "change_page",
+                    Page.PERMISSION_CODENAMES.ADD,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
+                    Page.PERMISSION_CODENAMES.CHANGE,
                 ],
             }
         )
@@ -2349,7 +2330,8 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]["permissions"].value(), ["add_page"]
+            page_permissions_formset.forms[0]["permissions"].value(),
+            [Page.PERMISSION_CODENAMES.ADD],
         )
 
         # add edit permission on root
@@ -2372,7 +2354,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
 
         # add edit permission on home
@@ -2394,13 +2376,14 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["page"].value(), self.home_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[1]["permissions"].value(), ["change_page"]
+            page_permissions_formset.forms[1]["permissions"].value(),
+            [Page.PERMISSION_CODENAMES.CHANGE],
         )
 
     def test_duplicate_page_permissions_error(self):
@@ -2408,7 +2391,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-1-page": [self.root_page.pk],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2741,10 +2724,10 @@ class TestGroupViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "group_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.group_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.group_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "group_viewset")
 
@@ -2797,10 +2780,10 @@ class TestUserViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "user_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.user_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.user_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "user_viewset")
 
@@ -2835,7 +2818,7 @@ class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
         self.login(username="auth_user", password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index"))
 
     def test_simple(self):
@@ -2882,10 +2865,10 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailusers_users:add"), post_data)
 
     def gain_permissions(self):
@@ -2959,13 +2942,13 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}, user_id=None):
+    def get(self, params=None, user_id=None):
         return self.client.get(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             params,
         )
 
-    def post(self, post_data={}, user_id=None):
+    def post(self, post_data=None, user_id=None):
         return self.client.post(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             post_data,
@@ -3026,12 +3009,12 @@ class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
             password="password",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), post_data
         )

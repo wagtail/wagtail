@@ -27,6 +27,7 @@ from wagtail.contrib.settings.models import (
     register_setting,
 )
 
+
 @register_setting
 class NavigationSettings(BaseGenericSetting):
     linkedin_url = models.URLField(verbose_name="LinkedIn URL", blank=True)
@@ -47,7 +48,7 @@ class NavigationSettings(BaseGenericSetting):
 
 In the preceding code, the `register_setting` decorator registers your `NavigationSettings` models. You used the `BaseGenericSetting` base model class to define a settings model that applies to all web pages rather than just one page.
 
-Now, migrate your database by running the commands `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You'll get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't installed the [`wagtail.contrib.settings`](../reference/settings.md) module.
+Now, migrate your database by running the commands `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, reload your [admin interface](https://guide.wagtail.org/en/concepts/wagtail-interfaces/#admin-interface). You'll get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't installed the [`wagtail.contrib.settings`](../reference/settings.md) module.
 
 The `wagtail.contrib.settings` module defines models that hold common settings across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install `wagtail.contrib.settings`, go to your `mysite/settings/base.py` file and add `"wagtail.contrib.settings"` to the `INSTALLED_APPS` list:
 
@@ -75,7 +76,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-
                 # Add this to register the _settings_ context processor:
                 "wagtail.contrib.settings.context_processors.settings",
             ],
@@ -88,7 +88,7 @@ TEMPLATES = [
 
 ## Add your social media links
 
-To add your social media links, reload your admin interface and click **Settings** from your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar). You can see your **Navigation Settings**. Clicking the **Navigation Settings** gives you a form to add your social media account links.
+To add your social media links, reload your admin interface and click **Settings** from your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/#the-sidebar). You can see your **Navigation Settings**. Clicking the **Navigation Settings** gives you a form to add your social media account links.
 
 ## Display social media links
 
@@ -154,7 +154,6 @@ from django.db import models
 from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
-
     # import PublishingPanel:
     PublishingPanel,
 )
@@ -178,6 +177,7 @@ from wagtail.contrib.settings.models import (
 # import register_snippet:
 from wagtail.snippets.models import register_snippet
 
+
 # ...keep the definition of the NavigationSettings model and add the FooterText model:
 @register_snippet
 class FooterText(
@@ -187,7 +187,6 @@ class FooterText(
     TranslatableMixin,
     models.Model,
 ):
-
     body = RichTextField()
 
     panels = [
@@ -230,13 +229,13 @@ The `get_preview_context` method defines the context data that you can use to re
 
 The `Meta` class holds metadata about the model. It inherits from the `TranslatableMixin.Meta` class and sets the `verbose_name_plural` attribute to _"Footer Text"_.
 
-Now, migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating, restart your server and then reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can now find **Snippets** in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/).
+Now, migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating, restart your server and then reload your [admin interface](https://guide.wagtail.org/en/concepts/wagtail-interfaces/#admin-interface). You can now find **Snippets** in your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/).
 
 (add_footer_text)=
 
 ## Add footer text
 
-To add your footer text, go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). Click **Snippets** in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar) and add your footer text.
+To add your footer text, go to your [admin interface](https://guide.wagtail.org/en/concepts/wagtail-interfaces/#admin-interface). Click **Snippets** in your [Sidebar](https://guide.wagtail.org/en/how-to-guides/find-your-way-around/#the-sidebar) and add your footer text.
 
 ## Display your footer text
 

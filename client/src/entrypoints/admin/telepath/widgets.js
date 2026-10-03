@@ -1,9 +1,9 @@
 import {
-  Widget,
+  BlockWidget,
   CheckboxInput,
   RadioSelect,
   Select,
-  BlockWidget,
+  Widget,
 } from '../../../components/Widget';
 
 window.telepath.register('wagtail.widgets.Widget', Widget);

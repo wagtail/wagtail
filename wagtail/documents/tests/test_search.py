@@ -96,7 +96,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add a document with some tags
             document = self.add_document(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag
@@ -125,7 +124,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add a document with some tags
             document = self.edit_document(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag

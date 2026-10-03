@@ -653,7 +653,4 @@ const dark = [
   },
 ];
 
-module.exports = {
-  light,
-  dark,
-};
+export { dark, light };

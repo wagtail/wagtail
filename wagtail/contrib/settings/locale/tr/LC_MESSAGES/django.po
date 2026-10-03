@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,9 +25,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "default"
-msgstr "varsayılan"
 
 msgid "Sites"
 msgstr "Siteler"
@@ -42,6 +39,9 @@ msgstr "%(site)s için %(site_setting)s"
 
 msgid "Site"
 msgstr "Site"
+
+msgid "default"
+msgstr "varsayılan"
 
 msgid "Settings"
 msgstr "Ayarlar"

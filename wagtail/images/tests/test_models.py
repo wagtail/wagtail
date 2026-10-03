@@ -12,7 +12,13 @@ from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -26,7 +32,7 @@ from wagtail.images.models import (
     get_rendition_storage,
 )
 from wagtail.images.rect import Rect
-from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
+from wagtail.models import Collection, GroupCollectionPermission, ReferenceIndex
 from wagtail.search.backends import get_search_backend
 from wagtail.test.dummy_external_storage import (
     DummyExternalStorage,
@@ -38,7 +44,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 from .utils import (
     Image,
@@ -198,18 +204,36 @@ class TestImage(TestCase):
         self.assertEqual(image.default_alt_text, image.title)
 
 
-class TestImageQuerySet(TransactionTestCase):
+@tag("transaction")
+class TestImageQuerySet(PageFixturesMixin, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
     def test_search_method(self):
         # Create an image for running tests on
         image = Image.objects.create(
             title="Test image",
+            description="A cool description",
             file=get_test_image_file(),
         )
 
         # Search for it
         results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.search("cool")
+        self.assertEqual(list(results), [image])
+
+    def test_autocomplete_method(self):
+        image = Image.objects.create(
+            title="Test image",
+            description="A cool description",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.autocomplete("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.autocomplete("cool")
         self.assertEqual(list(results), [image])
 
     def test_operators(self):
@@ -894,6 +918,102 @@ class TestRenditions(TestCase):
         new_rendition = self.image.get_rendition("width-500")
         self.assertFalse(hasattr(new_rendition, "_mark"))
 
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        },
+    )
+    def test_get_rendition_does_not_rewrite_cache_on_cache_hit(self):
+        # LocMemCache instances with no explicit LOCATION share their
+        # underlying store process-wide, so guard against leaking into
+        # (or being polluted by) other tests that use the same cache.
+        self.addCleanup(Rendition.cache_backend.clear)
+        Rendition.cache_backend.clear()
+
+        # Populate the cache with an initial request
+        self.image.get_rendition("width-500")
+
+        # A subsequent request for the same rendition should be served from
+        # the cache, and should NOT write back to the cache again
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            rendition = self.image.get_rendition("width-500")
+        mock_set.assert_not_called()
+
+        # Sanity check: the underlying cache write does happen for a
+        # rendition that hasn't been cached before
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            self.image.get_rendition("width-100")
+        mock_set.assert_called_once()
+
+        # The rendition returned via the cache hit should still be correct
+        self.assertEqual(rendition.filter_spec, "width-500")
+
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        },
+    )
+    def test_get_renditions_does_not_rewrite_cache_on_cache_hit(self):
+        # LocMemCache instances with no explicit LOCATION share their
+        # underlying store process-wide, so guard against leaking into
+        # (or being polluted by) other tests that use the same cache.
+        self.addCleanup(Rendition.cache_backend.clear)
+        Rendition.cache_backend.clear()
+
+        # Populate the cache with an initial request
+        self.image.get_renditions("width-500", "width-600")
+
+        # A subsequent request for the same renditions should be served
+        # from the cache, and should NOT write back to the cache again
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            renditions = self.image.get_renditions("width-500", "width-600")
+        mock_set_many.assert_not_called()
+
+        # Sanity check: the underlying cache write does happen for
+        # renditions that haven't been cached before
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            self.image.get_renditions("width-100", "width-200")
+        mock_set_many.assert_called_once()
+
+        # The renditions returned via the cache hit should still be correct
+        self.assertEqual(renditions["width-500"].filter_spec, "width-500")
+        self.assertEqual(renditions["width-600"].filter_spec, "width-600")
+
+    def test_get_rendition_does_not_rewrite_cache_on_prefetch(self):
+        # Populate a rendition
+        self.image.get_rendition("width-500")
+
+        # Refetch the image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_rendition() should use the prefetched rendition, and should
+        # NOT write it back to the cache
+        with mock.patch.object(Rendition.cache_backend, "set") as mock_set:
+            rendition = image.get_rendition("width-500")
+        mock_set.assert_not_called()
+
+        self.assertEqual(rendition.filter_spec, "width-500")
+
+    def test_get_renditions_does_not_rewrite_cache_on_prefetch(self):
+        # Populate renditions
+        self.image.get_renditions("width-500", "width-600")
+
+        # Refetch the image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_renditions() should use the prefetched renditions, and should
+        # NOT write them back to the cache
+        with mock.patch.object(Rendition.cache_backend, "set_many") as mock_set_many:
+            renditions = image.get_renditions("width-500", "width-600")
+        mock_set_many.assert_not_called()
+
+        self.assertEqual(renditions["width-500"].filter_spec, "width-500")
+        self.assertEqual(renditions["width-600"].filter_spec, "width-600")
+
     def test_prefers_rendition_cache_backend(self):
         with override_settings(
             CACHES={
@@ -1095,7 +1215,7 @@ class TestRenditions(TestCase):
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 )
-class TestPrefetchRenditions(TestCase):
+class TestPrefetchRenditions(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1150,7 +1270,7 @@ class TestPrefetchRenditions(TestCase):
         self.assertListEqual(self.large_renditions, large_renditions)
 
 
-class TestUsageCount(TestCase):
+class TestUsageCount(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1172,7 +1292,7 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
-class TestGetUsage(TestCase):
+class TestGetUsage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1198,7 +1318,7 @@ class TestGetUsage(TestCase):
         self.assertIsInstance(self.image.get_usage()[0][1][0], ReferenceIndex)
 
 
-class TestGetWillowImage(TestCase):
+class TestGetWillowImage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1356,7 +1476,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add an image with some tags
             image = self.add_image(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag
@@ -1385,7 +1504,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add an image with some tags
             image = self.edit_image(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag

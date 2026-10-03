@@ -2,7 +2,7 @@
 
 Using the Wagtail `start` command to start your project gives you a built-in search app. This built-in search app provides a simple search functionality for your site.
 
-However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search.html` file and modify it as follows:
+However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search/search.html` file and modify it as follows:
 
 ```html+django
 {% extends "base.html" %}
@@ -94,12 +94,13 @@ You can now run searches and view results. However, the search currently only re
 # Add to the existing imports:
 from wagtail.search import index
 
+
 class BlogPage(Page):
     # Keep the existing parent_page_types, fields, methods and content_panels definitions, and add:
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField("intro"),
+        index.SearchField("body"),
     ]
 ```
 

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -595,13 +595,13 @@ msgstr "Ви все ще хочете опублікувати цю %(model_name
 msgid "Cancel"
 msgstr "Скасувати"
 
+msgid "Comment"
+msgstr "Коментар"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Дії"
-
-msgid "Comment"
-msgstr "Коментар"
 
 msgid "Update"
 msgstr "Оновити"
@@ -1151,9 +1151,6 @@ msgstr "Ця сторінка захищена від публічного пе�
 msgid "Confirm"
 msgstr "Підтвердити"
 
-msgid "Add child page"
-msgstr "Додати дочірню сторінку"
-
 msgid "Page types"
 msgstr "Типи сторінок"
 
@@ -1269,9 +1266,6 @@ msgstr "Система"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)sзберіг нову версію"
 
-msgid "Refresh"
-msgstr "Оновити"
-
 msgid "You have unsaved changes in another window"
 msgstr "У вас є незбережені зміни у іншому вікні"
 
@@ -1290,36 +1284,8 @@ msgstr[1] "%(num_user)sінших користувачі переглядают�
 msgstr[2] "%(num_user)sінших користувачів переглядають зараз"
 msgstr[3] "%(num_user)sінших користувачів переглядають зараз"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Якщо ви продовжите, це перезапише правки, які ви зробили у тому вікні. Якщо "
-"ви оновите цю сторінку, то побачите нові правки, але втратите всі "
-"незбережені редагування у поточному вікні"
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Якщо ви продовжите, що це перезапише правки %(user_name)s. Якщо ви оновите "
-"сторінку, то побачите нові правки, проте ваші незбережені редагування будуть "
-"втрачені"
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Якщо оновити сторінку, ви втратите всі незбережені правки"
-
-msgid "Refresh page"
-msgstr "Оновити сторінку"
-
 msgid "Continue"
 msgstr "Продовжити"
-
-msgid "Refresh the page"
-msgstr "Оновити цю сторінку"
 
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
@@ -1428,6 +1394,9 @@ msgstr "Задати графік"
 msgid "Refreshing…"
 msgstr "Оновлення..."
 
+msgid "Refresh"
+msgstr "Оновити"
+
 msgid "Preview is out of date"
 msgstr "Попередній перегляд застарів"
 
@@ -1443,12 +1412,6 @@ msgstr "Вперше опубліковано"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас є <span>незбережені зміни</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "У вас є <span>незбережені коментарі</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "У вас є <span>незбережені зміни</span> і <span>коментарі</span>"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -1793,10 +1756,6 @@ msgid "Edit / Review"
 msgstr "Редагувати / Перевірити"
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s не може бути збережено через блокування"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' оновлено."
 
@@ -1812,6 +1771,10 @@ msgstr "%(model_name)s '%(object)s' заплановано до публікац
 msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
 msgstr "%(model_name)s '%(object)s' створено і заплановано до публікації."
 
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s не може бути збережено через блокування"
+
 msgid "Inspect"
 msgstr "Переглянути"
 
@@ -1819,12 +1782,28 @@ msgstr "Переглянути"
 msgid "More options for '%(title)s'"
 msgstr "Більше опцій для '%(title)s'"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Додати %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s не може бути створено через помилки."
+
 msgid "Editing"
 msgstr "Редагування"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s не може бути збережено через помилки."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' видалено."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Ви впевнені, що хочете видалити цей %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Найбільш раннє"
@@ -1836,8 +1815,16 @@ msgstr "Останнє"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' знято з публікації"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Версію %(revision_id)s для \"%(object)s\" знято з розкладу."
+
 msgid "Unschedule"
 msgstr "Зняти з розкладу"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "ревізія %(revision_id)s для \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1975,6 +1962,9 @@ msgstr "Має дочірні сторінки"
 
 msgid "Yes"
 msgstr "Так"
+
+msgid "Add child page"
+msgstr "Додати дочірню сторінку"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

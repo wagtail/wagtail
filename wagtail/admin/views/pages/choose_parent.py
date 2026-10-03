@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
@@ -10,15 +11,21 @@ from django.views.generic import FormView
 
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.admin.views.generic.mixins import LocaleMixin
+from wagtail.permissions import policy_registry
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
-class ChooseParentView(WagtailAdminTemplateMixin, FormView):
+class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
     template_name = "wagtailadmin/pages/choose_parent.html"
     model = Page
     index_url_name = None
     page_title = gettext_lazy("Choose parent")
+
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model)
 
     def get_valid_parent_pages(self, user):
         """
@@ -37,6 +44,10 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
             content_type__in=allowed_parent_page_content_types
         )
 
+        # Filter by locale if i18n is enabled
+        if self.locale:
+            allowed_parent_pages = allowed_parent_pages.filter(locale=self.locale)
+
         # Get queryset of pages where the user has permission to add subpages
         if user.is_superuser:
             pages_where_user_can_add = Page.objects.all()
@@ -45,8 +56,8 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
 
             perms = {
                 perm
-                for perm in page_permission_policy.get_cached_permissions_for_user(user)
-                if perm.permission.codename == "add_page"
+                for perm in self.permission_policy.get_cached_permissions_for_user(user)
+                if perm.permission.codename == Page.PERMISSION_CODENAMES.ADD
             }
 
             for perm in perms:
@@ -133,3 +144,23 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         context["media"] = context["form"].media
         context["submit_button_label"] = self.submit_button_label
         return context
+
+
+class GenericChooseParentView(ChooseParentView):
+    index_url_name = "wagtailadmin_pages:type_use"
+
+    def dispatch(self, request, *args, **kwargs):
+        # A viewset may assign the "model" attribute to a superclass page model,
+        # so look up the most specific model class again based on the app_label
+        # and model_name in the URL kwargs.
+        self.model = ContentType.objects.get_by_natural_key(
+            self.kwargs.get("app_label"),
+            self.kwargs.get("model_name"),
+        ).model_class()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_index_url(self):
+        return reverse(
+            self.index_url_name,
+            args=[self.kwargs.get("app_label"), self.kwargs.get("model_name")],
+        )

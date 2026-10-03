@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.query import TreeQuerySet
 from wagtail.search import index
@@ -30,7 +30,7 @@ class CollectionQuerySet(TreeQuerySet):
         ]
 
 
-class BaseCollectionManager(models.Manager):
+class BaseCollectionManager(MP_NodeManager):
     def get_queryset(self):
         return CollectionQuerySet(self.model).order_by("path")
 
@@ -123,8 +123,8 @@ class Collection(MP_Node):
             # NOTE: &#x21b3 is the hex HTML entity for ↳.
             return format_html(
                 "{indent}{icon} {name}",
-                indent=mark_safe("&nbsp;" * 4 * display_depth),
-                icon=mark_safe("&#x21b3"),
+                indent=mark_safe("&nbsp;" * 4 * display_depth),  # noqa: S308 - no security implications
+                icon=mark_safe("&#x21b3"),  # noqa: S308 - no security implications
                 name=self.name,
             )
         # Output unicode plain-text version

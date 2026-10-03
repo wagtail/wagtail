@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -682,13 +682,13 @@ msgstr "Você gostaria de publicar esse %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Comment"
+msgstr "Comentário"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Ações"
-
-msgid "Comment"
-msgstr "Comentário"
 
 #, python-format
 msgid ""
@@ -1380,10 +1380,6 @@ msgstr ""
 msgid "Search the whole site"
 msgstr "Pesquise em todo o site"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s de %(items_count)s"
-
 msgid "Sites menu"
 msgstr "Menu de sites"
 
@@ -1405,9 +1401,6 @@ msgstr "Esta página está protegida da visualização pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Adicionar subpágina"
 
 msgid "Page types"
 msgstr "Tipos de página"
@@ -1577,9 +1570,6 @@ msgstr "Fechar caixa de diálogo"
 msgid "System"
 msgstr "Sistema"
 
-msgid "Refresh"
-msgstr "Atualizar"
-
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s tem alterações não salvas"
@@ -1594,14 +1584,8 @@ msgstr[0] "Um outro usuário está visualizando no momento"
 msgstr[1] "%(num_user)s outros usuários estão visualizando no momento"
 msgstr[2] "%(num_user)s outros usuários estão visualizando no momento"
 
-msgid "Refresh page"
-msgstr "Atualizar página"
-
 msgid "Continue"
 msgstr "Continuar"
-
-msgid "Refresh the page"
-msgstr "Atualizar a página"
 
 msgid "Download XLSX"
 msgstr "Baixar XLSX"
@@ -1808,6 +1792,9 @@ msgstr "Carregando"
 msgid "Refreshing…"
 msgstr "Atualizando..."
 
+msgid "Refresh"
+msgstr "Atualizar"
+
 msgid "Preview is out of date"
 msgstr "A pré-visualização está desatualizada"
 
@@ -1829,12 +1816,6 @@ msgstr "Salve suas alterações antes de sair"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Você tem <span>edição não salva</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Você tem <span>comentários não salvos</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Você tem <span>edições não salvas</span> e <span>comentários</span>"
 
 #, python-format
 msgid ""
@@ -1903,8 +1884,8 @@ msgstr "Ordenar"
 msgid "View Wagtail quick actions"
 msgstr "Veja as ações rápidas do Wagtail"
 
-msgid "Accessibility"
-msgstr "Acessibilidade"
+msgid "Checks"
+msgstr "Verificações"
 
 msgid "Warnings"
 msgstr "Alertas"
@@ -2195,9 +2176,6 @@ msgstr "Comentários"
 msgid "Toggle checks"
 msgstr "Alternar verificações"
 
-msgid "Checks"
-msgstr "Verificações"
-
 msgid "Toggle preview"
 msgstr "Alternar pré-visualização"
 
@@ -2357,10 +2335,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' agora está desbloqueado."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "O %(model_name)s não foi possível salvar porque está bloqueado"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' atualizado."
 
@@ -2407,6 +2381,10 @@ msgstr "O fluxo de trabalho em %(model_name)s '%(object)s' foi reiniciado."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "O fluxo de trabalho em %(model_name)s '%(object)s' foi cancelado."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "O %(model_name)s não foi possível salvar porque está bloqueado"
 
 #, python-format
 msgid ""
@@ -2680,6 +2658,9 @@ msgstr "Tipo de página"
 
 msgid "Exploring"
 msgstr "Explorando"
+
+msgid "Add child page"
+msgstr "Adicionar subpágina"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

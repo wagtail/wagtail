@@ -1,3 +1,4 @@
+import swapper
 from django import template
 from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
@@ -7,10 +8,11 @@ from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
+Page = swapper.load_model("wagtailcore", "Page")
 register = template.Library()
 
 
@@ -101,15 +103,15 @@ def wagtail_release_notes_path():
 def wagtail_feature_release_whats_new_link():
     major, minor, patch, release, num = VERSION
     if release == "final":
-        return f"https://guide.wagtail.org/en-{major}.{minor}.x/releases/new-in-wagtail-{major}-{minor}/"
-    return "https://guide.wagtail.org/en-latest/releases/latest/"
+        return f"https://guide.wagtail.org/en/releases/new-in-wagtail-{major}-{minor}/"
+    return "https://guide.wagtail.org/en/releases/"
 
 
 @register.simple_tag
 def wagtail_feature_release_editor_guide_link():
     major, minor, patch, release, num = VERSION
     if release == "final":
-        return f"https://guide.wagtail.org/en-{major}.{minor}.x/"
+        return f"https://guide.wagtail.org/en/?target_version={major}.{minor}.x"
     return "https://guide.wagtail.org/"
 
 
@@ -177,10 +179,10 @@ def include_block(parser, token):
     try:
         tag_name = tokens.pop(0)
         block_var_token = tokens.pop(0)
-    except IndexError:
+    except IndexError as e:
         raise template.TemplateSyntaxError(
             "%r tag requires at least one argument" % tag_name
-        )
+        ) from e
 
     block_var = parser.compile_filter(block_var_token)
 

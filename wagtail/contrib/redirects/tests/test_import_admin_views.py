@@ -18,15 +18,15 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:start_import"), params)
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailredirects:start_import"), post_data, follow=follow
         )
 
-    def post_import(self, post_data={}, follow=False):
+    def post_import(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailredirects:process_import"), post_data, follow=follow
         )
@@ -113,6 +113,66 @@ class TestImportAdminViews(WagtailTestUtils, TestCase):
                 import_response, "wagtailredirects/import_summary.html"
             )
             self.assertEqual(Redirect.objects.all().count(), 2)
+
+    def test_import_step_with_tampered_data(self):
+        f = f"{TEST_ROOT}/files/example.csv"
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                }
+            )
+
+            tampered_form = response.context["form"].initial.copy()
+            tampered_form["import_file_name"] = "/etc/passwd"
+
+            import_response = self.post_import(
+                {
+                    **tampered_form,
+                    "from_index": 0,
+                    "to_index": 1,
+                    "permanent": True,
+                }
+            )
+
+            self.assertEqual(import_response.status_code, 400)
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+    def test_import_step_with_missing_filename_field(self):
+        f = f"{TEST_ROOT}/files/example.csv"
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                }
+            )
+
+            tampered_form = response.context["form"].initial.copy()
+            del tampered_form["import_file_name"]
+
+            import_response = self.post_import(
+                {
+                    **tampered_form,
+                    "from_index": 0,
+                    "to_index": 1,
+                    "permanent": True,
+                }
+            )
+
+            self.assertEqual(import_response.status_code, 400)
+            self.assertEqual(Redirect.objects.all().count(), 0)
 
     def test_import_step_with_offset_columns(self):
         f = f"{TEST_ROOT}/files/example_offset_columns.csv"

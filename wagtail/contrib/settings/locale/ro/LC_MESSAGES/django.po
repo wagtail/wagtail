@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Julian C <jcuotpc@gmail.com>, 2021\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,28 +22,33 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-msgid "default"
-msgstr "implicit"
-
 msgid "Sites"
-msgstr "Saituri"
+msgstr "Site-uri"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "Permisiuni pentru %(model)s"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s pentru %(site)s"
 
 msgid "Site"
-msgstr "Sit"
+msgstr "Site"
+
+msgid "default"
+msgstr "implicit"
 
 msgid "Settings"
 msgstr "Setări"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Setarea nu poate fi deschisă din cauzei lipsei definiților de sit."
+msgstr ""
+"Această setare nu a putut fi deschisă deoarece nu există niciun site definit."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Setarea nu a putut fi salvată din cauza erorilor."
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "%(setting_type)sa fost actualizat(ă)."
+msgstr "%(setting_type)s a fost actualizat(ă)."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2016\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,9 +24,6 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-msgid "default"
-msgstr "domyślny"
-
 msgid "Sites"
 msgstr "Serwisy"
 
@@ -36,6 +33,9 @@ msgstr "%(site_setting)s dla %(site)s"
 
 msgid "Site"
 msgstr "Serwis"
+
+msgid "default"
+msgstr "domyślny"
 
 msgid "Settings"
 msgstr "Ustawienia"

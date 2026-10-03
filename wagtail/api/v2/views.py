@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
@@ -14,7 +15,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.api.querysets import get_public_pages_queryset
+from wagtail.api.rich_text import APIRichText, RichTextFormatError
+from wagtail.models import Site
 
 from .filters import (
     AncestorOfFilter,
@@ -34,6 +37,8 @@ from .utils import (
     page_models_from_string,
     parse_fields_parameter,
 )
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -61,6 +66,7 @@ class BaseAPIViewSet(GenericViewSet):
             "order",
             "search",
             "search_operator",
+            "rich_text_format",
             # Used by jQuery for cache-busting. See #1671
             "_",
             # Required by BrowsableAPIRenderer
@@ -95,6 +101,11 @@ class BaseAPIViewSet(GenericViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return self.get_paginated_response(serializer.data)
 
+    def get_object(self):
+        if not hasattr(self, "_cached_object"):
+            self._cached_object = super().get_object()
+        return self._cached_object
+
     def detail_view(self, request, pk):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
@@ -109,8 +120,8 @@ class BaseAPIViewSet(GenericViewSet):
             if obj is None:
                 raise self.model.DoesNotExist
 
-        except self.model.DoesNotExist:
-            raise Http404("not found")
+        except self.model.DoesNotExist as e:
+            raise Http404("not found") from e
 
         # Generate redirect
         url = get_object_detail_url(
@@ -366,7 +377,7 @@ class BaseAPIViewSet(GenericViewSet):
             try:
                 fields_config = parse_fields_parameter(request.GET["fields"])
             except ValueError as e:
-                raise BadRequestError("fields error: %s" % str(e))
+                raise BadRequestError("fields error: %s" % str(e)) from e
         else:
             # Use default fields
             fields_config = []
@@ -392,7 +403,21 @@ class BaseAPIViewSet(GenericViewSet):
             "request": self.request,
             "view": self,
             "router": self.request.wagtailapi_router,
+            "_wagtail_rich_text_format": self.resolve_rich_text_format(),
         }
+
+    def resolve_rich_text_format(self):
+        """
+        Resolve and validate ``?rich_text_format=`` for this request.
+
+        This is the single validation point for API requests; serializers
+        should use the value from the serializer context.
+        """
+        raw = self.request.GET.get("rich_text_format")
+        try:
+            return APIRichText.resolve_format(raw)
+        except RichTextFormatError as exc:
+            raise BadRequestError(str(exc)) from exc
 
     def get_renderer_context(self):
         context = super().get_renderer_context()
@@ -460,17 +485,27 @@ class PagesAPIViewSet(BaseAPIViewSet):
     body_fields = BaseAPIViewSet.body_fields + [
         "title",
     ]
+
     meta_fields = BaseAPIViewSet.meta_fields + [
         "html_url",
         "slug",
-        "show_in_menus",
-        "seo_title",
-        "search_description",
-        "first_published_at",
-        "alias_of",
-        "parent",
-        "locale",
     ]
+    for field in ["show_in_menus", "seo_title", "search_description"]:
+        try:
+            Page._meta.get_field(field)
+        except FieldDoesNotExist:
+            pass
+        else:
+            meta_fields.append(field)
+    meta_fields.extend(
+        [
+            "first_published_at",
+            "alias_of",
+            "parent",
+            "locale",
+        ]
+    )
+
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         "title",
         "html_url",
@@ -517,60 +552,10 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-
-        request = self.request
-
-        # Get all live pages
-        queryset = Page.objects.all().live()
-
-        # Exclude pages that the user doesn't have access to
-        restricted_pages = [
-            restriction.page
-            for restriction in PageViewRestriction.objects.all().select_related("page")
-            if not restriction.accept_request(self.request)
-        ]
-
-        # Exclude the restricted pages and their descendants from the queryset
-        for restricted_page in restricted_pages:
-            queryset = queryset.not_descendant_of(restricted_page, inclusive=True)
-
-        # Check if we have a specific site to look for
-        if "site" in request.GET:
-            # Optionally allow querying by port
-            if ":" in request.GET["site"]:
-                (hostname, port) = request.GET["site"].split(":", 1)
-                query = {
-                    "hostname": hostname,
-                    "port": port,
-                }
-            else:
-                query = {
-                    "hostname": request.GET["site"],
-                }
-            try:
-                site = Site.objects.get(**query)
-            except Site.MultipleObjectsReturned:
-                raise BadRequestError(
-                    "Your query returned multiple sites. Try adding a port number to your site filter."
-                )
-        else:
-            # Otherwise, find the site from the request
-            site = Site.find_for_request(self.request)
-
-        if site:
-            base_queryset = queryset
-            queryset = base_queryset.descendant_of(site.root_page, inclusive=True)
-
-            # If internationalisation is enabled, include pages from other language trees
-            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                for translation in site.root_page.get_translations():
-                    queryset |= base_queryset.descendant_of(translation, inclusive=True)
-
-        else:
-            # No sites configured
-            queryset = queryset.none()
-
-        return queryset
+        try:
+            return get_public_pages_queryset(self.request)
+        except ValueError as e:
+            raise BadRequestError(str(e)) from e
 
     def get_queryset(self):
         request = self.request
@@ -579,8 +564,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
         try:
             models_type = request.GET.get("type", None)
             models = models_type and page_models_from_string(models_type) or []
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
+        except (LookupError, ValueError) as e:
+            raise BadRequestError("type doesn't exist") from e
 
         if not models:
             if self.model == Page:

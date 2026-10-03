@@ -35,6 +35,7 @@ from taggit.managers import TaggableManager
 
 from wagtail import hooks
 from wagtail.coreutils import string_to_ascii
+from wagtail.images import get_image_model
 from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
@@ -48,6 +49,7 @@ from wagtail.images.image_operations import (
 from wagtail.images.rect import Rect
 from wagtail.images.utils import to_svg_safe_spec
 from wagtail.models import CollectionMember, ReferenceIndex
+from wagtail.permissions import policy_registry
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 from wagtail.utils.file import hash_filelike
@@ -141,10 +143,10 @@ def get_rendition_storage():
             try:
                 module = import_string(storage)
                 storage = module()
-            except ImportError:
+            except ImportError as e:
                 raise ImproperlyConfigured(
                     "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
-                )
+                ) from e
 
     return storage
 
@@ -171,7 +173,7 @@ class ImageFileMixin:
                 # Have to catch everything, because the exception
                 # depends on the file subclass, and therefore the
                 # storage being used.
-                raise SourceImageIOError(str(e))
+                raise SourceImageIOError(str(e)) from e
 
             self.save(update_fields=["file_size"])
 
@@ -198,7 +200,7 @@ class ImageFileMixin:
         except OSError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
+            raise SourceImageIOError(str(e)) from e
 
         # Seek to beginning
         image_file.seek(0)
@@ -363,6 +365,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
         index.FilterField("title"),
+        index.SearchField("description"),
+        index.AutocompleteField("description"),
         index.RelatedFields(
             "tags",
             [
@@ -553,10 +557,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        cache_key = Rendition.construct_cache_key(
-            self, filter.get_cache_key(self), filter.spec
-        )
-        Rendition.cache_backend.set(cache_key, rendition)
+        # prevent writing of cached data back to the cache
+        if not getattr(rendition, "_from_cache", False):
+            cache_key = Rendition.construct_cache_key(
+                self, filter.get_cache_key(self), filter.spec
+            )
+            Rendition.cache_backend.set(cache_key, rendition)
 
         return rendition
 
@@ -576,8 +582,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         try:
             return self.find_existing_renditions(filter)[filter]
-        except KeyError:
-            raise Rendition.DoesNotExist
+        except KeyError as e:
+            raise Rendition.DoesNotExist from e
 
     def create_rendition(self, filter: Filter) -> AbstractRendition:
         """
@@ -704,6 +710,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 # The retrieved rendition needs to be associated with the current image instance, so that any
                 # locally-set properties such as contextual_alt_text are respected
                 rendition.image = self
+                # to prevent writing of cached data back to the cache
+                rendition._from_cache = True
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
@@ -913,8 +921,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return getattr(self, "description", None) or self.title
 
     def is_editable_by_user(self, user):
-        from wagtail.images.permissions import permission_policy
-
+        permission_policy = policy_registry.get_by_type(get_image_model())
         return permission_policy.user_has_permission_for_instance(user, "change", self)
 
     class Meta:
@@ -1077,11 +1084,9 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert avif, bmp and webp to png, and heic to jpg, by default
+                # Convert bmp to png, and heic to jpg, by default
                 default_conversions = {
-                    "avif": "png",
                     "bmp": "png",
-                    "webp": "png",
                     "heic": "jpeg",
                 }
 
@@ -1098,12 +1103,18 @@ class Filter:
                     original_format, original_format
                 )
 
+            # Prevent raster-only format conversions for SVG images
+            if original_format == "svg" and output_format != "svg":
+                raise InvalidFilterSpecError(
+                    "format-* operations are not supported for SVG images. To skip this conversion for SVG images, use 'preserve-svg'."
+                )
+
             if output_format == "jpeg":
                 # Allow changing of JPEG compression quality
                 if "jpeg-quality" in env:
                     quality = env["jpeg-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 85)
+                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 76)
 
                 # If the image has an alpha channel, give it a white background
                 if willow.has_alpha():
@@ -1139,7 +1150,7 @@ class Filter:
                 elif "avif-quality" in env:
                     quality = env["avif-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
+                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 61)
                 return willow.save_as_avif(output, quality=quality)
             elif output_format == "heic":
                 # Allow changing of HEIC compression quality. Safari is the only browser that supports HEIC,
@@ -1177,7 +1188,7 @@ class Filter:
         if not vary_string:
             return ""
 
-        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]  # noqa: S324 -  use of sha1 is acceptable here to generate a short hash for cache key
 
     def __eq__(self, value):
         if isinstance(value, Filter):
@@ -1222,7 +1233,7 @@ class ResponsiveImage:
         return self.renditions[0].img_tag(attrs)
 
     def __str__(self):
-        return mark_safe(self.__html__())
+        return mark_safe(self.__html__())  # noqa: S308 - flatatt-rendered attributes are escaped
 
     def __bool__(self):
         return bool(self.renditions)
@@ -1287,11 +1298,10 @@ class Picture(ResponsiveImage):
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
         if not self.formats:
-            return mark_safe(f"<picture>{super().__html__()}</picture>")
+            return mark_safe(f"<picture>{super().__html__()}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
         attrs = self.attrs or {}
 
-        sizes = f'sizes="{attrs["sizes"]}" ' if "sizes" in attrs else ""
         fallback_format = self.get_fallback_format()
         fallback_renditions = self.formats[fallback_format]
 
@@ -1299,9 +1309,12 @@ class Picture(ResponsiveImage):
 
         for fmt in self.source_format_order:
             if fmt.name != fallback_format and fmt.name in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt.name])
-                mime = fmt.mime_type
-                sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
+                source_attrs = {
+                    "srcset": self.get_width_srcset(self.formats[fmt.name]),
+                    "sizes": attrs.get("sizes"),
+                    "type": fmt.mime_type,
+                }
+                sources.append(f"<source{flatatt(source_attrs)}>")
 
         if len(fallback_renditions) > 1:
             attrs["srcset"] = self.get_width_srcset(fallback_renditions)
@@ -1309,7 +1322,7 @@ class Picture(ResponsiveImage):
         # The first rendition is the "base" / "fallback" image.
         fallback = fallback_renditions[0].img_tag(attrs)
 
-        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")
+        return mark_safe(f"<picture>{''.join(sources)}{fallback}</picture>")  # noqa: S308 - flatatt-rendered attributes are escaped
 
 
 class AbstractRendition(ImageFileMixin, models.Model):
@@ -1448,14 +1461,15 @@ class AbstractRendition(ImageFileMixin, models.Model):
         else:
             return "50%"
 
-    def img_tag(self, extra_attributes={}):
+    def img_tag(self, extra_attributes=None):
         attrs = self.attrs_dict.copy()
 
         attrs.update(apps.get_app_config("wagtailimages").default_attrs)
 
-        attrs.update(extra_attributes)
+        if extra_attributes:
+            attrs.update(extra_attributes)
 
-        return mark_safe(f"<img{flatatt(attrs)}>")
+        return mark_safe(f"<img{flatatt(attrs)}>")  # noqa: S308 - no security implications
 
     def __html__(self):
         return self.img_tag()

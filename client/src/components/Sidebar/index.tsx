@@ -1,9 +1,9 @@
+import Cookies from 'js-cookie';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Cookies from 'js-cookie';
 
-import { Sidebar } from './Sidebar';
 import { noop } from '../../utils/noop';
+import { Sidebar } from './Sidebar';
 
 export const SIDEBAR_COLLAPSED_COOKIE_NAME = 'wagtail_sidebar_collapsed';
 

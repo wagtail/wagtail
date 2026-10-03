@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -26,7 +27,7 @@ class Migration(migrations.Migration):
                 on_delete=models.CASCADE,
                 verbose_name="Page",
                 related_name="group_permissions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
             preserve_default=True,
         ),
@@ -88,7 +89,7 @@ class Migration(migrations.Migration):
                 on_delete=models.CASCADE,
                 verbose_name="Page",
                 related_name="view_restrictions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
             preserve_default=True,
         ),
@@ -136,7 +137,7 @@ class Migration(migrations.Migration):
                 on_delete=models.CASCADE,
                 verbose_name="Root page",
                 related_name="sites_rooted_here",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
             preserve_default=True,
         ),

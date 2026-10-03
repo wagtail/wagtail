@@ -1,0 +1,36 @@
+.w-badge {
+  position: absolute;
+  top: theme('spacing[0.5]');
+  inset-inline-end: theme('spacing[0.5]');
+  border-radius: theme('borderRadius.full');
+  background-color: theme('colors.info.100');
+  color: theme('colors.white.DEFAULT');
+  font-size: 0.625rem;
+  font-weight: theme('fontWeight.bold');
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: theme('lineHeight.tight');
+  min-width: theme('spacing.[3.5]');
+  height: theme('spacing.[3.5]');
+
+  @media (forced-colors: active) {
+    border: 3px solid transparent;
+    box-sizing: content-box;
+    top: calc(-1 * theme('spacing.1'));
+    inset-inline-end: calc(-1 * theme('spacing.1'));
+  }
+
+  &--positive {
+    background-color: theme('colors.positive.100');
+  }
+
+  &--warning {
+    background-color: theme('colors.warning.100');
+  }
+
+  &--critical {
+    background-color: theme('colors.critical.200');
+  }
+}

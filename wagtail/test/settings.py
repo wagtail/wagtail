@@ -58,7 +58,7 @@ if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
-SECRET_KEY = "not needed"
+SECRET_KEY = "not needed"  # noqa: S105 -  false positive, test setting
 
 ROOT_URLCONF = "wagtail.test.urls"
 
@@ -172,7 +172,9 @@ INSTALLED_APPS = [
     "wagtail.documents",
     "wagtail.admin",
     "wagtail.api.v2",
+    "wagtail.api.v3",
     "wagtail",
+    "ninja",
     "taggit",
     "rest_framework",
     "django_filters",
@@ -205,7 +207,7 @@ ALLOWED_HOSTS = [
     "testserver",
     "other.example.com",
     "127.0.0.1",
-    "0.0.0.0",
+    "0.0.0.0",  # noqa: S104 -  false positive, test setting
 ]
 
 WAGTAILSEARCH_BACKENDS = {
@@ -226,6 +228,12 @@ else:
     INSTALLED_APPS.append("wagtail.test.apps.CustomUsersAppConfig")
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
+
+if os.environ.get("USE_CUSTOM_PAGE_MODEL"):
+    INSTALLED_APPS.insert(2, "wagtail.test.basepage")
+    WAGTAIL_PAGE_MODEL = "basepage.BasePage"
+    print("Custom base page model active")  # noqa: T201
+
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")
@@ -266,12 +274,6 @@ if "ELASTICSEARCH_URL" in os.environ:
         },
     }
     WAGTAILSEARCH_BACKENDS["elasticsearch"] = elasticsearch_opts
-
-    # RemovedInWagtail80Warning
-    WAGTAILSEARCH_BACKENDS["elasticsearch_with_index_option"] = {
-        **elasticsearch_opts,
-        "INDEX": "wagtailtest",  # Deprecated option
-    }
 
 
 WAGTAIL_SITE_NAME = "Test Site"

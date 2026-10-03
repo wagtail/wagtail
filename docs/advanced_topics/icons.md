@@ -43,7 +43,7 @@ Add the icon with the `register_icons` hook.
 ```python
 @hooks.register("register_icons")
 def register_icons(icons):
-    return icons + ['app_name/toucan.svg']
+    return icons + ["app_name/toucan.svg"]
 ```
 
 The majority of Wagtail’s default icons are drawn on a 16x16 viewBox, sourced from the [FontAwesome v6 free icons set](https://fontawesome.com/v6/search?m=free).
@@ -56,6 +56,8 @@ Use an icon in a custom template:
 {% load wagtailadmin_tags %}
 {% icon name="toucan" classname="..." title="..." %}
 ```
+
+The `{% icon %}` tag is only usable within Wagtail's admin interface, including admin template overrides and the user bar. Avoid depending on it or its icon sprite for public-facing templates.
 
 ## Changing icons via hooks
 

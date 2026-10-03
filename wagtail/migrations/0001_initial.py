@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.db import migrations, models
 
@@ -13,9 +14,11 @@ def set_page_path_collation(apps, schema_editor):
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
     if schema_editor.connection.vendor == "postgresql":
+        Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
+        table_name = Page._meta.db_table
         schema_editor.execute(
-            """
-            ALTER TABLE wagtailcore_page ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
+            f"""
+            ALTER TABLE {table_name} ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
         """
         )
 
@@ -25,6 +28,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ("auth", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.WAGTAIL_PAGE_MODEL),
         ("contenttypes", "0001_initial"),
     ]
 
@@ -186,7 +190,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="revisions",
                     ),
                 ),
@@ -220,7 +224,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="view_restrictions",
                     ),
                 ),
@@ -266,7 +270,7 @@ class Migration(migrations.Migration):
                     "root_page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="sites_rooted_here",
                     ),
                 ),
@@ -283,7 +287,7 @@ class Migration(migrations.Migration):
             name="page",
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 related_name="group_permissions",
             ),
             preserve_default=True,

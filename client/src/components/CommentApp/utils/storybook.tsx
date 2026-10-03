@@ -1,19 +1,18 @@
 import React from 'react';
 
+import { addComment, addReply, setFocusedComment } from '../actions/comments';
+import CommentComponent from '../components/Comment/index';
 import { Store } from '../state';
-import { addComment, setFocusedComment, addReply } from '../actions/comments';
 import {
   Author,
   Comment,
   NewCommentOptions,
+  NewReplyOptions,
   newComment,
   newCommentReply,
-  NewReplyOptions,
 } from '../state/comments';
 import { LayoutController } from './layout';
 import { getNextCommentId } from './sequences';
-
-import CommentComponent from '../components/Comment/index';
 
 export function RenderCommentsForStorybook({
   store,

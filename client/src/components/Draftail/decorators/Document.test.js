@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { convertFromRaw } from 'draft-js';
+import { shallow } from 'enzyme';
+import React from 'react';
 
 import Document from './Document';
 

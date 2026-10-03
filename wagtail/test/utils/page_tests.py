@@ -1,6 +1,7 @@
 from typing import Any
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import Http404
@@ -10,10 +11,11 @@ from django.utils.http import urlencode
 from django.utils.text import slugify
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
 
 from .form_data import querydict_from_html
 from .wagtail_tests import WagtailTestUtils
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 AUTH_BACKEND = settings.AUTHENTICATION_BACKENDS[0]
 
@@ -200,7 +202,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
             page, args, kwargs = site.root_page.localized.specific.route(
                 self.dummy_request, path_components
             )
-        except Http404:
+        except Http404 as e:
             msg = self._formatMessage(
                 msg,
                 'Failed to route to "%(route_path)s" for %(page_type)s "%(page)s". A Http404 was raised for path: "%(full_path)s".'
@@ -211,7 +213,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "full_path": path,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
 
     def assertPageIsRenderable(
         self,
@@ -268,7 +270,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             if user:
                 self.client.logout()
@@ -340,7 +342,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 'Failed to load edit view via GET for %(page_type)s "%(page)s":\n%(exc)s'
                 % {"page_type": type(page).__name__, "page": page, "exc": e},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         if response.status_code != 200:
             self.client.logout()
             msg = self._formatMessage(
@@ -370,7 +372,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 'Failed to load edit view via POST for %(page_type)s "%(page)s":\n%(exc)s'
                 % {"page_type": type(page).__name__, "page": page, "exc": e},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             page.save()  # undo any changes to page
             self.client.logout()
@@ -431,7 +433,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
 
         try:
             self.client.get(preview_path, data={"mode": mode})
@@ -446,7 +448,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             self.client.logout()
 
@@ -455,3 +457,24 @@ class WagtailPageTests(WagtailPageTestCase):
     def setUp(self):
         super().setUp()
         self.login()
+
+
+class PageFixturesMixin:
+    swappable_page_fixtures = {
+        "demosite.json",
+        "test.json",
+        "test_empty.json",
+        "test_explorable_pages.json",
+        "test_specific.json",
+    }
+
+    @classmethod
+    def setUpClass(cls):
+        if cls.fixtures and swapper.is_swapped("wagtailcore", "Page"):
+            cls.fixtures = [
+                f"{fixture.rsplit('.json', maxsplit=1)[0]}_basepage.json"
+                if fixture in cls.swappable_page_fixtures
+                else fixture
+                for fixture in cls.fixtures
+            ]
+        super().setUpClass()

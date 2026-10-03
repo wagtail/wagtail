@@ -5,6 +5,7 @@
 # Translators:
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
+# Mohammad Foroutan, 2026
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>, 2020
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Vessal Daneshvar, 2023\n"
+"Last-Translator: Mohammad Foroutan, 2026\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +29,12 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "default"
-msgstr "پیشفرض"
-
 msgid "Sites"
 msgstr "سایت‌ها"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "دسترسی‌های %(model)s "
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
@@ -40,6 +42,9 @@ msgstr "%(site_setting)s برای %(site)s"
 
 msgid "Site"
 msgstr "سایت"
+
+msgid "default"
+msgstr "پیشفرض"
 
 msgid "Settings"
 msgstr "تنظیمات"

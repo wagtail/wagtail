@@ -12,10 +12,11 @@
 # Bram <bram2w@live.nl>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Filip Van, 2026
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022-2023
 # Huib Keemink <huib@creativedutchmen.com>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2023
+# Maarten Kling <kling.maarten@gmail.com>, 2023,2026
 # mahulst, 2014
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2022,2025
@@ -29,16 +30,16 @@
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
-# Storm Heg <storm@stormbase.digital>, 2021-2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -282,6 +283,11 @@ msgid "Keep the new pages updated with future changes"
 msgstr "Werk nieuwe pagina's bij als er wijzigingen plaatsvinden"
 
 #, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr ""
+"Je hebt geen rechten om pagina's te publiceren onder \"%(page_title)s\""
+
+#, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Je hebt geen rechten om naar deze pagina te kopiëren '%(page_title)s'"
 
@@ -302,7 +308,7 @@ msgstr ""
 msgid "The slug '%(page_slug)s' is already in use within the parent page."
 msgstr ""
 "De slug '%(page_slug)s' is al in gebruik door een andere pagina op dit "
-"niveau in in de paginaboom."
+"niveau in de paginaboom."
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
@@ -640,9 +646,10 @@ msgid ""
 "automatically update if the underlying page changes its URL. Would you like "
 "to do this?"
 msgstr ""
-"Door het omzetten naar een interne link naar %(page)s wordt de link "
-"automatisch aangepast als de URL van de onderliggende pagina wijzigt. Wil je "
-"deze link omzetten?"
+"Door het omzetten naar een interne link die verwijst naar %(page)s wordt de "
+"link automatisch aangepast als de URL van deze pagina wijzigt. Zo voorkom je "
+"niet-werkende links omdat de gelinkte pagina (bijvoorbeeld) verplaatst "
+"wordt. Wil je deze link omzetten (aanbevolen)?"
 
 msgid "Use external link"
 msgstr "Gebruik externe link"
@@ -768,13 +775,16 @@ msgstr "Wil je %(model_name)s nog steeds publiceren?"
 msgid "Cancel"
 msgstr "Annuleren"
 
+msgid "Actions (footer)"
+msgstr "Acties (footer)"
+
+msgid "Comment"
+msgstr "Opmerking"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Acties"
-
-msgid "Comment"
-msgstr "Opmerking"
 
 #, python-format
 msgid ""
@@ -1518,7 +1528,7 @@ msgid ""
 msgstr ""
 "Je kunt de publicatie van deze pagina ook <a "
 "href=\"%(unpublish_url)s\">intrekken</a>. Dit zorgt ervoor dat de pagina "
-"niet meer publiekelijk zichtbaar is en u kunt de pagina later bewerken of "
+"niet meer publiekelijk zichtbaar is en je kan de pagina later bewerken of "
 "opnieuw publiceren."
 
 #, python-format
@@ -1712,8 +1722,12 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s van %(items_count)s over de hele site."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s van %(items_count)s %(model_name)s over de "
+"gehele website."
 
 msgid "No results across entire site."
 msgstr "Geen resultaten in site"
@@ -1724,11 +1738,11 @@ msgstr "Zoeken in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s van %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s%(end_index)s- van %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -1739,8 +1753,8 @@ msgid "Search the whole site"
 msgstr "Zoek door de hele site"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s van %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)svan %(items_count)s%(model_name)s"
 
 msgid "Sites menu"
 msgstr "Sites menu"
@@ -1763,9 +1777,6 @@ msgstr "Deze pagina is beveiligd voor het publiek"
 
 msgid "Confirm"
 msgstr "Bevestig"
-
-msgid "Add child page"
-msgstr "Voeg onderliggende pagina toe"
 
 msgid "Page types"
 msgstr "Pagina types"
@@ -1824,10 +1835,10 @@ msgid "Save schedule"
 msgstr "Schema opslaan"
 
 msgid "Collection management permissions"
-msgstr "Collectie beheer machtigingen"
+msgstr "Collectiebeheermachtigingen"
 
 msgid "Add a collection permission"
-msgstr "Voeg een collectie-machtiging toe"
+msgstr "Voeg een collectiemachtiging toe"
 
 msgid "Last published"
 msgstr "Voor het laatst gepubliceerd"
@@ -1931,6 +1942,12 @@ msgstr "%(field_label)s:"
 msgid "Clear"
 msgstr "Leegmaken"
 
+msgid "Saved"
+msgstr "Opgeslagen"
+
+msgid "Autosave is paused"
+msgstr "Automatisch opslaan gepauzeerd"
+
 msgid "Edit account avatar"
 msgstr "Bewerk account avatar"
 
@@ -1966,8 +1983,8 @@ msgstr "Systeem"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s heeft een nieuwere versie opgeslagen"
 
-msgid "Refresh"
-msgstr "Herladen"
+msgid "View latest version"
+msgstr "Bekijk laatste versie"
 
 msgid "You have unsaved changes in another window"
 msgstr "Je heb niet-opgeslagen wijzigingen in een ander venster"
@@ -1975,6 +1992,9 @@ msgstr "Je heb niet-opgeslagen wijzigingen in een ander venster"
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s heeft niet-opgeslagen wijzigingen"
+
+msgid "Currently idle"
+msgstr "Momenteel niet actief"
 
 msgid "Currently viewing"
 msgstr "Momenteel actief"
@@ -1985,38 +2005,32 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Een andere gebruiker is nu actief"
 msgstr[1] "%(num_user)s andere gebruikers zijn nu actief"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
+msgid "Proceeding will overwrite the changes you made in that window."
 msgstr ""
-"Je hebt wijzigingen opgeslagen in een ander venster. Als je verder gaat in "
-"dit venster worden deze wijzigingen overschreven. Je kunt de pagina herladen "
-"om nieuwe wijzigingen op te halen maar daarmee gaan wijzigingen die je hier "
-"gemaakt hebt verloren."
+"Als je doorgaat, worden de wijzigingen die je in dat venster hebt "
+"aangebracht overschreven."
 
 #, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
 msgstr ""
-"%(user_name)s heeft wijzigingen opgeslagen. Deze wijzigingen worden "
-"overschreven als je verder gaat. Je kunt de pagina herladen om nieuwe "
-"wijzigingen op te halen maar daarmee gaan wijzigingen die je hier gemaakt "
-"hebt verloren."
+"Als je doorgaat, worden de wijzigingen die zijn aangebracht door "
+"%(user_name)s overschreven."
 
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Als je de pagina herlaadt, gaan niet-opgeslagen wijzigingen verloren"
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "Je kunt de nieuwste versie ook in een nieuw tabblad bekijken."
 
-msgid "Refresh page"
-msgstr "Herlaad pagina"
+msgid "A network error occurred"
+msgstr "Er is een netwerkfout opgetreden"
+
+msgid ""
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
+msgstr ""
+"Controleer of je internetverbinding goed werkt voordat je verdergaat. Open "
+"de editor in een apart tabblad om de laatst opgeslagen versie te bekijken."
 
 msgid "Continue"
 msgstr "Verder"
-
-msgid "Refresh the page"
-msgstr "Herlaad de pagina"
 
 msgid "Download XLSX"
 msgstr "Download XLSX"
@@ -2150,8 +2164,8 @@ msgid ""
 "We extract the main content from the page preview, remove all formatting, "
 "and calculate the number of words."
 msgstr ""
-"We halen de hoofdinhoud uit de voorbeeldpagina, verwijderen alle opmaak en "
-"tellen het aantal woorden."
+"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
+"en tellen het aantal woorden."
 
 msgid ""
 "We calculate reading time from word count, using different reading speeds "
@@ -2225,7 +2239,7 @@ msgid "Not visible to the public"
 msgstr "Niet openbaar"
 
 msgid "Choose who can view the live version of this page"
-msgstr "Kies wie de live versie van deze pagina kan bekijken"
+msgstr "Kies wie de live-versie van deze pagina kan bekijken"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
@@ -2257,6 +2271,10 @@ msgid "View details"
 msgstr "Bekijk details"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Nog aan te maken door %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "door %(user)s"
 
@@ -2279,7 +2297,7 @@ msgid "Set schedule"
 msgstr "Stel schema in"
 
 msgid "Preview in new tab"
-msgstr "Voorvertoning in een nieuw tabblad"
+msgstr "Voorbeeld in een nieuw tabblad"
 
 msgid "Loading"
 msgstr "Laden"
@@ -2287,34 +2305,33 @@ msgstr "Laden"
 msgid "Refreshing…"
 msgstr "Herladen..."
 
+msgid "Refresh"
+msgstr "Herladen"
+
 msgid "Preview is out of date"
-msgstr "Voorvertoning is verouderd"
+msgstr "Voorbeeld is verouderd"
 
 msgid ""
 "Correct the validation errors to resume preview (saving will highlight "
 "errors)"
 msgstr ""
-"Corrigeer de validatiefouten om door te gaan met voorvertoning (opslaan zal "
+"Corrigeer de validatiefouten om door te gaan met het voorbeeld (opslaan zal "
 "de fouten markeren)"
 
 msgid "Preview mode"
-msgstr "Voorvertoning modus"
+msgstr "Voorbeeldmodus"
 
 msgid "First published"
 msgstr "Voor het eerst gepubliceerd"
+
+msgid "Autosave is <span>paused</span>"
+msgstr "Automatisch opslaan is <span>gepauzeerd</span>"
 
 msgid "Save your changes before leaving"
 msgstr "Sla je wijzigingen op voordat je deze pagina verlaat"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Je hebt <span> niet-opgeslagen wijzigingen</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Je hebt <span>niet-opgeslagen opmerkingen</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Je hebt <span>niet-opgeslagen wijzigingen</span> en <span>opmerkingen</span>"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2387,10 +2404,10 @@ msgid ""
 "target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
 "in your web browser</a>."
 msgstr ""
-"Javascript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
+"JavaScript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
 "JavaScript ingeschakeld te zijn. <br /><a href=\"https://www.enable-"
 "javascript.com/\" target=\"_blank\" rel=\"noreferrer\">De instructies om "
-"javascript in te schakelen zijn hier te vinden</a>."
+"JavaScript in te schakelen zijn hier te vinden</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2411,8 +2428,8 @@ msgstr "Speciale sortering inschakelen"
 msgid "View Wagtail quick actions"
 msgstr "Bekijk Wagtail snel acties"
 
-msgid "Accessibility"
-msgstr "Toegankelijkheid"
+msgid "Checks"
+msgstr "Checks"
 
 msgid "Warnings"
 msgstr "Waarschuwingen"
@@ -2594,6 +2611,10 @@ msgid "Changes requested"
 msgstr "Wijzigingen gevraagd"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Geannuleerd door %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Goedgekeurd door %(approved_by)s"
 
@@ -2740,9 +2761,6 @@ msgstr "Opmerkingen"
 msgid "Toggle checks"
 msgstr "Checks aan/uitzetten"
 
-msgid "Checks"
-msgstr "Checks"
-
 msgid "Toggle preview"
 msgstr "Toon/verberg voorvertoning"
 
@@ -2765,8 +2783,8 @@ msgid ""
 "Focus on the drag button and press up or down arrows to move the item, then "
 "press enter to submit the change."
 msgstr ""
-"Focus de versleep-knop en gebruik de pijltje omhoog en omlaag toetsen om het "
-"item de verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
+"Focus de versleep-knop en gebruik de toetsen pijltje omhoog en omlaag om het "
+"item te verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
 "slaan."
 
 #, python-format
@@ -2786,7 +2804,7 @@ msgstr ""
 "volgorde."
 
 msgid "Button text is empty"
-msgstr "Knop tekst is leeg"
+msgstr "Knoptekst is leeg"
 
 msgid "Use meaningful text for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2795,10 +2813,10 @@ msgid "Empty heading found"
 msgstr "Lege kop gevonden"
 
 msgid "Table header text is empty"
-msgstr "Tabel kop tekst is leeg"
+msgstr "Tabelkoptekst is leeg"
 
 msgid "Empty frame title found"
-msgstr "Lege frame titel gevonden"
+msgstr "Lege frametitel gevonden"
 
 msgid "Use a meaningful title for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2810,10 +2828,10 @@ msgid "Avoid skipping levels"
 msgstr "Voorkom dat er niveaus worden overgeslagen"
 
 msgid "Input button text is empty"
-msgstr "Invoerknop tekst is leeg"
+msgstr "Invoerknop-tekst is leeg"
 
 msgid "Link text is empty"
-msgstr "Link tekst is leeg"
+msgstr "Link-tekst is leeg"
 
 msgid "Misusing paragraphs as headings"
 msgstr "Paragrafen gebruikt als koppen"
@@ -2822,10 +2840,16 @@ msgid "Use proper heading tags"
 msgstr "Gebruik de daarvoor bedoelde kop-tags"
 
 msgid "Image alt text has inappropriate pattern"
-msgstr "Afbeelding alt tekst bevat een verdacht patroon"
+msgstr "Alt-tekst van de afbeelding bevat een ongepast patroon"
 
 msgid "Use meaningful text"
 msgstr "Gebruik betekenisvolle tekst"
+
+msgid "Meta description is empty"
+msgstr "Meta beschrijving is leeg"
+
+msgid "Add a concise description for search engines"
+msgstr "Voeg een korte beschrijving toe voor zoekmachines"
 
 #, python-format
 msgid "%(classname)s object (%(id)s)"
@@ -2844,7 +2868,7 @@ msgid "Profile picture"
 msgstr "Profielfoto"
 
 msgid "Theme preferences"
-msgstr "Thema voorkeuren"
+msgstr "Themavoorkeuren"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -2897,7 +2921,7 @@ msgid "There are no %(model_name)s to display."
 msgstr "Er zijn geen %(model_name)s om te tonen."
 
 msgid "Live version"
-msgstr "Live versie"
+msgstr "Live-versie"
 
 msgid "Current draft"
 msgstr "Huidig concept"
@@ -2909,7 +2933,7 @@ msgid "Compare with current version"
 msgstr "Vergelijk met huidige versie"
 
 msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
+msgstr "Annuleer geplande publicatie"
 
 msgid "Workflow history"
 msgstr "Workflow-geschiedenis"
@@ -2923,10 +2947,6 @@ msgstr "Bewerken / beoordelen"
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' is nu ontgrendeld."
-
-#, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -2976,6 +2996,13 @@ msgstr "Workflow voor %(model_name)s '%(object)s' is opnieuw gestart."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Workflow voor %(model_name)s '%(object)s' is geannuleerd."
+
+msgid "Saving will overwrite a newer version."
+msgstr "Door op te slaan wordt een nieuwere versie overschreven."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
 
 #, python-format
 msgid ""
@@ -3031,6 +3058,9 @@ msgstr "%(model_name)s kon niet worden aangemaakt vanwege fouten."
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nieuw: %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr "Er zijn validatiefouten, klik op 'opslaan' om ze te markeren."
 
 msgid "Editing"
 msgstr "Wijzigen"
@@ -3203,6 +3233,10 @@ msgstr ""
 msgid "Page '%(page_title)s' copied."
 msgstr "Pagina '%(page_title)s' gekopieerd."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Verzoek om %(model_name)s aan te maken is geblokkeerd door een hook."
+
 msgid "View draft"
 msgstr "Bekijk concept"
 
@@ -3247,6 +3281,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Pagina '%(page_title)s' is gewijzigd."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Verzoek om %(model_name)s te bewerken is geblokkeerd door een hook."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
@@ -3323,6 +3361,9 @@ msgstr "Pagina type"
 msgid "Exploring"
 msgstr "Verkennen"
 
+msgid "Add child page"
+msgstr "Voeg onderliggende pagina toe"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Pagina '%(page_title)s' is nu geopend."
@@ -3358,7 +3399,7 @@ msgid "Pages using"
 msgstr "Pagina's van het type"
 
 msgid "Page types usage"
-msgstr "Pagina type gebruik"
+msgstr "Paginatypegebruik"
 
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
@@ -3382,7 +3423,7 @@ msgid "Last published at"
 msgstr "Voor het laatst gepubliceerd op"
 
 msgid "Site history"
-msgstr "Site geschiedenis"
+msgstr "Sitegeschiedenis"
 
 msgid "ID"
 msgstr "ID"
@@ -3392,6 +3433,12 @@ msgstr "Actietype"
 
 msgid "Date/Time"
 msgstr "Datum/tijd"
+
+msgid "Locked by"
+msgstr "Vergrendeld door"
+
+msgid "Anyone"
+msgstr "Iedereen"
 
 msgid "Locked pages"
 msgstr "Vergrendelde pagina's"
@@ -3568,7 +3615,7 @@ msgid "Link"
 msgstr "Link"
 
 msgid "Strikethrough"
-msgstr "Doorgestreept"
+msgstr "Doorstreept"
 
 msgid "Code"
 msgstr "Code"

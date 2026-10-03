@@ -1,6 +1,6 @@
 import { DraftUtils } from 'draftail';
-import { splitState } from '../CommentableEditor/CommentableEditor';
 import { gettext } from '../../../utils/gettext';
+import { splitState } from '../CommentableEditor/CommentableEditor';
 
 /**
  * Definition for a command in the Draftail context menu that inserts a block.

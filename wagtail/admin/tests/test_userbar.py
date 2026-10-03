@@ -9,14 +9,16 @@ from django.utils.translation import gettext
 
 from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.userbar import AccessibilityItem, Userbar
+from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.side_panels import ChecksSidePanel
+from wagtail.admin.userbar import AccessibilityItem, ContentCheckerItem, Userbar
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
+from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Site
 from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -66,7 +68,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail admin core CSS should be linked with absolute URL to
                 # ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                f"http://localhost{versioned_static('wagtailadmin/css/core.css')}",
+                f"//localhost{versioned_static('wagtailadmin/css/core.css')}",
                 # Custom CSS must be changed appropriately if necessary
                 "/path/to/my/custom.css",
             ],
@@ -79,8 +81,8 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail vendor and userbar JS should be linked with absolute
                 # URL to ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                f"http://localhost{versioned_static('wagtailadmin/js/vendor.js')}",
-                f"http://localhost{versioned_static('wagtailadmin/js/userbar.js')}",
+                f"//localhost{versioned_static('wagtailadmin/js/vendor.js')}",
+                f"//localhost{versioned_static('wagtailadmin/js/userbar.js')}",
             ],
         )
 
@@ -135,7 +137,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # Should render the "Go to Wagtail admin" link using an absolute URL
         soup = self.get_soup(content)
         admin_url = reverse("wagtailadmin_home")
-        admin_link = soup.select_one(f"a[href='http://localhost{admin_url}']")
+        admin_link = soup.select_one(f"a[href='//localhost{admin_url}']")
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
@@ -153,12 +155,12 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         soup = self.get_soup(content)
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        edit_link = soup.select_one(f"a[href='//localhost{edit_url}']")
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -178,12 +180,12 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         soup = self.get_soup(content)
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        edit_link = soup.select_one(f"a[href='//localhost{edit_url}']")
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -210,7 +212,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # The explore link should still be visible
         soup = self.get_soup(content)
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -227,10 +229,17 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
 
-        self.assertIn("<aside hidden>", content)
+        soup = self.get_soup(content)
+        aside = soup.find("aside")
+        self.assertIsNotNone(aside)
+        self.assertIn("hidden", aside.attrs)
+        self.assertEqual(aside.get("aria-labelledby"), "wagtail-userbar-trigger")
+        trigger = soup.find(id="wagtail-userbar-trigger")
+        self.assertIsNotNone(trigger)
+        self.assertEqual(trigger.get_text(strip=True), "View Wagtail quick actions")
 
 
-class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
+class TestContentCheckerConfig(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.request = get_dummy_request()
@@ -246,19 +255,19 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
     def get_script(self):
         soup = self.get_content()
         # Should include the configuration as a JSON script with the specific id
-        return soup.find("script", id="accessibility-axe-configuration")
+        return soup.find("script", id="checker-axe-configuration")
 
     def get_config(self):
         return json.loads(self.get_script().string)
 
     def get_hook(self, item_class):
-        def customise_accessibility_checker(request, items, page):
+        def customise_content_checker(request, items, page):
             items[:] = [
-                item_class() if isinstance(item, AccessibilityItem) else item
+                item_class() if isinstance(item, ContentCheckerItem) else item
                 for item in items
             ]
 
-        return customise_accessibility_checker
+        return customise_content_checker
 
     def test_position(self):
         content = self.get_content(position="top-left")
@@ -268,9 +277,9 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         self.assertIsNotNone(target)
         self.assertIn("w-userbar--top-left", target.get("class"))
 
-        # The accessibility results dialog should be teleported to the
+        # The checker results dialog should be teleported to the
         # [data-wagtail-userbar] element so that it is positioned correctly
-        dialog_content = content.select_one("#accessibility-results")
+        dialog_content = content.select_one("#checker-results")
         self.assertIsNotNone(dialog_content)
         template = dialog_content.parent
         self.assertIsNotNone(template)
@@ -302,9 +311,13 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             config["messages"]["empty-heading"]["help_text"],
             "Use meaningful text for screen reader users",
         )
+        self.assertEqual(
+            config["messages"]["empty-meta-description"]["error_name"],
+            "Meta description is empty",
+        )
 
     def test_custom_message(self):
-        class CustomMessageAccessibilityItem(AccessibilityItem):
+        class CustomMessageContentCheckerItem(ContentCheckerItem):
             # Override via class attribute
             axe_messages = {
                 "empty-heading": {
@@ -325,7 +338,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
-            self.get_hook(CustomMessageAccessibilityItem),
+            self.get_hook(CustomMessageContentCheckerItem),
         ):
             config = self.get_config()
             self.assertEqual(
@@ -342,8 +355,34 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                 },
             )
 
+    def test_checks_side_panel_respects_custom_config(self):
+        class CustomMessageContentCheckerItem(ContentCheckerItem):
+            axe_messages = {
+                "empty-heading": {
+                    "error_name": "Headings should not be empty!",
+                    "help_text": "Use meaningful text!",
+                },
+            }
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomMessageContentCheckerItem),
+        ):
+            panel = ChecksSidePanel(object=Page.objects.get(id=2), request=self.request)
+            config = panel.get_axe_configuration()
+
+        self.assertEqual(
+            config["messages"],
+            {
+                "empty-heading": {
+                    "error_name": "Headings should not be empty!",
+                    "help_text": "Use meaningful text!",
+                },
+            },
+        )
+
     def test_unset_run_only(self):
-        class UnsetRunOnlyAccessibilityItem(AccessibilityItem):
+        class UnsetRunOnlyContentCheckerItem(ContentCheckerItem):
             # Example config that unsets the runOnly property so that all
             # non-experimental rules are run, but the experimental
             # focus-order-semantics rule is explicitly enabled
@@ -352,7 +391,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
-            self.get_hook(UnsetRunOnlyAccessibilityItem),
+            self.get_hook(UnsetRunOnlyContentCheckerItem),
         ):
             config = self.get_config()
             self.assertEqual(
@@ -363,7 +402,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             )
 
     def test_custom_context(self):
-        class CustomContextAccessibilityItem(AccessibilityItem):
+        class CustomContextContentCheckerItem(ContentCheckerItem):
             axe_include = ["article", "section"]
             axe_exclude = [".sr-only"]
 
@@ -372,7 +411,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
-            self.get_hook(CustomContextAccessibilityItem),
+            self.get_hook(CustomContextContentCheckerItem),
         ):
             config = self.get_config()
             self.assertEqual(
@@ -384,7 +423,12 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         # Override via class attribute
                         ".sr-only",
                         # Should include the default exclude selectors
-                        {"fromShadowDom": ["wagtail-userbar"]},
+                        {
+                            "fromShadowDom": [
+                                "wagtail-userbar",
+                                "wagtail-inline-userbar",
+                            ]
+                        },
                         # Override via method
                         "[data-please-ignore]",
                     ],
@@ -392,7 +436,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             )
 
     def test_custom_run_only_and_rules_per_request(self):
-        class CustomRunOnlyAccessibilityItem(AccessibilityItem):
+        class CustomRunOnlyContentCheckerItem(ContentCheckerItem):
             # Enable all rules within these tags
             axe_run_only = [
                 "wcag2a",
@@ -416,13 +460,13 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
-            self.get_hook(CustomRunOnlyAccessibilityItem),
+            self.get_hook(CustomRunOnlyContentCheckerItem),
         ):
             config = self.get_config()
             self.assertEqual(
                 config["options"],
                 {
-                    "runOnly": CustomRunOnlyAccessibilityItem.axe_run_only,
+                    "runOnly": CustomRunOnlyContentCheckerItem.axe_run_only,
                     "rules": {},
                 },
             )
@@ -439,13 +483,13 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             self.assertEqual(
                 config["options"],
                 {
-                    "runOnly": CustomRunOnlyAccessibilityItem.axe_run_only,
-                    "rules": CustomRunOnlyAccessibilityItem.axe_rules,
+                    "runOnly": CustomRunOnlyContentCheckerItem.axe_run_only,
+                    "rules": CustomRunOnlyContentCheckerItem.axe_rules,
                 },
             )
 
     def test_custom_rules_and_checks(self):
-        class CustomRulesAndChecksAccessibilityItem(AccessibilityItem):
+        class CustomRulesAndChecksContentCheckerItem(ContentCheckerItem):
             # Override via class attribute
             axe_custom_checks = [
                 {
@@ -477,7 +521,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
-            self.get_hook(CustomRulesAndChecksAccessibilityItem),
+            self.get_hook(CustomRulesAndChecksContentCheckerItem),
         ):
             self.maxDiff = None
             config = self.get_config()
@@ -491,6 +535,14 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                             "selector": "img[alt]",
                             "tags": ["best-practice"],
                             "any": ["check-image-alt-text"],
+                            "enabled": True,
+                        },
+                        {
+                            "id": "empty-meta-description",
+                            "impact": "moderate",
+                            "selector": "h1",
+                            "tags": ["seo"],
+                            "any": ["check-empty-meta-description"],
                             "enabled": True,
                         },
                         {
@@ -514,6 +566,16 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                     ],
                 },
             )
+
+    def test_deprecated_accessibility_item(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "The userbar item 'AccessibilityItem' is deprecated."
+            " Please use 'ContentCheckerItem' instead.",
+        ):
+
+            class LegacyOverrideItem(AccessibilityItem):
+                pass
 
 
 class TestUserbarInPageServe(WagtailTestUtils, TestCase):
@@ -559,29 +621,6 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
             response.render()
 
             self.assertEqual(kwargs.get("page"), self.page)
-
-    def test_deprecated_construct_wagtail_userbar_hook_without_page(self):
-        kwargs = {}
-
-        def construct_wagtail_userbar(request, items):
-            kwargs["called"] = True
-            return items
-
-        with (
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`construct_wagtail_userbar` hook functions should accept a "
-                "`page` argument in third position",
-            ),
-            hooks.register_temporarily(
-                "construct_wagtail_userbar",
-                construct_wagtail_userbar,
-            ),
-        ):
-            response = self.page.serve(self.request)
-            response.render()
-
-            self.assertTrue(kwargs.get("called"))
 
     @override_settings(
         WAGTAIL_I18N_ENABLED=True,
@@ -657,33 +696,8 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(kwargs.get("called"))
 
-    def test_deprecated_construct_wagtail_userbar_hook_without_page(self):
-        kwargs = {}
 
-        def construct_wagtail_userbar(request, items):
-            kwargs["called"] = True
-            return items
-
-        with (
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`construct_wagtail_userbar` hook functions should accept a "
-                "`page` argument in third position",
-            ),
-            hooks.register_temporarily(
-                "construct_wagtail_userbar",
-                construct_wagtail_userbar,
-            ),
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(kwargs.get("called"))
-
-
-class TestUserbarAddLink(WagtailTestUtils, TestCase):
+class TestUserbarAddLink(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -705,11 +719,11 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # page allows subpages, so the 'add page' button should show
-        expected_url = self.request.build_absolute_uri(
-            reverse("wagtailadmin_pages:add_subpage", args=(self.event_index.id,))
+        expected_url = reverse(
+            "wagtailadmin_pages:add_subpage", args=(self.event_index.id,)
         )
         needle = f"""
-            <a href="{expected_url}" target="_parent" role="menuitem">
+            <a href="//localhost{expected_url}" target="_parent" role="menuitem">
                 <svg class="icon icon-plus w-action-icon" aria-hidden="true">
                     <use href="#icon-plus"></use>
                 </svg>
@@ -749,19 +763,19 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
-        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_url = f"//localhost{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
-        accessibility_item = items[-1]
-        button = accessibility_item.select_one("button")
+        checker_item = items[-1]
+        button = checker_item.select_one("button")
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
     def test_render_no_request(self):
@@ -785,12 +799,12 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
-        accessibility_item = items[-1]
-        button = accessibility_item.select_one("button")
+        checker_item = items[-1]
+        button = checker_item.select_one("button")
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
@@ -825,24 +839,24 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         userbar = soup.select_one("[data-wagtail-userbar]")
         self.assertIsNotNone(userbar)
         # The origin should be based on the request's scheme and host information
-        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "http://localhost")
+        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "//localhost")
 
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
-        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_url = f"//localhost{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
-        accessibility_item = items[-1]
-        button = accessibility_item.select_one("button")
+        checker_item = items[-1]
+        button = checker_item.select_one("button")
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
     def test_render_with_page(self):
@@ -861,14 +875,14 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(len(links), 4)
         self.assertEqual(
             [link.get("href") for link in links],
-            [f"http://localhost{url}" for url in expected_urls],
+            [f"//localhost{url}" for url in expected_urls],
         )
 
-        accessibility_button = soup.select_one("li button")
-        self.assertIsNotNone(accessibility_button)
+        checker_button = soup.select_one("li button")
+        self.assertIsNotNone(checker_button)
         self.assertEqual(
-            accessibility_button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            checker_button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Checks",
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL=None)
@@ -894,12 +908,12 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
-        accessibility_item = items[-1]
-        button = accessibility_item.select_one("button")
+        checker_item = items[-1]
+        button = checker_item.select_one("button")
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
@@ -923,3 +937,40 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
                 versioned_static("wagtailadmin/js/userbar.js"),
             ],
         )
+
+    def test_component_item(self):
+        class TestItem(Component):
+            def render_html(self, parent_context):
+                return "<li><a href='#test-item'>Test item</a></li>"
+
+        def hook(request, items, page):
+            items.append(TestItem())
+
+        with hooks.register_temporarily("construct_wagtail_userbar", hook):
+            rendered = Userbar(object=self.homepage).render_html(
+                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+            )
+            soup = self.get_soup(rendered)
+
+        self.assertIsNotNone(soup.css.select_one("a[href='#test-item']"))
+
+    def test_component_item_with_media(self):
+        class ItemWithMedia(Component):
+            def render_html(self, parent_context):
+                return ""
+
+            class Media:
+                js = ["custom-item.js"]
+                css = {"all": ["custom-item.css"]}
+
+        def hook(request, items, page):
+            items.append(ItemWithMedia())
+
+        with hooks.register_temporarily("construct_wagtail_userbar", hook):
+            rendered = Userbar(object=self.homepage).render_html(
+                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+            )
+            soup = self.get_soup(rendered)
+
+        self.assertIsNotNone(soup.css.select_one('script[src$="custom-item.js"]'))
+        self.assertIsNotNone(soup.css.select_one('link[href$="custom-item.css"]'))

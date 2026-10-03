@@ -1,4 +1,8 @@
+from collections import defaultdict
+from itertools import islice
+
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from django.http import Http404
 
 # Note: avoid importing models here. This module is imported from __init__.py
 # which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
@@ -7,8 +11,11 @@ from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
 
 class Sitemap(DjangoSitemap):
-    def __init__(self, request=None):
+    chunk_size = 2000
+
+    def __init__(self, request=None, alternates=False):
         self.request = request
+        self.alternates = alternates
 
     def location(self, obj):
         return obj.get_full_url(self.request)
@@ -23,7 +30,15 @@ class Sitemap(DjangoSitemap):
 
         site = Site.find_for_request(self.request)
         if site is None:
-            return Site.objects.select_related("root_page").get(is_default_site=True)
+            try:
+                return Site.objects.select_related("root_page").get(
+                    is_default_site=True
+                )
+            except Site.DoesNotExist:
+                raise Http404(
+                    "No Wagtail site found for this request, "
+                    "and no default site is configured."
+                ) from None
         return site
 
     def items(self):
@@ -37,11 +52,46 @@ class Sitemap(DjangoSitemap):
             .specific()
         )
 
+    def get_translations(self, page_instances):
+        if not page_instances:
+            return  # nothing to do
+
+        model = page_instances[0].get_translation_model()
+        translations = (
+            model.objects.filter(
+                translation_key__in=[page.translation_key for page in page_instances]
+            )
+            .select_related("locale")
+            .live()
+            .public()
+            .defer_streamfields()
+            .specific()
+        )
+        return translations
+
+    def prefetch_translated_objects(self, page_instances):
+        """
+        Populate translated page caches for a list of page instances
+        """
+        trans_obj_cache = defaultdict(list)
+        for trans_obj in self.get_translations(page_instances):
+            trans_obj_cache[trans_obj.translation_key].append(trans_obj)
+        for page in page_instances:
+            page._translations_cache = trans_obj_cache[page.translation_key]
+
+    def translated_iterator(self, iterator):
+        while results := list(islice(iterator, self.chunk_size)):
+            self.prefetch_translated_objects(results)
+            yield from results
+
     def _urls(self, page, protocol, domain):
         urls = []
         last_mods = set()
 
-        for item in self.paginator.page(page).object_list.iterator():
+        iterator = self.paginator.page(page).object_list.iterator(self.chunk_size)
+        if self.alternates:
+            iterator = self.translated_iterator(iterator)
+        for item in iterator:
             url_info_items = item.get_sitemap_urls(self.request)
 
             for url_info in url_info_items:

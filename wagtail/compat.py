@@ -9,10 +9,10 @@ AUTH_USER_MODEL = getattr(settings, "AUTH_USER_MODEL", "auth.User")
 # specifying the user model in the FakeORM
 try:
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME = AUTH_USER_MODEL.rsplit(".", 1)
-except ValueError:
+except ValueError as e:
     raise ImproperlyConfigured(
         "AUTH_USER_MODEL must be of the form 'app_label.model_name'"
-    )
+    ) from e
 
 
 try:
@@ -36,8 +36,8 @@ URLField = forms.URLField
 # Prevent deprecation warning about the default scheme changing from "http" to
 # "https" in Django 5.0, while also avoiding the need to set the
 # FORMS_URLFIELD_ASSUME_HTTPS that would raise a different deprecation warning.
-# Remove the following block when the minimum Django version is >= 5.0.
-if (5, 0) <= DJANGO_VERSION < (6, 0):
+# Remove the following block when the minimum Django version is >= 6.0.
+if DJANGO_VERSION < (6, 0):
 
     class URLField(forms.URLField):
         def __init__(self, *args, **kwargs):

@@ -9,11 +9,11 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```{eval-rst}
-.. class:: wagtail.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
+.. class:: wagtail.fields.StreamField(block_types, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
-   :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
+   :param block_types: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
@@ -22,14 +22,17 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```python
-body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-], block_counts={
-    'heading': {'min_num': 1},
-    'image': {'max_num': 5},
-})
+body = StreamField(
+    [
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ],
+    block_counts={
+        "heading": {"min_num": 1},
+        "image": {"max_num": 5},
+    },
+)
 ```
 
 ## Block options and methods
@@ -69,7 +72,9 @@ All block definitions have the following methods and properties that can be over
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. automethod:: wagtail.blocks.Block.clean
     .. autoattribute:: wagtail.blocks.Block.is_previewable
+    .. autoattribute:: wagtail.blocks.Block.is_deferred_validation
 ```
 
 (field_block_types)=
@@ -81,6 +86,10 @@ All block definitions have the following methods and properties that can be over
     :show-inheritance:
 
     The parent class of all StreamField field block types.
+
+    In addition to the standard optional keyword arguments or ``Meta`` class attributes, field blocks also accept:
+    
+    :param required_on_save: Whether required constraints should be enforced on this field when saving as draft, similar to :attr:`FieldPanel.required_on_save <wagtail.admin.panels.FieldPanel.required_on_save>`. Defaults to ``False``.
 
 
 .. autoclass:: wagtail.blocks.CharBlock
@@ -513,14 +522,22 @@ All block definitions have the following methods and properties that can be over
 
     The following additional options are available as either keyword arguments or Meta class attributes:
 
-    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface, defaults to ``struct-block``. When overriding, you may need to include the default ``struct-block`` class if you have custom code or use a third-party package that relies on it. See :ref:`structblock_custom_classes_and_attributes`.
+    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`structblock_custom_classes_and_attributes`.
+    :param form_template: Path to a Django template to use to render this block's form. See :ref:`structblock_custom_template`.
+    :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`structblock_initial_collapsible`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
      Determines the summary label shown after the ``label`` when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "{surname}, {first_name}"``. If you wish to hide the summary label entirely, set this to the empty string ``""``.
+    :param form_layout:
+     A list of block names or ``BlockGroup`` instances to determine the order in which sub-blocks are displayed in the editing interface. Alternatively, a ``BlockGroup`` instance can be provided instead of a list, to define a group of ``children`` and ``settings`` blocks. See :ref:`structblock_custom_order_and_grouping` and :class:`BlockGroup` for more details.
+
+    .. automethod:: get_form_layout
+    
+    .. automethod:: get_api_representation
+
+    For more information, see :ref:`apiv2_streamfield_configuration`.
 
 
 .. autoclass:: wagtail.blocks.ListBlock
@@ -638,4 +655,18 @@ All block definitions have the following methods and properties that can be over
 
             class Meta:
                 form_classname = 'event-promotions'
+```
+
+## Supporting components
+
+### `BlockGroup`
+
+```{eval-rst}
+.. autoclass:: wagtail.blocks.BlockGroup
+    :class-doc-from: both
+
+    Methods
+    =======
+
+    .. automethod:: get_sorted_block_names
 ```

@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
@@ -9,10 +8,10 @@ from wagtail.test.testapp.models import (
     NoSubpageTypesPage,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPageReorder(WagtailTestUtils, TestCase):
+class TestPageReorder(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def __init__(self, methodName: str = ...) -> None:
@@ -54,7 +53,7 @@ class TestPageReorder(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 405)
 
         # Ensure page order does not change:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)

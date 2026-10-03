@@ -8,11 +8,15 @@ from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn
 
 
 class OrderingColumn(BaseColumn):
+    """A column that displays a reordering control for each row."""
+
     header_template_name = "wagtailadmin/tables/ordering_header.html"
     cell_template_name = "wagtailadmin/tables/ordering_cell.html"
 
 
 class OrderableTableMixin:
+    """A mixin class that adds a reordering functionality to a table."""
+
     success_message = gettext_lazy("'%(page_title)s' has been moved successfully.")
 
     def __init__(self, *args, sort_order_field=None, reorder_url=None, **kwargs):

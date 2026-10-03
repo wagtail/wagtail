@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -639,6 +639,10 @@ msgstr "เพิ่มหน้าย่อยที่ '%(title)s'"
 msgid "Sites menu"
 msgstr "เมนูของเว็บไซด์"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "หน้า %(page_number)s ของ %(num_pages)s."
+
 msgid "Previous"
 msgstr "หน้าก่อนหน้านี้"
 
@@ -647,9 +651,6 @@ msgstr "ถัดไป"
 
 msgid "This page is protected from public view"
 msgstr "หน้านี้ถูกป้องกันจากสาธารณะ"
-
-msgid "Add child page"
-msgstr "หน้าย่อย"
 
 msgid "Page types"
 msgstr "รูปแบบหน้า"
@@ -747,6 +748,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "โดย %(user)s"
+
 msgid "No publishing schedule set"
 msgstr "ไม่ได้ตั้งกำหนดการเผยแพร่"
 
@@ -755,9 +760,6 @@ msgstr "เผยแพร่ครั้งแรก"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
@@ -844,6 +846,14 @@ msgid "Cancel scheduled publish"
 msgstr "ยกเลิกกำหนดการเผยแพร่"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' อัพเดท"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' ถูกสร้างขึ้น"
+
+#, python-format
 msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
 msgstr "%(model_name)s '%(object)s' กำลังมีกำหนดการที่จะเผยแพร่"
 
@@ -869,8 +879,28 @@ msgstr "%(model_name)s '%(object)s' ถูกสร้างและเผย�
 msgid "Inspect"
 msgstr "ตรวจ"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "เพิ่ม %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "ไม่ %(model_name)s สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
 msgid "Editing"
 msgstr "กำลังแก้ไข"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "ไม่%(model_name)s สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' ถูกลบทิ้ง"
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบสิ่งนี้%(model_name)s?"
 
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
@@ -880,6 +910,10 @@ msgstr "ล่าสุด"
 
 msgid "Unschedule"
 msgstr "ยกเลิกตาราง"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "การแก้ไข%(revision_id)sของหน้า%(object)s"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -925,6 +959,10 @@ msgstr ""
 "ถูกลบแล้ว"
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "กำลังแก้ไข %(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "หน้า%(page_title)sได้อัพเดทแล้ว"
 
@@ -949,6 +987,9 @@ msgstr "หน้า'%(page_title)s'ถูกส่งสำหรับตร�
 msgid "Site"
 msgstr "เว็บไซด์"
 
+msgid "Add child page"
+msgstr "หน้าย่อย"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "หน้า'%(page_title)s'ตอนนี้ได้ถูกปลดล็อกแล้ว"
@@ -969,6 +1010,10 @@ msgstr "หน้านี้กำลังถูกใช้อยู่"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "กำลังแก้ไข %(task_type)s"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { gettext } from '../../utils/gettext';
 import { LOCALE_NAMES, WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 import Link from '../Link/Link';
 import PublicationStatus from '../PublicationStatus/PublicationStatus';

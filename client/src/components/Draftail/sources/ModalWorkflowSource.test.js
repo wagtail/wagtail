@@ -1,21 +1,21 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
-import { DraftUtils as DraftailUtils } from 'draftail';
 import {
-  EditorState,
-  convertFromRaw,
   AtomicBlockUtils,
-  RichUtils,
+  EditorState,
   Modifier,
+  RichUtils,
+  convertFromRaw,
 } from 'draft-js';
-import {
-  ImageModalWorkflowSource,
-  EmbedModalWorkflowSource,
-  LinkModalWorkflowSource,
-  DocumentModalWorkflowSource,
-} from './ModalWorkflowSource';
+import { DraftUtils as DraftailUtils } from 'draftail';
+import { shallow } from 'enzyme';
+import React from 'react';
+
 import * as DraftUtils from '../DraftUtils';
+import {
+  DocumentModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  ImageModalWorkflowSource,
+  LinkModalWorkflowSource,
+} from './ModalWorkflowSource';
 
 global.ModalWorkflow = () => {};
 

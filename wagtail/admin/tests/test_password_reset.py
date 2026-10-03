@@ -5,10 +5,10 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestUserPasswordReset(WagtailTestUtils, TestCase):
+class TestUserPasswordReset(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF

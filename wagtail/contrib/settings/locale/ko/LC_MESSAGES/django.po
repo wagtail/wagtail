@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,14 +21,14 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "default"
-msgstr "기본"
-
 msgid "Sites"
 msgstr "사이트"
 
 msgid "Site"
 msgstr "사이트"
+
+msgid "default"
+msgstr "기본"
 
 msgid "Settings"
 msgstr "설정"

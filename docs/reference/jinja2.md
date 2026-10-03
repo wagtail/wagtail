@@ -15,16 +15,16 @@ TEMPLATES = [
         # ... the rest of the existing Django template configuration ...
     },
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'extensions': [
-                'wagtail.jinja2tags.core',
-                'wagtail.admin.jinja2tags.userbar',
-                'wagtail.images.jinja2tags.images',
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "extensions": [
+                "wagtail.jinja2tags.core",
+                "wagtail.admin.jinja2tags.userbar",
+                "wagtail.images.jinja2tags.images",
             ],
         },
-    }
+    },
 ]
 ```
 
@@ -40,7 +40,7 @@ In Django templates, `self` can be used to refer to the current page, stream blo
 
 ### `fullpageurl()`
 
-Generate an absolute URL (`http://example.com/foo/bar/`) for a Page instance:
+Generate an absolute URL (`https://example.com/foo/bar/`) for a Page instance:
 
 ```html+jinja
 <meta property="og:url" content="{{ fullpageurl(page) }}" />

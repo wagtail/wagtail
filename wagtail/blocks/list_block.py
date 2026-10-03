@@ -103,6 +103,12 @@ class ListValue(MutableSequence):
                 "id": self.id,
             }
 
+        def render(self, context=None):
+            context = dict(context or {})
+            if "id" not in context:
+                context["id"] = self.id
+            return super().render(context)
+
     def __init__(self, list_block, values=None, bound_blocks=None):
         self.list_block = list_block
 
@@ -197,6 +203,11 @@ class ListBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return ("%s-count" % prefix) not in data
 
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        if not self.child_block.is_deferred_validation:
+            self.child_block.defer_required_validation()
+
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
@@ -217,7 +228,11 @@ class ListBlock(Block):
             except ValidationError as e:
                 block_errors[index] = e
 
-        if self.meta.min_num is not None and self.meta.min_num > len(value):
+        if (
+            not self.is_deferred_validation
+            and self.meta.min_num is not None
+            and self.meta.min_num > len(value)
+        ):
             non_block_errors.append(
                 ValidationError(
                     _("The minimum number of items is %(min_num)d")
@@ -239,6 +254,11 @@ class ListBlock(Block):
             )
 
         return ListValue(self, bound_blocks=result)
+
+    def restore_deferred_validation(self):
+        if self.child_block.is_deferred_validation:
+            self.child_block.restore_deferred_validation()
+        super().restore_deferred_validation()
 
     def normalize(self, value):
         if isinstance(value, ListValue):
@@ -458,14 +478,6 @@ class ListBlockAdapter(Adapter):
             "classname": block.meta.form_classname,
             "attrs": block.meta.form_attrs or {},
             "collapsed": block.meta.collapsed,
-            "strings": {
-                "MOVE_UP": _("Move up"),
-                "MOVE_DOWN": _("Move down"),
-                "DRAG": _("Drag"),
-                "DUPLICATE": _("Duplicate"),
-                "DELETE": _("Delete"),
-                "ADD": _("Add"),
-            },
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:

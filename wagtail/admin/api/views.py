@@ -1,13 +1,15 @@
 from collections import OrderedDict
 
+import swapper
 from django.conf import settings
 from django.http import Http404
 from django.urls import path
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 
+from wagtail.api.v2.utils import parse_boolean
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.models import Page
+from wagtail.permissions import policy_registry
 
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
@@ -20,6 +22,8 @@ from .actions.revert_to_page_revision import RevertToPageRevisionAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PagesAdminAPIViewSet(PagesAPIViewSet):
@@ -69,7 +73,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     detail_only_fields = []
 
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union(
-        ["for_explorer", "has_children"]
+        ["for_explorer", "has_children", "include_root"]
     )
 
     @classmethod
@@ -95,14 +99,15 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        return Page.objects.all()
+        return policy_registry.get_by_type(Page).explorable_instances(self.request.user)
 
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        # Hide root page
-        # TODO: Add "include_root" flag
-        queryset = queryset.exclude(depth=1).defer_streamfields().specific()
+        if not parse_boolean(self.request.GET.get("include_root", "false")):
+            queryset = queryset.exclude(depth=1)
+
+        queryset = queryset.defer_streamfields().specific()
 
         return queryset
 

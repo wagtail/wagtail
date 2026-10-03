@@ -6,7 +6,6 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
     SimplePage,
@@ -14,7 +13,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestPageDelete(WagtailTestUtils, TestCase):

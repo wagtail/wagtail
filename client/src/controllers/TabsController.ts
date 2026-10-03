@@ -70,14 +70,14 @@ export class TabsController extends Controller {
   /** Tab content panels, with role='tabpanel', showing the content for each tab. */
   declare readonly panelTargets: HTMLElement[];
   /** Any elements within the controller's scope that may select a specific panel. */
-  declare readonly triggerTargets: (HTMLButtonElement | HTMLAnchorElement)[];
+  declare readonly triggerTargets: Array<HTMLButtonElement | HTMLAnchorElement>;
   /** If true, the selected tab will sync with the URL hash and the URL hash will be checked on load for a selected tab panel (or panel contents). */
   declare readonly useLocationValue: boolean;
 
   /** The key for reading/applying history state if `locationSync` is enabled, based on the controller's identifier. */
-  historyStateKey: string = 'tabs-panel-id';
+  historyStateKey = 'tabs-panel-id';
   /** Trigger elements that are the primary tabs, with role='tab' within the role='tablist'. */
-  tabs: (HTMLButtonElement | HTMLAnchorElement)[] = [];
+  tabs: Array<HTMLButtonElement | HTMLAnchorElement> = [];
 
   declare panelTargetConnected: (target: HTMLElement) => void;
   declare panelTargetDisconnected: (target: HTMLElement) => void;
@@ -123,6 +123,9 @@ export class TabsController extends Controller {
 
     const resetTabs = debounce(() => {
       this.tabs = this.validatedTabs;
+      // Ensure hidden attribute of newly-added tabs are set/unset correctly
+      // and switch to the first panel if the active one has been removed
+      this.setInitialPanel();
     }, 10);
 
     this.panelTargetConnected = resetTabs;
@@ -169,7 +172,15 @@ export class TabsController extends Controller {
 
     const panel = panelTargets.find(({ id }) => id === currentPanelId);
 
-    if (!panel) return;
+    if (!panel) {
+      if (!previousPanelId) {
+        // Initial setup with an invalid panel id, or the currently selected tab
+        // has been removed, fall back to selecting the first panel
+        this.selectFirst();
+      }
+      // Panel not found for the new id, keep the current state as-is
+      return;
+    }
 
     // Deactivate currently active panel & set all associated triggers (not just tabs) as not selected
     // Active newly active panel & set associated triggers (not just tabs) as selected, dispatch events

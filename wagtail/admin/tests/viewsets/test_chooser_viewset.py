@@ -88,3 +88,21 @@ class TestChooserViewSetWithFilteredObjects(WagtailTestUtils, TestCase):
         response = self.client.get(f"{chooser_url}?locale=en")
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0].text, "English snippet")
+
+
+class TestChooserViewSetWithDottedStringFormClass(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_creation_form_class_resolved_from_string(self):
+        from django.utils.module_loading import import_string
+
+        from wagtail.test.testapp.views import advert_chooser_viewset
+
+        resolved = advert_chooser_viewset._creation_form_class
+        expected = import_string("wagtail.test.testapp.views.AdvertModelForm")
+        self.assertEqual(resolved, expected)
+
+    def test_chooser_create_view_loads(self):
+        response = self.client.get("/admin/advert_chooser/create/")
+        self.assertEqual(response.status_code, 200)

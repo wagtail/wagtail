@@ -3,6 +3,8 @@ import pickle
 from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.models import Site
+from wagtail.permission_policies.sites import SitePermissionPolicy
+from wagtail.permissions import policy_registry
 from wagtail.test.testapp.models import ImportantPagesSiteSetting, TestSiteSetting
 
 from .base import SiteSettingsTestMixin
@@ -83,7 +85,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 f"An error occurred when attempting to pickle {obj!r}: {e}"
-            )
+            ) from e
 
         # Now unpickle the pickled ImportantPages
         try:
@@ -91,7 +93,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 f"An error occurred when attempting to unpickle {obj!r}: {e}"
-            )
+            ) from e
 
         # Using 'page_url' should create a new InvokeViaAttributeShortcut
         # instance, which should give the same result as the original
@@ -223,3 +225,14 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
                 self.assertEqual(settings.get_page_url("test_attribute"), "")
                 # when called indirectly via shortcut
                 self.assertEqual(settings.page_url.test_attribute, "")
+
+    def test_permission_policy_registered(self):
+        self.assertIsInstance(
+            ImportantPagesSiteSetting.get_permission_policy(),
+            SitePermissionPolicy,
+        )
+        registered = policy_registry.get_by_type(ImportantPagesSiteSetting)
+        # get_permission_policy() creates a new instance each time, so we can't
+        # assertIs, but we can check that they are similar
+        self.assertIsInstance(registered, SitePermissionPolicy)
+        self.assertIs(registered.model, ImportantPagesSiteSetting)

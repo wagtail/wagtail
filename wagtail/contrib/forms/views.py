@@ -1,6 +1,7 @@
 import datetime
 from collections import OrderedDict
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -27,8 +28,8 @@ from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
 from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
-from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -66,7 +67,6 @@ class FormPageFilterSet(PageFilterSet):
 class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     """Lists the available form pages for the current user"""
 
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -91,7 +91,9 @@ class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     @classproperty
     def columns(self):
         columns = [
-            col for col in PageListingMixin.columns if col.name not in {"title", "type"}
+            col
+            for col in PageListingMixin.base_columns
+            if col.name not in {"title", "type"}
         ]
         columns.insert(
             1,
@@ -137,8 +139,7 @@ class DeleteSubmissionsView(TemplateView):
     def get_queryset(self):
         """Returns a queryset for the selected submissions"""
         submission_ids = self.request.GET.getlist("selected-submissions")
-        submission_class = self.page.get_submission_class()
-        return submission_class._default_manager.filter(id__in=submission_ids)
+        return self.page.get_submissions().filter(id__in=submission_ids)
 
     def handle_delete(self, submissions):
         """Deletes the given queryset"""
@@ -246,9 +247,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
 
     def get_base_queryset(self):
         """Return queryset of form submissions"""
-        submission_class = self.form_page.get_submission_class()
-        queryset = submission_class._default_manager.filter(page=self.form_page)
-        return queryset
+        return self.form_page.get_submissions()
 
     def get_validated_ordering(self):
         """Return a dict of field names with ordering labels if ordering is valid"""

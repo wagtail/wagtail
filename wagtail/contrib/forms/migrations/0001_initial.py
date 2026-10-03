@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -24,7 +25,7 @@ class Migration(migrations.Migration):
                 ("submit_time", models.DateTimeField(auto_now_add=True)),
                 (
                     "page",
-                    models.ForeignKey(on_delete=models.CASCADE, to="wagtailcore.Page"),
+                    models.ForeignKey(on_delete=models.CASCADE, to=swapper.get_model_name("wagtailcore", "Page")),
                 ),
             ],
             options={},

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders correctly 1`] = `
 "<div class="typed-table-block ">

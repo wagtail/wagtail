@@ -1,4 +1,5 @@
 import django_filters
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -9,8 +10,9 @@ from wagtail.admin.views.pages.utils import (
     GenericPageBreadcrumbsMixin,
 )
 from wagtail.admin.widgets import BooleanRadioSelect
-from wagtail.models import Page, PageLogEntry
-from wagtail.permissions import page_permission_policy
+from wagtail.models import PageLogEntry
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):
@@ -69,15 +71,6 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     filterset_class = PageHistoryFilterSet
     model = Page
     pk_url_kwarg = "page_id"
-    permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
     history_url_name = "wagtailadmin_pages:history"
     history_results_url_name = "wagtailadmin_pages:history_results"
     edit_url_name = "wagtailadmin_pages:edit"
@@ -87,7 +80,13 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
 
     def get_object(self):
-        return get_object_or_404(Page, id=self.pk).specific
+        page = get_object_or_404(self.model, id=self.pk).specific
+
+        perms = page.permissions_for_user(self.request.user)
+        if not (perms.can_publish() or perms.can_edit()):
+            raise PermissionDenied
+
+        return page
 
     def get_page_subtitle(self):
         return self.object.get_admin_display_title()
@@ -96,7 +95,9 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
         return self.object.permissions_for_user(self.request.user).can_unschedule()
 
     def get_base_queryset(self):
-        return self._annotate_queryset(PageLogEntry.objects.filter(page=self.object))
+        queryset = PageLogEntry.objects.filter(page=self.object)
+        queryset = queryset.latest_by_uuid_and_action()
+        return self._annotate_queryset(queryset)
 
     def _annotate_queryset(self, queryset):
         return super()._annotate_queryset(queryset).select_related("page")

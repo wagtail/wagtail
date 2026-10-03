@@ -377,6 +377,46 @@ class TranslatableMixin(models.Model):
         return cls._meta.get_field("locale").model
 
 
+class BootstrapLocaleField(migrations.AddField):
+    """
+    A shortcut for creating a nullable locale field on a model, in advance of calling
+    BootstrapTranslatableModel to populate it.
+    """
+
+    def __init__(self, model_string):
+        model_name = model_string.split(".")[-1].lower()
+
+        super().__init__(
+            model_name=model_name,
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                null=True,
+                on_delete=models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
+            preserve_default=False,
+        )
+
+
+class BootstrapTranslationKeyField(migrations.AddField):
+    """
+    A shortcut for creating a nullable translation_key field on a model, in advance of calling
+    BootstrapTranslatableModel to populate it.
+    """
+
+    def __init__(self, model_string):
+        model_name = model_string.split(".")[-1].lower()
+
+        super().__init__(
+            model_name=model_name,
+            name="translation_key",
+            field=models.UUIDField(editable=False, null=True),
+        )
+
+
 def bootstrap_translatable_model(model, locale):
     """
     This function populates the "translation_key", and "locale" fields on model instances that were created

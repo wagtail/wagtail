@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/generic/edit_partials.html" %}
+{% load wagtailadmin_tags %}
+
+{% block breadcrumbs_content %}
+    {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+{% endblock %}
+
+{# For pages, the title "heading" is the editable title field. #}
+{% block form_title_heading %}{% endblock %}

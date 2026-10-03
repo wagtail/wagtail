@@ -21,4 +21,5 @@ titlesonly:
 
 components
 client
+tables
 ```

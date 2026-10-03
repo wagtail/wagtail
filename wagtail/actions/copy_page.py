@@ -1,12 +1,12 @@
 import logging
 import uuid
 
+import swapper
 from django.core.exceptions import PermissionDenied
 from modelcluster.models import get_all_child_relations
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
-from wagtail.models.copying import _copy, _copy_m2m_relations
-from wagtail.models.i18n import TranslatableMixin
 from wagtail.signals import page_published
 
 logger = logging.getLogger("wagtail")
@@ -28,10 +28,14 @@ class CopyPagePermissionError(PermissionDenied):
     pass
 
 
-class CopyPageAction:
+class CopyPageAction(BaseAction):
     """
     Copies pages and page trees.
     """
+
+    action_name = "copy"
+    permission_error_class = CopyPagePermissionError
+    revision_copy_chunk_size = 500
 
     def __init__(
         self,
@@ -47,6 +51,7 @@ class CopyPageAction:
         log_action="wagtail.copy",
         reset_translation_key=True,
     ):
+        super().__init__(page, user=user)
         # Note: These four parameters don't apply to any copied children
         self.page = page
         self.to = to
@@ -56,7 +61,6 @@ class CopyPageAction:
         self.recursive = recursive
         self.copy_revisions = copy_revisions
         self.keep_live = keep_live
-        self.user = user
         self.process_child_object = process_child_object
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
@@ -100,7 +104,7 @@ class CopyPageAction:
                 )
 
             if self.keep_live:
-                destination_perms = self.to.permissions_for_user(self.user)
+                destination_perms = to.permissions_for_user(self.user)
 
                 if not destination_perms.can_publish_subpage():
                     raise CopyPagePermissionError(
@@ -110,6 +114,9 @@ class CopyPageAction:
     def _copy_page(
         self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None
     ):
+        from wagtail.models.copying import _copy, _copy_m2m_relations
+        from wagtail.models.i18n import TranslatableMixin
+
         specific_page = page.specific
         exclude_fields = (
             specific_page.default_exclude_fields_in_copy
@@ -186,7 +193,9 @@ class CopyPageAction:
             # will be replaced with the corresponding field from here.
             page_copy_data = page_copy.serializable_data()
 
-            for revision in page.revisions.all():
+            for revision in page.revisions.all().iterator(
+                chunk_size=self.revision_copy_chunk_size
+            ):
                 use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
                 revision.approved_go_live_at = None
@@ -281,7 +290,6 @@ class CopyPageAction:
 
         # Log
         if self.log_action:
-            parent = specific_page.get_parent()
             log(
                 instance=page_copy,
                 action=self.log_action,
@@ -296,11 +304,9 @@ class CopyPageAction:
                         },
                     },
                     "source": {
-                        "id": parent.id,
-                        "title": parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if parent
-                    else None,
+                        "id": specific_page.id,
+                        "title": specific_page.get_admin_display_title(),
+                    },
                     "destination": {
                         "id": to.id,
                         "title": to.specific_deferred.get_admin_display_title(),
@@ -327,7 +333,9 @@ class CopyPageAction:
         )
 
         # Copy child pages
-        from wagtail.models import Page, PageViewRestriction
+        from wagtail.models import PageViewRestriction
+
+        Page = swapper.load_model("wagtailcore", "Page")
 
         if self.recursive:
             numchild = 0

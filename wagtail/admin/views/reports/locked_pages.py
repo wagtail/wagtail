@@ -1,30 +1,37 @@
 import datetime
 
 import django_filters
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
 
 from .base import PageReportView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_users_for_filter():
     User = get_user_model()
     return (
-        User.objects.filter(locked_pages__isnull=False)
+        User.objects.filter(**{f"locked_{Page._meta.model_name}s__isnull": False})
         .order_by(User.USERNAME_FIELD)
         .distinct()
     )
 
 
 class LockedPagesReportFilterSet(WagtailFilterSet):
-    locked_at = django_filters.DateFromToRangeFilter(widget=DateRangePickerWidget)
+    locked_at = django_filters.DateFromToRangeFilter(
+        label=_("Locked at"),
+        widget=DateRangePickerWidget,
+    )
     locked_by = django_filters.ModelChoiceFilter(
-        field_name="locked_by", queryset=lambda request: get_users_for_filter()
+        label=_("Locked by"),
+        empty_label=_("Anyone"),
+        field_name="locked_by",
+        queryset=lambda request: get_users_for_filter(),
     )
 
     class Meta:
@@ -53,7 +60,7 @@ class LockedPagesView(PageReportView):
     def get_queryset(self):
         pages = (
             (
-                page_permission_policy.instances_user_has_permission_for(
+                self.permission_policy.instances_user_has_permission_for(
                     self.request.user, "change"
                 )
                 | Page.objects.filter(locked_by=self.request.user)

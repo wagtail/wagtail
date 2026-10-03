@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -6,7 +7,9 @@ from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import PageViewRestriction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def serve_chain(page, request, args, kwargs):

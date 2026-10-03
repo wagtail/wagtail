@@ -28,16 +28,13 @@ Within the `models.py` of one of your apps, create a model that extends `wagtail
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -45,16 +42,21 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields'),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 ```
 
@@ -84,6 +86,8 @@ You now need to create two templates named `form_page.html` and `form_page_landi
 </html>
 ```
 
+When submitted, this form will use both HTML5 client-side validation and Django server-side validation. To disable client-side validation for greater consistency between browsers, add the [`novalidate` form attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#novalidate) to the `<form>` tag.
+
 `form_page_landing.html` is a standard Wagtail template, displayed after the user makes a successful form submission, `form_submission` will be available in this template. If you want to dynamically override the landing page template, you can do so with the `get_landing_page_template` method (in the same way that you would with `get_template`).
 
 (wagtailforms_formsubmissionpanel)=
@@ -95,12 +99,13 @@ You now need to create two templates named `form_page.html` and `form_page_landi
 ```python
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 
+
 class FormPage(AbstractEmailForm):
     # ...
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
-        FieldPanel('intro'),
+        FieldPanel("intro"),
         # ...
     ]
 ```

@@ -23,12 +23,24 @@ def get_image_model():
     model_string = get_image_model_string()
     try:
         return apps.get_model(model_string, require_ready=False)
-    except ValueError:
+    except ValueError as e:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'"
-        )
-    except LookupError:
+        ) from e
+    except LookupError as e:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
             % model_string
-        )
+        ) from e
+
+
+def get_permission_policy():
+    from wagtail.permission_policies.collections import (
+        CollectionOwnershipPermissionPolicy,
+    )
+
+    return CollectionOwnershipPermissionPolicy(
+        get_image_model(),
+        auth_model="wagtailimages.Image",
+        owner_field_name="uploaded_by_user",
+    )

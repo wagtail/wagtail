@@ -30,9 +30,9 @@ def get_latest_str(obj):
     instance, so this function utilises the latest revision's object_str
     attribute if available.
     """
-    from wagtail.models import DraftStateMixin, Page
+    from wagtail.models import AbstractPage, DraftStateMixin
 
-    if isinstance(obj, Page):
+    if isinstance(obj, AbstractPage):
         result = obj.specific_deferred.get_admin_display_title()
     elif isinstance(obj, DraftStateMixin) and obj.latest_revision:
         result = obj.latest_revision.object_str

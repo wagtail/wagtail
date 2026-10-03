@@ -1,5 +1,3 @@
-const { fetch, Headers } = global;
-
 const REQUEST_TIMEOUT = 15000;
 
 const checkStatus = (response) => {

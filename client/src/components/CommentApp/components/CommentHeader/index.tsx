@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
+import type { Store } from '../../state';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 
 import { gettext } from '../../../../utils/gettext';
 import Icon from '../../../Icon/Icon';
-import type { Store } from '../../state';
 
 import { Author } from '../../state/comments';
 

@@ -28,7 +28,9 @@
                     multiple
                     name="files[]"
                     type="file"
+                    data-max-file-size="{{ max_filesize|stringformat:'s'|default:'null' }}"
                     data-max-title-length="{{ max_title_length|stringformat:'s'|default:'null' }}"
+                    data-messages='{"maxFileSize": "{{ error_max_file_size|escapejs }}"}'
                     data-url="{% url 'wagtaildocs:add_multiple' %}"
                 >
             </div>
@@ -82,6 +84,7 @@
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-validate.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->

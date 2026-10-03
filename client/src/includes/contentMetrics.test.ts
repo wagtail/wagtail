@@ -1,9 +1,9 @@
 import {
-  getWordCount,
-  getReadingTime,
+  contentExtractorPluginInstance,
   getLIXScore,
   getReadabilityScore,
-  contentExtractorPluginInstance,
+  getReadingTime,
+  getWordCount,
 } from './contentMetrics';
 
 describe.each`

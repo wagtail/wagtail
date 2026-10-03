@@ -885,6 +885,27 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         new_ratio = resized_image.width / resized_image.height
         self.assertAlmostEqual(original_ratio, new_ratio, places=2)
 
+    def test_avatar_resize_applies_exif_orientation(self):
+        img = Image.new("RGB", (800, 450), color="red")
+        exif = Image.Exif()
+        exif[0x0112] = 6  # EXIF orientation: rotate 90 degrees clockwise
+        img_byte_arr = io.BytesIO()
+        img.save(img_byte_arr, format="JPEG", exif=exif)
+        img_byte_arr.seek(0)
+        uploaded_file = SimpleUploadedFile(
+            name="rotated_image.jpg",
+            content=img_byte_arr.read(),
+            content_type="image/jpeg",
+        )
+
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (225, 400))
+        self.assertIsNone(resized_image.getexif().get(0x0112))
+
     def test_avatar_preserves_original_format(self):
         # Test JPG format
         jpg_file = self.create_image_file(size=(500, 500), name="test.jpg")

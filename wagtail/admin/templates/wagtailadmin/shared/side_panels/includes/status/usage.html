@@ -7,15 +7,22 @@
                     {% trans "Usage" %}
                 </h3>
             </div>
-            <a class="w-text-14 w-text-text-link-default hover:w-text-text-link-hover w-no-underline w-transition"
-               href="{{ usage_url }}"
-            >
+            {% fragment as usage_label %}
                 {% if usage_url_text %}
                     {{ usage_url_text }}
                 {% else %}
                     {% blocktrans trimmed with counter=usage_count usage_count=usage_count|intcomma count counter=counter %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
                 {% endif %}
-            </a>
+            {% endfragment %}
+            {% if usage_url %}
+                <a class="w-text-14 w-text-text-link-default hover:w-text-text-link-hover w-no-underline w-transition"
+                   href="{{ usage_url }}"
+                >
+                    {{ usage_label }}
+                </a>
+            {% else %}
+                <span>{{ usage_label }}</span>
+            {% endif %}
         </div>
     </section>
 </div>

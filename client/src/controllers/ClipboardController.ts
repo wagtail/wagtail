@@ -1,9 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 
-type CopyOptions = {
+interface CopyOptions {
   /** Custom supplied value to copy to the clipboard. */
   value?: string;
-};
+}
 
 /**
  * Adds the ability for an element to copy the value from a target to the clipboard.
@@ -21,9 +21,7 @@ export class ClipboardController extends Controller<HTMLElement> {
 
   declare readonly hasValueTarget: boolean;
   declare readonly valueTarget:
-    | HTMLInputElement
-    | HTMLTextAreaElement
-    | HTMLSelectElement;
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
   /**
    * Copies the value from either the Custom Event detail, Stimulus action params or

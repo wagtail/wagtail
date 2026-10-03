@@ -1,16 +1,16 @@
 import $ from 'jquery';
 import {
+  AdminDateInput,
+  AdminDateTimeInput,
+  AdminTimeInput,
+} from '../../components/DateTimeWidget';
+import {
   dateEqual,
   hideCurrent,
   initDateChooser,
   initDateTimeChooser,
   initTimeChooser,
 } from '../../includes/dateTimeChooser';
-import {
-  AdminDateInput,
-  AdminTimeInput,
-  AdminDateTimeInput,
-} from '../../components/DateTimeWidget';
 
 /* global wagtailConfig */
 

@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import tippy, { Placement, Props, Instance, Content } from 'tippy.js';
+import tippy, { Content, Instance, Placement, Props } from 'tippy.js';
 
 /**
  * Hides tooltip when escape key is pressed.
@@ -59,13 +59,11 @@ export class TooltipController extends Controller<HTMLElement> {
     this.tippy = tippy(this.element, this.options);
   }
 
-  contentValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+  contentValueChanged() {
     this.tippy?.setProps(this.options);
   }
 
-  placementValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+  placementValueChanged() {
     this.tippy?.setProps(this.options);
   }
 

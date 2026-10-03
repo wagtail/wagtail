@@ -9,10 +9,11 @@ from wagtail.admin.ui.tables import (
     Table,
     TitleColumn,
 )
-from wagtail.models import Page, Site
+from wagtail.models import Site
+from wagtail.test.utils import Page, PageFixturesMixin
 
 
-class TestTable(TestCase):
+class TestTable(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

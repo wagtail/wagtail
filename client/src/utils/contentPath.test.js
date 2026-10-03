@@ -1,7 +1,7 @@
 import {
-  getWagtailDirectives,
   getContentPathSelector,
   getElementByContentPath,
+  getWagtailDirectives,
 } from './contentPath';
 
 describe('getWagtailDirectives', () => {

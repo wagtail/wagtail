@@ -1,7 +1,7 @@
 from django import template
 
 from wagtail.admin.userbar import Userbar
-from wagtail.models import PAGE_TEMPLATE_VAR, Page
+from wagtail.models import PAGE_TEMPLATE_VAR, AbstractPage
 
 register = template.Library()
 
@@ -15,7 +15,7 @@ def get_page_instance(context):
     for name in possible_names:
         if name in context:
             page = context[name]
-            if isinstance(page, Page):
+            if isinstance(page, AbstractPage):
                 return page
 
 

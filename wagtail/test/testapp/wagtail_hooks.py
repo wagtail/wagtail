@@ -24,7 +24,8 @@ from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.utils import set_query_params
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import register_permission_policy
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
@@ -42,9 +43,13 @@ from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
+    SubmenuHookGreetingsViewSet,
     ToyViewSetGroup,
+    advert_chooser_viewset,
     animated_advert_chooser_viewset,
+    custom_page_viewset,
     event_page_listing_viewset,
+    event_page_viewset,
     opera_viewset,
 )
 
@@ -253,9 +258,19 @@ def add_broken_links_summary_item(request, items):
 def register_viewsets():
     return [
         MiscellaneousViewSetGroup(),
+        # Registered on its own, but collected into MiscellaneousViewSetGroup's
+        # submenu via its `menu_hook` matching the group's `submenu_hook`.
+        SubmenuHookGreetingsViewSet(),
         JSONModelViewSetGroup(),
         SearchTestModelViewSet(name="searchtest"),
     ]
+
+
+@hooks.register("register_submenu_greetings")
+def register_submenu_greetings_menu_item():
+    # An arbitrary MenuItem (not a ViewSet) collected into the
+    # MiscellaneousViewSetGroup submenu via its `submenu_hook`.
+    return MenuItem("Submenu Hook Planner", "/admin/planner/", icon_name="edit")
 
 
 @hooks.register("register_admin_viewset")
@@ -320,7 +335,6 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     # Ensure that the menu item is placed last
     menu_order = 999999
     inspect_view_enabled = True
-    permission_policy = FullFeaturedPermissionPolicy(FullFeaturedSnippet)
 
     class IndexView(SnippetViewSet.index_view_class):
         def get_add_url(self):
@@ -410,11 +424,24 @@ class SnippetChooserModelViewSet(SnippetViewSet):
     list_display = [
         "__str__",
         "full_featured__text",
+        "full_featured__country_code",
         "full_featured__latest_revision__created_at",
     ]
     exclude_form_fields = []
 
 
+# Ensure custom permission policies are registered before the snippet models are
+# registered, so that the viewsets do not try to register a default viewset.
+# This can also be done in the app's AppConfig.ready() method, but having it
+# alongside the viewset registration makes the order more explicit.
+# RemovedInWagtail90Warning: Remove this comment. The default permission policy
+# for a snippet will no longer be registered automatically in Wagtail 9.0. The
+# policy will be retrieved at request time from the policies registry, so the
+# ordering of registration will no longer be important.
+register_permission_policy(
+    FullFeaturedSnippet,
+    FullFeaturedPermissionPolicy(FullFeaturedSnippet),
+)
 register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
 register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
 # Works with both classes and instances
@@ -444,6 +471,16 @@ def register_event_page_listing_viewset():
 
 
 @hooks.register("register_admin_viewset")
+def register_event_page_viewset():
+    return event_page_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_custom_page_viewset():
+    return custom_page_viewset
+
+
+@hooks.register("register_admin_viewset")
 def register_opera_viewset():
     return opera_viewset
 
@@ -453,3 +490,8 @@ def register_avatar_intercept_url(user, size):
     if os.environ.get("AVATAR_INTERCEPT"):
         return "/some/avatar/fred.png"
     return None
+
+
+@hooks.register("register_admin_viewset")
+def register_advert_chooser_viewset():
+    return advert_chooser_viewset

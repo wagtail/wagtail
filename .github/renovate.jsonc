@@ -1,0 +1,106 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "extends": [
+    "config:recommended",
+    ":enablePreCommit",
+    "helpers:pinGitHubActionDigests",
+  ],
+
+  // First day of the month before 4am.
+  "schedule": ["* 0-3 1 * *"],
+  "timezone": "Etc/UTC",
+  "prConcurrentLimit": 10,
+
+  "labels": ["dependencies", "Infrastructure", "type:Cleanup/Optimisation"],
+
+  "minimumReleaseAge": "7 days",
+
+  // Periodically refresh lockfiles to catch transitive dependency updates.
+  "lockFileMaintenance": {
+    "enabled": true,
+    // Has to be defined to override the Renovate default.
+    "schedule": ["* 0-3 1 * *"],
+  },
+
+  "packageRules": [
+    // Default to "off" for JS dependencies, specific ones are enabled below.
+    {
+      "matchCategories": ["js"],
+      "enabled": false,
+    },
+
+    {
+      "matchPackageNames": ["/prettier/", "/stylelint/"],
+      "enabled": true,
+      "groupName": "Front-end linters and formatters dependencies",
+    },
+
+    // Runtime dependencies in [project.dependencies] are user-facing.
+    // Constraint changes propagate to everyone who installs Wagtail, so
+    // they remain deliberate release-planning decisions, never automated.
+    // No per-dep PRs here, the lockfile that CI and local dev environments
+    // use is kept current via lockFileMaintenance above.
+    {
+      "matchManagers": ["pep621"],
+      "matchDepTypes": ["project.dependencies"],
+      "enabled": false,
+    },
+
+    // Testing and docs extras only affect contributors, not end users.
+    // Safe to bump floors so contributor tooling stays current.
+    {
+      "matchManagers": ["pep621"],
+      "matchDepTypes": [
+        "project.optional-dependencies.testing",
+        "project.optional-dependencies.docs",
+      ],
+      "rangeStrategy": "bump",
+    },
+
+    // Group linter and formatter updates into a single PR. Regex patterns
+    // (delimited by `/`) catch both the pep621 dep (e.g. "ruff") and any
+    // related pre-commit hook (e.g. the repo URL "astral-sh/ruff-pre-commit"),
+    // so a single rule handles both managers.
+    {
+      "matchPackageNames": [
+        "/ruff/",
+        "/ty/",
+        "/django-stubs/",
+        "/doc8/",
+        "/semgrep/",
+        "/curlylint/",
+        "/djhtml/",
+      ],
+      "groupName": "Python linters and formatters dependencies",
+    },
+
+    // Group all dependency updates inside the project template (its
+    // requirements.txt and Dockerfile) into a single PR.
+    {
+      "matchFileNames": ["wagtail/project_template/**"],
+      "groupName": "Project template dependencies",
+    },
+
+    // Wagtail is pinned in this file and only updated as part of releases.
+    {
+      "matchFileNames": ["wagtail/project_template/requirements.txt"],
+      "matchPackageNames": ["wagtail"],
+      "enabled": false,
+    },
+
+    // Group all CI updates (GitHub Actions + CircleCI) into a single PR.
+    {
+      "matchCategories": ["ci"],
+      "groupName": "CI configuration dependencies",
+    },
+
+    // Elasticsearch service versions are deliberate test-matrix choices
+    // exercising supported upgrade paths, so major bumps are made by hand.
+    {
+      "matchPackageNames": ["docker.elastic.co/elasticsearch/elasticsearch"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+    },
+  ],
+}

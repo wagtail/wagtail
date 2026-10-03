@@ -2,6 +2,7 @@ import json
 import re
 from html import unescape
 
+import swapper
 from bs4 import BeautifulSoup
 from django import forms
 from django.test import TestCase
@@ -10,10 +11,12 @@ from django.utils.html import escape
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.test.utils import Page
+
+page_model_name = swapper.get_model_name("wagtailcore", "Page").lower()
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -45,7 +48,7 @@ class TestAdminPageChooserWidget(TestCase):
             js_args[2],
             {
                 "canChooseRoot": False,
-                "modelNames": ["wagtailcore.page"],
+                "modelNames": [page_model_name],
                 "userPerms": None,
                 "modalUrl": "/admin/choose-page/",
             },
@@ -80,7 +83,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"}});',
             html,
         )
 
@@ -89,7 +92,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": "copy_to", "modalUrl": "/admin/choose-page/"});',
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": "copy_to", "modalUrl": "/admin/choose-page/"}});',
             html,
         )
 
@@ -106,8 +109,7 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertInHTML("foobarbaz (simple page)", html)
 
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
-            % self.root_page.id,
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {self.root_page.id}}});',
             html,
         )
 
@@ -165,8 +167,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
-            % self.root_page.id,
+            f'new PageChooser("test-id", {{"modelNames": ["{page_model_name}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {self.root_page.id}}});',
             html,
         )
 
@@ -552,44 +553,6 @@ class TestAdminTagWidget(TestCase):
         self.assertIn(
             """<p class="help">%s</p>""" % escape(help_text),
             html,
-        )
-
-    @override_settings(TAG_LIMIT=3)
-    def test_legacy_tag_limit_setting(self):
-        widget = widgets.AdminTagWidget()
-        with self.assertWarnsMessage(
-            RemovedInWagtail80Warning,
-            "The setting 'TAG_LIMIT' is deprecated. "
-            "Please use 'WAGTAIL_TAG_LIMIT' instead.",
-        ):
-            html = widget.render("tags", None, attrs={"id": "alpha"})
-        params = self.get_js_init_params(html)
-        self.assertEqual(
-            params,
-            [
-                "alpha",
-                "/admin/tag-autocomplete/",
-                {"allowSpaces": True, "tagLimit": 3, "autocompleteOnly": False},
-            ],
-        )
-
-    @override_settings(TAG_SPACES_ALLOWED=False)
-    def test_legacy_tag_spaces_allowed_setting(self):
-        widget = widgets.AdminTagWidget()
-        with self.assertWarnsMessage(
-            RemovedInWagtail80Warning,
-            "The setting 'TAG_SPACES_ALLOWED' is deprecated. "
-            "Please use 'WAGTAIL_TAG_SPACES_ALLOWED' instead.",
-        ):
-            html = widget.render("tags", None, attrs={"id": "alpha"})
-        params = self.get_js_init_params(html)
-        self.assertEqual(
-            params,
-            [
-                "alpha",
-                "/admin/tag-autocomplete/",
-                {"allowSpaces": False, "tagLimit": None, "autocompleteOnly": False},
-            ],
         )
 
 

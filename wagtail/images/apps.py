@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
-from . import checks, get_image_model  # NOQA: F401
+from . import checks, get_image_model, get_permission_policy  # NOQA: F401
 
 
 class WagtailImagesAppConfig(AppConfig):
@@ -13,6 +13,11 @@ class WagtailImagesAppConfig(AppConfig):
     default_attrs = {}
 
     def ready(self):
+        from wagtail.permissions import register_permission_policy
+
+        Image = get_image_model()
+        register_permission_policy(Image, get_permission_policy())
+
         from .signal_handlers import register_signal_handlers
 
         register_signal_handlers()
@@ -22,7 +27,6 @@ class WagtailImagesAppConfig(AppConfig):
 
         from .widgets import AdminImageChooser
 
-        Image = get_image_model()
         register_form_field_override(
             ForeignKey, to=Image, override={"widget": AdminImageChooser}
         )
@@ -46,3 +50,13 @@ class WagtailImagesAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Image)
+
+        from .api.v3.registry import register_content_types
+
+        register_content_types()
+
+        from wagtail.api.v3.api import api
+
+        from .api.v3.router import router
+
+        api.add_router("/images/", router)

@@ -1,6 +1,7 @@
 import json
 import logging
 from collections import OrderedDict
+import swapper
 from django.db.models import JSONField, F, Q, Subquery, OuterRef
 from django.db.models.functions import Cast
 from django.db.migrations import RunPython
@@ -249,7 +250,7 @@ class Wagtail3RevisionQueryMaker(AbstractRevisionQueryMaker):
         return self.apps.get_model("wagtailcore", "PageRevision")
 
     def get_has_revisions(self):
-        return issubclass(self.model, self.apps.get_model("wagtailcore", "Page"))
+        return issubclass(self.model, self.apps.get_model(swapper.get_model_name("wagtailcore", "Page")))
 
     def append_instance_data_for_revision_query(self, instance):
         if self.has_revisions:

@@ -55,9 +55,11 @@ from rest_framework.renderers import JSONRenderer
 
 # ...
 
+
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
     name = "pages"
+
 
 api_router.register_endpoint("pages", CustomPagesAPIViewSet)
 ```
@@ -69,11 +71,27 @@ from rest_framework.renderers import JSONRenderer
 
 # ...
 
+
 class PostPagesAPIViewSet(PagesAPIViewSet):
     model = models.BlogPage
 
 
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
+```
+
+You can use `body_fields` (for content fields at the top level of the API response) and `meta_fields` (for fields within the response's `meta` section) to control which fields are included. By default, fields added here only appear in the detail view.
+
+To make a field appear when the model is used in a nested context (e.g. as a related item), you must **also** add it to `nested_default_fields`. Note that the field must already be present in `body_fields` or `meta_fields`.
+
+For example, `seo_title` is included in `meta_fields` by default. To make it visible in nested views:
+
+```python
+class CustomFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
+    name = "pages"
+
+
+api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
 ```
 
 Additionally, there is a base endpoint class you can use for adding different
@@ -91,15 +109,15 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
 # Create the router. "wagtailapi" is the URL namespace
-api_router = WagtailAPIRouter('wagtailapi')
+api_router = WagtailAPIRouter("wagtailapi")
 
 # Add the three endpoints using the "register_endpoint" method.
 # The first parameter is the name of the endpoint (such as pages, images). This
 # is used in the URL of the endpoint
 # The second parameter is the endpoint class that handles the requests
-api_router.register_endpoint('pages', PagesAPIViewSet)
-api_router.register_endpoint('images', ImagesAPIViewSet)
-api_router.register_endpoint('documents', DocumentsAPIViewSet)
+api_router.register_endpoint("pages", PagesAPIViewSet)
+api_router.register_endpoint("images", ImagesAPIViewSet)
+api_router.register_endpoint("documents", DocumentsAPIViewSet)
 ```
 
 Next, register the URLs so Django can route requests into the API:
@@ -177,10 +195,11 @@ If you have a FormBuilder page called `FormPage` this is an example of how you w
 ```python
 from wagtail.api import APIField
 
+
 class FormPage(AbstractEmailForm):
-    #...
+    # ...
     api_fields = [
-        APIField('form_fields'),
+        APIField("form_fields"),
     ]
 ```
 
@@ -193,13 +212,14 @@ JSON format. You can override the serializer for any field using the
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Change the format of the published_date field to "Thursday 06 April 2017"
-        APIField('published_date', serializer=DateField(format='%A %d %B %Y')),
-        ...
+        APIField("published_date", serializer=DateField(format="%A %d %B %Y")),
+        ...,
     ]
 ```
 
@@ -209,16 +229,19 @@ to add API fields that have a different field name or no underlying field at all
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Date in ISO8601 format (the default)
-        APIField('published_date'),
-
+        APIField("published_date"),
         # A separate published_date_display field with a different format
-        APIField('published_date_display', serializer=DateField(format='%A %d %B %Y', source='published_date')),
-        ...
+        APIField(
+            "published_date_display",
+            serializer=DateField(format="%A %d %B %Y", source="published_date"),
+        ),
+        ...,
     ]
 ```
 
@@ -231,11 +254,70 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+(apiv2_streamfield_configuration)=
+
+### StreamField blocks in the API
+
+When a StreamField block’s value is serialized for the API, by default Wagtail uses the same representation as it does for the database. For example, this model:
+
+```python
+# blog/models.py
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.blocks import CharBlock, ImageChooserBlock
+
+
+class BlogPage(Page):
+    body = StreamField(
+        [
+            ("heading", CharBlock()),
+            ("photo", ImageChooserBlock()),
+        ]
+    )
+```
+
+produces this API output by default:
+
+```json
+{
+    "body": [
+        {"type": "heading", "value": "Hello world", "id": "abc123"},
+        {"type": "photo",   "value": 42,            "id": "def456"}
+    ]
+}
+```
+
+`CharBlock` produces a string value, and an `ImageChooserBlock` reference corresponds to the primary key of the image.
+
+#### `get_api_representation` for custom block serialization
+
+To return richer data, you can define `get_api_representation` in `StructBlock`. Here is another example, returning the full image data inline rather than just the ID:
+
+```python
+# blog/blocks.py
+from wagtail.images.blocks import ImageChooserBlock
+
+
+class APIImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        # value is the fully-loaded Image object, not just the integer ID
+        return {
+            "id": value.id,
+            "title": value.title,
+        }
+```
+
+The API now returns the full image data inline, with no second request needed. This approach works for all blocks based on StructBlock, no matter where they are in the block hierarchy.
+
+(api_v2_rich_text)=
+
 ### Rich text in the API
 
-In the above example, we serialize the `body` field using Wagtail’s storage format for rich text, described in [](../../../extending/rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
+By default, `RichTextField` values are serialized in Wagtail's database HTML format, described in [](rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
 
-It’s also often useful for the API to directly provide a “display” representation, similarly to the `|richtext` template filter. This can be done with a custom serializer:
+To return display-ready HTML instead (equivalent to the `|richtext` template filter), use the `?rich_text_format=html` query parameter or set the project-wide default with `WAGTAILAPI_RICH_TEXT_FORMAT = 'html'` in your settings. The default format is `db_html`.
+
+For per-field control regardless of the query parameter, you can still use a custom serializer that acts like the `|richtext` template filter:
 
 ```python
 from rest_framework.fields import CharField
@@ -251,7 +333,7 @@ class RichTextSerializer(CharField):
 We can then change our `api_fields` definition so `body` uses this new serializer:
 
 ```python
-APIField('body', serializer=RichTextSerializer()),
+(APIField("body", serializer=RichTextSerializer()),)
 ```
 
 (api_v2_images)=
@@ -269,16 +351,19 @@ For example:
 from wagtail.api import APIField
 from wagtail.images.api.fields import ImageRenditionField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Adds information about the source image (eg, title) into the API
-        APIField('feed_image'),
-
+        APIField("feed_image"),
         # Adds a URL to a rendered thumbnail of the image to the API
-        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='feed_image')),
-        ...
+        APIField(
+            "feed_image_thumbnail",
+            serializer=ImageRenditionField("fill-100x100", source="feed_image"),
+        ),
+        ...,
     ]
 ```
 
@@ -290,7 +375,7 @@ This would add the following to the JSON:
         "id": 45529,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://www.example.com/api/v2/images/12/",
+            "detail_url": "https://www.example.com/api/v2/images/12/",
             "download_url": "/media/images/a_test_image.jpg",
             "tags": []
         },
@@ -300,7 +385,7 @@ This would add the following to the JSON:
     },
     "feed_image_thumbnail": {
         "url": "/media/images/a_test_image.fill-100x100.jpg",
-        "full_url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+        "full_url": "https://www.example.com/media/images/a_test_image.fill-100x100.jpg",
         "width": 100,
         "height": 100,
         "alt": "image alt text"
@@ -315,6 +400,31 @@ a URL to the image if your media files are properly configured.
 
 For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg` argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
 
+#### Filter specifications
+
+The `filter_spec` parameter in `ImageRenditionField` determines how the image will be resized and processed. For a complete list of available operations and their syntax, see the [filter specifications documentation](../../../topics/images).
+
+Common examples include:
+
+```python
+# Square crop and fill
+APIField("thumbnail", serializer=ImageRenditionField("fill-300x300", source="image"))
+
+# Maintain aspect ratio with maximum dimensions
+APIField("preview", serializer=ImageRenditionField("max-800x600", source="image"))
+
+# Exact dimensions without cropping
+APIField("banner", serializer=ImageRenditionField("width-1200", source="image"))
+
+# Chained operations (multiple filters combined)
+APIField(
+    "compressed_thumb",
+    serializer=ImageRenditionField("fill-200x200|jpegquality-60", source="image"),
+)
+```
+
+The generated rendition URLs will be included in the API response, allowing clients to directly access optimized versions of images without additional processing.
+
 ### Authentication
 
 To protect the access to your API, you can implement an [authentication](https://www.django-rest-framework.org/api-guide/authentication/) method provided by the Django REST Framework, for example the [Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication):
@@ -325,6 +435,7 @@ To protect the access to your API, you can implement an [authentication](https:/
 from rest_framework.permissions import IsAuthenticated
 
 # ...
+
 
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     name = "pages"

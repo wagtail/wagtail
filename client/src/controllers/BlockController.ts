@@ -38,7 +38,7 @@ export class BlockController extends Controller<HTMLElement> {
   };
 
   /** Array of arguments to pass to the render method of the block [initial value, errors]. */
-  declare argumentsValue: Array<string>;
+  declare argumentsValue: string[];
   /** Block definition to be passed to `telepath.unpack`, used to obtain a JavaScript representation of the block. */
   declare dataValue: object;
 

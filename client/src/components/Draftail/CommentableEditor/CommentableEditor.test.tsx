@@ -1,19 +1,19 @@
+import { DraftInlineStyleType, EditorState, SelectionState } from 'draft-js';
+import { createEditorStateFromRaw } from 'draftail';
+import { mount } from 'enzyme';
 import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
-import { createEditorStateFromRaw } from 'draftail';
-import { DraftInlineStyleType, EditorState, SelectionState } from 'draft-js';
 
+import { noop } from '../../../utils/noop';
 import { CommentApp } from '../../CommentApp/main';
 import { newComment } from '../../CommentApp/state/comments';
-import { noop } from '../../../utils/noop';
 
 import CommentableEditor, {
-  updateCommentPositions,
-  addCommentsToEditor,
   DraftailInlineAnnotation,
+  addCommentsToEditor,
   findLeastCommonCommentId,
   splitState,
+  updateCommentPositions,
 } from './CommentableEditor';
 
 describe('CommentableEditor', () => {

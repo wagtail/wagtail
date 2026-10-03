@@ -9,12 +9,13 @@ from django.utils.formats import localize
 from freezegun import freeze_time
 
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestWorkflowHistoryDetail(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
     base_breadcrumb_items = []
 
@@ -149,7 +150,7 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         )
         self.client.get(url)
 
-        with self.assertNumQueries(18):
+        with self.assertNumQueries(19):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -282,7 +283,7 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         )
         self.client.get(url)
 
-        with self.assertNumQueries(19):
+        with self.assertNumQueries(20):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)

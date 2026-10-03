@@ -32,17 +32,17 @@ One thing to keep in mind is that "scratching your own itch" can be a great moti
 
 Before you start contributing to Wagtail, it's important to understand what it is and how it works. Wagtail is a content management system (CMS) used for building websites. Unlike other CMSs, it requires some development time to build up the models and supporting code to use as a CMS. Additionally, Wagtail is built on top of another framework called Django, which is a Python web framework. This might be confusing at first, but it provides a powerful way to create custom systems for developers to build with.
 
-To get started, we recommend reading the [the Zen of Wagtail](../getting_started/the_zen_of_wagtail), which provides a good introduction to the project. You might also want to read the [Django overview](inv:django#intro/overview) to understand what Django provides. To get a sense of how Wagtail fits into the CMS landscape, you can search online for articles that compare WordPress to Wagtail or list the top open source CMSs. Finally, reading some of the [Wagtail Guide](https://guide.wagtail.org/) will give you a better understanding of how the CMS works for everyday users.
+To get started, we recommend reading [the Zen of Wagtail](../getting_started/the_zen_of_wagtail), which provides a good introduction to the project. You might also want to read the [Django overview](inv:django#intro/overview) to understand what Django provides. To get a sense of how Wagtail fits into the CMS landscape, you can search online for articles that compare WordPress to Wagtail or list the top open source CMSs. Finally, reading some of the [Wagtail Guide](https://guide.wagtail.org/) will give you a better understanding of how the CMS works for everyday users.
 
 ```{note}
 Below is a checklist. There are many like these you can copy for yourself as you progress through this guide.
 ```
 
 ```markdown
--   [ ] Read the Zen of Wagtail
--   [ ] Read the Django Overview
--   [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape
--   [ ] Read some of the Wagtail Guide
+-   [ ] Read the Zen of Wagtail.
+-   [ ] Read the Django Overview.
+-   [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape.
+-   [ ] Read some of the Wagtail Guide.
 ```
 
 ### 2. Joining the community
@@ -54,21 +54,21 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 #### Checklist
 
 ```markdown
--   [ ] Read the community guidelines
--   [ ] Join GitHub
--   [ ] Add your preferred name and image to your GitHub profile
--   [ ] Join Slack
--   [ ] Add your preferred name, timezone and image to your Slack profile
--   [ ] Introduce yourself in `#new-contributors` in Slack
--   [ ] Join the `#support` channel in Slack
--   [ ] _Optional_ Join StackOverflow
+-   [ ] Read the community guidelines.
+-   [ ] Join GitHub.
+-   [ ] Add your preferred name and image to your GitHub profile.
+-   [ ] Join Slack.
+-   [ ] Add your preferred name, timezone and image to your Slack profile.
+-   [ ] Introduce yourself in `#new-contributors` in Slack.
+-   [ ] Join the `#support` channel in Slack.
+-   [ ] _Optional_ Join StackOverflow.
 ```
 
 ### 3. Before contributing code
 
 Firstly, it is important to be able to understand how to **build with** Wagtail before you can understand how to contribute **to** Wagtail. Take the time to do the full [Wagtail getting started tutorial](../getting_started/index) without focusing yet on how to contribute code but instead on how to use Wagtail to build your own basic demo website. This will require you to have Python and other dependencies installed on your machine and may not be easy the first time, but keep at it and ask questions if you get stuck.
 
-Remember that there are many other ways to contribute, such as answering questions in StackOverflow or `#support`, contributing to one of the [other packages](https://github.com/wagtail/) or even the [Wagtail user guide](https://guide.wagtail.org/en-latest/contributing/). Sometimes, it's best to get started with a non-code contribution to get a feel for Wagtail's code or the CMS interface.
+Remember that there are many other ways to contribute, such as answering questions in StackOverflow or `#support`, contributing to one of the [other packages](https://github.com/wagtail/) or even the [Wagtail user guide](https://guide.wagtail.org/en/contributing/). Sometimes, it's best to get started with a non-code contribution to get a feel for Wagtail's code or the CMS interface.
 
 Issue tracking, reading and triage is a critical part of contributing code and it is recommended that you read the [issue tracking guide](issue_tracking) in full. This will help you understand how to find issues to work on and how to support the team with triaging issues.
 
@@ -79,10 +79,10 @@ Take the time to **read** the issue and links before adding new comments or ques
 #### Checklist
 
 ```
-- [ ] Do the Wagtail tutorial
-- [ ] Look at the Wagtail organization on GitHub, take note of any interesting projects
-- [ ] Read through the Issue Tracking section in the docs
-- [ ] Give a go at a non-code contribution
+- [ ] Do the Wagtail tutorial.
+- [ ] Look at the Wagtail organization on GitHub, take note of any interesting projects.
+- [ ] Read through the Issue Tracking section in the docs.
+- [ ] Give a go at a non-code contribution.
 ```
 
 ### 4. Setting up your development environment
@@ -93,7 +93,7 @@ Important: This section should not go too deep into development setup. Instead w
 
 Many contribution sections gloss over the mammoth task that can be a single line in the documentation similar to “fork the code and get it running locally”. This, on its own, can be a daunting task if you are just getting started. This is why it's best to have done the Wagtail tutorial before this step so you have run into and hopefully solved many of the normal developer environment issues.
 
-First, create a clone of Wagtail on your GitHub account (see below for more details).
+First, create a fork of Wagtail on your GitHub account (see below for more details).
 
 ```{note}
 Do not try to move past this step until you have a working `bakerydemo` code locally and a clone of the Wagtail repo that you can edit. When editing the Wagtail core code (both HTML and JavaScript) you should be able to refresh the site running locally and see the changes.
@@ -108,12 +108,12 @@ When developing, it's recommended that you always read the `latest` version of t
 #### Checklist
 
 ```
-- [ ] Install `git` (if not on your machine)
-- [ ] Install a code editor/IDE (we recommend VSCode)
-- [ ] Install the dependencies set out in the development guide
-- [ ] Follow the development guide
-- [ ] Make a change to the `wagtail/admin/templates/wagtailadmin/home.html` template file and confirm you can see the changes on the Wagtail dashboard (home) page
-- [ ] Add a `console.log` statement to `client/src/entrypoints/admin/wagtailadmin.js` and confirm you can see the logging in the browser
+- [ ] Install `git` (if not on your machine).
+- [ ] Install a code editor/IDE (we recommend VSCode).
+- [ ] Install the dependencies set out in the development guide.
+- [ ] Follow the development guide.
+- [ ] Make a change to the `wagtail/admin/templates/wagtailadmin/home.html` template file and confirm you can see the changes on the Wagtail dashboard (home) page.
+- [ ] Add a `console.log` statement to `client/src/entrypoints/admin/wagtailadmin.js` and confirm you can see the logging in the browser.
 ```
 
 #### Aside: Understanding Git and GitHub
@@ -149,9 +149,9 @@ Finally, before 'claiming' check you can do the following;
 #### Checklist (for a candidate issue)
 
 ```markdown
--   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months)
--   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail
--   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented
+-   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months).
+-   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail.
+-   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented.
 ```
 
 ### 6. Contributing a solution
@@ -211,17 +211,17 @@ A pull request that just adds unit tests to some core functionality that does no
 #### Checklist
 
 ```
-- [ ] After feeling confident about a solution, add a comment to the issue
-- [ ] Create a new branch off `main` to track your work separate from the main branch
-- [ ] Keep the changes focused towards your goal, asking questions on the issue if direction is needed
-- [ ] Write unit tests
+- [ ] After feeling confident about a solution, add a comment to the issue.
+- [ ] Create a new branch off `main` to track your work separate from the main branch.
+- [ ] Keep the changes focused towards your goal, asking questions on the issue if direction is needed.
+- [ ] Write unit tests.
 ```
 
 ### 7. Submitting a pull request
 
 A pull request that has the title 'fixes issue' is unhelpful at best, and spammy at worst. Take a few moments to think about how to give your change a title. Communicate (in a few words) the problem solved or feature added or bug fixed. Instead of 'Fixes 10423', use words and write a title 'Fixes documentation dark mode refresh issue'. No one in a project knows that issue `10423` is that one about the documentation dark mode refresh issue.
 
-Please try to add a proper title when you create the pull request. This will ensure that any notifications that go out to the team have the a suitable title from the start.
+Please try to add a proper title when you create the pull request. This will ensure that any notifications that go out to the team have a suitable title from the start.
 
 ```{note}
 Remember you can make a **draft** pull request in both GitHub and GitLab. This is a way to run the CI steps but in a way that indicates you are not ready for a review yet.
@@ -276,7 +276,7 @@ Remember that it is OK to move on and try something else. Try a different issue 
 
 #### Responding to a review
 
-Almost every pull request (PR) (except for the most smallest changes) will have some form of feedback. This will usually come in the form of a review and a request for changes. At this point your PR will be flagged as 'needs work', 'needs tests' or in some cases 'needs design decision'. Take the time to read all the feedback and try to resolve or respond to comments if you have questions.
+Almost every pull request (PR) (except for the smallest changes) will have some form of feedback. This will usually come in the form of a review and a request for changes. At this point your PR will be flagged as 'needs work', 'needs tests' or in some cases 'needs design decision'. Take the time to read all the feedback and try to resolve or respond to comments if you have questions.
 
 ```{warning}
 Avoid closing the PR only to create a new one, instead keep it open and push your changes/fixes to the same branch. Unless directed to make the PR smaller, keep the same one open and work through items one by one.
@@ -298,7 +298,7 @@ Well done! It's time to party! Thank you for taking the time to contribute to Wa
 -   Someone may have started work (that work may have stalled).
 -   Check if assigned, we do not usually use that unless assigned to someone within the core team.
 
-If you have done all of that and think you can give it a go just a comment with something like 'I will give this a go', no need to ask for permission.
+If you have done all of that and think you can give it a go, add a comment with something like 'I will give this a go'. No need to ask for permission.
 
 ### Do I need to ask for permission to work on an issue?
 

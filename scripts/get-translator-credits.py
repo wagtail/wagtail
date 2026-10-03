@@ -1,18 +1,12 @@
 import re
-import subprocess
 from collections import defaultdict
+from pathlib import Path
 
 from babel import Locale
 
 authors_by_locale = defaultdict(set)
 
-file_listing = subprocess.Popen(
-    "find ./wagtail -iname *.po", shell=True, stdout=subprocess.PIPE
-)
-
-for file_listing_line in file_listing.stdout:
-    filename = file_listing_line.strip()
-
+for filename in Path("wagtail").rglob("*.po"):
     # extract locale string from filename
     locale = re.search(r"locale/(\w+)/LC_MESSAGES", str(filename)).group(1)
     if locale == "en":

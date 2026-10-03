@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
-import type { Comment } from '../state/comments';
 import type { State } from '../state';
+import type { Comment } from '../state/comments';
+import { createSelector } from 'reselect';
 
 export const selectComments = (state: State) => state.comments.comments;
 export const selectFocused = (state: State) => state.comments.focusedComment;
@@ -31,7 +31,12 @@ export const selectIsDirty = createSelector(
   selectComments,
   selectRemoteCommentCount,
   (comments, remoteCommentCount) => {
-    if (remoteCommentCount !== comments.size) {
+    const readyComments = Array.from(comments.values()).filter(
+      // `creating` means the user can still type the new comment and has not
+      // "committed" it by clicking "Comment", so don't count it yet
+      (comment) => comment.mode !== 'creating',
+    );
+    if (remoteCommentCount !== readyComments.length) {
       return true;
     }
     return Array.from(comments.values()).some((comment) => {

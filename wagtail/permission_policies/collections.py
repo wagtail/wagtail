@@ -140,10 +140,10 @@ class CollectionPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
 ):
     """
-    A permission policy for objects that are assigned locations in the Collection tree.
+    A permission policy for objects that are assigned locations in the ``Collection`` tree.
     Permissions may be defined at any node of the hierarchy, through the
-    GroupCollectionPermission model, and propagate downwards. These permissions are
-    applied to objects according to the standard django.contrib.auth permission model.
+    ``GroupCollectionPermission`` model, and propagate downwards. These permissions are
+    applied to objects according to the standard :class:`~django.contrib.auth.models.Permission` model.
     """
 
     def user_has_permission(self, user, action):
@@ -210,9 +210,9 @@ class CollectionOwnershipPermissionPolicy(
     """
     A permission policy for objects that are assigned locations in the Collection tree.
     Permissions may be defined at any node of the hierarchy, through the
-    GroupCollectionPermission model, and propagate downwards. These permissions are
+    ``GroupCollectionPermission`` model, and propagate downwards. These permissions are
     applied to objects according to the 'ownership' permission model
-    (see permission_policies.base.OwnershipPermissionPolicy)
+    (see :class:`~wagtail.permission_policies.OwnershipPermissionPolicy`).
     """
 
     def __init__(self, model, auth_model=None, owner_field_name="owner"):
@@ -225,12 +225,12 @@ class CollectionOwnershipPermissionPolicy(
         # make sure owner_field_name is a field that exists on the model
         try:
             model._meta.get_field(self.owner_field_name)
-        except FieldDoesNotExist:
+        except FieldDoesNotExist as e:
             raise ImproperlyConfigured(
                 "%s has no field named '%s'. To use this model with "
                 "CollectionOwnershipPermissionPolicy, you must specify a valid field name as "
                 "owner_field_name." % (model, self.owner_field_name)
-            )
+            ) from e
 
     def user_has_permission(self, user, action):
         if action == "add":
@@ -391,10 +391,15 @@ class CollectionOwnershipPermissionPolicy(
 class CollectionManagementPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
 ):
+    """
+    A permission policy for managing collections themselves, rather than objects
+    assigned to collections.
+    """
+
     def _descendants_with_perm(self, user, action):
         """
         Return a queryset of collections descended from a collection on which this user has
-        a GroupCollectionPermission record for this action. Used for actions, like edit and
+        a ``GroupCollectionPermission`` record for this action. Used for actions, like edit and
         delete where the user cannot modify the collection where they are granted permission.
         """
         # Get the permission object corresponding to this action

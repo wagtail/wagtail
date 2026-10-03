@@ -1,13 +1,12 @@
 import { basicCommentsState } from '../__fixtures__/state';
-import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from '../state/settings';
+import * as actions from '../actions/comments';
+import { reducer } from '../state';
 import {
   INITIAL_STATE as INITIAL_COMMENTS_STATE,
   newComment,
   newCommentReply,
 } from '../state/comments';
-import { reducer } from '../state';
-
-import * as actions from '../actions/comments';
+import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from '../state/settings';
 
 import { selectCommentsForContentPathFactory, selectIsDirty } from './index';
 

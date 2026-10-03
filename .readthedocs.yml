@@ -1,9 +1,9 @@
 version: 2
 build:
-  os: ubuntu-22.04
+  os: ubuntu-lts-latest
   tools:
-    python: '3.11'
-    nodejs: '22'
+    python: '3.14'
+    nodejs: '24'
   jobs:
     post_install:
       - npm ci

@@ -32,16 +32,16 @@
 # incognitae <pierre@onoffdesign.com>, 2016
 # Romain Dorgueil <romain@dorgueil.net>, 2018
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -283,6 +283,11 @@ msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Garder les nouvelles pages à jour avec les pages sources"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr ""
+"Vous n'avez pas la permission de publier des pages dans \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -775,13 +780,16 @@ msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
 msgid "Cancel"
 msgstr "Annuler"
 
+msgid "Actions (footer)"
+msgstr "Actions (pied de page)"
+
+msgid "Comment"
+msgstr "Commenter"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Actions"
-
-msgid "Comment"
-msgstr "Commenter"
 
 #, python-format
 msgid ""
@@ -1768,9 +1776,12 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Ajouter une sous-page à « %(title)s »"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)s pour la totalité du site."
+"%(start_index)s-%(end_index)s sur %(items_count)s %(model_name)s dans le "
+"site."
 
 msgid "No results across entire site."
 msgstr "Aucun résultat dans l'ensemble du site."
@@ -1781,11 +1792,11 @@ msgstr "Rechercher dans '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)s dans '<span class=\"w-"
-"title-ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s sur %(items_count)s %(model_name)s dans '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -1796,8 +1807,8 @@ msgid "Search the whole site"
 msgstr "Rechercher dans tout le site"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s sur %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)s %(model_name)s"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -1820,9 +1831,6 @@ msgstr "Cette page n'est pas visible publiquement"
 
 msgid "Confirm"
 msgstr "Confirmer"
-
-msgid "Add child page"
-msgstr "Ajouter une sous-page"
 
 msgid "Page types"
 msgstr "Type de pages"
@@ -1993,6 +2001,12 @@ msgstr "%(field_label)s :"
 msgid "Clear"
 msgstr "Effacer"
 
+msgid "Saved"
+msgstr "Enregistré"
+
+msgid "Autosave is paused"
+msgstr "L'enregistrement automatique est en pause"
+
 msgid "Edit account avatar"
 msgstr "Modifier l'avatar du compte"
 
@@ -2030,8 +2044,8 @@ msgstr "Système"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s a enregistré une nouvelle version"
 
-msgid "Refresh"
-msgstr "Rafraîchir"
+msgid "View latest version"
+msgstr "Voir la dernière version"
 
 msgid "You have unsaved changes in another window"
 msgstr "Vous avez des modifications non enregistrées dans une autre fenêtre"
@@ -2039,6 +2053,9 @@ msgstr "Vous avez des modifications non enregistrées dans une autre fenêtre"
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s a des modifications non enregistrées"
+
+msgid "Currently idle"
+msgstr "Inactif actuellement"
 
 msgid "Currently viewing"
 msgstr "Consulté actuellement par"
@@ -2050,38 +2067,29 @@ msgstr[0] "Un autre utilisateur est en train de consulter"
 msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
 msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Continuer écrasera les modifications effectuées dans l'autre fenêtre. "
-"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
-"perdrez toutes vos modifications non enregistrées dans la fenêtre actuelle."
+msgid "Proceeding will overwrite the changes you made in that window."
+msgstr "Poursuivre écrasera les modifications effectuées dans cette fenêtre."
 
 #, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr "Poursuivre écrasera les modifications effectuées par %(user_name)s."
+
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr ""
+"Vous pouvez également visualiser la dernière version dans un nouvel onglet."
+
+msgid "A network error occurred"
+msgstr "Une erreur réseau est survenue"
+
 msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
 msgstr ""
-"Continuer écrasera les modifications effectuées par %(user_name)s. "
-"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
-"perdrez toutes vos modifications non enregistrées."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
-"enregistrées"
-
-msgid "Refresh page"
-msgstr "Rafraîchir la page"
+"Rétablissez votre connexion au site avant de poursuivre. Ouvrez l'éditeur "
+"dans un nouvel onglet pour voir la dernière version enregistrée."
 
 msgid "Continue"
 msgstr "Continuer"
-
-msgid "Refresh the page"
-msgstr "Rafraîchir la page"
 
 msgid "Download XLSX"
 msgstr "Télécharger en XLSX"
@@ -2324,6 +2332,10 @@ msgid "View details"
 msgstr "Voir les détails"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Sera créé par %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "par %(user)s"
 
@@ -2354,6 +2366,9 @@ msgstr "Chargement…"
 msgid "Refreshing…"
 msgstr "Rafraîchissement..."
 
+msgid "Refresh"
+msgstr "Rafraîchir"
+
 msgid "Preview is out of date"
 msgstr "La prévisualisation n'est pas à jour"
 
@@ -2370,19 +2385,14 @@ msgstr "Mode prévisualisation"
 msgid "First published"
 msgstr "Première publication"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "L'enregistrement automatique est <span>en pause</span>"
+
 msgid "Save your changes before leaving"
 msgstr "Enregistrer vos changements avant de quitter"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Vous avez des <span>modifications non enregistrées</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Vous avez des <span>commentaires non enregistrés</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Vous avez <span>des modifications</span> et <span>des commentaires non "
-"enregistrés</span> "
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2480,8 +2490,8 @@ msgstr "Activer le tri personnalisé"
 msgid "View Wagtail quick actions"
 msgstr "Voir les actions rapides Wagtail"
 
-msgid "Accessibility"
-msgstr "Accessibilité"
+msgid "Checks"
+msgstr "Vérifications"
 
 msgid "Warnings"
 msgstr "Alertes"
@@ -2666,6 +2676,10 @@ msgid "Changes requested"
 msgstr "Modifications demandées"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Annulé par %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Approuvé par %(approved_by)s"
 
@@ -2813,9 +2827,6 @@ msgstr "Commentaires"
 msgid "Toggle checks"
 msgstr "Activer/désactiver les vérifications"
 
-msgid "Checks"
-msgstr "Vérifications"
-
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
 
@@ -2897,6 +2908,12 @@ msgstr "Le texte alternatif de l'image a un motif inapproprié"
 
 msgid "Use meaningful text"
 msgstr "Utiliser un texte parlant"
+
+msgid "Meta description is empty"
+msgstr "La méta-description est vide"
+
+msgid "Add a concise description for search engines"
+msgstr "Ajouter une description courte pour les moteurs de recherche"
 
 #, python-format
 msgid "%(classname)s object (%(id)s)"
@@ -2996,11 +3013,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s « %(title)s » est maintenant déverrouillé(e)."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr ""
-"Le/la %(model_name)s n'a pu être enregistré(e) car il/elle est verrouillé(e)"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s « %(object)s » modifié(e)."
 
@@ -3048,6 +3060,14 @@ msgstr "Le workflow pour %(model_name)s « %(object)s » a été relancé."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Le workflow pour %(model_name)s « %(object)s » a été annulé."
+
+msgid "Saving will overwrite a newer version."
+msgstr "Enregistrer écrira une nouvelle version."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr ""
+"Le/la %(model_name)s n'a pu être enregistré(e) car il/elle est verrouillé(e)"
 
 #, python-format
 msgid ""
@@ -3105,6 +3125,10 @@ msgstr "Le(la) %(model_name)s n'a pas pu être créé(e) à cause d'erreurs."
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nouvel(le) : %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr ""
+"Il y a des erreurs de validation, cliquer sur enregistrer pour les afficher."
 
 msgid "Editing"
 msgstr "Modification"
@@ -3280,6 +3304,10 @@ msgstr "Page « %(page_title)s » et %(subpages_count)s sous-pages copiées."
 msgid "Page '%(page_title)s' copied."
 msgstr "Page « %(page_title)s » copiée."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "La requête pour créer %(model_name)s a été bloquée par un hook."
+
 msgid "View draft"
 msgstr "Voir le brouillon"
 
@@ -3324,6 +3352,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "La page « %(page_title)s » a été mise à jour."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "La requête pour modifier %(model_name)s a été bloquée par un hook."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
@@ -3403,6 +3435,9 @@ msgstr "Type de page"
 msgid "Exploring"
 msgstr "Exploration"
 
+msgid "Add child page"
+msgstr "Ajouter une sous-page"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "La page « %(page_title)s » est maintenant déverrouillée."
@@ -3472,6 +3507,12 @@ msgstr "Type d'action"
 
 msgid "Date/Time"
 msgstr "Date/Heure"
+
+msgid "Locked by"
+msgstr "Verrouillé par"
+
+msgid "Anyone"
+msgstr "Tout le monde"
 
 msgid "Locked pages"
 msgstr "Pages verrouillées"

@@ -21,8 +21,4 @@ const boxShadow = {
   md: '5px 5px 30px var(--w-color-box-shadow-md)',
 };
 
-module.exports = {
-  borderRadius,
-  borderWidth,
-  boxShadow,
-};
+export { borderRadius, borderWidth, boxShadow };

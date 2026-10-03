@@ -7,12 +7,9 @@ You need to create a `templates/wagtailadmin/` folder within one of your apps - 
 ```python
 INSTALLED_APPS = (
     # ...
-
-    'dashboard',
-
-    'wagtail',
-    'wagtail.admin',
-
+    "dashboard",
+    "wagtail",
+    "wagtail.admin",
     # ...
 )
 ```
@@ -94,12 +91,22 @@ To render a user avatar other than the one sourced from the `UserProfile` model 
 For example, you might have an avatar on a `Profile` model in your own application that is keyed to the `auth.User` model in the familiar pattern. In that case, you could register your hook as the in following example, and the Wagtail admin avatar will be replaced with your own `Profile` avatar accordingly.
 
 ```python
-@hooks.register('get_avatar_url')
+@hooks.register("get_avatar_url")
 def get_profile_avatar(user, size):
     return user.profile.avatar
 ```
 
 Additionally, you can use the default `size` parameter that is passed in to the hook if you need to attach it to a request or do any further processing on your image.
+
+### Overriding the default user avatar image
+
+To change the default user avatar image, override `wagtailadmin/images/default-user-avatar.png` by placing your custom avatar image in a [`static` file directory](inv:django#howto/static-files/index) with higher precedence than `wagtail.admin` (see [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) in your Django settings for ordering).
+
+You can verify the override with [`findstatic`](inv:django:std:django-admin#findstatic):
+
+```
+python manage.py findstatic wagtailadmin/images/default-user-avatar.png
+```
 
 (custom_user_interface_fonts)=
 

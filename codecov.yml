@@ -11,4 +11,10 @@ coverage:
       default:
         informational: true
 
-comment: off
+comment: false
+
+flags:
+  backend:
+    carryforward: true
+  frontend:
+    carryforward: true

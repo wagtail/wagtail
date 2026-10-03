@@ -1,5 +1,6 @@
 import os
 
+import swapper
 from django.core.checks import Error, Tags, Warning, register
 
 
@@ -105,7 +106,8 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
 def check_panels_in_model(cls, context="model"):
     """Check panels configuration uses `panels` when `edit_handler` not in use."""
     from wagtail.admin.panels import InlinePanel, PanelGroup
-    from wagtail.models import Page
+
+    Page = swapper.load_model("wagtailcore", "Page")
 
     errors = []
 
@@ -188,16 +190,9 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 
 @register("file_overwrite")
 def file_overwrite_check(app_configs, **kwargs):
-    from django import VERSION as DJANGO_VERSION
     from django.conf import settings
 
-    if DJANGO_VERSION >= (5, 1):
-        file_storage = settings.STORAGES["default"]["BACKEND"]
-    else:
-        try:
-            file_storage = settings.STORAGES["default"]["BACKEND"]
-        except AttributeError:
-            file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
+    file_storage = settings.STORAGES["default"]["BACKEND"]
 
     errors = []
 
@@ -241,7 +236,7 @@ def file_overwrite_check(app_configs, **kwargs):
 @register("datetime_format")
 def datetime_format_check(app_configs, **kwargs):
     """
-    If L10N is enabled, check if WAGTAIL_* formats are compatible with Django input formats.
+    Check if WAGTAIL_* formats are compatible with Django input formats.
     See https://docs.djangoproject.com/en/stable/topics/i18n/formatting/#creating-custom-format-files
     See https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-date-format-wagtail-datetime-format-wagtail-time-format
     """
@@ -250,9 +245,6 @@ def datetime_format_check(app_configs, **kwargs):
     from django.utils import formats
 
     errors = []
-
-    if not getattr(settings, "USE_L10N", False):
-        return errors
 
     for code, label in settings.LANGUAGES:
         for wagtail_setting, django_setting in [

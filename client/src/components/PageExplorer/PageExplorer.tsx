@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from './actions';
-import { State as NodeState } from './reducers/nodes';
-import { State } from './reducers';
-
 import PageExplorerPanel from './PageExplorerPanel';
+import * as actions from './actions';
+import { State } from './reducers';
+import { State as NodeState } from './reducers/nodes';
 
 interface PageExplorerProps {
   isVisible: boolean;

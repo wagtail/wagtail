@@ -1,10 +1,12 @@
+import swapper
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import PageViewRestriction
+from wagtail.permissions import policy_registry
 
 from .models import WagtailAdminModelForm
 from .view_restrictions import BaseViewRestrictionForm
@@ -12,10 +14,15 @@ from .view_restrictions import BaseViewRestrictionForm
 
 class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
+
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop("page")
-        self.user = kwargs.pop("user", None)
-        can_publish = kwargs.pop("can_publish")
+        self.user = kwargs.pop("user")
+        can_publish = policy_registry.get_by_type(Page).user_has_permission(
+            self.user, "publish"
+        )
+
         super().__init__(*args, **kwargs)
         self.fields["new_title"] = forms.CharField(
             initial=self.page.title, label=_("New title")
@@ -92,8 +99,25 @@ class CopyForm(forms.Form):
         # New parent page given in form or parent of source, if parent_page is empty
         parent_page = cleaned_data.get("new_parent_page") or self.page.get_parent()
 
-        # check if user is allowed to create a page at given location.
-        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+        # creating an alias requires publish permission
+        is_publishing = cleaned_data.get("publish_copies") or cleaned_data.get("alias")
+
+        # If the user requested to publish the copies, check they're allowed to publish at the destination
+        if (
+            is_publishing
+            and not parent_page.permissions_for_user(self.user).can_publish_subpage()
+        ):
+            self._errors["new_parent_page"] = self.error_class(
+                [
+                    _('You do not have permission to publish pages at "%(page_title)s"')
+                    % {
+                        "page_title": parent_page.specific_deferred.get_admin_display_title()
+                    }
+                ]
+            )
+
+        # check if user is allowed to copy the pages.
+        if not self.page.permissions_for_user(self.user).can_copy_to(parent_page):
             self._errors["new_parent_page"] = self.error_class(
                 [
                     _('You do not have permission to copy to page "%(page_title)s"')
@@ -205,7 +229,15 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             del self.formsets["comments"]
         return super().is_valid()
 
+    def serialize_comments(self, user):
+        if comments := self.formsets.get("comments"):
+            data = comments.serialize(self.is_bound, user)
+        else:
+            data = {"comments": [], "user": user.pk, "authors": {}}
+        return data
+
     def clean(self):
+        Page = swapper.load_model("wagtailcore", "Page")
         cleaned_data = super().clean()
         if "slug" in self.cleaned_data:
             page_slug = cleaned_data["slug"]
@@ -234,6 +266,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
 
 class MoveForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
         self.page_to_move = kwargs.pop("page_to_move")
         self.target_parent_models = kwargs.pop("target_parent_models")
 
@@ -255,6 +288,7 @@ class MoveForm(forms.Form):
 
 class ParentChooserForm(forms.Form):
     def __init__(self, child_page_type, user, *args, **kwargs):
+        Page = swapper.load_model("wagtailcore", "Page")
         self.child_page_type = child_page_type
         self.user = user
         super().__init__(*args, **kwargs)

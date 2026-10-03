@@ -17,7 +17,6 @@ from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDelete
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.forms import get_image_form, get_image_multi_form
-from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
 from wagtail.images.utils import (
     find_image_duplicates,
     get_accept_attributes,
@@ -26,7 +25,6 @@ from wagtail.images.utils import (
 
 
 class AddView(WagtailAdminTemplateMixin, BaseAddView):
-    permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
     header_icon = "image"
     page_title = gettext_lazy("Add images")
@@ -121,7 +119,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
 
 
 class EditView(BaseEditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     edit_object_form_prefix = "image"
     context_object_name = "image"
@@ -137,7 +134,6 @@ class EditView(BaseEditView):
 
 
 class DeleteView(BaseDeleteView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     context_object_id_name = "image_id"
 

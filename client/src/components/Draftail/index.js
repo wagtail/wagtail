@@ -1,41 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import {
-  DraftailEditor,
   BlockToolbar,
-  InlineToolbar,
-  MetaToolbar,
   CommandPalette,
   DraftUtils,
+  DraftailEditor,
+  InlineToolbar,
+  MetaToolbar,
 } from 'draftail';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import { setAttrs } from '../../utils/attrs';
 import { gettext } from '../../utils/gettext';
-import Icon from '../Icon/Icon';
-import { InputNotFoundError } from '../Widget/index';
-
-import {
-  ModalWorkflowSource,
-  ImageModalWorkflowSource,
-  EmbedModalWorkflowSource,
-  LinkModalWorkflowSource,
-  DocumentModalWorkflowSource,
-} from './sources/ModalWorkflowSource';
-import Tooltip from './Tooltip/Tooltip';
-import TooltipEntity from './decorators/TooltipEntity';
-import MaxLength from './controls/MaxLength';
-import EditorFallback from './EditorFallback/EditorFallback';
 import ComboBox, {
   comboBoxLabel,
   comboBoxNoResults,
   comboBoxTriggerLabel,
 } from '../ComboBox/ComboBox';
+import Icon from '../Icon/Icon';
+import { InputNotFoundError } from '../Widget/index';
+
 import CommentableEditor, {
   splitState,
 } from './CommentableEditor/CommentableEditor';
+import EditorFallback from './EditorFallback/EditorFallback';
+import Tooltip from './Tooltip/Tooltip';
 import { DraftailInsertBlockCommand } from './commands/InsertBlock';
 import { DraftailSplitCommand } from './commands/Split';
+import MaxLength from './controls/MaxLength';
+import TooltipEntity from './decorators/TooltipEntity';
+import {
+  DocumentModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  ImageModalWorkflowSource,
+  LinkModalWorkflowSource,
+  ModalWorkflowSource,
+} from './sources/ModalWorkflowSource';
 
 export { default as Link, onPasteLink } from './decorators/Link';
 export { default as Document } from './decorators/Document';
@@ -270,6 +270,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     contentPath,
     commentApp,
   }) => {
+    // eslint-disable-next-line react-hooks/globals, react/hook-use-state
     [options, setOptions] = React.useState({ ...initialOptions });
 
     // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -

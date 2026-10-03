@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import path, reverse
@@ -7,7 +8,6 @@ from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.ui.tables import (
@@ -32,11 +32,9 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
-from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import find_image_duplicates
 from wagtail.models import ReferenceIndex
-
-permission_checker = PermissionPolicyChecker(permission_policy)
+from wagtail.permissions import policy_registry
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
@@ -59,7 +57,6 @@ class ImageCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
-    permission_policy = permission_policy
 
     def get_creation_form_class(self):
         return get_image_form(self.model)
@@ -93,16 +90,10 @@ class BaseImageChooseView(BaseChooseView):
     def get_object_list(self):
         # Get images (filtered by user permission)
         images = (
-            permission_policy.instances_user_has_any_permission_for(
-                self.request.user, ["choose"]
-            )
+            policy_registry.get_by_type(get_image_model())
+            .instances_user_has_any_permission_for(self.request.user, ["choose"])
             .select_related("collection")
             .prefetch_renditions("max-165x165")
-        )
-
-        # Annotate with usage count from the ReferenceIndex
-        images = images.annotate(
-            usage_count=ReferenceIndex.usage_count_subquery(self.model)
         )
 
         return images
@@ -132,6 +123,14 @@ class BaseImageChooseView(BaseChooseView):
         self.model = get_image_model()
         return super().get(request)
 
+    def get_usage_counts(self, results):
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        if self.layout == "grid":
+            return {}
+        return ReferenceIndex.get_count_references_to_in_bulk(list(results))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         chosen_url_name = (
@@ -140,10 +139,12 @@ class BaseImageChooseView(BaseChooseView):
             else "wagtailimages_chooser:chosen"
         )
 
+        counts = self.get_usage_counts(context["results"])
         for image in context["results"]:
             image.chosen_url = self.append_preserved_url_parameters(
                 reverse(chosen_url_name, args=(image.id,))
             )
+            image.usage_count = counts.get(image, 0)
 
         context["collections"] = self.collections
         context["layout"] = self.layout
@@ -214,12 +215,31 @@ class ImageChooseResultsView(
 
 
 class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
+    def get_object(self, pk):
+        item = super().get_object(pk)
+        permission_policy = policy_registry.get_by_type(self.model)
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", item
+        ):
+            raise PermissionDenied
+
+        return item
+
     def get(self, request, *args, pk, **kwargs):
         self.model = get_image_model()
         return super().get(request, *args, pk, **kwargs)
 
 
 class ImageChosenMultipleView(ChosenMultipleViewMixin, ImageChosenResponseMixin, View):
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(self.model)
+
+    def get_objects(self, pks):
+        return self.permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        ).filter(pk__in=pks)
+
     def get(self, request, *args, **kwargs):
         self.model = get_image_model()
         return super().get(request, *args, **kwargs)
@@ -254,7 +274,7 @@ class ImageUploadViewMixin(SelectFormatResponseMixin, CreateViewMixin):
             duplicates = find_image_duplicates(
                 image=image,
                 user=request.user,
-                permission_policy=permission_policy,
+                permission_policy=self.permission_policy,
             )
             existing_image = duplicates.first()
             if existing_image:
@@ -324,8 +344,18 @@ class ImageUploadView(
 class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin, View):
     model = None
 
+    def get_object(self, pk):
+        image = get_object_or_404(self.model, id=pk)
+        permission_policy = policy_registry.get_by_type(self.model)
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", image
+        ):
+            raise PermissionDenied
+
+        return image
+
     def get(self, request, image_id):
-        image = get_object_or_404(self.model, id=image_id)
+        image = self.get_object(image_id)
         initial = {"alt_text": image.default_alt_text}
         initial.update(request.GET.dict())
         # If you edit an existing image, and there is no alt text, ensure that
@@ -351,7 +381,7 @@ class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin,
         return response_data
 
     def post(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+        image = self.get_object(image_id)
 
         self.form = ImageInsertionForm(
             request.POST,
@@ -371,7 +401,6 @@ class ImageChooserViewSet(ChooserViewSet):
     chosen_multiple_view_class = ImageChosenMultipleView
     create_view_class = ImageUploadView
     select_format_view_class = ImageSelectFormatView
-    permission_policy = permission_policy
     register_widget = False
     preserve_url_parameters = ChooserViewSet.preserve_url_parameters + [
         "select_format",

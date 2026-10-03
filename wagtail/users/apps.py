@@ -9,3 +9,13 @@ class WagtailUsersAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
     group_viewset = "wagtail.users.views.groups.GroupViewSet"
     user_viewset = "wagtail.users.views.users.UserViewSet"
+
+    def ready(self):
+        from django.contrib.auth import get_user_model
+        from django.contrib.auth.models import Group
+
+        from wagtail.permissions import register_permission_policy
+
+        User = get_user_model()
+        register_permission_policy(User)
+        register_permission_policy(Group)

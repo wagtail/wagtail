@@ -1,6 +1,7 @@
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.testapp.models import TestGenericSetting
+from wagtail.test.utils import Page
 
 
 class GenericSettingsTestMixin:

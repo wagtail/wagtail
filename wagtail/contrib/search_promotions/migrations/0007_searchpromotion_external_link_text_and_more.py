@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -47,7 +48,7 @@ class Migration(migrations.Migration):
                 help_text="Choose an internal page for this promotion",
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                to="wagtailcore.page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="page",
             ),
         ),

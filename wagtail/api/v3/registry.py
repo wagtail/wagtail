@@ -1,0 +1,153 @@
+"""
+Content type registry backing ``/schema/`` discovery.
+
+Registrations run from ``WagtailAPIV3AppConfig.ready()`` so other apps can register types from
+their own ``ready()`` hooks.
+"""
+
+from dataclasses import dataclass
+from typing import Any
+
+from pydantic import BaseModel
+
+from wagtail.api.v3.schemas import ContentTypeSummarySchema
+
+
+@dataclass
+class ContentTypeRegistration:
+    """A content type made available to the v3 API.
+
+    Each direction (``read``, ``create``, ``patch``) is backed by an optional
+    pydantic schema class; only ``read`` is populated so far.
+    """
+
+    name: str
+    label: str
+    read_schema: type[BaseModel] | None = None
+    create_schema: type[BaseModel] | None = None
+    patch_schema: type[BaseModel] | None = None
+
+
+class ContentTypeRegistry:
+    """Registry of content types exposed by the v3 API.
+
+    Types are keyed by their ``name`` and discovered through the ``/schema/``
+    endpoints. The defaults Wagtail ships (currently ``pages``) are
+    populated as soon as this module is first imported (see the bottom of
+    this module) - other apps can register their own types any time after
+    that, including from their own ``ready()`` hooks.
+    """
+
+    def __init__(self):
+        self._registry: dict[str, ContentTypeRegistration] = {}
+
+    def register(self, registration: ContentTypeRegistration) -> None:
+        """Register a content type, keyed by ``registration.name``."""
+        self._registry[registration.name] = registration
+
+    def list_content_types(self) -> list[ContentTypeSummarySchema]:
+        """Return summary entries for every registered content type."""
+        return [
+            ContentTypeSummarySchema(name=reg.name, label=reg.label)
+            for reg in self._registry.values()
+        ]
+
+    def has(self, name: str) -> bool:
+        """Return ``True`` if ``name`` is registered, ``False`` otherwise."""
+        return name in self._registry
+
+    def get(self, name: str) -> ContentTypeRegistration | None:
+        """Return the registration for ``name``, or ``None`` if unknown."""
+        return self._registry.get(name)
+
+    def get_type_schemas(self, name: str) -> dict[str, Any] | None:
+        """Return the JSON schemas for each direction of content type ``name``.
+
+        Returns ``None`` when ``name`` is not registered. Directions without a
+        schema fall back to a placeholder (``{"description": "Not available."}``).
+        """
+        registration = self.get(name)
+        if registration is None:
+            return None
+
+        result = {}
+        for direction in ("read", "create", "patch"):
+            schema = self._schema_for_direction(registration, direction)
+            if schema is not None:
+                result[direction] = schema
+            else:
+                result[direction] = {"description": "Not available."}
+        return result
+
+    def register_defaults(self) -> None:
+        """Register the content types shipped with Wagtail (currently ``pages``)."""
+        from wagtail.api.v3.schemas import (
+            PageSchema,
+            create_generator,
+            patch_generator,
+            read_generator,
+        )
+        from wagtail.api.v3.schemas.pages import (
+            BASE_PAGE_FIELDS,
+            PageCreateBaseSchema,
+            PageUpdateBaseSchema,
+        )
+        from wagtail.models import get_page_models
+
+        for model in get_page_models():
+            read_schema = read_generator.generate_schema(model, base_class=PageSchema)
+            # Do not generate create and patch schemas for the base page model
+            # unless it is explicitly marked as creatable.
+            if model is model.base_page_model and not model.is_creatable:
+                create_schema = None
+                patch_schema = None
+            else:
+                create_schema = create_generator.generate_schema(
+                    model,
+                    base_class=PageCreateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                    required_fields=("title",),
+                )
+                patch_schema = patch_generator.generate_schema(
+                    model,
+                    base_class=PageUpdateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                )
+
+            self.register(
+                ContentTypeRegistration(
+                    name=model._meta.label,
+                    label=str(model._meta.verbose_name),
+                    read_schema=read_schema,
+                    create_schema=create_schema,
+                    patch_schema=patch_schema,
+                )
+            )
+
+    def _schema_for_direction(
+        self, registration: ContentTypeRegistration, direction: str
+    ) -> dict[str, Any] | None:
+        """Return the JSON schema for ``direction`` of ``registration``.
+
+        ``direction`` is one of ``read``, ``create``, ``patch`` and maps to
+        the matching ``<direction>_schema`` attribute. Returns ``None`` when no
+        schema is defined for that direction.
+        """
+        schema_cls = getattr(registration, f"{direction}_schema", None)
+        if schema_cls is None:
+            return None
+        return schema_cls.model_json_schema()
+
+
+#: Module-level singleton consumed by routers and other apps.
+registry = ContentTypeRegistry()
+
+# Populate immediately, rather than from WagtailAPIV3AppConfig.ready():
+# a router module (e.g. routers/pages.py) reads these registrations at
+# *its own* import time to build its request/response schemas, and
+# another app's ready() may trigger that import before any app's ready()
+# has necessarily run in wagtailapi_v3's favour, depending on
+# INSTALLED_APPS order. Every path to the
+# registry imports this module first (it's the only place `registry`
+# exists), so calling it here removes the ordering dependency entirely.
+registry.register_defaults()

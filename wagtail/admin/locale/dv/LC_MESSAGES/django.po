@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-08-13 15:42+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -592,13 +592,13 @@ msgstr "އަދިވެސް މި %(model_name)s ޝާއިއު ކުރަން ބޭނު�
 msgid "Cancel"
 msgstr "ކެންސަލް"
 
+msgid "Comment"
+msgstr "ކޮމެންޓްކުރޭ"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "އަމަލުތައް"
-
-msgid "Comment"
-msgstr "ކޮމެންޓްކުރޭ"
 
 msgid "Update"
 msgstr "އަޕްޑޭޓް"
@@ -779,6 +779,11 @@ msgid ""
 msgstr ""
 "\\&quot;%(title)s\\&quot; ޕޭޖް މޮޑެރޭޝަން މަރުހަލާ \\&quot;%(task)s\\&quot; ގައި ރިޖެކްޓް "
 "ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr ""
+"\\&quot;%(task)s\\&quot; ގެ ތެރޭގައި \\&quot;%(title)s\\&quot; ޕޭޖް ރިޖެކްޓް ކުރެވިއްޖެއެވެ."
 
 #, python-format
 msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1153,10 +1158,6 @@ msgstr "&#39;%(title)s&#39; ގެ ޗައިލްޑް ޕޭޖްތައް އެކްސް�
 msgid "Add a child page to '%(title)s'"
 msgstr "&#39;%(title)s&#39; އަށް ޗައިލްޑް ޕޭޖެއް އިތުރުކުރުން."
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s ގެ %(items_count)s މުޅި ސައިޓް ހުރަސްކޮށް."
-
 msgid "No results across entire site."
 msgstr "މުޅި ސައިޓް ހުރަސްކޮށް އެއްވެސް ނަތީޖާއެއް ނުލިބެއެވެ."
 
@@ -1190,9 +1191,6 @@ msgstr "މި ޞަފްޙާއަކީ އާންމުންގެ ލޮލުން ރައްކާ
 msgid "Confirm"
 msgstr "ޔަގީން ކުރޭ"
 
-msgid "Add child page"
-msgstr "ޗައިލްޑް ޕޭޖް އިތުރުކުރުން"
-
 msgid "Page types"
 msgstr "ޞަފްޙާގެ ބާވަތްތައް"
 
@@ -1208,6 +1206,10 @@ msgstr "މާފަށް އެދެން، އެއްވެސް ޞަފްޙާއެއް <em>%(
 
 msgid "Enter a search term above"
 msgstr "މަތީގައިވާ ސަރޗް ޓާރމްއެއް ލިޔެލާށެވެ"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s އިތުރުކުރުން"
 
 msgid "Move up"
 msgstr "މައްޗަށް ދޭ"
@@ -1536,12 +1538,6 @@ msgstr "ފުރަތަމަ ޝާއިއުކުރިއެވެ"
 msgid "You have <span>unsaved edits</span>"
 msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި އެޑިޓްތައް</span> އެބަހުއްޓެވެ"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި ކޮމެންޓްތައް</span> އެބަހުއްޓެވެ"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި އެޑިޓްތަކާއި</span> <span>ކޮމެންޓްތައް</span> އެބަހުއްޓެވެ"
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "ރިކުއެސްޓް ކޮށްފައިވަނީ <b>%(modified_by)s</b> އިންނެވެ"
@@ -1605,8 +1601,8 @@ msgstr "ހަމައަކަށް އެޅުވުން"
 msgid "View Wagtail quick actions"
 msgstr "ވެގްޓޭލް އަވަސް އަމަލުތައް ބަލާށެވެ"
 
-msgid "Accessibility"
-msgstr "އެކްސެސިބިލިޓީ"
+msgid "Checks"
+msgstr "ޗެކް ކުރެއެވެ"
 
 msgid "Warnings"
 msgstr "އިންޒާރުތައް"
@@ -1803,9 +1799,6 @@ msgstr "ކޮމެންޓްތައް"
 msgid "Toggle checks"
 msgstr "ޗެކްތައް ޓޮގްލް ކުރުން"
 
-msgid "Checks"
-msgstr "ޗެކް ކުރެއެވެ"
-
 msgid "Toggle preview"
 msgstr "ޓޮގްލް ޕްރިވިއު"
 
@@ -1914,10 +1907,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s &#39;%(title)s&#39; މިހާރު އަންލޮކް ކުރެވިއްޖެއެވެ."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s ލޮކްކޮށްފައި ހުރުމުން ސޭވް ނުކުރެވުނެވެ"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s &#39;%(object)s&#39; އަޕްޑޭޓް ކުރެވިއްޖެއެވެ."
 
@@ -1956,6 +1945,10 @@ msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ އަލުނ
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ ކެންސަލް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s ލޮކްކޮށްފައި ހުރުމުން ސޭވް ނުކުރެވުނެވެ"
 
 msgid "Inspect"
 msgstr "އިންސްޕެކްޓް ކުރުން"
@@ -2135,6 +2128,9 @@ msgstr "ޞަފްޙާގެ ބާވަތެވެ"
 
 msgid "Exploring"
 msgstr "އެކްސްޕްލޯރ ކުރަމުންނެވެ"
+
+msgid "Add child page"
+msgstr "ޗައިލްޑް ޕޭޖް އިތުރުކުރުން"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

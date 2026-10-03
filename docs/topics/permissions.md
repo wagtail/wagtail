@@ -4,6 +4,8 @@
 
 Wagtail adapts and extends [the Django permission system](inv:django#topic-authorization) to cater to the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
+This document provides an introduction to the basics of how permissions can be configured in the Wagtail admin. For a more detailed look at how permissions are implemented in Wagtail, refer to [Permissions reference](permissions_reference).
+
 ```{note}
 Whilst Wagtail supports a number of user roles and permissions, the Wagtail Admin should still be restricted to trusted users.
 ```
@@ -45,6 +47,10 @@ The permission rules for images and documents work on a similar basis to pages. 
 Access to specific sets of images and documents can be controlled by setting up _collections_. By default, all images and documents belong to the 'root' collection, but users with appropriate permissions can create new collections in the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images in the root collection can edit all images; permissions set on other collections only apply to that collection and any of its sub-collections.
 
 The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only visible to specific groups.
+
+```{note}
+The 'choose' permission is a UI-level affordance to guide users in selecting suitable images and documents, and is not intended to be a robust mechanism to hide sensitive documents or images from being seen by low-privilege editors. Editors can bypass the chooser interface to insert references to arbitrary documents and images, and access metadata such as document titles and image renditions. [Private collections](private_collections) can be used to prevent unauthorised users from reading document contents, provided these have been properly secured at the server level (see [](documents_security_considerations)); note that this does not apply to images.
+```
 
 (collection_management_permissions)=
 

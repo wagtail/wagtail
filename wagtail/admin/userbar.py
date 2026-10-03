@@ -1,43 +1,44 @@
 from warnings import warn
 
-from django.template.loader import render_to_string
+from django.forms import Media
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.utils import get_admin_base_url
-from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
-from wagtail.models.pages import Page
+from wagtail.models.pages import AbstractPage
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail90Warning,
+)
 
 
-class BaseItem:
-    template = "wagtailadmin/userbar/item_base.html"
+class BaseItem(Component):
+    template_name = "wagtailadmin/userbar/item_base.html"
 
-    def get_context_data(self, request):
-        return {"self": self, "request": request}
-
-    def render(self, request):
-        return render_to_string(self.template, self.get_context_data(request))
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["self"] = self
+        context["request"] = parent_context.get("request")
+        return context
 
 
 class AdminItem(BaseItem):
-    template = "wagtailadmin/userbar/item_admin.html"
+    template_name = "wagtailadmin/userbar/item_admin.html"
 
 
-class AccessibilityItem(BaseItem):
-    """A userbar item that runs the accessibility checker."""
+class ContentCheckerItem(BaseItem):
+    """A userbar item that runs the content checker."""
 
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
-        """Whether the accessibility checker is being run in the page editor."""
+        """Whether the content checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
-    template = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_content_checker.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -48,7 +49,9 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
+    _axe_default_exclude = [
+        {"fromShadowDom": ["wagtail-userbar", "wagtail-inline-userbar"]}
+    ]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -64,6 +67,7 @@ class AccessibilityItem(BaseItem):
         "link-name",
         "p-as-heading",
         "alt-text-quality",
+        "empty-meta-description",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -74,6 +78,7 @@ class AccessibilityItem(BaseItem):
 
     #: A list to add custom Axe rules or override their properties,
     #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    # Always set `enabled`. If omitted, defaults to True and overrides configs in `axe_run_only`.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
         {
@@ -82,7 +87,16 @@ class AccessibilityItem(BaseItem):
             "selector": "img[alt]",
             "tags": ["best-practice"],
             "any": ["check-image-alt-text"],
-            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+        {
+            "id": "empty-meta-description",
+            "impact": "moderate",
+            # Axe does not support directly targeting invisible elements.
+            # h1 will help users understand it’s a page-level problem.
+            "selector": "h1",
+            "tags": ["seo"],
+            "any": ["check-empty-meta-description"],
             "enabled": True,
         },
     ]
@@ -94,6 +108,9 @@ class AccessibilityItem(BaseItem):
         {
             "id": "check-image-alt-text",
             "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+        {
+            "id": "check-empty-meta-description",
         },
     ]
 
@@ -136,6 +153,10 @@ class AccessibilityItem(BaseItem):
         "alt-text-quality": {
             "error_name": _("Image alt text has inappropriate pattern"),
             "help_text": _("Use meaningful text"),
+        },
+        "empty-meta-description": {
+            "error_name": _("Meta description is empty"),
+            "help_text": _("Add a concise description for search engines"),
         },
     }
 
@@ -212,21 +233,33 @@ class AccessibilityItem(BaseItem):
             "spec": self.get_axe_spec(request),
         }
 
-    def get_context_data(self, request):
-        return {
-            **super().get_context_data(request),
-            "axe_configuration": self.get_axe_configuration(request),
-        }
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["axe_configuration"] = self.get_axe_configuration(
+            parent_context.get("request")
+        )
+        return context
+
+
+class AccessibilityItem(ContentCheckerItem):
+    def __init_subclass__(cls, **kwargs):
+        warn(
+            "The userbar item 'AccessibilityItem' is deprecated. "
+            "Please use 'ContentCheckerItem' instead.",
+            RemovedInWagtail90Warning,
+        )
+        super().__init_subclass__(**kwargs)
 
 
 class AddPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_add.html"
+    template_name = "wagtailadmin/userbar/item_page_add.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -236,17 +269,18 @@ class AddPageItem(BaseItem):
         if not permission_checker.can_add_subpage():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class ExplorePageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_explore.html"
+    template_name = "wagtailadmin/userbar/item_page_explore.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -259,16 +293,17 @@ class ExplorePageItem(BaseItem):
         ):
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class EditPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_edit.html"
+    template_name = "wagtailadmin/userbar/item_page_edit.html"
 
     def __init__(self, page):
         self.page = page
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -286,20 +321,12 @@ class EditPageItem(BaseItem):
         if not permission_checker.can_edit():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 def apply_userbar_hooks(request, items, page):
     for fn in hooks.get_hooks("construct_wagtail_userbar"):
-        if accepts_kwarg(fn, "page"):
-            fn(request, items, page)
-        else:
-            warn(
-                "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
-                f" {fn.__module__}.{fn.__name__} needs to be updated",
-                category=RemovedInWagtail80Warning,
-            )
-            fn(request, items)
+        fn(request, items, page)
 
 
 class Userbar(Component):
@@ -331,7 +358,7 @@ class Userbar(Component):
                 items = [
                     AccessibilityItem(),
                 ]
-            elif isinstance(self.object, Page) and self.object.pk:
+            elif isinstance(self.object, AbstractPage) and self.object.pk:
                 if revision_id:
                     revision = Revision.page_revisions.get(id=revision_id)
                     items = [
@@ -359,13 +386,19 @@ class Userbar(Component):
             apply_userbar_hooks(request, items, self.object)
 
             # Render the items
-            rendered_items = [item.render(request) for item in items]
+            rendered_items = []
+            media = Media()
+            for item in items:
+                content = item.render_html(parent_context)
+                if content:
+                    rendered_items.append(content)
 
-            # Remove any unrendered items
-            rendered_items = [item for item in rendered_items if item]
+                # Always append media even if the item might render nothing.
+                if hasattr(item, "media"):
+                    media += item.media
 
             if request:
-                origin = f"{request.scheme}://{request.get_host()}"
+                origin = f"//{request.get_host()}"
             else:
                 origin = get_admin_base_url() or ""
 
@@ -374,6 +407,7 @@ class Userbar(Component):
                 "request": request,
                 "origin": origin,
                 "items": rendered_items,
+                "media": media,
                 "position": self.position,
                 "page": self.object,
                 "revision_id": revision_id,

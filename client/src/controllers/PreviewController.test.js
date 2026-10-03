@@ -1,8 +1,9 @@
 import { Application } from '@hotwired/stimulus';
 import axe from 'axe-core';
-import { ProgressController } from './ProgressController';
-import { PreviewController } from './PreviewController';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+import { PreviewController } from './PreviewController';
+import { ProgressController } from './ProgressController';
+import { UnsavedController } from './UnsavedController';
 
 jest.mock('axe-core', () => {
   const originalAxe = jest.requireActual('axe-core');
@@ -25,7 +26,7 @@ describe('PreviewController', () => {
   let mockScroll;
   let mockOldIframeLocation;
   let mockNewIframeLocation;
-  let mockA11yResults;
+  let mockCheckerResults;
   let mockExtractedContent;
 
   const identifier = 'w-preview';
@@ -66,7 +67,7 @@ describe('PreviewController', () => {
   global.ResizeObserver = ResizeObserverMock;
 
   function mockAxeResults() {
-    axe.run.mockResolvedValueOnce(mockA11yResults);
+    axe.run.mockResolvedValueOnce(mockCheckerResults);
     axe.utils.sendCommandToFrame.mockImplementationOnce(
       (frame, options, callback) => {
         callback(mockExtractedContent);
@@ -135,30 +136,30 @@ describe('PreviewController', () => {
     <button type="button" data-side-panel-toggle="checks">
       <div data-side-panel-toggle-counter></div>
     </button>
-    <div data-side-panel="checks">
+    <div data-side-panel="checks" hidden>
       <h2 id="side-panel-checks-title">Checks</h2>
-      <template id="w-a11y-result-row-template">
-        <div data-a11y-result-row>
+      <template id="w-content-checker-row-template">
+        <div data-content-checker-row>
           <h3>
-            <span data-a11y-result-name></span>
+            <span data-content-checker-name></span>
           </h3>
-          <div data-a11y-result-help></div>
+          <div data-content-checker-help></div>
           <button
-            data-a11y-result-selector
+            data-content-checker-selector
             type="button"
             aria-label="Show issue"
           >
-            <span data-a11y-result-selector-text></span>
+            <span data-content-checker-selector-text></span>
           </button>
         </div>
       </template>
       <h3>Word count: <span data-content-word-count>-</span></h3>
       <h3>Reading time: <span data-content-reading-time>-</span></h3>
       <h3>Readability: <span data-content-readability-score>-</span></h3>
-      <h3>Issues found: <span data-a11y-result-count>-</span></h3>
+      <h3>Issues found: <span data-content-checker-count>-</span></h3>
       <div data-checks-panel></div>
     </div>
-    <script type="application/json" id="accessibility-axe-configuration">
+    <script type="application/json" id="checker-axe-configuration">
       ${JSON.stringify(axeConfig)}
     </script>
   `;
@@ -182,14 +183,15 @@ describe('PreviewController', () => {
     mockNewIframeLocation = null;
 
     document.body.innerHTML = /* html */ `
-      <form method="POST" data-edit-form>
+      <form data-controller="w-unsaved" method="POST" data-edit-form>
         <input type="text" id="id_title" name="title" value="My Page" />
       </form>
-      <div data-side-panel="preview">
+      <div data-side-panel="preview" hidden>
         <h2 id="side-panel-preview-title">Preview</h2>
         <div
           class="w-preview"
           data-controller="w-preview"
+          data-action="w-unsaved:add@document->w-preview#setStale"
           data-w-preview-has-errors-class="w-preview--has-errors"
           data-w-preview-proxy-class="w-preview__proxy"
           data-w-preview-selected-size-class="w-preview__size-button--selected"
@@ -322,7 +324,7 @@ describe('PreviewController', () => {
       expect(mockScroll).not.toHaveBeenCalled();
     }
 
-    if (mockA11yResults) {
+    if (mockCheckerResults) {
       // Simulate the userbar's Axe being ready and instructing the controller
       // to run Axe from the parent window.
       window.dispatchEvent(
@@ -363,6 +365,7 @@ describe('PreviewController', () => {
       '[data-side-panel="preview"]',
     );
     sidePanelContainer.dispatchEvent(new Event('show'));
+    sidePanelContainer.hidden = false;
     await Promise.resolve();
 
     // There's no spinner, so setTimeout should not be called
@@ -1123,11 +1126,7 @@ describe('PreviewController', () => {
 
       expect(element.parentElement.removeEventListener).toHaveBeenCalledWith(
         'show',
-        controller.activatePreview,
-      );
-      expect(element.parentElement.removeEventListener).toHaveBeenCalledWith(
-        'hide',
-        controller.deactivatePreview,
+        controller.checkAndUpdatePreview,
       );
     });
 
@@ -1200,17 +1199,96 @@ describe('PreviewController', () => {
       iframes = document.querySelectorAll('iframe');
       expect(iframes.length).toEqual(1);
     });
+
+    it('should immediately update the preview if the panel was already open on connect', async () => {
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events).toMatchObject({
+        update: [],
+        json: [],
+        error: [],
+        load: [],
+        loaded: [],
+        content: [],
+        ready: [],
+        updated: [],
+      });
+
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      // There's no spinner, so setTimeout should not be called
+      expect(setTimeout).not.toHaveBeenCalled();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // At this point, there should only be one fetch call (upon connect)
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      await Promise.resolve();
+
+      await expectIframeReloaded();
+
+      // If content checks are enabled, there are a few more promises to resolve
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events).toMatchObject({
+        update: [expect.any(Event)],
+        json: [expect.any(Event)],
+        error: [],
+        load: [expect.any(Event)],
+        loaded: [expect.any(Event)],
+        content: [],
+        ready: [expect.any(Event)],
+        updated: [expect.any(Event)],
+      });
+    });
   });
 
-  describe('auto update cycle from opening the panel with a valid form -> invalid form -> valid form -> closing the panel', () => {
-    it('should behave correctly', async () => {
-      expect(events.ready).toHaveLength(0);
-      const element = document.querySelector('[data-controller="w-preview"]');
-      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+  describe('auto update based on form state', () => {
+    beforeEach(async () => {
       await initializeOpenedPanel();
+      // Register UnsavedController to detect form changes
+      application.register('w-unsaved', UnsavedController);
+      // Wait for the initial delay of setting up w-unsaved's initial form data
+      await jest.runOnlyPendingTimersAsync();
+    });
 
+    it('should behave correctly with auto-update', async () => {
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute('data-w-preview-auto-update-interval-value', '700');
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce before notifying of no further changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the preview auto update interval
+      await jest.runOnlyPendingTimersAsync();
       // If there are no changes, should not send any request to update the preview
-      await jest.advanceTimersByTime(10000);
       expect(global.fetch).not.toHaveBeenCalled();
       expect(events.update).toHaveLength(1); // Only contains the initial fetch
 
@@ -1219,9 +1297,27 @@ describe('PreviewController', () => {
       input.value = '';
       fetch.mockResponseSuccessJSON(invalidAvailableResponse);
 
-      // After 1s (500ms for check interval, 500ms for request debounce),
-      // should send the preview data to the preview URL
-      await jest.advanceTimersByTime(1000);
+      // Trigger the next check interval (>=500ms)
+      await jest.advanceTimersByTimeAsync(510);
+      // Still hasn't sent any request yet in case further changes are made
+      expect(global.fetch).not.toHaveBeenCalled();
+      // Trigger another check (>=500ms)
+      await jest.advanceTimersByTimeAsync(510);
+      // Still hasn't sent any request due to the debounce
+      expect(global.fetch).not.toHaveBeenCalled();
+      // w-unsaved hasn't notified the change so the stale value is still unset
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+      // If we wait another 10ms, w-unsaved notifies the change
+      // and w-preview now has the stale value attribute set
+      await jest.advanceTimersByTimeAsync(10);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // The request has not been sent,
+      // as we're waiting for the w-preview auto update interval
+      expect(global.fetch).not.toHaveBeenCalled();
+      // Now we wait for the auto update interval to trigger the request
+      await jest.advanceTimersByTimeAsync(700);
+
+      // Now the request should be sent
       expect(global.fetch).toHaveBeenCalledWith(url, {
         body: expect.any(Object),
         method: 'POST',
@@ -1229,11 +1325,7 @@ describe('PreviewController', () => {
       expect(global.fetch).toHaveBeenCalledTimes(1);
       expect(events.update).toHaveLength(2);
 
-      // Should not yet have the has-errors class on the controlled element
-      expect(element.classList).not.toContain('w-preview--has-errors');
-
       // Simulate the request completing
-      await Promise.resolve();
       expect(events.json).toHaveLength(2);
 
       // Should set the has-errors class on the controlled element
@@ -1247,41 +1339,44 @@ describe('PreviewController', () => {
 
       fetch.mockClear();
 
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the preview auto update interval
+      await jest.runOnlyPendingTimersAsync();
       // If there are no changes, should not send any request to update the preview
-      await jest.advanceTimersByTime(10000);
       expect(global.fetch).not.toHaveBeenCalled();
 
       // Simulate a change in the form
       input.value = 'New title';
 
-      // After 800ms, the check interval should be triggered but the request
-      // should not be fired yet to wait for the debounce
-      await jest.advanceTimersByTime(800);
+      // After the check interval, the request should not be fired yet to wait
+      // for the next check
+      await jest.runOnlyPendingTimersAsync();
       expect(global.fetch).not.toHaveBeenCalled();
 
       // Simulate another change (that is valid) in the form
       input.value = 'New title version two';
 
-      // After 400ms (>1s since the first change), the request should still not
+      // After the next check interval, the request should still not
       // be sent due to the debounce
-      await jest.advanceTimersByTime(400);
+      await jest.advanceTimersByTime(510);
       expect(global.fetch).not.toHaveBeenCalled();
 
-      // If we wait another 300ms, the request should be sent as it has been
-      // 500ms since the last change
+      // If we wait for the next timer, the request should be sent as now
+      // the w-unsaved controller has notified us of no further changes
       fetch.mockResponseSuccessJSON(validAvailableResponse);
-      await jest.advanceTimersByTime(300);
+      // Wait for debounce before notifying of no further changes
+      await jest.runOnlyPendingTimersAsync();
+      // Now we wait for the auto update interval to trigger the request
+      await jest.advanceTimersByTimeAsync(700);
       expect(global.fetch).toHaveBeenCalledWith(url, {
         body: expect.any(Object),
         method: 'POST',
       });
       expect(global.fetch).toHaveBeenCalledTimes(1);
       expect(events.update).toHaveLength(3);
-
-      // Simulate the request completing
-      expect(events.json).toHaveLength(2);
-      expect(events.load).toHaveLength(1);
-      await Promise.resolve();
       expect(events.json).toHaveLength(3);
       expect(events.load).toHaveLength(2);
 
@@ -1298,16 +1393,81 @@ describe('PreviewController', () => {
         '[data-side-panel="preview"]',
       );
       sidePanelContainer.dispatchEvent(new Event('hide'));
+      sidePanelContainer.hidden = true;
       await Promise.resolve();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the preview auto update interval
+      await jest.runOnlyPendingTimersAsync();
+
+      // Reopening the side panel should not trigger an update request,
+      // as there were no changes since it was closed
+      expect(global.fetch).toHaveBeenCalledTimes(0);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+      expect(global.fetch).toHaveBeenCalledTimes(0);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Close the side panel again
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      sidePanelContainer.hidden = true;
+      await Promise.resolve();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
 
       // Any further changes should not trigger the auto update
       input.value = 'Changes should be ignored';
-      await jest.advanceTimersByTime(10000);
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the preview auto update interval
+      await jest.runOnlyPendingTimersAsync();
+      // Should not send any request to update the preview
       expect(global.fetch).not.toHaveBeenCalled();
+      // The stale value attribute should be set to true, so that when reopening
+      // the panel, it knows to send an update immediately
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
 
+      // Reopening the side panel should now trigger an update request,
+      // as there were changes since it was closed
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      expect(global.fetch).toHaveBeenCalledTimes(0);
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(4);
+      expect(events.json).toHaveLength(3);
+      await Promise.resolve();
+      expect(events.json).toHaveLength(4);
+      expect(events.load).toHaveLength(3);
+
+      // Expect the iframe to be reloaded
+      expect(events.loaded).toHaveLength(2);
+      await expectIframeReloaded();
+      expect(events.loaded).toHaveLength(3);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // By the end, the events should show the full cycle of updates
       expect(events).toMatchObject({
-        // Initial, invalid, valid
-        update: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        // Initial, invalid, valid, valid
+        update: [
+          expect.any(Event),
+          expect.any(Event),
+          expect.any(Event),
+          expect.any(Event),
+        ],
         json: [
           expect.objectContaining({
             detail: { data: { is_valid: true, is_available: true } },
@@ -1318,146 +1478,166 @@ describe('PreviewController', () => {
           expect.objectContaining({
             detail: { data: { is_valid: true, is_available: true } },
           }),
+          expect.objectContaining({
+            detail: { data: { is_valid: true, is_available: true } },
+          }),
         ],
         error: [],
-        // Initial, valid (the invalid form submission does not reload the iframe)
-        load: [expect.any(Event), expect.any(Event)],
-        loaded: [expect.any(Event), expect.any(Event)],
+        // Initial, valid (the invalid form submission does not reload the iframe), valid
+        load: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        loaded: [expect.any(Event), expect.any(Event), expect.any(Event)],
         content: [],
         ready: [expect.any(Event)],
-        // Initial, invalid, valid
-        updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        // Initial, invalid, valid, valid
+        updated: [
+          expect.any(Event),
+          expect.any(Event),
+          expect.any(Event),
+          expect.any(Event),
+        ],
       });
     });
 
-    it('should respect changes to the interval value', async () => {
-      expect(events.ready).toHaveLength(0);
+    it('should continue to auto-update when changes are made during an in-progress update', async () => {
+      // Regression test for https://github.com/wagtail/wagtail/issues/14121
       const element = document.querySelector('[data-controller="w-preview"]');
       element.setAttribute('data-w-preview-auto-update-interval-value', '500');
-      await initializeOpenedPanel();
 
+      const input = document.querySelector('input[name="title"');
+
+      // First change — starts the first preview update
+      input.value = 'First change';
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // w-unsaved check interval (≤500ms) + notify debounce (530ms) = 1030ms
+      await jest.advanceTimersByTimeAsync(1030);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // setPreviewDataLazy debounce fires, first fetch is sent
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Second change while the first update's iframe is still loading
+      input.value = 'Second change';
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      await jest.advanceTimersByTimeAsync(1030);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // setPreviewDataLazy fires but setPreviewData() returns early because
+      // updatePromise is still pending (iframe not yet loaded)
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1); // still only 1 fetch
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+
+      // Complete the first update; finishUpdate() now re-schedules
+      // setPreviewDataLazy() because staleValue is still true.
+      // expectIframeReloaded() resets fetch.mockClear() at the end.
+      await expectIframeReloaded();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // Should send the second update after a debounce
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      await expectIframeReloaded();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+    });
+
+    it('should not auto-update when auto-update interval is set to 0', async () => {
+      const element = document.querySelector('[data-controller="w-preview"]');
+      // The test setup sets the auto-update interval to 0 (disabled)
+      expect(
+        element.getAttribute('data-w-preview-auto-update-interval-value'),
+      ).toBe('0');
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce before notifying of no further changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce of the preview interval setting
+      await jest.runOnlyPendingTimersAsync();
       // If there are no changes, should not send any request to update the preview
-      await jest.advanceTimersByTime(10000);
       expect(global.fetch).not.toHaveBeenCalled();
       expect(events.update).toHaveLength(1); // Only contains the initial fetch
 
-      // Simulate an invalid form submission
       const input = document.querySelector('input[name="title"');
-      input.value = '';
-      fetch.mockResponseSuccessJSON(invalidAvailableResponse);
-
-      // After 1s (500ms for check interval, 500ms for request debounce),
-      // should send the preview data to the preview URL
-      await jest.advanceTimersByTime(1000);
-      expect(global.fetch).toHaveBeenCalledWith(url, {
-        body: expect.any(Object),
-        method: 'POST',
-      });
-      expect(global.fetch).toHaveBeenCalledTimes(1);
-      expect(events.update).toHaveLength(2);
-
-      // Should not yet have the has-errors class on the controlled element
-      expect(element.classList).not.toContain('w-preview--has-errors');
-
-      // Simulate the request completing
-      await Promise.resolve();
-      expect(events.json).toHaveLength(2);
-
-      // Should set the has-errors class on the controlled element
-      expect(element.classList).toContain('w-preview--has-errors');
-
-      // Should not create a new iframe for reloading the preview
-      const iframes = document.querySelectorAll('iframe');
-      expect(iframes.length).toEqual(1);
-      // Should not dispatch a load event (only the initial load event exists)
-      expect(events.load).toHaveLength(1);
-
-      fetch.mockClear();
-
-      // If there are no changes, should not send any request to update the preview
-      await jest.advanceTimersByTime(10000);
-      expect(global.fetch).not.toHaveBeenCalled();
-
-      // Update the auto update interval to 1000ms
-      element.setAttribute('data-w-preview-auto-update-interval-value', '1000');
-      await Promise.resolve();
 
       // Simulate a change in the form
       input.value = 'New title';
 
-      // After 1400ms, the check interval should be triggered but the request
-      // should not be fired yet to wait for the debounce
-      await jest.advanceTimersByTime(1400);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // With the auto-update interval set to 0, should not send any request
       expect(global.fetch).not.toHaveBeenCalled();
-
-      // Simulate another change (that is valid) in the form
-      input.value = 'New title version two';
-
-      // After 1200ms (>2s since the first change), the request should still not
-      // be sent due to the debounce
-      await jest.advanceTimersByTime(1200);
-      expect(global.fetch).not.toHaveBeenCalled();
-
-      // If we wait another 900ms, the request should be sent as it has been
-      // >2s since the last change
-      fetch.mockResponseSuccessJSON(validAvailableResponse);
-      await jest.advanceTimersByTime(900);
-      expect(global.fetch).toHaveBeenCalledWith(url, {
-        body: expect.any(Object),
-        method: 'POST',
-      });
-      expect(global.fetch).toHaveBeenCalledTimes(1);
-      expect(events.update).toHaveLength(3);
-
-      // Simulate the request completing
-      expect(events.json).toHaveLength(2);
-      expect(events.load).toHaveLength(1);
-      await Promise.resolve();
-      expect(events.json).toHaveLength(3);
-      expect(events.load).toHaveLength(2);
-
-      // Should no longer have the has-errors class on the controlled element
-      expect(element.classList).not.toContain('w-preview--has-errors');
-
-      // Expect the iframe to be reloaded
-      expect(events.loaded).toHaveLength(1);
-      await expectIframeReloaded();
-      expect(events.loaded).toHaveLength(2);
+      // but the stale value attribute should be set to true
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
 
       // Close the side panel
       const sidePanelContainer = document.querySelector(
         '[data-side-panel="preview"]',
       );
       sidePanelContainer.dispatchEvent(new Event('hide'));
+      sidePanelContainer.hidden = true;
       await Promise.resolve();
 
-      // Any further changes should not trigger the auto update
-      input.value = 'Changes should be ignored';
-      await jest.advanceTimersByTime(10000);
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // Should not send any request to update the preview while closed
       expect(global.fetch).not.toHaveBeenCalled();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+
+      // Reopening the side panel should now trigger an update request,
+      // as there were changes since it was closed
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(2);
+      expect(events.json).toHaveLength(1);
+      await Promise.resolve();
+      expect(events.json).toHaveLength(2);
+      expect(events.load).toHaveLength(2);
+
+      // Expect the iframe to be reloaded
+      expect(events.loaded).toHaveLength(1);
+      await expectIframeReloaded();
+      expect(events.loaded).toHaveLength(2);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
 
       expect(events).toMatchObject({
-        // Initial, invalid, valid
-        update: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        // Initial, reopening
+        update: [expect.any(Event), expect.any(Event)],
         json: [
           expect.objectContaining({
             detail: { data: { is_valid: true, is_available: true } },
-          }),
-          expect.objectContaining({
-            detail: { data: { is_valid: false, is_available: true } },
           }),
           expect.objectContaining({
             detail: { data: { is_valid: true, is_available: true } },
           }),
         ],
         error: [],
-        // Initial, valid (the invalid form submission does not reload the iframe)
+        // Initial, reopening
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
         content: [],
         ready: [expect.any(Event)],
-        // Initial, invalid, valid
-        updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        // Initial, reopening
+        updated: [expect.any(Event), expect.any(Event)],
       });
     });
   });
@@ -1688,6 +1868,10 @@ describe('PreviewController', () => {
         await initializeOpenedPanel(
           `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
         );
+        // Register UnsavedController to detect form changes and wait for its
+        // initial delayed setup
+        application.register('w-unsaved', UnsavedController);
+        await jest.runOnlyPendingTimersAsync();
         global.fetch.mockClear();
       });
 
@@ -1703,7 +1887,9 @@ describe('PreviewController', () => {
 
         // Trigger auto update check
         await jest.runOnlyPendingTimersAsync();
-        // Wait for debounce
+        // Wait for debounce before notifying of no further changes
+        await jest.runOnlyPendingTimersAsync();
+        // Wait for debounce of the preview interval setting
         await jest.runOnlyPendingTimersAsync();
 
         // Should send the preview data to the backend URL
@@ -2126,7 +2312,7 @@ describe('PreviewController', () => {
       document.body.insertAdjacentHTML('beforeend', checksSidePanel);
 
       const mockText = 'Hello world 123'.repeat(100);
-      mockA11yResults = { violations: [] };
+      mockCheckerResults = { violations: [] };
       mockExtractedContent = {
         lang: 'en',
         innerText: mockText,
@@ -2143,7 +2329,7 @@ describe('PreviewController', () => {
     });
 
     it('should run content checks on the preview and render the results', async () => {
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockAxeResults();
 
       await initializeOpenedPanel();
@@ -2174,11 +2360,15 @@ describe('PreviewController', () => {
       );
       expect(readabilityScore.textContent.trim()).toEqual('Complex');
 
-      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      const panelCounter = document.querySelector(
+        '[data-content-checker-count]',
+      );
       expect(panelCounter.textContent.trim()).toEqual('2');
 
       const checksPanel = document.querySelector('[data-checks-panel]');
-      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+      const resultRows = checksPanel.querySelectorAll(
+        '[data-content-checker-row]',
+      );
 
       // Should dispatch the content event with the extracted content and metrics
       expect(events.content).toHaveLength(1);
@@ -2201,35 +2391,35 @@ describe('PreviewController', () => {
       // of Axe's defaults
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-name]')
+          .querySelector('[data-content-checker-name]')
           .textContent.trim(),
       ).toEqual('Incorrect heading hierarchy');
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-help]')
+          .querySelector('[data-content-checker-help]')
           .textContent.trim(),
       ).toEqual('Avoid skipping levels');
       // Should strip out the #w-preview-iframe selector
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-selector]')
+          .querySelector('[data-content-checker-selector]')
           .textContent.trim(),
       ).toEqual('div:nth-child(1) > h4');
 
       // Should use Axe's error message and help text
       expect(
         resultRows[1]
-          .querySelector('[data-a11y-result-name]')
+          .querySelector('[data-content-checker-name]')
           .textContent.trim(),
       ).toEqual('Aside should not be contained in another landmark');
       expect(
         resultRows[1]
-          .querySelector('[data-a11y-result-help]')
+          .querySelector('[data-content-checker-help]')
           .textContent.trim(),
       ).toEqual('Ensure the complementary landmark or aside is at top level');
       // Should strip out the #w-preview-iframe selector
       const selector = resultRows[1].querySelector(
-        '[data-a11y-result-selector]',
+        '[data-content-checker-selector]',
       );
       expect(selector.textContent.trim()).toEqual('aside');
 
@@ -2247,7 +2437,7 @@ describe('PreviewController', () => {
     });
 
     it('should not throw an error if content metrics plugin fails to return the results', async () => {
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockExtractedContent = null;
       mockAxeResults();
 
@@ -2274,11 +2464,15 @@ describe('PreviewController', () => {
       const readingTime = document.querySelector('[data-content-reading-time]');
       expect(readingTime.textContent.trim()).toEqual('-');
 
-      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      const panelCounter = document.querySelector(
+        '[data-content-checker-count]',
+      );
       expect(panelCounter.textContent.trim()).toEqual('2');
 
       const checksPanel = document.querySelector('[data-checks-panel]');
-      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+      const resultRows = checksPanel.querySelectorAll(
+        '[data-content-checker-row]',
+      );
 
       // Should still render accessibility results
       expect(resultRows.length).toEqual(2);
@@ -2290,7 +2484,7 @@ describe('PreviewController', () => {
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(0);
 
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockAxeResults();
 
       // A non-Wagtail message event should not trigger the checks
@@ -2336,13 +2530,13 @@ describe('PreviewController', () => {
       console.error.mockClear();
 
       // Mock two long-running checks
-      mockA11yResults = new Promise((resolve) => {
+      mockCheckerResults = new Promise((resolve) => {
         setTimeout(() => {
           resolve({ violations: [mockViolations[1]] });
         }, 5_000);
       });
       mockAxeResults();
-      mockA11yResults = new Promise((resolve) => {
+      mockCheckerResults = new Promise((resolve) => {
         setTimeout(() => {
           resolve({ violations: [mockViolations[0]] });
         }, 15_000);
@@ -2396,6 +2590,28 @@ describe('PreviewController', () => {
       expect(content).toEqual(mockExtractedContent);
     });
 
+    it('should compute ContentMetrics on demand', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      const content = {
+        lang: 'en',
+        innerText: 'This is a simple one just over 10 words in length.',
+        innerHTML: '<p>This is a simple one just over 10 words in length.</p>',
+      };
+      const metrics = controller.extractMetrics(content);
+      expect(metrics).toMatchObject({
+        wordCount: 11,
+        readingTime: 0,
+        lixScore: expect.closeTo(11, 1),
+        readabilityScore: 'Good',
+      });
+    });
+
     it('should not require opening the panel to do content extraction', async () => {
       application = Application.start();
       application.register(identifier, PreviewController);
@@ -2412,6 +2628,162 @@ describe('PreviewController', () => {
       await jest.runOnlyPendingTimersAsync();
       await expectIframeReloaded();
       expect(await content).toEqual(mockExtractedContent);
+    });
+
+    it('should auto-update while the checks panel is open', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      application.register('w-unsaved', UnsavedController);
+      // Wait for the UnsavedController's delayed setup
+      await jest.runOnlyPendingTimersAsync();
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+
+      // Close the preview panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      sidePanelContainer.hidden = true;
+      await Promise.resolve();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for the debounce
+      await jest.runOnlyPendingTimersAsync();
+      // No changes and the panel is closed, so no update request should be sent
+      expect(global.fetch).toHaveBeenCalledTimes(0);
+
+      // Opening the checks panel should not trigger an update request,
+      // as there were no changes since the preview panel was closed
+      const checksPanel = document.querySelector('[data-side-panel="checks"]');
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+      checksPanel.dispatchEvent(new Event('show'));
+      checksPanel.hidden = false;
+      await Promise.resolve();
+      expect(global.fetch).toHaveBeenCalledTimes(0);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      const input = document.querySelector('input[name="title"]');
+      input.value = 'Changed title';
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      mockAxeResults();
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce before notifying of no further changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce of the preview interval setting
+      await jest.runOnlyPendingTimersAsync();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Should reload the iframe
+      await expectIframeReloaded();
+
+      // Close the checks panel
+      checksPanel.dispatchEvent(new Event('hide'));
+      checksPanel.hidden = true;
+      await Promise.resolve();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      input.value = 'Changed title again';
+
+      // Trigger the next check interval
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // We know there are changes
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // But the checks panel is closed, so no update request should be sent
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      mockAxeResults();
+
+      // Opening the checks panel should now trigger an update request and
+      // reload the iframe
+      checksPanel.dispatchEvent(new Event('show'));
+      checksPanel.hidden = false;
+      await Promise.resolve();
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+      await Promise.resolve();
+      await expectIframeReloaded();
+    });
+
+    it('should immediately update the preview if the panel was already open on connect', async () => {
+      mockAxeResults();
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="checks"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events).toMatchObject({
+        update: [],
+        json: [],
+        error: [],
+        load: [],
+        loaded: [],
+        content: [],
+        ready: [],
+        updated: [],
+      });
+
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      // There's no spinner, so setTimeout should not be called
+      expect(setTimeout).not.toHaveBeenCalled();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // At this point, there should only be one fetch call (upon connect)
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      await Promise.resolve();
+
+      await expectIframeReloaded();
+
+      // If content checks are enabled, there are a few more promises to resolve
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events).toMatchObject({
+        update: [expect.any(Event)],
+        json: [expect.any(Event)],
+        error: [],
+        load: [expect.any(Event)],
+        loaded: [expect.any(Event)],
+        content: [expect.any(Event)],
+        ready: [expect.any(Event)],
+        updated: [expect.any(Event)],
+      });
     });
 
     it('should clean up event listeners on disconnect', async () => {
@@ -2438,11 +2810,7 @@ describe('PreviewController', () => {
       );
       expect(panel.addEventListener).toHaveBeenCalledWith(
         'show',
-        controller.activatePreview,
-      );
-      expect(panel.addEventListener).toHaveBeenCalledWith(
-        'hide',
-        controller.deactivatePreview,
+        controller.checkAndUpdatePreview,
       );
 
       element.removeAttribute('data-controller');
@@ -2454,11 +2822,7 @@ describe('PreviewController', () => {
       );
       expect(panel.removeEventListener).toHaveBeenCalledWith(
         'show',
-        controller.activatePreview,
-      );
-      expect(panel.removeEventListener).toHaveBeenCalledWith(
-        'hide',
-        controller.deactivatePreview,
+        controller.checkAndUpdatePreview,
       );
 
       spies.forEach((spy) => spy.mockRestore());
@@ -2481,9 +2845,7 @@ describe('PreviewController', () => {
       });
 
       it('should respect context.exclude', async () => {
-        const config = document.getElementById(
-          'accessibility-axe-configuration',
-        );
+        const config = document.getElementById('checker-axe-configuration');
         config.innerHTML = JSON.stringify({
           ...axeConfig,
           context: {

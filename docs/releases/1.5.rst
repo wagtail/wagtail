@@ -181,7 +181,7 @@ If you need the old behavior back, where SSL certificates are not verified for y
         }
     }
 
-See the `Elasticsearch-py documentation <http://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.
+See the `Elasticsearch-py documentation <https://elasticsearch-py.readthedocs.org/en/stable/#ssl-and-authentication>`_ for more configuration options.
 
 
 Project template now imports ``settings.dev`` explicitly

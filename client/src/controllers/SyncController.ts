@@ -216,9 +216,7 @@ export class SyncController extends Controller<HTMLInputElement> {
       ) => {
         const { detail: { element, name = '', value } = {} } = event;
         const target = event.target as
-          | HTMLInputElement
-          | HTMLTextAreaElement
-          | HTMLSelectElement;
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
         if (
           !NAMES.includes(name) ||
@@ -232,6 +230,8 @@ export class SyncController extends Controller<HTMLInputElement> {
 
         // always prevent default on the original event so that we can change the approach
         event.preventDefault();
+
+        if (target.value) return;
 
         const data = { title: value };
 

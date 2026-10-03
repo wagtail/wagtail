@@ -12,3 +12,5 @@ af942a27e41b47e257b6cd46c01a13cd381fed04
 d10f15e55806c6944827d801cd9c2d53f5da4186
 # Initial ruff reformatting (#11220)
 f8fc2c3a2052988f7b458e26f621e058d67a76c9
+# Python code reformatting in docs with ruff (#14474)
+a1b3d2176f29bfd5139e302df7a754f7397caf0c

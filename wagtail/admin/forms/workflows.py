@@ -1,3 +1,4 @@
+import swapper
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -14,8 +15,10 @@ from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.coreutils import get_content_type_label, get_model_string
-from wagtail.models import Page, Task, Workflow, WorkflowContentType, WorkflowPage
+from wagtail.models import Task, Workflow, WorkflowContentType, WorkflowPage
 from wagtail.snippets.models import get_workflow_enabled_models
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class TaskChooserSearchForm(forms.Form):
@@ -179,7 +182,7 @@ class WorkflowContentTypeForm(forms.Form):
 
     def __init__(self, *args, workflow=None, **kwargs):
         self.workflow = workflow
-        if workflow and "initial" not in kwargs:
+        if workflow and workflow.pk and "initial" not in kwargs:
             kwargs["initial"] = {"content_types": workflow.workflow_content_types.all()}
 
         super().__init__(*args, **kwargs)
@@ -206,7 +209,10 @@ class WorkflowContentTypeForm(forms.Form):
         existing_assignments = WorkflowContentType.objects.filter(
             content_type__in=content_types,
             workflow__active=True,
-        ).exclude(workflow=self.workflow)
+        )
+        if self.workflow.pk:
+            existing_assignments = existing_assignments.exclude(workflow=self.workflow)
+
         for assignment in existing_assignments:
             self.add_error(
                 "content_types",

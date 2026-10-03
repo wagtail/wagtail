@@ -27,7 +27,7 @@ class SlugInput(widgets.TextInput):
                     str | None,
                 ],
             ]
-        ) = [],
+        ) = None,
         locale: object | None = None,
     ):
         default_attrs = {

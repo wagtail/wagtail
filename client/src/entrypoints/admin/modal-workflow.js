@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
-import { noop } from '../../utils/noop';
 import { gettext } from '../../utils/gettext';
+import { noop } from '../../utils/noop';
 
 /**
  * ModalWorkflow - A framework for modal popups that are loaded via AJAX.

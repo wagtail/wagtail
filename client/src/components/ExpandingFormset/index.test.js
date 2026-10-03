@@ -86,6 +86,12 @@ describe('ExpandingFormset', () => {
     ).toHaveLength(3);
 
     expect(newFormHtml).toMatchSnapshot();
+
+    document
+      .getElementById(`${prefix}-ADD`)
+      .dispatchEvent(new MouseEvent('click'));
+
+    expect(handleLoadedEvent).toHaveBeenCalledTimes(2);
   });
 
   it('should not add an expanded item if the add button is disabled', () => {
@@ -277,5 +283,36 @@ describe('ExpandingFormset', () => {
     expect(detail.prefix2).toEqual(
       `${prefix}-2-${nestedPrefix}-__prefix__-testelement2`,
     );
+  });
+
+  it('should support legacy inline and external scripts with standard types', () => {
+    const handleTypedEvent = jest.fn();
+    document.addEventListener('custom:typed-loaded', handleTypedEvent);
+
+    const prefix = 'id_scripts_form';
+    document.body.innerHTML = `
+    <div id="content">
+      <input type="hidden" name="scripts-TOTAL_FORMS" value="0" id="${prefix}-TOTAL_FORMS">
+      <ul id="${prefix}-FORMS"></ul>
+      <button class="button" id="${prefix}-ADD" type="button">Add</button>
+      <template id="${prefix}-EMPTY_FORM_TEMPLATE">
+        <li id="item-__prefix__">
+          <input type="text" name="item-__prefix__-name">
+        </li>
+        <script type="text/javascript; charset=utf-8">document.dispatchEvent(new CustomEvent('custom:typed-loaded', { bubbles: true }));</script>
+        <script src="/static/custom-widget.js"></script>
+      </template>
+    </div>`;
+
+    new ExpandingFormset(prefix);
+
+    document.getElementById(`${prefix}-ADD`).click();
+
+    expect(handleTypedEvent).toHaveBeenCalledTimes(1);
+    const container = document.getElementById(`${prefix}-FORMS`);
+    const externalScript = container.querySelector(
+      'script[src="/static/custom-widget.js"]',
+    );
+    expect(externalScript).not.toBeNull();
   });
 });

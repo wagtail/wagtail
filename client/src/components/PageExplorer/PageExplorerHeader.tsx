@@ -2,8 +2,8 @@ import React from 'react';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
 import { gettext } from '../../utils/gettext';
-import Link from '../Link/Link';
 import Icon from '../Icon/Icon';
+import Link from '../Link/Link';
 import { PageState } from './reducers/nodes';
 
 const { ADMIN_URLS } = WAGTAIL_CONFIG;

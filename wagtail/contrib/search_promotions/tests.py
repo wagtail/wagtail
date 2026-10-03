@@ -1501,7 +1501,7 @@ class TestQueryChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get("/admin/searchpicks/queries/chooser/", params)
 
     def test_simple(self):
@@ -1786,3 +1786,6 @@ class TestFilteredQueryHitsView(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no results.")
         self.assertNotContains(response, "this will be found")
+
+    def test_query_verbose_name_plural(self):
+        self.assertEqual(Query._meta.verbose_name_plural, "queries")

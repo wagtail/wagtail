@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 
 class BaseViewRestriction(models.Model):
     NONE = "none"
-    PASSWORD = "password"
+    PASSWORD = "password"  # noqa: S105 -  false positive
     GROUPS = "groups"
     LOGIN = "login"
 

@@ -2,7 +2,9 @@
 
 # UI components
 
-This document provides a reference for Wagtail's user interface (UI) components, which are used to build the features within the CMS. A demonstration of these components are available through the [Styleguide app](styleguide) and the [pattern library](pattern_library).
+This document provides a reference for Wagtail's user interface (UI) components, which are used to build the features within the CMS. A demonstration of these components is available through the [Styleguide app](styleguide) and the [pattern library](pattern_library).
+
+For JavaScript-powered components and Stimulus controllers, search by the controller or class name and follow the JavaScript reference from [](javascript_components). This is particularly helpful for components such as `ClipboardController`, `DialogController`, `DropdownController`, `PreviewController`, `RulesController`, and `TooltipController`.
 
 ````{note}
 ```{include} ../../../client/README.md

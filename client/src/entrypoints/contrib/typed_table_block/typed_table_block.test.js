@@ -1,8 +1,11 @@
-import '../../admin/telepath/telepath';
 import $ from 'jquery';
-import { TypedTableBlockDefinition } from './typed_table_block';
+import Telepath from 'telepath-unpack';
+
+window.telepath = new Telepath();
+
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
 import { StreamBlockDefinition } from '../../../components/StreamField/blocks/StreamBlock';
+import { TypedTableBlockDefinition } from './typed_table_block';
 
 window.$ = $;
 

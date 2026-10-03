@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
@@ -15,7 +16,6 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import register
 from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page
 
 
 class BaseChooser(widgets.Input):
@@ -157,15 +157,17 @@ class BaseChooser(widgets.Input):
         # so let's make sure it fails early in the process
         try:
             id_ = attrs["id"]
-        except (KeyError, TypeError):
-            raise TypeError("BaseChooser cannot be rendered without an 'id' attribute")
+        except (KeyError, TypeError) as e:
+            raise TypeError(
+                "BaseChooser cannot be rendered without an 'id' attribute"
+            ) from e
 
         value_data = self.get_value_data(value)
         widget_html = self.render_html(name, value_data, attrs)
 
         js = self.render_js_init(id_, name, value_data)
         out = f"{widget_html}<script>{js}</script>"
-        return mark_safe(out)
+        return mark_safe(out)  # noqa: S308 - TODO: investigate if susceptible to XSS
 
     @property
     def base_js_init_options(self):
@@ -231,6 +233,8 @@ class AdminPageChooser(BaseChooser):
     ):
         super().__init__(**kwargs)
 
+        Page = swapper.load_model("wagtailcore", "Page")
+
         if target_models:
             if not isinstance(target_models, (set, list, tuple)):
                 # assume we've been passed a single instance; wrap it as a list
@@ -241,12 +245,12 @@ class AdminPageChooser(BaseChooser):
             for model in target_models:
                 try:
                     cleaned_target_models.append(resolve_model_string(model))
-                except (ValueError, LookupError):
+                except (ValueError, LookupError) as e:
                     raise ImproperlyConfigured(
                         "Could not resolve %r into a model. "
                         "Model names should be in the form app_label.model_name"
                         % (model,)
-                    )
+                    ) from e
         else:
             cleaned_target_models = [Page]
 

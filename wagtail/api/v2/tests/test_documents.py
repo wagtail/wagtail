@@ -1,15 +1,18 @@
 import json
 from unittest import mock
 
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.documents import get_document_model
+from wagtail.models import CollectionViewRestriction
+from wagtail.test.utils import PageFixturesMixin
+from wagtail.test.utils.wagtail_factories import CollectionFactory
 
 
-class TestDocumentListing(TestCase):
+class TestDocumentListing(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -68,6 +71,49 @@ class TestDocumentListing(TestCase):
                     "http://localhost/documents/%d/" % document["id"]
                 )
             )
+
+    def test_excludes_restricted_document(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_document.collection = restricted_collection
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_document.id, self.get_document_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_document_model().objects.count() - 1
+        )
+
+    def test_excludes_restricted_document_in_descendant_collection(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_document.collection = restricted_collection_descendant
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertNotIn(restricted_document.id, self.get_document_id_list(content))
+
+        self.assertEqual(
+            content["meta"]["total_count"], get_document_model().objects.count() - 1
+        )
 
     # FIELDS
 
@@ -360,7 +406,8 @@ class TestDocumentListing(TestCase):
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
 
-class TestDocumentListingSearch(TransactionTestCase):
+@tag("transaction")
+class TestDocumentListingSearch(PageFixturesMixin, TransactionTestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -404,7 +451,7 @@ class TestDocumentListingSearch(TransactionTestCase):
         )
 
 
-class TestDocumentDetail(TestCase):
+class TestDocumentDetail(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, image_id, **params):
@@ -475,6 +522,37 @@ class TestDocumentDetail(TestCase):
             "http://api.example.com/documents/1/wagtail_by_markyharky.jpg",
         )
 
+    def test_excludes_restricted_document(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_document.collection = restricted_collection
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_document.id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_excludes_restricted_document_in_descendant_collection(self):
+        restricted_document = get_document_model().objects.first()
+        restricted_collection = CollectionFactory.create()
+        restricted_collection_descendant = CollectionFactory.create(
+            parent=restricted_collection
+        )
+        restricted_document.collection = restricted_collection_descendant
+        restricted_document.save()
+
+        CollectionViewRestriction.objects.create(
+            collection=restricted_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+
+        response = self.get_response(restricted_document.id)
+        self.assertEqual(response.status_code, 404)
+
     # FIELDS
 
     def test_remove_fields(self):
@@ -543,7 +621,7 @@ class TestDocumentDetail(TestCase):
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
 
 
-class TestDocumentFind(TestCase):
+class TestDocumentFind(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -591,7 +669,7 @@ class TestDocumentFind(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestDocumentCacheInvalidation(TestCase):
+class TestDocumentCacheInvalidation(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     @classmethod

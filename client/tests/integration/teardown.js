@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const os = require('os');
 const path = require('path');
 
-const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
+const DIR = path.join(os.tmpdir(), 'jest_playwright_global_setup');
 
 module.exports = async () => {
   // close the browser instance

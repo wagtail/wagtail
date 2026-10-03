@@ -1,21 +1,28 @@
 import { Controller } from '@hotwired/stimulus';
+import { setOptionalInterval } from '../utils/interval';
+import { ActionController } from './ActionController';
+import { AutosaveSuccessResponse } from './AutosaveController';
 import { DialogController } from './DialogController';
 import { SwapController } from './SwapController';
-import { ActionController } from './ActionController';
-import { setOptionalInterval } from '../utils/interval';
 
-interface PingResponse {
+export interface PingResponse {
   session_id: string;
   ping_url: string;
   release_url: string;
-  other_sessions: {
+  other_sessions: Array<{
     session_id: string | null;
     user: string;
     last_seen_at: string;
     is_editing: boolean;
     revision_id: number | null;
-  }[];
+  }>;
   html: string;
+}
+
+export enum ConfirmationInterceptType {
+  CONFLICT = 'conflict',
+  NETWORK = 'network',
+  NONE = '',
 }
 
 /**
@@ -45,7 +52,7 @@ interface PingResponse {
  *   data-w-swap-json-path-value="html"
  *   data-w-action-continue-value="true"
  *   data-w-action-url-value="/path/to/release/session/"
- *   data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+ *   data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
  *   data-action="visibilitychange@document->w-session#dispatchVisibilityState w-session:visible->w-session#ping w-session:visible->w-session#addInterval w-session:hidden->w-session#clearInterval w-session:hidden->w-action#sendBeacon"
  * >
  * </form>
@@ -53,26 +60,33 @@ interface PingResponse {
  */
 export class SessionController extends Controller<HTMLElement> {
   static values = {
+    active: { type: Boolean, default: true },
     interval: { type: Number, default: 1000 * 10 }, // 10 seconds
-    intercept: { type: Boolean, default: false },
+    intercept: { type: String, default: '' },
   };
 
   static outlets = ['w-dialog'];
 
-  static targets = ['unsavedChanges', 'reload'];
+  static targets = ['revisionCreatedAt', 'revisionId', 'unsavedChanges'];
 
+  declare readonly hasRevisionCreatedAtTarget: boolean;
+  declare readonly hasRevisionIdTarget: boolean;
   declare readonly hasUnsavedChangesTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
+  /** The hidden input to store the current revision created at datetime. */
+  declare readonly revisionCreatedAtTarget: HTMLInputElement;
+  /** The hidden input to store the current revision ID */
+  declare readonly revisionIdTarget: HTMLInputElement;
   /** The checkbox input to indicate unsaved changes */
   declare readonly unsavedChangesTarget: HTMLInputElement;
-  /** Reload buttons in the sessions' popups */
-  declare readonly reloadTargets: HTMLButtonElement[];
   /** The confirmation dialog for overwriting changes made by another user */
   declare readonly wDialogOutlet: DialogController;
+  /** Whether the session is currently active */
+  declare activeValue: boolean;
   /** The interval duration for the ping event */
   declare intervalValue: number;
   /** Whether to intercept the original event and show a confirmation dialog */
-  declare interceptValue: boolean;
+  declare interceptValue: ConfirmationInterceptType;
 
   /** The interval ID for the periodic pinging */
   declare interval: number | null;
@@ -109,6 +123,7 @@ export class SessionController extends Controller<HTMLElement> {
    * alive or indicate presence.
    */
   ping(): void {
+    if (!this.activeValue) return;
     this.dispatch('ping');
   }
 
@@ -133,6 +148,47 @@ export class SessionController extends Controller<HTMLElement> {
       window.clearInterval(this.interval);
       this.interval = null;
     }
+  }
+
+  /**
+   * Clear the interval and prevent any pings from being dispatched
+   * until the session is resumed.
+   */
+  pause(): void {
+    this.clearInterval();
+    this.activeValue = false;
+  }
+
+  /**
+   * Set the interval and allow pings to be dispatched again
+   * after the session has been paused.
+   */
+  resume(): void {
+    this.activeValue = true;
+    this.addInterval();
+  }
+
+  /**
+   * Set the intercept value to 'network' (or remove it if already set) based on
+   * network-related events.
+   * @param event A network-related event containing a `TypeError` as `detail.error`
+   * when the network is offline, otherwise the network is assumed to be back online.
+   */
+  setNetworkIntercept(event: CustomEvent<{ error?: Error | TypeError }>) {
+    // Let other intercept types (e.g. conflict) take precedence
+    if (
+      this.interceptValue &&
+      this.interceptValue !== ConfirmationInterceptType.NETWORK
+    )
+      return;
+
+    this.interceptValue =
+      // Assume TypeError to be a network error from fetch()
+      'error' in event.detail && event.detail.error instanceof TypeError
+        ? ConfirmationInterceptType.NETWORK
+        : // If there's no error, or it's not a TypeError,
+          // assume the network is back and clear the intercept
+          ConfirmationInterceptType.NONE;
   }
 
   /**
@@ -188,9 +244,10 @@ export class SessionController extends Controller<HTMLElement> {
    * Proceed with the original action after the user confirms the dialog.
    */
   confirmAction(): void {
-    this.interceptValue = false;
+    const originalInterceptValue = this.interceptValue;
+    this.interceptValue = ConfirmationInterceptType.NONE;
     this.lastActionButton?.click();
-    this.interceptValue = true;
+    this.interceptValue = originalInterceptValue;
   }
 
   wDialogOutletConnected(): void {
@@ -240,26 +297,6 @@ export class SessionController extends Controller<HTMLElement> {
     if (!this.hasUnsavedChangesTarget) return;
     const type = event.type.split(':')[1];
     this.unsavedChangesTarget.checked = type !== 'clear';
-    this.reloadTargets.forEach((button) => this.reloadTargetConnected(button));
-  }
-
-  /**
-   * Conditionally set whether the reload button should immediately reload or
-   * show the "unsaved changes" dialog based on the unsaved changes state.
-   * @param button The reload button to update
-   */
-  reloadTargetConnected(button: HTMLButtonElement): void {
-    if (
-      this.hasUnsavedChangesTarget &&
-      this.unsavedChangesTarget.checked &&
-      button.dataset.dialogId
-    ) {
-      button.removeAttribute('data-action');
-      button.setAttribute('data-a11y-dialog-show', button.dataset.dialogId);
-    } else {
-      button.removeAttribute('data-a11y-dialog-show');
-      button.setAttribute('data-action', 'w-action#reload');
-    }
   }
 
   get swapController() {
@@ -283,27 +320,40 @@ export class SessionController extends Controller<HTMLElement> {
   updateSessionData(event: CustomEvent) {
     const { detail } = event;
     if (!detail || !detail.data) return;
-    const data: PingResponse = detail.data;
+    const data: PingResponse | AutosaveSuccessResponse = detail.data;
 
     // Update the ping and release URLs in case the session ID has changed
     // e.g. when the user has been inactive for too long and resumed their session.
     // Modify the values via the controllers directly instead of setting the data
     // attributes so we get type checking.
     const swapController = this.swapController;
-    if (swapController && data.ping_url) {
+    if (swapController && 'ping_url' in data && data.ping_url) {
       swapController.srcValue = data.ping_url;
     }
     const actionController = this.actionController;
-    if (actionController && data.release_url) {
+    if (actionController && 'release_url' in data && data.release_url) {
       actionController.urlValue = data.release_url;
     }
 
-    // Set the interceptValue to true if any of the other sessions have a
+    // An autosave success event for this session would contain a revision_id
+    // and revision_created_at, update our current values with the autosave
+    // revision's details so we don't consider it to be a revision conflict from
+    // another window.
+    if ('revision_id' in data && this.hasRevisionIdTarget) {
+      this.revisionIdTarget.value = `${data.revision_id}`;
+    }
+    if ('revision_created_at' in data && this.hasRevisionCreatedAtTarget) {
+      this.revisionCreatedAtTarget.value = data.revision_created_at!;
+    }
+
+    // Set the interceptValue to 'conflict' if any of the other sessions have a
     // revision ID (assumed to be newer than the one we have loaded)
-    if (!data.other_sessions) return;
+    if (!('other_sessions' in data && data.other_sessions)) return;
     this.interceptValue = data.other_sessions.some(
       (session) => session.revision_id,
-    );
+    )
+      ? ConfirmationInterceptType.CONFLICT
+      : this.interceptValue;
   }
 
   disconnect(): void {

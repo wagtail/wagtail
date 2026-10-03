@@ -2,16 +2,20 @@
 
 # Backends
 
-Wagtailsearch has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch.
+Wagtail search has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch.
 
 You can configure which backend to use with the `WAGTAILSEARCH_BACKENDS` setting:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
     }
 }
+```
+
+```{note}
+Wagtail's search functionality is powered by the [Django ModelSearch](https://django-modelsearch.readthedocs.io/) library, which provides [additional configuration options](https://django-modelsearch.readthedocs.io/en/latest/backends.html) beyond those prevented here. When used within Wagtail, the `WAGTAILSEARCH_BACKENDS` setting should be used rather than `MODELSEARCH_BACKENDS`.
 ```
 
 (wagtailsearch_backends_auto_update)=
@@ -24,9 +28,9 @@ The `AUTO_UPDATE` setting allows you to disable this on a per-index basis:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': ...,
-        'AUTO_UPDATE': False,
+    "default": {
+        "BACKEND": ...,
+        "AUTO_UPDATE": False,
     }
 }
 ```
@@ -41,10 +45,6 @@ By default (when using the Elasticsearch backend), Wagtail creates a new index w
 
 If creating new indexes is not an option for you, you can disable this behaviour by setting `ATOMIC_REBUILD` to `False`. This will make Wagtail delete the index then build a new one. Note that this will cause the search engine to not return results until the rebuild is complete.
 
-```{versionchanged} 7.2
-`ATOMIC_REBUILD` is now true by default.
-```
-
 ## `BACKEND`
 
 Here's a list of backends that Wagtail supports out of the box.
@@ -58,7 +58,7 @@ Here's a list of backends that Wagtail supports out of the box.
 The database search backend searches content in the database using the full-text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
 This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
 
-If you use the PostgreSQL database backend, you must add `django.contrib.postgres` to your [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) setting.
+If you use the PostgreSQL database backend, you must add `django.contrib.postgres` to your [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) setting. Under PostgreSQL, various additional configuration options are available, as detailed in the [ModelSearch PostgreSQL configuration documentation](https://django-modelsearch.readthedocs.io/en/latest/backends.html#postgresql-configuration).
 
 (wagtailsearch_backends_elasticsearch)=
 
@@ -88,13 +88,13 @@ The backend is configured in settings:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch9',
-        'URLS': ['https://localhost:9200'],
-        'INDEX_PREFIX': '',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
+    "default": {
+        "BACKEND": "wagtail.search.backends.elasticsearch9",
+        "URLS": ["https://localhost:9200"],
+        "INDEX_PREFIX": "",
+        "TIMEOUT": 5,
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {},
     }
 }
 ```
@@ -102,10 +102,6 @@ WAGTAILSEARCH_BACKENDS = {
 Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as a case-sensitive keyword argument (for example `'max_retries': 1`).
 
 `INDEX_PREFIX` specifies a string such as `"mysite_"` to be used as a prefix of all index names. This allows multiple Wagtail instances to share the same Elasticsearch server. An index will be created for each model according to the format `{prefix}{app_label}_{model_name}`, for example: `mysite_wagtailcore_page`.
-
-```{versionchanged} 7.2
-The `INDEX_PREFIX` option was previously named `INDEX` and did not include the delimiting `_` character.
-```
 
 A username and password may be optionally supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
 
@@ -192,10 +188,6 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -   Configure `URLS` in the Elasticsearch entry in `WAGTAILSEARCH_BACKENDS` using the Cluster URL from your Bonsai dashboard
 -   Run `./manage.py update_index`
 
-```{versionadded} 7.2
-Support for Elasticsearch 9 was added.
-```
-
 (opensearch)=
 
 ### OpenSearch
@@ -219,13 +211,13 @@ The backend is configured in settings:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.opensearch3',
-        'URLS': ['https://localhost:9200'],
-        'INDEX_PREFIX': 'wagtail_',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
+    "default": {
+        "BACKEND": "wagtail.search.backends.opensearch3",
+        "URLS": ["https://localhost:9200"],
+        "INDEX_PREFIX": "wagtail_",
+        "TIMEOUT": 5,
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {},
     }
 }
 ```
@@ -250,10 +242,6 @@ WAGTAILSEARCH_BACKENDS = {
 
 If using the [demo configuration](https://docs.opensearch.org/latest/security/configuration/demo-configuration/), the certificates can be found in the Opensearch config directory (typically `/usr/share/opensearch/config/` or `/etc/opensearch/`); the client certificate and key are named `kirk.pem` and `kirk-key.pem` respectively.
 
-```{versionchanged} 7.2
-The dedicated OpenSearch backends were added. Previously it was necessary to use the Elasticsearch 7 backend in conjunction with version 7.13.4 of the client library.
-```
-
 ### Amazon AWS OpenSearch
 
 The OpenSearch backend is compatible with [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
@@ -263,24 +251,22 @@ from elasticsearch import RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.opensearch3',
-        'INDEX_PREFIX': 'wagtail_',
-        'TIMEOUT': 5,
-        'HOSTS': [{
-            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
-            'port': 443,
-            'use_ssl': True,
-            'verify_certs': True,
-            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
-        }],
-        'OPTIONS': {
-            'connection_class': RequestsHttpConnection,
+    "default": {
+        "BACKEND": "wagtail.search.backends.opensearch3",
+        "INDEX_PREFIX": "wagtail_",
+        "TIMEOUT": 5,
+        "HOSTS": [
+            {
+                "host": "YOURCLUSTER.REGION.es.amazonaws.com",
+                "port": 443,
+                "use_ssl": True,
+                "verify_certs": True,
+                "http_auth": AWS4Auth("ACCESS_KEY", "SECRET_KEY", "REGION", "es"),
+            }
+        ],
+        "OPTIONS": {
+            "connection_class": RequestsHttpConnection,
         },
     }
 }
 ```
-
-## Rolling Your Own
-
-Wagtail's search implementation is provided by the [django-modelsearch](https://github.com/kaedroho/django-modelsearch) package, and backends implement the interface defined in `modelsearch/backends/base.py`. At a minimum, the backend's `search()` method must return a collection of objects or `model.objects.none()`.

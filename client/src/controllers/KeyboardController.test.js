@@ -1,13 +1,12 @@
 import { Application } from '@hotwired/stimulus';
 import Mousetrap from 'mousetrap';
 
+import { forceFocus } from '../utils/forceFocus';
 import { KeyboardController } from './KeyboardController';
 
 jest.mock('../utils/forceFocus', () => ({
   forceFocus: jest.fn(),
 }));
-
-import { forceFocus } from '../utils/forceFocus';
 
 describe('KeyboardController', () => {
   let app;

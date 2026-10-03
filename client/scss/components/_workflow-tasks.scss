@@ -11,6 +11,7 @@
     border-radius: 5px;
     color: theme('colors.text-link-default');
     min-width: $task-width;
+    max-width: 20ch;
     height: $task-height;
     margin: 7px;
     padding-inline-start: 9px;
