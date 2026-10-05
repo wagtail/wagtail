@@ -213,6 +213,14 @@ class FormPage(EmailFormMixin, FormMixin, BasePage)
 
 Likewise, the [`wagtail.contrib.routable_page`](routable_page_mixin) app provides a `RoutablePage` class which inherits from the default `Page` model and is unavailable when using a custom base page model; however, `RoutablePageMixin` can still be used.
 
+## Example use cases
+
+There are many scenarios where custom base page models are the right approach. Here are a few examples to illustrate:
+
+-   Add a site-wide `include_in_sitemap` field to allow excluding arbitrary pages.
+-   Set up an internal "Notes" field for CMS users to document their work directly in the CMS.
+-   Site-wide [content personalization](content_personalization) where each page can be assigned a target audience or goal.
+
 ## See also
 
 [](reusable_app_base_page)
