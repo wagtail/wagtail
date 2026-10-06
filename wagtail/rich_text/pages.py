@@ -28,6 +28,7 @@ class PageLinkHandler(LinkHandler):
     @classmethod
     def expand_db_attributes(cls, attrs: dict) -> str:
         return cls.expand_db_attributes_many([attrs])[0]
+
     @classmethod
     def expand_db_attributes_many(cls, attrs_list: list[dict]) -> list[str]:
         pages = cls.get_many(attrs_list)
@@ -50,10 +51,7 @@ class PageLinkHandler(LinkHandler):
                 if page:
                     page._wagtail_cached_site_root_paths = site_root_paths
 
-        return [
-            '<a href="%s">' % escape(page.url) if page else "<a>"
-            for page in pages
-        ]
+        return ['<a href="%s">' % escape(page.url) if page else "<a>" for page in pages]
 
     @classmethod
     def extract_references(self, attrs):

@@ -58,7 +58,7 @@ class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
             wraps=Locale.objects.get_for_language,
         ) as get_for_language:
             PageLinkHandler.expand_db_attributes_many(
-               [{"id": page.id} for page in pages]
+                [{"id": page.id} for page in pages]
             )
         self.assertEqual(get_for_language.call_count, 1)
 
@@ -91,6 +91,7 @@ class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
         with translation.override("fr"):
             result = PageLinkHandler.expand_db_attributes({"id": self.event_page.id})
             self.assertEqual(result, '<a href="/en/events/christmas/">')
+
     @override_settings(
         CACHES={
             "default": {
@@ -113,6 +114,7 @@ class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
             )
 
         self.assertEqual(get_site_root_paths.call_count, 1)
+
 
 class TestExtractAttrs(TestCase):
     def test_extract_attr(self):
