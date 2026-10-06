@@ -49,6 +49,19 @@ class TestPageLinktypeHandler(PageFixturesMixin, TestCase):
 class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
+    def test_expand_db_attributes_many_reuses_active_locale(self):
+        pages = Page.objects.filter(pk__in=[3, 4, 7])
+
+        with patch.object(
+            Locale.objects,
+            "get_for_language",
+            wraps=Locale.objects.get_for_language,
+        ) as get_for_language:
+            PageLinkHandler.expand_db_attributes_many(
+               [{"id": page.id} for page in pages]
+            )
+        self.assertEqual(get_for_language.call_count, 1)
+
     def setUp(self):
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.event_page = Page.objects.get(url_path="/home/events/christmas/")
@@ -78,7 +91,28 @@ class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
         with translation.override("fr"):
             result = PageLinkHandler.expand_db_attributes({"id": self.event_page.id})
             self.assertEqual(result, '<a href="/en/events/christmas/">')
+    @override_settings(
+        CACHES={
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        }
+    )
+    def test_expand_db_attributes_many_reuses_site_root_paths(self):
+        Site.clear_site_root_paths_cache()
 
+        pages = Page.objects.filter(pk__in=[3, 4, 7])
+
+        with patch.object(
+            Site,
+            "get_site_root_paths",
+            wraps=Site.get_site_root_paths,
+        ) as get_site_root_paths:
+            PageLinkHandler.expand_db_attributes_many(
+                [{"id": page.id} for page in pages]
+            )
+
+        self.assertEqual(get_site_root_paths.call_count, 1)
 
 class TestExtractAttrs(TestCase):
     def test_extract_attr(self):

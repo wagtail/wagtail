@@ -284,6 +284,22 @@ class TranslatableMixin(models.Model):
 
         return self.get_translation_or_none(locale) or self
 
+    def _get_localized_for_locale(self, locale):
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            return self
+
+        if locale.id == self.locale_id:
+            localized = self
+        else:
+            localized = self.get_translation_or_none(locale) or self
+
+        from wagtail.models import DraftStateMixin
+
+        if isinstance(self, DraftStateMixin) and not localized.live:
+            return self
+
+        return localized
+
     def get_translations(self, inclusive=False):
         """
         Returns a queryset containing the translations of this instance.

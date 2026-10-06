@@ -1,7 +1,9 @@
 import swapper
+from django.conf import settings
 from django.db.models import Model
 from django.utils.html import escape
 
+from wagtail.models import Locale, Site
 from wagtail.rich_text import LinkHandler
 
 Page = swapper.load_model("wagtailcore", "Page")
@@ -26,12 +28,31 @@ class PageLinkHandler(LinkHandler):
     @classmethod
     def expand_db_attributes(cls, attrs: dict) -> str:
         return cls.expand_db_attributes_many([attrs])[0]
-
     @classmethod
     def expand_db_attributes_many(cls, attrs_list: list[dict]) -> list[str]:
+        pages = cls.get_many(attrs_list)
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            try:
+                locale = Locale.get_active()
+            except (LookupError, Locale.DoesNotExist):
+                locale = None
+
+            if locale is not None:
+                pages = [
+                    page._get_localized_for_locale(locale) if page else None
+                    for page in pages
+                ]
+
+        if any(pages):
+            site_root_paths = Site.get_site_root_paths()
+            for page in pages:
+                if page:
+                    page._wagtail_cached_site_root_paths = site_root_paths
+
         return [
-            '<a href="%s">' % escape(page.localized.url) if page else "<a>"
-            for page in cls.get_many(attrs_list)
+            '<a href="%s">' % escape(page.url) if page else "<a>"
+            for page in pages
         ]
 
     @classmethod
