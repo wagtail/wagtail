@@ -342,6 +342,11 @@ class EventPageRelatedLink(TranslatableMixin, Orderable, RelatedLink):
         "tests.EventPage", related_name="related_links", on_delete=models.CASCADE
     )
 
+    api_fields = (
+        APIField("title", writable=True),
+        APIField("link_external", writable=True),
+    )
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
@@ -488,6 +493,14 @@ class EventPage(Page):
         ),
         FieldPanel("feed_image"),
     ]
+
+    api_fields = (
+        APIField("date_from", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("cost", writable=True),
+        APIField("related_links", writable=True),
+    )
 
     class Meta:
         permissions = [

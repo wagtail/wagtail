@@ -15,6 +15,7 @@ from wagtail.test.demosite.models import (
     EventPage,
     HomePage,
 )
+from wagtail.test.testapp.models import EventPage as TestAppEventPage
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
 
@@ -1135,3 +1136,45 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200, response.content)
         page = BlogEntryPage.objects.get(pk=page.pk)
         self.assertEqual(list(page.tags.names()), [])
+
+    def test_patch_child_relations_keeps_submitted_order(self):
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        first = page.related_links.create(title="First")
+        second = page.related_links.create(title="Second")
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "related_links": [
+                    {"id": second.pk, "title": "Second"},
+                    {"title": "New"},
+                    {"id": first.pk, "title": "First"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            list(
+                page.related_links.order_by("sort_order").values_list(
+                    "title", flat=True
+                )
+            ),
+            ["Second", "New", "First"],
+        )
+        self.assertEqual(
+            [link["title"] for link in response.json()["related_links"]],
+            ["Second", "New", "First"],
+        )
