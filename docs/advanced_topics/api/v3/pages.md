@@ -137,7 +137,8 @@ Beyond `title`, `slug`, and the `meta` envelope, you can submit any of the follo
 -   Rich text field values, using the input formats described in [](api_v3);
 -   `ForeignKey` relations;
 -   `ParentalManyToMany` fields;
--   InlinePanel / `ParentalKey` child relations whose child fields are also writable.
+-   Tag fields, as a list of tag names. A name can contain spaces and commas. As in the editor, a name containing a double quote (`"`) is split into separate tags;
+-   InlinePanel / `ParentalKey` child relations whose child fields are also writable, including relations nested within a child, as described in [](api_v3_child_relations).
 
 Each submitted field is validated against the page type's generated schema and its admin form, so the same validation, permission, revision, and audit behaviour as the editor applies.
 
@@ -160,7 +161,7 @@ curl -X PATCH "https://example.com/api/v3/pages/3/" \
 Editing a live page without `meta.action=publish` creates a revision while preserving the currently-live database representation. With `action=publish`, the new revision is published, applying it to the live page.
 
 ```{note}
-StreamField and child-relation values are replaced as a whole: a `PATCH` that supplies a StreamField or a child relation overwrites the full existing value rather than merging individual blocks or rows.
+A `PATCH` that supplies a StreamField or a child relation sets its blocks or children to the submitted list, removing any you omit. Blocks and children that match current ones by ID are merged with them rather than replaced, as described in [](api_v3_streamfield) and [](api_v3_child_relations).
 ```
 
 ## Deleting a page
