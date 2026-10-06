@@ -518,6 +518,135 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             [(second.id, "Second"), (first.id, "First (updated)")],
         )
 
+    def test_update_streamfield_merges_blocks_matched_by_id(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-merge",
+                body=[
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "value": {"name": "Bread", "price": "1"},
+                    },
+                    {"type": "text", "id": "text", "value": "Unchanged"},
+                    {
+                        "type": "books",
+                        "id": "books",
+                        "value": [
+                            {"type": "title", "id": "title", "value": "Dune"},
+                            {
+                                "type": "author",
+                                "id": "author",
+                                "value": "Frank Herbert",
+                            },
+                        ],
+                    },
+                    {
+                        "type": "title_list",
+                        "id": "title_list",
+                        "value": [
+                            {"type": "item", "id": "first", "value": "First"},
+                            {"type": "item", "id": "second", "value": "Second"},
+                        ],
+                    },
+                    {"type": "text", "id": "removed", "value": "Removed"},
+                    {"type": "text", "id": "retyped", "value": "Retyped"},
+                ],
+                live=False,
+            )
+        )
+        page = StreamPage.objects.get(pk=page.pk)
+        product, text, books, title_list, removed, retyped = page.body
+        title, author = books.value
+        first, second = title_list.value.bound_blocks
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [
+                    {"type": "text", "id": text.id},
+                    {"type": "product", "id": product.id, "value": {"price": "2"}},
+                    {
+                        "type": "books",
+                        "id": books.id,
+                        "value": [
+                            {"type": "author", "id": author.id},
+                            {"type": "title", "id": title.id, "value": "Dune Messiah"},
+                        ],
+                    },
+                    {
+                        "type": "title_list",
+                        "id": title_list.id,
+                        "value": [
+                            {"type": "item", "id": second.id},
+                            {
+                                "type": "item",
+                                "id": first.id,
+                                "value": "First (updated)",
+                            },
+                        ],
+                    },
+                    {
+                        "type": "product",
+                        "id": retyped.id,
+                        "value": {"name": "Milk", "price": "3"},
+                    },
+                    {"type": "text", "value": "New"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            [(block.id, block.block_type) for block in page.body][:5],
+            [
+                (text.id, "text"),
+                (product.id, "product"),
+                (books.id, "books"),
+                (title_list.id, "title_list"),
+                (retyped.id, "product"),
+            ],
+        )
+        self.assertNotIn(removed.id, [block.id for block in page.body])
+        self.assertEqual(page.body[0].value, "Unchanged")
+        self.assertEqual(dict(page.body[1].value), {"name": "Bread", "price": "2"})
+        self.assertEqual(
+            [(child.id, child.block_type, child.value) for child in page.body[2].value],
+            [
+                (author.id, "author", "Frank Herbert"),
+                (title.id, "title", "Dune Messiah"),
+            ],
+        )
+        self.assertEqual(
+            [(child.id, child.value) for child in page.body[3].value.bound_blocks],
+            [(second.id, "Second"), (first.id, "First (updated)")],
+        )
+        self.assertEqual(dict(page.body[4].value), {"name": "Milk", "price": "3"})
+        self.assertEqual((page.body[5].block_type, page.body[5].value), ("text", "New"))
+
+    def test_update_streamfield_unmatched_block_without_value_returns_422(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-no-value",
+                body=[{"type": "text", "id": "text", "value": "Original"}],
+                live=False,
+            )
+        )
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [{"type": "text", "id": "unknown"}],
+            },
+        )
+        self.assert_problem_response(response, status_code=422)
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(page.body[0].value, "Original")
+
     def test_update_page_with_non_writable_api_field_ignores_it(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(
