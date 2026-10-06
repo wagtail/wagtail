@@ -479,6 +479,45 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
                 self.assertTrue(block["id"])
                 assert_api_value(block["value"])
 
+    def test_update_streamfield_list_block_keeps_item_ids_in_block_format(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-list-ids",
+                body=[{"type": "title_list", "value": ["First", "Second"]}],
+                live=False,
+            )
+        )
+        page = StreamPage.objects.get(pk=page.pk)
+        stream_block_id = page.body[0].id
+        [first, second] = page.body[0].value.bound_blocks
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [
+                    {
+                        "type": "title_list",
+                        "id": stream_block_id,
+                        "value": [
+                            {"type": "item", "value": "Second", "id": second.id},
+                            {
+                                "type": "item",
+                                "value": "First (updated)",
+                                "id": first.id,
+                            },
+                        ],
+                    }
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            [(child.id, child.value) for child in page.body[0].value.bound_blocks],
+            [(second.id, "Second"), (first.id, "First (updated)")],
+        )
+
     def test_update_page_with_non_writable_api_field_ignores_it(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(

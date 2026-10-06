@@ -349,6 +349,9 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
         for i, item in enumerate(items):
             data[f"{prefix}-{i}-deleted"] = ""
             data[f"{prefix}-{i}-order"] = str(i)
+            if block._item_is_in_block_format(item):
+                data[f"{prefix}-{i}-id"] = item["id"]
+                item = item["value"]
             flatten_block_value(block.child_block, item, f"{prefix}-{i}-value", data)
     elif isinstance(block, BaseStructBlock):
         value = value or {}

@@ -880,6 +880,33 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
             ],
         )
 
+    def test_create_streamfield_page_with_list_block_items_in_block_format(self):
+        item_id = "11111111-1111-1111-1111-111111111111"
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-list-block-format",
+                "body": [
+                    {
+                        "type": "title_list",
+                        "value": [
+                            {"type": "item", "value": "First", "id": item_id},
+                            "Second",
+                        ],
+                    }
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = StreamPage.objects.get(slug="stream-page-list-block-format")
+        list_value = page.body[0].value
+        self.assertEqual(list(list_value), ["First", "Second"])
+        self.assertEqual(list_value.bound_blocks[0].id, item_id)
+        self.assertTrue(list_value.bound_blocks[1].id)
+        self.assertNotEqual(list_value.bound_blocks[1].id, item_id)
+        self.assertEqual(response.json()["body"][0]["value"], ["First", "Second"])
+
     def test_create_page_with_rich_text_field(self):
         response = self.post(
             {
