@@ -46,15 +46,16 @@ Custom blocks can customise how they are read back through the API by [defining 
 StreamField values are submitted as part of a page or snippet create or update, using the representation above. The following semantics apply:
 
 -   **Block IDs** are optional on input. When a block's `id` is omitted, Wagtail generates one; when you supply an `id`, it is preserved as given.
--   **Updating a page** (a `PATCH` that includes the StreamField field) replaces the whole field value with what you submit. This is not block-level patching: any blocks you omit are removed. To add, change, or remove individual blocks, submit the complete desired list.
+-   **Updating a page** (a `PATCH` that includes the StreamField field) sets the field's blocks to the list you submit, in the submitted order. Any blocks you omit are removed.
+-   A submitted block whose `id` and `type` match a block in the current value is **merged** with it. Omit its `value` to keep the current value, or omit keys from a StructBlock value to keep the current values of those child blocks. The children of a nested StreamBlock or ListBlock are matched by `id` and merged in the same way. Any other value, such as text, rich text, or a chooser value, replaces the current one as submitted.
 -   Omitting the StreamField field from an update leaves it unchanged.
--   An **unknown block type** in the submitted list returns `422`.
+-   An **unknown block type** in the submitted list returns `422`, as does a block without a `value` that does not match a current block.
 -   Values are validated by the block's real `clean()` method and the form widget, and chooser IDs are validated, so the same validation applies as in the editor.
 
 Built-in blocks need no extra code to be writable, and nor do custom blocks based on `StreamBlock`, `ListBlock`, `StructBlock`, or `FieldBlock` (including chooser blocks). A submitted value takes the same shape as the block's stored value, which for built-in blocks is also their default API representation. Writes don't use a custom `get_api_representation`, so a block that overrides it still accepts the stored shape on input. Each field block's value is passed through its form widget, as when submitted through the editor, and the whole value is validated by the blocks' `clean()` methods. Rich text is also converted from any accepted rich text input format. A custom block that contains other blocks but isn't based on `StreamBlock`, `ListBlock`, or `StructBlock` must define `map_child_values(value, func)` to be writable, returning its stored value with `func(child_block, child_value, child_path)` applied to each child value, so its children are handled in the same way. See `TypedTableBlock` for an example. Writing any other kind of custom block returns `422`.
 
 ```{note}
-Because updating replaces the whole value, build clients that send the complete StreamField list for the field rather than relying on partial, block-level updates.
+Merging relies on the block IDs stored with the content, as returned when reading it. Content saved through the editor or the API always stores them. Content written by other means may not, in which case each read returns new IDs and the blocks cannot be matched.
 ```
 
 (api_v3_child_relations)=
@@ -70,6 +71,8 @@ Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed
 -   existing children you omit from the list are deleted;
 -   omitting the relation entirely leaves it untouched.
 
+StreamField values inside a child follow the same writing rules as top-level StreamField values, including merging into a matched child's current value.
+
 As in the editor, required fields are only enforced when publishing, unless they can't be stored empty, such as a non-nullable foreign key. A new child with every field empty is ignored, unless the child model is orderable: its position in the list counts as a value, so it's created, or rejected if it fails validation.
 
 ### Nested child relations
@@ -81,8 +84,6 @@ A child model can have child relations of its own, such as an `InlinePanel` with
 -   deleting a child also deletes its nested children.
 
 Other reverse relations are only included at the top level of a page or snippet, not within child items.
-
-StreamField values nested inside child forms use the same flattening path as top-level StreamField fields.
 
 ## Schema discovery limitation
 
