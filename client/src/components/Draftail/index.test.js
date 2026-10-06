@@ -98,7 +98,7 @@ describe('Draftail', () => {
       expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
     });
 
-    it('ariaLabelledBy with existing label id', () => {
+    it('ariaLabelledBy with label', () => {
       document.body.innerHTML = `
         <label id="test-label" for="test">Test field label</label>
         <input id="test" value="null" />
@@ -110,40 +110,45 @@ describe('Draftail', () => {
       expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
     });
 
-    it('ariaLabelledBy with label without id', () => {
-      document.body.innerHTML = `
-        <label for="test">Test field label</label>
-        <input id="test" value="null" />
-      `;
+    it('ariaLabelledBy without label', () => {
+      document.body.innerHTML = '<input id="test" value="null" />';
       const field = document.querySelector('#test');
-      const label = document.querySelector('label');
 
       draftail.initEditor('#test', {});
 
-      expect(label.id).toBe('test-label');
-      expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
+      expect(field.draftailEditor.props.ariaLabelledBy).toBeNull();
     });
 
-    it('ariaDescribedBy with help text', () => {
+    it('ariaDescribedBy from the field', () => {
       document.body.innerHTML = `
-        <input id="test" value="null" />
-        <div id="test-helptext">
-          <p>This is helpful text</p>
-        </div>
+        <div id="panel-intro-helptext"><p>This is helpful text</p></div>
+        <input id="test" value="null" aria-describedby="panel-intro-helptext" />
       `;
       const field = document.querySelector('#test');
 
       draftail.initEditor('#test', {});
 
-      expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-helptext');
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe(
+        'panel-intro-helptext',
+      );
     });
 
-    it('ariaDescribedBy with help text and maxLength', () => {
+    it('ariaDescribedBy ignores help text not referenced by the field', () => {
       document.body.innerHTML = `
-        <input id="test" value="null" maxlength="50" />
-        <div id="test-helptext">
-          <p>This is helpful text</p>
-        </div>
+        <div id="test-helptext"></div>
+        <input id="test" value="null" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBeNull();
+    });
+
+    it('ariaDescribedBy from the field and maxLength', () => {
+      document.body.innerHTML = `
+        <div id="test-helptext"><p>This is helpful text</p></div>
+        <input id="test" value="null" maxlength="50" aria-describedby="test-helptext" />
       `;
       const field = document.querySelector('#test');
 
@@ -152,22 +157,6 @@ describe('Draftail', () => {
       expect(field.draftailEditor.props.ariaDescribedBy).toBe(
         'test-helptext test-length',
       );
-    });
-
-    it('ariaLabelledBy and ariaDescribedBy together', () => {
-      document.body.innerHTML = `
-        <label id="test-label" for="test">Test field label</label>
-        <input id="test" value="null" />
-        <div id="test-helptext">
-          <p>This is helpful text</p>
-        </div>
-      `;
-      const field = document.querySelector('#test');
-
-      draftail.initEditor('#test', {});
-
-      expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
-      expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-helptext');
     });
 
     describe('selector conflicts', () => {

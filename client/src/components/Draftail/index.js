@@ -159,8 +159,6 @@ const initEditor = (selector, originalOptions, currentScript) => {
   };
 
   const getSharedPropsFromOptions = (newOptions) => {
-    let ariaDescribedBy = null;
-    let ariaLabelledBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
@@ -194,28 +192,16 @@ const initEditor = (selector, originalOptions, currentScript) => {
       ...type,
     }));
 
-    const label = document.querySelector(`label[for="${field.id}"]`);
-    if (label) {
-      const labelId = label.id || `${field.id}-label`;
-      if (!label.id) {
-        label.id = labelId;
-      }
-      ariaLabelledBy = labelId;
-    }
-
-    const helpTextId = `${field.id}-helptext`;
-    if (document.getElementById(helpTextId)) {
-      ariaDescribedBy = helpTextId;
-    }
+    const labelId = `${field.id}-label`;
+    const ariaLabelledBy = document.getElementById(labelId) ? labelId : null;
+    let ariaDescribedBy = field.getAttribute('aria-describedby');
 
     // Only initialize the character count / max length on fields explicitly requiring it.
     if (field.hasAttribute('maxlength')) {
       const maxLengthID = `${field.id}-length`;
-      if (ariaDescribedBy) {
-        ariaDescribedBy += ` ${maxLengthID}`;
-      } else {
-        ariaDescribedBy = maxLengthID;
-      }
+      ariaDescribedBy = ariaDescribedBy
+        ? `${ariaDescribedBy} ${maxLengthID}`
+        : maxLengthID;
       controls = controls.concat([
         {
           meta: (props) => (

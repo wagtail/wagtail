@@ -325,9 +325,10 @@ export class StructBlock {
 
     // Struct blocks are collapsible and thus have their own header,
     // so only add the label if this is not a struct block.
+    const childPrefix = `${this.prefix}-${childBlockDef.name}`;
     let label = '';
     if (!isStructBlock) {
-      label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
+      label = `<label class="w-field__label" id="${childPrefix}-label">${h(childBlockDef.meta.label)}${
         childBlockDef.meta.required
           ? '<span class="w-required-mark">*</span>'
           : ''
@@ -345,7 +346,7 @@ export class StructBlock {
     const labelElement = childDom.find('label').get(0);
     const childBlock = childBlockDef.render(
       childBlockElement,
-      this.prefix + '-' + childBlockDef.name,
+      childPrefix,
       this.#initialState[childBlockDef.name],
       blockErrors[childBlockDef.name],
       new Map(),
