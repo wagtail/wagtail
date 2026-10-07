@@ -482,6 +482,11 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.10 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 (Sage Abdullah)
+
 7.0.9 (20.08.2026)
 ~~~~~~~~~~~~~~~~~~
 
