@@ -11,13 +11,14 @@ jobs:
       - checkout
       - run: python --version > .python_version
       - restore_cache:
-          key: &venv-cache venv-v1-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
+          key: &venv-cache venv-v1-dj60-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               python -m venv .venv
               source .venv/bin/activate
               python -m pip install -e .[testing,docs]
+              python -m pip install "Django<6.1"
           fi
           echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
       - save_cache:
