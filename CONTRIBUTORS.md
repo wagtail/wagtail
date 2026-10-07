@@ -1008,6 +1008,7 @@
 * Keerthi Kumar
 * Damien Meur
 * Ayush Kumar
+* Vignesh Komma
 
 ## Translators
 
