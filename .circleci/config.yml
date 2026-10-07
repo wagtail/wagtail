@@ -145,12 +145,7 @@ workflows:
   test:
     jobs:
       - backend
-      - frontend:
-          post-steps:
-            - codecov/upload:
-                # For PRs, add `pr-xxx:` prefix to indicate unprotected branch
-                branch: ${CIRCLE_PR_NUMBER:+pr-$CIRCLE_PR_NUMBER:$CIRCLE_BRANCH}
-                flags: frontend
+      - frontend
       - ui_tests:
           requires:
             - frontend
