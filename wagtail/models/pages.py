@@ -79,7 +79,7 @@ from .locking import LockableMixin
 from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .preview import PreviewableMixin
 from .revisions import Revision, RevisionMixin
-from .sites import Site
+from .sites import Site, get_current_site
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 from .workflows import WorkflowMixin
@@ -1436,11 +1436,15 @@ class AbstractPage(
         site_id, root_path, root_url, language_code = possible_sites[0]
 
         unique_site_ids = {values[0] for values in possible_sites}
-        if len(unique_site_ids) > 1 and isinstance(request, HttpRequest):
+        if len(unique_site_ids) > 1:
             # The page somehow belongs to more than one site (rare, but possible).
             # If 'request' is indeed a HttpRequest, use it to identify the 'current'
-            # site and prefer an option matching that (where present).
-            site = Site.find_for_request(request)
+            # site and prefer an option matching that (where present). Otherwise
+            # reuse the site already identified for this request's stash scope.
+            if isinstance(request, HttpRequest):
+                site = Site.find_for_request(request)
+            else:
+                site = get_current_site()
             if site:
                 for values in possible_sites:
                     if values[0] == site.pk:
@@ -1520,9 +1524,11 @@ class AbstractPage(
         # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
         # a relative URL based on ``Site.find_for_request()``. Nonetheless, support it here to avoid
         # copy/pasting the code to the ``relative_url`` method below.
-        if current_site is None and request is not None:
-            site = Site.find_for_request(request)
-            current_site = site
+        if current_site is None:
+            if request is not None:
+                current_site = Site.find_for_request(request)
+            else:
+                current_site = get_current_site()
         url_parts = self.get_url_parts(request=request)
 
         if url_parts is None or url_parts[1] is None and url_parts[2] is None:
