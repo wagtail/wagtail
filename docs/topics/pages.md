@@ -323,6 +323,8 @@ class BlogPage(Page):
         )
 ```
 
+To serve more than one format from the same URL, such as HTML to browsers and Markdown to clients that ask for it, see [](varying_page_responses).
+
 (inline_models)=
 
 ## Inline models
