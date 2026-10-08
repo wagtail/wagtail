@@ -324,6 +324,67 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             ["Tag: one", "Tag: unrelated"],
         )
 
+    def test_tag_filter_excludes_tags_of_inaccessible_images(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/7161
+        # The popular tags shown in the tag filter must only include tags that are
+        # used on images the user is allowed to see.
+        root_collection = Collection.get_first_root_node()
+        accessible_collection = root_collection.add_child(name="Accessible medias")
+        restricted_collection = root_collection.add_child(name="Restricted medias")
+
+        change_image_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        limited_group = Group.objects.create(name="Limited image access")
+        limited_group.permissions.add(access_admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=accessible_collection,
+            permission=change_image_permission,
+        )
+
+        limited_user = self.create_user(
+            username="limited_user",
+            email="limited_user@example.com",
+            password="password",
+        )
+        limited_user.groups.add(limited_group)
+
+        accessible_image = Image.objects.create(
+            title="Accessible picture",
+            file=get_test_image_file(),
+            collection=accessible_collection,
+        )
+        accessible_image.tags.add("visible-tag", "shared-tag")
+
+        restricted_image = Image.objects.create(
+            title="Restricted picture",
+            file=get_test_image_file(),
+            collection=restricted_collection,
+        )
+        restricted_image.tags.add("invisible-tag", "shared-tag")
+
+        self.login(username="limited_user", password="password")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        # The user cannot see the image in the restricted collection...
+        self.assertNotContains(response, "Restricted picture")
+
+        # ...so the tag that is only used on that image must not be offered as a
+        # filter option, while tags with at least one accessible image remain.
+        soup = self.get_soup(response.content)
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [tag.get_text(strip=True) for tag in tags],
+            ["visible-tag", "shared-tag"],
+        )
+
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 130):
             image = Image.objects.create(
@@ -2274,6 +2335,65 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
 
         # Results should not include images that just have 'even' in the title
         self.assertNotContains(response, "Test image 3 is even better")
+
+    def test_popular_tags_respect_collection_permissions(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/7161
+        # The popular tags shown in the chooser must only include tags that are
+        # used on images the user is allowed to choose.
+        root_collection = Collection.get_first_root_node()
+        accessible_collection = root_collection.add_child(name="Accessible medias")
+        restricted_collection = root_collection.add_child(name="Restricted medias")
+
+        limited_group = Group.objects.create(name="Limited chooser access")
+        limited_group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=accessible_collection,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtailimages", codename="choose_image"
+            ),
+        )
+
+        limited_user = self.create_user(
+            username="limited_user",
+            email="limited_user@example.com",
+            password="password",
+        )
+        limited_user.groups.add(limited_group)
+        self.login(username="limited_user", password="password")
+
+        accessible_image = Image.objects.create(
+            title="Accessible picture",
+            file=get_test_image_file(),
+            collection=accessible_collection,
+        )
+        accessible_image.tags.add("visible-tag", "shared-tag")
+
+        restricted_image = Image.objects.create(
+            title="Restricted picture",
+            file=get_test_image_file(),
+            collection=restricted_collection,
+        )
+        restricted_image.tags.add("invisible-tag", "shared-tag")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The user cannot see the image in the restricted collection...
+        self.assertNotIn("Restricted picture", response_json["html"])
+
+        # ...so the popular tags must only list tags of accessible images.
+        soup = self.get_soup(response_json["html"])
+        popular_tags = soup.select(".taglist a")
+        self.assertCountEqual(
+            [tag.get_text(strip=True) for tag in popular_tags],
+            ["visible-tag", "shared-tag"],
+        )
 
     def test_construct_queryset_hook_browse(self):
         image = Image.objects.create(
