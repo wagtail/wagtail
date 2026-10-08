@@ -7,6 +7,7 @@ Changelog
  * Maintenance: Ignore `cached_property` deprecation in project template tests on Django 6.2+ (Sage Abdullah)
  * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
  * Maintenance: Migrate `FilteredSelect` widget from jQuery to Stimulus `RulesController` (`w-rules`) (LB (Ben) Johnston)
+ * Maintenance: Remove unused `user_can_edit_snippet_type` helper (Vignesh Komma)
 
 
 8.1 (02.11.2026)
