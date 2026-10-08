@@ -118,9 +118,21 @@ class TestGetVaryHeaders(TestCase):
     def test_default(self):
         self.assertEqual(SimplePage().get_vary_headers(self.request), [])
 
+    def test_ajax_template(self):
+        self.assertEqual(
+            EventIndex().get_vary_headers(self.request), ["X-Requested-With"]
+        )
+
     def test_multiple_media_types(self):
         with mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES):
             self.assertEqual(SimplePage().get_vary_headers(self.request), ["Accept"])
+
+    def test_ajax_template_and_multiple_media_types(self):
+        with mock.patch.object(EventIndex, "response_media_types", MARKDOWN_TYPES):
+            self.assertEqual(
+                EventIndex().get_vary_headers(self.request),
+                ["X-Requested-With", "Accept"],
+            )
 
 
 class TestServeVaryHeaders(PageFixturesMixin, TestCase):
@@ -143,12 +155,19 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
         self.assertTrue(response["Content-Type"].startswith("text/html"))
         self.assertFalse(has_vary_header(response, "Accept"))
 
+    def test_ajax_template_page_varies_on_x_requested_with(self):
+        for headers in ({}, {"x-requested-with": "XMLHttpRequest"}):
+            with self.subTest(headers=headers):
+                response = self.client.get("/events/", headers=headers)
+                self.assertEqual(response.status_code, 200)
+                self.assertTrue(has_vary_header(response, "X-Requested-With"))
+                self.assertFalse(has_vary_header(response, "Accept"))
+
     def test_existing_vary_headers_are_kept(self):
         # LocaleMiddleware adds Accept-Language in the test settings.
-        with mock.patch.object(EventIndex, "response_media_types", MARKDOWN_TYPES):
-            response = self.client.get("/events/")
+        response = self.client.get("/events/")
         self.assertTrue(has_vary_header(response, "Accept-Language"))
-        self.assertTrue(has_vary_header(response, "Accept"))
+        self.assertTrue(has_vary_header(response, "X-Requested-With"))
 
     @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
     @mock.patch.object(SimplePage, "serve", serve_with_markdown)
@@ -188,6 +207,7 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
         ):
             response = self.client.get("/events/")
         self.assertEqual(response.content, b"custom")
+        self.assertTrue(has_vary_header(response, "X-Requested-With"))
         self.assertTrue(has_vary_header(response, "Accept"))
 
     def test_headers_are_not_duplicated(self):
@@ -359,6 +379,15 @@ class TestServeVaryHeadersWithCacheMiddleware(PageFixturesMixin, TestCase):
                 "/about-us/", headers={"accept": "text/html"}
             )
         self.assertContains(response, "<h1>About us</h1>")
+
+    def test_ajax_fragment_is_not_served_as_the_full_page(self):
+        fragment = self.cached_client_get(
+            "/events/", headers={"x-requested-with": "XMLHttpRequest"}
+        )
+        self.assertNotContains(fragment, "<h1>Events</h1>")
+
+        full_page = self.cached_client_get("/events/")
+        self.assertContains(full_page, "<h1>Events</h1>")
 
 
 class TestRoutablePageVaryHeaders(TestCase):
