@@ -59,11 +59,25 @@ def get_object_usage(obj):
     return pages
 
 
-def popular_tags_for_model(model, count=10):
-    """Return a queryset of the most frequently used tags used on this model class"""
+def popular_tags_for_model(model, count=10, queryset=None):
+    """
+    Return a queryset of the most frequently used tags used on this model class.
+
+    If ``queryset`` is given, only tags used on objects within that queryset are
+    included, so that tags of objects the user has no permission to access are
+    not revealed.
+    """
     content_type = ContentType.objects.get_for_model(model)
+    tag_filters = {"taggit_taggeditem_items__content_type": content_type}
+    if queryset is not None:
+        # Both conditions must be applied in a single filter() call so that they
+        # are checked against the same tagged item join; splitting them across two
+        # filter() calls would let a tagged item of another content type satisfy
+        # the object_id condition.
+        tag_filters["taggit_taggeditem_items__object_id__in"] = queryset.values("pk")
+
     return (
-        Tag.objects.filter(taggit_taggeditem_items__content_type=content_type)
+        Tag.objects.filter(**tag_filters)
         .annotate(item_count=Count("taggit_taggeditem_items"))
         .order_by("-item_count")[:count]
     )
