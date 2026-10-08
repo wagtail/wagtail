@@ -265,6 +265,14 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: handle_options_request
 
+    .. autoattribute:: response_media_types
+
+        The media types that instances of this page type can respond with, such as ``["text/html", "text/markdown"]``. The first item is the default. When there is more than one, :meth:`get_response_media_type` picks one for each request according to its ``Accept`` header, and ``Accept`` is added to the ``Vary`` header of the response. See :ref:`varying_page_responses`.
+
+    .. automethod:: get_response_media_type
+
+    .. automethod:: get_vary_headers
+
     .. autoattribute:: preview_modes
 
     .. autoattribute:: default_preview_mode

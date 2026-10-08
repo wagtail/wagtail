@@ -542,6 +542,11 @@ class AbstractPage(
         HTTPMethod.PUT,
     ]
 
+    # Allows page types to specify the media types that page instances can respond
+    # with, chosen per request according to the Accept header. The first item is the
+    # default, used when the client has no preference between the available types.
+    response_media_types = ["text/html"]
+
     @staticmethod
     def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
@@ -942,6 +947,26 @@ class AbstractPage(
                 )
             )
 
+        media_types = cls.response_media_types
+        if (
+            not isinstance(media_types, (list, tuple))
+            or not media_types
+            or not all(
+                isinstance(media_type, str)
+                and "/" in media_type
+                and "*" not in media_type
+                for media_type in media_types
+            )
+        ):
+            errors.append(
+                checks.Error(
+                    "Invalid response_media_types setting for %s" % cls,
+                    hint="response_media_types must be a non-empty list of media types without wildcards, such as ['text/html', 'text/markdown'].",
+                    obj=cls,
+                    id="wagtailcore.E002",
+                )
+            )
+
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -1326,6 +1351,34 @@ class AbstractPage(
 
     def get_preview_template(self, request, mode_name):
         return self.get_template(request)
+
+    def get_response_media_type(self, request):
+        """
+        Returns the item of :attr:`response_media_types` that best matches the
+        request's ``Accept`` header.
+
+        The first item of :attr:`response_media_types` is returned when the
+        client has no preference between the available types (for example,
+        ``Accept: */*`` or no ``Accept`` header), or accepts none of them.
+        """
+        media_types = self.response_media_types
+        if len(media_types) == 1:
+            return media_types[0]
+        return request.get_preferred_type(media_types) or media_types[0]
+
+    def get_vary_headers(self, request):
+        """
+        Returns the names of the request headers that this page's response
+        depends on. Wagtail adds them to the ``Vary`` header of the response,
+        so that caches store a separate response for each variant.
+
+        By default, this includes ``Accept`` when the page has more than one
+        item in :attr:`response_media_types`.
+        """
+        headers = []
+        if len(self.response_media_types) > 1:
+            headers.append("Accept")
+        return headers
 
     def serve(self, request, *args, **kwargs):
         request.is_preview = False
