@@ -287,6 +287,63 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             ["Tag: one", "Tag: unrelated"],
         )
 
+    def test_tag_filter_excludes_tags_of_inaccessible_documents(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/7161
+        # The popular tags shown in the tag filter must only include tags that are
+        # used on documents the user is allowed to see.
+        root_collection = Collection.get_first_root_node()
+        accessible_collection = root_collection.add_child(name="Accessible medias")
+        restricted_collection = root_collection.add_child(name="Restricted medias")
+
+        change_document_permission = Permission.objects.get(
+            content_type__app_label="wagtaildocs", codename="change_document"
+        )
+        access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        limited_group = Group.objects.create(name="Limited document access")
+        limited_group.permissions.add(access_admin_permission)
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=accessible_collection,
+            permission=change_document_permission,
+        )
+
+        limited_user = self.create_user(
+            username="limited_user",
+            email="limited_user@example.com",
+            password="password",
+        )
+        limited_user.groups.add(limited_group)
+
+        accessible_document = models.Document.objects.create(
+            title="Accessible paperwork", collection=accessible_collection
+        )
+        accessible_document.tags.add("visible-tag", "shared-tag")
+
+        restricted_document = models.Document.objects.create(
+            title="Restricted paperwork", collection=restricted_collection
+        )
+        restricted_document.tags.add("invisible-tag", "shared-tag")
+
+        self.login(username="limited_user", password="password")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        # The user cannot see the document in the restricted collection...
+        self.assertNotContains(response, "Restricted paperwork")
+
+        # ...so the tag that is only used on that document must not be offered as a
+        # filter option, while tags with at least one accessible document remain.
+        soup = self.get_soup(response.content)
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [tag.get_text(strip=True) for tag in tags],
+            ["visible-tag", "shared-tag"],
+        )
+
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 130):
             document = models.Document.objects.create(title="Test document %i" % i)
