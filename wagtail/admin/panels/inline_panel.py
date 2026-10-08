@@ -183,6 +183,15 @@ class InlinePanel(Panel):
                 )
             ]
 
+        @property
+        def attrs(self):
+            # The content path to a field nested in this panel's children is
+            # built from the relation name (e.g. ``speakers``), so expose it on
+            # the panel element for the usage view's contentpath links to resolve.
+            attrs = self.panel.attrs.copy()
+            attrs["data-contentpath"] = self.panel.relation_name
+            return attrs
+
         telepath_adapter_name = "wagtail.panels.InlinePanel"
 
         def js_opts(self):
