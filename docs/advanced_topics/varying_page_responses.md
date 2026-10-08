@@ -44,7 +44,7 @@ Other parts of your site can add to the `Vary` header too. For example, Django a
 
 ## Varying on other request headers
 
-Wagtail adds the headers returned by {meth}`~wagtail.models.AbstractPage.get_vary_headers` to the `Vary` header of the page's responses. By default, this includes `Accept` for pages with more than one media type.
+Wagtail adds the headers returned by {meth}`~wagtail.models.AbstractPage.get_vary_headers` to the `Vary` header of the page's responses. By default, this includes `Accept` for pages with more than one media type, and `X-Requested-With` for pages with an `ajax_template`.
 
 If your page changes its response based on anything else in the request, override `get_vary_headers()` to include it:
 
@@ -119,4 +119,4 @@ Django only uses `handler404` when `DEBUG` is `False`.
 
 The `Vary` header only protects your pages if the caches in front of them take it into account. Some CDNs can ignore `Vary: Accept` by default, so check how yours handles it. If it doesn't use the header, either configure the CDN to include the `Accept` header in its cache key, or keep the other formats out of shared caches with {func}`~django.utils.cache.patch_cache_control`, for example `patch_cache_control(response, private=True)`.
 
-If you use Django's cache middleware, make every variant of a page vary on the same headers. The middleware stores a single list of headers for each URL, and replaces it with the list from each response it caches. If only one variant varies on a header, for example because only the HTML template accesses the session and adds `Vary: Cookie`, the cache stops checking that header after caching another variant. A page cached for an anonymous visitor can then be served to a logged-in user. To avoid this, add the header in `get_vary_headers()`.
+If you use Django's cache middleware, make every variant of a page vary on the same headers. This applies to each format, and to the full and partial responses of a page with an `ajax_template`. The middleware stores a single list of headers for each URL, and replaces it with the list from each response it caches. If only one variant varies on a header, for example because only the HTML template accesses the session and adds `Vary: Cookie`, the cache stops checking that header after caching another variant. A page cached for an anonymous visitor can then be served to a logged-in user. To avoid this, add the header in `get_vary_headers()`.
