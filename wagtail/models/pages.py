@@ -1372,10 +1372,13 @@ class AbstractPage(
         depends on. Wagtail adds them to the ``Vary`` header of the response,
         so that caches store a separate response for each variant.
 
-        By default, this includes ``Accept`` when the page has more than one
-        item in :attr:`response_media_types`.
+        By default, this includes ``X-Requested-With`` when the page has an
+        ``ajax_template``, and ``Accept`` when the page has more than one item
+        in :attr:`response_media_types`.
         """
         headers = []
+        if self.ajax_template:
+            headers.append("X-Requested-With")
         if len(self.response_media_types) > 1:
             headers.append("Accept")
         return headers
