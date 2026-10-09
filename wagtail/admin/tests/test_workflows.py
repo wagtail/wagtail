@@ -487,7 +487,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
                 "workflow_tasks-1-ORDER": ["2"],
                 "workflow_tasks-1-DELETE": [""],
                 "pages-TOTAL_FORMS": ["2"],
-                "pages-INITIAL_FORMS": ["1"],
+                "pages-INITIAL_FORMS": ["0"],
                 "pages-MIN_NUM_FORMS": ["0"],
                 "pages-MAX_NUM_FORMS": ["1000"],
                 "pages-0-page": [str(self.root_page.id)],

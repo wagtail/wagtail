@@ -982,3 +982,156 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page.refresh_from_db()
         self.assertEqual(page.title, "New title")
+
+    def create_live_home_page_with_draft(self):
+        page = self.root_page.add_child(
+            instance=HomePage(title="Home", slug="home-with-draft", body="<p>Live</p>")
+        )
+        page.carousel_items.create(
+            caption="Live item", link_external="http://example.com/live"
+        )
+        page.save_revision().publish()
+
+        draft = HomePage.objects.get(pk=page.pk)
+        draft.body = "<p>Draft</p>"
+        draft.carousel_items.create(
+            caption="Draft item", link_external="http://example.com/draft"
+        )
+        draft.save_revision()
+        return HomePage.objects.get(pk=page.pk)
+
+    def test_update_live_page_with_draft_keeps_draft_changes(self):
+        page = self.create_live_home_page_with_draft()
+        response = self.patch(
+            page,
+            {"meta": {"type": "demosite.HomePage"}, "title": "New title"},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = HomePage.objects.get(pk=page.pk)
+        self.assertEqual(page.title, "Home")
+        self.assertEqual(page.body, "<p>Live</p>")
+        latest = page.get_latest_revision_as_object()
+        self.assertEqual(latest.title, "New title")
+        self.assertEqual(latest.body, "<p>Draft</p>")
+        self.assertEqual(
+            [item.caption for item in latest.carousel_items.all()],
+            ["Live item", "Draft item"],
+        )
+        self.assertEqual(response.json()["body"], "<p>Draft</p>")
+
+    def test_update_and_publish_live_page_with_draft_keeps_draft_changes(self):
+        page = self.create_live_home_page_with_draft()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.HomePage", "action": "publish"},
+                "title": "New title",
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = HomePage.objects.get(pk=page.pk)
+        self.assertEqual(page.title, "New title")
+        self.assertEqual(page.body, "<p>Draft</p>")
+        self.assertEqual(
+            list(
+                page.carousel_items.order_by("sort_order").values_list(
+                    "caption", flat=True
+                )
+            ),
+            ["Live item", "Draft item"],
+        )
+
+    def test_update_child_relation_of_live_page_with_draft(self):
+        page = self.create_live_home_page_with_draft()
+        live_item = page.carousel_items.get()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.HomePage"},
+                "carousel_items": [
+                    {
+                        "id": live_item.pk,
+                        "caption": "Live item (updated)",
+                        "link_external": "http://example.com/live",
+                    },
+                    {"caption": "New item", "link_external": "http://example.com/new"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        latest = HomePage.objects.get(pk=page.pk).get_latest_revision_as_object()
+        self.assertEqual(latest.body, "<p>Draft</p>")
+        items = list(latest.carousel_items.all())
+        self.assertEqual(
+            [(item.pk, item.caption) for item in items],
+            [(live_item.pk, "Live item (updated)"), (None, "New item")],
+        )
+
+    def test_update_page_tags_replaces_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "tags": ["Shakespeare, William", "Poetry"],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(sorted(page.tags.names()), ["Poetry", "Shakespeare, William"])
+
+    def test_update_page_tags_omitted_is_untouched(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Kept")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "title": "Entry renamed",
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), ["Kept"])
+
+    def test_update_page_tags_empty_list_clears_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {"meta": {"type": "demosite.BlogEntryPage"}, "tags": []},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), [])

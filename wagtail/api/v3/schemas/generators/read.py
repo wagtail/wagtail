@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Callable, Literal, cast
+from typing import Any, Callable, Literal, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import ForeignKey, Model
@@ -17,7 +17,7 @@ from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
 
-FieldSchema = tuple[type, Any, Callable | None]
+FieldSchema = tuple[Any, Any, Callable | None]
 FieldSchemaFunc = Callable[["SchemaGenerator", Field], FieldSchema]
 
 
@@ -77,11 +77,18 @@ class SchemaGenerator:
         than having to reimplement each one for v3.
         """
 
-        from rest_framework.fields import SkipField
-        from rest_framework.serializers import Serializer
+        from rest_framework.fields import Field, SkipField
 
-        serializer = cast(Serializer, copy.deepcopy(api_field.serializer))
+        serializer = cast(Field, copy.deepcopy(api_field.serializer))
         serializer.bind(field_name=api_field.name, parent=None)
+        try:
+            return_type = get_type_hints(serializer.to_representation)["return"]
+        except (KeyError, NameError):
+            # No return type or it's only available when TYPE_CHECKING
+            return_type = Any
+        # allow_null / required may not reflect nullability as the field's
+        # source may resolve to None regardless of those flags.
+        return_type = return_type | None
 
         def resolve(obj: Model, context: dict) -> Any:
             try:
@@ -92,7 +99,7 @@ class SchemaGenerator:
                 return None
             return serializer.to_representation(value)
 
-        return Any, None, staticmethod(resolve)
+        return return_type, None, staticmethod(resolve)
 
     def register_field_schema(
         self,
@@ -128,7 +135,9 @@ class SchemaGenerator:
                 model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
             )
             meta_schema = self._narrowed_meta_schema(
-                BaseSchema.model_fields["meta"].annotation, model
+                BaseSchema.model_fields["meta"].annotation,
+                model,
+                name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
             self._foreign_key_schema_cache[model] = self.extend_schema(
                 schema, name, {"meta": (meta_schema, ..., None)}
@@ -170,8 +179,10 @@ class SchemaGenerator:
 
         Each entry in ``api_fields`` is classified as:
 
-        - a custom-serializer field: omitted, since inspecting arbitrary
-          DRF-style serializers is out of scope for now.
+        - a custom-serializer field: typed from the serializer's
+          ``to_representation`` return annotation (or ``Any`` if missing or
+          unresolvable), made nullable, and resolved via the serializer
+          itself - see ``_custom_serializer_schema``.
         - a ``StreamField``: typed as ``Any`` and resolved via
           ``StreamValue.stream_block.get_api_representation``, matching how
           API v2 serializes StreamField values.
@@ -192,7 +203,11 @@ class SchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             extra_fields["meta"] = (
-                self._narrowed_meta_schema(meta_field.annotation, model),
+                self._narrowed_meta_schema(
+                    meta_field.annotation,
+                    model,
+                    name=f"{model._meta.object_name}MetaSchema",
+                ),
                 ...,
                 None,
             )
@@ -268,7 +283,7 @@ class SchemaGenerator:
 
     @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema], model: type[Model]
+        base_meta_schema: type[Schema], model: type[Model], *, name: str
     ) -> type[Schema]:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -281,11 +296,14 @@ class SchemaGenerator:
         ``build_schema``'s own ``meta`` field override, so the narrowing is
         baked into the same dynamic class as any other extra field rather
         than needing a second subclassing pass over the finished schema.
+
+        ``name`` is caller-supplied since the same model may be narrowed from
+        different base meta schemas, which must not share a name.
         """
         return cast(
             type[Schema],
             type(base_meta_schema)(
-                f"{model._meta.object_name}MetaSchema",
+                name,
                 (base_meta_schema,),
                 {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
             ),

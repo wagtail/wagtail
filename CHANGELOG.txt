@@ -4,10 +4,12 @@ Changelog
 8.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add formal support for Python 3.15
  * Only auto-create redirects when moving or renaming live pages, not draft; use `WAGTAILREDIRECTS_AUTO_CREATE = 'always'` to restore previous behaviour (Sage Abdullah)
  * Show allowed file types as part of document upload form help text (Bhavesh Sharma)
  * Purge frontend cache when a page is moved or its slug is changed (Jake Howard)
  * Add alternate links to sitemap for translated pages (Julie Rymer)
+ * Add `PURGE_BATCH_SIZE` parameter to Cloudflare backend to control number of URLs sent per purge request (Kevin Howbrook)
  * Fix: Avoid redundant writes back to the cache on `get_rendition` and `get_renditions` (Mason Lyons, Matt Westcott)
  * Fix: Allow `ChooserBlock.bulk_to_python()` to resolve records with primary keys that need converting to their native type, such as UUIDs (Saksham Chawla)
  * Fix: Prevent error when accessing the sitemap via an unknown host and no default site is configured (Jawad Khan)
@@ -22,6 +24,7 @@ Changelog
  * Fix: Improve performance of `instances_user_has_any_permission_for` and `explorable_instances` in `PagePermissionPolicy` (Ayush Kumar)
  * Fix: Make `ancestor_of`, `child_of`, `descendant_of` and `translation_of` filters in V3 API correctly handle reference pages outside of the result set criteria (Satyam Laheri)
  * Fix: Ensure signature check failure on redirect import raises `SuspiciousOperation` rather than `AttributeError` (Matt Westcott)
+ * Fix: Prevent syntax errors from crashing a dev server with a `RuntimeError` when using jinja2 (Sage Abdullah)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
@@ -39,6 +42,11 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  * Maintenance: Suppress warnings generated under sphinx-llm 1.1.0 (Matt Westcott)
+ * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 / 6.1.2 (Sage Abdullah)
+ * Fix: Prevent duplicate meta schemas for models used in foreign keys (Sage Abdullah)
+ * Fix: Generate best-effort schema for API v3 `APIField`s with a custom serializer that has type hints on `to_representation` (Sage Abdullah)
+ * Fix: Prevent API v3 PATCH requests from discarding unpublished draft changes of live pages and snippets (Sage Abdullah)
+ * Fix: Correctly handle tags passed as a list of names in API v3 write requests (Sage Abdullah)
 
 
 8.0 (25.08.2026)
@@ -101,6 +109,10 @@ Changelog
  * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
  * Maintenance: Use Ubuntu 26.04 ARM runner for GitHub Actions workflows (Storm Heg)
 
+7.4.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 (Sage Abdullah)
 
 7.4.3 (20.08.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -585,6 +597,11 @@ Changelog
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
+
+7.0.10 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 (Sage Abdullah)
 
 7.0.9 (20.08.2026)
 ~~~~~~~~~~~~~~~~~~

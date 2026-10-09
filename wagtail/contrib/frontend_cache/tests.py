@@ -525,7 +525,7 @@ class MockBackend(BaseBackend):
 
 class MockCloudflareBackend(CloudflareBackend):
     def _purge_urls(self, urls):
-        if len(urls) > self.CHUNK_SIZE:
+        if len(urls) > self.purge_batch_size:
             raise Exception("Cloudflare backend is not chunking requests as expected")
 
         PURGED_URLS.update(urls)
@@ -725,6 +725,49 @@ class TestCloudflareCachePurgingFunctions(TestCase):
             batch.purge()
 
         self.assertCountEqual(PURGED_URLS, set(urls))
+
+
+@mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.post")
+class TestCloudflarePurgeBatchSize(SimpleTestCase):
+    def get_backend(self, **extra_params):
+        return CloudflareBackend(
+            {
+                "ZONEID": "zone",
+                "BEARER_TOKEN": "token",
+                **extra_params,
+            }
+        )
+
+    def get_purged_chunks(self, requests_post_mock):
+        return [
+            call.kwargs["json"]["files"] for call in requests_post_mock.call_args_list
+        ]
+
+    def test_default_purge_batch_size(self, requests_post_mock):
+        urls = [f"https://localhost/foo{i}" for i in range(65)]
+
+        self.get_backend().purge_batch(urls)
+
+        chunks = self.get_purged_chunks(requests_post_mock)
+        self.assertEqual([len(chunk) for chunk in chunks], [30, 30, 5])
+        self.assertEqual([url for chunk in chunks for url in chunk], urls)
+
+    def test_custom_purge_batch_size(self, requests_post_mock):
+        urls = [f"https://localhost/foo{i}" for i in range(250)]
+
+        self.get_backend(PURGE_BATCH_SIZE=100).purge_batch(urls)
+
+        chunks = self.get_purged_chunks(requests_post_mock)
+        self.assertEqual([len(chunk) for chunk in chunks], [100, 100, 50])
+
+    def test_invalid_purge_batch_size(self, requests_post_mock):
+        for value in [0, "100", True]:
+            with self.subTest(value=value):
+                with self.assertRaisesMessage(
+                    ImproperlyConfigured,
+                    "'PURGE_BATCH_SIZE' must be a positive integer",
+                ):
+                    self.get_backend(PURGE_BATCH_SIZE=value)
 
 
 @override_settings(
