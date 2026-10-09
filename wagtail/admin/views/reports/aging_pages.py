@@ -51,6 +51,7 @@ class AgingPagesView(PageReportView):
         "content_type",
     ]
     any_permission_required = ["add", "change", "publish"]
+    export_requires_post = True
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

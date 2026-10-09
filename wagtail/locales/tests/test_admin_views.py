@@ -1,7 +1,10 @@
+from unittest import mock
+
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import get_messages
 from django.contrib.messages.constants import ERROR
+from django.db.models.query import QuerySet
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -42,6 +45,54 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_index_view_shows_add_locale_button_with_stale_locales(self):
         Locale.objects.create(language_code="de")
         self.assertContains(self.get(), self.add_url)
+
+    def assertQuerysetNotEvaluated(self, get_response):
+        """
+        Asserts that no Locale queryset is fetched from the database while producing
+        the response returned by get_response(). This is a more direct check than
+        counting queries, since it pinpoints evaluation of the Locale queryset
+        specifically rather than any other queries the view may legitimately issue
+        (e.g. permission checks).
+        """
+        original_fetch_all = QuerySet._fetch_all
+
+        def fetch_all(queryset, *args, **kwargs):
+            if queryset.model is Locale:
+                self.fail(
+                    "Locale queryset was unexpectedly evaluated: %r" % queryset.query
+                )
+            return original_fetch_all(queryset, *args, **kwargs)
+
+        with mock.patch.object(
+            QuerySet, "_fetch_all", autospec=True, side_effect=fetch_all
+        ):
+            response = get_response()
+            if response.streaming:
+                # Force any generator-based streaming content to run, since it's
+                # otherwise left unevaluated until something consumes it.
+                b"".join(response.streaming_content)
+        return response
+
+    def test_export_csv(self):
+        """
+        This is testing an edge case of SpreadsheetExportMixin rather than the Locale index view itself.
+        wagtail.admin.views.generic.IndexView gives us SpreadsheetExportMixin for free, but since the Locale index view
+        doesn't specify list_export, the resulting export will be empty. In this case, it's better that we
+        short-circuit the evaluation of the queryset, to avoid a potentially expensive query that the developer never
+        asked for.
+        """
+        response = self.assertQuerysetNotEvaluated(lambda: self.get({"export": "csv"}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/csv")
+
+    def test_export_xlsx(self):
+        # as per test_export_csv, but for xlsx
+        response = self.assertQuerysetNotEvaluated(lambda: self.get({"export": "xlsx"}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response["Content-Type"],
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
 
 
 class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
