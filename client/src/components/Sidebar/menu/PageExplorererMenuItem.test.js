@@ -68,7 +68,10 @@ describe('PageExplorerMenuItem', () => {
     expect(preventDefault).not.toHaveBeenCalled();
   });
 
-  it('should reset navigation path when closed via FocusTrap deactivation', () => {
+  it('should not call dispatch when closed via FocusTrap deactivation (onCloseExplorer no longer resets navigation path)', () => {
+    // Regression: previously onCloseExplorer dispatched set-navigation-path ''
+    // which re-triggered the useEffect feedback loop causing the panel to reopen.
+    // The dispatch was removed; only the setTimeout cleanup now runs.
     const dispatch = jest.fn();
 
     const wrapper = shallow(
@@ -82,9 +85,33 @@ describe('PageExplorerMenuItem', () => {
 
     wrapper.find('Connect(PageExplorer)').prop('onClose')();
 
-    expect(dispatch).toHaveBeenCalledWith({
-      type: 'set-navigation-path',
-      path: '',
-    });
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('should ignore a second onClose call while already closing (isClosing ref guard)', () => {
+    // Regression: clicking the sidebar button triggered both onClick and
+    // FocusTrap.onDeactivate, causing onCloseExplorer to run twice and
+    // re-open the panel. The isClosing ref guard blocks the second call.
+    const dispatch = jest.fn();
+
+    const wrapper = shallow(
+      <PageExplorerMenuItem
+        dispatch={dispatch}
+        item={{}}
+        path=".explorer"
+        state={{ activePath: '', navigationPath: '.explorer' }}
+      />,
+    );
+
+    const onClose = wrapper.find('Connect(PageExplorer)').prop('onClose');
+
+    // First call — should proceed normally (no dispatch, just setTimeout)
+    onClose();
+    const callCountAfterFirst = dispatch.mock.calls.length;
+
+    // Second call — isClosing ref is true, must be a no-op
+    onClose();
+
+    expect(dispatch.mock.calls.length).toBe(callCountAfterFirst);
   });
 });
