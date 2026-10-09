@@ -7,6 +7,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
 from django.db.models import Model
 from django.forms import BaseForm, Field
+from django.forms.formsets import ORDERING_FIELD_NAME
 from django.utils.datastructures import MultiValueDict
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
@@ -394,7 +395,8 @@ def build_form_data(
     would be added *alongside* the existing rows instead of replacing them,
     since an all-zero ``INITIAL_FORMS`` (correct when there's no
     ``instance``, i.e. on create) tells the formset there's
-    nothing existing to reconcile against.
+    nothing existing to reconcile against. For an orderable child model, the
+    submitted order of items is kept.
     """
     data = MultiValueDict()
     base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
@@ -420,7 +422,7 @@ def build_form_data(
             data[f"{prefix}-{i}-id"] = obj.pk
 
         new_items = []
-        for item in items:
+        for position, item in enumerate(items):
             matched_pk = item.get("id")
             if matched_pk in existing_by_pk and matched_pk not in matched_pks:
                 matched_pks.add(matched_pk)
@@ -429,8 +431,12 @@ def build_form_data(
                 )
                 item_prefix = f"{prefix}-{item_index}"
             else:
-                new_items.append(item)
+                new_items.append((position, item))
                 continue
+            if formset_class.can_order:
+                # Existing rows keep their original form index, so set each
+                # item's ORDER to its position in the submitted list instead.
+                data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
             for field_name, field in child_fields.items():
                 if field_name in item:
                     _set_field_value(
@@ -442,8 +448,10 @@ def build_form_data(
                 data[f"{prefix}-{i}-DELETE"] = "on"
 
         data[f"{prefix}-TOTAL_FORMS"] = str(len(existing) + len(new_items))
-        for j, item in enumerate(new_items):
+        for j, (position, item) in enumerate(new_items):
             item_prefix = f"{prefix}-{len(existing) + j}"
+            if formset_class.can_order:
+                data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
             for field_name, field in child_fields.items():
                 if field_name in item:
                     _set_field_value(
