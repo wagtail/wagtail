@@ -1222,8 +1222,8 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
     def test_update_page_child_relation_with_custom_primary_key(self):
         """
         tests.EventPage's head_counts relation uses a primary key named
-        custom_id rather than id. The API still identifies existing items by
-        "id", but the underlying formset expects the pk field's own name.
+        custom_id rather than id. Existing items are identified by custom_id,
+        the same name the read schema uses.
         """
         page = self.root_page.add_child(
             instance=TestAppEventPage(
@@ -1245,7 +1245,7 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             {
                 "meta": {"type": "tests.EventPage"},
                 "head_counts": [
-                    {"id": second.custom_id, "head_count": 20},
+                    {"custom_id": second.custom_id, "head_count": 20},
                     {"head_count": 3},
                 ],
             },
@@ -1263,3 +1263,40 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(head_counts[0], (second.custom_id, 20))
         self.assertNotIn(first.custom_id, [pk for pk, _ in head_counts])
         self.assertEqual(head_counts[1][1], 3)
+        self.assertEqual(
+            [item["custom_id"] for item in response.json()["head_counts"]],
+            [pk for pk, _ in head_counts],
+        )
+
+    def test_update_page_child_relation_with_custom_primary_key_ignores_id(self):
+        """
+        "id" isn't the pk's name for head_counts, so it doesn't identify an
+        existing item: it's ignored like any other unknown key, and the item
+        is created as new.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        existing = page.head_counts.create(head_count=1)
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [{"id": existing.custom_id, "head_count": 10}],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        [head_count] = page.head_counts.all()
+        self.assertNotEqual(head_count.custom_id, existing.custom_id)
+        self.assertEqual(head_count.head_count, 10)

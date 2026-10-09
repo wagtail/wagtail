@@ -11982,6 +11982,17 @@
       },
       "HeadCountRelatedModelUsingPKPatchSchema": {
         "properties": {
+          "custom_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          },
           "head_count": {
             "anyOf": [
               {
@@ -11992,17 +12003,6 @@
               }
             ],
             "title": "Head Count"
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Custom Id"
           }
         },
         "title": "HeadCountRelatedModelUsingPKPatchSchema",
