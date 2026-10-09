@@ -9062,265 +9062,6 @@
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
-      "EventPageSpeakerCreateSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "image_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Image"
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          }
-        },
-        "title": "EventPageSpeakerCreateSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.EventPageSpeaker",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "EventPageSpeakerMetaSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerPatchSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "image_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Image"
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          }
-        },
-        "title": "EventPageSpeakerPatchSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "image": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/ImageForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link": {
-            "title": "Link"
-          },
-          "link_document": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/DocumentForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "meta": {
-            "$ref": "#/components/schemas/EventPageSpeakerMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "EventPageSpeakerSchema",
-        "type": "object"
-      },
       "FilePageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -22142,6 +21883,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "description": "The page title as you'd like it to be seen by the public",
             "maxLength": 255,
@@ -22372,6 +22121,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "anyOf": [
               {
@@ -22439,6 +22196,14 @@
               "$ref": "#/components/schemas/abc__EventPageRelatedLinkSchema__1"
             },
             "title": "Related Links",
+            "type": "array"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__1"
+            },
+            "title": "Speakers",
             "type": "array"
           },
           "title": {
@@ -27027,6 +26792,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "description": "The page title as you'd like it to be seen by the public",
             "maxLength": 255,
@@ -27156,7 +26929,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerCreateSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -27555,6 +27328,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "anyOf": [
               {
@@ -27722,7 +27503,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerPatchSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -28157,6 +27938,14 @@
             "title": "Related Links",
             "type": "array"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "title": "Title",
             "type": "string"
@@ -28273,7 +28062,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -28317,6 +28106,414 @@
           "cost"
         ],
         "title": "EventPageSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerCreateSchema__1": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          }
+        },
+        "title": "EventPageSpeakerCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerCreateSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageSpeakerCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerMetaSchema__1": {
+        "properties": {
+          "type": {
+            "const": "tests.EventPageSpeaker",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerMetaSchema__2": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageSpeaker",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerPatchSchema__1": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          }
+        },
+        "title": "EventPageSpeakerPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerPatchSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageSpeakerPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerSchema__1": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageSpeakerMetaSchema__1"
+          }
+        },
+        "required": ["meta"],
+        "title": "EventPageSpeakerSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link": {
+            "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageSpeakerMetaSchema__2"
+          }
+        },
+        "required": ["meta"],
+        "title": "EventPageSpeakerSchema",
         "type": "object"
       },
       "abc__FormPageCreateMetaSchema__1": {
