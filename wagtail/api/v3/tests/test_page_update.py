@@ -1178,3 +1178,48 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
             [link["title"] for link in response.json()["related_links"]],
             ["Second", "New", "First"],
         )
+
+    def test_update_page_child_relation_with_custom_primary_key(self):
+        """
+        tests.EventPage's head_counts relation uses a primary key named
+        custom_id rather than id. The API still identifies existing items by
+        "id", but the underlying formset expects the pk field's own name.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        first = page.head_counts.create(head_count=1)
+        second = page.head_counts.create(head_count=2)
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [
+                    {"id": second.custom_id, "head_count": 20},
+                    {"head_count": 3},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        head_counts = list(
+            page.head_counts.order_by("custom_id").values_list(
+                "custom_id", "head_count"
+            )
+        )
+        # The existing item with a matching id is updated in place, the one
+        # omitted from the list is deleted, and the one without an id is new.
+        self.assertEqual(len(head_counts), 2)
+        self.assertEqual(head_counts[0], (second.custom_id, 20))
+        self.assertNotIn(first.custom_id, [pk for pk, _ in head_counts])
+        self.assertEqual(head_counts[1][1], 3)
