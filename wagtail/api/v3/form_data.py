@@ -398,18 +398,10 @@ def build_form_data(
     are simply not looked up here (see ``InlinePanel.get_form_options``).
 
     ``instance``, on an update, is the page (or other model) being
-    edited. This replaces the relation's whole set rather than trying to
-    diff it item by item: every one of ``instance``'s current rows
-    for that relation becomes an initial form, and each submitted item
-    either binds to the existing row whose pk matches its own pk (an edit
-    in place) or, lacking a matching pk, becomes a new (non-initial) form.
-    Any existing row no *submitted* item's pk refers to is marked for
-    deletion. The pk is keyed by its field's own name (e.g. ``id`` or
-    ``custom_id``), as it is in the read schema and the formset. Without
-    this, the submitted items would be added *alongside* the existing rows
-    instead of replacing them, since an all-zero ``INITIAL_FORMS`` (correct
-    when there's no ``instance``, i.e. on create) tells the formset there's
-    nothing existing to reconcile against.
+    edited. A relation the request mentions has its whole set replaced -
+    see ``_fill_formset``. The same applies recursively to a child form
+    that declares its own formsets (e.g. an InlinePanel inside an
+    InlinePanel child), keyed by the relation name inside each child item.
     """
     data = MultiValueDict()
     base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
@@ -420,56 +412,94 @@ def build_form_data(
     for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
         if rel_name not in payload:
             continue
-        items = payload[rel_name]
-        prefix = rel_name
-        child_fields = formset_class.form.base_fields
-
         existing = (
             list(getattr(instance, rel_name).all()) if instance is not None else []
         )
-        existing_by_pk = {obj.pk: obj for obj in existing if obj.pk is not None}
-        matched_pks: set[Any] = set()
-
-        pk_name = formset_class.model._meta.pk.name
-        data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
-        for i, obj in enumerate(existing):
-            data[f"{prefix}-{i}-{pk_name}"] = obj.pk
-
-        new_items = []
-        for position, item in enumerate(items):
-            matched_pk = item.get(pk_name)
-            if matched_pk in existing_by_pk and matched_pk not in matched_pks:
-                matched_pks.add(matched_pk)
-                item_index = next(
-                    i for i, obj in enumerate(existing) if obj.pk == matched_pk
-                )
-                item_prefix = f"{prefix}-{item_index}"
-            else:
-                new_items.append((position, item))
-                continue
-            if formset_class.can_order:
-                # Existing rows keep their original form index, so set each
-                # item's ORDER to its position in the submitted list instead.
-                data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
-            for field_name, field in child_fields.items():
-                if field_name in item:
-                    _set_field_value(
-                        field, f"{item_prefix}-{field_name}", item[field_name], data
-                    )
-
-        for i, obj in enumerate(existing):
-            if obj.pk not in matched_pks:
-                data[f"{prefix}-{i}-DELETE"] = "on"
-
-        data[f"{prefix}-TOTAL_FORMS"] = str(len(existing) + len(new_items))
-        for j, (position, item) in enumerate(new_items):
-            item_prefix = f"{prefix}-{len(existing) + j}"
-            if formset_class.can_order:
-                data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
-            for field_name, field in child_fields.items():
-                if field_name in item:
-                    _set_field_value(
-                        field, f"{item_prefix}-{field_name}", item[field_name], data
-                    )
+        _fill_formset(data, formset_class, payload[rel_name], rel_name, existing)
 
     return data
+
+
+def _fill_formset(
+    data: MultiValueDict,
+    formset_class: Any,
+    items: list[dict[str, Any]],
+    prefix: str,
+    existing: list[Model],
+) -> None:
+    """Write the formset data for one child relation into ``data``.
+
+    This replaces the relation's whole set rather than trying to diff it
+    item by item: every one of the ``existing`` rows becomes an initial
+    form, and each submitted item either binds to the existing row whose pk
+    matches its own pk (an edit in place) or, lacking a matching pk,
+    becomes a new (non-initial) form. Any existing row no *submitted*
+    item's pk refers to is marked for deletion. The pk is keyed by its
+    field's own name (e.g. ``id`` or ``custom_id``), as it is in the read
+    schema and the formset. Without this, the submitted items would be
+    added *alongside* the existing rows instead of replacing them, since an
+    all-zero ``INITIAL_FORMS`` (correct when there are no ``existing``
+    rows, e.g. on create) tells the formset there's nothing existing to
+    reconcile against.
+
+    If the child form declares its own formsets, each one is filled the
+    same way for every row, against that row's own existing children. A
+    nested relation an item doesn't mention gets an empty formset: since
+    ``ChildFormSet.save()`` only adds and removes the rows its forms refer
+    to, this leaves an existing row's children untouched and gives a new
+    row none.
+    """
+    child_fields = formset_class.form.base_fields
+    nested_formsets = getattr(formset_class.form, "formsets", {})
+    pk_name = formset_class.model._meta.pk.name
+    existing_index = {obj.pk: i for i, obj in enumerate(existing) if obj.pk is not None}
+
+    data[f"{prefix}-INITIAL_FORMS"] = str(len(existing))
+    for i, obj in enumerate(existing):
+        data[f"{prefix}-{i}-{pk_name}"] = obj.pk
+
+    matched: dict[int, tuple[int, dict[str, Any]]] = {}
+    new_items: list[tuple[int, dict[str, Any]]] = []
+    for position, item in enumerate(items):
+        index = existing_index.get(item.get(pk_name))
+        if index is not None and index not in matched:
+            matched[index] = (position, item)
+        else:
+            new_items.append((position, item))
+
+    # (form index, submitted position, submitted item, existing row) - None if absent
+    rows: list[tuple[int, int | None, dict[str, Any] | None, Model | None]] = []
+    for i, obj in enumerate(existing):
+        position, item = matched.get(i, (None, None))
+        if item is None:
+            data[f"{prefix}-{i}-DELETE"] = "on"
+        rows.append((i, position, item, obj))
+    for j, (position, item) in enumerate(new_items):
+        rows.append((len(existing) + j, position, item, None))
+
+    data[f"{prefix}-TOTAL_FORMS"] = str(len(rows))
+    for index, position, item, obj in rows:
+        item_prefix = f"{prefix}-{index}"
+        if formset_class.can_order and position is not None:
+            # Existing rows keep their original form index, so set each
+            # item's ORDER to its position in the submitted list instead.
+            data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
+        for field_name, field in child_fields.items():
+            if item is not None and field_name in item:
+                _set_field_value(
+                    field, f"{item_prefix}-{field_name}", item[field_name], data
+                )
+
+        for rel_name, nested_formset_class in nested_formsets.items():
+            nested_prefix = f"{item_prefix}-{rel_name}"
+            nested_items = item.get(rel_name) if item is not None else None
+            if nested_items is None:
+                data[f"{nested_prefix}-INITIAL_FORMS"] = "0"
+                data[f"{nested_prefix}-TOTAL_FORMS"] = "0"
+                continue
+            nested_existing = (
+                list(getattr(obj, rel_name).all()) if obj is not None else []
+            )
+            _fill_formset(
+                data, nested_formset_class, nested_items, nested_prefix, nested_existing
+            )
