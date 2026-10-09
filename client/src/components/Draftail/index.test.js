@@ -98,6 +98,67 @@ describe('Draftail', () => {
       expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
     });
 
+    it('ariaLabelledBy with label', () => {
+      document.body.innerHTML = `
+        <label id="test-label" for="test">Test field label</label>
+        <input id="test" value="null" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
+    });
+
+    it('ariaLabelledBy without label', () => {
+      document.body.innerHTML = '<input id="test" value="null" />';
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaLabelledBy).toBeNull();
+    });
+
+    it('ariaDescribedBy from the field', () => {
+      document.body.innerHTML = `
+        <div id="panel-intro-helptext"><p>This is helpful text</p></div>
+        <input id="test" value="null" aria-describedby="panel-intro-helptext" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe(
+        'panel-intro-helptext',
+      );
+    });
+
+    it('ariaDescribedBy ignores help text not referenced by the field', () => {
+      document.body.innerHTML = `
+        <div id="test-helptext"></div>
+        <input id="test" value="null" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBeNull();
+    });
+
+    it('ariaDescribedBy from the field and maxLength', () => {
+      document.body.innerHTML = `
+        <div id="test-helptext"><p>This is helpful text</p></div>
+        <input id="test" value="null" maxlength="50" aria-describedby="test-helptext" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe(
+        'test-helptext test-length',
+      );
+    });
+
     describe('selector conflicts', () => {
       it('fails to instantiate on the right field', () => {
         document.body.innerHTML =
