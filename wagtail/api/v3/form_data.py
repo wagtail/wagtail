@@ -9,6 +9,7 @@ from django.db.models import Model
 from django.forms import BaseForm, Field
 from django.forms.formsets import ORDERING_FIELD_NAME
 from django.utils.datastructures import MultiValueDict
+from modelcluster.forms import BaseChildFormSet
 from ninja.schema import BaseModel
 from permissionedforms import PermissionedForm
 from taggit.forms import TagField, TagWidget
@@ -28,6 +29,47 @@ from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
 
 Page = swapper.load_model("wagtailcore", "Page")
+
+
+# Form data key, per existing child row, listing the fields the request
+# supplied for it. See PartialUpdateChildFormSet.
+SUPPLIED_FIELDS_KEY = "__supplied_fields"
+
+
+class PartialUpdateChildFormSet(BaseChildFormSet):
+    """Leave alone the fields of an existing child row that a request didn't
+    supply, rather than clearing them.
+
+    A formset's form class is shared by all its rows, so it can't be
+    narrowed to each row's own fields up front the way the top-level form
+    is (see ``get_api_form_class``'s ``field_names``). Instead, each existing
+    row's form drops the fields not listed under its ``SUPPLIED_FIELDS_KEY``
+    entry in the form data.
+    """
+
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is None or not self.is_bound:
+            return
+        key = form.add_prefix(SUPPLIED_FIELDS_KEY)
+        if key not in self.data:
+            return
+        supplied = set(cast(MultiValueDict, self.data).getlist(key))
+        for name in self.form.base_fields:
+            if name not in supplied:
+                form.fields.pop(name, None)
+
+
+def get_partial_update_formset(
+    formset: type[BaseChildFormSet],
+) -> type[PartialUpdateChildFormSet]:
+    """Combine ``PartialUpdateChildFormSet`` with a relation's own formset
+    class, if it has a custom one."""
+    if issubclass(formset, PartialUpdateChildFormSet):
+        return formset
+    return type(
+        f"PartialUpdate{formset.__name__}", (PartialUpdateChildFormSet, formset), {}
+    )
 
 
 def filter_form_options(
@@ -59,6 +101,9 @@ def filter_form_options(
             **formset_options,
             **filter_form_options(
                 child_model, formset_options, child_schema.model_fields.keys()
+            ),
+            "formset": get_partial_update_formset(
+                formset_options.get("formset", BaseChildFormSet)
             ),
         }
 
@@ -297,6 +342,8 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
                 raise ValidationError(
                     f"{prefix}: unrecognised block type {item['type']!r}"
                 ) from None
+            if "value" not in item:
+                raise ValidationError(f"{prefix}: block {i} has no value")
             flatten_block_value(child_block, item["value"], f"{prefix}-{i}-value", data)
     elif isinstance(block, ListBlock):
         items = value or []
@@ -304,6 +351,9 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
         for i, item in enumerate(items):
             data[f"{prefix}-{i}-deleted"] = ""
             data[f"{prefix}-{i}-order"] = str(i)
+            if block._item_is_in_block_format(item):
+                data[f"{prefix}-{i}-id"] = item["id"]
+                item = item["value"]
             flatten_block_value(block.child_block, item, f"{prefix}-{i}-value", data)
     elif isinstance(block, BaseStructBlock):
         value = value or {}
@@ -326,6 +376,71 @@ def flatten_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
         # - So we first convert to the native value `to_python`
         # Binding the form will then work even for blocks where the form/API/native values differ.
         data[prefix] = block.value_for_form(block.to_python(value))
+
+
+def merge_block_value(block, existing: Any, value: Any) -> Any:
+    """Fill in the parts of a submitted block ``value`` that it leaves out
+    from ``existing``, the block's current value (as from ``get_prep_value``).
+
+    Stream and list children are matched by ``id``: the submitted list still
+    sets which children there are and their order, but a matched child of
+    the same type keeps its current value if the submitted one omits its
+    ``value``, or has the two merged. A struct keeps the current value of
+    any child it omits. Any other value replaces the current one as a whole.
+    """
+    if isinstance(block, (BaseStreamBlock, ListBlock)):
+        if not isinstance(existing, list) or not isinstance(value, list):
+            return value
+        existing_by_id = {
+            child["id"]: child
+            for child in existing
+            if isinstance(child, dict) and child.get("id") is not None
+        }
+        merged = []
+        for child in value:
+            current = (
+                existing_by_id.get(child.get("id")) if isinstance(child, dict) else None
+            )
+            if current is None or child.get("type") != current.get("type"):
+                merged.append(child)
+                continue
+            if isinstance(block, BaseStreamBlock):
+                child_block = block.child_blocks.get(child["type"])
+            else:
+                child_block = block.child_block
+            if "value" not in child:
+                merged.append({**child, "value": current["value"]})
+            elif child_block is None:
+                merged.append(child)
+            else:
+                merged.append(
+                    {
+                        **child,
+                        "value": merge_block_value(
+                            child_block, current["value"], child["value"]
+                        ),
+                    }
+                )
+        return merged
+    if isinstance(block, BaseStructBlock):
+        if not isinstance(existing, dict) or not isinstance(value, dict):
+            return value
+        return {
+            name: (
+                merge_block_value(child_block, existing.get(name), value[name])
+                if name in value
+                else existing.get(name)
+            )
+            for name, child_block in block.child_blocks.items()
+        }
+    return value
+
+
+def _merge_with_existing(field: Field, name: str, value: Any, obj: Model | None) -> Any:
+    if obj is None or not isinstance(field, BlockField):
+        return value
+    existing = field.block.get_prep_value(getattr(obj, name))
+    return merge_block_value(field.block, existing, value)
 
 
 def _set_field_value(field: Field, name: str, value: Any, data: MultiValueDict) -> None:
@@ -407,7 +522,8 @@ def build_form_data(
     base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
     for name, field in base_fields.items():
         if name in payload:
-            _set_field_value(field, name, payload[name], data)
+            value = _merge_with_existing(field, name, payload[name], instance)
+            _set_field_value(field, name, value, data)
 
     for rel_name, formset_class in getattr(form_class, "formsets", {}).items():
         if rel_name not in payload:
@@ -440,7 +556,9 @@ def _fill_formset(
     added *alongside* the existing rows instead of replacing them, since an
     all-zero ``INITIAL_FORMS`` (correct when there are no ``existing``
     rows, e.g. on create) tells the formset there's nothing existing to
-    reconcile against.
+    reconcile against. An existing row only has the fields its item
+    supplies updated; the rest keep their current values (see
+    ``PartialUpdateChildFormSet``).
 
     If the child form declares its own formsets, each one is filled the
     same way for every row, against that row's own existing children. A
@@ -484,11 +602,15 @@ def _fill_formset(
             # Existing rows keep their original form index, so set each
             # item's ORDER to its position in the submitted list instead.
             data[f"{item_prefix}-{ORDERING_FIELD_NAME}"] = str(position)
+        if item is not None and obj is not None:
+            data.setlist(
+                f"{item_prefix}-{SUPPLIED_FIELDS_KEY}",
+                [name for name in child_fields if name in item],
+            )
         for field_name, field in child_fields.items():
             if item is not None and field_name in item:
-                _set_field_value(
-                    field, f"{item_prefix}-{field_name}", item[field_name], data
-                )
+                value = _merge_with_existing(field, field_name, item[field_name], obj)
+                _set_field_value(field, f"{item_prefix}-{field_name}", value, data)
 
         for rel_name, nested_formset_class in nested_formsets.items():
             nested_prefix = f"{item_prefix}-{rel_name}"

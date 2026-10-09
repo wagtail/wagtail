@@ -479,6 +479,174 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
                 self.assertTrue(block["id"])
                 assert_api_value(block["value"])
 
+    def test_update_streamfield_list_block_keeps_item_ids_in_block_format(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-list-ids",
+                body=[{"type": "title_list", "value": ["First", "Second"]}],
+                live=False,
+            )
+        )
+        page = StreamPage.objects.get(pk=page.pk)
+        stream_block_id = page.body[0].id
+        [first, second] = page.body[0].value.bound_blocks
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [
+                    {
+                        "type": "title_list",
+                        "id": stream_block_id,
+                        "value": [
+                            {"type": "item", "value": "Second", "id": second.id},
+                            {
+                                "type": "item",
+                                "value": "First (updated)",
+                                "id": first.id,
+                            },
+                        ],
+                    }
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            [(child.id, child.value) for child in page.body[0].value.bound_blocks],
+            [(second.id, "Second"), (first.id, "First (updated)")],
+        )
+
+    def test_update_streamfield_merges_blocks_matched_by_id(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-merge",
+                body=[
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "value": {"name": "Bread", "price": "1"},
+                    },
+                    {"type": "text", "id": "text", "value": "Unchanged"},
+                    {
+                        "type": "books",
+                        "id": "books",
+                        "value": [
+                            {"type": "title", "id": "title", "value": "Dune"},
+                            {
+                                "type": "author",
+                                "id": "author",
+                                "value": "Frank Herbert",
+                            },
+                        ],
+                    },
+                    {
+                        "type": "title_list",
+                        "id": "title_list",
+                        "value": [
+                            {"type": "item", "id": "first", "value": "First"},
+                            {"type": "item", "id": "second", "value": "Second"},
+                        ],
+                    },
+                    {"type": "text", "id": "removed", "value": "Removed"},
+                    {"type": "text", "id": "retyped", "value": "Retyped"},
+                ],
+                live=False,
+            )
+        )
+        page = StreamPage.objects.get(pk=page.pk)
+        product, text, books, title_list, removed, retyped = page.body
+        title, author = books.value
+        first, second = title_list.value.bound_blocks
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [
+                    {"type": "text", "id": text.id},
+                    {"type": "product", "id": product.id, "value": {"price": "2"}},
+                    {
+                        "type": "books",
+                        "id": books.id,
+                        "value": [
+                            {"type": "author", "id": author.id},
+                            {"type": "title", "id": title.id, "value": "Dune Messiah"},
+                        ],
+                    },
+                    {
+                        "type": "title_list",
+                        "id": title_list.id,
+                        "value": [
+                            {"type": "item", "id": second.id},
+                            {
+                                "type": "item",
+                                "id": first.id,
+                                "value": "First (updated)",
+                            },
+                        ],
+                    },
+                    {
+                        "type": "product",
+                        "id": retyped.id,
+                        "value": {"name": "Milk", "price": "3"},
+                    },
+                    {"type": "text", "value": "New"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            [(block.id, block.block_type) for block in page.body][:5],
+            [
+                (text.id, "text"),
+                (product.id, "product"),
+                (books.id, "books"),
+                (title_list.id, "title_list"),
+                (retyped.id, "product"),
+            ],
+        )
+        self.assertNotIn(removed.id, [block.id for block in page.body])
+        self.assertEqual(page.body[0].value, "Unchanged")
+        self.assertEqual(dict(page.body[1].value), {"name": "Bread", "price": "2"})
+        self.assertEqual(
+            [(child.id, child.block_type, child.value) for child in page.body[2].value],
+            [
+                (author.id, "author", "Frank Herbert"),
+                (title.id, "title", "Dune Messiah"),
+            ],
+        )
+        self.assertEqual(
+            [(child.id, child.value) for child in page.body[3].value.bound_blocks],
+            [(second.id, "Second"), (first.id, "First (updated)")],
+        )
+        self.assertEqual(dict(page.body[4].value), {"name": "Milk", "price": "3"})
+        self.assertEqual((page.body[5].block_type, page.body[5].value), ("text", "New"))
+
+    def test_update_streamfield_unmatched_block_without_value_returns_422(self):
+        page = self.root_page.add_child(
+            instance=StreamPage(
+                title="Stream page",
+                slug="stream-page-no-value",
+                body=[{"type": "text", "id": "text", "value": "Original"}],
+                live=False,
+            )
+        )
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.StreamPage"},
+                "body": [{"type": "text", "id": "unknown"}],
+            },
+        )
+        self.assert_problem_response(response, status_code=422)
+        page = StreamPage.objects.get(pk=page.pk)
+        self.assertEqual(page.body[0].value, "Original")
+
     def test_update_page_with_non_writable_api_field_ignores_it(self):
         page = self.root_page.add_child(
             instance=BlogIndexPage(
@@ -1422,3 +1590,84 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200, response.content)
         self.assertEqual(self.get_speakers_state(page), before)
+
+    def test_patch_existing_child_omitted_fields_are_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        [first, second] = ada.awards.order_by("sort_order")
+        first.date_awarded = "1843-01-01"
+        first.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {
+                        "id": ada.pk,
+                        "first_name": "Augusta Ada",
+                        "awards": [
+                            {"id": first.pk, "name": "First programmer (updated)"},
+                            {"id": second.pk},
+                        ],
+                    },
+                    {"id": grace.pk},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        speakers = {
+            speaker.pk: speaker
+            for speaker in TestAppEventPage.objects.get(pk=page.pk).speakers.all()
+        }
+        # Only the supplied fields of an existing item are updated.
+        self.assertEqual(speakers[ada.pk].first_name, "Augusta Ada")
+        self.assertEqual(speakers[ada.pk].last_name, "Lovelace")
+        self.assertEqual(
+            (speakers[grace.pk].first_name, speakers[grace.pk].last_name),
+            ("Grace", "Hopper"),
+        )
+        # The same applies to nested child relations.
+        awards = {award.pk: award for award in speakers[ada.pk].awards.all()}
+        self.assertEqual(awards[first.pk].name, "First programmer (updated)")
+        self.assertEqual(str(awards[first.pk].date_awarded), "1843-01-01")
+        self.assertEqual(awards[second.pk].name, "Analytical engine")
+
+    def test_patch_existing_child_omitted_required_field_is_untouched(self):
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        head_count = page.head_counts.create(head_count=5)
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [{"custom_id": head_count.custom_id}],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        head_count.refresh_from_db()
+        self.assertEqual(head_count.head_count, 5)
+
+    def test_patch_existing_child_field_set_to_empty_clears_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "last_name": ""},
+                    {"id": grace.pk},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        ada.refresh_from_db()
+        self.assertEqual((ada.first_name, ada.last_name), ("Ada", ""))

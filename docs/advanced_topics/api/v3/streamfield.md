@@ -33,37 +33,49 @@ A top-level StreamBlock value is a JSON array of blocks:
 The `value` representation depends on the block type:
 
 -   **Nested StreamBlock** — a list of `{type, id, value}` blocks, recursively.
--   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`.
+-   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`. On input, an item can also be given as `{"type": "item", "id": ..., "value": ...}`, which keeps its `id`.
 -   **StructBlock** — an object keyed by the child block's field names.
 -   **RichTextBlock** — rich text, using the input and output formats described in [](api_v3_rich_text).
+-   **TypedTableBlock** — an object with `columns` (each with a `type` and a `heading`), `rows` (each with a `values` list holding one value per column, in that column block's own representation), and a `caption`.
 -   **Chooser and leaf blocks** (for example image and page choosers) — a scalar value such as the object's ID, or another widget-compatible value.
 
 Custom blocks can customise how they are read back through the API by [defining `get_api_representation(value, context=None)`](apiv2_streamfield_configuration), which takes precedence over the default representation.
+
+A custom block that is not a `FieldBlock` and reads its own form data in `value_from_datadict` can accept API input by defining `get_api_form_data(value, prefix, flatten_child)`. It receives the submitted value and the block's form prefix, and returns a dictionary of the form data keys its `value_from_datadict` reads. To include the value of a child block, call `flatten_child(child_block, child_value, child_prefix)`, which writes the child's form data in the same way as any other block. `TypedTableBlock` uses this method.
 
 ## Writing StreamField values
 
 StreamField values are submitted as part of a page or snippet create or update, using the representation above. The following semantics apply:
 
 -   **Block IDs** are optional on input. When a block's `id` is omitted, Wagtail generates one; when you supply an `id`, it is preserved as given.
--   **Updating a page** (a `PATCH` that includes the StreamField field) replaces the whole field value with what you submit. This is not block-level patching: any blocks you omit are removed. To add, change, or remove individual blocks, submit the complete desired list.
+-   **Updating a page** (a `PATCH` that includes the StreamField field) sets the field's blocks to the list you submit, in the submitted order. Any blocks you omit are removed.
+-   A submitted block whose `id` and `type` match a block in the current value is **merged** with it. Omit its `value` to keep the current value, or omit keys from a StructBlock value to keep the current values of those child blocks. The children of a nested StreamBlock or ListBlock are matched by `id` and merged in the same way. Any other value, such as text, rich text, or a chooser value, replaces the current one as submitted.
 -   Omitting the StreamField field from an update leaves it unchanged.
--   An **unknown block type** in the submitted list returns `422`.
+-   An **unknown block type** in the submitted list returns `422`, as does a block without a `value` that does not match a current block.
 -   Values are validated by the block's real `clean()` method and the form widget, and chooser IDs are validated, so the same validation applies as in the editor.
 
 ```{note}
-Because updating replaces the whole value, build clients that send the complete StreamField list for the field rather than relying on partial, block-level updates.
+Merging relies on the block IDs stored with the content, as returned when reading it. Content saved through the editor or the API always stores them. Content written by other means may not, in which case each read returns new IDs and the blocks cannot be matched.
 ```
+
+(api_v3_child_relations)=
 
 ## Child relations
 
-Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. These follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
+Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. A relation is named by its accessor on the parent model: the `related_name` of the `ParentalKey`, or the default `<model name>_set` if it has none. When you supply a child relation on update:
 
--   existing children whose `id` matches are edited in place;
--   existing children you omit from the list are deleted when the relation is supplied;
--   children with unmatched or missing IDs are created;
+-   the relation's children are set to the list you submit. For an orderable child model, they are stored in the submitted order;
+-   an existing child is matched by its primary key, under the primary key field's name as returned when reading it (usually `id`);
+-   a matched child is updated with the fields you supply, and keeps the current values of the fields you omit. To clear a field, supply an empty value;
+-   children with unmatched or missing primary keys are created;
+-   existing children you omit from the list are deleted;
 -   omitting the relation entirely leaves it untouched.
 
-StreamField values nested inside child forms use the same flattening path as top-level StreamField fields.
+StreamField values inside a child follow the same writing rules as top-level StreamField values, including merging into a matched child's current value.
+
+A child model can declare its own `InlinePanel`, and that nested relation is written as a list within each child, following the same rules. Omitting a nested relation from a child leaves an existing child's nested children untouched, and gives a new child none. Read responses currently include only one level of child relations, so nested children are not returned.
+
+As in the editor, a new child with every field empty is ignored, and required fields are only enforced when publishing.
 
 ## Schema discovery limitation
 
