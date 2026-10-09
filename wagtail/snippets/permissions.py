@@ -11,15 +11,6 @@ def get_permission_name(action, model):
     )
 
 
-def user_can_edit_snippet_type(user, model):
-    """true if user has 'add', 'change' or 'delete' permission on this model"""
-    for action in ("add", "change", "delete"):
-        if user.has_perm(get_permission_name(action, model)):
-            return True
-
-    return False
-
-
 def user_can_access_snippets(user, models=None):
     """
     true if user has 'add', 'change', 'delete', or 'view' permission
