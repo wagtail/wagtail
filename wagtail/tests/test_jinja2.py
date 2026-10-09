@@ -1,6 +1,12 @@
+import os
+import subprocess
+import sys
+import textwrap
+
+from django.conf import settings
 from django.template import engines
 from django.template.loader import render_to_string
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.utils.safestring import mark_safe
 
 from wagtail import __version__, blocks
@@ -311,3 +317,48 @@ class TestIncludeBlockTag(TestCase):
             },
         )
         self.assertIn("<body>some <em>evil</em> HTML</body>", result)
+
+
+class TestJinja2ExtensionsWithEmptyAppRegistry(SimpleTestCase):
+    """
+    When django.setup() fails under runserver (e.g. due to a SyntaxError in a
+    project's models.py), Django replaces the app registry with an empty one
+    and the autoreloader goes on to instantiate all template engines while
+    setting up its file watchers. Jinja2 extensions are imported by dotted path
+    at that point, so if importing them defines any models or performs any app
+    registry lookups, the autoreloader crashes with a misleading RuntimeError
+    instead of reporting the original error and waiting for it to be fixed.
+    """
+
+    script = textwrap.dedent(
+        """
+        from collections import defaultdict
+
+        from django.apps import apps
+        from django.conf import settings
+
+        settings.INSTALLED_APPS  # Trigger settings configuration
+
+        # Replicate the fallback in ManagementUtility.execute() for when
+        # django.setup() raises an exception under runserver
+        apps.all_models = defaultdict(dict)
+        apps.app_configs = {}
+        apps.apps_ready = apps.models_ready = apps.ready = True
+
+        # Called by the autoreloader on startup via the autoreload_started signal
+        from django.template.autoreload import get_template_directories
+
+        get_template_directories()
+        """
+    )
+
+    def test_get_template_directories(self):
+        # Run in a subprocess, as the app registry and all models have already
+        # been loaded in this one
+        result = subprocess.run(  # noqa: S603 - no untrusted input
+            [sys.executable, "-c", self.script],
+            capture_output=True,
+            text=True,
+            env={**os.environ, "DJANGO_SETTINGS_MODULE": settings.SETTINGS_MODULE},
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
