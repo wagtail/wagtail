@@ -237,7 +237,6 @@ export default defineConfig(
       'client/src/entrypoints/admin/page-chooser-modal.js',
       'client/src/entrypoints/admin/privacy-switch.js',
       'client/src/entrypoints/admin/task-chooser-modal.js',
-      'client/src/entrypoints/admin/task-chooser.js',
       'client/src/entrypoints/admin/workflow-action.js',
       'client/src/entrypoints/contrib/table_block/table.js',
       'client/src/entrypoints/contrib/table_block/table.test.js',
