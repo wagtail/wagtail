@@ -466,6 +466,8 @@ class AbstractPage(
         index.FilterField("latest_revision_created_at"),
         index.FilterField("locale"),
         index.FilterField("translation_key"),
+        index.SearchField("seo_title"),
+        index.SearchField("search_description"),
     ]
 
     # Define the maximum number of instances this page type can have. Default to unlimited.
