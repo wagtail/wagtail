@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
+from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.models import (
@@ -616,14 +617,14 @@ class TestPagePermission(PageFixturesMixin, TestCase):
 
         homepage = Page.objects.get(url_path="/home/")
         explorer_response = client.get(
-            f"/admin/api/main/pages/?child_of={homepage.pk}&for_explorer=1"
+            reverse("wagtailadmin_api:explorer", args=[homepage.pk])
         )
         explorer_json = json.loads(explorer_response.content.decode("utf-8"))
 
         events_page = Page.objects.get(url_path="/home/events/")
         about_us_page = Page.objects.get(url_path="/home/about-us/")
 
-        explorable_titles = [t.get("title") for t in explorer_json.get("items")]
+        explorable_titles = [t.get("title") for t in explorer_json["children"]["items"]]
         self.assertIn(events_page.title, explorable_titles)
         self.assertNotIn(about_us_page.title, explorable_titles)
 
