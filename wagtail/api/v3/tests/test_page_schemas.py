@@ -1,11 +1,14 @@
 import json
-from typing import TYPE_CHECKING, Any, cast
+from types import UnionType
+from typing import TYPE_CHECKING, Any, Union, cast, get_origin
 
 from django.test import TestCase
 from rest_framework.fields import Field
 
 from wagtail.api import APIField
+from wagtail.api.v3.fields import FieldSerializer
 from wagtail.api.v3.schemas import BasePageSchema, read_generator
+from wagtail.images.api.v3.fields import ImageRenditionDict, ImageRenditionErrorDict
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.demosite.models import BlogEntryPage, BlogIndexPage, HomePage
@@ -224,3 +227,92 @@ class TestGeneratePageSchema(TestCase):
         )
         instance = cast(Any, schema.from_orm(entry, context={"request": None}))
         self.assertEqual(instance.tags, [])
+
+    def test_field_serializer_uses_to_representation(self):
+        """
+        BlogEntryPage.api_fields includes an APIField with a v3
+        ImageRenditionField serializer ("feed_image_thumbnail_serializer",
+        source "feed_image"). Resolved directly via the field serializer's own
+        to_representation(), without DRF.
+        """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-3")
+        self.root_page.add_child(instance=blog_index)
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-4",
+            body="<p>body</p>",
+            date="2020-01-01",
+            feed_image=image,
+        )
+        blog_index.add_child(instance=entry)
+
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
+        self.assertIn("feed_image_thumbnail_serializer", schema.model_fields)
+
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertEqual(
+            instance.feed_image_thumbnail_serializer["width"],
+            image.get_rendition("fill-300x300").width,
+        )
+        json.loads(instance.model_dump_json())
+
+    def test_field_serializer_is_none_when_source_is_none(self):
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-5",
+            body="<p>body</p>",
+            date="2020-01-01",
+        )
+        self.root_page.add_child(instance=entry)
+
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertIsNone(instance.feed_image_thumbnail_serializer)
+
+    def test_field_serializer_annotation_from_return_type(self):
+        """
+        The schema annotation is derived from to_representation()'s return
+        type hint, unioned with None since the source may resolve to None.
+        """
+        schema = read_generator.generate_schema(
+            BlogEntryPage, base_class=BasePageSchema
+        )
+        annotation = schema.model_fields["feed_image_thumbnail_serializer"].annotation
+        args = {
+            arg for arg in getattr(annotation, "__args__", ()) if arg is not type(None)
+        }
+        self.assertIn(get_origin(annotation), (Union, UnionType))
+        self.assertEqual(args, {ImageRenditionDict, ImageRenditionErrorDict})
+
+    def test_unannotated_field_serializer_annotation_falls_back_to_any(self):
+        class UnannotatedFieldSerializer(FieldSerializer):
+            def to_representation(self, value):
+                return str(value)
+
+        field = UnannotatedFieldSerializer(source="title")
+        field_schema = type(read_generator)._field_serializer_schema(
+            APIField("title", serializer=field)
+        )
+        annotation, default, resolver = field_schema
+        self.assertIn(get_origin(annotation), (Union, UnionType))
+        self.assertIn(Any, getattr(annotation, "__args__", ()))
+        self.assertIsNone(default)
+        obj = type("Obj", (), {"title": "Hi"})()
+        resolve = cast(Any, resolver)
+        self.assertEqual(resolve(obj, {}), "Hi")
+
+    def test_unresolvable_field_serializer_annotation_falls_back_to_any(self):
+        class TypeCheckingOnlyFieldSerializer(FieldSerializer):
+            def to_representation(self, value) -> "Rendition":
+                return value
+
+        field = TypeCheckingOnlyFieldSerializer(source="title")
+        annotation, _, _ = type(read_generator)._field_serializer_schema(
+            APIField("title", serializer=field)
+        )
+        self.assertIn(Any, getattr(annotation, "__args__", ()))

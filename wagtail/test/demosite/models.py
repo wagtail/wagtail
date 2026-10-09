@@ -14,6 +14,7 @@ from wagtail.api import APIField
 from wagtail.contrib.forms.models import AbstractFormField, FormMixin
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
+from wagtail.images.api.v3.fields import ImageRenditionField as ImageRenditionFieldV3
 from wagtail.models import Orderable
 from wagtail.search import index
 
@@ -372,6 +373,10 @@ class BlogEntryPage(Page):
         APIField(
             "feed_image_thumbnail",
             serializer=ImageRenditionField("fill-300x300", source="feed_image"),
+        ),
+        APIField(
+            "feed_image_thumbnail_serializer",
+            serializer=ImageRenditionFieldV3("fill-300x300", source="feed_image"),
         ),
         APIField("carousel_items", writable=True),
         APIField("related_links", writable=True),
