@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -45,7 +47,7 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
                 queryset=User.objects.order_by(User.USERNAME_FIELD),
-                filter_field="id_group",
+                filter_field="group",
                 filter_accessor="groups",
             )
 
@@ -65,8 +67,6 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         self.assertIsNotNone(select)
         self.assertLessEqual(
             {
-                "data-widget": "filtered-select",
-                "data-filter-field": "id_group",
                 "required": "",
                 "id": "id_users",
             }.items(),
@@ -79,16 +79,17 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
             self.assertEqual(option.get("value"), str(value))
             self.assertEqual(option.text, text)
             # No ordering guarantee, so use assertCountEqual
+            rule = json.loads(option.get("data-w-rules"))
             self.assertCountEqual(
-                option.get("data-filter-value").split(","),
-                [str(filter_value) for filter_value in filter_values],
+                rule["group"],
+                [""] + [str(filter_value) for filter_value in filter_values],
             )
 
     def test_with_callable(self):
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
                 queryset=User.objects.order_by(User.USERNAME_FIELD),
-                filter_field="id_group",
+                filter_field="group",
                 filter_accessor=lambda user: user.groups.all().order_by("name"),
             )
 
@@ -109,8 +110,6 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         self.assertIsNotNone(select)
         self.assertLessEqual(
             {
-                "data-widget": "filtered-select",
-                "data-filter-field": "id_group",
                 "required": "",
                 "id": "id_users",
             }.items(),
@@ -123,6 +122,11 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
             self.assertEqual(option.get("value"), str(value))
             self.assertEqual(option.text, text)
             self.assertEqual(
-                option.get("data-filter-value").split(","),
-                [str(filter_value) for filter_value in filter_values],
+                option.get("data-w-rules"),
+                json.dumps(
+                    {
+                        "group": [""]
+                        + [str(filter_value) for filter_value in filter_values]
+                    }
+                ),
             )
