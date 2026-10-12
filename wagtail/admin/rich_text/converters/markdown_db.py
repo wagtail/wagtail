@@ -84,7 +84,9 @@ class MarkdownConverter:
             html
         )
         content_state = json.loads(contentstate_json)
-        markdown = _markdown_exporter(resolved).render(content_state)
+        if resolved:
+            strip_trailing_line_breaks(content_state)
+        markdown = markdown_exporter(resolved).render(content_state)
         # The contentstate conversion pads atomic blocks (images/embeds) at
         # the document edges with empty spacer paragraphs, which render as
         # stray blank lines. Normalise: no leading/trailing blank lines, one
@@ -201,13 +203,17 @@ def _db_html_exporter():
 
 
 def _markdown_link(children, destination):
+    # Keep whitespace at the edges of the link text outside the brackets.
+    leading, children, trailing = _split_edge_whitespace(children)
     return md_inline(
         [
+            leading,
             md_mark_safe("["),
             children,
             md_mark_safe("]("),
             md_link_destination(destination),
             md_mark_safe(")"),
+            trailing,
         ]
     )
 
@@ -288,9 +294,184 @@ def _resolved_media_embed(props):
     )
 
 
-def _markdown_exporter(resolved):
+def strip_trailing_line_breaks(content_state):
+    """A line break at the end of a block (e.g. ``<p>text<br/></p>``) has no
+    Markdown equivalent: a hard break needs a following line."""
+    for block in content_state["blocks"]:
+        text = block["text"].rstrip("\n")
+        if text == block["text"]:
+            continue
+        block["text"] = text
+        for range_ in block["inlineStyleRanges"] + block["entityRanges"]:
+            range_["length"] = max(
+                0, min(range_["length"], len(text) - range_["offset"])
+            )
+
+
+def _split_edge_whitespace(node):
+    """Remove leading and trailing whitespace from the text at the edges of
+    an inline node, returning it alongside the node."""
+    if isinstance(node, str):
+        # Spaces only: a newline moved outside a link or style would no
+        # longer be a line break.
+        stripped = node.strip(" \t")
+        if not stripped:
+            return node, "", ""
+        start = node.index(stripped[0])
+        return node[:start], stripped, node[start + len(stripped) :]
+
+    children = getattr(node, "children", None)
+    if getattr(node, "type", None) != "fragment" or not children:
+        return "", node, ""
+
+    leading, first, _ = _split_edge_whitespace(children[0])
+    children[0] = first
+    _, last, trailing = _split_edge_whitespace(children[-1])
+    children[-1] = last
+    return leading, node, trailing
+
+
+def _md_inline_style(mark):
+    """Inline style that keeps whitespace outside its delimiters.
+
+    Styles are rendered per text segment, so a style spanning a link is
+    split around it: ``<b>bold <a>link</a> more</b>``. Whitespace at a
+    segment edge must sit outside the delimiters for the emphasis to be
+    valid (``**bold** [**link**](…) **more**``).
+    """
+
+    def component(props):
+        leading, children, trailing = _split_edge_whitespace(props["children"])
+        if children == "":
+            return md_inline([leading])
+        return md_inline(
+            [leading, md_mark_safe(mark), children, md_mark_safe(mark), trailing]
+        )
+
+    return component
+
+
+def _md_line_break(props):
+    """Hard line break, or a space in headings, which are a single line."""
+    if props["block"]["type"].startswith("header-"):
+        return md_inline([" "])
+    return md_mark_safe("\\\n")
+
+
+LIST_ITEM_TYPES = (BLOCK_TYPES.UNORDERED_LIST_ITEM, BLOCK_TYPES.ORDERED_LIST_ITEM)
+
+
+def _block_index(block, blocks):
+    return next(i for i, b in enumerate(blocks) if b["key"] == block["key"])
+
+
+def _md_blockquote(props):
+    """Consecutive blockquote blocks (one per paragraph in Draftail) form a
+    single Markdown quote, separated by an empty quote line."""
+    blocks = props["blocks"]
+    index = _block_index(props["block"], blocks)
+    next_type = blocks[index + 1]["type"] if index + 1 < len(blocks) else None
+    return md_inline(
+        [
+            md_mark_safe("> ", block_prefix=True),
+            props["children"],
+            md_mark_safe("\n>\n" if next_type == BLOCK_TYPES.BLOCKQUOTE else "\n\n"),
+        ]
+    )
+
+
+def _li_prefix(block, blocks):
+    if block["type"] != BLOCK_TYPES.ORDERED_LIST_ITEM:
+        return "- "
+    # Count preceding items of the same list: same type and depth, skipping
+    # over nested items of any type.
+    depth = block.get("depth", 0)
+    number = 1
+    for previous in reversed(blocks[: _block_index(block, blocks)]):
+        previous_depth = previous.get("depth", 0)
+        if previous["type"] not in LIST_ITEM_TYPES or previous_depth < depth:
+            break
+        if previous_depth == depth:
+            if previous["type"] != block["type"]:
+                break
+            number += 1
+    return f"{number}. "
+
+
+def _li_suffix(block, blocks):
+    """A blank line ends the list, unless the next item belongs to it: it is
+    nested, or continues a list of the same type at its depth."""
+    index = _block_index(block, blocks)
+    next_block = blocks[index + 1] if index + 1 < len(blocks) else None
+    if next_block is None or next_block["type"] not in LIST_ITEM_TYPES:
+        return "\n\n"
+    next_depth = next_block.get("depth", 0)
+    for previous in reversed(blocks[: index + 1]):
+        previous_depth = previous.get("depth", 0)
+        if previous["type"] not in LIST_ITEM_TYPES or previous_depth < next_depth:
+            break
+        if previous_depth == next_depth:
+            return "\n" if previous["type"] == next_block["type"] else "\n\n"
+    return "\n"
+
+
+def _li_indent(block, blocks):
+    """Indent a nested list item to its parent item's content column, which
+    depends on each ancestor's marker width ("- " vs "1. " vs "10. ")."""
+    depth = block.get("depth", 0)
+    index = _block_index(block, blocks)
+    widths = {}
+    for previous in reversed(blocks[:index]):
+        if previous["type"] not in LIST_ITEM_TYPES or len(widths) == depth:
+            break
+        previous_depth = previous.get("depth", 0)
+        if previous_depth < depth and previous_depth not in widths:
+            widths[previous_depth] = len(_li_prefix(previous, blocks))
+    return "".join(" " * widths.get(level, 2) for level in range(depth))
+
+
+def _md_list_item(default_component):
+    """List item with correct nesting indentation and numbering, see
+    `_li_indent`, `_li_prefix` and `_li_suffix`."""
+
+    def component(props):
+        block, blocks = props["block"], props["blocks"]
+        if "key" not in block:
+            # Synthetic block used by the exporter for nesting wrappers.
+            return default_component(props)
+        return DOM.create_element(
+            "fragment",
+            {},
+            [
+                md_mark_safe(_li_indent(block, blocks), block_prefix=True),
+                md_mark_safe(_li_prefix(block, blocks), block_prefix=True),
+                props["children"],
+                md_mark_safe(_li_suffix(block, blocks)),
+            ],
+        )
+
+    return component
+
+
+def markdown_exporter(resolved):
     config = build_markdown_config({"italic": "*", "strikethrough": "~~"})
+    config["block_map"][BLOCK_TYPES.BLOCKQUOTE] = _md_blockquote
+    for list_item_type in LIST_ITEM_TYPES:
+        options = config["block_map"][list_item_type]
+        options["element"] = _md_list_item(options["element"])
+    config["style_map"].update(
+        {
+            INLINE_STYLES.BOLD: _md_inline_style("**"),
+            INLINE_STYLES.ITALIC: _md_inline_style("*"),
+            INLINE_STYLES.STRIKETHROUGH: _md_inline_style("~~"),
+        }
+    )
     if resolved:
+        # db_markdown keeps line breaks as bare newlines, which the importer
+        # reads back as <br/>, so it round-trips without loss.
+        config["composite_decorators"] = [
+            {"strategy": re.compile(r"\n"), "component": _md_line_break}
+        ]
         config["entity_decorators"].update(
             {
                 ENTITY_TYPES.LINK: _resolved_link,

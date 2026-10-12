@@ -33,6 +33,7 @@ Changelog
  * Fix: Add `Vary: X-Requested-With` to responses from pages with an `ajax_template` (Albina Starykova)
  * Fix: Protect workflow action buttons against multiple submissions that could cause a crash or an overwrite (Nick Moreton, Jakub Mastalerz, Sage Abdullah)
  * Fix: Reject workflow actions if the current task state does not match what the user submitted (Sage Abdullah)
+ * Fix: Produce valid Markdown in V3 API `markdown` rich text output for styled text around links, line breaks, multi-paragraph quotes and nested lists (Albina Starykova)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
