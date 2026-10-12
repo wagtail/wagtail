@@ -1220,8 +1220,22 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertFalse(speakers[2].awards.exists())
 
         self.assertEqual(
-            [speaker["first_name"] for speaker in response.json()["speakers"]],
-            ["Ada", "No", "Awards"],
+            [
+                (
+                    speaker["first_name"],
+                    [award["name"] for award in speaker["awards"]],
+                )
+                for speaker in response.json()["speakers"]
+            ],
+            [
+                ("Ada", ["First programmer", "Analytical engine"]),
+                ("No", []),
+                ("Awards", []),
+            ],
+        )
+        self.assertEqual(
+            response.json()["speakers"][0]["awards"][0]["id"],
+            speakers[0].awards.order_by("sort_order").first().pk,
         )
 
     def test_create_page_with_invalid_nested_child_returns_422(self):

@@ -5,6 +5,7 @@ from django.core.exceptions import FieldDoesNotExist
 from django.db.models import ForeignKey, Model
 from django.db.models.fields import Field
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
@@ -51,6 +52,12 @@ class SchemaGenerator:
         Schemas already built for a given foreign key's related model, keyed
         separately from `_nested_schema_cache` since these are a distinct, much
         smaller shape (primary key(s) plus a meta.type), not a full nested schema.
+        """
+
+        self._models_being_built: list[type[Model]] = []
+        """
+        Models whose schemas are currently being built, outermost first, so a
+        nested schema doesn't recurse back into a model it's already within.
         """
 
     @staticmethod
@@ -116,8 +123,7 @@ class SchemaGenerator:
                 model,
                 name=f"{model._meta.object_name}Schema",
                 base_class=BaseSchema,
-                # Prevent going too deep into nested structures.
-                follow_reverse_related=False,
+                nested=True,
             )
         return self._reverse_related_schema_cache[model]
 
@@ -174,7 +180,7 @@ class SchemaGenerator:
         *,
         name: str,
         base_class: type[Schema],
-        follow_reverse_related: bool,
+        nested: bool,
     ) -> type[Schema]:
         """Build a schema for ``model``'s ``api_fields``, on top of ``base_class``.
 
@@ -189,11 +195,30 @@ class SchemaGenerator:
           API v2 serializes StreamField values.
         - any other concrete/forward Django field: typed via ``create_schema``.
         - a reverse relation (e.g. an ``InlinePanel``'s target): resolved as
-          ``list[NestedSchema]`` if ``follow_reverse_related`` is True,
-          otherwise omitted. This flag caps recursion to one level deep.
+          ``list[NestedSchema]``. Within a ``nested`` schema, only child
+          relations (``ParentalKey``, e.g. an ``InlinePanel`` inside an
+          ``InlinePanel`` child) are followed, and only to a model that isn't
+          already being built further up - otherwise omitted - so recursion
+          stops rather than cycling through the same models.
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
+        self._models_being_built.append(model)
+        try:
+            return self._build_schema(
+                model, name=name, base_class=base_class, nested=nested
+            )
+        finally:
+            self._models_being_built.pop()
+
+    def _build_schema(
+        self,
+        model: type[Model],
+        *,
+        name: str,
+        base_class: type[Schema],
+        nested: bool,
+    ) -> type[Schema]:
         real_names = [
             field.name
             for field in model._meta.pk_fields
@@ -226,10 +251,13 @@ class SchemaGenerator:
                 extra_fields[field.name] = (Any, None, None)
             else:
                 if (
-                    isinstance(model_field, ForeignObjectRel)
-                    and not follow_reverse_related
+                    nested
+                    and isinstance(model_field, ForeignObjectRel)
+                    and (
+                        model_field not in get_all_child_relations(model)
+                        or model_field.related_model in self._models_being_built
+                    )
                 ):
-                    # We're building a nested schema, don't recurse further.
                     continue
 
                 # See if field's class or its parents have a registered schema
@@ -279,7 +307,7 @@ class SchemaGenerator:
             model,
             name=f"{model._meta.object_name}Schema",
             base_class=base_class,
-            follow_reverse_related=True,
+            nested=False,
         )
 
     @staticmethod
