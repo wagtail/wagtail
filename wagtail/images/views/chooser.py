@@ -198,7 +198,11 @@ class TitleColumnWithFilename(TitleColumn):
 class ImageChooseViewMixin(ChooseViewMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["popular_tags"] = popular_tags_for_model(self.model)
+        # Only offer tags that are used on images the user is allowed to choose,
+        # matching the images shown in the chooser.
+        context["popular_tags"] = popular_tags_for_model(
+            self.model, queryset=self.get_object_list()
+        )
         return context
 
 
