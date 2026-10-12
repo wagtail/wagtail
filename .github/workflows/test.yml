@@ -2,6 +2,9 @@ name: Wagtail CI
 
 on:
   push:
+    branches:
+      - main
+      - 'stable/**'
     paths-ignore:
       - 'docs/**'
   pull_request:
