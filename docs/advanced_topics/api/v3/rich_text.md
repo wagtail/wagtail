@@ -11,7 +11,7 @@ Rich text fields use the `?rich_text_format=` query parameter, which supports th
 - `db_html` (default): Wagtail's [internal storage format](rich_text_internals).
 - `html`: display-ready HTML, converted like in templates.
 - `db_markdown`: Markdown that preserves internal references as `wagtail://` URLs, similarly to `db_html`.
-- `markdown`: Markdown with references resolved to public URLs (page URLs, image rendition URLs), like `html`.
+- `markdown`: Markdown with references resolved to public URLs (page URLs, image rendition URLs), like `html`. Line breaks are output as hard line breaks (a backslash at the end of the line), whereas `db_markdown` keeps them as plain newlines so that it can be converted back to database HTML without loss.
 
 ## Input formats
 
