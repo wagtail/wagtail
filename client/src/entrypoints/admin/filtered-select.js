@@ -25,68 +25,71 @@
   </div>
 */
 
-import $ from 'jquery';
+import { domReady } from '../../utils/domReady';
 
-$(() => {
-  // eslint-disable-next-line func-names
-  $('[data-widget="filtered-select"]').each(function () {
-    const sourceSelect = $('#' + this.dataset.filterField);
-    const self = $(this);
+function initFilteredSelect(targetSelect) {
+  const sourceSelect = document.getElementById(
+    targetSelect.dataset.filterField,
+  );
+  if (!sourceSelect) return;
 
-    const optionData = [];
-    // eslint-disable-next-line func-names
-    $('option', this).each(function () {
-      let filterValue;
-      if ('filterValue' in this.dataset) {
-        filterValue = this.dataset.filterValue.split(',');
-      } else {
-        filterValue = [];
-      }
-
-      optionData.push({
-        value: this.value,
-        label: this.label,
-        filterValue: filterValue,
-      });
-    });
-
-    function updateFromSource() {
-      const currentValue = self.val();
-      self.empty();
-      const chosenFilter = sourceSelect.val();
-      let filteredValues;
-
-      if (chosenFilter === '') {
-        /* no filter selected - show all options */
-        filteredValues = optionData;
-      } else {
-        filteredValues = [];
-        optionData.forEach((option) => {
-          if (
-            option.value === '' ||
-            option.filterValue.indexOf(chosenFilter) !== -1
-          ) {
-            filteredValues.push(option);
-          }
-        });
-      }
-
-      let foundValue = false;
-      filteredValues.forEach((filtered) => {
-        const option = $('<option>');
-        option.attr('value', filtered.value);
-        if (filtered.value === currentValue) foundValue = true;
-        option.text(filtered.label);
-        self.append(option);
-      });
-      if (foundValue) {
-        self.val(currentValue);
-      } else {
-        self.val('');
-      }
+  const optionData = Array.from(targetSelect.options).map((option) => {
+    let filterValue;
+    if ('filterValue' in option.dataset) {
+      filterValue = option.dataset.filterValue.split(',');
+    } else {
+      filterValue = [];
     }
 
-    updateFromSource();
-    sourceSelect.change(updateFromSource);
+    return {
+      value: option.value,
+      label: option.label || option.text || option.textContent,
+      filterValue,
+    };
   });
+
+  function updateFromSource() {
+    const currentValue = targetSelect.value;
+    targetSelect.innerHTML = '';
+    const chosenFilter = sourceSelect.value;
+    let filteredValues;
+
+    if (chosenFilter === '') {
+      /* no filter selected - show all options */
+      filteredValues = optionData;
+    } else {
+      filteredValues = optionData.filter(
+        (option) =>
+          option.value === '' || option.filterValue.includes(chosenFilter),
+      );
+    }
+
+    let foundValue = false;
+    filteredValues.forEach((filtered) => {
+      const option = document.createElement('option');
+      option.value = filtered.value;
+      if (filtered.value === currentValue) {
+        foundValue = true;
+      }
+      option.textContent = filtered.label;
+      targetSelect.appendChild(option);
+    });
+
+    if (foundValue) {
+      targetSelect.value = currentValue;
+    } else {
+      targetSelect.value = '';
+    }
+  }
+
+  updateFromSource();
+  sourceSelect.addEventListener('change', updateFromSource);
+}
+
+domReady().then(() => {
+  document
+    .querySelectorAll('[data-widget="filtered-select"]')
+    .forEach(initFilteredSelect);
 });
+
+export { initFilteredSelect };
