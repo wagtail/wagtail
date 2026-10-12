@@ -16,7 +16,7 @@ Here is a comparison of the two versions across high-level areas relevant for co
 | Operations | Read-only lists, detail, and find | Read/write, actions, and revisions |
 | Resources | Pages, images, documents, redirects, by registered endpoints | All of v2 and sites, locales, snippets, schema, and whoami |
 | Authentication | Public by default, DRF-configurable auth | Anonymous reads by default, Wagtail-provided bearer tokens |
-| Page visibility | Public/live queryset by default | Public/live anonymously; explorable drafts when authenticated |
+| Page visibility | Public/live queryset by default | Public/live anonymously; drafts with change or publish permission when authenticated |
 | Pagination envelope | `{"meta": {"total_count": N}, "items": [...]}` | `{"count": N, "items": [...]}` |
 | Field projection | Rich `?fields=` with nested fields | Not supported. Fixed generated schemas |
 | API fields | DRF serializers, sources, computed fields | Read compatibility plus typed Pydantic schemas and explicit writable fields |
@@ -39,6 +39,6 @@ Some v2 capabilities have no direct v3 equivalent, or behave differently enough 
 -   **DRF `APIField(serializer=...)` serializers support**. v3 has a compatibility layer but the output may differ.
 -   **Different error responses**. DRF messages vs. Problem Details. Different HTTP status codes for some errors.
 -   **Different list envelope**. v2 returns `{"meta": {"total_count": ...}, ...}`; v3 returns `{"count": ..., "items": [...]}` and rejects a `limit` of `0`.
--   **Authenticated page visibility differs**. v2 defaulted to the public live queryset. A v3 bearer-authenticated request sees the pages the user can explore in the admin, including draft-only pages.
+-   **Authenticated page visibility differs**. v2 defaulted to the public live queryset. A v3 bearer-authenticated request sees the pages the user has change or publish permission for, including draft-only pages.
 -   **Lack of v2 frontend-cache invalidation support**.
 -   **Custom v2 endpoints**. They may be replace-able with v3's generic endpoints, or require creation of new custom endpoints.

@@ -38,12 +38,11 @@ def get_pages_queryset(request: HttpRequest, model=Page):
             # custom one registered for the base page model). Re-instantiate the
             # policy with the specific page type so we can get the specific
             # queryset to use for filtering.
-
-            # Alternatively, we could use the base page's policy to get
-            # explorable_instances(), and use it as a pk__in= filter for the
-            # specific queryset (i.e. V2 behavior), but that is inefficient.
             permission_policy = permission_policy.for_model(model)
 
-        queryset = permission_policy.explorable_instances(request.user)
+        queryset = permission_policy.instances_user_has_any_permission_for(
+            request.user,
+            {"change", "publish"},
+        )
 
     return queryset.select_related("content_type", "locale").order_by("pk")

@@ -32,7 +32,7 @@ The list uses the same pagination envelope as every list endpoint, with `count` 
 Which pages appear depends on the access tier:
 
 -   **Anonymous requests** see only publicly accessible pages: live, scoped to the request's site, and without any page view restrictions.
--   **Authenticated requests** see the pages the current user can explore in the admin, which includes draft-only pages.
+-   **Authenticated requests** see the pages the current user has change or publish permission for, which includes draft-only pages.
 
 ### Filters
 
