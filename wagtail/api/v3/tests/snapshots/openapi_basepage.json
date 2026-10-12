@@ -9086,6 +9086,39 @@
         "title": "EventPageSpeakerAwardCreateSchema",
         "type": "object"
       },
+      "EventPageSpeakerAwardMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.EventPageSpeakerAward",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerAwardMetaSchema",
+        "type": "object"
+      },
       "EventPageSpeakerAwardPatchSchema": {
         "properties": {
           "date_awarded": {
@@ -9124,6 +9157,44 @@
           }
         },
         "title": "EventPageSpeakerAwardPatchSchema",
+        "type": "object"
+      },
+      "EventPageSpeakerAwardSchema": {
+        "properties": {
+          "date_awarded": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Awarded"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/EventPageSpeakerAwardMetaSchema"
+          },
+          "name": {
+            "maxLength": 255,
+            "title": "Award name",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "name"],
+        "title": "EventPageSpeakerAwardSchema",
         "type": "object"
       },
       "FilePageCreateMetaSchema": {
@@ -28464,6 +28535,14 @@
       },
       "abc__EventPageSpeakerSchema__1": {
         "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
           "first_name": {
             "anyOf": [
               {
