@@ -332,3 +332,113 @@ class TestDbHtmlToMarkdown(TestCase):
             'id="1"',
         ):
             self.assertIn(ref, db_html_again)
+
+
+class TestDbHtmlToMarkdownFormatting(SimpleTestCase):
+    features = [
+        "bold",
+        "italic",
+        "strikethrough",
+        "link",
+        "h2",
+        "ul",
+        "ol",
+        "blockquote",
+    ]
+
+    def convert(self, html, *, resolved=True):
+        return MarkdownConverter(self.features).from_database_format(
+            html, resolved=resolved
+        )
+
+    def round_trip(self, html):
+        converter = MarkdownConverter(self.features)
+        return converter.to_database_format(
+            converter.from_database_format(html, resolved=False)
+        )
+
+    def test_style_split_around_link_keeps_whitespace_outside(self):
+        html = '<p><b>bold <a href="https://x.com">link</a> more</b></p>'
+        self.assertEqual(
+            self.convert(html), "**bold** [**link**](https://x.com) **more**\n\n"
+        )
+        self.assertEqual(
+            self.round_trip(html),
+            '<p><b>bold</b> <a href="https://x.com"><b>link</b></a> <b>more</b></p>',
+        )
+
+    def test_whitespace_at_link_text_edges(self):
+        html = '<p>a<a href="https://x.com"> spaced </a>b</p>'
+        self.assertEqual(self.convert(html), "a [spaced](https://x.com) b\n\n")
+        self.assertEqual(
+            self.round_trip(html), '<p>a <a href="https://x.com">spaced</a> b</p>'
+        )
+
+    def test_nested_styles(self):
+        self.assertEqual(
+            self.convert("<p><b>bold <i>both</i></b></p>"), "**bold** ***both***\n\n"
+        )
+
+    def test_line_break_is_hard_break(self):
+        self.assertEqual(self.convert("<p>a<br/>b</p>"), "a\\\nb\n\n")
+
+    def test_line_break_in_list_item_and_quote(self):
+        self.assertEqual(
+            self.convert("<ul><li>a<br/>b</li></ul><blockquote>q<br/>r</blockquote>"),
+            "- a\\\nb\n\n> q\\\nr\n\n",
+        )
+
+    def test_line_break_in_heading_becomes_space(self):
+        self.assertEqual(self.convert("<h2>one<br/>two</h2>"), "## one two\n\n")
+
+    def test_trailing_line_break_dropped(self):
+        self.assertEqual(
+            self.convert("<p><b>a<br/></b><br/></p><p>b</p>"), "**a**\n\nb\n\n"
+        )
+
+    def test_db_markdown_keeps_line_breaks_round_trippable(self):
+        html = "<p>a<br/>b</p><h2>one<br/>two</h2>"
+        self.assertEqual(self.convert(html, resolved=False), "a\nb\n\n## one\ntwo\n\n")
+        self.assertEqual(self.round_trip("<p>a<br/>b</p>"), "<p>a<br/>b</p>")
+
+    def test_consecutive_blockquotes_form_one_quote(self):
+        html = (
+            "<blockquote>one</blockquote><blockquote>two</blockquote>"
+            "<p>after</p><blockquote>three</blockquote>"
+        )
+        self.assertEqual(self.convert(html), "> one\n>\n> two\n\nafter\n\n> three\n\n")
+        self.assertEqual(self.round_trip(html), html)
+
+    def test_nested_ordered_list_indented_to_content_column(self):
+        html = "<ol><li>a<ol><li>x</li><li>y</li></ol></li><li>b</li></ol>"
+        self.assertEqual(self.convert(html), "1. a\n   1. x\n   2. y\n2. b\n\n")
+        self.assertEqual(self.round_trip(html), html)
+
+    def test_nested_list_under_multi_digit_number(self):
+        html = (
+            "<ol>"
+            + "".join(f"<li>{i}</li>" for i in range(1, 10))
+            + "<li>ten<ul><li>nested</li></ul></li></ol>"
+        )
+        self.assertTrue(self.convert(html).endswith("9. 9\n10. ten\n    - nested\n\n"))
+
+    def test_numbering_continues_after_nested_list_of_other_type(self):
+        self.assertEqual(
+            self.convert(
+                "<ol><li>one</li><li>two<ul><li>nested</li></ul></li><li>three</li></ol>"
+            ),
+            "1. one\n2. two\n   - nested\n3. three\n\n",
+        )
+
+    def test_mixed_nesting_is_a_tight_list(self):
+        html = "<ul><li>a<ol><li>x</li></ol></li><li>b</li></ul>"
+        self.assertEqual(self.convert(html), "- a\n  1. x\n- b\n\n")
+        self.assertEqual(
+            self.round_trip("<ul><li>a<ol><li>x</li></ol></li></ul>"),
+            "<ul><li>a<ol><li>x</li></ol></li></ul>",
+        )
+        # The importer starts a new list after a nested list of another type.
+        self.assertEqual(
+            self.round_trip(html),
+            "<ul><li>a<ol><li>x</li></ol></li></ul><ul><li>b</li></ul>",
+        )
