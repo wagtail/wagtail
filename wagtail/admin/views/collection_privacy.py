@@ -10,7 +10,9 @@ from wagtail.permissions import collection_permission_policy
 
 def set_privacy(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
-    if not collection_permission_policy.user_has_permission(request.user, "change"):
+    if not collection_permission_policy.user_has_permission_for_instance(
+        request.user, "change", collection
+    ):
         raise PermissionDenied
 
     # fetch restriction records in depth order so that ancestors appear first
