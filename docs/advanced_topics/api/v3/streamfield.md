@@ -57,14 +57,29 @@ Built-in blocks need no extra code to be writable, and nor do custom blocks base
 Because updating replaces the whole value, build clients that send the complete StreamField list for the field rather than relying on partial, block-level updates.
 ```
 
+(api_v3_child_relations)=
+
 ## Child relations
 
-Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. These follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
+Relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. A relation is named by its accessor on the parent model: the `related_name` of the `ParentalKey`, or the default `<model name>_set` if it has none. Each child item includes its primary key under the primary key field's own name, usually `id`, or e.g. `custom_id` for a model with a custom primary key. When the relation and its child fields are writable, these follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
 
--   existing children whose `id` matches are edited in place;
+-   existing children whose primary key matches are edited in place, so an item read from the API can be sent back as-is;
 -   existing children you omit from the list are deleted when the relation is supplied;
--   children with unmatched or missing IDs are created;
+-   children with unmatched or missing primary keys are created;
+-   for an orderable child model, the children are saved in the order they're submitted;
 -   omitting the relation entirely leaves it untouched.
+
+Each submitted child item replaces that child's writable fields as a whole: a field you omit from an item is treated as empty, not left unchanged. Include all of an item's fields when editing it.
+
+### Nested child relations
+
+A child model can have child relations of its own, such as an `InlinePanel` within an `InlinePanel` child. When listed in the child model's `api_fields`, these are included within each child item, and are written using the same rules, against that child's own existing children:
+
+-   omitting a nested relation from an item leaves that child's existing nested children untouched, and gives a new child none;
+-   supplying an empty list removes them;
+-   deleting a child also deletes its nested children.
+
+Other reverse relations are only included at the top level of a page or snippet, not within child items.
 
 StreamField values nested inside child forms use the same flattening path as top-level StreamField fields.
 
