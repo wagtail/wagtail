@@ -8,7 +8,7 @@ import Icon from '../../Icon/Icon';
 import { ModuleDefinition } from '../Sidebar';
 import { renderMenu } from '../menu';
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
-import { MenuItemDefinition } from '../menu/MenuItem';
+import { MenuItemDefinition, isWithinPath } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 
 interface SetActivePath {
@@ -137,7 +137,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     dismissibles: getInitialDismissibleState(menuItems),
   });
   const isVisible = !slim || expandingOrCollapsing;
-  const accountSettingsOpen = state.navigationPath.startsWith('.account');
+  const accountSettingsOpen = isWithinPath(state.navigationPath, '.account');
 
   React.useEffect(() => {
     // Force account navigation to closed state when in slim mode

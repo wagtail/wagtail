@@ -11,14 +11,14 @@ import {
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { SidebarPanel } from '../SidebarPanel';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
-import { MenuItemProps } from './MenuItem';
+import { MenuItemProps, isWithinPath } from './MenuItem';
 import SubMenuCloseButton from './SubMenuCloseButton';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>
 > = ({ path, slim, item, state, dispatch, navigate }) => {
-  const isOpen = state.navigationPath.startsWith(path);
-  const isActive = isOpen || state.activePath.startsWith(path);
+  const isOpen = isWithinPath(state.navigationPath, path);
+  const isActive = isOpen || isWithinPath(state.activePath, path);
   const depth = path.split('.').length;
   const isInSubMenu = path.split('.').length > 2;
   const [isVisible, setIsVisible] = React.useState(false);
