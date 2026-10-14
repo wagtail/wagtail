@@ -7,7 +7,6 @@ from django.urls import path
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 
-from wagtail.api.v2.utils import parse_boolean
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.permissions import policy_registry
 
@@ -102,14 +101,29 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         return policy_registry.get_by_type(Page).explorable_instances(self.request.user)
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-
-        if not parse_boolean(self.request.GET.get("include_root", "false")):
-            queryset = queryset.exclude(depth=1)
+        # override PagesAPIViewSet.get_queryset to disallow filtering by page type
+        queryset = self.get_base_queryset()
+        queryset = queryset.exclude(depth=1)
 
         queryset = queryset.defer_streamfields().specific()
 
         return queryset
+
+    def get_serializer_class(self):
+        # override to ignore the fields parameter and hard code to fields=parent
+        if self.action == "listing_view":
+            show_details = False
+            fields_config = [("parent", False, None)]
+        else:
+            show_details = True
+            fields_config = []
+
+        return self._get_serializer_class(
+            self.request.wagtailapi_router,
+            Page,
+            fields_config,
+            show_details=show_details,
+        )
 
     def get_type_info(self):
         types = OrderedDict()
