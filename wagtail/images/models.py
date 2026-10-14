@@ -266,11 +266,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         width_field="width",
         height_field="height",
     )
-    description = models.CharField(
+    description = models.TextField(
         blank=True,
-        max_length=255,
         verbose_name=_("description"),
         default="",
+        help_text=_(
+            "A description of the image used as alt text. If left blank, the title will be used as alt text. "
+            "For accessibility, it is recommended to keep alt text to 150 characters or fewer."
+        ),
     )
     width = models.IntegerField(verbose_name=_("width"), editable=False)
     height = models.IntegerField(verbose_name=_("height"), editable=False)

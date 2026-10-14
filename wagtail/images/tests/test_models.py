@@ -10,6 +10,7 @@ from django.core.cache import caches
 from django.core.files import File
 from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import models
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
 from django.test import (
@@ -202,6 +203,26 @@ class TestImage(TestCase):
             file=get_test_image_file(),
         )
         self.assertEqual(image.default_alt_text, image.title)
+
+    def test_description_is_textfield(self):
+        # description should be a TextField (no max_length)
+        field = Image._meta.get_field("description")
+        self.assertIsInstance(field, models.TextField)
+        self.assertIsNone(field.max_length)
+
+    def test_description_has_help_text(self):
+        field = Image._meta.get_field("description")
+        self.assertIn("150 characters", field.help_text)
+
+    def test_description_accepts_long_text(self):
+        long_description = "a" * 500
+        image = Image.objects.create(
+            title="Test Image",
+            description=long_description,
+            file=get_test_image_file(),
+        )
+        image.refresh_from_db()
+        self.assertEqual(image.description, long_description)
 
 
 @tag("transaction")
