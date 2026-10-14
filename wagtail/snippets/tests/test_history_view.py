@@ -157,6 +157,22 @@ class TestSnippetHistory(PageFixturesMixin, WagtailTestUtils, TestCase):
         # Should use the latest draft title in the breadcrumbs sublabel
         self.assertEqual(sublabel.get_text(strip=True), "Draft-enabled Bar, In Draft")
 
+        compare_url = reverse(
+            snippet.snippet_viewset.get_url_name("revisions_compare"),
+            args=(quote(snippet.pk), "live", snippet.latest_revision.id),
+        )
+        link = soup.select_one(f"a[href='{compare_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Compare with live version")
+
+        # The live revision shouldn't have a compare to live link
+        live_revision = snippet.revisions.get(id=snippet.live_revision_id)
+        invalid_compare_url = reverse(
+            snippet.snippet_viewset.get_url_name("revisions_compare"),
+            args=(quote(snippet.pk), "live", live_revision.id),
+        )
+        self.assertIsNone(soup.select_one(f"a[href='{invalid_compare_url}']"))
+
     def test_history_group_by_uuid_and_action(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
         # Simulate some edit log entries without UUID
