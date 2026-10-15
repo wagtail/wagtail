@@ -436,15 +436,18 @@ def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
     return (
         page.workflow_states.select_related(
             "workflow", "requested_by", "current_task_state__task"
-        ).prefetch_related(
+        )
+        .prefetch_related(
             "current_task_state__finished_by",
             Prefetch(
                 "task_states",
                 queryset=TaskState.objects.select_related(
                     "task", "finished_by", "task__content_type"
-                ),
+                ).order_by("started_at", "id"),
+                to_attr="_api_task_states",
             ),
-        ).order_by("-created_at", "-id")
+        )
+        .order_by("-created_at", "-id")
     )
 
 
