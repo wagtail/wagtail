@@ -12,6 +12,7 @@ const mockProps = {
     },
   },
   depth: 1,
+  isVisible: true,
   onClose: jest.fn(),
   gotoPage: jest.fn(),
   nodes: {},
@@ -162,6 +163,59 @@ describe('PageExplorerPanel', () => {
     it('componentWillReceiveProps pop', () => {
       const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
       expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
+    });
+  });
+
+  describe('FocusTrap pausing behaviour', () => {
+    // Regression tests for: page explorer re-opens after being closed.
+    // Root cause: FocusTrap fired onDeactivate during the slide-out animation
+    // because it was still active while isVisible=false.
+    // Fix: pause the trap whenever isVisible is false.
+
+    it('pauses FocusTrap when isVisible is false (panel closing / slide-out animation)', () => {
+      const wrapper = shallow(
+        <PageExplorerPanel {...mockProps} isVisible={false} />,
+      );
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(true);
+    });
+
+    it('does not pause FocusTrap when isVisible is true and page is ready', () => {
+      const wrapper = shallow(
+        <PageExplorerPanel {...mockProps} isVisible={true} />,
+      );
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(false);
+    });
+
+    it('pauses FocusTrap when isFetchingChildren is true even if isVisible is true', () => {
+      const wrapper = shallow(
+        <PageExplorerPanel
+          {...mockProps}
+          isVisible={true}
+          page={{ ...mockProps.page, isFetchingChildren: true }}
+        />,
+      );
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(true);
+    });
+
+    it('pauses FocusTrap when isFetchingTranslations is true even if isVisible is true', () => {
+      const wrapper = shallow(
+        <PageExplorerPanel
+          {...mockProps}
+          isVisible={true}
+          page={{ ...mockProps.page, isFetchingTranslations: true }}
+        />,
+      );
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(true);
+    });
+
+    it('transitions FocusTrap from active to paused when isVisible changes to false', () => {
+      const wrapper = shallow(
+        <PageExplorerPanel {...mockProps} isVisible={true} />,
+      );
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(false);
+
+      wrapper.setProps({ isVisible: false });
+      expect(wrapper.find('FocusTrap').prop('paused')).toBe(true);
     });
   });
 });

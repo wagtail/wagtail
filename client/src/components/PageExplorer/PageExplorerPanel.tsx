@@ -15,6 +15,7 @@ interface PageExplorerPanelProps {
   nodes: NodeState;
   depth: number;
   page: PageState;
+  isVisible: boolean;
   onClose(): void;
   gotoPage(id: number, transition: number): void;
   navigate(url: string): Promise<void>;
@@ -117,12 +118,20 @@ class PageExplorerPanel extends React.Component<
   }
 
   render() {
-    const { page, depth, gotoPage, onClose } = this.props;
+    const { page, depth, gotoPage, onClose, isVisible } = this.props;
     const { transition } = this.state;
+    // Pause the trap when the panel is not visible (e.g. during the close
+    // animation) so that outside clicks on the sidebar button don't fire
+    // onDeactivate and call onClose a second time.
+    const isTrapPaused =
+      !isVisible ||
+      !page ||
+      page.isFetchingChildren ||
+      page.isFetchingTranslations;
 
     return (
       <FocusTrap
-        paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
+        paused={isTrapPaused}
         focusTrapOptions={{
           onDeactivate: onClose,
           clickOutsideDeactivates: true,

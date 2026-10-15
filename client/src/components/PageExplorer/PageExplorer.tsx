@@ -30,6 +30,7 @@ const PageExplorer: React.FunctionComponent<PageExplorerProps> = ({
       depth={depth}
       page={nodes[currentPageId]}
       nodes={nodes}
+      isVisible={isVisible}
       gotoPage={gotoPage}
       onClose={onClose}
       navigate={navigate}
