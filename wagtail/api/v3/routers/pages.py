@@ -38,11 +38,13 @@ from wagtail.api.v3.schemas.params import (
 )
 from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
 from wagtail.api.v3.schemas.workflows import (
+    WorkflowStateSchema,
     WorkflowStatusSchema,
     WorkflowTaskActionSchema,
 )
 from wagtail.api.v3.workflows import (
     build_workflow_status_payload,
+    check_can_view_workflow,
     resolve_task_state,
 )
 from wagtail.api.validators import SiteFilterValidator
@@ -403,6 +405,35 @@ def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveI
     _check_can_view_revisions(request, page)
     revisions = page.revisions.select_related("content_type", "base_content_type")
     return get_object_or_404(revisions, pk=revision_id)
+
+
+@router.get(
+    "/{page_id}/workflow/",
+    response=WorkflowStatusSchema,
+    url_name="get_page_workflow",
+    summary="Page workflow status",
+    operation_id="pages_workflow_status",
+    auth=BearerTokenAuth(),
+)
+def get_page_workflow(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return build_workflow_status_payload(page, request.user)
+
+
+@router.get(
+    "/{page_id}/workflow/history/",
+    response=list[WorkflowStateSchema],
+    url_name="list_page_workflow_history",
+    summary="List page workflow states",
+    operation_id="pages_workflow_history",
+    auth=BearerTokenAuth(),
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return page.workflow_states.order_by("-created_at", "-id")
 
 
 @actions_router.post(
