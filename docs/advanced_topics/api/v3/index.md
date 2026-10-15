@@ -10,6 +10,7 @@ maxdepth: 1
 ---
 authentication
 pages
+workflows
 images
 documents
 snippets
@@ -68,6 +69,7 @@ The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTA
 The v3 API supports a wide range of CMS operations, largely covering the same functionality as the Wagtail admin interface. This includes:
 
 - Pages, including drafts, revisions, and page actions.
+- Workflow / moderation operations for pages and snippets.
 - Sites, locales, and redirects.
 - Images and documents.
 - API-enabled snippets.
@@ -77,7 +79,6 @@ The v3 API supports a wide range of CMS operations, largely covering the same fu
 
 This covers a wide range of Wagtail capabilities but not all of it. [Share your feedback](https://github.com/wagtail/wagtail/discussions/14531) on what you would like to see next, including:
 
-- Workflow / moderation operations (for example submitting, approving, or rejecting).
 - Support for Site settings.
 - Precise StreamField block schemas.
 - Official client libraries or UIs that reuse the API.
