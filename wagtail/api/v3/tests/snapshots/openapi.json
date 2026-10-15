@@ -24293,6 +24293,24 @@
         "title": "PagedSiteSchema",
         "type": "object"
       },
+      "PagedWorkflowStateSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowStateSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedWorkflowStateSchema",
+        "type": "object"
+      },
       "PersonPageRelatedLinkMetaSchema": {
         "properties": {
           "type": {
@@ -35931,6 +35949,335 @@
         "title": "WhoAmIUserSchema",
         "type": "object"
       },
+      "WorkflowStateDetailSchema": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "current_task_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowTaskStateSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "requested_by": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowUserSummarySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": ["in_progress", "needs_changes", "approved", "cancelled"],
+            "title": "Status",
+            "type": "string"
+          },
+          "task_states": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowTaskStateSchema"
+            },
+            "title": "Task States",
+            "type": "array"
+          },
+          "tasks": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowTaskTimelineItemSchema"
+            },
+            "title": "Tasks",
+            "type": "array"
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowSummarySchema"
+          }
+        },
+        "required": [
+          "meta",
+          "id",
+          "workflow",
+          "status",
+          "created_at",
+          "task_states",
+          "tasks"
+        ],
+        "title": "WorkflowStateDetailSchema",
+        "type": "object"
+      },
+      "WorkflowStateSchema": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "current_task_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowTaskStateSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "requested_by": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowUserSummarySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": ["in_progress", "needs_changes", "approved", "cancelled"],
+            "title": "Status",
+            "type": "string"
+          },
+          "task_states": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowTaskStateSchema"
+            },
+            "title": "Task States",
+            "type": "array"
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowSummarySchema"
+          }
+        },
+        "required": [
+          "meta",
+          "id",
+          "workflow",
+          "status",
+          "created_at",
+          "task_states"
+        ],
+        "title": "WorkflowStateSchema",
+        "type": "object"
+      },
+      "WorkflowStatusSchema": {
+        "properties": {
+          "allowed_actions": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "workflow": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowSummarySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workflow_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowStateDetailSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "WorkflowStatusSchema",
+        "type": "object"
+      },
+      "WorkflowSummarySchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name"],
+        "title": "WorkflowSummarySchema",
+        "type": "object"
+      },
+      "WorkflowTaskActionSchema": {
+        "properties": {
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "task_state_id": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task State Id"
+          }
+        },
+        "title": "WorkflowTaskActionSchema",
+        "type": "object"
+      },
+      "WorkflowTaskStateSchema": {
+        "properties": {
+          "comment": {
+            "title": "Comment",
+            "type": "string"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "finished_by": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowUserSummarySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMetaSchema"
+          },
+          "revision_id": {
+            "title": "Revision Id",
+            "type": "integer"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "in_progress",
+              "approved",
+              "rejected",
+              "skipped",
+              "cancelled"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "meta",
+          "id",
+          "status",
+          "revision_id",
+          "started_at",
+          "comment"
+        ],
+        "title": "WorkflowTaskStateSchema",
+        "type": "object"
+      },
+      "WorkflowTaskSummarySchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "type"],
+        "title": "WorkflowTaskSummarySchema",
+        "type": "object"
+      },
+      "WorkflowTaskTimelineItemSchema": {
+        "properties": {
+          "task": {
+            "$ref": "#/components/schemas/WorkflowTaskSummarySchema"
+          },
+          "task_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowTaskStateSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["task"],
+        "title": "WorkflowTaskTimelineItemSchema",
+        "type": "object"
+      },
+      "WorkflowUserSummarySchema": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": ["id", "username"],
+        "title": "WorkflowUserSummarySchema",
+        "type": "object"
+      },
       "abc__EventPageCreateMetaSchema__1": {
         "properties": {
           "action": {
@@ -45064,6 +45411,222 @@
         "tags": ["pages"]
       }
     },
+    "/api/v3/pages/{page_id}/actions/workflow/approve/": {
+      "post": {
+        "operationId": "pages_actions_workflow_approve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowTaskActionSchema"
+                  }
+                ],
+                "default": {
+                  "comment": null,
+                  "task_state_id": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Approve the current workflow task",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/workflow/cancel/": {
+      "post": {
+        "operationId": "pages_actions_workflow_cancel",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Cancel the current workflow",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/workflow/reject/": {
+      "post": {
+        "operationId": "pages_actions_workflow_reject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowTaskActionSchema"
+                  }
+                ],
+                "default": {
+                  "comment": null,
+                  "task_state_id": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Reject the current workflow task",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/workflow/resume/": {
+      "post": {
+        "operationId": "pages_actions_workflow_resume",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Resume the workflow after changes were requested",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/actions/workflow/submit/": {
+      "post": {
+        "operationId": "pages_actions_workflow_submit",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Submit page for moderation",
+        "tags": ["pages"]
+      }
+    },
     "/api/v3/pages/{page_id}/revisions/": {
       "get": {
         "operationId": "pages_revisions_list",
@@ -45266,6 +45829,100 @@
           }
         ],
         "summary": "Page revision detail",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/workflow/": {
+      "get": {
+        "operationId": "pages_workflow_status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Page workflow status",
+        "tags": ["pages"]
+      }
+    },
+    "/api/v3/pages/{page_id}/workflow/history/": {
+      "get": {
+        "operationId": "pages_workflow_history",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page_id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "title": "Page Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedWorkflowStateSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "List page workflow states",
         "tags": ["pages"]
       }
     },
@@ -46613,6 +47270,267 @@
         "tags": ["snippets"]
       }
     },
+    "/api/v3/snippets/{type}/{pk}/actions/workflow/approve/": {
+      "post": {
+        "operationId": "snippets_actions_workflow_approve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowTaskActionSchema"
+                  }
+                ],
+                "default": {
+                  "comment": null,
+                  "task_state_id": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Approve the current workflow task",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/workflow/cancel/": {
+      "post": {
+        "operationId": "snippets_actions_workflow_cancel",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Cancel the current workflow",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/workflow/reject/": {
+      "post": {
+        "operationId": "snippets_actions_workflow_reject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowTaskActionSchema"
+                  }
+                ],
+                "default": {
+                  "comment": null,
+                  "task_state_id": null
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Reject the current workflow task",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/workflow/resume/": {
+      "post": {
+        "operationId": "snippets_actions_workflow_resume",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Resume the workflow after changes were requested",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/actions/workflow/submit/": {
+      "post": {
+        "operationId": "snippets_actions_workflow_submit",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Submit snippet for moderation",
+        "tags": ["snippets"]
+      }
+    },
     "/api/v3/snippets/{type}/{pk}/revisions/": {
       "get": {
         "operationId": "snippets_revisions_list",
@@ -46843,6 +47761,118 @@
           }
         ],
         "summary": "Snippet revision detail",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/workflow/": {
+      "get": {
+        "operationId": "snippets_workflow_status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowStatusSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "Snippet workflow status",
+        "tags": ["snippets"]
+      }
+    },
+    "/api/v3/snippets/{type}/{pk}/workflow/history/": {
+      "get": {
+        "operationId": "snippets_workflow_history",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "const": "tests.FullFeaturedSnippet",
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "title": "Pk",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedWorkflowStateSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "BearerTokenAuth": []
+          }
+        ],
+        "summary": "List snippet workflow states",
         "tags": ["snippets"]
       }
     },
