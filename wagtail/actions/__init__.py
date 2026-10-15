@@ -23,6 +23,15 @@ from wagtail.actions.revert_to_page_revision import RevertToPageRevisionAction
 from wagtail.actions.revert_to_revision import RevertToRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.actions.workflow import (
+    ResumePageWorkflowAction,
+    ResumeWorkflowAction,
+    SubmitPageWorkflowAction,
+    SubmitWorkflowAction,
+    WorkflowAction,
+    WorkflowStateError,
+    can_edit_instance,
+)
 
 __all__ = [
     "BaseAction",
@@ -45,8 +54,15 @@ __all__ = [
     "PublishPageRevisionAction",
     "RevertToPageRevisionAction",
     "RevertToRevisionAction",
+    "ResumePageWorkflowAction",
+    "ResumeWorkflowAction",
+    "SubmitPageWorkflowAction",
+    "SubmitWorkflowAction",
     "UnpublishAction",
     "UnpublishPageAction",
+    "WorkflowAction",
+    "WorkflowStateError",
+    "can_edit_instance",
     "ActionRegistry",
     "action_registry",
 ]
@@ -56,6 +72,7 @@ def register_default_actions():
     from wagtail.models.draft_state import DraftStateMixin
     from wagtail.models.i18n import TranslatableMixin
     from wagtail.models.revisions import RevisionMixin
+    from wagtail.models.workflows import WorkflowMixin
 
     Page = swapper.load_model("wagtailcore", "Page")
 
@@ -70,6 +87,9 @@ def register_default_actions():
 
     action_registry.register(TranslatableMixin, CopyForTranslationAction)
 
+    action_registry.register(WorkflowMixin, SubmitWorkflowAction)
+    action_registry.register(WorkflowMixin, ResumeWorkflowAction)
+
     action_registry.register(Page, CreatePageAction)
     action_registry.register(Page, EditPageAction)
     action_registry.register(Page, DeletePageAction)
@@ -81,3 +101,5 @@ def register_default_actions():
     action_registry.register(Page, ConvertAliasPageAction)
     action_registry.register(Page, CreatePageAliasAction)
     action_registry.register(Page, CopyPageForTranslationAction)
+    action_registry.register(Page, SubmitPageWorkflowAction)
+    action_registry.register(Page, ResumePageWorkflowAction)
