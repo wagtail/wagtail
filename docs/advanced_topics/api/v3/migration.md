@@ -27,7 +27,7 @@ Here is a comparison of the two versions across high-level areas relevant for co
 | StreamField | Read representation | Read and full-field write |
 | Errors | DRF message dictionaries | Problem Details |
 | OpenAPI / discovery | No schema support | OpenAPI 3.1 and authenticated schema discovery |
-| Frontend cache | v2-specific signal handlers and URL names | Not supported |
+| Frontend cache | Pages, images, documents | Pages, images, documents, redirects |
 
 See [the v3 reference](api_v3_reference) for the definitive per-endpoint details, and the [schema discovery guide](api_v3_schema) for how v3 fields and write schemas are generated.
 
@@ -40,5 +40,4 @@ Some v2 capabilities have no direct v3 equivalent, or behave differently enough 
 -   **Different error responses**. DRF messages vs. Problem Details. Different HTTP status codes for some errors.
 -   **Different list envelope**. v2 returns `{"meta": {"total_count": ...}, ...}`; v3 returns `{"count": ..., "items": [...]}` and rejects a `limit` of `0`.
 -   **Authenticated page visibility differs**. v2 defaulted to the public live queryset. A v3 bearer-authenticated request sees the pages the user can explore in the admin, including draft-only pages.
--   **Lack of v2 frontend-cache invalidation support**.
 -   **Custom v2 endpoints**. They may be replace-able with v3's generic endpoints, or require creation of new custom endpoints.

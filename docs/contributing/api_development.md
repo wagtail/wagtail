@@ -27,3 +27,11 @@ List endpoints use `@paginate` with `WagtailLimitOffsetPagination`, defined in `
 ## RFC 7807 errors
 
 Register handlers via `register_exception_handlers(api)` in `wagtail/api/v3/errors.py`. Tests should use `assert_problem_response` from `wagtail.api.v3.tests.base`.
+
+## Contrib app endpoints
+
+Endpoints for models owned by a separate app (images, documents, snippets, locales, redirects) live in that app's `api/v3` package, and the app registers its router from its own `AppConfig.ready()`. This keeps `wagtail.api.v3` free of imports from apps a project might not install.
+
+## Tests and the swappable page model
+
+To support custom base page models, make sure to import `Page` from `wagtail.test.utils` rather than `wagtail.models`, and add `PageFixturesMixin` to any test case that loads page fixtures such as `demosite.json`.
