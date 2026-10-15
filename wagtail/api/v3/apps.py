@@ -11,3 +11,11 @@ class WagtailAPIV3AppConfig(AppConfig):
         from wagtail.api.rich_text import APIRichText
 
         APIRichText.check_setting()
+
+        from wagtail.api.v3.signal_handlers import (
+            register_signal_handlers,
+            use_frontend_cache,
+        )
+
+        if use_frontend_cache():
+            register_signal_handlers()

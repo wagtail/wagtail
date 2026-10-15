@@ -896,7 +896,7 @@ Applies to the v2 and v3 APIs. Default is true, setting this to false will disab
 WAGTAILAPI_USE_FRONTENDCACHE = True
 ```
 
-Applies to the v2 API only. v3 does not yet invalidate the frontend cache. Requires `wagtailfrontendcache` app to be installed, indicates the API should use the frontend cache.
+Applies to the v2 and v3 APIs. Requires `wagtail.contrib.frontend_cache` app to be installed, indicates the API should use the frontend cache. When enabled, the detail endpoints for pages, images, and documents are purged when the object is published, unpublished, saved, or deleted. On v3, the redirects detail endpoint is also purged. Requires `WAGTAILAPI_BASE_URL` to be set.
 
 ### `WAGTAILAPI_RICH_TEXT_FORMAT`
 
