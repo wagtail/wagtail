@@ -15,6 +15,9 @@ from wagtail.actions.registry import ActionRegistry, action_registry
 from wagtail.actions.revert_to_revision import RevertToRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.workflow import (
+    ApproveTaskStateAction,
+    CancelWorkflowAction,
+    RejectTaskStateAction,
     ResumeWorkflowAction,
     SubmitWorkflowAction,
 )
@@ -152,4 +155,7 @@ class TestDefaultActions(TestCase):
                 if issubclass(model, WorkflowMixin):
                     actions["submit"] = SubmitWorkflowAction
                     actions["resume"] = ResumeWorkflowAction
+                    actions["approve"] = ApproveTaskStateAction
+                    actions["reject"] = RejectTaskStateAction
+                    actions["cancel"] = CancelWorkflowAction
                 self.assertEqual(action_registry.get_actions_for_model(model), actions)
