@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from ninja import Schema
 from pydantic import PositiveInt
@@ -68,8 +68,13 @@ class WorkflowStateDetailSchema(WorkflowStateSchema):
     tasks: list[WorkflowTaskTimelineItemSchema]
 
     @staticmethod
-    def resolve_tasks(obj) -> list[WorkflowTaskTimelineItemSchema]:
-        return obj.all_tasks_with_state()
+    def resolve_tasks(obj) -> list[dict[str, Any]]:
+        # "task" is an attribute the Task model does not expose, so map the
+        # all_tasks_with_state() items to the schema's field names up front.
+        return [
+            {"task": task, "task_state": task.task_state}
+            for task in obj.all_tasks_with_state()
+        ]
 
 
 class WorkflowStatusSchema(Schema):
