@@ -16,6 +16,10 @@ def routable_page_external_view(request, arg="ARG NOT SET"):
 
 
 class RoutablePageTest(RoutablePageMixin, Page):
+    # Serves HTML by default, or Markdown when the client asks for it, so that
+    # Vary behaviour can be exercised for routable pages.
+    response_media_types = ["text/html", "text/markdown"]
+
     @route(r"^archive/year/1984/$")
     def archive_for_1984(self, request):
         # check that routes are tested in order (and thus this takes precedence over archive_by_year)

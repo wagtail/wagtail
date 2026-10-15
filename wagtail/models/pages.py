@@ -963,7 +963,7 @@ class AbstractPage(
                     "Invalid response_media_types setting for %s" % cls,
                     hint="response_media_types must be a non-empty list of media types without wildcards, such as ['text/html', 'text/markdown'].",
                     obj=cls,
-                    id="wagtailcore.E002",
+                    id="wagtailcore.E008",
                 )
             )
 
@@ -1368,8 +1368,8 @@ class AbstractPage(
 
     def get_vary_headers(self, request):
         """
-        Returns the names of the request headers that this page's response
-        depends on. Wagtail adds them to the ``Vary`` header of the response,
+        Returns the names of the request headers that this page's responses may
+        depend on. Wagtail adds them to the ``Vary`` header of the response,
         so that caches store a separate response for each variant.
 
         By default, this includes ``X-Requested-With`` when the page has an

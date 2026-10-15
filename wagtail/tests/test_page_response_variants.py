@@ -14,16 +14,6 @@ from wagtail.test.utils import Page, PageFixturesMixin
 MARKDOWN_TYPES = ["text/html", "text/markdown"]
 
 
-def serve_with_markdown(page, request, *args, **kwargs):
-    """
-    A serve() override that returns Markdown when the client prefers it,
-    as a site would implement it.
-    """
-    if page.get_response_media_type(request) == "text/markdown":
-        return HttpResponse(f"# {page.title}", content_type="text/markdown")
-    return Page.serve(page, request, *args, **kwargs)
-
-
 def vary_values(response):
     return [
         header.strip()
@@ -33,26 +23,32 @@ def vary_values(response):
 
 
 class TestGetResponseMediaType(TestCase):
+    """
+    Exercised against ``EventIndex``, which declares two media types. The
+    varying lists below patch ``response_media_types``, because they cover
+    inputs that no test model declares.
+    """
+
     def setUp(self):
         self.factory = RequestFactory()
+        self.page = EventIndex(title="Test")
 
-    def get_media_type(self, accept, media_types=MARKDOWN_TYPES):
+    def get_media_type(self, accept, page=None):
         headers = {"accept": accept} if accept is not None else {}
         request = self.factory.get("/", headers=headers)
-        page = SimplePage(title="Test")
-        with mock.patch.object(SimplePage, "response_media_types", media_types):
-            return page.get_response_media_type(request)
+        return (page or self.page).get_response_media_type(request)
 
     def test_default_is_html(self):
         self.assertEqual(Page.response_media_types, ["text/html"])
 
+    def test_event_index_varies(self):
+        self.assertEqual(EventIndex.response_media_types, MARKDOWN_TYPES)
+
     def test_single_media_type_ignores_accept(self):
+        page = SimplePage(title="Test")
         for accept in (None, "text/markdown", "application/json"):
             with self.subTest(accept=accept):
-                self.assertEqual(
-                    self.get_media_type(accept, media_types=["text/html"]),
-                    "text/html",
-                )
+                self.assertEqual(self.get_media_type(accept, page), "text/html")
 
     def test_prefers_markdown(self):
         for accept in (
@@ -86,29 +82,27 @@ class TestGetResponseMediaType(TestCase):
                 self.assertEqual(self.get_media_type(accept), "text/html")
 
     def test_first_media_type_is_the_default(self):
-        media_types = ["text/markdown", "text/html"]
-        for accept in (None, "*/*", "text/*", "application/json"):
-            with self.subTest(accept=accept):
-                self.assertEqual(
-                    self.get_media_type(accept, media_types=media_types),
-                    "text/markdown",
-                )
-        self.assertEqual(
-            self.get_media_type("text/html", media_types=media_types), "text/html"
-        )
+        with mock.patch.object(
+            EventIndex, "response_media_types", ["text/markdown", "text/html"]
+        ):
+            for accept in (None, "*/*", "text/*", "application/json"):
+                with self.subTest(accept=accept):
+                    self.assertEqual(self.get_media_type(accept), "text/markdown")
+            self.assertEqual(self.get_media_type("text/html"), "text/html")
 
     def test_more_than_two_media_types(self):
-        media_types = ["text/html", "text/markdown", "application/json"]
-        self.assertEqual(
-            self.get_media_type("application/json", media_types=media_types),
-            "application/json",
-        )
-        self.assertEqual(
-            self.get_media_type(
-                "application/json;q=0.5, text/markdown", media_types=media_types
-            ),
-            "text/markdown",
-        )
+        with mock.patch.object(
+            EventIndex,
+            "response_media_types",
+            ["text/html", "text/markdown", "application/json"],
+        ):
+            self.assertEqual(
+                self.get_media_type("application/json"), "application/json"
+            )
+            self.assertEqual(
+                self.get_media_type("application/json;q=0.5, text/markdown"),
+                "text/markdown",
+            )
 
 
 class TestGetVaryHeaders(TestCase):
@@ -118,21 +112,15 @@ class TestGetVaryHeaders(TestCase):
     def test_default(self):
         self.assertEqual(SimplePage().get_vary_headers(self.request), [])
 
-    def test_ajax_template(self):
+    def test_ajax_template_and_media_types(self):
+        # EventIndex has both an ajax_template and two media types.
         self.assertEqual(
-            EventIndex().get_vary_headers(self.request), ["X-Requested-With"]
+            EventIndex().get_vary_headers(self.request),
+            ["X-Requested-With", "Accept"],
         )
 
-    def test_multiple_media_types(self):
-        with mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES):
-            self.assertEqual(SimplePage().get_vary_headers(self.request), ["Accept"])
-
-    def test_ajax_template_and_multiple_media_types(self):
-        with mock.patch.object(EventIndex, "response_media_types", MARKDOWN_TYPES):
-            self.assertEqual(
-                EventIndex().get_vary_headers(self.request),
-                ["X-Requested-With", "Accept"],
-            )
+    def test_media_types_without_ajax_template(self):
+        self.assertEqual(RoutablePageTest().get_vary_headers(self.request), ["Accept"])
 
 
 class TestServeVaryHeaders(PageFixturesMixin, TestCase):
@@ -155,13 +143,36 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
         self.assertTrue(response["Content-Type"].startswith("text/html"))
         self.assertFalse(has_vary_header(response, "Accept"))
 
-    def test_ajax_template_page_varies_on_x_requested_with(self):
-        for headers in ({}, {"x-requested-with": "XMLHttpRequest"}):
-            with self.subTest(headers=headers):
+    def test_negotiated_markdown(self):
+        response = self.client.get("/events/", headers={"accept": "text/markdown"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/markdown; charset=utf-8")
+        self.assertEqual(response.content, b"# Events\n\nLook at our lovely events.")
+        self.assertTrue(has_vary_header(response, "Accept"))
+        self.assertTrue(has_vary_header(response, "X-Requested-With"))
+
+    def test_negotiated_html(self):
+        for accept in (None, "*/*", "text/html"):
+            with self.subTest(accept=accept):
+                headers = {"accept": accept} if accept else {}
                 response = self.client.get("/events/", headers=headers)
                 self.assertEqual(response.status_code, 200)
+                self.assertTrue(response["Content-Type"].startswith("text/html"))
+                self.assertContains(response, "<h1>Events</h1>")
+                # The HTML variant must vary too, or a cache would serve it
+                # to clients that asked for Markdown.
+                self.assertTrue(has_vary_header(response, "Accept"))
                 self.assertTrue(has_vary_header(response, "X-Requested-With"))
-                self.assertFalse(has_vary_header(response, "Accept"))
+
+    def test_ajax_fragment_varies(self):
+        response = self.client.get(
+            "/events/", headers={"x-requested-with": "XMLHttpRequest"}
+        )
+        self.assertEqual(response.status_code, 200)
+        # The fragment template, not the full page.
+        self.assertNotContains(response, "<h1>Events</h1>")
+        self.assertTrue(has_vary_header(response, "X-Requested-With"))
+        self.assertTrue(has_vary_header(response, "Accept"))
 
     def test_existing_vary_headers_are_kept(self):
         # LocaleMiddleware adds Accept-Language in the test settings.
@@ -169,82 +180,29 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
         self.assertTrue(has_vary_header(response, "Accept-Language"))
         self.assertTrue(has_vary_header(response, "X-Requested-With"))
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    @mock.patch.object(SimplePage, "serve", serve_with_markdown)
-    def test_negotiated_markdown(self):
-        response = self.client.get("/about-us/", headers={"accept": "text/markdown"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/markdown")
-        self.assertEqual(response.content, b"# About us")
-        self.assertTrue(has_vary_header(response, "Accept"))
-
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    @mock.patch.object(SimplePage, "serve", serve_with_markdown)
-    def test_negotiated_html(self):
-        for accept in (None, "*/*", "text/html"):
-            with self.subTest(accept=accept):
-                headers = {"accept": accept} if accept else {}
-                response = self.client.get("/about-us/", headers=headers)
-                self.assertEqual(response.status_code, 200)
-                self.assertTrue(response["Content-Type"].startswith("text/html"))
-                self.assertContains(response, "<h1>About us</h1>")
-                # The HTML variant must vary too, or a cache would serve it
-                # to clients that asked for Markdown.
-                self.assertTrue(has_vary_header(response, "Accept"))
-
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    def test_vary_added_without_serve_override(self):
-        response = self.client.get("/about-us/")
-        self.assertTrue(has_vary_header(response, "Accept"))
-
-    def test_vary_added_when_serve_returns_its_own_response(self):
-        def serve(page, request, *args, **kwargs):
-            return HttpResponse("custom")
-
-        with (
-            mock.patch.object(EventIndex, "serve", serve),
-            mock.patch.object(EventIndex, "response_media_types", MARKDOWN_TYPES),
-        ):
-            response = self.client.get("/events/")
-        self.assertEqual(response.content, b"custom")
-        self.assertTrue(has_vary_header(response, "X-Requested-With"))
-        self.assertTrue(has_vary_header(response, "Accept"))
-
     def test_headers_are_not_duplicated(self):
         def serve(page, request, *args, **kwargs):
             response = HttpResponse("custom")
             patch_vary_headers(response, ["Accept", "X-Requested-With"])
             return response
 
-        with (
-            mock.patch.object(EventIndex, "serve", serve),
-            mock.patch.object(EventIndex, "response_media_types", MARKDOWN_TYPES),
-        ):
+        with mock.patch.object(EventIndex, "serve", serve):
             response = self.client.get("/events/")
+        self.assertEqual(response.content, b"custom")
         values = [value.lower() for value in vary_values(response)]
         self.assertEqual(values.count("accept"), 1)
         self.assertEqual(values.count("x-requested-with"), 1)
 
-    def test_custom_get_vary_headers(self):
-        def get_vary_headers(page, request):
-            return [*Page.get_vary_headers(page, request), "Cookie"]
-
-        with mock.patch.object(SimplePage, "get_vary_headers", get_vary_headers):
-            response = self.client.get("/about-us/")
-        self.assertTrue(has_vary_header(response, "Cookie"))
-        self.assertFalse(has_vary_header(response, "Accept"))
-
     def test_get_vary_headers_receives_the_request(self):
         with mock.patch.object(
-            SimplePage, "get_vary_headers", autospec=True, return_value=[]
+            EventIndex, "get_vary_headers", autospec=True, return_value=[]
         ) as get_vary_headers:
-            self.client.get("/about-us/", headers={"accept": "text/markdown"})
+            self.client.get("/events/", headers={"accept": "text/markdown"})
         get_vary_headers.assert_called_once()
         page, request = get_vary_headers.call_args.args
-        self.assertEqual(page.url_path, "/home/about-us/")
+        self.assertEqual(page.url_path, "/home/events/")
         self.assertEqual(request.headers["accept"], "text/markdown")
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
     def test_vary_added_to_on_serve_page_response(self):
         def on_serve_page(next_serve_page):
             def wrapper(page, request, args, kwargs):
@@ -253,32 +211,29 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
             return wrapper
 
         with hooks.register_temporarily("on_serve_page", on_serve_page):
-            response = self.client.get("/about-us/")
+            response = self.client.get("/events/")
         self.assertEqual(response.content, b"from hook")
         self.assertTrue(has_vary_header(response, "Accept"))
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
     def test_before_serve_page_response_is_left_alone(self):
         # Responses from before_serve_page hooks are not the page's own response.
         def before_serve_page(page, request, args, kwargs):
             return HttpResponse("from hook")
 
         with hooks.register_temporarily("before_serve_page", before_serve_page):
-            response = self.client.get("/about-us/")
+            response = self.client.get("/events/")
         self.assertEqual(response.content, b"from hook")
         self.assertFalse(has_vary_header(response, "Accept"))
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    @mock.patch.object(SimplePage, "serve", serve_with_markdown)
     def test_private_page(self):
         # View restrictions are checked in an on_serve_page hook, so the
         # password prompt goes through the serve chain and varies too.
-        page = SimplePage.objects.get(url_path="/home/about-us/")
+        page = EventIndex.objects.get(url_path="/home/events/")
         PageViewRestriction.objects.create(
             page=page, restriction_type="password", password="secret"
         )
 
-        prompt = self.client.get("/about-us/", headers={"accept": "text/markdown"})
+        prompt = self.client.get("/events/", headers={"accept": "text/markdown"})
         self.assertEqual(prompt.status_code, 200)
         self.assertTrue(prompt["Content-Type"].startswith("text/html"))
         self.assertContains(prompt, 'name="password"')
@@ -291,21 +246,21 @@ class TestServeVaryHeaders(PageFixturesMixin, TestCase):
                 "wagtailcore_authenticate_with_password",
                 args=[restriction.id, page.id],
             ),
-            {"password": "secret", "return_url": "/about-us/"},
+            {"password": "secret", "return_url": "/events/"},
         )
-        markdown = self.client.get("/about-us/", headers={"accept": "text/markdown"})
-        self.assertEqual(markdown["Content-Type"], "text/markdown")
+        markdown = self.client.get("/events/", headers={"accept": "text/markdown"})
+        self.assertEqual(markdown["Content-Type"], "text/markdown; charset=utf-8")
         self.assertTrue(has_vary_header(markdown, "Accept"))
 
-    @mock.patch.object(EventPage, "response_media_types", MARKDOWN_TYPES)
-    def test_redirects_and_errors_from_serve_still_vary(self):
+    def test_status_code_from_serve_still_varies(self):
         def serve(page, request, *args, **kwargs):
             return HttpResponse(status=410)
 
         with mock.patch.object(EventPage, "serve", serve):
             response = self.client.get("/events/christmas/")
         self.assertEqual(response.status_code, 410)
-        self.assertTrue(has_vary_header(response, "Accept"))
+        # EventPage declares a single media type, so no Accept here.
+        self.assertFalse(has_vary_header(response, "Accept"))
 
     def test_unknown_page_is_unaffected(self):
         response = self.client.get(
@@ -349,36 +304,34 @@ class TestServeVaryHeadersWithCacheMiddleware(PageFixturesMixin, TestCase):
         ):
             return self.client.get(path, **kwargs)
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    @mock.patch.object(SimplePage, "serve", serve_with_markdown)
     def test_markdown_is_not_served_to_browsers(self):
         markdown = self.cached_client_get(
-            "/about-us/", headers={"accept": "text/markdown"}
+            "/events/", headers={"accept": "text/markdown"}
         )
-        self.assertEqual(markdown["Content-Type"], "text/markdown")
+        self.assertEqual(markdown["Content-Type"], "text/markdown; charset=utf-8")
 
         html = self.cached_client_get(
-            "/about-us/", headers={"accept": "text/html,*/*;q=0.8"}
+            "/events/", headers={"accept": "text/html,*/*;q=0.8"}
         )
         self.assertTrue(html["Content-Type"].startswith("text/html"))
-        self.assertContains(html, "<h1>About us</h1>")
+        self.assertContains(html, "<h1>Events</h1>")
 
         markdown_again = self.cached_client_get(
-            "/about-us/", headers={"accept": "text/markdown"}
+            "/events/", headers={"accept": "text/markdown"}
         )
-        self.assertEqual(markdown_again["Content-Type"], "text/markdown")
-        self.assertEqual(markdown_again.content, b"# About us")
+        self.assertEqual(markdown_again["Content-Type"], "text/markdown; charset=utf-8")
+        self.assertEqual(
+            markdown_again.content, b"# Events\n\nLook at our lovely events."
+        )
 
-    @mock.patch.object(SimplePage, "response_media_types", MARKDOWN_TYPES)
-    @mock.patch.object(SimplePage, "serve", serve_with_markdown)
     def test_cache_is_active(self):
         # Guards against the tests above passing because nothing was cached.
-        self.cached_client_get("/about-us/", headers={"accept": "text/html"})
+        self.cached_client_get("/events/", headers={"accept": "text/html"})
         with self.assertNumQueries(0):
             response = self.cached_client_get(
-                "/about-us/", headers={"accept": "text/html"}
+                "/events/", headers={"accept": "text/html"}
             )
-        self.assertContains(response, "<h1>About us</h1>")
+        self.assertContains(response, "<h1>Events</h1>")
 
     def test_ajax_fragment_is_not_served_as_the_full_page(self):
         fragment = self.cached_client_get(
@@ -398,7 +351,6 @@ class TestRoutablePageVaryHeaders(TestCase):
         )
         self.url = self.routable_page.url
 
-    @mock.patch.object(RoutablePageTest, "response_media_types", MARKDOWN_TYPES)
     def test_index_route_and_subroutes_vary(self):
         for path in ("", "archive/year/2014/", "render-method-test/"):
             with self.subTest(path=path):
@@ -406,16 +358,12 @@ class TestRoutablePageVaryHeaders(TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertTrue(has_vary_header(response, "Accept"))
 
-    def test_default_routable_page_does_not_vary(self):
-        response = self.client.get(self.url + "archive/year/2014/")
-        self.assertFalse(has_vary_header(response, "Accept"))
-
-    @mock.patch.object(RoutablePageTest, "response_media_types", MARKDOWN_TYPES)
     def test_opt_out_for_a_route(self):
         # The pattern documented for routes that always serve one format.
         def get_vary_headers(page, request):
             headers = Page.get_vary_headers(page, request)
-            if request.routable_resolver_match.url_name != "index_route":
+            match = getattr(request, "routable_resolver_match", None)
+            if match and match.url_name != "index_route" and "Accept" in headers:
                 headers.remove("Accept")
             return headers
 
@@ -427,11 +375,16 @@ class TestRoutablePageVaryHeaders(TestCase):
 
 
 class TestResponseMediaTypesCheck(SimpleTestCase):
+    """
+    The system check is validated against ``EventIndex``, patching the
+    attribute to cover invalid values that no model can declare.
+    """
+
     def get_errors(self, media_types):
-        with mock.patch.object(SimplePage, "response_media_types", media_types):
+        with mock.patch.object(EventIndex, "response_media_types", media_types):
             return [
                 error
-                for error in SimplePage.check()
+                for error in EventIndex.check()
                 if "response_media_types" in error.msg
             ]
 
@@ -458,4 +411,4 @@ class TestResponseMediaTypesCheck(SimpleTestCase):
             with self.subTest(media_types=media_types):
                 errors = self.get_errors(media_types)
                 self.assertEqual(len(errors), 1)
-                self.assertEqual(errors[0].id, "wagtailcore.E002")
+                self.assertEqual(errors[0].id, "wagtailcore.E008")

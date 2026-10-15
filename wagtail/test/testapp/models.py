@@ -612,6 +612,20 @@ class EventIndex(Page):
     # NOTE: Using a mix of enum and string values to test handling of both
     allowed_http_methods = [HTTPMethod.GET, "OPTIONS"]
 
+    # Serve HTML by default, or Markdown when the client asks for it, as
+    # described in docs/advanced_topics/varying_page_responses.md.
+    response_media_types = ["text/html", "text/markdown"]
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_response_media_type(request) == "text/markdown":
+            return TemplateResponse(
+                request,
+                "tests/event_index.md",
+                self.get_context(request, *args, **kwargs),
+                content_type="text/markdown; charset=utf-8",
+            )
+        return super().serve(request, *args, **kwargs)
+
     def get_events(self):
         return self.get_children().live().type(EventPage)
 
