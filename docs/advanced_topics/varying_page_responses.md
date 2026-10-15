@@ -2,7 +2,7 @@
 
 # How to vary page responses
 
-A page can return different responses at the same URL depending on the request, for example HTML for browsers and Markdown for clients that ask for it. When it does, the response must say which request headers it depends on, using the `Vary` header. Without it, a cache can store one version of the page and serve it to every client.
+For [content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Content_negotiation) and other similar needs, pages can return different responses at the same URL depending on the request. For example HTML for browsers and Markdown for AI agents. When response content varies, the response must say which request headers it depends on, using the [`Vary` HTTP response header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary). Without it, a cache can store one version of the page and serve it to every client.
 
 Wagtail chooses between the formats a page offers, and adds the `Vary` header for you. You decide how each format is rendered, and how your cache is configured.
 
@@ -66,7 +66,7 @@ class BlogIndexPage(RoutablePageMixin, Page):
         headers = super().get_vary_headers(request)
         # Only set when the page is served through Wagtail's routing
         match = getattr(request, "routable_resolver_match", None)
-        if match and match.url_name != "index_route":
+        if match and match.url_name != "index_route" and "Accept" in headers:
             headers.remove("Accept")
         return headers
 ```
