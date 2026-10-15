@@ -14,7 +14,16 @@ from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.registry import ActionRegistry, action_registry
 from wagtail.actions.revert_to_revision import RevertToRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
-from wagtail.models import DraftStateMixin, RevisionMixin, TranslatableMixin
+from wagtail.actions.workflow import (
+    ResumeWorkflowAction,
+    SubmitWorkflowAction,
+)
+from wagtail.models import (
+    DraftStateMixin,
+    RevisionMixin,
+    TranslatableMixin,
+    WorkflowMixin,
+)
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
@@ -140,4 +149,7 @@ class TestDefaultActions(TestCase):
                     actions["unpublish"] = UnpublishAction
                 if issubclass(model, TranslatableMixin):
                     actions["copy_for_translation"] = CopyForTranslationAction
+                if issubclass(model, WorkflowMixin):
+                    actions["submit"] = SubmitWorkflowAction
+                    actions["resume"] = ResumeWorkflowAction
                 self.assertEqual(action_registry.get_actions_for_model(model), actions)
