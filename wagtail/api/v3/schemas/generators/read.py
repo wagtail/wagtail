@@ -167,7 +167,8 @@ class SchemaGenerator:
                 model,
                 name=f"{name}Base",
                 base_class=BaseSchema,
-                nested=False,
+                nested=True,
+                follow_reverse_related=False,
             )
             meta_schema = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation,
@@ -209,6 +210,7 @@ class SchemaGenerator:
         name: str,
         base_class: type[Schema],
         nested: bool,
+        follow_reverse_related: bool = True,
     ) -> type[Schema]:
         """Build a schema for ``model``'s ``api_fields``, on top of ``base_class``.
 
@@ -227,14 +229,20 @@ class SchemaGenerator:
           relations (``ParentalKey``, e.g. an ``InlinePanel`` inside an
           ``InlinePanel`` child) are followed, and only to a model that isn't
           already being built further up - otherwise omitted - so recursion
-          stops rather than cycling through the same models.
+          stops rather than cycling through the same models. If
+          ``follow_reverse_related`` is False, reverse relations are always
+          omitted.
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
         self._models_being_built.append(model)
         try:
             return self._build_schema(
-                model, name=name, base_class=base_class, nested=nested
+                model,
+                name=name,
+                base_class=base_class,
+                nested=nested,
+                follow_reverse_related=follow_reverse_related,
             )
         finally:
             self._models_being_built.pop()
@@ -246,6 +254,7 @@ class SchemaGenerator:
         name: str,
         base_class: type[Schema],
         nested: bool,
+        follow_reverse_related: bool,
     ) -> type[Schema]:
         real_names = [
             field.name
@@ -282,12 +291,14 @@ class SchemaGenerator:
                 # Not a real Django field, so treat it as a plain Python property.
                 extra_fields[field.name] = (Any, None, None)
             else:
-                if (
-                    nested
-                    and isinstance(model_field, ForeignObjectRel)
-                    and (
-                        model_field not in get_all_child_relations(model)
-                        or model_field.related_model in self._models_being_built
+                if isinstance(model_field, ForeignObjectRel) and (
+                    not follow_reverse_related
+                    or (
+                        nested
+                        and (
+                            model_field not in get_all_child_relations(model)
+                            or model_field.related_model in self._models_being_built
+                        )
                     )
                 ):
                     continue

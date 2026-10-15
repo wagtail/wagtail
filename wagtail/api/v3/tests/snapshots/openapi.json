@@ -1422,6 +1422,77 @@
         "title": "AdvertWithCustomPrimaryKeyCreateSchema",
         "type": "object"
       },
+      "AdvertWithCustomPrimaryKeyForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.AdvertWithCustomPrimaryKey",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertWithCustomPrimaryKeyForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyForeignKeySchema": {
+        "properties": {
+          "advert_id": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Advert Id"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyForeignKeyMetaSchema"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertWithCustomPrimaryKeyForeignKeySchema",
+        "type": "object"
+      },
       "AdvertWithCustomPrimaryKeyMetaSchema": {
         "properties": {
           "detail_url": {
@@ -1539,6 +1610,14 @@
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyMetaSchema"
+          },
+          "snippetchoosermodelwithcustomprimarykey_set": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SnippetChooserModelWithCustomPrimaryKeySchema"
+            },
+            "title": "Snippetchoosermodelwithcustomprimarykey Set",
+            "type": "array"
           },
           "text": {
             "maxLength": 255,
@@ -30698,6 +30777,67 @@
           "is_default_site"
         ],
         "title": "SiteSchema",
+        "type": "object"
+      },
+      "SnippetChooserModelWithCustomPrimaryKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.SnippetChooserModelWithCustomPrimaryKey",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "SnippetChooserModelWithCustomPrimaryKeyMetaSchema",
+        "type": "object"
+      },
+      "SnippetChooserModelWithCustomPrimaryKeySchema": {
+        "properties": {
+          "advertwithcustomprimarykey": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyForeignKeySchema"
+              }
+            ]
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SnippetChooserModelWithCustomPrimaryKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "SnippetChooserModelWithCustomPrimaryKeySchema",
         "type": "object"
       },
       "SnippetCopyForTranslationSchema": {

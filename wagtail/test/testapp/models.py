@@ -1166,6 +1166,7 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
     api_fields = (
         APIField("url", writable=True),
         APIField("text", writable=True),
+        APIField("snippetchoosermodelwithcustomprimarykey_set"),
     )
 
     def __str__(self):
@@ -1890,6 +1891,8 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
     panels = [
         FieldPanel("advertwithcustomprimarykey"),
     ]
+
+    api_fields = (APIField("advertwithcustomprimarykey", writable=True),)
 
 
 class CustomImage(AbstractImage):
