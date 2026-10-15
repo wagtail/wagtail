@@ -61,7 +61,14 @@ class WorkflowStateSchema(BaseSchema):
 
     @staticmethod
     def resolve_task_states(obj) -> list[WorkflowTaskStateSchema]:
-        return list(obj.task_states.order_by("started_at", "id"))
+        # History requests prefetch task states onto `_api_task_states` (already
+        # ordered); `all()`/order_by would clone the related manager and discard
+        # that prefetch cache, so consume the attribute when present and fall back
+        # to the ordered manager path for non-prefetched states (status endpoint).
+        task_states = getattr(obj, "_api_task_states", None)
+        if task_states is None:
+            task_states = obj.task_states.order_by("started_at", "id")
+        return list(task_states)
 
 
 class WorkflowStateDetailSchema(WorkflowStateSchema):
