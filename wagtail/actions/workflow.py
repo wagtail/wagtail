@@ -116,12 +116,9 @@ class SubmitWorkflowAction(WorkflowAction):
 
 
 class SubmitPageWorkflowAction(SubmitWorkflowAction):
-    """Submit, with edit permissions based on the page permission tester."""
-
-    def user_has_permission(self):
-        return self.instance.permissions_for_user(self.user).can_edit() and not (
-            _is_locked_for_user(self.instance, self.user)
-        )
+    """Submit a page. Inherits edit-permission checking from
+    ``WorkflowAction.user_has_permission``, which special-cases pages via
+    ``can_edit_instance``'s ``AbstractPage`` dispatch."""
 
 
 class ResumeWorkflowAction(WorkflowAction):
@@ -158,9 +155,6 @@ class ResumeWorkflowAction(WorkflowAction):
 
 
 class ResumePageWorkflowAction(ResumeWorkflowAction):
-    """Resume, with edit permissions based on the page permission tester."""
-
-    def user_has_permission(self):
-        return self.instance.permissions_for_user(self.user).can_edit() and not (
-            _is_locked_for_user(self.instance, self.user)
-        )
+    """Resume a page. Inherits edit-permission checking from
+    ``WorkflowAction.user_has_permission``, which special-cases pages via
+    ``can_edit_instance``'s ``AbstractPage`` dispatch."""
