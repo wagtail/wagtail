@@ -167,7 +167,7 @@ class SchemaGenerator:
                 model,
                 name=f"{name}Base",
                 base_class=BaseSchema,
-                follow_reverse_related=False,
+                nested=False,
             )
             meta_schema = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation,

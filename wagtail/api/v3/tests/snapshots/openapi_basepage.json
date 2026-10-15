@@ -811,6 +811,39 @@
         "title": "AdvertCreateSchema",
         "type": "object"
       },
+      "AdvertForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.Advert",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertForeignKeyMetaSchema",
+        "type": "object"
+      },
       "AdvertForeignKeySchema": {
         "properties": {
           "id": {
@@ -825,7 +858,7 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/AdvertMetaSchema"
+            "$ref": "#/components/schemas/AdvertForeignKeyMetaSchema"
           },
           "tags": {
             "default": [],
@@ -1664,28 +1697,7 @@
         "title": "BasePageSchema",
         "type": "object"
       },
-      "BlogCategoryForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/BlogCategoryMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "BlogCategoryForeignKeySchema",
-        "type": "object"
-      },
-      "BlogCategoryMetaSchema": {
+      "BlogCategoryForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "tests.BlogCategory",
@@ -1715,7 +1727,28 @@
           }
         },
         "required": ["type"],
-        "title": "BlogCategoryMetaSchema",
+        "title": "BlogCategoryForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "BlogCategoryForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BlogCategoryForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "BlogCategoryForeignKeySchema",
         "type": "object"
       },
       "BlogEntryPageCarouselItemCreateSchema": {
@@ -18841,28 +18874,7 @@
         "title": "RedirectSchema",
         "type": "object"
       },
-      "RelatedGenericRelationForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/RelatedGenericRelationMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "RelatedGenericRelationForeignKeySchema",
-        "type": "object"
-      },
-      "RelatedGenericRelationMetaSchema": {
+      "RelatedGenericRelationForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "tests.RelatedGenericRelation",
@@ -18892,7 +18904,28 @@
           }
         },
         "required": ["type"],
-        "title": "RelatedGenericRelationMetaSchema",
+        "title": "RelatedGenericRelationForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RelatedGenericRelationForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "RelatedGenericRelationForeignKeySchema",
         "type": "object"
       },
       "RequiredDatePageCreateMetaSchema": {
