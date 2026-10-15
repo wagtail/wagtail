@@ -1,7 +1,7 @@
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase, override_settings
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -601,3 +601,260 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         tasks = content["workflow_state"]["tasks"]
         self.assertIsNone(tasks[0]["task_state"])
         self.assertEqual(tasks[1]["task_state"]["status"], "in_progress")
+
+
+class WorkflowReadsMixin:
+    """Request helpers for the workflow status and history read endpoints."""
+
+    # Annotated for type checkers: the mixin itself is not a TestCase, but
+    # every host class provides the Django test client.
+    client: Client
+
+    def get_status(self, page):
+        return self.client.get(
+            reverse("wagtailapi_v3:get_page_workflow", kwargs={"page_id": page.pk})
+        )
+
+    def get_history(self, page, data=None):
+        return self.client.get(
+            reverse(
+                "wagtailapi_v3:list_page_workflow_history",
+                kwargs={"page_id": page.pk},
+            ),
+            data=data,
+        )
+
+
+class TestPageWorkflowReads(WorkflowReadsMixin, TestV3WorkflowBase, TestCase):
+    def setUp(self):
+        super().setUp()
+        # No page permissions and no task-group membership: never passes the
+        # workflow read gate.
+        self.outsider = self.create_user(username="outsider", password="password")
+
+    def submit_page(self):
+        self.login(user=self.submitter)
+        response = self.post_workflow("submit", self.page)
+        self.assertEqual(response.status_code, 200)
+
+    # Payload shape
+
+    def test_status_in_progress_payload_shape_per_caller(self):
+        self.submit_page()
+
+        # A moderator (task-group member with edit permission).
+        self.login(user=self.moderator)
+        response = self.get_status(self.page)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["workflow"]["name"], "test_workflow")
+        self.assertEqual(content["workflow_state"]["status"], "in_progress")
+        self.assertEqual(
+            content["workflow_state"]["requested_by"]["username"], "submitter"
+        )
+        self.assertEqual(
+            content["workflow_state"]["current_task_state"]["status"], "in_progress"
+        )
+        tasks = content["workflow_state"]["tasks"]
+        self.assertEqual(tasks[0]["task"]["name"], "test_task_1")
+        self.assertEqual(tasks[0]["task_state"]["status"], "in_progress")
+        self.assertEqual(tasks[1]["task"]["name"], "test_task_2")
+        # The second task has not started yet.
+        self.assertIsNone(tasks[1]["task_state"])
+        self.assertEqual(content["allowed_actions"], ["approve", "reject", "cancel"])
+
+        # A task-group member without edit permission sees the same actions:
+        # they are granted by the task, not by page permissions.
+        self.login(user=self.bare_approver)
+        content = self.get_status(self.page).json()
+        self.assertEqual(content["allowed_actions"], ["approve", "reject", "cancel"])
+
+        # The submitter is locked out of submit while the workflow is in
+        # progress, but may cancel the workflow they requested.
+        self.login(user=self.submitter)
+        content = self.get_status(self.page).json()
+        self.assertEqual(content["allowed_actions"], ["cancel"])
+
+    def test_status_in_progress_editor_without_actions_sees_empty_list(self):
+        # An editor who is neither the requester, the page owner, nor a
+        # current task-group member passes the read gate but has no
+        # available workflow actions.
+        editor = self.create_user(username="plain-editor", password="password")
+        group = Group.objects.create(name="Plain editors")
+        editor.groups.add(group)
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.get(depth=1),
+            permission=Permission.objects.get(
+                content_type__app_label=Page._meta.app_label,
+                codename=Page.PERMISSION_CODENAMES.CHANGE,
+            ),
+        )
+        self.submit_page()
+        self.login(user=editor)
+        response = self.get_status(self.page)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["allowed_actions"], [])
+
+    def test_status_fresh_page(self):
+        # No workflow has been started: there is no state yet and the editor
+        # may submit. The assigned (but not started) workflow is reported.
+        self.login(user=self.submitter)
+        response = self.get_status(self.page)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["workflow"]["name"], "test_workflow")
+        self.assertIsNone(content["workflow_state"])
+        self.assertEqual(content["allowed_actions"], ["submit"])
+
+    def test_status_fresh_page_denied_without_edit_permission(self):
+        # A user without page edit permission and with no active workflow has
+        # no read-gate branch that admits them: task actions only exist once
+        # the workflow is in progress.
+        self.login(user=self.bare_approver)
+        self.assert_problem_response(self.get_status(self.page), status_code=403)
+        self.login(user=self.outsider)
+        self.assert_problem_response(self.get_status(self.page), status_code=403)
+
+    def test_status_after_cancel_shows_cancelled_state_and_submit(self):
+        self.submit_page()
+        self.login(user=self.submitter)
+        self.assertEqual(self.post_workflow("cancel", self.page).status_code, 200)
+        response = self.get_status(self.page)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["workflow_state"]["status"], "cancelled")
+        # No active state and the submitter can edit, so submit is available
+        # again.
+        self.assertEqual(content["allowed_actions"], ["submit"])
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_status_workflow_disabled_reports_nulls(self):
+        self.login(user=self.submitter)
+        response = self.get_status(self.page)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertIsNone(content["workflow"])
+        self.assertIsNone(content["workflow_state"])
+        self.assertEqual(content["allowed_actions"], [])
+
+    # Read gate
+
+    def test_status_read_gate_matrix(self):
+        # Editors pass, the current task's group members pass, everyone else
+        # gets 403, anonymous gets 401.
+        self.submit_page()
+        matrix = [
+            (None, 401),
+            ("outsider", 403),
+            ("submitter", 200),
+            ("bare_approver", 200),
+            ("moderator", 200),
+            ("superuser", 200),
+        ]
+        for user_fixture, expected_status in matrix:
+            with self.subTest(user=user_fixture, expected_status=expected_status):
+                if user_fixture is None:
+                    self.unauthorize()
+                else:
+                    self.login(user=getattr(self, user_fixture))
+                response = self.get_status(self.page)
+                self.assertEqual(response.status_code, expected_status)
+                if expected_status == 200:
+                    self.assertEqual(
+                        response.json()["workflow_state"]["status"], "in_progress"
+                    )
+
+    def test_status_unknown_page_returns_404(self):
+        self.login(user=self.submitter)
+        last_id = Page.objects.order_by("-id").values_list("id", flat=True).first()
+        assert last_id is not None
+        response = self.client.get(
+            reverse("wagtailapi_v3:get_page_workflow", kwargs={"page_id": last_id + 1})
+        )
+        self.assert_problem_response(response, status_code=404)
+
+
+class TestPageWorkflowHistory(WorkflowReadsMixin, TestV3WorkflowBase, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.outsider = self.create_user(username="outsider", password="password")
+
+    def submit_and_cancel(self):
+        self.login(user=self.submitter)
+        self.assertEqual(self.post_workflow("submit", self.page).status_code, 200)
+        self.assertEqual(self.post_workflow("cancel", self.page).status_code, 200)
+
+    def test_history_on_fresh_page_is_empty(self):
+        self.login(user=self.submitter)
+        response = self.get_history(self.page)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"count": 0, "items": []})
+
+    def test_history_pagination_newest_first_and_scope(self):
+        self.submit_and_cancel()
+        # Cancel the second run too, so the page ends with two states: the
+        # newest in progress (cancelled second) is listed first.
+        self.submit_and_cancel()
+        response = self.get_history(self.page)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["count"], 2)
+        self.assertEqual(len(content["items"]), 2)
+        ids = [item["id"] for item in content["items"]]
+        self.assertEqual(ids, sorted(ids, reverse=True))
+        self.assertEqual(
+            [item["status"] for item in content["items"]],
+            ["cancelled", "cancelled"],
+        )
+        # Only this page's states are returned.
+        self.assertEqual(
+            set(ids),
+            set(self.page.workflow_states.values_list("id", flat=True)),
+        )
+
+        # Limit/offset pagination honours the envelope.
+        content = self.get_history(self.page, {"limit": 1}).json()
+        self.assertEqual(content["count"], 2)
+        self.assertEqual(len(content["items"]), 1)
+        self.assertEqual(content["items"][0]["id"], ids[0])
+
+    def test_history_items_are_lean(self):
+        self.submit_and_cancel()
+        self.login(user=self.submitter)
+        items = self.get_history(self.page).json()["items"]
+        for item in items:
+            # Each item carries the task states it aggregates, but not the
+            # workflow's full task timeline (that lives on the status
+            # endpoint only).
+            self.assertIn("task_states", item)
+            self.assertNotIn("tasks", item)
+
+    def test_history_read_gate(self):
+        self.submit_and_cancel()
+        matrix = [
+            (None, 401),
+            ("outsider", 403),
+            ("submitter", 200),
+            ("bare_approver", 403),
+        ]
+        for user_fixture, expected_status in matrix:
+            with self.subTest(user=user_fixture, expected_status=expected_status):
+                if user_fixture is None:
+                    self.unauthorize()
+                else:
+                    self.login(user=getattr(self, user_fixture))
+                response = self.get_history(self.page)
+                self.assertEqual(response.status_code, expected_status)
+
+    def test_history_unknown_page_returns_404(self):
+        self.login(user=self.submitter)
+        last_id = Page.objects.order_by("-id").values_list("id", flat=True).first()
+        assert last_id is not None
+        response = self.client.get(
+            reverse(
+                "wagtailapi_v3:list_page_workflow_history",
+                kwargs={"page_id": last_id + 1},
+            )
+        )
+        self.assert_problem_response(response, status_code=404)
