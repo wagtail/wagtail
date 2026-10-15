@@ -24,6 +24,9 @@ from wagtail.actions.revert_to_revision import RevertToRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.actions.workflow import (
+    ApproveTaskStateAction,
+    CancelWorkflowAction,
+    RejectTaskStateAction,
     ResumePageWorkflowAction,
     ResumeWorkflowAction,
     SubmitPageWorkflowAction,
@@ -31,10 +34,13 @@ from wagtail.actions.workflow import (
     WorkflowAction,
     WorkflowStateError,
     can_edit_instance,
+    get_available_workflow_transitions,
 )
 
 __all__ = [
     "BaseAction",
+    "ApproveTaskStateAction",
+    "CancelWorkflowAction",
     "ConvertAliasPageAction",
     "CopyForTranslationAction",
     "CopyPageAction",
@@ -54,6 +60,7 @@ __all__ = [
     "PublishPageRevisionAction",
     "RevertToPageRevisionAction",
     "RevertToRevisionAction",
+    "RejectTaskStateAction",
     "ResumePageWorkflowAction",
     "ResumeWorkflowAction",
     "SubmitPageWorkflowAction",
@@ -63,6 +70,7 @@ __all__ = [
     "WorkflowAction",
     "WorkflowStateError",
     "can_edit_instance",
+    "get_available_workflow_transitions",
     "ActionRegistry",
     "action_registry",
 ]
@@ -89,6 +97,9 @@ def register_default_actions():
 
     action_registry.register(WorkflowMixin, SubmitWorkflowAction)
     action_registry.register(WorkflowMixin, ResumeWorkflowAction)
+    action_registry.register(WorkflowMixin, ApproveTaskStateAction)
+    action_registry.register(WorkflowMixin, RejectTaskStateAction)
+    action_registry.register(WorkflowMixin, CancelWorkflowAction)
 
     action_registry.register(Page, CreatePageAction)
     action_registry.register(Page, EditPageAction)
