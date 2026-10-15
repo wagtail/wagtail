@@ -16,6 +16,7 @@ Changelog
  * Add `ImageRenditionField` for API v3 (Sage Abdullah)
  * Expand more details of ForeignKey, ManyToManyField, GenericRelation in API v3 schemas(Sage Abdullah)
  * Add `HTMLToMarkdownConverter` to convert arbitrary HTML, such as rendered pages, to Markdown (Albina Starykova)
+ * Add support for workflow operations in the v3 API for pages and snippets using `WorkflowMixin` (Thibaud Colas)
  * Fix: Avoid redundant writes back to the cache on `get_rendition` and `get_renditions` (Mason Lyons, Matt Westcott)
  * Fix: Allow `ChooserBlock.bulk_to_python()` to resolve records with primary keys that need converting to their native type, such as UUIDs (Saksham Chawla)
  * Fix: Prevent error when accessing the sitemap via an unknown host and no default site is configured (Jawad Khan)
