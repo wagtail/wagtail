@@ -144,7 +144,7 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap()
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(10):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -162,7 +162,7 @@ class TestSitemapGenerator(TestCase):
 
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(9):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
