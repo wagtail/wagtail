@@ -120,6 +120,20 @@ describe('contentExtractorPluginInstance', () => {
     expect(content.innerHTML.trim()).toEqual('<p>Test content</p>');
   });
 
+  it('should include the document head metadata', () => {
+    document.head.innerHTML = `
+      <title>Test page</title>
+      <meta name="description" content="Test description">
+    `;
+    const done = jest.fn();
+    contentExtractorPluginInstance.extract({ targetElement: 'main' }, done);
+    const content = done.mock.lastCall[0];
+    expect(content.metadata.title).toEqual('Test page');
+    expect(content.metadata.metaTags).toEqual([
+      { name: 'description', content: 'Test description' },
+    ]);
+  });
+
   it('should fall back to the body element if the selector does not match any elements', () => {
     const done = jest.fn();
     contentExtractorPluginInstance.extract({ targetElement: 'article' }, done);

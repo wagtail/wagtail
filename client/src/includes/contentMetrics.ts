@@ -1,5 +1,6 @@
 import axe from 'axe-core';
-import { gettext, ngettext } from '../utils/gettext';
+import { gettext } from '../utils/gettext';
+import { PageMetadata, getPageMetadata } from './metadataExtraction';
 
 export const getWordCount = (lang: string, text: string): number => {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
@@ -116,6 +117,8 @@ export interface ExtractedContent {
   innerText: string;
   /** The HTML content of the target element. */
   innerHTML: string;
+  /** The SEO / social media metadata of the document's head. */
+  metadata: PageMetadata;
 }
 
 /**
@@ -138,6 +141,7 @@ export const contentExtractorPluginInstance = {
       lang,
       innerText: text,
       innerHTML: html,
+      metadata: getPageMetadata(document),
     });
   },
 };
@@ -159,32 +163,3 @@ export const getPreviewContent = (
       },
     );
   });
-
-export const renderContentMetrics = ({
-  wordCount,
-  readingTime,
-  readabilityScore,
-}: ContentMetrics) => {
-  const wordCountContainer = document.querySelector<HTMLElement>(
-    '[data-content-word-count]',
-  );
-  const readingTimeContainer = document.querySelector<HTMLElement>(
-    '[data-content-reading-time]',
-  );
-  const readabilityScoreContainer = document.querySelector<HTMLElement>(
-    '[data-content-readability-score]',
-  );
-
-  if (!wordCountContainer || !readingTimeContainer) return;
-
-  wordCountContainer.textContent = wordCount.toString();
-  readingTimeContainer.textContent = ngettext(
-    '%(num)s min',
-    '%(num)s mins',
-    readingTime,
-  ).replace('%(num)s', `${readingTime}`);
-
-  if (readabilityScoreContainer) {
-    readabilityScoreContainer.textContent = readabilityScore.toString();
-  }
-};
