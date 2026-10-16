@@ -22,9 +22,12 @@ import {
 import {
   type RegisteredMetric,
   contentExtractorPluginInstance,
+  getPreviewContent,
   registerMetric as registerContentMetric,
+  renderContentMetrics,
 } from './contentMetrics';
 import { InlineUserbar } from './inlineUserbar';
+import { renderMetadataSection } from './metadataPreview';
 import { wagtailPreviewPlugin } from './previewPlugin';
 
 /**
@@ -481,7 +484,7 @@ export class Userbar extends HTMLElement {
     };
 
     renderCheckerResults(
-      this.dialogBody,
+      this.dialogBody.querySelector('[data-checks-panel]') || this.dialogBody,
       results,
       this.axeConfig,
       rowTemplate,
@@ -489,6 +492,10 @@ export class Userbar extends HTMLElement {
     );
 
     this.createAnnotations(results, this.axeConfig);
+
+    // Extract the page content and render the content metrics and page
+    // metadata sections of the dialog, matching the CMS's checks panel.
+    await this.renderContentChecks();
 
     // Notify the parent window when the userbar (and thus Axe) has been
     // initialized and is ready, so that it can re-run Axe against this window.
@@ -499,6 +506,20 @@ export class Userbar extends HTMLElement {
     // This also allows custom code in the frontend to trigger a re-run of the
     // checks both in the frontend and in the editor by calling this method.
     this.postAxeReady();
+  }
+
+  /**
+   * Extract the page content and render the content metrics and page
+   * metadata sections of the dialog, as part of the initial checks run.
+   */
+  async renderContentChecks() {
+    const content = await getPreviewContent({
+      targetElement: 'main, [role="main"]',
+    });
+    if (!content) return;
+
+    renderContentMetrics(content, this.dialogBody);
+    renderMetadataSection(content.metadata ?? null, this.dialogBody);
   }
 
   private createAnnotations(

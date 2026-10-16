@@ -830,7 +830,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     def test_render_no_request(self):
@@ -859,7 +859,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
@@ -911,7 +911,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     def test_render_with_page(self):
@@ -937,7 +937,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(checker_button)
         self.assertEqual(
             checker_button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL=None)
@@ -968,7 +968,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
