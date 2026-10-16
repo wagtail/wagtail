@@ -3907,6 +3907,58 @@ class TestPageWithContentJSON(PageFixturesMixin, TestCase):
             original_page.first_published_at, updated_page_value.first_published_at
         )
 
+    def test_publishing_revision_preserves_live_tree_parameters(self):
+        home = Page.objects.get(url_path="/home/")
+        parent = SimplePage(
+            title="Parent", slug="parent-page", content="test", live=False
+        )
+        home.add_child(instance=parent)
+        revision = parent.save_revision()
+
+        # Add a child through another instance of the parent
+        Page.objects.get(pk=parent.pk).add_child(
+            instance=SimplePage(title="Child", slug="child-page", content="test")
+        )
+        self.assertEqual(Page.objects.get(pk=parent.pk).numchild, 1)
+
+        # Publish the revision created before the child was added
+        revision.publish()
+
+        # The published parent must retain the live numchild count from the database (1),
+        # not reset it to 0 from the stale in-memory parent instance cached on the revision.
+        self.assertEqual(Page.objects.get(pk=parent.pk).numchild, 1)
+
+    def test_publishing_revision_preserves_live_tree_path_and_depth(self):
+        home = Page.objects.get(url_path="/home/")
+        section_a = home.add_child(
+            instance=SimplePage(title="Section A", slug="section-a", content="test")
+        )
+        section_b = home.add_child(
+            instance=SimplePage(title="Section B", slug="section-b", content="test")
+        )
+        child = section_a.add_child(
+            instance=SimplePage(
+                title="Child", slug="child-moved", content="test", live=False
+            )
+        )
+        revision = child.save_revision()
+
+        # Move the child from Section A to Section B
+        Page.objects.get(pk=child.pk).move(section_b, pos="last-child")
+        fresh_child = Page.objects.get(pk=child.pk)
+        new_path = fresh_child.path
+        new_depth = fresh_child.depth
+
+        # Publish the revision created before the move
+        revision.publish()
+
+        # The published child must retain its updated position in Section B
+        published_child = Page.objects.get(pk=child.pk)
+        self.assertEqual(published_child.path, new_path)
+        self.assertEqual(published_child.depth, new_depth)
+        self.assertEqual(published_child.get_parent().pk, section_b.pk)
+        self.assertEqual(published_child.url_path, "/home/section-b/child-moved/")
+
 
 class TestUnpublish(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
