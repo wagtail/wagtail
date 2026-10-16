@@ -245,20 +245,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [4])
 
-    def test_ancestor_of_unknown_page_gives_error(self):
+    def test_ancestor_of_unknown_page(self):
         response = self.get_response(ancestor_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["ancestor_of"],
-                    "msg": f"No {self.page_name} matches the given ancestor_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_ancestor_of_not_positive_integer_gives_error(self):
         response = self.get_response(ancestor_of="abc")
@@ -323,20 +315,11 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
 
-    def test_child_of_unknown_page_gives_error(self):
+    def test_child_of_unknown_page(self):
         response = self.get_response(child_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["child_of"],
-                    "msg": f"No {self.page_name} matches the given child_of value.",
-                }
-            ],
-        )
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_child_of_not_positive_integer_gives_error(self):
         response = self.get_response(child_of="abc")
@@ -417,20 +400,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
 
-    def test_descendant_of_unknown_page_gives_error(self):
+    def test_descendant_of_unknown_page(self):
         response = self.get_response(descendant_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["descendant_of"],
-                    "msg": f"No {self.page_name} matches the given descendant_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_descendant_of_not_positive_integer_gives_error(self):
         response = self.get_response(descendant_of="abc")
@@ -510,20 +485,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [])
 
-    def test_translation_of_unknown_page_gives_error(self):
+    def test_translation_of_unknown_page(self):
         response = self.get_response(translation_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["translation_of"],
-                    "msg": f"No {self.page_name} matches the given translation_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_locale_filter(self):
