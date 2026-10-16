@@ -71,6 +71,16 @@ from wagtail.rich_text import expand_db_html
 expand_db_html(page.body)
 ```
 
+(rich_text_page_links_multi_site)=
+
+### Page links in multi-site setups
+
+Page links are expanded by `PageLinkHandler`, which calls `Page.get_url()` without an explicit `request`. On multi-site sites, the correct site must therefore be available through Wagtail's request-scoped site binding (see :ref:`bind_site_scope_on_render_ref`) when templates are rendered.
+
+Wagtail does **not** thread `request` through `expand_db_html()`, the `|richtext` filter, or rewrite handlers. Django template filters cannot access the template context, so a `request` parameter on `expand_db_html()` would not help `{{ page.body|richtext }}` anyway. Passing `request` through every block, StreamField, and custom rewrite handler would widen the public API and duplicate the site identification that page URL helpers already perform. Instead, Wagtail binds the current site around deferred template rendering at page serve and preview boundaries, and `Page.get_url()` consults that binding when no `request` is passed.
+
+For custom views that render rich text outside those boundaries, call :func:`~wagtail.models.sites.bind_site_scope_on_render` on the `TemplateResponse` before it is rendered.
+
 ## The feature registry
 
 Any app within your project can define extensions to Wagtail's rich text handling, such as new `linktype` and `embedtype` rules. An object known as the _feature registry_ serves as a central source of truth about how rich text should behave. This object can be accessed through the [Register Rich Text Features](register_rich_text_features) hook, which is called on startup to gather all definitions relating to rich text:
