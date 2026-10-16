@@ -2349,10 +2349,14 @@ describe('PreviewController', () => {
       );
       expect(toggleCounter.textContent.trim()).toEqual('2');
 
-      const wordCount = document.querySelector('[data-metric-value="word-count"]');
+      const wordCount = document.querySelector(
+        '[data-metric-value="word-count"]',
+      );
       expect(wordCount.textContent.trim()).toEqual('201');
 
-      const readingTime = document.querySelector('[data-metric-value="reading-time"]');
+      const readingTime = document.querySelector(
+        '[data-metric-value="reading-time"]',
+      );
       expect(readingTime.textContent.trim()).toEqual('1 min');
 
       const readabilityScore = document.querySelector(
@@ -2458,10 +2462,14 @@ describe('PreviewController', () => {
       );
       expect(toggleCounter.textContent.trim()).toEqual('2');
 
-      const wordCount = document.querySelector('[data-metric-value="word-count"]');
+      const wordCount = document.querySelector(
+        '[data-metric-value="word-count"]',
+      );
       expect(wordCount.textContent.trim()).toEqual('-');
 
-      const readingTime = document.querySelector('[data-metric-value="reading-time"]');
+      const readingTime = document.querySelector(
+        '[data-metric-value="reading-time"]',
+      );
       expect(readingTime.textContent.trim()).toEqual('-');
 
       const panelCounter = document.querySelector(

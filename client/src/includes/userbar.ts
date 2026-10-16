@@ -20,9 +20,9 @@ import {
   renderCheckerResults,
 } from './contentChecker';
 import {
+  type RegisteredMetric,
   contentExtractorPluginInstance,
   registerMetric as registerContentMetric,
-  type RegisteredMetric,
 } from './contentMetrics';
 import { InlineUserbar } from './inlineUserbar';
 import { wagtailPreviewPlugin } from './previewPlugin';

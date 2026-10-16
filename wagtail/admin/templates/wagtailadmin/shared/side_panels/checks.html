@@ -33,6 +33,9 @@
                 {% endblock %}
             </div>
         {% endblock %}
+        {% block metadata_section %}
+            {% include "wagtailadmin/shared/content_checks/metadata.html" %}
+        {% endblock %}
         {% block issues_section %}
             <div>
                 <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold">
