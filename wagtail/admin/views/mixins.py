@@ -160,9 +160,14 @@ class SpreadsheetExportMixin:
 
     export_filename = "spreadsheet-export"
 
+    # If true, exports can only be performed through a POST request
+    export_requires_post = False
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.is_export = request.GET.get("export") in self.FORMATS
+        if self.is_export and self.export_requires_post and request.method != "POST":
+            self.is_export = False
 
     def get_paginate_by(self, queryset):
         if self.is_export:
@@ -299,6 +304,11 @@ class SpreadsheetExportMixin:
         params["export"] = format
         return self.request.path + "?" + params.urlencode()
 
+    def get_non_export_url(self):
+        params = self.request.GET.copy()
+        params.pop("export", None)
+        return self.request.path + "?" + params.urlencode()
+
     @property
     def xlsx_export_url(self):
         return self.get_export_url("xlsx")
@@ -315,12 +325,16 @@ class SpreadsheetExportMixin:
     def header_more_buttons(self):
         buttons = super().header_more_buttons.copy()
         if self.show_export_buttons:
+            method_kwargs = {}
+            if self.export_requires_post:
+                method_kwargs["post"] = True
             buttons.append(
                 Button(
                     _("Download XLSX"),
                     url=self.xlsx_export_url,
                     icon_name="download",
                     priority=90,
+                    **method_kwargs,
                 )
             )
             buttons.append(
@@ -329,6 +343,7 @@ class SpreadsheetExportMixin:
                     url=self.csv_export_url,
                     icon_name="download",
                     priority=100,
+                    **method_kwargs,
                 )
             )
 

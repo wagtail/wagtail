@@ -79,6 +79,7 @@ class LogEntriesView(ReportView):
     filterset_class = SiteHistoryReportFilterSet
     index_url_name = "wagtailadmin_reports:site_history"
     index_results_url_name = "wagtailadmin_reports:site_history_results"
+    export_requires_post = True
 
     export_headings = {
         "object_id": _("ID"),

@@ -67,18 +67,22 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             params["_w_filter_fragment"] = "true"
         return self.client.get(self.url, params, **kwargs)
 
+    def post(self, params=None, **kwargs):
+        params = params or {}
+        return self.client.post(self.url, query_params=params, **kwargs)
+
     def assertActiveFilter(self, soup, name, value):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL. When used in a results-only view, these are
         # teleported to the correct element in the skeleton.
         links_parent = soup.select_one(self.header_buttons_parent_selector)
         self.assertIsNotNone(links_parent)
-        links = links_parent.select(".w-dropdown a")
+        links = links_parent.select(".w-dropdown form")
         unfiltered_url = reverse(self.url_name)
         filtered_url = f"{unfiltered_url}?{name}={value}{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("action") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -260,7 +264,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             self.page.latest_revision_created_at = "2013-01-01T12:00:00"
         self.page.save()
 
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -293,7 +297,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             self.page.latest_revision_created_at = "2013-01-01T12:00:00"
         self.page.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
 
         # Check response - the locked page info should be in it
         self.assertEqual(response.status_code, 200)
@@ -909,7 +913,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
             self.home.last_published_at = "2013-01-01T12:00:00"
         self.home.save()
 
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
         data_lines = response.getvalue().decode().split("\n")
@@ -936,7 +940,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
             self.home.last_published_at = "2013-01-01T12:00:00"
         self.home.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
         self.assertEqual(response.status_code, 200)
 
         workbook_data = response.getvalue()
@@ -978,7 +982,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
         self.home.last_published_by = None
         self.home.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
         self.assertEqual(response.status_code, 200)
 
         workbook_data = response.getvalue()
