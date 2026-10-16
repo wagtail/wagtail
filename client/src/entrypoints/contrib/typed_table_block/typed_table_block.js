@@ -529,6 +529,7 @@ export class TypedTableBlock {
             : block.getDuplicatedState(),
         ),
       })),
+      caption: this.caption,
     };
   }
 
