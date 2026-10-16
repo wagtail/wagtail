@@ -2,10 +2,12 @@ from .base import BaseBackend
 
 
 class DummyBackend(BaseBackend):
-    def __init__(self):
-        super().__init__()
-
-        self.urls = []
+    # Backends are instantiated on each purge, so store URLs on the class
+    urls = []
 
     def purge(self, url) -> None:
-        self.urls.append(url)
+        DummyBackend.urls.append(url)
+
+    @classmethod
+    def reset(cls) -> None:
+        DummyBackend.urls.clear()

@@ -5,19 +5,18 @@ from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import NoReverseMatch
 
 from wagtail.api.v3 import signal_handlers
+from wagtail.contrib.frontend_cache.backends.dummy import DummyBackend
 from wagtail.test.utils import Page, PageFixturesMixin
 
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
-        "varnish": {
-            "BACKEND": "wagtail.contrib.frontend_cache.backends.HTTPBackend",
-            "LOCATION": "http://localhost:8000",
+        "dummy": {
+            "BACKEND": "wagtail.contrib.frontend_cache.backends.dummy.DummyBackend",
         },
     },
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
-@mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestPageCacheInvalidation(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
@@ -31,37 +30,40 @@ class TestPageCacheInvalidation(PageFixturesMixin, TestCase):
         super().tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
-    def test_republish_page_purges(self, purge):
+    def setUp(self):
+        DummyBackend.reset()
+
+    def test_republish_page_purges(self):
         with self.captureOnCommitCallbacks(execute=True):
             Page.objects.get(id=2).specific.save_revision().publish()
 
-        purge.assert_any_call("http://api.example.com/api/v3/pages/2/")
+        self.assertIn("http://api.example.com/api/v3/pages/2/", DummyBackend.urls)
 
-    def test_unpublish_page_purges(self, purge):
+    def test_unpublish_page_purges(self):
         with self.captureOnCommitCallbacks(execute=True):
             Page.objects.get(id=2).unpublish()
 
-        purge.assert_any_call("http://api.example.com/api/v3/pages/2/")
+        self.assertIn("http://api.example.com/api/v3/pages/2/", DummyBackend.urls)
 
-    def test_delete_page_purges(self, purge):
+    def test_delete_page_purges(self):
         with self.captureOnCommitCallbacks(execute=True):
             Page.objects.get(id=16).delete()
 
-        purge.assert_any_call("http://api.example.com/api/v3/pages/16/")
+        self.assertIn("http://api.example.com/api/v3/pages/16/", DummyBackend.urls)
 
-    def test_save_draft_doesnt_purge(self, purge):
+    def test_save_draft_doesnt_purge(self):
         with self.captureOnCommitCallbacks(execute=True):
             Page.objects.get(id=2).specific.save_revision()
 
-        purge.assert_not_called()
+        self.assertEqual(DummyBackend.urls, [])
 
     @mock.patch("wagtail.api.v3.signal_handlers.reverse", side_effect=NoReverseMatch)
-    def test_urls_not_mounted_doesnt_purge(self, reverse, purge):
+    def test_urls_not_mounted_doesnt_purge(self, reverse):
         with self.captureOnCommitCallbacks(execute=True):
             signal_handlers.purge_page_from_cache(Page.objects.get(id=2))
 
         reverse.assert_called_once()
-        purge.assert_not_called()
+        self.assertEqual(DummyBackend.urls, [])
 
 
 class TestUseFrontendCache(SimpleTestCase):

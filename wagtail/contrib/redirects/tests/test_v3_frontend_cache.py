@@ -1,21 +1,18 @@
-from unittest import mock
-
 from django.test import TestCase, override_settings
 
+from wagtail.contrib.frontend_cache.backends.dummy import DummyBackend
 from wagtail.contrib.redirects.api.v3 import signal_handlers
 from wagtail.contrib.redirects.models import Redirect
 
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
-        "varnish": {
-            "BACKEND": "wagtail.contrib.frontend_cache.backends.HTTPBackend",
-            "LOCATION": "http://localhost:8000",
+        "dummy": {
+            "BACKEND": "wagtail.contrib.frontend_cache.backends.dummy.DummyBackend",
         },
     },
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
-@mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestRedirectCacheInvalidation(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -27,25 +24,32 @@ class TestRedirectCacheInvalidation(TestCase):
         super().tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
-    def test_create_redirect_doesnt_purge(self, purge):
+    def setUp(self):
+        DummyBackend.reset()
+
+    def test_create_redirect_doesnt_purge(self):
         with self.captureOnCommitCallbacks(execute=True):
             Redirect.objects.create(old_path="/old", redirect_link="/new")
 
-        purge.assert_not_called()
+        self.assertEqual(DummyBackend.urls, [])
 
-    def test_resave_redirect_purges(self, purge):
+    def test_resave_redirect_purges(self):
         redirect = Redirect.objects.create(old_path="/old", redirect_link="/new")
 
         with self.captureOnCommitCallbacks(execute=True):
             redirect.save()
 
-        purge.assert_any_call(f"http://api.example.com/api/v3/redirects/{redirect.id}/")
+        self.assertIn(
+            f"http://api.example.com/api/v3/redirects/{redirect.id}/", DummyBackend.urls
+        )
 
-    def test_delete_redirect_purges(self, purge):
+    def test_delete_redirect_purges(self):
         redirect = Redirect.objects.create(old_path="/old", redirect_link="/new")
         redirect_id = redirect.id
 
         with self.captureOnCommitCallbacks(execute=True):
             redirect.delete()
 
-        purge.assert_any_call(f"http://api.example.com/api/v3/redirects/{redirect_id}/")
+        self.assertIn(
+            f"http://api.example.com/api/v3/redirects/{redirect_id}/", DummyBackend.urls
+        )
