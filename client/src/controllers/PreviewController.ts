@@ -948,7 +948,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('content', { detail: { content, metrics } });
 
-    renderContentMetrics(metrics);
+    renderContentMetrics(content);
   }
 
   /**

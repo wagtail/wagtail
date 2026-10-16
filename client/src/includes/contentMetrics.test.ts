@@ -1,9 +1,13 @@
 import {
+  type ExtractedContent,
   contentExtractorPluginInstance,
   getLIXScore,
   getReadabilityScore,
   getReadingTime,
   getWordCount,
+  registerMetric,
+  renderContentMetrics,
+  resetMetrics,
 } from './contentMetrics';
 
 describe.each`
@@ -146,5 +150,157 @@ describe('contentExtractorPluginInstance', () => {
     expect(content.innerHTML.trim().replace(/\s+/g, ' ')).toEqual(
       '<main> <p>Test content</p> </main> <div>Something else</div>',
     );
+  });
+});
+
+describe('renderContentMetrics', () => {
+  // innerText is not implemented in JSDOM
+  // https://github.com/jsdom/jsdom/issues/1245
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'innerText', {
+      configurable: true,
+      get() {
+        return this.textContent;
+      },
+    });
+  });
+
+  afterAll(() => {
+    delete (HTMLElement.prototype as any).innerText;
+  });
+
+  const buildRoot = () => {
+    const root = document.createElement('div');
+    root.innerHTML = `
+      <div data-metric-list></div>
+      <p data-metric-value="word-count"></p>
+      <p data-metric-value="reading-time"></p>
+      <p data-metric-value="readability-score"></p>
+    `;
+    return root;
+  };
+
+  const extractedContent = () => {
+    document.body.innerHTML = `
+      <main><p>${'word '.repeat(238)}</p></main>
+    `;
+    let content: ExtractedContent;
+    contentExtractorPluginInstance.extract(
+      { targetElement: 'main' },
+      (result) => {
+        content = result;
+      },
+    );
+    return content!;
+  };
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+    resetMetrics();
+  });
+
+  it('renders every metric definition into slots within the given root', () => {
+    const root = buildRoot();
+    const content = extractedContent();
+
+    renderContentMetrics(content, root);
+
+    const slots = Object.fromEntries(
+      Array.from(root.querySelectorAll('[data-metric-value]')).map((slot) => [
+        slot.getAttribute('data-metric-value'),
+        slot.textContent,
+      ]),
+    );
+    expect(slots['word-count']).toEqual('238');
+    expect(slots['reading-time']).toEqual('1 min');
+    expect(slots['readability-score']).toBeTruthy();
+  });
+
+  it('renders registered metrics as extra rows', () => {
+    const root = buildRoot();
+    registerMetric({
+      id: 'text-ratio',
+      getLabel: () => 'Text ratio',
+      compute: () => '12%',
+    });
+    const content = extractedContent();
+
+    renderContentMetrics(content, root);
+
+    const list = root.querySelector('[data-metric-list]')!;
+    expect(list.textContent).toContain('Text ratio');
+    expect(list.textContent).toContain('12%');
+  });
+
+  it('handles missing slots gracefully', () => {
+    const root = document.createElement('div');
+    const content = extractedContent();
+
+    expect(() => renderContentMetrics(content, root)).not.toThrow();
+  });
+
+  it('uses the document as the fallback root', () => {
+    const content = extractedContent();
+    document.body.innerHTML = `
+      <div data-metric-list></div>
+      <p data-metric-value="word-count"></p>
+    `;
+
+    renderContentMetrics(content);
+
+    expect(
+      document.querySelector('[data-metric-value="word-count"]')!.textContent,
+    ).toEqual('238');
+  });
+});
+
+describe('renderContentMetrics repeated rendering', () => {
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'innerText', {
+      configurable: true,
+      get() {
+        return this.textContent;
+      },
+    });
+  });
+
+  afterAll(() => {
+    delete (HTMLElement.prototype as any).innerText;
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+    resetMetrics();
+  });
+
+  it('does not duplicate registered metric rows when re-rendered', () => {
+    registerMetric({
+      id: 'text-ratio',
+      getLabel: () => 'Text ratio',
+      compute: () => '12%',
+    });
+    document.body.innerHTML = `
+      <main><p>${'word '.repeat(238)}</p></main>
+    `;
+    let content: ExtractedContent;
+    contentExtractorPluginInstance.extract(
+      { targetElement: 'main' },
+      (result) => {
+        content = result;
+      },
+    );
+    const root = document.createElement('div');
+    root.innerHTML = `
+      <div data-metric-list></div>
+      <p data-metric-value="word-count"></p>
+    `;
+
+    renderContentMetrics(content!, root);
+    renderContentMetrics(content!, root);
+    renderContentMetrics(content!, root);
+
+    const rows = root.querySelectorAll('[data-registered-metric]');
+    expect(rows).toHaveLength(1);
+    expect(root.textContent!.match(/Text ratio/g)).toHaveLength(1);
   });
 });

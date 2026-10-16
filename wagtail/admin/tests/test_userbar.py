@@ -381,6 +381,21 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
             },
         )
 
+    def test_checks_panel_renders_metric_slots_and_disclosure(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(2,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'data-metric-value="word-count"')
+        self.assertContains(response, 'data-metric-value="reading-time"')
+        self.assertContains(response, 'data-metric-value="readability-score"')
+        self.assertContains(response, 'data-metric-list')
+        self.assertContains(response, 'data-content-metrics-explainer')
+        self.assertContains(response, "This data explained")
+        # The former explainer modal is replaced by the disclosure
+        self.assertNotContains(response, "metrics-explainer-dialog")
+
+
     def test_unset_run_only(self):
         class UnsetRunOnlyContentCheckerItem(ContentCheckerItem):
             # Example config that unsets the runOnly property so that all

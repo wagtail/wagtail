@@ -19,7 +19,11 @@ import {
   registerCustomCheck,
   renderCheckerResults,
 } from './contentChecker';
-import { contentExtractorPluginInstance } from './contentMetrics';
+import {
+  contentExtractorPluginInstance,
+  registerMetric as registerContentMetric,
+  type RegisteredMetric,
+} from './contentMetrics';
 import { InlineUserbar } from './inlineUserbar';
 import { wagtailPreviewPlugin } from './previewPlugin';
 
@@ -370,6 +374,14 @@ export class Userbar extends HTMLElement {
    */
   registerCheck(id: string, evaluate: Check['evaluate']) {
     registerCustomCheck(id, evaluate);
+  }
+
+  /**
+   * Register a custom content metric, displayed as an extra row in the
+   * content metrics sections of the checks panel and checks dialog.
+   */
+  registerMetric(metric: RegisteredMetric) {
+    registerContentMetric(metric);
   }
 
   /**

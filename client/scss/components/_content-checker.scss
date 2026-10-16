@@ -122,3 +122,60 @@
     line-height: theme('lineHeight.none');
   }
 }
+
+.w-content-checks-disclosure {
+  $disclosure: &;
+
+  > summary {
+    display: inline-flex;
+    align-items: center;
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-link-default');
+    cursor: pointer;
+    list-style: none;
+    gap: theme('spacing.1');
+
+    &:hover {
+      color: theme('colors.text-link-hover');
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    .icon {
+      width: theme('spacing.4');
+      height: theme('spacing.4');
+      fill: currentColor;
+    }
+
+    // Rotate the icon when open to indicate the state.
+    [aria-hidden='true'] {
+      transition: transform theme('transitionDuration.DEFAULT') ease;
+    }
+  }
+
+  &[open] > summary {
+    color: theme('colors.text-link-hover');
+  }
+
+  &__content {
+    padding: theme('spacing.3') 0 theme('spacing.2');
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-context');
+
+    h3 {
+      margin-top: theme('spacing.3');
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    hr {
+      margin: theme('spacing.3') 0;
+      border-color: theme('colors.border-furniture');
+    }
+  }
+}
+
