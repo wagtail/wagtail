@@ -620,15 +620,6 @@ class SnippetViewSet(ModelViewSet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        if self.model is None:
-            raise ImproperlyConfigured(
-                "SnippetViewSet must be passed a model or define a model attribute."
-            )
-
-        self.model_opts = self.model._meta
-        self.app_label = self.model_opts.app_label
-        self.model_name = self.model_opts.model_name
-
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
@@ -699,9 +690,6 @@ class SnippetViewSet(ModelViewSet):
             preview_url_name=self.get_url_name("preview_on_add"),
             **kwargs,
         )
-
-    def get_copy_view_kwargs(self, **kwargs):
-        return self.get_add_view_kwargs(**kwargs)
 
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
@@ -774,10 +762,6 @@ class SnippetViewSet(ModelViewSet):
             self.lock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
-
-    @property
-    def copy_view(self):
-        return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
 
     @property
     def unlock_view(self):
