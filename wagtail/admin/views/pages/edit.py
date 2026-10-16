@@ -573,6 +573,11 @@ class EditView(
         workflow_task = self.page.current_workflow_task
         if not workflow_task:
             return False
+        task_state_id = self.request.POST.get("workflow-task-state-id")
+        if task_state_id and task_state_id != str(
+            self.page.current_workflow_task_state.pk
+        ):
+            return False
         self.workflow_action = self.request.POST.get("workflow-action-name")
         available_actions = workflow_task.get_actions(self.page, self.request.user)
         available_action_names = [

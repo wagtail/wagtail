@@ -1,6 +1,6 @@
-{% load wagtailadmin_tags %}
+{% load l10n wagtailadmin_tags %}
 {% if launch_modal %}
-    <button class="button" data-workflow-action-name="{{ name }}" data-workflow-action-modal-url="{{ url }}">
+    <button class="button" data-workflow-action-name="{{ name }}" data-workflow-task-state-id="{{ current_task_state.pk|unlocalize }}" data-workflow-action-modal-url="{{ url }}">
         {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
     </button>
 {% else %}
@@ -8,6 +8,7 @@
         type="submit"
         class="button button-longrunning"
         data-workflow-action-name="{{ name }}"
+        data-workflow-task-state-id="{{ current_task_state.pk|unlocalize }}"
         data-controller="w-progress"
         data-action="w-progress#activate"
     >

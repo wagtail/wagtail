@@ -374,6 +374,11 @@ class CreateEditViewOptionalFeaturesMixin:
         # The workflow might have been cancelled/ended after the page was loaded
         if not self.current_workflow_task:
             return False
+        task_state_id = self.request.POST.get("workflow-task-state-id")
+        if task_state_id and task_state_id != str(
+            self.object.current_workflow_task_state.pk
+        ):
+            return False
         self.workflow_action = self.request.POST.get("workflow-action-name")
         available_actions = self.current_workflow_task.get_actions(
             self.object, self.request.user

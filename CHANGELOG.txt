@@ -32,6 +32,7 @@ Changelog
  * Fix: Prevent syntax errors from crashing a dev server with a `RuntimeError` when using jinja2 (Sage Abdullah, Matt Westcott)
  * Fix: Add `Vary: X-Requested-With` to responses from pages with an `ajax_template` (Albina Starykova)
  * Fix: Protect workflow action buttons against multiple submissions that could cause a crash or an overwrite (Nick Moreton, Jakub Mastalerz, Sage Abdullah)
+ * Fix: Reject workflow actions if the current task state does not match what the user submitted (Sage Abdullah)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
