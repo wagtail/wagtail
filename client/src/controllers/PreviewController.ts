@@ -288,6 +288,13 @@ export class PreviewController extends Controller<HTMLElement> {
   #reloadPromiseResolve: (() => void) | null = null;
 
   /**
+   * The preview mode changed after the current iframe URL was chosen.
+   * The in-flight iframe keeps the previous mode, so the selected mode is
+   * requested once that update finishes.
+   */
+  #modeChangePending = false;
+
+  /**
    * Promise for the current content checks request. This resolved when both
    * the content metrics and the Axe checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
@@ -466,6 +473,16 @@ export class PreviewController extends Controller<HTMLElement> {
   setPreviewMode() {
     this.updateNewTabLink();
 
+    // The iframe URL is chosen when the pending request finishes reloading.
+    // A mode change before that still reaches the iframe. A mode change after
+    // the URL is chosen has to wait, or setPreviewData keeps the old request
+    // and the new mode is never loaded.
+    if (this.updatePromise) {
+      this.#modeChangePending = !!this.reloadPromise;
+      return;
+    }
+
+    this.#modeChangePending = false;
     // Make sure data is updated and an alert is displayed if an error occurs
     this.setPreviewDataWithAlert();
   }
@@ -1009,6 +1026,15 @@ export class PreviewController extends Controller<HTMLElement> {
     this.#reloadPromiseResolve?.();
     this.reloadPromise = null;
     this.#reloadPromiseResolve = null;
+
+    // A mode change that arrived after this iframe URL was chosen still needs
+    // its own request. This is not covered by the stale-edit retry below,
+    // which only runs when auto-update is enabled.
+    if (this.#modeChangePending) {
+      this.#modeChangePending = false;
+      this.setPreviewData();
+      return;
+    }
 
     // If the preview data became stale while this update was in progress
     // (e.g. the user kept editing during the fetch/iframe load), schedule
