@@ -211,6 +211,8 @@ The `/pages/{page_id}/revisions/{revision_id}/` endpoint returns a single revisi
 
 Page actions are operations Wagtail applies to a page as a whole, each exposed as a `POST /pages/{page_id}/actions/<name>/` endpoint. Each action requires an authenticated request and the permission indicated below, and runs through the same Wagtail action layer as the admin UI, so permissions, revisions, audit logs, hooks, and signals are preserved.
 
+Moderation workflow operations (submit for moderation, approve, reject, resume, and cancel) follow the same pattern under `actions/workflow/`, and are covered in [](api_v3_workflows).
+
 ### Publish
 
 `/pages/{page_id}/actions/publish/` requires the page `publish` permission. It publishes the page's latest revision. If that revision already has a future `go_live_at`, publishing schedules it for that time instead of publishing immediately. If the page has no revision yet, one is created first when the caller has permission:

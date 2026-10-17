@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.db.models import Model, Q
+from django.db.models import Model, Prefetch, Q
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -37,9 +37,19 @@ from wagtail.api.v3.schemas.params import (
     locale_filter_q,
 )
 from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
+from wagtail.api.v3.schemas.workflows import (
+    WorkflowStateSchema,
+    WorkflowStatusSchema,
+    WorkflowTaskActionSchema,
+)
+from wagtail.api.v3.workflows import (
+    build_workflow_status_payload,
+    check_can_view_workflow,
+    resolve_task_state,
+)
 from wagtail.api.validators import SiteFilterValidator
 from wagtail.coreutils import find_available_slug, resolve_model_string
-from wagtail.models import Locale, Site, get_page_models
+from wagtail.models import Locale, Site, TaskState, get_page_models
 from wagtail.query import PageQuerySet
 
 Page = swapper.load_model("wagtailcore", "Page")
@@ -397,6 +407,50 @@ def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveI
     return get_object_or_404(revisions, pk=revision_id)
 
 
+@router.get(
+    "/{page_id}/workflow/",
+    response=WorkflowStatusSchema,
+    url_name="get_page_workflow",
+    summary="Page workflow status",
+    operation_id="pages_workflow_status",
+    auth=BearerTokenAuth(),
+)
+def get_page_workflow(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return build_workflow_status_payload(page, request.user)
+
+
+@router.get(
+    "/{page_id}/workflow/history/",
+    response=list[WorkflowStateSchema],
+    url_name="list_page_workflow_history",
+    summary="List page workflow states",
+    operation_id="pages_workflow_history",
+    auth=BearerTokenAuth(),
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return (
+        page.workflow_states.select_related(
+            "workflow", "requested_by", "current_task_state__task"
+        )
+        .prefetch_related(
+            "current_task_state__finished_by",
+            Prefetch(
+                "task_states",
+                queryset=TaskState.objects.select_related(
+                    "task", "finished_by", "task__content_type"
+                ).order_by("started_at", "id"),
+                to_attr="_api_task_states",
+            ),
+        )
+        .order_by("-created_at", "-id")
+    )
+
+
 @actions_router.post(
     "/{page_id}/actions/publish/",
     response=PageDetailSchema,
@@ -722,6 +776,96 @@ def copy_for_translation(
     except ParentNotTranslatedError as e:
         raise as_validation_error(e) from e
     return Status(201, new_page)
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/submit/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_submit",
+    summary="Submit page for moderation",
+    operation_id="pages_actions_workflow_submit",
+)
+@require_any_permission(Page, ("change",))
+def submit_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "submit")
+    action_class(page, user=request.user).execute()
+    return build_workflow_status_payload(page, request.user)
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/approve/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_approve",
+    summary="Approve the current workflow task",
+    operation_id="pages_actions_workflow_approve",
+)
+def approve_workflow(
+    request,
+    page_id: PositiveInt,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    task_state = resolve_task_state(page, data.task_state_id)
+    action_class = action_registry.get_action_class(Page, "approve")
+    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    return build_workflow_status_payload(
+        page, request.user, workflow_state=task_state.workflow_state
+    )
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/reject/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_reject",
+    summary="Reject the current workflow task",
+    operation_id="pages_actions_workflow_reject",
+)
+def reject_workflow(
+    request,
+    page_id: PositiveInt,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    task_state = resolve_task_state(page, data.task_state_id)
+    action_class = action_registry.get_action_class(Page, "reject")
+    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    return build_workflow_status_payload(
+        page, request.user, workflow_state=task_state.workflow_state
+    )
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/resume/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_resume",
+    summary="Resume the workflow after changes were requested",
+    operation_id="pages_actions_workflow_resume",
+)
+@require_any_permission(Page, ("change",))
+def resume_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "resume")
+    workflow_state = action_class(page, user=request.user).execute()
+    return build_workflow_status_payload(
+        page, request.user, workflow_state=workflow_state
+    )
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/cancel/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_cancel",
+    summary="Cancel the current workflow",
+    operation_id="pages_actions_workflow_cancel",
+)
+def cancel_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "cancel")
+    workflow_state = action_class(page, user=request.user).execute()
+    return build_workflow_status_payload(
+        page, request.user, workflow_state=workflow_state
+    )
 
 
 router.add_router("/", actions_router)
