@@ -33,9 +33,10 @@ A top-level StreamBlock value is a JSON array of blocks:
 The `value` representation depends on the block type:
 
 -   **Nested StreamBlock** — a list of `{type, id, value}` blocks, recursively.
--   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`.
+-   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`. On input, an item can also be given as `{"type": "item", "id": ..., "value": ...}`, which keeps its `id`.
 -   **StructBlock** — an object keyed by the child block's field names.
 -   **RichTextBlock** — rich text, using the input and output formats described in [](api_v3_rich_text).
+-   **TypedTableBlock** — an object with `columns` (each with a `type` and a `heading`), `rows` (each with a `values` list holding one value per column, in that column block's own representation), and a `caption`.
 -   **Chooser and leaf blocks** (for example image and page choosers) — a scalar value such as the object's ID, or another widget-compatible value.
 
 Custom blocks can customise how they are read back through the API by [defining `get_api_representation(value, context=None)`](apiv2_streamfield_configuration), which takes precedence over the default representation.
@@ -50,18 +51,35 @@ StreamField values are submitted as part of a page or snippet create or update, 
 -   An **unknown block type** in the submitted list returns `422`.
 -   Values are validated by the block's real `clean()` method and the form widget, and chooser IDs are validated, so the same validation applies as in the editor.
 
+Built-in blocks need no extra code to be writable, and nor do custom blocks based on `StreamBlock`, `ListBlock`, `StructBlock`, or `FieldBlock` (including chooser blocks). A submitted value takes the same shape as the block's stored value, which for built-in blocks is also their default API representation. Writes don't use a custom `get_api_representation`, so a block that overrides it still accepts the stored shape on input. Each field block's value is passed through its form widget, as when submitted through the editor, and the whole value is validated by the blocks' `clean()` methods. Rich text is also converted from any accepted rich text input format. A custom block that contains other blocks but isn't based on `StreamBlock`, `ListBlock`, or `StructBlock` must define `map_child_values(value, func)` to be writable, returning its stored value with `func(child_block, child_value, child_path)` applied to each child value, so its children are handled in the same way. See `TypedTableBlock` for an example. Writing any other kind of custom block returns `422`.
+
 ```{note}
 Because updating replaces the whole value, build clients that send the complete StreamField list for the field rather than relying on partial, block-level updates.
 ```
 
+(api_v3_child_relations)=
+
 ## Child relations
 
-Writable relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. These follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
+Relationships defined with `InlinePanel` on a `ParentalKey` are exposed as a list of generated child schemas within the parent's payload. A relation is named by its accessor on the parent model: the `related_name` of the `ParentalKey`, or the default `<model name>_set` if it has none. Each child item includes its primary key under the primary key field's own name, usually `id`, or e.g. `custom_id` for a model with a custom primary key. When the relation and its child fields are writable, these follow the same replace-as-a-whole rules as StreamField values. When you supply a child relation on update:
 
--   existing children whose `id` matches are edited in place;
+-   existing children whose primary key matches are edited in place, so an item read from the API can be sent back as-is;
 -   existing children you omit from the list are deleted when the relation is supplied;
--   children with unmatched or missing IDs are created;
+-   children with unmatched or missing primary keys are created;
+-   for an orderable child model, the children are saved in the order they're submitted;
 -   omitting the relation entirely leaves it untouched.
+
+Each submitted child item replaces that child's writable fields as a whole: a field you omit from an item is treated as empty, not left unchanged. Include all of an item's fields when editing it.
+
+### Nested child relations
+
+A child model can have child relations of its own, such as an `InlinePanel` within an `InlinePanel` child. When listed in the child model's `api_fields`, these are included within each child item, and are written using the same rules, against that child's own existing children:
+
+-   omitting a nested relation from an item leaves that child's existing nested children untouched, and gives a new child none;
+-   supplying an empty list removes them;
+-   deleting a child also deletes its nested children.
+
+Other reverse relations are only included at the top level of a page or snippet, not within child items.
 
 StreamField values nested inside child forms use the same flattening path as top-level StreamField fields.
 

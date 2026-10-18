@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.messages import get_messages
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
@@ -487,7 +488,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
                 "workflow_tasks-1-ORDER": ["2"],
                 "workflow_tasks-1-DELETE": [""],
                 "pages-TOTAL_FORMS": ["2"],
-                "pages-INITIAL_FORMS": ["1"],
+                "pages-INITIAL_FORMS": ["0"],
                 "pages-MIN_NUM_FORMS": ["0"],
                 "pages-MAX_NUM_FORMS": ["1000"],
                 "pages-0-page": [str(self.root_page.id)],
@@ -3161,11 +3162,12 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         https://github.com/wagtail/wagtail/issues/13856
 
         Approving a workflow that has been cancelled after the page was loaded
-        should result in a normal save instead of an error or a publish action.
+        should not save or publish, and should keep the edits in the form.
         """
         workflow_state = self.object.current_workflow_state
         workflow_state.cancel(user=self.superuser)
         self.object.refresh_from_db()
+        revisions_before = self.object.revisions.count()
 
         response = self.post(
             "workflow-action",
@@ -3176,13 +3178,120 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             },
         )
 
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Edited Title")
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
         self.object.refresh_from_db()
         self.assertFalse(self.object.live)
-        self.assertEqual(
-            getattr(self.object.get_latest_revision_as_object(), self.title_field),
-            "Edited Title",
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def test_duplicate_workflow_action_after_workflow_finished(self):
+        self.object.current_workflow_state.current_task_state.approve(
+            user=self.moderator
         )
+        revisions_before = self.object.revisions.count()
+
+        response = self.post("workflow-action", {"workflow-action-name": "approve"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
+        self.object.refresh_from_db()
+        self.assertTrue(self.object.live)
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def add_second_task(self):
+        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
+        task_2.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(workflow=self.workflow, task=task_2, sort_order=2)
+        return task_2
+
+    def test_workflow_action_buttons_include_task_state_id(self):
+        response = self.client.get(self.get_url("edit"))
+
+        soup = self.get_soup(response.content)
+        buttons = soup.select("[data-workflow-action-name]")
+        self.assertTrue(buttons)
+        task_state_id = str(self.object.current_workflow_task_state.pk)
+        for button in buttons:
+            self.assertEqual(button["data-workflow-task-state-id"], task_state_id)
+
+    def test_workflow_action_with_current_task_state(self):
+        task_2 = self.add_second_task()
+        task_state = self.object.current_workflow_task_state
+
+        response = self.post(
+            "workflow-action",
+            {
+                "workflow-action-name": "approve",
+                "workflow-task-state-id": str(task_state.pk),
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        task_state.refresh_from_db()
+        self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+        self.assertEqual(self.object.current_workflow_task, task_2)
+
+    def test_duplicate_workflow_action_after_task_changed(self):
+        task_2 = self.add_second_task()
+        stale_task_state = self.object.current_workflow_task_state
+        stale_task_state.approve(user=self.moderator)
+        self.assertEqual(self.object.current_workflow_task, task_2)
+        revisions_before = self.object.revisions.count()
+
+        response = self.post(
+            "workflow-action",
+            {
+                "workflow-action-name": "approve",
+                "workflow-task-state-id": str(stale_task_state.pk),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
+        current_task_state = self.object.current_workflow_task_state
+        self.assertEqual(current_task_state.task.specific, task_2)
+        self.assertEqual(
+            current_task_state.status, current_task_state.STATUS_IN_PROGRESS
+        )
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def test_workflow_action_on_task_user_cannot_act_on(self):
+        other_group = Group.objects.create(name="Other reviewers")
+        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
+        task_2.groups.set([other_group])
+        WorkflowTask.objects.create(workflow=self.workflow, task=task_2, sort_order=2)
+        stale_task_state = self.object.current_workflow_task_state
+        stale_task_state.approve(user=self.moderator)
+        current_task_state = self.object.current_workflow_task_state
+        self.assertEqual(current_task_state.task.specific, task_2)
+        self.assertEqual(task_2.get_actions(self.object, self.moderator), [])
+
+        for task_state_id in [None, stale_task_state.pk, current_task_state.pk]:
+            with self.subTest(task_state_id=task_state_id):
+                data = {"workflow-action-name": "approve"}
+                if task_state_id:
+                    data["workflow-task-state-id"] = str(task_state_id)
+
+                self.post("workflow-action", data)
+
+                current_task_state.refresh_from_db()
+                self.assertEqual(
+                    current_task_state.status, current_task_state.STATUS_IN_PROGRESS
+                )
+                self.object.refresh_from_db()
+                self.assertFalse(self.object.live)
 
 
 class TestApproveRejectSnippetWorkflow(

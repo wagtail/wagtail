@@ -88,6 +88,28 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
+When purging multiple URLs at once, the Cloudflare backend splits them into batches of 30 URLs per purge request. To change this, set the optional `PURGE_BATCH_SIZE` parameter to a positive integer:
+
+```python
+# settings.py
+
+WAGTAILFRONTENDCACHE = {
+    "cloudflare": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "BEARER_TOKEN": "your cloudflare bearer token",
+        "ZONEID": "your cloudflare domain zone id",
+        "PURGE_BATCH_SIZE": 100,
+    },
+}
+```
+
+Make sure the value doesn't exceed the number of URLs Cloudflare allows in a single purge request for your account plan. See the [Cloudflare purge by URL documentation](https://developers.cloudflare.com/cache/how-to/purge-cache/purge-by-single-file/) for the current limits.
+
+```{versionadded} 8.1
+The `PURGE_BATCH_SIZE` parameter was added.
+```
+
+
 (frontendcache_aws_cloudfront)=
 
 ### Amazon CloudFront

@@ -1,8 +1,5 @@
 from django import template
 
-from wagtail.admin.userbar import Userbar
-from wagtail.models import PAGE_TEMPLATE_VAR, AbstractPage
-
 register = template.Library()
 
 
@@ -11,6 +8,8 @@ def get_page_instance(context):
     Given a template context, try and find a Page variable in the common
     places. Returns None if a page can not be found.
     """
+    from wagtail.models import PAGE_TEMPLATE_VAR, AbstractPage
+
     possible_names = [PAGE_TEMPLATE_VAR, "self"]
     for name in possible_names:
         if name in context:
@@ -36,6 +35,8 @@ def wagtailuserbar(context, position="bottom-right"):
     # Don't render if user doesn't have permission to access the admin area
     if not user.has_perm("wagtailadmin.access_admin"):
         return ""
+
+    from wagtail.admin.userbar import Userbar
 
     page = get_page_instance(context)
 

@@ -38,3 +38,10 @@ class WagtailDocsAppConfig(AppConfig):
         from .api.v3.router import router
 
         api.add_router("/documents/", router)
+
+        from wagtail.api.v3.signal_handlers import use_frontend_cache
+
+        from .api.v3.signal_handlers import register_signal_handlers
+
+        if use_frontend_cache():
+            register_signal_handlers()

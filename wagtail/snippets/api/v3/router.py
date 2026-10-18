@@ -227,6 +227,8 @@ def update_snippet(
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=unquote(pk))
+    if isinstance(instance, DraftStateMixin):
+        instance = instance.get_latest_revision_as_object()
     form = build_model_update_form(instance, data, user=request.user)
     action_class = action_registry.get_action_class(model, "edit")
     action = action_class(

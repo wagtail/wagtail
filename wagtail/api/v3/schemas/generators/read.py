@@ -1,10 +1,12 @@
 import copy
-from typing import Any, Callable, Literal, cast
+from typing import Any, Callable, Literal, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import ForeignKey, Model
+from django.db.models import Model
 from django.db.models.fields import Field
+from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
@@ -12,12 +14,14 @@ from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
 from wagtail.api import APIField
+from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText
+from wagtail.api.v3.fields import FieldSerializer
 from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
 
-FieldSchema = tuple[type, Any, Callable | None]
+FieldSchema = tuple[Any, Any, Callable | None]
 FieldSchemaFunc = Callable[["SchemaGenerator", Field], FieldSchema]
 
 
@@ -52,6 +56,12 @@ class SchemaGenerator:
         smaller shape (primary key(s) plus a meta.type), not a full nested schema.
         """
 
+        self._models_being_built: list[type[Model]] = []
+        """
+        Models whose schemas are currently being built, outermost first, so a
+        nested schema doesn't recurse back into a model it's already within.
+        """
+
     @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
         return [
@@ -77,11 +87,18 @@ class SchemaGenerator:
         than having to reimplement each one for v3.
         """
 
-        from rest_framework.fields import SkipField
-        from rest_framework.serializers import Serializer
+        from rest_framework.fields import Field, SkipField
 
-        serializer = cast(Serializer, copy.deepcopy(api_field.serializer))
+        serializer = cast(Field, copy.deepcopy(api_field.serializer))
         serializer.bind(field_name=api_field.name, parent=None)
+        try:
+            return_type = get_type_hints(serializer.to_representation)["return"]
+        except (KeyError, NameError):
+            # No return type or it's only available when TYPE_CHECKING
+            return_type = Any
+        # allow_null / required may not reflect nullability as the field's
+        # source may resolve to None regardless of those flags.
+        return_type = return_type | None
 
         def resolve(obj: Model, context: dict) -> Any:
             try:
@@ -92,7 +109,35 @@ class SchemaGenerator:
                 return None
             return serializer.to_representation(value)
 
-        return Any, None, staticmethod(resolve)
+        return return_type, None, staticmethod(resolve)
+
+    @staticmethod
+    def _field_serializer_schema(api_field: APIField) -> FieldSchema:
+        """Generate a schema field for an ``APIField(serializer=...)`` using a
+        :class:`~wagtail.api.v3.fields.FieldSerializer`.
+
+        A copy is bound, then ``to_representation()`` is called on the
+        source-resolved value. The annotation is derived from
+        ``to_representation()``'s return type hint, with ``None`` added since
+        the source may resolve to ``None``.
+        """
+
+        field = cast(FieldSerializer, copy.deepcopy(api_field.serializer))
+        field.bind(field_name=api_field.name)
+        try:
+            return_type = get_type_hints(field.to_representation)["return"]
+        except (KeyError, NameError):
+            # No return type or it's only available when TYPE_CHECKING
+            return_type = Any
+        return_type = return_type | None
+
+        def resolve(obj: Model, context: dict) -> Any:
+            value = field.get_attribute(obj)
+            if value is None:
+                return None
+            return field.to_representation(value)
+
+        return return_type, None, staticmethod(resolve)
 
     def register_field_schema(
         self,
@@ -108,27 +153,27 @@ class SchemaGenerator:
                 model,
                 name=f"{model._meta.object_name}Schema",
                 base_class=BaseSchema,
-                # Prevent going too deep into nested structures.
-                follow_reverse_related=False,
+                nested=True,
             )
         return self._reverse_related_schema_cache[model]
 
     def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
-        """Build a minimal schema for a foreign key's related model.
-
-        Rather than a full nested schema, this only exposes the related model's
-        primary key(s) (which may be composite) and a ``meta.type`` label, to
-        keep foreign key fields cheap and avoid unbounded recursion through
-        relations.
+        """Build a nested schema for a foreign key's related model, without
+        following any reverse relations (to avoid infinite recursion).
         """
         if model not in self._foreign_key_schema_cache:
-            pk_names = self._get_pk_names(model)
             name = f"{model._meta.object_name}ForeignKeySchema"
-            schema = create_schema(
-                model, name=f"{name}Base", fields=pk_names, base_class=BaseSchema
+            schema = self.build_schema(
+                model,
+                name=f"{name}Base",
+                base_class=BaseSchema,
+                nested=True,
+                follow_reverse_related=False,
             )
             meta_schema = self._narrowed_meta_schema(
-                BaseSchema.model_fields["meta"].annotation, model
+                BaseSchema.model_fields["meta"].annotation,
+                model,
+                name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
             self._foreign_key_schema_cache[model] = self.extend_schema(
                 schema, name, {"meta": (meta_schema, ..., None)}
@@ -164,24 +209,53 @@ class SchemaGenerator:
         *,
         name: str,
         base_class: type[Schema],
-        follow_reverse_related: bool,
+        nested: bool,
+        follow_reverse_related: bool = True,
     ) -> type[Schema]:
         """Build a schema for ``model``'s ``api_fields``, on top of ``base_class``.
 
         Each entry in ``api_fields`` is classified as:
 
-        - a custom-serializer field: omitted, since inspecting arbitrary
-          DRF-style serializers is out of scope for now.
+        - a custom-serializer field: typed from the serializer's
+          ``to_representation`` return annotation (or ``Any`` if missing or
+          unresolvable), made nullable, and resolved via the serializer
+          itself - see ``_custom_serializer_schema``.
         - a ``StreamField``: typed as ``Any`` and resolved via
           ``StreamValue.stream_block.get_api_representation``, matching how
           API v2 serializes StreamField values.
         - any other concrete/forward Django field: typed via ``create_schema``.
         - a reverse relation (e.g. an ``InlinePanel``'s target): resolved as
-          ``list[NestedSchema]`` if ``follow_reverse_related`` is True,
-          otherwise omitted. This flag caps recursion to one level deep.
+          ``list[NestedSchema]``. Within a ``nested`` schema, only child
+          relations (``ParentalKey``, e.g. an ``InlinePanel`` inside an
+          ``InlinePanel`` child) are followed, and only to a model that isn't
+          already being built further up - otherwise omitted - so recursion
+          stops rather than cycling through the same models. If
+          ``follow_reverse_related`` is False, reverse relations are always
+          omitted.
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
+        self._models_being_built.append(model)
+        try:
+            return self._build_schema(
+                model,
+                name=name,
+                base_class=base_class,
+                nested=nested,
+                follow_reverse_related=follow_reverse_related,
+            )
+        finally:
+            self._models_being_built.pop()
+
+    def _build_schema(
+        self,
+        model: type[Model],
+        *,
+        name: str,
+        base_class: type[Schema],
+        nested: bool,
+        follow_reverse_related: bool,
+    ) -> type[Schema]:
         real_names = [
             field.name
             for field in model._meta.pk_fields
@@ -192,28 +266,41 @@ class SchemaGenerator:
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
             extra_fields["meta"] = (
-                self._narrowed_meta_schema(meta_field.annotation, model),
+                self._narrowed_meta_schema(
+                    meta_field.annotation,
+                    model,
+                    name=f"{model._meta.object_name}MetaSchema",
+                ),
                 ...,
                 None,
             )
 
         for field in APIField.get_fields_for_model(model):
-            # Legacy APIv2 APIField instance with a custom serializer.
+            # APIField with a custom serializer.
             if field.serializer is not None:
-                extra_fields[field.name] = self._custom_serializer_schema(field)
+                if isinstance(field.serializer, FieldSerializer):
+                    extra_fields[field.name] = self._field_serializer_schema(field)
+                else:
+                    # DRF serializer field - handle via the compat shim.
+                    extra_fields[field.name] = self._custom_serializer_schema(field)
                 continue
 
             try:
-                model_field = model._meta.get_field(field.name)
+                model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
                 # Not a real Django field, so treat it as a plain Python property.
                 extra_fields[field.name] = (Any, None, None)
             else:
-                if (
-                    isinstance(model_field, ForeignObjectRel)
-                    and not follow_reverse_related
+                if isinstance(model_field, ForeignObjectRel) and (
+                    not follow_reverse_related
+                    or (
+                        nested
+                        and (
+                            model_field not in get_all_child_relations(model)
+                            or model_field.related_model in self._models_being_built
+                        )
+                    )
                 ):
-                    # We're building a nested schema, don't recurse further.
                     continue
 
                 # See if field's class or its parents have a registered schema
@@ -263,12 +350,12 @@ class SchemaGenerator:
             model,
             name=f"{model._meta.object_name}Schema",
             base_class=base_class,
-            follow_reverse_related=True,
+            nested=False,
         )
 
     @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema], model: type[Model]
+        base_meta_schema: type[Schema], model: type[Model], *, name: str
     ) -> type[Schema]:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
@@ -281,11 +368,14 @@ class SchemaGenerator:
         ``build_schema``'s own ``meta`` field override, so the narrowing is
         baked into the same dynamic class as any other extra field rather
         than needing a second subclassing pass over the finished schema.
+
+        ``name`` is caller-supplied since the same model may be narrowed from
+        different base meta schemas, which must not share a name.
         """
         return cast(
             type[Schema],
             type(base_meta_schema)(
-                f"{model._meta.object_name}MetaSchema",
+                name,
                 (base_meta_schema,),
                 {"__annotations__": {"type": Literal[model._meta.label]}},  # ty: ignore[invalid-type-form]
             ),
@@ -293,9 +383,12 @@ class SchemaGenerator:
 
 
 def foreign_key_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
-    field = cast(ForeignKey, field)
+    field = cast(RelatedField, field)
     schema = generator.get_foreign_key_schema(field.related_model)
-    schema = (schema | None) if field.null else schema
+    if field.many_to_many or field.one_to_many:
+        schema = list[schema]  # ty: ignore[invalid-type-form]
+    elif field.null:
+        schema = schema | None
     return cast(type, schema), None, None
 
 
@@ -358,7 +451,7 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
 
 
 read_generator = SchemaGenerator()
-read_generator.register_field_schema(ForeignKey, foreign_key_schema)
+read_generator.register_field_schema(RelatedField, foreign_key_schema)
 read_generator.register_field_schema(ForeignObjectRel, reverse_related_schema)
 read_generator.register_field_schema(StreamField, streamfield_schema)
 read_generator.register_field_schema(TaggableManager, tags_schema)

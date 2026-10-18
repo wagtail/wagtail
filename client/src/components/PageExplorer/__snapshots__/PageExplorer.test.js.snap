@@ -28,23 +28,25 @@ exports[`PageExplorer visible 1`] = `
   nodes={
     {
       "1": {
+        "admin_display_title": "",
         "children": {
           "count": 0,
           "items": [],
         },
         "id": 0,
         "isError": false,
-        "isFetchingChildren": true,
-        "isFetchingTranslations": false,
+        "isFetching": true,
+        "isLoaded": false,
         "meta": {
-          "children": {},
-          "parent": null,
-          "status": {
-            "has_unpublished_changes": true,
-            "live": false,
-            "status": "",
-          },
+          "depth": 0,
+          "has_children": false,
+          "has_unpublished_changes": true,
+          "live": false,
+          "locale": "",
+          "status": "",
+          "type": "",
         },
+        "title": "",
       },
     }
   }

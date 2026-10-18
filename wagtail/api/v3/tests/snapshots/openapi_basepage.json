@@ -811,6 +811,84 @@
         "title": "AdvertCreateSchema",
         "type": "object"
       },
+      "AdvertForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.Advert",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "AdvertForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertForeignKeyMetaSchema"
+          },
+          "tags": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertForeignKeySchema",
+        "type": "object"
+      },
       "AdvertMetaSchema": {
         "properties": {
           "detail_url": {
@@ -1017,6 +1095,77 @@
         "title": "AdvertWithCustomPrimaryKeyCreateSchema",
         "type": "object"
       },
+      "AdvertWithCustomPrimaryKeyForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.AdvertWithCustomPrimaryKey",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "AdvertWithCustomPrimaryKeyForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "AdvertWithCustomPrimaryKeyForeignKeySchema": {
+        "properties": {
+          "advert_id": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Advert Id"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyForeignKeyMetaSchema"
+          },
+          "text": {
+            "maxLength": 255,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": ["meta", "text"],
+        "title": "AdvertWithCustomPrimaryKeyForeignKeySchema",
+        "type": "object"
+      },
       "AdvertWithCustomPrimaryKeyMetaSchema": {
         "properties": {
           "detail_url": {
@@ -1134,6 +1283,14 @@
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyMetaSchema"
+          },
+          "snippetchoosermodelwithcustomprimarykey_set": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SnippetChooserModelWithCustomPrimaryKeySchema"
+            },
+            "title": "Snippetchoosermodelwithcustomprimarykey Set",
+            "type": "array"
           },
           "text": {
             "maxLength": 255,
@@ -1438,6 +1595,39 @@
         "title": "BaseMetaSchema",
         "type": "object"
       },
+      "BasePageForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "BasePageForeignKeyMetaSchema",
+        "type": "object"
+      },
       "BasePageForeignKeySchema": {
         "properties": {
           "id": {
@@ -1452,7 +1642,7 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__BasePageMetaSchema__2"
+            "$ref": "#/components/schemas/BasePageForeignKeyMetaSchema"
           }
         },
         "required": ["meta"],
@@ -1461,6 +1651,16 @@
       },
       "BasePageMetaSchema": {
         "properties": {
+          "alias_of": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "detail_url": {
             "anyOf": [
               {
@@ -1506,20 +1706,24 @@
             ],
             "title": "Locale"
           },
+          "parent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "slug": {
             "title": "Slug",
             "type": "string"
           },
           "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Type"
+            "const": "basepage.BasePage",
+            "title": "Type",
+            "type": "string"
           },
           "warnings": {
             "anyOf": [
@@ -1543,7 +1747,7 @@
             "title": "Warnings"
           }
         },
-        "required": ["slug"],
+        "required": ["type", "slug"],
         "title": "BasePageMetaSchema",
         "type": "object"
       },
@@ -1561,7 +1765,7 @@
             "title": "ID"
           },
           "meta": {
-            "$ref": "#/components/schemas/abc__BasePageMetaSchema__1"
+            "$ref": "#/components/schemas/BasePageMetaSchema"
           },
           "title": {
             "title": "Title",
@@ -1570,6 +1774,60 @@
         },
         "required": ["meta", "title"],
         "title": "BasePageSchema",
+        "type": "object"
+      },
+      "BlogCategoryForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.BlogCategory",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "BlogCategoryForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "BlogCategoryForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BlogCategoryForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "BlogCategoryForeignKeySchema",
         "type": "object"
       },
       "BlogEntryPageCarouselItemCreateSchema": {
@@ -2474,7 +2732,32 @@
             ]
           },
           "feed_image_thumbnail": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRenditionDict"
+              },
+              {
+                "$ref": "#/components/schemas/ImageRenditionErrorDict"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Feed Image Thumbnail"
+          },
+          "feed_image_thumbnail_serializer": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRenditionDict"
+              },
+              {
+                "$ref": "#/components/schemas/ImageRenditionErrorDict"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feed Image Thumbnail Serializer"
           },
           "id": {
             "title": "Id",
@@ -3885,28 +4168,7 @@
         "title": "BusinessSubIndexSchema",
         "type": "object"
       },
-      "CollectionForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/CollectionMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "CollectionForeignKeySchema",
-        "type": "object"
-      },
-      "CollectionMetaSchema": {
+      "CollectionForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtailcore.Collection",
@@ -3936,7 +4198,28 @@
           }
         },
         "required": ["type"],
-        "title": "CollectionMetaSchema",
+        "title": "CollectionForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "CollectionForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/CollectionForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "CollectionForeignKeySchema",
         "type": "object"
       },
       "CommentableJSONPageCreateMetaSchema": {
@@ -7558,28 +7841,7 @@
         "title": "DocumentDetailMetaSchema",
         "type": "object"
       },
-      "DocumentForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/DocumentMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "DocumentForeignKeySchema",
-        "type": "object"
-      },
-      "DocumentMetaSchema": {
+      "DocumentForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtaildocs.Document",
@@ -7609,7 +7871,28 @@
           }
         },
         "required": ["type"],
-        "title": "DocumentMetaSchema",
+        "title": "DocumentForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "DocumentForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DocumentForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "DocumentForeignKeySchema",
         "type": "object"
       },
       "DocumentPatchSchema": {
@@ -9004,56 +9287,34 @@
         "title": "EventPageCarouselItemSchema",
         "type": "object"
       },
-      "EventPageRelatedLinkCreateSchema": {
+      "EventPageSpeakerAwardCreateSchema": {
         "properties": {
-          "link_document_id": {
+          "date_awarded": {
             "anyOf": [
               {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Document"
-          },
-          "link_external": {
-            "anyOf": [
-              {
+                "format": "date",
                 "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "External link"
+            "title": "Date Awarded"
           },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          },
-          "title": {
-            "description": "Link title",
+          "name": {
             "maxLength": 255,
-            "title": "Title",
+            "title": "Award name",
             "type": "string"
           }
         },
-        "required": ["title"],
-        "title": "EventPageRelatedLinkCreateSchema",
+        "required": ["name"],
+        "title": "EventPageSpeakerAwardCreateSchema",
         "type": "object"
       },
-      "EventPageRelatedLinkMetaSchema": {
+      "EventPageSpeakerAwardMetaSchema": {
         "properties": {
           "type": {
-            "const": "demosite.EventPageRelatedLink",
+            "const": "tests.EventPageSpeakerAward",
             "title": "Type",
             "type": "string"
           },
@@ -9080,11 +9341,23 @@
           }
         },
         "required": ["type"],
-        "title": "EventPageRelatedLinkMetaSchema",
+        "title": "EventPageSpeakerAwardMetaSchema",
         "type": "object"
       },
-      "EventPageRelatedLinkPatchSchema": {
+      "EventPageSpeakerAwardPatchSchema": {
         "properties": {
+          "date_awarded": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Awarded"
+          },
           "id": {
             "anyOf": [
               {
@@ -9096,18 +9369,7 @@
             ],
             "title": "ID"
           },
-          "link_document_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Document"
-          },
-          "link_external": {
+          "name": {
             "anyOf": [
               {
                 "type": "string"
@@ -9116,37 +9378,26 @@
                 "type": "null"
               }
             ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Link title",
-            "title": "Title"
+            "title": "Award name"
           }
         },
-        "title": "EventPageRelatedLinkPatchSchema",
+        "title": "EventPageSpeakerAwardPatchSchema",
         "type": "object"
       },
-      "EventPageRelatedLinkSchema": {
+      "EventPageSpeakerAwardSchema": {
         "properties": {
+          "date_awarded": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Awarded"
+          },
           "id": {
             "anyOf": [
               {
@@ -9158,311 +9409,17 @@
             ],
             "title": "ID"
           },
-          "link": {
-            "title": "Link"
-          },
-          "link_document": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/DocumentForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
           "meta": {
-            "$ref": "#/components/schemas/EventPageRelatedLinkMetaSchema"
+            "$ref": "#/components/schemas/EventPageSpeakerAwardMetaSchema"
           },
-          "title": {
-            "description": "Link title",
+          "name": {
             "maxLength": 255,
-            "title": "Title",
+            "title": "Award name",
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
-        "title": "EventPageRelatedLinkSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerCreateSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "image_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Image"
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          }
-        },
-        "title": "EventPageSpeakerCreateSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "demosite.EventPageSpeaker",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "EventPageSpeakerMetaSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerPatchSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "image_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Image"
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Link Page"
-          }
-        },
-        "title": "EventPageSpeakerPatchSchema",
-        "type": "object"
-      },
-      "EventPageSpeakerSchema": {
-        "properties": {
-          "first_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "image": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/ImageForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "last_name": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Surname"
-          },
-          "link": {
-            "title": "Link"
-          },
-          "link_document": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/DocumentForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "link_external": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "External link"
-          },
-          "link_page": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "meta": {
-            "$ref": "#/components/schemas/EventPageSpeakerMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "EventPageSpeakerSchema",
+        "required": ["meta", "name"],
+        "title": "EventPageSpeakerAwardSchema",
         "type": "object"
       },
       "FilePageCreateMetaSchema": {
@@ -12339,6 +12296,103 @@
         "title": "GenericSnippetPageSchema",
         "type": "object"
       },
+      "HeadCountRelatedModelUsingPKCreateSchema": {
+        "properties": {
+          "head_count": {
+            "title": "Head Count",
+            "type": "integer"
+          }
+        },
+        "required": ["head_count"],
+        "title": "HeadCountRelatedModelUsingPKCreateSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.HeadCountRelatedModelUsingPK",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "HeadCountRelatedModelUsingPKMetaSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKPatchSchema": {
+        "properties": {
+          "custom_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          },
+          "head_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Head Count"
+          }
+        },
+        "title": "HeadCountRelatedModelUsingPKPatchSchema",
+        "type": "object"
+      },
+      "HeadCountRelatedModelUsingPKSchema": {
+        "properties": {
+          "custom_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Id"
+          },
+          "head_count": {
+            "title": "Head Count",
+            "type": "integer"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKMetaSchema"
+          }
+        },
+        "required": ["meta", "head_count"],
+        "title": "HeadCountRelatedModelUsingPKSchema",
+        "type": "object"
+      },
       "HeadlessFormCreateMetaSchema": {
         "properties": {
           "action": {
@@ -13587,28 +13641,7 @@
         "title": "ImageDetailMetaSchema",
         "type": "object"
       },
-      "ImageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/ImageMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "ImageForeignKeySchema",
-        "type": "object"
-      },
-      "ImageMetaSchema": {
+      "ImageForeignKeyMetaSchema": {
         "properties": {
           "type": {
             "const": "wagtailimages.Image",
@@ -13638,7 +13671,28 @@
           }
         },
         "required": ["type"],
-        "title": "ImageMetaSchema",
+        "title": "ImageForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "ImageForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ImageForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "ImageForeignKeySchema",
         "type": "object"
       },
       "ImagePatchSchema": {
@@ -13725,6 +13779,45 @@
           }
         },
         "title": "ImagePatchSchema",
+        "type": "object"
+      },
+      "ImageRenditionDict": {
+        "properties": {
+          "alt": {
+            "title": "Alt",
+            "type": "string"
+          },
+          "full_url": {
+            "title": "Full Url",
+            "type": "string"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": ["url", "full_url", "width", "height", "alt"],
+        "title": "ImageRenditionDict",
+        "type": "object"
+      },
+      "ImageRenditionErrorDict": {
+        "properties": {
+          "error": {
+            "const": "SourceImageIOError",
+            "title": "Error",
+            "type": "string"
+          }
+        },
+        "required": ["error"],
+        "title": "ImageRenditionErrorDict",
         "type": "object"
       },
       "ImageSchema": {
@@ -14915,6 +15008,46 @@
       },
       "ManyToManyBlogPageCreateSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "$ref": "#/components/schemas/ManyToManyBlogPageCreateMetaSchema"
           },
@@ -14938,7 +15071,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
+        "required": ["meta", "title", "adverts", "blog_categories"],
         "title": "ManyToManyBlogPageCreateSchema",
         "type": "object"
       },
@@ -15077,6 +15210,60 @@
       },
       "ManyToManyBlogPagePatchSchema": {
         "properties": {
+          "adverts": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adverts"
+          },
+          "blog_categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blog Categories"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              }
+            ],
+            "default": "",
+            "features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ],
+            "title": "Body"
+          },
           "meta": {
             "anyOf": [
               {
@@ -15119,6 +15306,45 @@
       },
       "ManyToManyBlogPageSchema": {
         "properties": {
+          "adverts": {
+            "items": {
+              "$ref": "#/components/schemas/AdvertForeignKeySchema"
+            },
+            "title": "Adverts",
+            "type": "array"
+          },
+          "blog_categories": {
+            "items": {
+              "$ref": "#/components/schemas/BlogCategoryForeignKeySchema"
+            },
+            "title": "Blog Categories",
+            "type": "array"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body",
+            "x-rich-text-features": [
+              "embed",
+              "image",
+              "hr",
+              "link",
+              "bold",
+              "italic",
+              "h2",
+              "h3",
+              "h4",
+              "ol",
+              "ul",
+              "document-link"
+            ]
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -17823,6 +18049,13 @@
       },
       "PageWithGenericRelationSchema": {
         "properties": {
+          "generic_relation": {
+            "items": {
+              "$ref": "#/components/schemas/RelatedGenericRelationForeignKeySchema"
+            },
+            "title": "Generic Relation",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
@@ -18718,6 +18951,60 @@
           "created_at"
         ],
         "title": "RedirectSchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationForeignKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.RelatedGenericRelation",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "RelatedGenericRelationForeignKeyMetaSchema",
+        "type": "object"
+      },
+      "RelatedGenericRelationForeignKeySchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/RelatedGenericRelationForeignKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "RelatedGenericRelationForeignKeySchema",
         "type": "object"
       },
       "RequiredDatePageCreateMetaSchema": {
@@ -22091,8 +22378,51 @@
       },
       "SingleEventPageCreateSchema": {
         "properties": {
+          "audience": {
+            "maxLength": 255,
+            "title": "Audience",
+            "type": "string"
+          },
+          "cost": {
+            "maxLength": 255,
+            "title": "Cost",
+            "type": "string"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKCreateSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
+          "location": {
+            "maxLength": 255,
+            "title": "Location",
+            "type": "string"
+          },
           "meta": {
             "$ref": "#/components/schemas/SingleEventPageCreateMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkCreateSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
           },
           "slug": {
             "anyOf": [
@@ -22107,6 +22437,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "description": "The page title as you'd like it to be seen by the public",
             "maxLength": 255,
@@ -22114,7 +22452,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
+        "required": ["meta", "title", "audience", "location", "cost"],
         "title": "SingleEventPageCreateSchema",
         "type": "object"
       },
@@ -22253,6 +22591,59 @@
       },
       "SingleEventPagePatchSchema": {
         "properties": {
+          "audience": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audience"
+          },
+          "cost": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKPatchSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
           "meta": {
             "anyOf": [
               {
@@ -22262,6 +22653,14 @@
                 "type": "null"
               }
             ]
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkPatchSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
           },
           "slug": {
             "anyOf": [
@@ -22275,6 +22674,14 @@
             ],
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
           },
           "title": {
             "anyOf": [
@@ -22295,19 +22702,70 @@
       },
       "SingleEventPageSchema": {
         "properties": {
+          "audience": {
+            "maxLength": 255,
+            "title": "Audience",
+            "type": "string"
+          },
+          "cost": {
+            "maxLength": 255,
+            "title": "Cost",
+            "type": "string"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
           },
+          "location": {
+            "maxLength": 255,
+            "title": "Location",
+            "type": "string"
+          },
           "meta": {
             "$ref": "#/components/schemas/SingleEventPageMetaSchema"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
           },
           "title": {
             "title": "Title",
             "type": "string"
           }
         },
-        "required": ["meta", "id", "title"],
+        "required": ["meta", "id", "title", "audience", "location", "cost"],
         "title": "SingleEventPageSchema",
         "type": "object"
       },
@@ -22877,6 +23335,67 @@
           "is_default_site"
         ],
         "title": "SiteSchema",
+        "type": "object"
+      },
+      "SnippetChooserModelWithCustomPrimaryKeyMetaSchema": {
+        "properties": {
+          "type": {
+            "const": "tests.SnippetChooserModelWithCustomPrimaryKey",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "SnippetChooserModelWithCustomPrimaryKeyMetaSchema",
+        "type": "object"
+      },
+      "SnippetChooserModelWithCustomPrimaryKeySchema": {
+        "properties": {
+          "advertwithcustomprimarykey": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyForeignKeySchema"
+              }
+            ]
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SnippetChooserModelWithCustomPrimaryKeyMetaSchema"
+          }
+        },
+        "required": ["meta"],
+        "title": "SnippetChooserModelWithCustomPrimaryKeySchema",
         "type": "object"
       },
       "SnippetCopyForTranslationSchema": {
@@ -26771,141 +27290,6 @@
         "title": "WhoAmIUserSchema",
         "type": "object"
       },
-      "abc__BasePageMetaSchema__1": {
-        "properties": {
-          "alias_of": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SimpleBasePageSchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "detail_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Detail Url"
-          },
-          "first_published_at": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "First Published At"
-          },
-          "html_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Html Url"
-          },
-          "locale": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Locale"
-          },
-          "parent": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SimpleBasePageSchema"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "slug": {
-            "title": "Slug",
-            "type": "string"
-          },
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type", "slug"],
-        "title": "BasePageMetaSchema",
-        "type": "object"
-      },
-      "abc__BasePageMetaSchema__2": {
-        "properties": {
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "BasePageMetaSchema",
-        "type": "object"
-      },
       "abc__EventPageCreateMetaSchema__1": {
         "properties": {
           "action": {
@@ -26964,8 +27348,51 @@
       },
       "abc__EventPageCreateSchema__1": {
         "properties": {
+          "audience": {
+            "maxLength": 255,
+            "title": "Audience",
+            "type": "string"
+          },
+          "cost": {
+            "maxLength": 255,
+            "title": "Cost",
+            "type": "string"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKCreateSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
+          "location": {
+            "maxLength": 255,
+            "title": "Location",
+            "type": "string"
+          },
           "meta": {
             "$ref": "#/components/schemas/abc__EventPageCreateMetaSchema__1"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkCreateSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
           },
           "slug": {
             "anyOf": [
@@ -26980,6 +27407,14 @@
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
           },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
+          },
           "title": {
             "description": "The page title as you'd like it to be seen by the public",
             "maxLength": 255,
@@ -26987,7 +27422,7 @@
             "type": "string"
           }
         },
-        "required": ["meta", "title"],
+        "required": ["meta", "title", "audience", "location", "cost"],
         "title": "EventPageCreateSchema",
         "type": "object"
       },
@@ -27077,7 +27512,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageRelatedLinkCreateSchema"
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkCreateSchema__2"
             },
             "title": "Related Links",
             "type": "array"
@@ -27109,7 +27544,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerCreateSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerCreateSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -27424,6 +27859,59 @@
       },
       "abc__EventPagePatchSchema__1": {
         "properties": {
+          "audience": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audience"
+          },
+          "cost": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKPatchSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
           "meta": {
             "anyOf": [
               {
@@ -27433,6 +27921,14 @@
                 "type": "null"
               }
             ]
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkPatchSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
           },
           "slug": {
             "anyOf": [
@@ -27446,6 +27942,14 @@
             ],
             "description": "The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/",
             "title": "Slug"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
           },
           "title": {
             "anyOf": [
@@ -27582,7 +28086,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageRelatedLinkPatchSchema"
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkPatchSchema__2"
             },
             "title": "Related Links",
             "type": "array"
@@ -27614,7 +28118,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerPatchSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerPatchSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -27660,21 +28164,409 @@
         "title": "EventPagePatchSchema",
         "type": "object"
       },
+      "abc__EventPageRelatedLinkCreateSchema__1": {
+        "properties": {
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "EventPageRelatedLinkCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkCreateSchema__2": {
+        "properties": {
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "title": "EventPageRelatedLinkCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkMetaSchema__1": {
+        "properties": {
+          "type": {
+            "const": "tests.EventPageRelatedLink",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageRelatedLinkMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkMetaSchema__2": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageRelatedLink",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageRelatedLinkMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkPatchSchema__1": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Link title",
+            "title": "Title"
+          }
+        },
+        "title": "EventPageRelatedLinkPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkPatchSchema__2": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link_document_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Document"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Link title",
+            "title": "Title"
+          }
+        },
+        "title": "EventPageRelatedLinkPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkSchema__1": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageRelatedLinkMetaSchema__1"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "title"],
+        "title": "EventPageRelatedLinkSchema",
+        "type": "object"
+      },
+      "abc__EventPageRelatedLinkSchema__2": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "link": {
+            "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageRelatedLinkMetaSchema__2"
+          },
+          "title": {
+            "description": "Link title",
+            "maxLength": 255,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": ["meta", "title"],
+        "title": "EventPageRelatedLinkSchema",
+        "type": "object"
+      },
       "abc__EventPageSchema__1": {
         "properties": {
+          "audience": {
+            "maxLength": 255,
+            "title": "Audience",
+            "type": "string"
+          },
+          "cost": {
+            "maxLength": 255,
+            "title": "Cost",
+            "type": "string"
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start date"
+          },
+          "head_counts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/HeadCountRelatedModelUsingPKSchema"
+            },
+            "title": "Head Counts",
+            "type": "array"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
           },
+          "location": {
+            "maxLength": 255,
+            "title": "Location",
+            "type": "string"
+          },
           "meta": {
             "$ref": "#/components/schemas/abc__EventPageMetaSchema__1"
+          },
+          "related_links": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkSchema__1"
+            },
+            "title": "Related Links",
+            "type": "array"
+          },
+          "speakers": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__1"
+            },
+            "title": "Speakers",
+            "type": "array"
           },
           "title": {
             "title": "Title",
             "type": "string"
           }
         },
-        "required": ["meta", "id", "title"],
+        "required": ["meta", "id", "title", "audience", "location", "cost"],
         "title": "EventPageSchema",
         "type": "object"
       },
@@ -27766,7 +28658,7 @@
           "related_links": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageRelatedLinkSchema"
+              "$ref": "#/components/schemas/abc__EventPageRelatedLinkSchema__2"
             },
             "title": "Related Links",
             "type": "array"
@@ -27785,7 +28677,7 @@
           "speakers": {
             "default": [],
             "items": {
-              "$ref": "#/components/schemas/EventPageSpeakerSchema"
+              "$ref": "#/components/schemas/abc__EventPageSpeakerSchema__2"
             },
             "title": "Speakers",
             "type": "array"
@@ -27829,6 +28721,438 @@
           "cost"
         ],
         "title": "EventPageSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerCreateSchema__1": {
+        "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardCreateSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          }
+        },
+        "title": "EventPageSpeakerCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerCreateSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageSpeakerCreateSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerMetaSchema__1": {
+        "properties": {
+          "type": {
+            "const": "tests.EventPageSpeaker",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerMetaSchema__2": {
+        "properties": {
+          "type": {
+            "const": "demosite.EventPageSpeaker",
+            "title": "Type",
+            "type": "string"
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RichTextRemoval"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings"
+          }
+        },
+        "required": ["type"],
+        "title": "EventPageSpeakerMetaSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerPatchSchema__1": {
+        "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardPatchSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          }
+        },
+        "title": "EventPageSpeakerPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerPatchSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "image_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Link Page"
+          }
+        },
+        "title": "EventPageSpeakerPatchSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerSchema__1": {
+        "properties": {
+          "awards": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EventPageSpeakerAwardSchema"
+            },
+            "title": "Awards",
+            "type": "array"
+          },
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageSpeakerMetaSchema__1"
+          }
+        },
+        "required": ["meta"],
+        "title": "EventPageSpeakerSchema",
+        "type": "object"
+      },
+      "abc__EventPageSpeakerSchema__2": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "ID"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surname"
+          },
+          "link": {
+            "title": "Link"
+          },
+          "link_document": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "link_external": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External link"
+          },
+          "link_page": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/abc__EventPageSpeakerMetaSchema__2"
+          }
+        },
+        "required": ["meta"],
+        "title": "EventPageSpeakerSchema",
         "type": "object"
       },
       "abc__FormPageCreateMetaSchema__1": {

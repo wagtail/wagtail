@@ -15,6 +15,7 @@ from wagtail.test.demosite.models import (
     EventPage,
     HomePage,
 )
+from wagtail.test.testapp.models import EventPage as TestAppEventPage
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
 
@@ -982,3 +983,477 @@ class TestV3PageUpdate(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page.refresh_from_db()
         self.assertEqual(page.title, "New title")
+
+    def create_live_home_page_with_draft(self):
+        page = self.root_page.add_child(
+            instance=HomePage(title="Home", slug="home-with-draft", body="<p>Live</p>")
+        )
+        page.carousel_items.create(
+            caption="Live item", link_external="http://example.com/live"
+        )
+        page.save_revision().publish()
+
+        draft = HomePage.objects.get(pk=page.pk)
+        draft.body = "<p>Draft</p>"
+        draft.carousel_items.create(
+            caption="Draft item", link_external="http://example.com/draft"
+        )
+        draft.save_revision()
+        return HomePage.objects.get(pk=page.pk)
+
+    def test_update_live_page_with_draft_keeps_draft_changes(self):
+        page = self.create_live_home_page_with_draft()
+        response = self.patch(
+            page,
+            {"meta": {"type": "demosite.HomePage"}, "title": "New title"},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = HomePage.objects.get(pk=page.pk)
+        self.assertEqual(page.title, "Home")
+        self.assertEqual(page.body, "<p>Live</p>")
+        latest = page.get_latest_revision_as_object()
+        self.assertEqual(latest.title, "New title")
+        self.assertEqual(latest.body, "<p>Draft</p>")
+        self.assertEqual(
+            [item.caption for item in latest.carousel_items.all()],
+            ["Live item", "Draft item"],
+        )
+        self.assertEqual(response.json()["body"], "<p>Draft</p>")
+
+    def test_update_and_publish_live_page_with_draft_keeps_draft_changes(self):
+        page = self.create_live_home_page_with_draft()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.HomePage", "action": "publish"},
+                "title": "New title",
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        page = HomePage.objects.get(pk=page.pk)
+        self.assertEqual(page.title, "New title")
+        self.assertEqual(page.body, "<p>Draft</p>")
+        self.assertEqual(
+            list(
+                page.carousel_items.order_by("sort_order").values_list(
+                    "caption", flat=True
+                )
+            ),
+            ["Live item", "Draft item"],
+        )
+
+    def test_update_child_relation_of_live_page_with_draft(self):
+        page = self.create_live_home_page_with_draft()
+        live_item = page.carousel_items.get()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.HomePage"},
+                "carousel_items": [
+                    {
+                        "id": live_item.pk,
+                        "caption": "Live item (updated)",
+                        "link_external": "http://example.com/live",
+                    },
+                    {"caption": "New item", "link_external": "http://example.com/new"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        latest = HomePage.objects.get(pk=page.pk).get_latest_revision_as_object()
+        self.assertEqual(latest.body, "<p>Draft</p>")
+        items = list(latest.carousel_items.all())
+        self.assertEqual(
+            [(item.pk, item.caption) for item in items],
+            [(live_item.pk, "Live item (updated)"), (None, "New item")],
+        )
+
+    def test_update_page_tags_replaces_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "tags": ["Shakespeare, William", "Poetry"],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(sorted(page.tags.names()), ["Poetry", "Shakespeare, William"])
+
+    def test_update_page_tags_omitted_is_untouched(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Kept")
+        page.save()
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "demosite.BlogEntryPage"},
+                "title": "Entry renamed",
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), ["Kept"])
+
+    def test_update_page_tags_empty_list_clears_them(self):
+        page = self.root_page.add_child(
+            instance=BlogEntryPage(
+                title="Entry",
+                slug="entry",
+                body="<p>body</p>",
+                date="2020-01-01",
+                live=False,
+            )
+        )
+        page.tags.add("Old")
+        page.save()
+        response = self.patch(
+            page,
+            {"meta": {"type": "demosite.BlogEntryPage"}, "tags": []},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = BlogEntryPage.objects.get(pk=page.pk)
+        self.assertEqual(list(page.tags.names()), [])
+
+    def test_update_page_child_relation_with_related_query_name(self):
+        """
+        tests.EventPage's speakers relation has related_query_name="speaker",
+        so Django's get_field() doesn't find it by its accessor name.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        ada = page.speakers.create(first_name="Ada", last_name="Lovelace")
+        page.speakers.create(first_name="Grace", last_name="Hopper")
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Augusta Ada", "last_name": "King"}
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            list(page.speakers.values_list("pk", "first_name", "last_name")),
+            [(ada.pk, "Augusta Ada", "King")],
+        )
+        self.assertEqual(
+            [speaker["first_name"] for speaker in response.json()["speakers"]],
+            ["Augusta Ada"],
+        )
+
+    def test_patch_child_relations_keeps_submitted_order(self):
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        first = page.related_links.create(title="First")
+        second = page.related_links.create(title="Second")
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "related_links": [
+                    {"id": second.pk, "title": "Second"},
+                    {"title": "New"},
+                    {"id": first.pk, "title": "First"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            list(
+                page.related_links.order_by("sort_order").values_list(
+                    "title", flat=True
+                )
+            ),
+            ["Second", "New", "First"],
+        )
+        self.assertEqual(
+            [link["title"] for link in response.json()["related_links"]],
+            ["Second", "New", "First"],
+        )
+
+    def test_patch_child_relations_moves_last_item_to_first(self):
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        a = page.related_links.create(title="A", sort_order=0)
+        b = page.related_links.create(title="B", sort_order=1)
+        c = page.related_links.create(title="C", sort_order=2)
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "related_links": [
+                    {"id": c.pk, "title": "C"},
+                    {"id": a.pk, "title": "A"},
+                    {"id": b.pk, "title": "B"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        self.assertEqual(
+            list(page.related_links.values_list("title", "sort_order")),
+            [("C", 0), ("A", 1), ("B", 2)],
+        )
+
+    def test_update_page_child_relation_with_custom_primary_key(self):
+        """
+        tests.EventPage's head_counts relation uses a primary key named
+        custom_id rather than id. Existing items are identified by custom_id,
+        the same name the read schema uses.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        first = page.head_counts.create(head_count=1)
+        second = page.head_counts.create(head_count=2)
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [
+                    {"custom_id": second.custom_id, "head_count": 20},
+                    {"head_count": 3},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        head_counts = list(
+            page.head_counts.order_by("custom_id").values_list(
+                "custom_id", "head_count"
+            )
+        )
+        # The existing item with a matching id is updated in place, the one
+        # omitted from the list is deleted, and the one without an id is new.
+        self.assertEqual(len(head_counts), 2)
+        self.assertEqual(head_counts[0], (second.custom_id, 20))
+        self.assertNotIn(first.custom_id, [pk for pk, _ in head_counts])
+        self.assertEqual(head_counts[1][1], 3)
+        self.assertEqual(
+            [item["custom_id"] for item in response.json()["head_counts"]],
+            [pk for pk, _ in head_counts],
+        )
+
+    def test_update_page_child_relation_with_custom_primary_key_ignores_id(self):
+        """
+        "id" isn't the pk's name for head_counts, so it doesn't identify an
+        existing item: it's ignored like any other unknown key, and the item
+        is created as new.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        existing = page.head_counts.create(head_count=1)
+        page.save()
+
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "head_counts": [{"id": existing.custom_id, "head_count": 10}],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        [head_count] = page.head_counts.all()
+        self.assertNotEqual(head_count.custom_id, existing.custom_id)
+        self.assertEqual(head_count.head_count, 10)
+
+    def create_speaker_event_page(self):
+        """
+        Create a tests.EventPage, whose speakers InlinePanel has its own
+        awards InlinePanel.
+        """
+        page = self.root_page.add_child(
+            instance=TestAppEventPage(
+                title="Event",
+                slug="event",
+                date_from="2026-01-01",
+                audience="public",
+                location="Bristol",
+                cost="Free",
+                live=False,
+            )
+        )
+        ada = page.speakers.create(first_name="Ada", last_name="Lovelace")
+        ada.awards.create(name="First programmer")
+        ada.awards.create(name="Analytical engine")
+        grace = page.speakers.create(first_name="Grace", last_name="Hopper")
+        grace.awards.create(name="Compiler")
+        # Child relations of a ClusterableModel are only written on save.
+        page.save()
+        return page, ada, grace
+
+    def get_speakers_state(self, page):
+        page = TestAppEventPage.objects.get(pk=page.pk)
+        return [
+            (
+                speaker.pk,
+                speaker.first_name,
+                list(speaker.awards.order_by("sort_order").values_list("pk", "name")),
+            )
+            for speaker in page.speakers.order_by("sort_order")
+        ]
+
+    def test_patch_nested_child_relation_replaces_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        [first, second] = ada.awards.order_by("sort_order")
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {
+                        "id": ada.pk,
+                        "first_name": "Augusta Ada",
+                        "awards": [
+                            {"id": first.pk, "name": "First programmer (updated)"},
+                            {"name": "New award"},
+                        ],
+                    },
+                    {"first_name": "New", "awards": [{"name": "Nested new"}]},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        state = self.get_speakers_state(page)
+        self.assertEqual(len(state), 2)
+        self.assertEqual(state[0][:2], (ada.pk, "Augusta Ada"))
+        self.assertEqual(
+            [award[1] for award in state[0][2]],
+            ["First programmer (updated)", "New award"],
+        )
+        # The existing award with a matching id is updated in place;
+        # the one omitted from the list is deleted.
+        self.assertEqual(state[0][2][0][0], first.pk)
+        self.assertNotIn(second.pk, [award[0] for award in state[0][2]])
+        # The speaker omitted from the list is deleted, with its awards.
+        self.assertNotIn(grace.pk, [speaker[0] for speaker in state])
+        self.assertEqual(state[1][1], "New")
+        self.assertEqual([award[1] for award in state[1][2]], ["Nested new"])
+
+    def test_patch_nested_child_relation_omitted_is_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Augusta Ada"},
+                    {"id": grace.pk, "first_name": "Grace"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        after = self.get_speakers_state(page)
+        self.assertEqual(after[0][1], "Augusta Ada")
+        # Awards of both speakers are unchanged: same rows, same values.
+        self.assertEqual(
+            [speaker[2] for speaker in after], [speaker[2] for speaker in before]
+        )
+
+    def test_patch_nested_child_relation_empty_list_clears_it(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {
+                "meta": {"type": "tests.EventPage"},
+                "speakers": [
+                    {"id": ada.pk, "first_name": "Ada", "awards": []},
+                    {"id": grace.pk, "first_name": "Grace"},
+                ],
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        after = self.get_speakers_state(page)
+        self.assertEqual(after[0][2], [])
+        self.assertEqual(after[1][2], before[1][2])
+
+    def test_patch_top_level_relation_omitted_leaves_nested_untouched(self):
+        page, ada, grace = self.create_speaker_event_page()
+        before = self.get_speakers_state(page)
+        response = self.patch(
+            page,
+            {"meta": {"type": "tests.EventPage"}, "title": "Renamed"},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(self.get_speakers_state(page), before)

@@ -61,6 +61,6 @@ To learn a snippet model's exact fields and required input for a request, look i
 
 The full, generated OpenAPI reference for every snippet endpoint — including the revision and action routes above — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
 
-## ## Snippets API reference
+## Snippets API reference
 
 We document the full generated OpenAPI reference for snippet endpoints from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).

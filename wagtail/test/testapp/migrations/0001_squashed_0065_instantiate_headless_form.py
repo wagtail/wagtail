@@ -5951,6 +5951,7 @@ class Migration(migrations.Migration):
                             ("title_list", 6),
                             ("image_with_alt", 7),
                             ("table", 8),
+                            ("typed_table", 10),
                         ],
                         block_lookup={
                             0: ("wagtail.blocks.CharBlock", (), {}),
@@ -5976,6 +5977,12 @@ class Migration(migrations.Migration):
                             8: (
                                 "wagtail.contrib.table_block.blocks.TableBlock",
                                 (),
+                                {},
+                            ),
+                            9: ("wagtail.blocks.IntegerBlock", (), {}),
+                            10: (
+                                "wagtail.contrib.typed_table_block.blocks.TypedTableBlock",
+                                [[("text", 0), ("number", 9)]],
                                 {},
                             ),
                         },

@@ -860,6 +860,30 @@ class TestV3SnippetUpdateWithDraftState(TestV3SnippetUpdateBase):
         snippet.refresh_from_db()
         self.assertEqual(snippet.text, "New Draft Text")
 
+    def test_update_of_live_snippet_with_draft_keeps_draft_changes(self):
+        self.snippet.live = True
+        self.snippet.save()
+        self.snippet.save_revision().publish()
+        draft = FullFeaturedSnippet.objects.get(pk=self.snippet.pk)
+        draft.some_number = 2
+        draft.save_revision()
+
+        response = self.patch(self.snippet.pk, {"text": "New Draft Text"})
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(response.json()["some_number"], 2)
+
+        snippet = FullFeaturedSnippet.objects.get(pk=self.snippet.pk)
+        self.assertEqual((snippet.text, snippet.some_number), ("Original", 1))
+        latest = snippet.get_latest_revision_as_object()
+        self.assertEqual((latest.text, latest.some_number), ("New Draft Text", 2))
+
+        response = self.patch(
+            self.snippet.pk, {"meta": {"action": "publish"}, "text": "Published"}
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        snippet.refresh_from_db()
+        self.assertEqual((snippet.text, snippet.some_number), ("Published", 2))
+
 
 class TestV3SnippetUpdateWhenLocked(TestV3SnippetUpdateBase):
     model = FullFeaturedSnippet

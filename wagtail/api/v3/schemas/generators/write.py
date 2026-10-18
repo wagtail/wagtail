@@ -16,6 +16,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api import APIField
+from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText, RichTextInputFormat
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
@@ -125,11 +126,14 @@ class InputSchemaGenerator:
             namespace: dict[str, Any] = {"__annotations__": {}}
             if self.for_update:
                 # Add the model's pk as an optional field, so a child relation
-                # can be identified by its id when updating an existing item.
+                # can be identified by its pk when updating an existing item.
+                # It uses the same name as the read schema (e.g. `custom_id`),
+                # so an item read from the API can be sent back as-is.
                 pk_schema = get_schema_field(model._meta.pk)
-                id_annotation, id_default = self._make_optional(pk_schema)
-                namespace["__annotations__"]["id"] = id_annotation
-                namespace["id"] = id_default
+                pk_annotation, pk_default = self._make_optional(pk_schema)
+                pk_name = model._meta.pk.name
+                namespace["__annotations__"][pk_name] = pk_annotation
+                namespace[pk_name] = pk_default
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
                 namespace[field_name] = default
@@ -151,7 +155,7 @@ class InputSchemaGenerator:
                 continue
 
             try:
-                model_field = model._meta.get_field(field.name)
+                model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
                 # Not a real Django field (e.g. a plain Python property) -
                 # there's no defined writable shape for it, so skip it.
