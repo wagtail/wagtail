@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 
 from wagtail.actions.base import BaseAction
 from wagtail.actions.publish_page_revision import PublishPagePermissionError
@@ -109,10 +110,14 @@ class SubmitWorkflowAction(WorkflowAction):
         if self.instance.current_workflow_state is not None:
             raise WorkflowStateError("A workflow is already active on this object.")
 
+    @transaction.atomic
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
+        instance = _get_specific(self.instance)
+        if instance.get_latest_revision() is None:
+            instance.save_revision(user=self.user)
         return _translate_state_errors(
-            self.instance.get_workflow().start, _get_specific(self.instance), self.user
+            self.instance.get_workflow().start, instance, self.user
         )
 
 

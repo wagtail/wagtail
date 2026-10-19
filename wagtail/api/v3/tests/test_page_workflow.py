@@ -158,6 +158,21 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["workflow_state"]["status"], "in_progress")
 
+    def test_submit_page_without_revision(self):
+        page = SimplePage(title="No revision", slug="no-revision", content="hello")
+        self.home_page.add_child(instance=page)
+        WorkflowPage.objects.create(workflow=self.workflow, page=page)
+        self.login(user=self.submitter)
+        response = self.post_workflow("submit", page)
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        revision = page.get_latest_revision()
+        self.assertIsNotNone(revision)
+        self.assertEqual(
+            response.json()["workflow_state"]["current_task_state"]["revision_id"],
+            revision.id,
+        )
+
     # Permission matrix per transition
 
     def test_submit_permission_matrix(self):

@@ -198,6 +198,19 @@ class TestSnippetWorkflowTransitions(TestV3SnippetWorkflowBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["workflow_state"]["status"], "in_progress")
 
+    def test_submit_snippet_without_revision(self):
+        snippet = FullFeaturedSnippet.objects.create(text="No revision", live=False)
+        self.login(user=self.submitter)
+        response = self.post_workflow("submit", snippet)
+        self.assertEqual(response.status_code, 200)
+        snippet.refresh_from_db()
+        revision = snippet.get_latest_revision()
+        self.assertIsNotNone(revision)
+        self.assertEqual(
+            response.json()["workflow_state"]["current_task_state"]["revision_id"],
+            revision.id,
+        )
+
     # Permission matrix per transition
 
     def test_submit_permission_matrix(self):

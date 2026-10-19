@@ -130,6 +130,18 @@ class TestSubmitWorkflowAction(BasePageWorkflowActionTests):
             state.current_task_state.revision, self.object.get_latest_revision()
         )
 
+    def test_submit_without_revision_creates_one(self):
+        page = SimplePage(title="No revision", slug="no-revision", content="hello")
+        self.object.add_child(instance=page)
+        self.assertIsNone(page.get_latest_revision())
+
+        state = SubmitWorkflowAction(page, user=self.submitter).execute()
+
+        revision = page.get_latest_revision()
+        self.assertIsNotNone(revision)
+        self.assertEqual(revision.user, self.submitter)
+        self.assertEqual(state.current_task_state.revision, revision)
+
     def test_submit_without_workflow_raises_state_error(self):
         WorkflowPage.objects.get(page=self.object).delete()
         # Clear the cached reverse relation (set when the WorkflowPage was
@@ -200,6 +212,17 @@ class TestSubmitWorkflowActionSnippet(BaseSnippetWorkflowActionTests):
         self.assertEqual(state.current_task_state.task_id, self.task_1.id)
         self.assertEqual(state.current_task_state.status, TaskState.STATUS_IN_PROGRESS)
         self.assert_log_actions(self.object, ["wagtail.workflow.start"], since=since)
+
+    def test_submit_without_revision_creates_one(self):
+        snippet = FullFeaturedSnippet.objects.create(text="No revision", live=False)
+        self.assertIsNone(snippet.get_latest_revision())
+
+        state = SubmitWorkflowAction(snippet, user=self.submitter).execute()
+
+        revision = snippet.get_latest_revision()
+        self.assertIsNotNone(revision)
+        self.assertEqual(revision.user, self.submitter)
+        self.assertEqual(state.current_task_state.revision, revision)
 
     def test_submit_without_change_permission_raises(self):
         user = self.create_user(username="noperms")

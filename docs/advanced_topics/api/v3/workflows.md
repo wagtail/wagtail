@@ -35,7 +35,7 @@ curl -X POST "https://example.com/api/v3/pages/3/actions/workflow/submit/" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-A locked object returns `403`, including when it is locked because it is already in a workflow. Like the admin's "Submit for moderation" button, submitting is allowed even when the live page is unchanged: the workflow then starts on the current revision.
+A locked object returns `403`, including when it is locked because it is already in a workflow. Like the admin's "Submit for moderation" button, submitting is allowed even when the live page is unchanged: the workflow then starts on the current revision. If the object has no revision yet, one is created first from its current state.
 
 ## Approving and rejecting the current task
 
