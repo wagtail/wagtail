@@ -142,6 +142,19 @@ class TestSubmitWorkflowAction(BasePageWorkflowActionTests):
         self.assertEqual(revision.user, self.submitter)
         self.assertEqual(state.current_task_state.revision, revision)
 
+    def test_submit_alias_raises_state_error(self):
+        alias = self.object.create_alias(update_slug="hello-world-alias")
+        WorkflowPage.objects.create(workflow=self.workflow, page=alias)
+
+        with self.assertRaises(WorkflowStateError) as cm:
+            SubmitWorkflowAction(alias, user=self.submitter).execute()
+
+        self.assertEqual(
+            str(cm.exception),
+            "This page is an alias of another page and cannot be submitted for moderation.",
+        )
+        self.assertFalse(alias.workflow_states.exists())
+
     def test_submit_without_workflow_raises_state_error(self):
         WorkflowPage.objects.get(page=self.object).delete()
         # Clear the cached reverse relation (set when the WorkflowPage was

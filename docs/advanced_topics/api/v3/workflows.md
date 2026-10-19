@@ -155,6 +155,7 @@ State-machine violations return the standard validation error envelope with HTTP
 The messages are:
 
 -   Submitting with no workflow assigned to the object: "There is no active workflow assigned to this object."
+-   Submitting an alias page: "This page is an alias of another page and cannot be submitted for moderation."
 -   Submitting while a workflow is already active: "A workflow is already active on this object."
 -   Approving or rejecting when no task is awaiting moderation, including when the task state shown to the caller is stale or no longer current (other than a `task_state_id` mismatch): "This object is not currently awaiting moderation."
 -   Approving or rejecting with a `task_state_id` that is no longer current: "The provided task_state_id does not match the object's current task state."

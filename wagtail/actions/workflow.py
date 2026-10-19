@@ -103,6 +103,12 @@ class SubmitWorkflowAction(WorkflowAction):
 
     def check(self, skip_permission_checks=False):
         super().check(skip_permission_checks=skip_permission_checks)
+        from wagtail.models import AbstractPage
+
+        if isinstance(self.instance, AbstractPage) and self.instance.alias_of_id:
+            raise WorkflowStateError(
+                "This page is an alias of another page and cannot be submitted for moderation."
+            )
         if self.instance.get_workflow() is None:
             raise WorkflowStateError(
                 "There is no active workflow assigned to this object."

@@ -341,6 +341,17 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
             response, "There is no active workflow assigned to this object."
         )
 
+    def test_submit_alias_returns_422(self):
+        page = self.make_workflow_page("aliased")
+        alias = page.create_alias(update_slug="aliased-alias")
+        WorkflowPage.objects.create(workflow=self.workflow, page=alias)
+        self.login(user=self.submitter)
+        response = self.post_workflow("submit", alias)
+        self.assert_workflow_state_error(
+            response,
+            "This page is an alias of another page and cannot be submitted for moderation.",
+        )
+
     def test_submit_while_in_progress_returns_422(self):
         # Acted as a task-group member: the workflow lock locks out the
         # submitter itself (see the locked-page tests below).
