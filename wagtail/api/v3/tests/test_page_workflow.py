@@ -64,7 +64,8 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         self.assertEqual(content["workflow"]["name"], "test_workflow")
         self.assertEqual(content["workflow_state"]["status"], "in_progress")
         self.assertEqual(
-            content["workflow_state"]["requested_by"]["username"], "submitter"
+            content["workflow_state"]["requested_by"]["username"],
+            self.submitter.get_username(),
         )
         self.assertEqual(
             content["workflow_state"]["current_task_state"]["status"], "in_progress"
@@ -115,7 +116,9 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         task_states = content["workflow_state"]["task_states"]
         self.assertEqual(task_states[-1]["status"], "rejected")
         self.assertEqual(task_states[-1]["comment"], "Please fix the intro")
-        self.assertEqual(task_states[-1]["finished_by"]["username"], "moderator")
+        self.assertEqual(
+            task_states[-1]["finished_by"]["username"], self.moderator.get_username()
+        )
         self.assertEqual(content["allowed_actions"], ["resume"])
 
     def test_resume_returns_workflow_to_in_progress(self):
@@ -673,7 +676,8 @@ class TestPageWorkflowReads(WorkflowReadsMixin, TestV3WorkflowBase, TestCase):
         self.assertEqual(content["workflow"]["name"], "test_workflow")
         self.assertEqual(content["workflow_state"]["status"], "in_progress")
         self.assertEqual(
-            content["workflow_state"]["requested_by"]["username"], "submitter"
+            content["workflow_state"]["requested_by"]["username"],
+            self.submitter.get_username(),
         )
         self.assertEqual(
             content["workflow_state"]["current_task_state"]["status"], "in_progress"
