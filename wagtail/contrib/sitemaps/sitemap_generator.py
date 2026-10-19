@@ -3,7 +3,6 @@ from itertools import islice
 
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
-from django.db.models import Exists, OuterRef
 from django.http import Http404
 
 # Note: avoid importing models here. This module is imported from __init__.py
@@ -53,18 +52,7 @@ class Sitemap(DjangoSitemap):
             for translation in root_page.get_translations():
                 pages |= translation.get_descendants(inclusive=True)
 
-        pages = pages.live().public()
-
-        if self.alternates:
-            # Each page is listed along with its translations, so only keep one
-            # page per translation_key. This can't assume the root page's locale
-            # has a live page for each translation_key.
-            earlier_translation = pages.filter(
-                translation_key=OuterRef("translation_key"), path__lt=OuterRef("path")
-            )
-            pages = pages.exclude(Exists(earlier_translation))
-
-        return pages.order_by("path").defer_streamfields().specific()
+        return pages.live().public().order_by("path").defer_streamfields().specific()
 
     def get_translations(self, page_instances):
         if not page_instances:

@@ -388,6 +388,14 @@ class TestMultiLanguageSitemapView(WagtailTestUtils, TestCase):
                     response, "<loc>http://localhost/a-propos/</loc>", count=1
                 )
 
+    def test_sitemap_lists_one_url_per_page(self):
+        # Pagination counts pages, so each page must produce a single URL for
+        # sitemap pages to stay within the limit
+        request = RequestFactory().get("/sitemap.xml")
+        sitemap = Sitemap(request, alternates=True)
+        urls = sitemap.get_urls(1, get_current_site(request), "http")
+        self.assertEqual(len(urls), sitemap.paginator.count)
+
     def test_sitemap_includes_page_only_in_other_locale(self):
         self.fr_homepage.add_child(
             instance=TestPage(title="French only", slug="french-only")
