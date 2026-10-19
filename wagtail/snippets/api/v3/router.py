@@ -3,7 +3,7 @@ from typing import Any, Callable, Literal, cast
 from django.conf import settings
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
-from django.db.models import Model, Prefetch
+from django.db.models import Model
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Query, Router, Schema, Status
@@ -42,7 +42,6 @@ from wagtail.models import (
     DraftStateMixin,
     Locale,
     RevisionMixin,
-    TaskState,
     TranslatableMixin,
     WorkflowMixin,
 )
@@ -470,22 +469,7 @@ def list_snippet_workflow_history(
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
-    return (
-        snippet.workflow_states.select_related(
-            "workflow", "requested_by", "current_task_state__task__content_type"
-        )
-        .prefetch_related(
-            "current_task_state__finished_by",
-            Prefetch(
-                "task_states",
-                queryset=TaskState.objects.select_related(
-                    "task", "finished_by", "task__content_type"
-                ).order_by("started_at", "id"),
-                to_attr="_api_task_states",
-            ),
-        )
-        .order_by("-created_at", "-id")
-    )
+    return snippet.workflow_states.prefetch_task_states().order_by("-created_at", "-id")
 
 
 @actions_router.post(

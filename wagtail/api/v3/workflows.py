@@ -9,12 +9,7 @@ from wagtail.actions.workflow import (
 
 def _latest_workflow_state(instance):
     return (
-        instance.workflow_states.select_related(
-            "workflow",
-            "requested_by",
-            "current_task_state__task__content_type",
-            "current_task_state__finished_by",
-        )
+        instance.workflow_states.prefetch_task_states()
         .order_by("-created_at", "-id")
         .first()
     )

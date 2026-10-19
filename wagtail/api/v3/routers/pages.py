@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.db.models import Model, Prefetch, Q
+from django.db.models import Model, Q
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -49,7 +49,7 @@ from wagtail.api.v3.workflows import (
 )
 from wagtail.api.validators import SiteFilterValidator
 from wagtail.coreutils import find_available_slug, resolve_model_string
-from wagtail.models import Locale, Site, TaskState, get_page_models
+from wagtail.models import Locale, Site, get_page_models
 from wagtail.query import PageQuerySet
 
 Page = swapper.load_model("wagtailcore", "Page")
@@ -433,22 +433,7 @@ def get_page_workflow(request: HttpRequest, page_id: PositiveInt):
 def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id)
     check_can_view_workflow(page, request.user)
-    return (
-        page.workflow_states.select_related(
-            "workflow", "requested_by", "current_task_state__task__content_type"
-        )
-        .prefetch_related(
-            "current_task_state__finished_by",
-            Prefetch(
-                "task_states",
-                queryset=TaskState.objects.select_related(
-                    "task", "finished_by", "task__content_type"
-                ).order_by("started_at", "id"),
-                to_attr="_api_task_states",
-            ),
-        )
-        .order_by("-created_at", "-id")
-    )
+    return page.workflow_states.prefetch_task_states().order_by("-created_at", "-id")
 
 
 @actions_router.post(
