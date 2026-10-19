@@ -1,4 +1,5 @@
 from collections import namedtuple
+from contextlib import contextmanager
 
 import swapper
 from django.apps import apps
@@ -11,6 +12,11 @@ from django.db.models import Case, IntegerField, Q, When
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
+
+from wagtail.utils.stash import clear as stash_clear
+from wagtail.utils.stash import enabled, get_or_set, stash_scope
+from wagtail.utils.stash import get as stash_get
+from wagtail.utils.stash import set as stash_set
 
 swapper.set_app_prefix("wagtailcore", "wagtail")
 
@@ -88,6 +94,181 @@ SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_c
 SITE_ROOT_PATHS_CACHE_KEY = "wagtail_site_root_paths"
 # Increase the cache version whenever the structure SiteRootPath tuple changes
 SITE_ROOT_PATHS_CACHE_VERSION = 2
+
+WAGTAIL_STASH_SCOPE = "wagtail"
+STASH_CURRENT_SITE = "current_site"
+STASH_SITE_LOADER = "_site_loader"
+STASH_SITE_ROOT_PATHS = "site_root_paths"
+
+
+def bind_site_loader(loader):
+    """Register a lazy site identifier for the current request stash scope."""
+    stash_set(STASH_SITE_LOADER, loader, scope=WAGTAIL_STASH_SCOPE)
+
+
+def load_site_root_paths():
+    """Load site root paths from the process cache or database."""
+    result = cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+
+    if result is None:
+        result = []
+
+        for site in Site.objects.select_related(
+            "root_page", "root_page__locale"
+        ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                result.extend(
+                    [
+                        SiteRootPath(
+                            site.id,
+                            root_page.url_path,
+                            site.root_url,
+                            root_page.locale.language_code,
+                        )
+                        for root_page in site.root_page.get_translations(
+                            inclusive=True
+                        ).select_related("locale")
+                    ]
+                )
+            else:
+                result.append(
+                    SiteRootPath(
+                        site.id,
+                        site.root_page.url_path,
+                        site.root_url,
+                        site.root_page.locale.language_code,
+                    )
+                )
+
+        cache.set(
+            SITE_ROOT_PATHS_CACHE_KEY,
+            result,
+            3600,
+            version=SITE_ROOT_PATHS_CACHE_VERSION,
+        )
+    else:
+        # Convert the cache result to a list of SiteRootPath tuples, as some
+        # cache backends (e.g. Redis) don't support named tuples.
+        result = [SiteRootPath(*srp) for srp in result]
+
+    return result
+
+
+def find_site_scope_for_page(page):
+    """
+    Return the site and site root paths to use for a page, for example when previewing.
+
+    Prefer the site whose root page matches the page's locale and tree position.
+    Site root paths are loaded eagerly so they can be injected into a stash scope
+    for reuse during rendering.
+    """
+    site_root_paths = load_site_root_paths()
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        for site in Site.objects.select_related("root_page", "root_page__locale"):
+            if site.root_page.locale_id == page.locale_id and page.url_path.startswith(
+                site.root_page.url_path
+            ):
+                return site, site_root_paths
+    relevant_paths = tuple(
+        srp for srp in site_root_paths if page.url_path.startswith(srp.root_path)
+    )
+    if not relevant_paths:
+        return None, site_root_paths
+    if len(relevant_paths) == 1:
+        return Site.objects.get(pk=relevant_paths[0].site_id), site_root_paths
+    return Site.objects.get(pk=relevant_paths[0].site_id), site_root_paths
+
+
+def find_site_for_page(page):
+    """Return the most appropriate Site for a page."""
+    site, _site_root_paths = find_site_scope_for_page(page)
+    return site
+
+
+def _seed_site_stash(site=None, site_root_paths=None):
+    if site is not None:
+        bind_site_loader(lambda: site)
+        stash_set(STASH_CURRENT_SITE, site, scope=WAGTAIL_STASH_SCOPE)
+    if site_root_paths is not None:
+        stash_set(STASH_SITE_ROOT_PATHS, site_root_paths, scope=WAGTAIL_STASH_SCOPE)
+
+
+@contextmanager
+def wagtail_site_stash_scope(request=None, site=None, site_root_paths=None):
+    """
+    Open a Wagtail site stash for a block of work when one is not already active.
+
+    Used by :func:`~wagtail.models.sites.bind_site_scope_on_render` and available for custom views that
+    render templates without passing ``request`` into every URL helper.
+
+    Pass an explicit ``site`` when the site should not be derived from the
+    request hostname (for example, page previews should use the site the page
+    belongs to). Otherwise ``site`` is identified from ``request``.
+
+    When ``site`` is provided, ``site_root_paths`` are also injected into the
+    stash (loaded eagerly if not passed) so later URL generation reuses them.
+    """
+    if enabled(scope=WAGTAIL_STASH_SCOPE):
+        yield
+        return
+
+    if site is None and request is None:
+        yield
+        return
+
+    with stash_scope(WAGTAIL_STASH_SCOPE):
+        if site is not None:
+            if site_root_paths is None:
+                site_root_paths = load_site_root_paths()
+            _seed_site_stash(site=site, site_root_paths=site_root_paths)
+        else:
+            bind_site_loader(lambda: Site.find_for_request(request))
+        yield
+
+
+def bind_site_scope_on_render(response, site=None, site_root_paths=None):
+    """
+    Ensure deferred ``TemplateResponse`` rendering runs inside a Wagtail site scope.
+
+    Django renders template responses after the view returns. Wagtail uses this at
+    page serve and preview boundaries so page URLs (including those expanded by
+    the ``|richtext`` filter) resolve against the current site.
+    """
+    if getattr(response, "_wagtail_site_scope_bound", False):
+        return response
+
+    render = getattr(response, "render", None)
+    if not callable(render):
+        return response
+
+    request = getattr(response, "_request", None)
+
+    def render_with_site_scope(*args, **kwargs):
+        with wagtail_site_stash_scope(
+            request, site=site, site_root_paths=site_root_paths
+        ):
+            return render(*args, **kwargs)
+
+    response.render = render_with_site_scope
+    response._wagtail_site_scope_bound = True
+    return response
+
+
+def get_current_site():
+    """
+    Return the Site for the current stash scope if
+    :func:`~wagtail.models.sites.bind_site_scope_on_render` or
+    :func:`~wagtail.models.sites.wagtail_site_stash_scope` has bound one,
+    otherwise ``None``.
+    """
+
+    def load():
+        loader = stash_get(STASH_SITE_LOADER, scope=WAGTAIL_STASH_SCOPE)
+        if not callable(loader):
+            return None
+        return loader()
+
+    return get_or_set(STASH_CURRENT_SITE, load, scope=WAGTAIL_STASH_SCOPE)
 
 
 class Site(models.Model):
@@ -230,58 +411,19 @@ class Site(models.Model):
         - ``root_path`` - The internal URL path of the site's home page (for example '/home/')
         - ``root_url`` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - ``language_code`` - The language code of the site (for example 'en')
+
+        When a request stash scope is active, the result is reused for the
+        rest of that scope.
         """
-        result = cache.get(
-            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
+
+        return get_or_set(
+            STASH_SITE_ROOT_PATHS, load_site_root_paths, scope=WAGTAIL_STASH_SCOPE
         )
-
-        if result is None:
-            result = []
-
-            for site in Site.objects.select_related(
-                "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
-                            SiteRootPath(
-                                site.id,
-                                root_page.url_path,
-                                site.root_url,
-                                root_page.locale.language_code,
-                            )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
-                    result.append(
-                        SiteRootPath(
-                            site.id,
-                            site.root_page.url_path,
-                            site.root_url,
-                            site.root_page.locale.language_code,
-                        )
-                    )
-
-            cache.set(
-                SITE_ROOT_PATHS_CACHE_KEY,
-                result,
-                3600,
-                version=SITE_ROOT_PATHS_CACHE_VERSION,
-            )
-
-        else:
-            # Convert the cache result to a list of SiteRootPath tuples, as some
-            # cache backends (e.g. Redis) don't support named tuples.
-            result = [SiteRootPath(*result) for result in result]
-
-        return result
 
     @staticmethod
     def clear_site_root_paths_cache():
         cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        stash_clear(STASH_SITE_ROOT_PATHS, scope=WAGTAIL_STASH_SCOPE)
 
 
 class GroupSitePermissionManager(models.Manager):
