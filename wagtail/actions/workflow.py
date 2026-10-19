@@ -76,8 +76,7 @@ class WorkflowAction(BaseAction):
     def user_has_permission(self):
         # Permission gate for the submit / resume transitions: edit access to
         # the instance, and no lock held against this user. The approve /
-        # reject / cancel transitions and the page-specific subclasses define
-        # their own permission logic.
+        # reject / cancel transitions define their own permission logic.
         return can_edit_instance(self.instance, self.user) and not _is_locked_for_user(
             self.instance, self.user
         )
@@ -127,12 +126,6 @@ class SubmitWorkflowAction(WorkflowAction):
         )
 
 
-class SubmitPageWorkflowAction(SubmitWorkflowAction):
-    """Submit a page. Inherits edit-permission checking from
-    ``WorkflowAction.user_has_permission``, which special-cases pages via
-    ``can_edit_instance``'s ``AbstractPage`` dispatch."""
-
-
 class ResumeWorkflowAction(WorkflowAction):
     """
     Put a workflow state in "needs changes" back into progress, the same as
@@ -164,12 +157,6 @@ class ResumeWorkflowAction(WorkflowAction):
         # has no return value), so return the state directly.
         _translate_state_errors(state.resume, self.user)
         return state
-
-
-class ResumePageWorkflowAction(ResumeWorkflowAction):
-    """Resume a page. Inherits edit-permission checking from
-    ``WorkflowAction.user_has_permission``, which special-cases pages via
-    ``can_edit_instance``'s ``AbstractPage`` dispatch."""
 
 
 class ApproveTaskStateAction(WorkflowAction):

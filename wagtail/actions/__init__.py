@@ -27,9 +27,7 @@ from wagtail.actions.workflow import (
     ApproveTaskStateAction,
     CancelWorkflowAction,
     RejectTaskStateAction,
-    ResumePageWorkflowAction,
     ResumeWorkflowAction,
-    SubmitPageWorkflowAction,
     SubmitWorkflowAction,
     WorkflowAction,
     WorkflowStateError,
@@ -61,9 +59,7 @@ __all__ = [
     "RevertToPageRevisionAction",
     "RevertToRevisionAction",
     "RejectTaskStateAction",
-    "ResumePageWorkflowAction",
     "ResumeWorkflowAction",
-    "SubmitPageWorkflowAction",
     "SubmitWorkflowAction",
     "UnpublishAction",
     "UnpublishPageAction",
@@ -112,5 +108,3 @@ def register_default_actions():
     action_registry.register(Page, ConvertAliasPageAction)
     action_registry.register(Page, CreatePageAliasAction)
     action_registry.register(Page, CopyPageForTranslationAction)
-    action_registry.register(Page, SubmitPageWorkflowAction)
-    action_registry.register(Page, ResumePageWorkflowAction)

@@ -8,14 +8,11 @@ from wagtail.actions import (
     ApproveTaskStateAction,
     CancelWorkflowAction,
     RejectTaskStateAction,
-    ResumePageWorkflowAction,
     ResumeWorkflowAction,
-    SubmitPageWorkflowAction,
     SubmitWorkflowAction,
     WorkflowStateError,
     get_available_workflow_transitions,
 )
-from wagtail.actions.registry import action_registry
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     GroupApprovalTask,
@@ -208,12 +205,6 @@ class TestSubmitWorkflowAction(BasePageWorkflowActionTests):
         with self.assertRaises(PermissionDenied):
             SubmitWorkflowAction(self.object, user=self.submitter).execute()
 
-    def test_registry_resolves_page_subclass(self):
-        self.assertIs(
-            action_registry.get_action_class(SimplePage, "submit"),
-            SubmitPageWorkflowAction,
-        )
-
 
 class TestSubmitWorkflowActionSnippet(BaseSnippetWorkflowActionTests):
     def test_submit_starts_workflow_and_logs(self):
@@ -306,12 +297,6 @@ class TestResumeWorkflowAction(BasePageWorkflowActionTests):
 
         with self.assertRaises(PermissionDenied):
             ResumeWorkflowAction(self.object, user=user).execute()
-
-    def test_registry_resolves_page_subclass(self):
-        self.assertIs(
-            action_registry.get_action_class(SimplePage, "resume"),
-            ResumePageWorkflowAction,
-        )
 
 
 class TestResumeWorkflowActionSnippet(BaseSnippetWorkflowActionTests):
