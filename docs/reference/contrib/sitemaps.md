@@ -3,19 +3,8 @@
 # Sitemap generator
 
 This document describes how to create XML sitemaps for your Wagtail website
-using the `wagtail.contrib.sitemaps` module.
-
-```{note}
-As of Wagtail 1.10 the Django contrib sitemap app is used to generate
-sitemaps. However since Wagtail requires the Site instance to be available
-during the sitemap generation you will have to use the views from the
-`wagtail.contrib.sitemaps.views` module instead of the views
-provided by Django (`django.contrib.sitemaps.views`).
-
-The usage of these views is otherwise identical, which means that
-customization and caching of the sitemaps are done using the default Django
-patterns. See the Django documentation for in-depth information.
-```
+using the `wagtail.contrib.sitemaps` module, which builds on Django's
+[sitemap framework](inv:django#ref/contrib/sitemaps).
 
 ## Basic configuration
 
@@ -32,7 +21,8 @@ INSTALLED_APPS = [
 
 Then, in `urls.py`, you need to add a link to the
 `wagtail.contrib.sitemaps.views.sitemap` view which generates the
-sitemap:
+sitemap. Use this view rather than Django's `django.contrib.sitemaps.views.sitemap`,
+which doesn't know about Wagtail sites:
 
 ```python
 from wagtail.contrib.sitemaps.views import sitemap
@@ -40,7 +30,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 urlpatterns = [
     ...
 
-    path('sitemap.xml', sitemap),
+    path("sitemap.xml", sitemap),
 
     ...
 
@@ -50,8 +40,50 @@ urlpatterns = [
 ```
 
 You should now be able to browse to `/sitemap.xml` and see the sitemap
-working. By default, all published pages in your website will be added to the
-site map.
+working. By default, it lists all published pages of your site, except private pages.
+
+To help search engines and other crawlers find the sitemap, list it in your
+`robots.txt`:
+
+```text
+Sitemap: https://mysite.com/sitemap.xml
+```
+
+(sitemap_caching)=
+
+## Caching
+
+The sitemap is generated on each request. To cache it, wrap the view in
+Django's {func}`~django.views.decorators.cache.cache_page` decorator, as in
+[Django's sitemap documentation](<inv:django:std:label#ref/contrib/sitemaps:creating a sitemap index>):
+
+```python
+from django.views.decorators.cache import cache_page
+
+from wagtail.contrib.sitemaps.views import sitemap
+
+urlpatterns = [
+    ...
+
+    path("sitemap.xml", cache_page(60 * 60)(sitemap)),
+
+    ...
+
+    # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
+    path("", include(wagtail_urls)),
+]
+```
+
+This stores the sitemap in Django's cache for an hour and sets a `Cache-Control: max-age` header so that CDNs and
+crawlers can cache it too. Pages published or unpublished in that time
+won't be reflected until the cache expires, so pick a timeout that suits how
+often your content changes.
+
+The [frontend cache invalidator](frontend_cache_purging) doesn't purge the
+sitemap when pages are published. If you [purge the sitemap URL](frontend_cache_invalidating_urls)
+yourself, for example from a [`page_published`](signal_page_published) signal handler, use {func}`~django.views.decorators.cache.cache_control` instead,
+for example `cache_control(max_age=60 * 60)(sitemap)`, since Django's cache
+isn't purged.
 
 ## Setting the hostname
 
@@ -66,7 +98,7 @@ sitemap will look like:
 </url>
 ```
 
-For tools like Google Search Tools to properly index your site, you need to set
+For search engines to properly index your site, you need to set
 a valid, crawlable hostname. If you change the site's hostname from
 `localhost` to `mysite.com`, `sitemap.xml` will contain the correct URLs. If you
 change the site's port to `443`, the `https` scheme will be used:
@@ -138,7 +170,10 @@ You can add more but you will need to override the
 
 ## Serving multiple sitemaps
 
-If you want to support the sitemap indexes from Django then you will need to
-use the index view from `wagtail.contrib.sitemaps.views` instead of the index
-view from `django.contrib.sitemaps.views`. Please see the Django
-documentation for further details.
+Use a sitemap index if your site has more than 50,000 pages, or to add sitemaps
+for content that isn't Wagtail pages, such as your own Django models.
+
+To set one up, follow [Creating a sitemap index](<inv:django:std:label#ref/contrib/sitemaps:creating a sitemap index>)
+in the Django documentation, but use the `index` and `sitemap` views from
+`wagtail.contrib.sitemaps.views` instead of the ones from `django.contrib.sitemaps.views`.
+To cache them, wrap both views in `cache_page`, as described in [](sitemap_caching).

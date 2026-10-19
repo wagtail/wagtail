@@ -34,6 +34,7 @@ Changelog
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
+ * Docs: Document how to cache the sitemap (Albina Starykova)
  * Maintenance: Drop support for Python 3.10
  * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
  * Maintenance: Squash testapp migrations (Sage Abdullah)
