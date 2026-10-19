@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Callable, Literal, cast, get_type_hints
+from typing import Annotated, Any, Callable, Literal, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
@@ -20,6 +20,12 @@ from wagtail.api.v3.fields import FieldSerializer
 from wagtail.api.v3.schemas import BaseSchema
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
+
+from .blocks import (
+    BlockSchemaBuilder,
+    StreamFieldJsonSchema,
+    register_default_block_schemas,
+)
 
 FieldSchema = tuple[Any, Any, Callable | None]
 FieldSchemaFunc = Callable[["SchemaGenerator", Field], FieldSchema]
@@ -220,9 +226,11 @@ class SchemaGenerator:
           ``to_representation`` return annotation (or ``Any`` if missing or
           unresolvable), made nullable, and resolved via the serializer
           itself - see ``_custom_serializer_schema``.
-        - a ``StreamField``: typed as ``Any`` and resolved via
+        - a ``StreamField``: resolved via
           ``StreamValue.stream_block.get_api_representation``, matching how
-          API v2 serializes StreamField values.
+          API v2 serializes StreamField values, and typed as ``list[Any]``
+          with its blocks' shape documented in the JSON schema - see
+          :class:`~wagtail.api.v3.schemas.generators.blocks.StreamFieldJsonSchema`.
         - any other concrete/forward Django field: typed via ``create_schema``.
         - a reverse relation (e.g. an ``InlinePanel``'s target): resolved as
           ``list[NestedSchema]``. Within a ``nested`` schema, only child
@@ -410,7 +418,10 @@ def streamfield_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
         value = getattr(obj, field_name)
         return value.stream_block.get_api_representation(value, context)
 
-    return list[Any], [], staticmethod(resolve)
+    annotation = Annotated[
+        list[Any], StreamFieldJsonSchema(block_schema_builder, cast(StreamField, field))
+    ]
+    return cast(type, annotation), [], staticmethod(resolve)
 
 
 def tags_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
@@ -449,6 +460,9 @@ def rich_text_schema(generator: SchemaGenerator, field: Field) -> FieldSchema:
     )
     return cast(type, str | None), default, staticmethod(resolve)
 
+
+block_schema_builder = BlockSchemaBuilder(for_input=False)
+register_default_block_schemas(block_schema_builder)
 
 read_generator = SchemaGenerator()
 read_generator.register_field_schema(RelatedField, foreign_key_schema)

@@ -83,9 +83,13 @@ Other reverse relations are only included at the top level of a page or snippet,
 
 StreamField values nested inside child forms use the same flattening path as top-level StreamField fields.
 
-## Schema discovery limitation
+## Schema discovery
 
-Although the v3 API reads and writes StreamField content fully at runtime, the generated OpenAPI schema represents a StreamField as `list[Any]`. There is currently no per-block JSON Schema and no `/schema/blocks/` endpoint, so the OpenAPI schema alone cannot tell a client which block types are required, what properties a `StructBlock` has, what list items a `ListBlock` accepts, which objects a chooser targets, or which rich text features a block allows. For practical discovery, rely on the page's own schema for the field's existence along with this reference, and see the [schema discovery guide](api_v3_schema) for how per-type schemas are generated.
+The generated OpenAPI schema describes each StreamField's blocks: a list of items discriminated by `type`, with each item's `value` described by its block. A `StructBlock` becomes an object with a property for each child block, a `ListBlock` an array of its child block's values, a `ChoiceBlock` an enum of its choices, and a chooser block its target model's primary key. Input schemas are suffixed with `Input`. A block subclass, such as a project's `PersonBlock`, is named after its class and shared by every StreamField that uses it. Other blocks are named after their path from the field, such as `BlogPageBodyQuote`.
+
+The schema is for documentation only. Values aren't validated or serialized against it, so a value is never rejected or changed because it doesn't match. A block is described as any value if its shape isn't known, such as a custom block not based on a built-in block, or one that overrides `to_python` or `get_prep_value` (or `get_api_representation`, for the read schema).
+
+The schema doesn't include which blocks are required, block counts, or which rich text features a block allows. Rely on this reference and the [schema discovery guide](api_v3_schema) for those.
 
 ## Example: create a page with a StreamField
 

@@ -6142,6 +6142,148 @@
         "title": "CustomPreviewSizesPageSchema",
         "type": "object"
       },
+      "CustomRichBlockFieldPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "CustomRichBlockFieldPageBodyRichTextItem",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "CustomRichBlockFieldPageBodyRichTextItemInput",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextLimitedItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text_limited",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "CustomRichBlockFieldPageBodyRichTextLimitedItem",
+        "type": "object"
+      },
+      "CustomRichBlockFieldPageBodyRichTextLimitedItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text_limited",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "CustomRichBlockFieldPageBodyRichTextLimitedItemInput",
+        "type": "object"
+      },
       "CustomRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -6174,7 +6316,23 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemInput",
+                  "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -6342,7 +6500,23 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemInput",
+                  "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -6390,7 +6564,23 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "rich_text": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItem",
+                  "rich_text_limited": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomRichBlockFieldPageBodyRichTextLimitedItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -6910,6 +7100,77 @@
         "title": "DeadlyStreamPageSchema",
         "type": "object"
       },
+      "DefaultRichBlockFieldPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "DefaultRichBlockFieldPageBodyRichTextItem",
+        "type": "object"
+      },
+      "DefaultRichBlockFieldPageBodyRichTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "DefaultRichBlockFieldPageBodyRichTextItemInput",
+        "type": "object"
+      },
       "DefaultRichBlockFieldPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -6942,7 +7203,9 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItemInput"
+            },
             "title": "Body",
             "type": "array"
           },
@@ -7110,7 +7373,9 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItemInput"
+            },
             "title": "Body",
             "type": "array"
           },
@@ -7158,7 +7423,9 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "$ref": "#/components/schemas/DefaultRichBlockFieldPageBodyRichTextItem"
+            },
             "title": "Body",
             "type": "array"
           },
@@ -13496,6 +13763,85 @@
         },
         "required": ["meta", "id", "title"],
         "title": "HomePageSchema",
+        "type": "object"
+      },
+      "ImageBlock": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "required": ["image", "decorative", "alt_text"],
+        "title": "ImageBlock",
+        "type": "object"
+      },
+      "ImageBlockInput": {
+        "properties": {
+          "alt_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt Text"
+          },
+          "decorative": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decorative"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image"
+          }
+        },
+        "title": "ImageBlockInput",
         "type": "object"
       },
       "ImageCreateSchema": {
@@ -24955,6 +25301,836 @@
         "title": "StandardPageSchema",
         "type": "object"
       },
+      "StreamPageBodyBooksAuthorItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyBooksAuthorItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksAuthorItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyBooksAuthorItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyBooksItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/StreamPageBodyBooksAuthorItem",
+                  "title": "#/components/schemas/StreamPageBodyBooksTitleItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksTitleItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksAuthorItem"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyBooksItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/StreamPageBodyBooksAuthorItemInput",
+                  "title": "#/components/schemas/StreamPageBodyBooksTitleItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksTitleItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksAuthorItemInput"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyBooksItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyBooksTitleItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyBooksTitleItem",
+        "type": "object"
+      },
+      "StreamPageBodyBooksTitleItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyBooksTitleItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyImageItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyImageItem",
+        "type": "object"
+      },
+      "StreamPageBodyImageItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyImageItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ImageBlock"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyImageWithAltItem",
+        "type": "object"
+      },
+      "StreamPageBodyImageWithAltItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ImageBlockInput"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyImageWithAltItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyProduct": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "required": ["name", "price"],
+        "title": "StreamPageBodyProduct",
+        "type": "object"
+      },
+      "StreamPageBodyProductInput": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "StreamPageBodyProductInput",
+        "type": "object"
+      },
+      "StreamPageBodyProductItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/StreamPageBodyProduct"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyProductItem",
+        "type": "object"
+      },
+      "StreamPageBodyProductItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/StreamPageBodyProductInput"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyProductItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyRawHtmlItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyRawHtmlItem",
+        "type": "object"
+      },
+      "StreamPageBodyRawHtmlItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyRawHtmlItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyRichTextItem",
+        "type": "object"
+      },
+      "StreamPageBodyRichTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyRichTextItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyTableItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "table",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyTableItem",
+        "type": "object"
+      },
+      "StreamPageBodyTableItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "table",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyTableItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyTextItem",
+        "type": "object"
+      },
+      "StreamPageBodyTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyTextItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyTitleListItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyTitleListItem",
+        "type": "object"
+      },
+      "StreamPageBodyTitleListItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyTitleListItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "typed_table",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyTypedTableItem",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "typed_table",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "StreamPageBodyTypedTableItemInput",
+        "type": "object"
+      },
       "StreamPageCreateMetaSchema": {
         "properties": {
           "action": {
@@ -24987,7 +26163,55 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/StreamPageBodyBooksItemInput",
+                  "image": "#/components/schemas/StreamPageBodyImageItemInput",
+                  "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItemInput",
+                  "product": "#/components/schemas/StreamPageBodyProductItemInput",
+                  "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItemInput",
+                  "rich_text": "#/components/schemas/StreamPageBodyRichTextItemInput",
+                  "table": "#/components/schemas/StreamPageBodyTableItemInput",
+                  "text": "#/components/schemas/StreamPageBodyTextItemInput",
+                  "title_list": "#/components/schemas/StreamPageBodyTitleListItemInput",
+                  "typed_table": "#/components/schemas/StreamPageBodyTypedTableItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyProductItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRawHtmlItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTitleListItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageWithAltItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTableItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTypedTableItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -25155,7 +26379,55 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/StreamPageBodyBooksItemInput",
+                  "image": "#/components/schemas/StreamPageBodyImageItemInput",
+                  "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItemInput",
+                  "product": "#/components/schemas/StreamPageBodyProductItemInput",
+                  "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItemInput",
+                  "rich_text": "#/components/schemas/StreamPageBodyRichTextItemInput",
+                  "table": "#/components/schemas/StreamPageBodyTableItemInput",
+                  "text": "#/components/schemas/StreamPageBodyTextItemInput",
+                  "title_list": "#/components/schemas/StreamPageBodyTitleListItemInput",
+                  "typed_table": "#/components/schemas/StreamPageBodyTypedTableItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyProductItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRawHtmlItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTitleListItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageWithAltItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTableItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTypedTableItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -25203,7 +26475,55 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/StreamPageBodyBooksItem",
+                  "image": "#/components/schemas/StreamPageBodyImageItem",
+                  "image_with_alt": "#/components/schemas/StreamPageBodyImageWithAltItem",
+                  "product": "#/components/schemas/StreamPageBodyProductItem",
+                  "raw_html": "#/components/schemas/StreamPageBodyRawHtmlItem",
+                  "rich_text": "#/components/schemas/StreamPageBodyRichTextItem",
+                  "table": "#/components/schemas/StreamPageBodyTableItem",
+                  "text": "#/components/schemas/StreamPageBodyTextItem",
+                  "title_list": "#/components/schemas/StreamPageBodyTitleListItem",
+                  "typed_table": "#/components/schemas/StreamPageBodyTypedTableItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyProductItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyRawHtmlItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyBooksItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTitleListItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyImageWithAltItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTableItem"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTypedTableItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -26501,6 +27821,740 @@
         "title": "TranslationFilterSchema",
         "type": "object"
       },
+      "UUIDSnippetWithRelationsBodyBooksAuthorItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyBooksAuthorItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksAuthorItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "author",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyBooksAuthorItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItem",
+                  "title": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItem"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyBooksItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "books",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "author": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemInput",
+                  "title": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksTitleItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksAuthorItemInput"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyBooksItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksTitleItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyBooksTitleItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyBooksTitleItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyBooksTitleItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyImageItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyImageItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ImageBlock"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyImageWithAltItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "image_with_alt",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ImageBlockInput"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyImageWithAltItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProduct": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "required": ["name", "price"],
+        "title": "UUIDSnippetWithRelationsBodyProduct",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductInput": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "title": "UUIDSnippetWithRelationsBodyProductInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProduct"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyProductItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyProductItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "product",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductInput"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyProductItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRawHtmlItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyRawHtmlItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRawHtmlItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "raw_html",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyRawHtmlItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRichTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyRichTextItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyRichTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "rich_text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInputSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyRichTextItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTextItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyTextItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTextItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "text",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyTextItemInput",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTitleListItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyTitleListItem",
+        "type": "object"
+      },
+      "UUIDSnippetWithRelationsBodyTitleListItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "title_list",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Value",
+            "type": "array"
+          }
+        },
+        "required": ["type", "value"],
+        "title": "UUIDSnippetWithRelationsBodyTitleListItemInput",
+        "type": "object"
+      },
       "UUIDSnippetWithRelationsCreateMetaSchema": {
         "properties": {
           "type": {
@@ -26524,7 +28578,47 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemInput",
+                  "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemInput",
+                  "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemInput",
+                  "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemInput",
+                  "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemInput",
+                  "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemInput",
+                  "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemInput",
+                  "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -26647,7 +28741,47 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemInput",
+                  "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemInput",
+                  "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemInput",
+                  "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemInput",
+                  "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemInput",
+                  "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemInput",
+                  "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemInput",
+                  "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemInput"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItemInput"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItemInput"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
@@ -26712,7 +28846,47 @@
         "properties": {
           "body": {
             "default": [],
-            "items": {},
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "books": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItem",
+                  "image": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItem",
+                  "image_with_alt": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItem",
+                  "product": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItem",
+                  "raw_html": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItem",
+                  "rich_text": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItem",
+                  "text": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItem",
+                  "title_list": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItem"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRichTextItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyProductItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyRawHtmlItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyBooksItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListItem"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyImageWithAltItem"
+                }
+              ]
+            },
             "title": "Body",
             "type": "array"
           },
