@@ -1,26 +1,6 @@
 from django.core.exceptions import PermissionDenied
 
-from wagtail.actions.workflow import (
-    WorkflowStateError,
-    can_edit_instance,
-    get_available_workflow_transitions,
-)
-
-
-def _latest_workflow_state(instance):
-    return (
-        instance.workflow_states.prefetch_task_states()
-        .order_by("-created_at", "-id")
-        .first()
-    )
-
-
-def build_workflow_status_payload(instance, user, workflow_state=None) -> dict:
-    return {
-        "workflow": instance.get_workflow(),
-        "workflow_state": workflow_state or _latest_workflow_state(instance),
-        "allowed_actions": get_available_workflow_transitions(instance, user),
-    }
+from wagtail.actions.workflow import WorkflowStateError, can_edit_instance
 
 
 def check_can_view_workflow(instance, user) -> None:

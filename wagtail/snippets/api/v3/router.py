@@ -33,7 +33,6 @@ from wagtail.api.v3.schemas.workflows import (
     WorkflowTaskActionSchema,
 )
 from wagtail.api.v3.workflows import (
-    build_workflow_status_payload,
     check_can_view_workflow,
     resolve_task_state,
 )
@@ -450,7 +449,7 @@ def get_snippet_workflow(
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
-    return build_workflow_status_payload(snippet, request.user)
+    return snippet
 
 
 @router.get(
@@ -489,7 +488,7 @@ def submit_snippet_workflow(
     snippet = get_object_or_404(model, pk=unquote(pk))
     action_class = action_registry.get_action_class(model, "submit")
     action_class(snippet, user=request.user).execute()
-    return build_workflow_status_payload(snippet, request.user)
+    return snippet
 
 
 @actions_router.post(
@@ -511,9 +510,7 @@ def approve_snippet_workflow(
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "approve")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
-    return build_workflow_status_payload(
-        snippet, request.user, workflow_state=task_state.workflow_state
-    )
+    return snippet
 
 
 @actions_router.post(
@@ -535,9 +532,7 @@ def reject_snippet_workflow(
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "reject")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
-    return build_workflow_status_payload(
-        snippet, request.user, workflow_state=task_state.workflow_state
-    )
+    return snippet
 
 
 @actions_router.post(
@@ -556,10 +551,8 @@ def resume_snippet_workflow(
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
     action_class = action_registry.get_action_class(model, "resume")
-    workflow_state = action_class(snippet, user=request.user).execute()
-    return build_workflow_status_payload(
-        snippet, request.user, workflow_state=workflow_state
-    )
+    action_class(snippet, user=request.user).execute()
+    return snippet
 
 
 @actions_router.post(
@@ -578,10 +571,8 @@ def cancel_snippet_workflow(
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
     action_class = action_registry.get_action_class(model, "cancel")
-    workflow_state = action_class(snippet, user=request.user).execute()
-    return build_workflow_status_payload(
-        snippet, request.user, workflow_state=workflow_state
-    )
+    action_class(snippet, user=request.user).execute()
+    return snippet
 
 
 router.add_router("/", actions_router)

@@ -43,7 +43,6 @@ from wagtail.api.v3.schemas.workflows import (
     WorkflowTaskActionSchema,
 )
 from wagtail.api.v3.workflows import (
-    build_workflow_status_payload,
     check_can_view_workflow,
     resolve_task_state,
 )
@@ -418,7 +417,7 @@ def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveI
 def get_page_workflow(request: HttpRequest, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id)
     check_can_view_workflow(page, request.user)
-    return build_workflow_status_payload(page, request.user)
+    return page
 
 
 @router.get(
@@ -775,7 +774,7 @@ def submit_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     action_class = action_registry.get_action_class(Page, "submit")
     action_class(page, user=request.user).execute()
-    return build_workflow_status_payload(page, request.user)
+    return page
 
 
 @actions_router.post(
@@ -795,9 +794,7 @@ def approve_workflow(
     task_state = resolve_task_state(page, data.task_state_id)
     action_class = action_registry.get_action_class(Page, "approve")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
-    return build_workflow_status_payload(
-        page, request.user, workflow_state=task_state.workflow_state
-    )
+    return page
 
 
 @actions_router.post(
@@ -817,9 +814,7 @@ def reject_workflow(
     task_state = resolve_task_state(page, data.task_state_id)
     action_class = action_registry.get_action_class(Page, "reject")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
-    return build_workflow_status_payload(
-        page, request.user, workflow_state=task_state.workflow_state
-    )
+    return page
 
 
 @actions_router.post(
@@ -833,10 +828,8 @@ def reject_workflow(
 def resume_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     action_class = action_registry.get_action_class(Page, "resume")
-    workflow_state = action_class(page, user=request.user).execute()
-    return build_workflow_status_payload(
-        page, request.user, workflow_state=workflow_state
-    )
+    action_class(page, user=request.user).execute()
+    return page
 
 
 @actions_router.post(
@@ -850,10 +843,8 @@ def cancel_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)
     action_class = action_registry.get_action_class(Page, "cancel")
-    workflow_state = action_class(page, user=request.user).execute()
-    return build_workflow_status_payload(
-        page, request.user, workflow_state=workflow_state
-    )
+    action_class(page, user=request.user).execute()
+    return page
 
 
 router.add_router("/", actions_router)

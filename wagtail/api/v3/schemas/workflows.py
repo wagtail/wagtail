@@ -4,6 +4,8 @@ from typing import Any, Literal
 from ninja import Schema
 from pydantic import PositiveInt
 
+from wagtail.actions.workflow import get_available_workflow_transitions
+
 from .base import BaseSchema
 
 
@@ -65,17 +67,8 @@ class WorkflowStateSchema(BaseSchema):
 
     @staticmethod
     def resolve_task_states(obj) -> list[WorkflowTaskStateSchema]:
-        # History requests prefetch task states onto `_prefetched_task_states`
-        # (already ordered); `all()`/order_by would clone the related manager and
-        # discard that prefetch cache, so consume the attribute when present and
-        # fall back to the ordered manager path for non-prefetched states (status
-        # endpoint).
-        task_states = getattr(obj, "_prefetched_task_states", None)
-        if task_states is None:
-            task_states = obj.task_states.select_related("task__content_type").order_by(
-                "started_at", "id"
-            )
-        return list(task_states)
+        # Populated by WorkflowStateQuerySet.prefetch_task_states().
+        return obj._prefetched_task_states
 
 
 class WorkflowStateDetailSchema(WorkflowStateSchema):
@@ -96,6 +89,22 @@ class WorkflowStatusSchema(Schema):
     workflow: WorkflowSummarySchema | None = None
     workflow_state: WorkflowStateDetailSchema | None = None
     allowed_actions: list[str] = []
+
+    @staticmethod
+    def resolve_workflow(obj):
+        return obj.get_workflow()
+
+    @staticmethod
+    def resolve_workflow_state(obj):
+        return (
+            obj.workflow_states.prefetch_task_states()
+            .order_by("-created_at", "-id")
+            .first()
+        )
+
+    @staticmethod
+    def resolve_allowed_actions(obj, context: dict) -> list[str]:
+        return get_available_workflow_transitions(obj, context["request"].user)
 
 
 class WorkflowTaskActionSchema(Schema):
