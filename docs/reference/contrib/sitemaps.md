@@ -116,7 +116,7 @@ Find out more about [working with Sites](site_model_ref).
 
 ## Multi-language support
 
-When `WAGTAIL_I18N_ENABLED` is `True`, alternate links will be automatically added for translations of each page.
+When `WAGTAIL_I18N_ENABLED` is `True`, the sitemap includes pages from the page trees of all locales of the site, including pages that only exist in one locale, and alternate links will be automatically added for translations of each page.
 
 ```xml
 <url>
