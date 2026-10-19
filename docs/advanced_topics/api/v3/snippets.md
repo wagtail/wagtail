@@ -44,7 +44,6 @@ The capabilities a snippet exposes depend on the mixins its model uses:
 | `LockableMixin` | lock respected but no locking/unlocking via the API |
 | `WorkflowMixin` | workflow actions, status and history reads, see [](api_v3_workflows) |
 
-
 ## Draft state and revisions
 
 On a `DraftStateMixin` model, create and update produce a revision while keeping the live database representation unchanged until publication. `?version=draft` returns the latest revision for a draft-state model.

@@ -28,7 +28,7 @@ Every successful response, for both the transitions and the status read, uses th
 
 ## Submitting a workflow
 
-`/pages/{page_id}/actions/workflow/submit/` starts the workflow assigned to the object's type, on its latest revision. It requires the `change` (edit) permission for the object, and that the object is not locked for the caller:
+`/pages/{page_id}/actions/workflow/submit/` starts the workflow assigned to the object, on its latest revision. It requires the `change` (edit) permission for the object, and that the object is not locked for the caller:
 
 ```sh
 curl -X POST "https://example.com/api/v3/pages/3/actions/workflow/submit/" \
@@ -117,7 +117,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
 }
 ```
 
--   **`workflow`**: the workflow assigned to the object's type, or `null` when there is none (or workflows are disabled with `WAGTAIL_WORKFLOW_ENABLED`).
+-   **`workflow`**: the workflow assigned to the object, or `null` when there is none (or workflows are disabled with `WAGTAIL_WORKFLOW_ENABLED`).
 -   **`workflow_state`**: the object's latest workflow state, whether active or finished; `null` when the object was never submitted. The `status` field (`in_progress`, `needs_changes`, `approved`, `cancelled`) disambiguates, so a just-approved or just-cancelled workflow remains inspectable.
 -   **`requested_by`**: the user who started the workflow.
 -   **`current_task_state`**: the task state awaiting action, or `null` when there is none.
@@ -154,7 +154,7 @@ State-machine violations return the standard validation error envelope with HTTP
 
 The messages are:
 
--   Submitting with no workflow assigned to the object's type: "There is no active workflow assigned to this object."
+-   Submitting with no workflow assigned to the object: "There is no active workflow assigned to this object."
 -   Submitting while a workflow is already active: "A workflow is already active on this object."
 -   Approving or rejecting when no task is awaiting moderation, including when the task state shown to the caller is stale or no longer current (other than a `task_state_id` mismatch): "This object is not currently awaiting moderation."
 -   Approving or rejecting with a `task_state_id` that is no longer current: "The provided task_state_id does not match the object's current task state."
