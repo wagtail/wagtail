@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
@@ -51,19 +51,29 @@ class WagtailImagesAppConfig(AppConfig):
 
         ReferenceIndex.register_model(Image)
 
-        from .api.v3.registry import register_content_types
+        if apps.is_installed("wagtail.api.v3"):
+            from .api.v3.registry import register_content_types
 
-        register_content_types()
+            register_content_types()
 
-        from wagtail.api.v3.api import api
+            from wagtail.api.v3.api import api
 
-        from .api.v3.router import router
+            from .api.v3.router import router
 
-        api.add_router("/images/", router)
+            api.add_router("/images/", router)
 
-        from wagtail.api.v3.signal_handlers import use_frontend_cache
+            from wagtail.api.v3.schemas.generators import read, write
+            from wagtail.api.v3.schemas.generators.blocks import struct_block_schema
 
-        from .api.v3.signal_handlers import register_signal_handlers
+            from .blocks import ImageBlock
 
-        if use_frontend_cache():
-            register_signal_handlers()
+            # Its value is represented as a plain StructBlock value
+            for builder in (read.block_schema_builder, write.block_schema_builder):
+                builder.register_block_schema(ImageBlock, struct_block_schema)
+
+            from wagtail.api.v3.signal_handlers import use_frontend_cache
+
+            from .api.v3.signal_handlers import register_signal_handlers
+
+            if use_frontend_cache():
+                register_signal_handlers()

@@ -21,6 +21,7 @@ from wagtail.blocks import (
     StructBlock,
 )
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.test.testapp.models import (
@@ -184,17 +185,6 @@ class TestBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
             NULLABLE_STRING,
         )
 
-    def test_image_block(self):
-        schema = self.json_schema(StreamBlock([("image", ImageBlock())]))
-        self.assertEqual(
-            schema["$defs"]["ImageBlock"]["properties"]["image"]["anyOf"],
-            NULLABLE_INTEGER["anyOf"],
-        )
-        self.assertEqual(
-            schema["$defs"]["ImageBlock"]["required"],
-            ["image", "decorative", "alt_text"],
-        )
-
 
 class TestInputBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
     for_input = True
@@ -257,6 +247,21 @@ class TestStreamFieldSchema(SimpleTestCase):
         ]
         instance = cast(Any, schema.model_validate({"body": body}))
         self.assertEqual(instance.body, body)
+
+    def test_image_block(self):
+        block_type = read.block_schema_builder.get_type(ImageBlock(), "TestImage")
+        schema = TypeAdapter(block_type).json_schema(mode="serialization")
+        self.assertEqual(schema["title"], "ImageBlock")
+        self.assertEqual(
+            schema["properties"]["image"]["anyOf"], NULLABLE_INTEGER["anyOf"]
+        )
+        self.assertEqual(schema["required"], ["image", "decorative", "alt_text"])
+
+    def test_embed_block(self):
+        for builder in (read.block_schema_builder, write.block_schema_builder):
+            with self.subTest(for_input=builder.for_input):
+                block_type = builder.get_type(EmbedBlock(), "TestEmbed")
+                self.assertEqual(TypeAdapter(block_type).json_schema(), NULLABLE_STRING)
 
     def test_block_schema_is_built_lazily(self):
         with mock.patch.object(

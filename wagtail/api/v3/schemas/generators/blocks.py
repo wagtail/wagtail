@@ -3,7 +3,6 @@ from datetime import date, datetime, time
 from decimal import Decimal
 from typing import Annotated, Any, Literal, NotRequired, Union, cast
 
-from django.apps import apps
 from django.db.models import IntegerField
 from pydantic import Field as PydanticField
 from pydantic import TypeAdapter
@@ -264,15 +263,3 @@ def register_default_block_schemas(builder: BlockSchemaBuilder) -> None:
         (DateTimeBlock, datetime),
     ]:
         builder.register_block_schema(block_class, fixed_schema(value_type | None))
-
-    if apps.is_installed("wagtail.images"):
-        from wagtail.images.blocks import ImageBlock
-
-        # Its value is represented as a plain StructBlock value
-        builder.register_block_schema(ImageBlock, struct_block_schema)
-
-    if apps.is_installed("wagtail.embeds"):
-        from wagtail.embeds.blocks import EmbedBlock
-
-        # The embed's URL
-        builder.register_block_schema(EmbedBlock, fixed_schema(str | None))
