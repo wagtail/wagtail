@@ -113,7 +113,7 @@ describe('renderMetadataSection', () => {
     ).toEqual('0/160');
   });
 
-  it('renders all meta tags except stylesheets in the viewer', () => {
+  it('renders only metadata-relevant link tags in the viewer', () => {
     const longContent = 'x'.repeat(150);
     const metadata: PageMetadata = {
       ...fullMetadata,
@@ -123,7 +123,10 @@ describe('renderMetadataSection', () => {
       ],
       linkTags: [
         { rel: 'canonical', href: 'https://example.com/canonical/' },
+        { rel: 'alternate stylesheet', href: '/static/print.css' },
         { rel: 'stylesheet', href: '/static/style.css' },
+        { rel: 'preload', href: '/static/font.woff2' },
+        { rel: 'CANONICAL', href: 'https://example.com/uppercase/' },
       ],
     };
 
@@ -137,8 +140,17 @@ describe('renderMetadataSection', () => {
       (dd) => dd.textContent,
     );
 
-    // Stylesheet links are page plumbing, not metadata – not listed.
-    expect(terms).toEqual(['og:title', 'og:title', 'canonical']);
+    // Only the allowlisted relations are listed: `canonical` (including
+    // case-insensitive matches and rel attributes holding multiple tokens),
+    // plus `alternate` from 'alternate stylesheet'. Stylesheet links and
+    // resource hints are page plumbing, not metadata – not listed.
+    expect(terms).toEqual([
+      'og:title',
+      'og:title',
+      'canonical',
+      'alternate stylesheet',
+      'CANONICAL',
+    ]);
     expect(descriptions[0]).toEqual('First');
     // Long content is truncated for display, with the full value in title
     expect(descriptions[1]).toHaveLength(100 - 1 + 1);

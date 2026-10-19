@@ -26,6 +26,23 @@ export const DESCRIPTION_BUDGET_CHARS = 160;
 /** Maximum length of meta tag contents displayed in the tag viewer. */
 export const META_TAG_LIMIT = 100;
 
+/**
+ * The `rel` values of `link` tags that are relevant as page metadata, and
+ * thus listed in the "View more meta tags" viewer. Based on the relations
+ * documented on MDN, plus the `shortlink` and `amphtml` conventions widely
+ * emitted by CMSs for SEO purposes. All other relations (stylesheets,
+ * resource hints, icons, …) are page plumbing rather than metadata.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel
+ */
+const METADATA_LINK_RELS = new Set([
+  'alternate',
+  'amphtml',
+  'canonical',
+  'next',
+  'prev',
+  'shortlink',
+]);
+
 let measureCanvas: HTMLCanvasElement | null = null;
 
 /**
@@ -49,9 +66,19 @@ const truncateTagContent = (content: string) => {
 };
 
 /**
+ * Whether a `link` tag's `rel` value holds any metadata-relevant relation.
+ * The rel attribute may hold multiple tokens ('alternate stylesheet').
+ */
+const hasMetadataRel = (rel: string): boolean =>
+  rel
+    .toLowerCase()
+    .split(/\s+/)
+    .some((value) => METADATA_LINK_RELS.has(value));
+
+/**
  * Render the raw meta tag viewer: every `meta` tag (name/property → content)
- * and every `link` tag with a `rel` attribute (canonical, alternate, etc.).
- * Stylesheet links are excluded – they are page plumbing, not metadata.
+ * and every `link` tag holding a metadata-relevant `rel` value (canonical,
+ * alternate, shortlink, pagination, …).
  */
 const renderTagViewer = (metadata: PageMetadata, root: ParentNode): void => {
   const container = root.querySelector('[data-metadata-tags]');
@@ -74,7 +101,7 @@ const renderTagViewer = (metadata: PageMetadata, root: ParentNode): void => {
     addEntry(meta.name || meta.property || '', meta.content);
   });
   metadata.linkTags
-    .filter((link) => link.rel.toLowerCase() !== 'stylesheet')
+    .filter((link) => hasMetadataRel(link.rel))
     .forEach((link) => {
       addEntry(link.rel, link.href);
     });
