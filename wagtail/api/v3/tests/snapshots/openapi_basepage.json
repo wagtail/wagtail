@@ -27570,11 +27570,15 @@
             ],
             "title": "Status",
             "type": "string"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WorkflowTaskSummarySchema"
           }
         },
         "required": [
           "meta",
           "id",
+          "task",
           "status",
           "revision_id",
           "started_at",

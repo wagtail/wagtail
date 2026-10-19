@@ -12,7 +12,7 @@ def _latest_workflow_state(instance):
         instance.workflow_states.select_related(
             "workflow",
             "requested_by",
-            "current_task_state__task",
+            "current_task_state__task__content_type",
             "current_task_state__finished_by",
         )
         .order_by("-created_at", "-id")

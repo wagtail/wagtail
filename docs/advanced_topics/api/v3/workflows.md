@@ -79,6 +79,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
         "requested_by": {"id": "4", "username": "editor"},
         "current_task_state": {
             "id": 21,
+            "task": {"id": 2, "name": "Moderators approval", "type": "wagtailcore.GroupApprovalTask"},
             "status": "in_progress",
             "revision_id": 105,
             "started_at": "2026-10-14T09:30:01Z",
@@ -89,6 +90,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
         "task_states": [
             {
                 "id": 21,
+                "task": {"id": 2, "name": "Moderators approval", "type": "wagtailcore.GroupApprovalTask"},
                 "status": "in_progress",
                 "revision_id": 105,
                 "started_at": "2026-10-14T09:30:01Z",
@@ -102,6 +104,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
                 "task": {"id": 2, "name": "Moderators approval", "type": "wagtailcore.GroupApprovalTask"},
                 "task_state": {
                     "id": 21,
+                    "task": {"id": 2, "name": "Moderators approval", "type": "wagtailcore.GroupApprovalTask"},
                     "status": "in_progress",
                     "revision_id": 105,
                     "started_at": "2026-10-14T09:30:01Z",
@@ -121,7 +124,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
 -   **`workflow_state`**: the object's latest workflow state, whether active or finished; `null` when the object was never submitted. The `status` field (`in_progress`, `needs_changes`, `approved`, `cancelled`) disambiguates, so a just-approved or just-cancelled workflow remains inspectable.
 -   **`requested_by`**: the user who started the workflow.
 -   **`current_task_state`**: the task state awaiting action, or `null` when there is none.
--   **`task_states`**: the states created so far, oldest first.
+-   **`task_states`**: the states created so far, oldest first. Each task state includes the `task` it belongs to.
 -   **`tasks`**: the workflow's full task timeline. Each item pairs a `task` with its `task_state`, which is `null` for tasks that have not started yet — a moderation UI can render "Not started" / "In progress" / "Approved"… exactly like the admin's workflow dialog.
 -   **`allowed_actions`**: the transitions the current user may perform right now, among `submit`, `approve`, `reject`, `resume`, and `cancel`. What is advertised is what the API accepts: after a workflow finishes or is cancelled, `submit` reappears here for users who can edit.
 

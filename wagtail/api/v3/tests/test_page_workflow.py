@@ -868,6 +868,37 @@ class TestPageWorkflowHistory(WorkflowReadsMixin, TestV3WorkflowBase, TestCase):
             self.assertIn("task_states", item)
             self.assertNotIn("tasks", item)
 
+    def test_history_task_states_include_task(self):
+        self.login(user=self.submitter)
+        self.assertEqual(self.post_workflow("submit", self.page).status_code, 200)
+        self.login(user=self.moderator)
+        self.assertEqual(self.post_workflow("approve", self.page).status_code, 200)
+        items = self.get_history(self.page).json()["items"]
+        self.assertEqual(
+            [
+                (task_state["task"], task_state["status"])
+                for task_state in items[0]["task_states"]
+            ],
+            [
+                (
+                    {
+                        "id": self.task_1.id,
+                        "name": "test_task_1",
+                        "type": "wagtailcore.GroupApprovalTask",
+                    },
+                    "approved",
+                ),
+                (
+                    {
+                        "id": self.task_2.id,
+                        "name": "test_task_2",
+                        "type": "wagtailcore.GroupApprovalTask",
+                    },
+                    "in_progress",
+                ),
+            ],
+        )
+
     def test_history_read_gate(self):
         self.submit_and_cancel()
         matrix = [

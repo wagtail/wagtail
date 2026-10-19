@@ -32,11 +32,15 @@ class WorkflowTaskSummarySchema(Schema):
 
     @staticmethod
     def resolve_type(obj) -> str:
-        return ".".join(obj.content_type.natural_key())
+        content_type = obj.content_type
+        if model := content_type.model_class():
+            return model._meta.label
+        return f"{content_type.app_label}.{content_type.model}"
 
 
 class WorkflowTaskStateSchema(BaseSchema):
     id: int
+    task: WorkflowTaskSummarySchema
     status: Literal["in_progress", "approved", "rejected", "skipped", "cancelled"]
     revision_id: int
     started_at: datetime
@@ -67,7 +71,9 @@ class WorkflowStateSchema(BaseSchema):
         # to the ordered manager path for non-prefetched states (status endpoint).
         task_states = getattr(obj, "_api_task_states", None)
         if task_states is None:
-            task_states = obj.task_states.order_by("started_at", "id")
+            task_states = obj.task_states.select_related("task__content_type").order_by(
+                "started_at", "id"
+            )
         return list(task_states)
 
 
@@ -78,10 +84,11 @@ class WorkflowStateDetailSchema(WorkflowStateSchema):
     def resolve_tasks(obj) -> list[dict[str, Any]]:
         # "task" is an attribute the Task model does not expose, so map the
         # all_tasks_with_state() items to the schema's field names up front.
-        return [
-            {"task": task, "task_state": task.task_state}
-            for task in obj.all_tasks_with_state()
-        ]
+        tasks = obj.all_tasks_with_state()
+        for task in tasks:
+            if task.task_state is not None:
+                task.task_state.task = task
+        return [{"task": task, "task_state": task.task_state} for task in tasks]
 
 
 class WorkflowStatusSchema(Schema):

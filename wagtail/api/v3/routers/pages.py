@@ -435,7 +435,7 @@ def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
     check_can_view_workflow(page, request.user)
     return (
         page.workflow_states.select_related(
-            "workflow", "requested_by", "current_task_state__task"
+            "workflow", "requested_by", "current_task_state__task__content_type"
         )
         .prefetch_related(
             "current_task_state__finished_by",
