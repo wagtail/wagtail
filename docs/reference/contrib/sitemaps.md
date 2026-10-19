@@ -115,6 +115,46 @@ urlpatterns = [
 ]
 ```
 
+### Including pages from all locales
+
+Each locale has its own page tree, and the sitemap only lists pages under the site's
+root page. With alternates enabled, translations of those pages are listed too. Pages with
+no live counterpart in the root page's locale are left out. To include them, subclass
+`Sitemap` and override `items` to cover the trees of all the root page's translations:
+
+```python
+from django.db.models import Exists, OuterRef
+
+from wagtail.contrib.sitemaps import Sitemap
+from wagtail.models import Page
+
+
+class AllLocalesSitemap(Sitemap):
+    def items(self):
+        site = self.get_wagtail_site()
+        pages = Page.objects.none()
+        for root in site.root_page.get_translations(inclusive=True):
+            pages |= Page.objects.descendant_of(root, inclusive=True)
+        pages = pages.live().public()
+        if self.alternates:
+            # Each page also lists its translations, so keep one page per translation_key
+            earlier_translation = pages.filter(
+                translation_key=OuterRef("translation_key"), path__lt=OuterRef("path")
+            )
+            pages = pages.filter(~Exists(earlier_translation))
+        return pages.order_by("path").defer_streamfields().specific()
+```
+
+Then pass it to the view:
+
+```python
+urlpatterns = [
+    ...
+    path("sitemap.xml", sitemap, {"sitemaps": {"pages": AllLocalesSitemap}}),
+    ...
+]
+```
+
 ## Customizing
 
 ### URLs

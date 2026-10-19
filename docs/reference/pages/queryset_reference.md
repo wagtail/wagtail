@@ -76,6 +76,16 @@ menu_items = homepage.get_children().live().in_menu()
             site = Site.find_for_request(request)
             site_events = EventPage.objects.in_site(site)
 
+        On multilingual sites, this only returns pages in the locale of the site's root page,
+        as each locale has its own page tree. To include all locales, combine the trees of
+        the root page's translations:
+
+        .. code-block:: python
+
+            site_events = EventPage.objects.none()
+            for root in site.root_page.get_translations(inclusive=True):
+                site_events |= EventPage.objects.descendant_of(root, inclusive=True)
+
     .. automethod:: page
 
         Example:
