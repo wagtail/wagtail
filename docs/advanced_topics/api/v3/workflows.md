@@ -163,6 +163,8 @@ The messages are:
 
 Permission failures return `403`, and a missing object `404` — with plain primary-key fetching like the other action endpoints, workflow visibility is decided by the permission gates above, not by the fetch.
 
+Permissions are checked before the workflow state, so only callers who can read the object's workflow status receive these `422` errors; anyone else gets `403`. For example, an approver who is only a member of the current task's groups gets `403` once the workflow has moved on to a task they cannot act on.
+
 ## Settings and behaviour notes
 
 -   Workflow transitions send the same notification emails as the admin, to the same recipients.

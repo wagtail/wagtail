@@ -523,6 +523,7 @@ def approve_snippet_workflow(
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "approve")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
@@ -546,6 +547,7 @@ def reject_snippet_workflow(
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "reject")
     action_class(task_state, user=request.user, comment=data.comment or "").execute()
@@ -590,6 +592,7 @@ def cancel_snippet_workflow(
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
     action_class = action_registry.get_action_class(model, "cancel")
     workflow_state = action_class(snippet, user=request.user).execute()
     return build_workflow_status_payload(

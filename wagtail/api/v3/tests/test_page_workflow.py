@@ -454,6 +454,14 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
             response, "There is no active workflow on this object to cancel."
         )
 
+    def test_transitions_without_active_state_check_permission_first(self):
+        page = self.make_workflow_page("no-active-state")
+        self.login(user=self.outsider)
+        for transition in ("approve", "reject", "cancel"):
+            with self.subTest(transition=transition):
+                response = self.post_workflow(transition, page)
+                self.assert_problem_response(response, status_code=403)
+
     # Locked page
 
     def test_submit_while_locked_out_by_workflow_returns_403(self):
