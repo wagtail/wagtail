@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -3057,7 +3057,7 @@ requires-dist = [
     { name = "responses", marker = "extra == 'testing'", specifier = ">=0.25,<1" },
     { name = "ruff", marker = "extra == 'testing'", specifier = "==0.16.5" },
     { name = "semgrep", marker = "extra == 'testing'", specifier = "==1.175.0" },
-    { name = "sphinx", marker = "extra == 'docs'", specifier = ">=7.3" },
+    { name = "sphinx", marker = "extra == 'docs'", specifier = ">=8.2" },
     { name = "sphinx-autobuild", marker = "extra == 'docs'", specifier = ">=0.6.0" },
     { name = "sphinx-llm", marker = "extra == 'docs'", specifier = ">=0.2.1" },
     { name = "sphinx-wagtail-theme", marker = "extra == 'docs'", specifier = ">=6.5.0,<7" },
