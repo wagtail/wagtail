@@ -4,6 +4,7 @@ Changelog
 8.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add page metadata (title, description and meta tags) to the content checks panel and userbar Checks dialog, with the userbar dialog now matching the page editor's Checks panel (Thibaud Colas)
  * Add formal support for Python 3.15
  * Only auto-create redirects when moving or renaming live pages, not draft; use `WAGTAILREDIRECTS_AUTO_CREATE = 'always'` to restore previous behaviour (Sage Abdullah)
  * Show allowed file types as part of document upload form help text (Bhavesh Sharma)
