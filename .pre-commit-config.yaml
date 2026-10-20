@@ -19,8 +19,8 @@ repos:
       - id: prettier
         files: \.(css|scss|js|ts|tsx|json|jsonc|yaml|yml)$
         additional_dependencies:
-          # Keep in sync with package.json
-          - prettier@3.8.1
+          # Keep in sync with package-lock.json
+          - prettier@3.9.6
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.39.1
     hooks:
@@ -29,10 +29,10 @@ repos:
         files: \.(js|ts|tsx)$
         args: [--report-unused-disable-directives]
         additional_dependencies:
-          # Keep in sync with package.json
+          # Keep in sync with package-lock.json
           - eslint@9.39.2
-          - '@typescript-eslint/eslint-plugin@8.20.0'
-          - '@typescript-eslint/parser@8.20.0'
+          - '@typescript-eslint/eslint-plugin@8.55.0'
+          - '@typescript-eslint/parser@8.55.0'
           - '@wagtail/eslint-config-wagtail@0.6.0'
           - 'eslint-plugin-no-jquery@3.1.1'
           - 'eslint-plugin-storybook@10.2.4'
@@ -42,7 +42,7 @@ repos:
       - id: stylelint
         files: \.scss$
         additional_dependencies:
-          # Keep in sync with package.json
+          # Keep in sync with package-lock.json
           - stylelint@15.11.0
           - '@wagtail/stylelint-config-wagtail@0.8.0'
   - repo: https://github.com/thibaudcolas/curlylint
