@@ -1,26 +1,28 @@
 from datetime import datetime
 from typing import Any, Literal
+from uuid import UUID
 
 from django.contrib.contenttypes.models import ContentType
 from ninja import Schema
 from pydantic import PositiveInt
 
 from wagtail.actions.workflow import get_available_workflow_transitions
+from wagtail.admin.utils import get_user_display_name
 
 from .base import BaseSchema
 
 
 class WorkflowUserSummarySchema(Schema):
-    id: str
-    username: str
+    id: int | str | UUID
+    name: str
 
     @staticmethod
-    def resolve_id(obj) -> str:
-        return str(obj.pk)
+    def resolve_id(obj) -> int | str | UUID:
+        return obj.pk
 
     @staticmethod
-    def resolve_username(obj) -> str:
-        return obj.get_username()
+    def resolve_name(obj) -> str:
+        return get_user_display_name(obj)
 
 
 class WorkflowSummarySchema(Schema):

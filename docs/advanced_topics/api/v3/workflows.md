@@ -76,7 +76,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
         "id": 8,
         "status": "in_progress",
         "created_at": "2026-10-14T09:30:00Z",
-        "requested_by": {"id": "4", "username": "editor"},
+        "requested_by": {"id": 4, "name": "Jane Editor"},
         "current_task_state": {
             "id": 21,
             "task": {"id": 2, "name": "Moderators approval", "type": "wagtailcore.GroupApprovalTask"},
@@ -122,7 +122,7 @@ Custom task actions beyond approve and reject (a `Task` subclass's own `on_actio
 
 -   **`workflow`**: the workflow assigned to the object, or `null` when there is none (or workflows are disabled with `WAGTAIL_WORKFLOW_ENABLED`).
 -   **`workflow_state`**: the object's latest workflow state, whether active or finished; `null` when the object was never submitted. The `status` field (`in_progress`, `needs_changes`, `approved`, `cancelled`) disambiguates, so a just-approved or just-cancelled workflow remains inspectable.
--   **`requested_by`**: the user who started the workflow.
+-   **`requested_by`**: the user who started the workflow. Users, here and in `finished_by`, are given by their `id` and display `name`: their full name if set, otherwise their username.
 -   **`current_task_state`**: the task state awaiting action, or `null` when there is none.
 -   **`task_states`**: the states created so far, oldest first. Each task state includes the `task` it belongs to.
 -   **`tasks`**: the workflow's full task timeline. Each item pairs a `task` with its `task_state`, which is `null` for tasks that have not started yet — a moderation UI can render "Not started" / "In progress" / "Approved"… exactly like the admin's workflow dialog.

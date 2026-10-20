@@ -27629,15 +27629,26 @@
       "WorkflowUserSummarySchema": {
         "properties": {
           "id": {
-            "title": "Id",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "format": "uuid",
+                "type": "string"
+              }
+            ],
+            "title": "Id"
           },
-          "username": {
-            "title": "Username",
+          "name": {
+            "title": "Name",
             "type": "string"
           }
         },
-        "required": ["id", "username"],
+        "required": ["id", "name"],
         "title": "WorkflowUserSummarySchema",
         "type": "object"
       },

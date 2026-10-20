@@ -126,6 +126,8 @@ class TestV3WorkflowBase(TestV3Base, WagtailTestUtils, TestCase):
         self.moderator = self.create_user(
             username="moderator",
             password="password",  # noqa: S106 - test fixture
+            first_name="Mod",
+            last_name="Erator",
         )
         Group.objects.get(name="Moderators").user_set.add(self.moderator)  # ty: ignore[unresolved-attribute]
         self.bare_approver = self.create_user(
