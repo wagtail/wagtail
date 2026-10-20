@@ -983,6 +983,11 @@
 * Anand Himanshu
 * Ta Duc Thien
 * tinyb0y
+* xutao
+* Rajesh Murthy
+* Nguyen Dang Khoi
+* ma4ter0x22
+* Alberto Fernandez-de-Retana
 
 ## Translators
 
