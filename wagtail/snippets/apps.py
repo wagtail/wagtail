@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 from django.db.models.signals import post_migrate
 from django.utils.translation import gettext_lazy as _
 
@@ -27,12 +27,13 @@ class WagtailSnippetsAppConfig(AppConfig):
         # to create the extra permissions.
         post_migrate.connect(create_extra_permissions, sender=self)
 
-        from .api.v3 import register_content_types
+        if apps.is_installed("wagtail.api.v3"):
+            from .api.v3 import register_content_types
 
-        register_content_types()
+            register_content_types()
 
-        from wagtail.api.v3.api import api
+            from wagtail.api.v3.api import api
 
-        from .api.v3.router import router
+            from .api.v3.router import router
 
-        api.add_router("/snippets/", router)
+            api.add_router("/snippets/", router)
