@@ -43,16 +43,6 @@ def _get_specific(instance):
     return instance.specific if isinstance(instance, AbstractPage) else instance
 
 
-def _is_locked_for_user(instance, user):
-    from wagtail.models import LockableMixin
-
-    return (
-        isinstance(instance, LockableMixin)
-        and (lock := instance.get_lock())
-        and lock.for_user(user)
-    )
-
-
 def _translate_state_errors(fn, *args, **kwargs):
     """Races can make the model methods raise PermissionDenied for state
     violations after check() passed; translate to WorkflowStateError (422) so
@@ -74,12 +64,26 @@ class WorkflowAction(BaseAction):
     (WorkflowStateError -> 422 over the API)."""
 
     def user_has_permission(self):
-        # Permission gate for the submit / resume transitions: edit access to
-        # the instance, and no lock held against this user. The approve /
+        # Permission gate for the submit / resume transitions. The approve /
         # reject / cancel transitions define their own permission logic.
-        return can_edit_instance(self.instance, self.user) and not _is_locked_for_user(
-            self.instance, self.user
-        )
+        return can_edit_instance(self.instance, self.user)
+
+    def check_lock(self):
+        from wagtail.models import LockableMixin
+
+        if (
+            isinstance(self.instance, LockableMixin)
+            and self.user
+            and (lock := self.instance.get_lock()) is not None
+            and lock.for_user(self.user)
+        ):
+            model_name = self.instance._meta.verbose_name
+            raise PermissionDenied(f"The {model_name} is locked.")
+
+    def check(self, skip_permission_checks=False):
+        super().check(skip_permission_checks=skip_permission_checks)
+        if not skip_permission_checks:
+            self.check_lock()
 
     def can_execute(self) -> bool:
         try:

@@ -507,7 +507,11 @@ class TestSnippetWorkflowTransitions(TestV3SnippetWorkflowBase, TestCase):
         self.login(user=self.submitter)
         self.post_workflow("submit", self.snippet)
         response = self.post_workflow("submit", self.snippet)
-        self.assert_problem_response(response, status_code=403)
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="is locked.",
+        )
 
     def test_resume_locked_snippet_returns_403(self):
         self.login(user=self.submitter)
@@ -521,7 +525,11 @@ class TestSnippetWorkflowTransitions(TestV3SnippetWorkflowBase, TestCase):
         self.snippet.save()
         self.login(user=self.submitter)
         response = self.post_workflow("resume", self.snippet)
-        self.assert_problem_response(response, status_code=403)
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="is locked.",
+        )
 
     # Audit log sequences
 

@@ -484,7 +484,11 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         self.login(user=self.submitter)
         self.post_workflow("submit", self.page)
         response = self.post_workflow("submit", self.page)
-        self.assert_problem_response(response, status_code=403)
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="is locked.",
+        )
 
     def test_resume_locked_page_returns_403(self):
         self.login(user=self.submitter)
@@ -498,7 +502,11 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         self.page.save()
         self.login(user=self.submitter)
         response = self.post_workflow("resume", self.page)
-        self.assert_problem_response(response, status_code=403)
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="is locked.",
+        )
 
     # Audit log sequences
 

@@ -202,7 +202,7 @@ class TestSubmitWorkflowAction(BasePageWorkflowActionTests):
         self.object.locked_by = self.moderator
         self.object.save(update_fields=["locked", "locked_by"])
 
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(PermissionDenied, "The simple page is locked."):
             SubmitWorkflowAction(self.object, user=self.submitter).execute()
 
 
