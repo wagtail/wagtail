@@ -1424,11 +1424,14 @@ class TestLiveRevision(PageFixturesMixin, TestCase):
 
             published_handler.assert_called_once()
             page_published_handler.assert_called_once()
-            self.assertEqual(page_published_handler.call_args.kwargs['instance'].pk, about_us.pk)
+            self.assertEqual(
+                page_published_handler.call_args.kwargs["instance"].pk, about_us.pk
+            )
 
         finally:
             published.disconnect(published_handler)
             page_published.disconnect(page_published_handler)
+
 
 class TestPageGetSpecific(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
@@ -3187,7 +3190,7 @@ class TestUpdateAliases(PageFixturesMixin, TestCase):
         self.assertFalse(alias.live)
         self.assertFalse(alias_alias.live)
 
-         # Schedule the event page to be published in the future
+        # Schedule the event page to be published in the future
         event_page.title = "Updated title"
         event_page.go_live_at = timezone.now() + datetime.timedelta(days=1)
         revision = event_page.save_revision()
@@ -3217,6 +3220,7 @@ class TestUpdateAliases(PageFixturesMixin, TestCase):
         self.assertTrue(alias_alias.live)
         self.assertEqual(alias.title, "Updated title")
         self.assertEqual(alias_alias.title, "Updated title")
+
 
 class TestCopyForTranslation(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
