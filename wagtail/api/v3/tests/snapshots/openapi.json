@@ -33883,6 +33883,40 @@
         "title": "StreamPageBodyTextItemInput",
         "type": "object"
       },
+      "StreamPageBodyTitleListBlockItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "item",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "StreamPageBodyTitleListBlockItemInput",
+        "type": "object"
+      },
       "StreamPageBodyTitleListItem": {
         "properties": {
           "id": {
@@ -33943,6 +33977,9 @@
               "anyOf": [
                 {
                   "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/StreamPageBodyTitleListBlockItemInput"
                 },
                 {
                   "type": "null"
@@ -37013,6 +37050,40 @@
         "title": "UUIDSnippetWithRelationsBodyTextItemInput",
         "type": "object"
       },
+      "UUIDSnippetWithRelationsBodyTitleListBlockItemInput": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "const": "item",
+            "title": "Type",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": ["type", "value", "id"],
+        "title": "UUIDSnippetWithRelationsBodyTitleListBlockItemInput",
+        "type": "object"
+      },
       "UUIDSnippetWithRelationsBodyTitleListItem": {
         "properties": {
           "id": {
@@ -37073,6 +37144,9 @@
               "anyOf": [
                 {
                   "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/UUIDSnippetWithRelationsBodyTitleListBlockItemInput"
                 },
                 {
                   "type": "null"

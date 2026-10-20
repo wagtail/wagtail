@@ -201,7 +201,14 @@ def struct_block_schema(builder: BlockSchemaBuilder, block: Block, name: str) ->
 
 def list_block_schema(builder: BlockSchemaBuilder, block: Block, name: str) -> Any:
     child_block = cast(ListBlock, block).child_block
-    return list[builder.get_type(child_block, f"{name}Item")]  # ty: ignore[invalid-type-form]
+    child_type = builder.get_type(child_block, f"{name}Item")
+    if builder.for_input:
+        block_item = builder.get_typed_dict(
+            f"{name}BlockItem",
+            {"type": Literal["item"], "value": child_type, "id": str | None},
+        )
+        child_type = child_type | block_item
+    return list[child_type]
 
 
 def _choice_values(choices: Iterable) -> Iterable:

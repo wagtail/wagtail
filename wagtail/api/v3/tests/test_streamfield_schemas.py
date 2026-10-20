@@ -201,6 +201,25 @@ class TestInputBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
             schema["$defs"]["TestHeadingItemInput"]["required"], ["type", "value"]
         )
 
+    def test_list_block_accepts_block_format_items(self):
+        schema = self.json_schema(ListBlock(CharBlock()))
+        self.assertEqual(
+            schema["items"],
+            {
+                "anyOf": [
+                    {"type": "string"},
+                    {"$ref": "#/$defs/TestBlockItemInput"},
+                    {"type": "null"},
+                ]
+            },
+        )
+        block_item = schema["$defs"]["TestBlockItemInput"]
+        self.assertEqual(block_item["required"], ["type", "value", "id"])
+        self.assertEqual(block_item["properties"]["type"]["const"], "item")
+        self.assertEqual(
+            block_item["properties"]["value"]["anyOf"], NULLABLE_STRING["anyOf"]
+        )
+
     def test_overridden_api_representation_is_still_typed(self):
         self.assertEqual(
             self.value_schema(ExtendedImageChooserBlock()), NULLABLE_INTEGER
