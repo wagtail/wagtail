@@ -154,6 +154,7 @@ class ResumeWorkflowAction(WorkflowAction):
                 "The workflow on this object is not awaiting changes."
             )
 
+    @transaction.atomic
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
         state = self.instance.current_workflow_state
@@ -203,6 +204,7 @@ class ApproveTaskStateAction(WorkflowAction):
                 "This object is not currently awaiting moderation."
             )
 
+    @transaction.atomic
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
         # Task.on_action() returns None (it calls task_state.approve/reject
@@ -255,6 +257,7 @@ class CancelWorkflowAction(WorkflowAction):
                 "You do not have permission to cancel this workflow."
             )
 
+    @transaction.atomic
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
         state = self.instance.current_workflow_state
