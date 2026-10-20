@@ -1015,6 +1015,11 @@
 * Nguyen Dang Khoi
 * ma4ter0x22
 * Alberto Fernandez-de-Retana
+* Longwei Wang
+* Cerebrovinny
+* Anass Bali
+* Muted Cybersecurity S.L.
+* Dexx-tech
 
 ## Translators
 
