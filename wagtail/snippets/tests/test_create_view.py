@@ -1115,6 +1115,12 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
     def test_create_post_publish_scheduled(self):
         go_live_at = now() + datetime.timedelta(days=1)
         expire_at = now() + datetime.timedelta(days=2)
+
+        # Connect mock single handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+        self.addCleanup(published.disconnect, mock_handler)
+
         response = self.post(
             post_data={
                 "text": "Some content",
@@ -1123,6 +1129,9 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
                 "expire_at": submittable_timestamp(expire_at),
             }
         )
+
+        # Should not have fired when scheduling for publishing
+        self.assertEqual(mock_handler.call_count, 0)
 
         # Should be redirected to the listing page
         self.assertRedirects(
