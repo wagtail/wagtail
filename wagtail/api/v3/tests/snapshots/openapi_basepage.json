@@ -26130,6 +26130,87 @@
         "title": "StreamPageBodyTitleListItemInput",
         "type": "object"
       },
+      "StreamPageBodyTypedTable": {
+        "properties": {
+          "caption": {
+            "title": "Caption",
+            "type": "string"
+          },
+          "columns": {
+            "items": {
+              "$ref": "#/components/schemas/StreamPageBodyTypedTableColumn"
+            },
+            "title": "Columns",
+            "type": "array"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/StreamPageBodyTypedTableRow"
+            },
+            "title": "Rows",
+            "type": "array"
+          }
+        },
+        "required": ["columns", "rows", "caption"],
+        "title": "StreamPageBodyTypedTable",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableColumn": {
+        "properties": {
+          "heading": {
+            "title": "Heading",
+            "type": "string"
+          },
+          "type": {
+            "enum": ["text", "number"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type", "heading"],
+        "title": "StreamPageBodyTypedTableColumn",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableColumnInput": {
+        "properties": {
+          "heading": {
+            "title": "Heading",
+            "type": "string"
+          },
+          "type": {
+            "enum": ["text", "number"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "title": "StreamPageBodyTypedTableColumnInput",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableInput": {
+        "properties": {
+          "caption": {
+            "title": "Caption",
+            "type": "string"
+          },
+          "columns": {
+            "items": {
+              "$ref": "#/components/schemas/StreamPageBodyTypedTableColumnInput"
+            },
+            "title": "Columns",
+            "type": "array"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/StreamPageBodyTypedTableRowInput"
+            },
+            "title": "Rows",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyTypedTableInput",
+        "type": "object"
+      },
       "StreamPageBodyTypedTableItem": {
         "properties": {
           "id": {
@@ -26149,7 +26230,7 @@
             "type": "string"
           },
           "value": {
-            "title": "Value"
+            "$ref": "#/components/schemas/StreamPageBodyTypedTable"
           }
         },
         "required": ["type", "value", "id"],
@@ -26175,11 +26256,58 @@
             "type": "string"
           },
           "value": {
-            "title": "Value"
+            "$ref": "#/components/schemas/StreamPageBodyTypedTableInput"
           }
         },
         "required": ["type", "value"],
         "title": "StreamPageBodyTypedTableItemInput",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableRow": {
+        "properties": {
+          "values": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Values",
+            "type": "array"
+          }
+        },
+        "required": ["values"],
+        "title": "StreamPageBodyTypedTableRow",
+        "type": "object"
+      },
+      "StreamPageBodyTypedTableRowInput": {
+        "properties": {
+          "values": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Values",
+            "type": "array"
+          }
+        },
+        "title": "StreamPageBodyTypedTableRowInput",
         "type": "object"
       },
       "StreamPageCreateMetaSchema": {

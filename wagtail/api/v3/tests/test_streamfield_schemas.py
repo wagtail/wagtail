@@ -18,10 +18,12 @@ from wagtail.blocks import (
     IntegerBlock,
     ListBlock,
     MultipleChoiceBlock,
+    RichTextBlock,
     StreamBlock,
     StructBlock,
 )
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -310,6 +312,42 @@ class TestStreamFieldSchema(SimpleTestCase):
         block_type = write.block_schema_builder.get_type(TableBlock(), "TestTable")
         schema = TypeAdapter(block_type).json_schema()
         self.assertNotIn("required", schema["$defs"]["TableBlockInput"])
+
+    def test_typed_table_block(self):
+        block = TypedTableBlock([("text", CharBlock()), ("number", IntegerBlock())])
+        block_type = read.block_schema_builder.get_type(block, "TestTable")
+        schema = TypeAdapter(block_type).json_schema(mode="serialization")
+        self.assertEqual(schema["title"], "TestTable")
+        self.assertEqual(schema["required"], ["columns", "rows", "caption"])
+        self.assertEqual(
+            schema["$defs"]["TestTableColumn"]["properties"]["type"]["enum"],
+            ["text", "number"],
+        )
+        self.assertEqual(
+            schema["$defs"]["TestTableRow"]["properties"]["values"]["items"],
+            {"anyOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]},
+        )
+
+    def test_typed_table_block_input(self):
+        block = TypedTableBlock([("rich_text", RichTextBlock())])
+        block_type = write.block_schema_builder.get_type(block, "TestTable")
+        schema = TypeAdapter(block_type).json_schema()
+        self.assertNotIn("required", schema)
+        self.assertEqual(schema["$defs"]["TestTableColumnInput"]["required"], ["type"])
+        self.assertIn(
+            {"$ref": "#/$defs/RichTextInputSchema"},
+            schema["$defs"]["TestTableRowInput"]["properties"]["values"]["items"][
+                "anyOf"
+            ],
+        )
+
+    def test_typed_table_block_subclass_is_named_after_its_class(self):
+        class PriceTableBlock(TypedTableBlock):
+            price = IntegerBlock()
+
+        block_type = read.block_schema_builder.get_type(PriceTableBlock(), "Test")
+        schema = TypeAdapter(block_type).json_schema(mode="serialization")
+        self.assertEqual(schema["title"], "PriceTableBlock")
 
     def test_block_schema_is_built_lazily(self):
         with mock.patch.object(
