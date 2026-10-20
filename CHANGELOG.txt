@@ -1,11 +1,14 @@
 Changelog
 =========
 
-8.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+8.0.1 (20.10.2026)
+~~~~~~~~~~~~~~~~~~
 
- * Maintenance: Suppress warnings generated under sphinx-llm 1.1.0 (Matt Westcott)
- * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 / 6.1.2 (Sage Abdullah)
+ * Security fix: Cross-Collection authorization bypass via Collection privacy settings (xutao, Rajesh Murthy, Matt Westcott)
+ * Security fix: Formula injection via XLSX export (Matt Westcott)
+ * Security fix: Improper restriction handling on Pages admin API for ancestor pages (Nguyen Dang Khoi, Matt Westcott)
+ * Security fix: Stored XSS attack via v3 write API and third-party HTML editors (ma4ter0x22, Alberto Fernandez-de-Retana, Matt Westcott)
+ * Security fix: Improper restriction handling on API v3 pages endpoint (Longwei Wang, Cerebrovinny, Anass Bali, Muted Cybersecurity S.L., Dexx-tech, Matt Westcott)
  * Fix: Prevent duplicate meta schemas for models used in foreign keys (Sage Abdullah)
  * Fix: Generate best-effort schema for API v3 `APIField`s with a custom serializer that has type hints on `to_representation` (Sage Abdullah)
  * Fix: Prevent API v3 PATCH requests from discarding unpublished draft changes of live pages and snippets (Sage Abdullah)
@@ -13,6 +16,8 @@ Changelog
  * Fix: Respect submitted order of child relation items in API v3 write requests (Sage Abdullah)
  * Fix: Respect custom primary keys in API v3 write schema for inline panels (Sage Abdullah)
  * Fix: Fix child relations with `related_query_name` or default accessor being ignored by API v3 (Sage Abdullah)
+ * Maintenance: Suppress warnings generated under sphinx-llm 1.1.0 (Matt Westcott)
+ * Maintenance: Fix erroneous workflow creation test failing on Django 5.2.18 / 6.0.9 / 6.1.2 (Sage Abdullah)
 
 
 8.0 (25.08.2026)
