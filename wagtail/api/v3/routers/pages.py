@@ -772,7 +772,7 @@ def copy_for_translation(
 @require_any_permission(Page, ("change",))
 def submit_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
-    action_class = action_registry.get_action_class(Page, "submit")
+    action_class = action_registry.get_action_class(Page, "submit_workflow")
     action_class(page, user=request.user).execute()
     return page
 
@@ -792,7 +792,7 @@ def approve_workflow(
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)
     task_state = resolve_task_state(page, data.task_state_id)
-    action_class = action_registry.get_action_class(Page, "approve")
+    action_class = action_registry.get_action_class(Page, "approve_task")
     action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return page
 
@@ -812,7 +812,7 @@ def reject_workflow(
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)
     task_state = resolve_task_state(page, data.task_state_id)
-    action_class = action_registry.get_action_class(Page, "reject")
+    action_class = action_registry.get_action_class(Page, "reject_task")
     action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return page
 
@@ -827,7 +827,7 @@ def reject_workflow(
 @require_any_permission(Page, ("change",))
 def resume_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
-    action_class = action_registry.get_action_class(Page, "resume")
+    action_class = action_registry.get_action_class(Page, "resume_workflow")
     action_class(page, user=request.user).execute()
     return page
 
@@ -842,7 +842,7 @@ def resume_workflow(request, page_id: PositiveInt):
 def cancel_workflow(request, page_id: PositiveInt):
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)
-    action_class = action_registry.get_action_class(Page, "cancel")
+    action_class = action_registry.get_action_class(Page, "cancel_workflow")
     action_class(page, user=request.user).execute()
     return page
 

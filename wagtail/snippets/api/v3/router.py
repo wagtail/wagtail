@@ -486,7 +486,7 @@ def submit_snippet_workflow(
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
-    action_class = action_registry.get_action_class(model, "submit")
+    action_class = action_registry.get_action_class(model, "submit_workflow")
     action_class(snippet, user=request.user).execute()
     return snippet
 
@@ -508,7 +508,7 @@ def approve_snippet_workflow(
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
-    action_class = action_registry.get_action_class(model, "approve")
+    action_class = action_registry.get_action_class(model, "approve_task")
     action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return snippet
 
@@ -530,7 +530,7 @@ def reject_snippet_workflow(
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
-    action_class = action_registry.get_action_class(model, "reject")
+    action_class = action_registry.get_action_class(model, "reject_task")
     action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return snippet
 
@@ -550,7 +550,7 @@ def resume_snippet_workflow(
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
-    action_class = action_registry.get_action_class(model, "resume")
+    action_class = action_registry.get_action_class(model, "resume_workflow")
     action_class(snippet, user=request.user).execute()
     return snippet
 
@@ -570,7 +570,7 @@ def cancel_snippet_workflow(
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
     check_can_view_workflow(snippet, request.user)
-    action_class = action_registry.get_action_class(model, "cancel")
+    action_class = action_registry.get_action_class(model, "cancel_workflow")
     action_class(snippet, user=request.user).execute()
     return snippet
 

@@ -103,7 +103,7 @@ class SubmitWorkflowAction(WorkflowAction):
     :param user: the user submitting the object
     """
 
-    action_name = "submit"
+    action_name = "submit_workflow"
 
     def check(self, skip_permission_checks=False):
         super().check(skip_permission_checks=skip_permission_checks)
@@ -140,7 +140,7 @@ class ResumeWorkflowAction(WorkflowAction):
     :param user: the user resuming the workflow
     """
 
-    action_name = "resume"
+    action_name = "resume_workflow"
 
     def check(self, skip_permission_checks=False):
         from wagtail.models import WorkflowState
@@ -176,7 +176,8 @@ class ApproveTaskStateAction(WorkflowAction):
         ``Task.get_form_for_action``), such as ``{"comment": "..."}``
     """
 
-    action_name = "approve"
+    action_name = "approve_task"
+    task_action_name = "approve"
 
     def __init__(self, task_state, user=None, data=None):
         self.task_state = task_state.specific
@@ -194,7 +195,7 @@ class ApproveTaskStateAction(WorkflowAction):
                     self.object, self.user
                 )
             ]
-            if self.action_name not in actions:
+            if self.task_action_name not in actions:
                 raise PermissionDenied(
                     "You do not have permission to perform this workflow action on this object."
                 )
@@ -210,7 +211,7 @@ class ApproveTaskStateAction(WorkflowAction):
         # Like the admin, only pass form data to on_action() if the task has a
         # form for this action.
         task = self.task_state.task.specific
-        form_class = task.get_form_for_action(self.action_name)
+        form_class = task.get_form_for_action(self.task_action_name)
         if not form_class:
             return {}
         form = form_class(self.data)
@@ -229,7 +230,7 @@ class ApproveTaskStateAction(WorkflowAction):
             self.task_state.task.specific.on_action,
             self.task_state,
             self.user,
-            self.action_name,
+            self.task_action_name,
             **cleaned_data,
         )
         return self.task_state
@@ -243,7 +244,8 @@ class RejectTaskStateAction(ApproveTaskStateAction):
     :class:`ApproveTaskStateAction`.
     """
 
-    action_name = "reject"
+    action_name = "reject_task"
+    task_action_name = "reject"
 
 
 class CancelWorkflowAction(WorkflowAction):
@@ -255,7 +257,7 @@ class CancelWorkflowAction(WorkflowAction):
     :param user: the user cancelling the workflow
     """
 
-    action_name = "cancel"
+    action_name = "cancel_workflow"
 
     def check(self, skip_permission_checks=False):
         state = self.instance.current_workflow_state
@@ -284,24 +286,24 @@ class CancelWorkflowAction(WorkflowAction):
 
 
 def get_available_workflow_transitions(instance, user=None) -> list[str]:
-    """Return the names of the workflow transitions ``user`` may currently
-    perform on ``instance``, in a fixed display order. Probes the registered
-    action classes with ``can_execute()`` (non-raising), so what is advertised
-    is exactly what ``execute()`` would accept."""
-    available = set()
-    for name in ("submit", "resume", "cancel"):
-        action_class = action_registry.get_action_class(type(instance), name)
-        if action_class is not None and action_class(instance, user=user).can_execute():
-            available.add(name)
+    """Return the short names (``submit``, ``approve``, ``reject``, ``resume``,
+    ``cancel``) of the workflow transitions ``user`` may currently perform on
+    ``instance``, in a fixed display order. Probes the registered action
+    classes with ``can_execute()`` (non-raising), so what is advertised is
+    exactly what ``execute()`` would accept."""
     task_state = instance.current_workflow_task_state
-    if task_state is not None:
-        for name in ("approve", "reject"):
-            action_class = action_registry.get_action_class(type(instance), name)
-            if (
-                action_class is not None
-                and action_class(task_state, user=user).can_execute()
-            ):
-                available.add(name)
-    return [
-        n for n in ("submit", "approve", "reject", "resume", "cancel") if n in available
+    transitions = [
+        ("submit", "submit_workflow", instance),
+        ("approve", "approve_task", task_state),
+        ("reject", "reject_task", task_state),
+        ("resume", "resume_workflow", instance),
+        ("cancel", "cancel_workflow", instance),
     ]
+    available = []
+    for name, action_name, target in transitions:
+        if target is None:
+            continue
+        action_class = action_registry.get_action_class(type(instance), action_name)
+        if action_class is not None and action_class(target, user=user).can_execute():
+            available.append(name)
+    return available

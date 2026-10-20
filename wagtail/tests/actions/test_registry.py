@@ -153,9 +153,9 @@ class TestDefaultActions(TestCase):
                 if issubclass(model, TranslatableMixin):
                     actions["copy_for_translation"] = CopyForTranslationAction
                 if issubclass(model, WorkflowMixin):
-                    actions["submit"] = SubmitWorkflowAction
-                    actions["resume"] = ResumeWorkflowAction
-                    actions["approve"] = ApproveTaskStateAction
-                    actions["reject"] = RejectTaskStateAction
-                    actions["cancel"] = CancelWorkflowAction
+                    actions["submit_workflow"] = SubmitWorkflowAction
+                    actions["resume_workflow"] = ResumeWorkflowAction
+                    actions["approve_task"] = ApproveTaskStateAction
+                    actions["reject_task"] = RejectTaskStateAction
+                    actions["cancel_workflow"] = CancelWorkflowAction
                 self.assertEqual(action_registry.get_actions_for_model(model), actions)
