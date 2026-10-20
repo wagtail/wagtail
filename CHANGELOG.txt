@@ -36,6 +36,7 @@ Changelog
  * Fix: Protect workflow action buttons against multiple submissions that could cause a crash or an overwrite (Nick Moreton, Jakub Mastalerz, Sage Abdullah)
  * Fix: Reject workflow actions if the current task state does not match what the user submitted (Sage Abdullah)
  * Fix: Produce valid Markdown in V3 API `markdown` rich text output for styled text around links, line breaks, multi-paragraph quotes and nested lists (Albina Starykova)
+ * Fix: Prevent N+1 queries in `Site.get_site_root_paths()` when internationalization is enabled (Andy Babic)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
