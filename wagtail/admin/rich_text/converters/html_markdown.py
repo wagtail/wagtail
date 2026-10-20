@@ -1,8 +1,7 @@
 """
-Conversion of arbitrary HTML (such as a rendered page or block) to Markdown.
+Conversion of arbitrary HTML such as a rendered page or block to Markdown.
 
-This reuses the rich text conversion pipeline rather than implementing a
-separate HTML parser:
+Reuses the rich text pipeline, with extra processing before:
 
 1. Normalise: a BeautifulSoup pass that reshapes arbitrary markup into the
    flat "blocks containing inline content" model that contentstate can
@@ -19,16 +18,15 @@ separate HTML parser:
 4. contentstate -> Markdown: the resolved exporter from markdown_db.
 """
 
-import json
 import re
 import secrets
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
-from draftjs_exporter.markdown.escape import (
-    code_block_fence,
-    escape_link_destination,
-    escape_text,
+from draftjs_exporter import (
+    md_code_block_fence,
+    md_escape_link_destination,
+    md_escape_text,
 )
 
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
@@ -262,7 +260,7 @@ class HTMLToMarkdownConverter:
         handler.reset()
         handler.feed(db_html)
         handler.close()
-        content_state = json.loads(handler.contentstate.as_json())
+        content_state = handler.contentstate.as_dict()
         strip_trailing_line_breaks(content_state)
         markdown = self.exporter.render(content_state)
         return self._finalise(markdown)
@@ -395,10 +393,10 @@ class HTMLToMarkdownConverter:
                 continue
             href = check_url(self._absolute(link["href"]))
             markdown = " ".join(
-                f"[![{escape_text(img['alt'])}]({escape_link_destination(img['src'])})]"
-                f"({escape_link_destination(href)})"
+                f"[![{md_escape_text(img['alt'])}]({md_escape_link_destination(img['src'])})]"
+                f"({md_escape_link_destination(href)})"
                 if href
-                else f"![{escape_text(img['alt'])}]({escape_link_destination(img['src'])})"
+                else f"![{md_escape_text(img['alt'])}]({md_escape_link_destination(img['src'])})"
                 for img in images
             )
             link.replace_with(self._make_token(markdown))
@@ -428,7 +426,7 @@ class HTMLToMarkdownConverter:
                 code.string = text
                 pre.replace_with(soup.new_tag("br"), code)
                 continue
-            fence = code_block_fence(text, "`")
+            fence = md_code_block_fence(text, "`")
             language = self._code_language(pre)
             pre.replace_with(
                 self._block_token(soup, f"{fence}{language}\n{text}\n{fence}")
@@ -668,8 +666,8 @@ class HTMLToMarkdownConverter:
                     continue
             img.replace_with(
                 self._make_token(
-                    f"![{escape_text(img.get('alt', ''))}]"
-                    f"({escape_link_destination(img['src'])})",
+                    f"![{md_escape_text(img.get('alt', ''))}]"
+                    f"({md_escape_link_destination(img['src'])})",
                 )
             )
 

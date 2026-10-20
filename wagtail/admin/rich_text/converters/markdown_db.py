@@ -10,7 +10,6 @@ resulting DB HTML through `APIRichText.sanitize_db_html` (which enforces the
 field's features and reports removals).
 """
 
-import json
 import re
 from urllib.parse import quote, urlencode
 
@@ -26,8 +25,7 @@ from draftjs_exporter import (
     md_block,
     md_image,
     md_inline,
-    md_link_destination,
-    md_mark_safe,
+    md_link,
     render_children,
     scheme_resolver,
 )
@@ -80,10 +78,11 @@ class MarkdownConverter:
         ``expand_db_html``). Dangling references degrade to plain text in
         resolved mode (editor parity).
         """
-        contentstate_json = ContentstateConverter(self.features).from_database_format(
-            html
-        )
-        content_state = json.loads(contentstate_json)
+        handler = ContentstateConverter(self.features).html_to_contentstate_handler
+        handler.reset()
+        handler.feed(html)
+        handler.close()
+        content_state = handler.contentstate.as_dict()
         if resolved:
             strip_trailing_line_breaks(content_state)
         markdown = markdown_exporter(resolved).render(content_state)
@@ -164,14 +163,6 @@ def _keep_children_block(props):
     return DOM.create_element("p", {}, props["children"])
 
 
-def _keep_children_style(props):
-    return props["children"]
-
-
-def _keep_children_entity(props):
-    return props["children"]
-
-
 def _db_html_exporter():
     exporter_config = {
         "block_map": {
@@ -184,8 +175,8 @@ def _db_html_exporter():
             BLOCK_TYPES.CODE: "pre",
             BLOCK_TYPES.FALLBACK: _keep_children_block,
         },
-        "style_map": {INLINE_STYLES.FALLBACK: _keep_children_style},
-        "entity_decorators": {ENTITY_TYPES.FALLBACK: _keep_children_entity},
+        "style_map": {INLINE_STYLES.FALLBACK: render_children},
+        "entity_decorators": {ENTITY_TYPES.FALLBACK: render_children},
         "composite_decorators": [{"strategy": re.compile(r"\n"), "component": br}],
         "engine": DOM.STRING,
     }
@@ -202,63 +193,33 @@ def _db_html_exporter():
     return HTMLExporter(exporter_config)
 
 
-def _markdown_link(children, destination):
-    # Keep whitespace at the edges of the link text outside the brackets.
-    leading, children, trailing = _split_edge_whitespace(children)
-    return md_inline(
-        [
-            leading,
-            md_mark_safe("["),
-            children,
-            md_mark_safe("]("),
-            md_link_destination(destination),
-            md_mark_safe(")"),
-            trailing,
-        ]
-    )
-
-
 def _page_or_external_ref_link(props):
     id_ = props.get("id")
     if id_ is not None:
-        return _markdown_link(props["children"], wagtail_ref("page", id=id_))
-    return _markdown_link(props["children"], props.get("url") or "")
+        return md_link({**props, "url": wagtail_ref("page", id=id_)})
+    return md_link(props)
 
 
 def _resolved_link(props):
-    url = props.get("url")
-    if not url:
+    if not props.get("url"):
         # Dangling references degrade to plain text (editor parity).
         return md_inline([props["children"]])
-    return _markdown_link(props["children"], url)
+    return md_link(props)
 
 
 def _document_ref_link(props):
-    return _markdown_link(
-        props["children"], wagtail_ref("document", id=props.get("id"))
-    )
-
-
-def _resolved_document_link(props):
-    url = props.get("url")
-    if not url:
-        return md_inline([props["children"]])
-    return _markdown_link(props["children"], url)
+    return md_link({**props, "url": wagtail_ref("document", id=props.get("id"))})
 
 
 def _image_ref_image(props):
-    return md_block(
-        [
-            md_mark_safe("!["),
-            props.get("alt") or "",
-            md_mark_safe("]("),
-            md_link_destination(
-                wagtail_ref(
-                    "image", id=props.get("id"), format=props.get("format") or ""
-                )
+    return md_image(
+        {
+            **props,
+            "alt": props.get("alt") or "",
+            "src": wagtail_ref(
+                "image", id=props.get("id"), format=props.get("format") or ""
             ),
-            md_mark_safe(")"),
-        ]
+        }
     )
 
 
@@ -269,29 +230,18 @@ def _resolved_image(props):
 
 
 def _media_ref_embed(props):
-    label = props.get("title") or props.get("url") or ""
-    return md_block(
-        [
-            md_mark_safe("!["),
-            label,
-            md_mark_safe("]("),
-            md_link_destination(wagtail_ref("media", url=props.get("url") or "")),
-            md_mark_safe(")"),
-        ]
+    return md_image(
+        {
+            **props,
+            "alt": props.get("title") or props.get("url") or "",
+            "src": wagtail_ref("media", url=props.get("url") or ""),
+        }
     )
 
 
 def _resolved_media_embed(props):
     label = props.get("title") or props.get("url") or ""
-    return md_block(
-        [
-            md_mark_safe("["),
-            label,
-            md_mark_safe("]("),
-            md_link_destination(props.get("url") or ""),
-            md_mark_safe(")"),
-        ]
-    )
+    return md_block([md_link({**props, "children": label, "url": props.get("url")})])
 
 
 def strip_trailing_line_breaks(content_state):
@@ -308,179 +258,22 @@ def strip_trailing_line_breaks(content_state):
             )
 
 
-def _split_edge_whitespace(node):
-    """Remove leading and trailing whitespace from the text at the edges of
-    an inline node, returning it alongside the node."""
-    if isinstance(node, str):
-        # Spaces only: a newline moved outside a link or style would no
-        # longer be a line break.
-        stripped = node.strip(" \t")
-        if not stripped:
-            return node, "", ""
-        start = node.index(stripped[0])
-        return node[:start], stripped, node[start + len(stripped) :]
-
-    children = getattr(node, "children", None)
-    if getattr(node, "type", None) != "fragment" or not children:
-        return "", node, ""
-
-    leading, first, _ = _split_edge_whitespace(children[0])
-    children[0] = first
-    _, last, trailing = _split_edge_whitespace(children[-1])
-    children[-1] = last
-    return leading, node, trailing
-
-
-def _md_inline_style(mark):
-    """Inline style that keeps whitespace outside its delimiters.
-
-    Styles are rendered per text segment, so a style spanning a link is
-    split around it: ``<b>bold <a>link</a> more</b>``. Whitespace at a
-    segment edge must sit outside the delimiters for the emphasis to be
-    valid (``**bold** [**link**](…) **more**``).
-    """
-
-    def component(props):
-        leading, children, trailing = _split_edge_whitespace(props["children"])
-        if children == "":
-            return md_inline([leading])
-        return md_inline(
-            [leading, md_mark_safe(mark), children, md_mark_safe(mark), trailing]
-        )
-
-    return component
-
-
-def _md_line_break(props):
-    """Hard line break, or a space in headings, which are a single line."""
-    if props["block"]["type"].startswith("header-"):
-        return md_inline([" "])
-    return md_mark_safe("\\\n")
-
-
-LIST_ITEM_TYPES = (BLOCK_TYPES.UNORDERED_LIST_ITEM, BLOCK_TYPES.ORDERED_LIST_ITEM)
-
-
-def _block_index(block, blocks):
-    return next(i for i, b in enumerate(blocks) if b["key"] == block["key"])
-
-
-def _md_blockquote(props):
-    """Consecutive blockquote blocks (one per paragraph in Draftail) form a
-    single Markdown quote, separated by an empty quote line."""
-    blocks = props["blocks"]
-    index = _block_index(props["block"], blocks)
-    next_type = blocks[index + 1]["type"] if index + 1 < len(blocks) else None
-    return md_inline(
-        [
-            md_mark_safe("> ", block_prefix=True),
-            props["children"],
-            md_mark_safe("\n>\n" if next_type == BLOCK_TYPES.BLOCKQUOTE else "\n\n"),
-        ]
-    )
-
-
-def _li_prefix(block, blocks):
-    if block["type"] != BLOCK_TYPES.ORDERED_LIST_ITEM:
-        return "- "
-    # Count preceding items of the same list: same type and depth, skipping
-    # over nested items of any type.
-    depth = block.get("depth", 0)
-    number = 1
-    for previous in reversed(blocks[: _block_index(block, blocks)]):
-        previous_depth = previous.get("depth", 0)
-        if previous["type"] not in LIST_ITEM_TYPES or previous_depth < depth:
-            break
-        if previous_depth == depth:
-            if previous["type"] != block["type"]:
-                break
-            number += 1
-    return f"{number}. "
-
-
-def _li_suffix(block, blocks):
-    """A blank line ends the list, unless the next item belongs to it: it is
-    nested, or continues a list of the same type at its depth."""
-    index = _block_index(block, blocks)
-    next_block = blocks[index + 1] if index + 1 < len(blocks) else None
-    if next_block is None or next_block["type"] not in LIST_ITEM_TYPES:
-        return "\n\n"
-    next_depth = next_block.get("depth", 0)
-    for previous in reversed(blocks[: index + 1]):
-        previous_depth = previous.get("depth", 0)
-        if previous["type"] not in LIST_ITEM_TYPES or previous_depth < next_depth:
-            break
-        if previous_depth == next_depth:
-            return "\n" if previous["type"] == next_block["type"] else "\n\n"
-    return "\n"
-
-
-def _li_indent(block, blocks):
-    """Indent a nested list item to its parent item's content column, which
-    depends on each ancestor's marker width ("- " vs "1. " vs "10. ")."""
-    depth = block.get("depth", 0)
-    index = _block_index(block, blocks)
-    widths = {}
-    for previous in reversed(blocks[:index]):
-        if previous["type"] not in LIST_ITEM_TYPES or len(widths) == depth:
-            break
-        previous_depth = previous.get("depth", 0)
-        if previous_depth < depth and previous_depth not in widths:
-            widths[previous_depth] = len(_li_prefix(previous, blocks))
-    return "".join(" " * widths.get(level, 2) for level in range(depth))
-
-
-def _md_list_item(default_component):
-    """List item with correct nesting indentation and numbering, see
-    `_li_indent`, `_li_prefix` and `_li_suffix`."""
-
-    def component(props):
-        block, blocks = props["block"], props["blocks"]
-        if "key" not in block:
-            # Synthetic block used by the exporter for nesting wrappers.
-            return default_component(props)
-        return DOM.create_element(
-            "fragment",
-            {},
-            [
-                md_mark_safe(_li_indent(block, blocks), block_prefix=True),
-                md_mark_safe(_li_prefix(block, blocks), block_prefix=True),
-                props["children"],
-                md_mark_safe(_li_suffix(block, blocks)),
-            ],
-        )
-
-    return component
-
-
 def markdown_exporter(resolved):
     config = build_markdown_config({"italic": "*", "strikethrough": "~~"})
-    config["block_map"][BLOCK_TYPES.BLOCKQUOTE] = _md_blockquote
-    for list_item_type in LIST_ITEM_TYPES:
-        options = config["block_map"][list_item_type]
-        options["element"] = _md_list_item(options["element"])
-    config["style_map"].update(
-        {
-            INLINE_STYLES.BOLD: _md_inline_style("**"),
-            INLINE_STYLES.ITALIC: _md_inline_style("*"),
-            INLINE_STYLES.STRIKETHROUGH: _md_inline_style("~~"),
-        }
-    )
     if resolved:
-        # db_markdown keeps line breaks as bare newlines, which the importer
-        # reads back as <br/>, so it round-trips without loss.
-        config["composite_decorators"] = [
-            {"strategy": re.compile(r"\n"), "component": _md_line_break}
-        ]
         config["entity_decorators"].update(
             {
                 ENTITY_TYPES.LINK: _resolved_link,
-                ENTITY_TYPE_DOCUMENT: _resolved_document_link,
+                ENTITY_TYPE_DOCUMENT: _resolved_link,
                 ENTITY_TYPES.IMAGE: _resolved_image,
                 ENTITY_TYPE_MEDIA: _resolved_media_embed,
             }
         )
     else:
+        # db_markdown keeps line breaks as bare newlines, which the importer
+        # reads back as <br/>, so it round-trips without loss. The default
+        # md_line_break decorator would convert them to `\` + newline.
+        config["composite_decorators"] = []
         config["entity_decorators"].update(
             {
                 ENTITY_TYPES.LINK: _page_or_external_ref_link,
