@@ -50,14 +50,16 @@ class PublishPageRevisionAction(PublishRevisionAction):
         ):
             comment.save(update_fields=["position"])
 
-        page_published.send(
-            sender=self.object.specific_class,
-            instance=self.object.specific,
-            revision=self.revision,
-        )
+        if self.object.live:
+            page_published.send(
+                sender=self.object.specific_class,
+                instance=self.object.specific,
+                revision=self.revision,
+            )
 
         super()._after_publish()
 
-        self.object.update_aliases(
-            revision=self.revision, _content=self.revision.content
-        )
+        if self.object.live:
+            self.object.update_aliases(
+                revision=self.revision, _content=self.revision.content
+            )
