@@ -36,6 +36,7 @@ The `value` representation depends on the block type:
 -   **ListBlock** — a plain list of the child block's values, without per-item `type` or `id`. On input, an item can also be given as `{"type": "item", "id": ..., "value": ...}`, which keeps its `id`.
 -   **StructBlock** — an object keyed by the child block's field names.
 -   **RichTextBlock** — rich text, using the input and output formats described in [](api_v3_rich_text).
+-   **TableBlock** — an object with `data` (a list of rows, each a list of cell strings or `null`), `table_header_choice` (`row`, `column`, `both`, or `neither`), `first_row_is_table_header`, `first_col_is_header`, and optionally `table_caption`, `cell` (cell metadata such as `className`), and `mergeCells`. On input, `first_row_is_table_header` and `first_col_is_header` are derived from `table_header_choice`.
 -   **TypedTableBlock** — an object with `columns` (each with a `type` and a `heading`), `rows` (each with a `values` list holding one value per column, in that column block's own representation), and a `caption`.
 -   **Chooser and leaf blocks** (for example image and page choosers) — a scalar value such as the object's ID, or another widget-compatible value.
 
@@ -85,7 +86,7 @@ StreamField values nested inside child forms use the same flattening path as top
 
 ## Schema discovery
 
-The generated OpenAPI schema describes each StreamField's blocks: a list of items discriminated by `type`, with each item's `value` described by its block. A `StructBlock` becomes an object with a property for each child block, a `ListBlock` an array of its child block's values (on input, each item can also be in its `{"type": "item", "id": ..., "value": ...}` form), a `ChoiceBlock` an enum of its choices, and a chooser block its target model's primary key. Input schemas are suffixed with `Input`. A block subclass, such as a project's `PersonBlock`, is named after its class and shared by every StreamField that uses it. Other blocks are named after their path from the field, such as `BlogPageBodyQuote`.
+The generated OpenAPI schema describes each StreamField's blocks: a list of items discriminated by `type`, with each item's `value` described by its block. A `StructBlock` becomes an object with a property for each child block, a `ListBlock` an array of its child block's values (on input, each item can also be in its `{"type": "item", "id": ..., "value": ...}` form), a `ChoiceBlock` an enum of its choices, a `TableBlock` an object with its `data` and header options, and a chooser block its target model's primary key. Input schemas are suffixed with `Input`. A block subclass, such as a project's `PersonBlock`, is named after its class and shared by every StreamField that uses it. Other blocks are named after their path from the field, such as `BlogPageBodyQuote`.
 
 The schema is for documentation only. Values aren't validated or serialized against it, so a value is never rejected or changed because it doesn't match. A block is described as any value if its shape isn't known, such as a custom block not based on a built-in block, or one that overrides `to_python` or `get_prep_value` (or `get_api_representation`, for the read schema).
 

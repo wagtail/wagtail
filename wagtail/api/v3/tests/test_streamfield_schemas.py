@@ -12,6 +12,7 @@ from wagtail.api.v3.schemas.generators.blocks import (
     register_default_block_schemas,
 )
 from wagtail.blocks import (
+    Block,
     CharBlock,
     ChoiceBlock,
     IntegerBlock,
@@ -150,7 +151,7 @@ class TestBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
         self.assertEqual(self.value_schema(ExtendedImageChooserBlock()), {})
 
     def test_unknown_block_is_any(self):
-        self.assertEqual(self.value_schema(TableBlock()), {})
+        self.assertEqual(self.value_schema(Block()), {})
 
     def test_choice_block(self):
         self.assertEqual(
@@ -281,6 +282,34 @@ class TestStreamFieldSchema(SimpleTestCase):
             with self.subTest(for_input=builder.for_input):
                 block_type = builder.get_type(EmbedBlock(), "TestEmbed")
                 self.assertEqual(TypeAdapter(block_type).json_schema(), NULLABLE_STRING)
+
+    def test_table_block(self):
+        block_type = read.block_schema_builder.get_type(TableBlock(), "TestTable")
+        schema = TypeAdapter(block_type).json_schema(mode="serialization")
+        table = schema["$defs"]["TableBlock"]
+        self.assertEqual(
+            table["required"],
+            [
+                "data",
+                "table_header_choice",
+                "first_row_is_table_header",
+                "first_col_is_header",
+            ],
+        )
+        self.assertEqual(table["properties"]["data"]["items"]["items"], NULLABLE_STRING)
+        self.assertEqual(
+            table["properties"]["table_header_choice"]["enum"],
+            ["row", "column", "both", "neither"],
+        )
+        self.assertEqual(
+            table["properties"]["mergeCells"]["items"],
+            {"$ref": "#/$defs/TableBlockMergedCell"},
+        )
+
+    def test_table_block_input_fields_are_optional(self):
+        block_type = write.block_schema_builder.get_type(TableBlock(), "TestTable")
+        schema = TypeAdapter(block_type).json_schema()
+        self.assertNotIn("required", schema["$defs"]["TableBlockInput"])
 
     def test_block_schema_is_built_lazily(self):
         with mock.patch.object(

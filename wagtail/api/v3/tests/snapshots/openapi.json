@@ -33782,7 +33782,14 @@
             "type": "string"
           },
           "value": {
-            "title": "Value"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TableBlock"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": ["type", "value", "id"],
@@ -33808,7 +33815,14 @@
             "type": "string"
           },
           "value": {
-            "title": "Value"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TableBlockInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": ["type", "value"],
@@ -34565,6 +34579,212 @@
         },
         "required": ["meta", "id", "title"],
         "title": "StreamPageSchema",
+        "type": "object"
+      },
+      "TableBlock": {
+        "properties": {
+          "cell": {
+            "items": {
+              "$ref": "#/components/schemas/TableBlockCell"
+            },
+            "title": "Cell",
+            "type": "array"
+          },
+          "data": {
+            "items": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "first_col_is_header": {
+            "title": "First Col Is Header",
+            "type": "boolean"
+          },
+          "first_row_is_table_header": {
+            "title": "First Row Is Table Header",
+            "type": "boolean"
+          },
+          "mergeCells": {
+            "items": {
+              "$ref": "#/components/schemas/TableBlockMergedCell"
+            },
+            "title": "Mergecells",
+            "type": "array"
+          },
+          "table_caption": {
+            "title": "Table Caption",
+            "type": "string"
+          },
+          "table_header_choice": {
+            "enum": ["row", "column", "both", "neither"],
+            "title": "Table Header Choice",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "table_header_choice",
+          "first_row_is_table_header",
+          "first_col_is_header"
+        ],
+        "title": "TableBlock",
+        "type": "object"
+      },
+      "TableBlockCell": {
+        "properties": {
+          "className": {
+            "title": "Classname",
+            "type": "string"
+          },
+          "col": {
+            "title": "Col",
+            "type": "integer"
+          },
+          "hidden": {
+            "title": "Hidden",
+            "type": "boolean"
+          },
+          "row": {
+            "title": "Row",
+            "type": "integer"
+          }
+        },
+        "required": ["row", "col"],
+        "title": "TableBlockCell",
+        "type": "object"
+      },
+      "TableBlockCellInput": {
+        "properties": {
+          "className": {
+            "title": "Classname",
+            "type": "string"
+          },
+          "col": {
+            "title": "Col",
+            "type": "integer"
+          },
+          "hidden": {
+            "title": "Hidden",
+            "type": "boolean"
+          },
+          "row": {
+            "title": "Row",
+            "type": "integer"
+          }
+        },
+        "required": ["row", "col"],
+        "title": "TableBlockCellInput",
+        "type": "object"
+      },
+      "TableBlockInput": {
+        "properties": {
+          "cell": {
+            "items": {
+              "$ref": "#/components/schemas/TableBlockCellInput"
+            },
+            "title": "Cell",
+            "type": "array"
+          },
+          "data": {
+            "items": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "first_col_is_header": {
+            "title": "First Col Is Header",
+            "type": "boolean"
+          },
+          "first_row_is_table_header": {
+            "title": "First Row Is Table Header",
+            "type": "boolean"
+          },
+          "mergeCells": {
+            "items": {
+              "$ref": "#/components/schemas/TableBlockMergedCellInput"
+            },
+            "title": "Mergecells",
+            "type": "array"
+          },
+          "table_caption": {
+            "title": "Table Caption",
+            "type": "string"
+          },
+          "table_header_choice": {
+            "enum": ["row", "column", "both", "neither"],
+            "title": "Table Header Choice",
+            "type": "string"
+          }
+        },
+        "title": "TableBlockInput",
+        "type": "object"
+      },
+      "TableBlockMergedCell": {
+        "properties": {
+          "col": {
+            "title": "Col",
+            "type": "integer"
+          },
+          "colspan": {
+            "title": "Colspan",
+            "type": "integer"
+          },
+          "row": {
+            "title": "Row",
+            "type": "integer"
+          },
+          "rowspan": {
+            "title": "Rowspan",
+            "type": "integer"
+          }
+        },
+        "required": ["row", "col", "rowspan", "colspan"],
+        "title": "TableBlockMergedCell",
+        "type": "object"
+      },
+      "TableBlockMergedCellInput": {
+        "properties": {
+          "col": {
+            "title": "Col",
+            "type": "integer"
+          },
+          "colspan": {
+            "title": "Colspan",
+            "type": "integer"
+          },
+          "row": {
+            "title": "Row",
+            "type": "integer"
+          },
+          "rowspan": {
+            "title": "Rowspan",
+            "type": "integer"
+          }
+        },
+        "required": ["row", "col", "rowspan", "colspan"],
+        "title": "TableBlockMergedCellInput",
         "type": "object"
       },
       "TableBlockStreamPageCreateMetaSchema": {
