@@ -244,17 +244,18 @@ class CancelWorkflowAction(WorkflowAction):
 
     def check(self, skip_permission_checks=False):
         state = self.instance.current_workflow_state
+        if self.user and not skip_permission_checks:
+            if state is None:
+                has_permission = self.user_has_permission()
+            else:
+                has_permission = state.user_can_cancel(self.user)
+            if not has_permission:
+                raise PermissionDenied(
+                    "You do not have permission to cancel this workflow."
+                )
         if state is None:
             raise WorkflowStateError(
                 "There is no active workflow on this object to cancel."
-            )
-        if (
-            self.user
-            and not skip_permission_checks
-            and not state.user_can_cancel(self.user)
-        ):
-            raise PermissionDenied(
-                "You do not have permission to cancel this workflow."
             )
 
     @transaction.atomic

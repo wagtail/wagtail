@@ -534,6 +534,12 @@ class TestCancelWorkflowAction(BasePageWorkflowActionTests):
             str(cm.exception), "There is no active workflow on this object to cancel."
         )
 
+    def test_cancel_without_state_checks_permission_first(self):
+        user = self.create_user(username="unrelated")
+
+        with self.assertRaises(PermissionDenied):
+            CancelWorkflowAction(self.object, user=user).execute()
+
 
 class TestCancelWorkflowActionSnippet(BaseSnippetWorkflowActionTests):
     def test_cancel_snippet(self):
