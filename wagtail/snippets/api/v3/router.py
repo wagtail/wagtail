@@ -509,7 +509,7 @@ def approve_snippet_workflow(
     check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "approve")
-    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return snippet
 
 
@@ -531,7 +531,7 @@ def reject_snippet_workflow(
     check_can_view_workflow(snippet, request.user)
     task_state = resolve_task_state(snippet, data.task_state_id)
     action_class = action_registry.get_action_class(model, "reject")
-    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return snippet
 
 

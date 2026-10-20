@@ -5,6 +5,7 @@ from wagtail.actions.base import BaseAction
 from wagtail.actions.publish_page_revision import PublishPagePermissionError
 from wagtail.actions.publish_revision import PublishPermissionError
 from wagtail.actions.registry import action_registry
+from wagtail.utils.forms import FormValidationError
 
 
 class WorkflowStateError(Exception):
@@ -171,14 +172,15 @@ class ApproveTaskStateAction(WorkflowAction):
 
     :param task_state: the in-progress task state to approve
     :param user: the user approving
-    :param comment: an optional reviewer comment recorded on the task state
+    :param data: input for the task's form for this action (see
+        ``Task.get_form_for_action``), such as ``{"comment": "..."}``
     """
 
     action_name = "approve"
 
-    def __init__(self, task_state, user=None, comment=""):
+    def __init__(self, task_state, user=None, data=None):
         self.task_state = task_state.specific
-        self.comment = comment
+        self.data = data or {}
         self.object = _get_specific(self.task_state.workflow_state.content_object)
         super().__init__(task_state, user=user)
 
@@ -204,9 +206,22 @@ class ApproveTaskStateAction(WorkflowAction):
                 "This object is not currently awaiting moderation."
             )
 
+    def get_form_cleaned_data(self):
+        # Like the admin, only pass form data to on_action() if the task has a
+        # form for this action.
+        task = self.task_state.task.specific
+        form_class = task.get_form_for_action(self.action_name)
+        if not form_class:
+            return {}
+        form = form_class(self.data)
+        if not form.is_valid():
+            raise FormValidationError.from_form(form)
+        return form.cleaned_data
+
     @transaction.atomic
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
+        cleaned_data = self.get_form_cleaned_data()
         # Task.on_action() returns None (it calls task_state.approve/reject
         # without returning), so return the task state directly to honour
         # execute() -> TaskState.
@@ -215,7 +230,7 @@ class ApproveTaskStateAction(WorkflowAction):
             self.task_state,
             self.user,
             self.action_name,
-            comment=self.comment,
+            **cleaned_data,
         )
         return self.task_state
 

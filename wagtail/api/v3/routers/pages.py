@@ -793,7 +793,7 @@ def approve_workflow(
     check_can_view_workflow(page, request.user)
     task_state = resolve_task_state(page, data.task_state_id)
     action_class = action_registry.get_action_class(Page, "approve")
-    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return page
 
 
@@ -813,7 +813,7 @@ def reject_workflow(
     check_can_view_workflow(page, request.user)
     task_state = resolve_task_state(page, data.task_state_id)
     action_class = action_registry.get_action_class(Page, "reject")
-    action_class(task_state, user=request.user, comment=data.comment or "").execute()
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
     return page
 
 

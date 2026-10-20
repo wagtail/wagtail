@@ -36129,6 +36129,7 @@
         "type": "object"
       },
       "WorkflowTaskActionSchema": {
+        "additionalProperties": true,
         "properties": {
           "comment": {
             "anyOf": [

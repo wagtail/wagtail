@@ -1,3 +1,6 @@
+from unittest import mock
+
+from django import forms
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -13,6 +16,7 @@ from wagtail.actions import (
     WorkflowStateError,
     get_available_workflow_transitions,
 )
+from wagtail.forms import TaskStateCommentForm
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     GroupApprovalTask,
@@ -26,6 +30,11 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import Page, WagtailTestUtils
+from wagtail.utils.forms import FormValidationError
+
+
+class RatingForm(TaskStateCommentForm):
+    rating = forms.IntegerField()
 
 
 def delete_existing_workflows():
@@ -352,7 +361,7 @@ class TestApproveTaskStateAction(BasePageWorkflowActionTests):
         since = timezone.now()
 
         task_state = ApproveTaskStateAction(
-            state.current_task_state, user=self.moderator, comment="LGTM"
+            state.current_task_state, user=self.moderator, data={"comment": "LGTM"}
         ).execute()
 
         self.assertEqual(task_state.comment, "LGTM")
@@ -435,6 +444,59 @@ class TestApproveTaskStateAction(BasePageWorkflowActionTests):
             str(cm.exception), "This object is not currently awaiting moderation."
         )
 
+    def test_approve_validates_task_form(self):
+        state = SubmitWorkflowAction(self.object, user=self.submitter).execute()
+        task_state = state.current_task_state
+
+        with (
+            mock.patch.object(
+                GroupApprovalTask, "get_form_for_action", return_value=RatingForm
+            ),
+            self.assertRaises(FormValidationError) as cm,
+        ):
+            ApproveTaskStateAction(task_state, user=self.moderator).execute()
+
+        self.assertEqual(
+            cm.exception.loc_errors,
+            [(("rating",), [("This field is required.", "required")])],
+        )
+        task_state.refresh_from_db()
+        self.assertEqual(task_state.status, TaskState.STATUS_IN_PROGRESS)
+
+    def test_approve_passes_task_form_data_to_on_action(self):
+        state = SubmitWorkflowAction(self.object, user=self.submitter).execute()
+        task_state = state.current_task_state
+
+        with (
+            mock.patch.object(
+                GroupApprovalTask, "get_form_for_action", return_value=RatingForm
+            ),
+            mock.patch.object(GroupApprovalTask, "on_action") as on_action,
+        ):
+            ApproveTaskStateAction(
+                task_state, user=self.moderator, data={"rating": "5"}
+            ).execute()
+
+        on_action.assert_called_once_with(
+            task_state, self.moderator, "approve", comment="", rating=5
+        )
+
+    def test_approve_without_task_form_passes_no_form_data(self):
+        state = SubmitWorkflowAction(self.object, user=self.submitter).execute()
+        task_state = state.current_task_state
+
+        with (
+            mock.patch.object(
+                GroupApprovalTask, "get_form_for_action", return_value=None
+            ),
+            mock.patch.object(GroupApprovalTask, "on_action") as on_action,
+        ):
+            ApproveTaskStateAction(
+                task_state, user=self.moderator, data={"comment": "Ignored"}
+            ).execute()
+
+        on_action.assert_called_once_with(task_state, self.moderator, "approve")
+
 
 class TestRejectTaskStateAction(BasePageWorkflowActionTests):
     def test_reject_sets_status_and_logs_comment(self):
@@ -443,7 +505,9 @@ class TestRejectTaskStateAction(BasePageWorkflowActionTests):
         since = timezone.now()
 
         task_state = RejectTaskStateAction(
-            state.current_task_state, user=self.moderator, comment="Needs work"
+            state.current_task_state,
+            user=self.moderator,
+            data={"comment": "Needs work"},
         ).execute()
 
         state.refresh_from_db()

@@ -4,7 +4,7 @@ from uuid import UUID
 
 from django.contrib.contenttypes.models import ContentType
 from ninja import Schema
-from pydantic import PositiveInt
+from pydantic import BaseModel, ConfigDict, PositiveInt
 
 from wagtail.actions.workflow import get_available_workflow_transitions
 from wagtail.admin.utils import get_user_display_name
@@ -116,6 +116,13 @@ class WorkflowStatusSchema(Schema):
         return get_available_workflow_transitions(obj, context["request"].user)
 
 
-class WorkflowTaskActionSchema(Schema):
+class WorkflowTaskActionSchema(BaseModel):
+    # Extra fields are passed on to the task's form for the action, along with
+    # the comment.
+    model_config = ConfigDict(extra="allow")
+
     comment: str | None = None
     task_state_id: PositiveInt | None = None
+
+    def get_form_data(self) -> dict[str, Any]:
+        return self.model_dump(exclude={"task_state_id"}, exclude_none=True)

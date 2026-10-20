@@ -44,6 +44,8 @@ A locked object returns `403`, including when it is locked because it is already
 -   **`comment`**: an optional string, recorded on the task state and shown to other workflow participants.
 -   **`task_state_id`**: the optional ID of the task state to act on, from `current_task_state` or the `tasks` timeline in a status response. When provided, it must match the object's current task state; otherwise the request fails with `422`. Pass it to guard against the workflow having moved on since the status was read.
 
+The rest of the body is validated with the task's form for the action, as in the admin (see `Task.get_form_for_action` in [](custom_tasks_behavior)). For `GroupApprovalTask`, that form only has `comment`. A [custom task](custom_tasks) with extra form fields accepts them as additional keys in the body, and they are passed on to its `on_action` method. Invalid form data returns the standard `422` validation error envelope, with each error's `loc` naming the form field.
+
 ```sh
 curl -X POST "https://example.com/api/v3/pages/3/actions/workflow/approve/" \
   -H "Authorization: Bearer $TOKEN" \

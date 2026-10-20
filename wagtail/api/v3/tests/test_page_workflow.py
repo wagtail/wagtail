@@ -1,12 +1,15 @@
 from unittest import mock
 
+from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v3.tests.base import TestV3WorkflowBase
+from wagtail.forms import TaskStateCommentForm
 from wagtail.models import (
+    GroupApprovalTask,
     GroupPagePermission,
     TaskState,
     WorkflowPage,
@@ -15,6 +18,10 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import Page
+
+
+class RatingForm(TaskStateCommentForm):
+    rating = forms.IntegerField()
 
 
 class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
@@ -324,6 +331,30 @@ class TestPageWorkflowTransitions(TestV3WorkflowBase, TestCase):
         task_state.refresh_from_db()
         self.assertEqual(task_state.status, TaskState.STATUS_IN_PROGRESS)
         self.assert_log_actions(self.page, [], since=since)
+
+    # Task forms
+
+    @mock.patch.object(
+        GroupApprovalTask, "get_form_for_action", return_value=RatingForm
+    )
+    def test_approve_with_task_form(self, get_form_for_action):
+        self.login(user=self.submitter)
+        self.post_workflow("submit", self.page)
+        self.login(user=self.moderator)
+
+        response = self.post_workflow("approve", self.page, {"comment": "Nice"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            errors=[{"type": "required", "loc": ["rating"]}],
+        )
+
+        with mock.patch.object(GroupApprovalTask, "on_action") as on_action:
+            response = self.post_workflow(
+                "approve", self.page, {"comment": "Nice", "rating": 5}
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(on_action.call_args.kwargs, {"comment": "Nice", "rating": 5})
 
     # State machine (invalid combinations → 422)
 
