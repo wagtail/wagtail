@@ -290,7 +290,14 @@ class BaseMediaFilterSet(WagtailFilterSet):
                 queryset=collections_qs,
             )
 
-        popular_tags = popular_tags_for_model(self._meta.model)
+        # Only offer tags that are used on objects the user has access to, matching
+        # the objects shown in the listing (see IndexView.get_base_queryset).
+        popular_tags = popular_tags_for_model(
+            self._meta.model,
+            queryset=self.permission_policy.instances_user_has_any_permission_for(
+                request.user, ["change", "delete"]
+            ),
+        )
 
         if popular_tags:
             self.filters["tag"] = PopularTagsFilter(
