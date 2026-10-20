@@ -1010,6 +1010,11 @@
 * Ayush Kumar
 * Vignesh Komma
 * Jakub Mastalerz
+* xutao
+* Rajesh Murthy
+* Nguyen Dang Khoi
+* ma4ter0x22
+* Alberto Fernandez-de-Retana
 
 ## Translators
 
