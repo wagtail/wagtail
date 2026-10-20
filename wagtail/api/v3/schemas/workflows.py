@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Any, Literal
 
+from django.contrib.contenttypes.models import ContentType
 from ninja import Schema
 from pydantic import PositiveInt
 
@@ -34,7 +35,7 @@ class WorkflowTaskSummarySchema(Schema):
 
     @staticmethod
     def resolve_type(obj) -> str:
-        content_type = obj.content_type
+        content_type = ContentType.objects.get_for_id(obj.content_type_id)
         if model := content_type.model_class():
             return model._meta.label
         return f"{content_type.app_label}.{content_type.model}"
@@ -76,13 +77,19 @@ class WorkflowStateDetailSchema(WorkflowStateSchema):
 
     @staticmethod
     def resolve_tasks(obj) -> list[dict[str, Any]]:
-        # "task" is an attribute the Task model does not expose, so map the
-        # all_tasks_with_state() items to the schema's field names up front.
-        tasks = obj.all_tasks_with_state()
-        for task in tasks:
-            if task.task_state is not None:
-                task.task_state.task = task
-        return [{"task": task, "task_state": task.task_state} for task in tasks]
+        # Swap in the prefetched task states, which have their task and
+        # finished_by already fetched.
+        task_states = {
+            task_state.id: task_state for task_state in obj._prefetched_task_states
+        }
+        return [
+            {
+                "task": task,
+                "task_state": task.task_state
+                and task_states.get(task.task_state.id, task.task_state),
+            }
+            for task in obj.all_tasks_with_state()
+        ]
 
 
 class WorkflowStatusSchema(Schema):
