@@ -996,6 +996,11 @@
 * tinyb0y
 * Piyush Bhakuni
 * Dmitry Khlopyev
+* xutao
+* Rajesh Murthy
+* Nguyen Dang Khoi
+* ma4ter0x22
+* Alberto Fernandez-de-Retana
 
 ## Translators
 
