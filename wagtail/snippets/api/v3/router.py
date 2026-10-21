@@ -69,7 +69,7 @@ def _type_literal(models):
 SnippetTypeLiteral = _type_literal(enabled_models)
 
 if enabled_models:
-    _snippet_schemas = build_union_schemas(enabled_models)
+    _snippet_schemas = build_union_schemas(enabled_models, name="Snippet")
     SnippetDetailSchema = _snippet_schemas.detail
     SnippetCreateSchema = _snippet_schemas.create
     SnippetUpdateSchema = _snippet_schemas.update
@@ -99,7 +99,9 @@ for mixin in mixins:
     )
     literals_by_mixin[mixin] = _type_literal(models)
     if models:
-        schemas_by_mixin[mixin] = build_discriminated_union(models, for_schema)
+        schemas_by_mixin[mixin] = build_discriminated_union(
+            models, for_schema, name=f"{mixin.__name__}SnippetDetailUnion"
+        )
     else:
         schemas_by_mixin[mixin] = SnippetDetailSchema
 
