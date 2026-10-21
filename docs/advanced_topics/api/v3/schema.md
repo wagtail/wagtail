@@ -45,6 +45,7 @@ Schemas are generated at runtime from the project's models and panels. The read 
 
 On the read side:
 
+-   An `api_fields` entry that isn't a model field, such as a property or a method, is described by its return type annotation, if it has one that can be represented in the schema. Otherwise, it's described as any value. As the value is validated against its annotation, make sure the annotation is accurate.
 -   Fields that always appear in responses are marked as required, even if their value can be `null`.
 
 Note: avoid using the same model name across multiple apps. Schemas aren’t prefixed with the app label, so a `BlogPage` in two different apps would collide. Similarly, avoid using the same names for type variables, as they will also create confusion in the generated project-wide schema.
