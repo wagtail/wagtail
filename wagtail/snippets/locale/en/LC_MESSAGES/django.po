@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,29 +37,29 @@ msgstr ""
 msgid "Submit to %(workflow_name)s"
 msgstr ""
 
-#: action_menu.py:172
+#: action_menu.py:173
 msgid "Restart workflow "
 msgstr ""
 
-#: action_menu.py:193
+#: action_menu.py:194
 msgid "Cancel workflow "
 msgstr ""
 
-#: action_menu.py:207
+#: action_menu.py:208
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:227
+#: action_menu.py:228
 #: templates/wagtailsnippets/snippets/action_menu/save.html:27
 msgid "Save"
 msgstr ""
 
-#: action_menu.py:234
+#: action_menu.py:235
 #: templates/wagtailsnippets/snippets/action_menu/locked.html:4
 msgid "Locked"
 msgstr ""
 
-#: action_menu.py:310
+#: action_menu.py:311
 #, python-format
 msgid "%(label)s and Publish"
 msgstr ""

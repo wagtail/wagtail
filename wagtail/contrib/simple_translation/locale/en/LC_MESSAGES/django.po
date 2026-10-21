@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,14 +41,14 @@ msgid_plural "Include subtree (%(descendant_count)s pages)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: forms.py:106
+#: forms.py:108
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
 "Some locales are disabled because some parent pages are not translated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: forms.py:113
+#: forms.py:114
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] ""
