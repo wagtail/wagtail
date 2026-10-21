@@ -3,6 +3,7 @@ from types import UnionType
 from typing import TYPE_CHECKING, Any, Union, cast, get_args, get_origin
 
 from django.test import TestCase
+from django.utils.functional import cached_property
 from rest_framework.fields import Field
 
 from wagtail.api import APIField
@@ -389,3 +390,59 @@ class TestGeneratePageSchema(TestCase):
             APIField("title", serializer=field)
         )
         self.assertIn(Any, getattr(annotation, "__args__", ()))
+
+
+class AttributeAnnotationModel:
+    @property
+    def annotated_property(self) -> bool:
+        return True
+
+    @cached_property
+    def annotated_cached_property(self) -> list[str]:
+        return []
+
+    def annotated_method(self) -> int:
+        return 1
+
+    @property
+    def unannotated_property(self):
+        return True
+
+    @property
+    def unsupported_type(self) -> Page:
+        return Page()
+
+    plain_attribute = "value"
+
+
+class TestAttributeAnnotation(TestCase):
+    """
+    An APIField that isn't a Django field (a property or method) is typed by
+    its return annotation, if it has a type Pydantic supports.
+    """
+
+    def assertAnnotation(self, name, expected):
+        self.assertEqual(
+            read_generator._attribute_annotation(
+                cast(Any, AttributeAnnotationModel), name
+            ),
+            expected,
+        )
+
+    def test_property(self):
+        self.assertAnnotation("annotated_property", bool)
+
+    def test_cached_property(self):
+        self.assertAnnotation("annotated_cached_property", list[str])
+
+    def test_method(self):
+        self.assertAnnotation("annotated_method", int)
+
+    def test_unannotated_property(self):
+        self.assertAnnotation("unannotated_property", Any)
+
+    def test_unsupported_type(self):
+        self.assertAnnotation("unsupported_type", Any)
+
+    def test_plain_attribute(self):
+        self.assertAnnotation("plain_attribute", Any)

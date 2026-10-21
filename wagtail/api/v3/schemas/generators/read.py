@@ -1,16 +1,27 @@
 import copy
-from typing import Annotated, Any, Callable, Literal, TypeGuard, cast, get_type_hints
+import inspect
+from typing import (
+    Annotated,
+    Any,
+    Callable,
+    Literal,
+    TypeGuard,
+    cast,
+    get_type_hints,
+)
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
 from django.db.models.fields import Field
 from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
+from pydantic import PydanticSchemaGenerationError, TypeAdapter
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
@@ -97,6 +108,34 @@ class SchemaGenerator:
             model = pk.remote_field.model
         # Use all PK fields, since a model can have a composite PK
         return [field.name for field in model._meta.pk_fields]
+
+    @staticmethod
+    def _attribute_annotation(model: type[Model], name: str) -> Any:
+        """
+        Return the type of a model attribute that isn't a Django field, from
+        the return annotation of the property or method, or ``Any``.
+        """
+        attr = inspect.getattr_static(model, name, None)
+        if isinstance(attr, property):
+            func = attr.fget
+        elif isinstance(attr, cached_property):
+            func = attr.func
+        elif callable(attr):
+            func = attr
+        else:
+            return Any
+        try:
+            return_type = get_type_hints(func)["return"]
+        except (KeyError, NameError, TypeError):
+            # No return type, or it's only available when TYPE_CHECKING
+            return Any
+        try:
+            # Unlike a StreamField's documented block types, the value is
+            # validated against this, so it must be a type Pydantic supports
+            TypeAdapter(return_type)
+        except PydanticSchemaGenerationError:
+            return Any
+        return return_type
 
     @staticmethod
     def _custom_serializer_schema(api_field: APIField) -> FieldSchema:
@@ -402,8 +441,13 @@ class SchemaGenerator:
             try:
                 model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
-                # Not a real Django field, so treat it as a plain Python property.
-                extra_fields[field.name] = (Any, None, None)
+                # Not a real Django field, so treat it as a plain Python property
+                # (or method), typed by its return annotation if it has one.
+                extra_fields[field.name] = (
+                    self._attribute_annotation(model, field.name),
+                    None,
+                    None,
+                )
             else:
                 if isinstance(model_field, ForeignObjectRel) and (
                     not follow_reverse_related
