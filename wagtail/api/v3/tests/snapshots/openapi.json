@@ -2454,7 +2454,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -3130,7 +3130,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -3675,7 +3675,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -11845,7 +11845,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -12309,7 +12309,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -17142,7 +17142,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -17763,7 +17763,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -23317,60 +23317,6 @@
         "title": "PageFilterSchema",
         "type": "object"
       },
-      "PageForeignKeyMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "wagtailcore.Page",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "PageForeignKeyMetaSchema",
-        "type": "object"
-      },
-      "PageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/PageForeignKeyMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "PageForeignKeySchema",
-        "type": "object"
-      },
       "PageMetaSchema": {
         "properties": {
           "alias_of": {
@@ -25237,7 +25183,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -32896,7 +32842,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -33213,7 +33159,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -33642,7 +33588,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -40876,7 +40822,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -41536,7 +41482,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/PageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"

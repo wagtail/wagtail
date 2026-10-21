@@ -1595,60 +1595,6 @@
         "title": "BaseMetaSchema",
         "type": "object"
       },
-      "BasePageForeignKeyMetaSchema": {
-        "properties": {
-          "type": {
-            "const": "basepage.BasePage",
-            "title": "Type",
-            "type": "string"
-          },
-          "warnings": {
-            "anyOf": [
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/RichTextRemoval"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Warnings"
-          }
-        },
-        "required": ["type"],
-        "title": "BasePageForeignKeyMetaSchema",
-        "type": "object"
-      },
-      "BasePageForeignKeySchema": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/BasePageForeignKeyMetaSchema"
-          }
-        },
-        "required": ["meta"],
-        "title": "BasePageForeignKeySchema",
-        "type": "object"
-      },
       "BasePageMetaSchema": {
         "properties": {
           "alias_of": {
@@ -2093,7 +2039,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -2660,7 +2606,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -3096,7 +3042,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -9124,7 +9070,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -9550,7 +9496,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -13184,7 +13130,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -13696,7 +13642,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -19430,7 +19376,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -25165,7 +25111,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -25444,7 +25390,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -25764,7 +25710,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -32017,7 +31963,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"
@@ -32677,7 +32623,7 @@
           "link_page": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BasePageForeignKeySchema"
+                "$ref": "#/components/schemas/SimpleBasePageSchema"
               },
               {
                 "type": "null"

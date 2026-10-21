@@ -190,11 +190,26 @@ class SchemaGenerator:
         key to the same model), which would otherwise recurse forever. That
         uses the related model's reference schema instead, see
         ``get_foreign_key_reference_schema``.
+
+        A foreign key to a page also includes the same fields as a page's
+        ``meta.parent``, i.e. the page's ID, title, specific type, and URLs.
+        If the page model has no ``api_fields`` (e.g. the base ``Page``
+        model), the schema is the same as ``meta.parent``.
         """
+        from wagtail.api.v3.schemas.pages import (
+            SimpleBasePageMetaSchema,
+            SimpleBasePageSchema,
+        )
+        from wagtail.models import AbstractPage
+
         if model in self._foreign_key_schema_cache:
             return self._foreign_key_schema_cache[model]
         if model in self._foreign_key_schemas_being_built:
             return self.get_foreign_key_reference_schema(model)
+
+        is_page = issubclass(model, AbstractPage)
+        if is_page and not APIField.get_fields_for_model(model):
+            return SimpleBasePageSchema
 
         self._foreign_key_schemas_being_built.add(model)
         try:
@@ -202,14 +217,21 @@ class SchemaGenerator:
             schema = self.build_schema(
                 model,
                 name=f"{name}Base",
-                base_class=BaseSchema,
+                base_class=SimpleBasePageSchema if is_page else BaseSchema,
                 nested=True,
                 follow_reverse_related=False,
+            )
+            # A page's meta.type isn't narrowed to the model, as it's the
+            # page's specific type, which may be a subclass of the model
+            meta_schema = (
+                SimpleBasePageMetaSchema
+                if is_page
+                else self._get_foreign_key_meta_schema(model)
             )
             self._foreign_key_schema_cache[model] = self.extend_schema(
                 schema,
                 name,
-                {"meta": (self._get_foreign_key_meta_schema(model), ..., None)},
+                {"meta": (meta_schema, ..., None)},
             )
         finally:
             self._foreign_key_schemas_being_built.discard(model)
@@ -218,7 +240,16 @@ class SchemaGenerator:
     def get_foreign_key_reference_schema(self, model: type[Model]) -> type[Schema]:
         """Build a schema for a foreign key's related model that only
         identifies the object, with its primary key and ``meta.type``.
+
+        For a page, this is the same as a page's ``meta.parent``, with the
+        page's ID, title, specific type, and URLs.
         """
+        from wagtail.api.v3.schemas.pages import SimpleBasePageSchema
+        from wagtail.models import AbstractPage
+
+        if issubclass(model, AbstractPage):
+            return SimpleBasePageSchema
+
         if model not in self._foreign_key_reference_schema_cache:
             name = f"{model._meta.object_name}ForeignKeyReferenceSchema"
             schema = create_schema(
