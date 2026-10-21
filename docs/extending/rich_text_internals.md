@@ -330,6 +330,8 @@ cleaned_html, removals = converter.clean("<h1>Title</h1><p><b>text</b></p>")
 Like the editor converters, it is built from the feature registry's `editorhtml` converter rules, so allowlisting matches what the editor enforces for the same feature set. Out-of-features elements, unknown link or embed types, and references missing their required attributes are removed, with each removal reported as a `RichTextRemoval` (`tag`, `action`, `reason`, and a short `detail` snippet of the source markup — raw input content that callers must treat as untrusted).
 References to missing pages, images, or documents are preserved, matching the editor's handling of broken references.
 
+(converting_html_to_markdown)=
+
 ### Converting HTML to Markdown
 
 To convert arbitrary HTML, such as a rendered page or block, to Markdown, Wagtail provides an `HTMLToMarkdownConverter`. It uses the same conversion pipeline as rich text, and outputs CommonMark, with GitHub Flavored Markdown tables and strikethrough:
