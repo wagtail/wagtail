@@ -25637,6 +25637,18 @@
             "title": "Is Permanent",
             "type": "boolean"
           },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The URL to redirect to, from either the redirect page (and route path) or the redirect link.",
+            "title": "Location"
+          },
           "old_path": {
             "title": "Old Path",
             "type": "string"
@@ -25681,7 +25693,8 @@
           "redirect_page_route_path",
           "redirect_link",
           "automatically_created",
-          "created_at"
+          "created_at",
+          "location"
         ],
         "title": "RedirectSchema",
         "type": "object"

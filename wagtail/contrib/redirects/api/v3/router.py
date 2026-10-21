@@ -41,6 +41,13 @@ class RedirectSchema(Schema):
     redirect_link: str
     automatically_created: bool
     created_at: datetime | None
+    location: str | None = Field(
+        alias="link",
+        description=(
+            "The URL to redirect to, from either the redirect page (and route "
+            "path) or the redirect link."
+        ),
+    )
 
 
 class RedirectInputSchema(Schema):

@@ -15,7 +15,7 @@ Redirects are exposed as CRUD:
 
 Redirect reads are public because the redirect middleware resolves redirects publicly; the endpoints behave like the v2 API in this regard.
 
-A redirect is described by its `id`, `old_path`, nullable `site_id`, `is_permanent`, `redirect_page_id`, `redirect_page_route_path`, `redirect_link`, `automatically_created`, and `created_at`. The list supports exact filtering and ordering but not search.
+A redirect is described by its `id`, `old_path`, nullable `site_id`, `is_permanent`, `redirect_page_id`, `redirect_page_route_path`, `redirect_link`, `automatically_created`, and `created_at`, and its `location`. The list supports exact filtering and ordering but not search.
 
 The `find` endpoint resolves `html_path` through Wagtail's redirect middleware, or falls back to matching by `id`, then responds with a `302` redirect to the canonical detail:
 
