@@ -1021,6 +1021,7 @@
 * Muted Cybersecurity S.L.
 * Dexx-tech
 * Roee Sivan
+* Beth Parnell
 
 ## Translators
 
