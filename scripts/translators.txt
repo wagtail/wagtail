@@ -665,6 +665,7 @@ Alexander Holmbäck <alexander.holmback.creuna.se>
 Andreas Bergström <andreas.bergstrom.gmail.com>
 Andreas Lans <andreas.lans.gmail.com>
 André Karlsson <andre.sess.se>
+Daniel Nylander <po.danielnylander.se>
 Elias Johnstone <eli87as.gmail.com>
 Hannes Lohmander <c.hannes.l.gmail.com>
 Jim Brouzoulis <jim.brouzoulis.chalmers.se>

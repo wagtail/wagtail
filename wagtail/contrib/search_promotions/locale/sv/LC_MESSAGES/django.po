@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,8 +35,23 @@ msgstr ""
 "Skriv in fulltextsökningen att matcha mot. En exakt match är nödvändig för "
 "att dina Främjade Resultat ska synas, jokertecken är EJ tillåtna."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Du måste ange extern länktext om du anger en extern länk-URL."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Du måste rekommendera en sida ELLER en extern länk."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Välj endast en sida ELLER ange en extern länk."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Vänligen specificera minst en rekommendation för den här söktermen."
+
+msgid "query"
+msgstr "sökfråga"
+
+msgid "queries"
+msgstr "sökfrågor"
 
 msgid "Query Daily Hits"
 msgstr "Dagliga träffar för sökterm"
@@ -44,14 +59,34 @@ msgstr "Dagliga träffar för sökterm"
 msgid "page"
 msgstr "sida"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Välj en intern sida för den här rekommendationen"
+
 msgid "External link URL"
 msgstr "Extern länk URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Du kan även använda en extern länk för den här rekommendationen"
 
 msgid "description"
 msgstr "beskrivning"
 
+msgid "Applies to internal page or external link"
+msgstr "Gäller intern sida eller extern länk"
+
 msgid "search promotion"
 msgstr "Premierad sökning"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. "
+"E.g recommending your primary donation page to a user searching with the "
+"less common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Marknadsförda sökresultat är ett sätt att rekommendera specifika sidor "
+"eller externa länkar som kanske inte organiskt hamnar högt i sökresultaten. "
+"Du kan till exempel rekommendera din primära donationssida för en användare "
+"som söker med den mindre vanliga termen ”<em>givande</em>”.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -86,8 +121,14 @@ msgstr "Dra"
 msgid "Delete"
 msgstr "Radera"
 
+msgid "Recommended search result"
+msgstr "Rekommenderat sökresultat"
+
 msgid "Promoted search results"
 msgstr "Premierade sökresultat"
+
+msgid "Add a recommended result"
+msgstr "Lägg till ett rekommenderat resultat"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -101,6 +142,9 @@ msgstr ""
 "Inga premierade resultat har skapats. Varför inte <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
 
+msgid "No promoted results have been created."
+msgstr "Inga marknadsförda resultat har skapats."
+
 msgid "Popular search terms"
 msgstr "Populära söktermer"
 
@@ -109,6 +153,9 @@ msgstr "Sök"
 
 msgid "Terms"
 msgstr "Termer"
+
+msgid "Views"
+msgstr "Visningar"
 
 msgid "No results found"
 msgstr "Inga resultat funna"
@@ -124,6 +171,9 @@ msgstr "Ingen"
 
 msgid "Date"
 msgstr "Datum"
+
+msgid "Search terms"
+msgstr "Söktermer"
 
 msgid "Search term(s)"
 msgstr "Sökterm(er)"
@@ -141,9 +191,15 @@ msgstr "Premierat sökresultat"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Redaktörens val för '%(query)s' skapad. "
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Rekommendationer har inte skapats på grund av fel."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Redaktörens val för '%(query)s' uppdaterad. "
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "Rekommendationer har inte sparats på grund av fel."
 
 msgid "Editor's picks deleted."
 msgstr "Redaktörens val togs bort."

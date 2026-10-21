@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -277,6 +277,10 @@ msgstr "اسم مستعار"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "الحفاظ على تحديث الصفحات الجديدة بالتغييرات المستقبلية"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr "ليس لديك إذن بنشر صفحات على \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -2771,6 +2775,10 @@ msgid "Changes requested"
 msgstr "تم طلب تغييرات"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "أُلغيت من قِبَل %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "تمت الموافقة بواسطة %(approved_by)s"
 
@@ -3598,6 +3606,12 @@ msgstr "نوع الإجراء"
 
 msgid "Date/Time"
 msgstr "التاريخ/التوقيت"
+
+msgid "Locked by"
+msgstr "مُقفَل بواسطة"
+
+msgid "Anyone"
+msgstr "أي شخص"
 
 msgid "Locked pages"
 msgstr "الصفحات المقفلة"
