@@ -57,7 +57,7 @@ actions_router = Router(auth=BearerTokenAuth())
 
 page_models = get_page_models()
 PageTypeLiteral = Literal[tuple(model._meta.label for model in page_models)]  # ty: ignore[invalid-type-form]
-_page_schemas = build_union_schemas(page_models)
+_page_schemas = build_union_schemas(page_models, name="Page")
 PageDetailSchema = _page_schemas.detail
 PageCreateSchema = _page_schemas.create
 PageUpdateSchema = _page_schemas.update
