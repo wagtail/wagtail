@@ -44283,6 +44283,7 @@
     },
     "/api/v3/pages/find/": {
       "get": {
+        "description": "Redirects (302) to the detail endpoint of the matching page. HTTP clients that follow redirects receive the page detail.",
         "operationId": "pages_find",
         "parameters": [
           {
@@ -44363,6 +44364,9 @@
               }
             },
             "description": "OK"
+          },
+          "302": {
+            "description": "Found"
           }
         },
         "security": [
@@ -45563,6 +45567,7 @@
     },
     "/api/v3/redirects/find/": {
       "get": {
+        "description": "Redirects (302) to the detail endpoint of the matching redirect. HTTP clients that follow redirects receive the redirect detail.",
         "operationId": "redirects_find",
         "parameters": [
           {
@@ -45608,6 +45613,9 @@
               }
             },
             "description": "OK"
+          },
+          "302": {
+            "description": "Found"
           }
         },
         "security": [

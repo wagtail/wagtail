@@ -24,7 +24,7 @@ curl "https://example.com/api/v3/redirects/find/?html_path=/old-page/"
 ```
 
 ```{note}
-As with page `find`, the OpenAPI schema describes `find` as returning the redirect detail schema, but the runtime response is a `302` redirect. Clients generated from OpenAPI should follow the redirect to the detail URL.
+As with page `find`, the OpenAPI schema describes both the `302` redirect and the redirect detail that a client receives after following it. Most HTTP clients, including those generated from OpenAPI, follow redirects by default.
 ```
 
 Creates and updates go through `RedirectForm`, which provides path normalization and duplicate validation. Redirects are not swappable, and redirect CRUD instantiates the generic action classes directly, so project action-registry overrides do not affect redirect mutations.

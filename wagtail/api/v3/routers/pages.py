@@ -246,9 +246,14 @@ def list_pages(
 
 @router.get(
     "/find/",
-    response=PageDetailSchema,
+    # The 200 response is from the detail endpoint, after following the redirect
+    response={200: PageDetailSchema, 302: None},
     url_name="find_page",
     summary="Find page",
+    description=(
+        "Redirects (302) to the detail endpoint of the matching page. HTTP "
+        "clients that follow redirects receive the page detail."
+    ),
     operation_id="pages_find",
     auth=[BearerTokenAuth(), AllowAnonymous()],
 )
