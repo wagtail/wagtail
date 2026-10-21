@@ -63,7 +63,7 @@ curl "https://example.com/api/v3/pages/?type=tests.BlogPage&locale=fr&search=dra
 Beyond the structured filters above, you can filter on the page's own exposed database fields (any `api_fields` the project declares, such as `title` or `slug`) as exact-match query parameters, order by them, and run full-text search:
 
 -   **Field filters**: for example `?title=Example` returns pages whose `title` equals the value.
--   **`order`**: order by a field, with a leading `-` for descending order (for example `?order=-first_published_at`). Repeat the parameter to order by several fields, or pass `?order=random` for random ordering. Random ordering cannot be combined with a non-zero `?offset`.
+-   **`order`**: order by a field, with a leading `-` for descending order (for example `?order=-first_published_at`). Repeat the parameter to order by several fields, or pass `?order=random` for random ordering. Random ordering cannot be combined with a non-zero `?offset`. Without `order`, pages are listed in the page tree order (the order editors can arrange child pages in).
 -   **`search`**: full-text search over the page content, with `?search_operator=and` (all terms) or `?search_operator=or` (any term). This only works when page search is enabled.
 
 ```sh
