@@ -874,15 +874,8 @@
       "AdvertForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertForeignKeyMetaSchema"
@@ -1028,15 +1021,8 @@
       "AdvertSchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertMetaSchema"
@@ -1158,16 +1144,8 @@
       "AdvertWithCustomPrimaryKeyForeignKeySchema": {
         "properties": {
           "advert_id": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Advert Id"
+            "title": "Advert Id",
+            "type": "string"
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyForeignKeyMetaSchema"
@@ -1297,16 +1275,8 @@
       "AdvertWithCustomPrimaryKeySchema": {
         "properties": {
           "advert_id": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Advert Id"
+            "title": "Advert Id",
+            "type": "string"
           },
           "meta": {
             "$ref": "#/components/schemas/AdvertWithCustomPrimaryKeyMetaSchema"
@@ -1751,15 +1721,8 @@
       "BasePageSchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "Id",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/BasePageMetaSchema"
@@ -1809,15 +1772,8 @@
       "BlogCategoryForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/BlogCategoryForeignKeyMetaSchema"
@@ -4293,15 +4249,8 @@
       "CollectionForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/CollectionForeignKeyMetaSchema"
@@ -8363,15 +8312,8 @@
       "DocumentForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/DocumentForeignKeyMetaSchema"
@@ -8416,15 +8358,8 @@
             "$ref": "#/components/schemas/CollectionForeignKeySchema"
           },
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "Id",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/DocumentDetailMetaSchema"
@@ -8595,16 +8530,8 @@
       "DraftStateCustomPrimaryKeyModelSchema": {
         "properties": {
           "custom_id": {
-            "anyOf": [
-              {
-                "maxLength": 255,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Custom Id"
+            "title": "Custom Id",
+            "type": "string"
           },
           "meta": {
             "$ref": "#/components/schemas/DraftStateCustomPrimaryKeyModelMetaSchema"
@@ -11868,15 +11795,8 @@
             "title": "Country Code"
           },
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/FullFeaturedSnippetMetaSchema"
@@ -14441,15 +14361,8 @@
       "ImageForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/ImageForeignKeyMetaSchema"
@@ -14649,15 +14562,8 @@
             "type": "integer"
           },
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "Id",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/ImageDetailMetaSchema"
@@ -20444,15 +20350,8 @@
       "RelatedGenericRelationForeignKeySchema": {
         "properties": {
           "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "ID"
+            "title": "ID",
+            "type": "integer"
           },
           "meta": {
             "$ref": "#/components/schemas/RelatedGenericRelationForeignKeyMetaSchema"
@@ -30814,16 +30713,9 @@
             "type": "string"
           },
           "uuid": {
-            "anyOf": [
-              {
-                "format": "uuid",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Uuid"
+            "format": "uuid",
+            "title": "Uuid",
+            "type": "string"
           }
         },
         "required": [
