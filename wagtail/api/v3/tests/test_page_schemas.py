@@ -8,7 +8,7 @@ from rest_framework.fields import Field
 
 from wagtail.api import APIField
 from wagtail.api.v3.fields import FieldSerializer
-from wagtail.api.v3.schemas import BasePageSchema, read_generator
+from wagtail.api.v3.schemas import BasePageSchema, PageSchema, read_generator
 from wagtail.api.v3.schemas.pages import SimpleBasePageSchema
 from wagtail.images.api.v3.fields import ImageRenditionDict, ImageRenditionErrorDict
 from wagtail.images.models import Image
@@ -256,6 +256,26 @@ class TestGeneratePageSchema(TestCase):
         self.assertEqual(instance.meta.type, "demosite.BlogEntryPage")
         self.assertEqual(instance.body, "<p>body</p>")
         json.loads(instance.model_dump_json())
+
+    def test_primary_keys_are_required(self):
+        """
+        Ninja makes primary keys nullable, but they are always set for a
+        top-level object or a ForeignKey's related object. Only child objects
+        (e.g. in a preview) may not be saved yet.
+        """
+        page_schema = read_generator.generate_schema(Page, base_class=PageSchema)
+        self.assertIs(page_schema.model_fields["id"].annotation, int)
+        self.assertTrue(page_schema.model_fields["id"].is_required())
+
+        image_fk_schema = read_generator.get_foreign_key_schema(Image)
+        self.assertIs(image_fk_schema.model_fields["id"].annotation, int)
+        self.assertTrue(image_fk_schema.model_fields["id"].is_required())
+
+        schema = read_generator.generate_schema(HomePage, base_class=BasePageSchema)
+        related_link_schema = get_args(schema.model_fields["related_links"].annotation)[
+            0
+        ]
+        self.assertEqual(related_link_schema.model_fields["id"].annotation, int | None)
 
     def test_tag_field_resolves_to_tag_names(self):
         """
