@@ -73,7 +73,7 @@ curl "https://example.com/api/v3/pages/?type=tests.BlogPage&order=title"
 
 ## Finding a page
 
-The `/pages/find/` endpoint resolves a page by its public HTML path (or by ID) to the canonical detail URL. It accepts `id` and/or `html_path`, plus optional `site` and `version`. When a page matches, the endpoint responds with an HTTP redirect (302) to `GET /pages/{page_id}/`.
+The `/pages/find/` endpoint resolves a page by its public HTML path (or by ID) to the canonical detail URL. It accepts `id` and/or `html_path`, plus optional `site` and `version`. When a page matches, the endpoint responds with an HTTP redirect (302) to `GET /pages/{page_id}/`. The OpenAPI schema describes both the redirect and the page detail that a client receives after following it, which most HTTP clients do by default.
 
 ```sh
 curl "https://example.com/api/v3/pages/find/?html_path=/blog/example/"
