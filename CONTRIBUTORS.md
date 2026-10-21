@@ -1020,6 +1020,7 @@
 * Anass Bali
 * Muted Cybersecurity S.L.
 * Dexx-tech
+* Roee Sivan
 
 ## Translators
 
