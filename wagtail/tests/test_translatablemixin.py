@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from django.apps import apps
 from django.conf import settings
 from django.core import checks
 from django.db import models
@@ -189,6 +190,14 @@ class TestLocalized(TestCase):
 
 
 class TestSystemChecks(TestCase):
+    def tearDown(self):
+        for model in ("translatablemixinwithoutinheritance",):
+            try:
+                del apps.all_models["wagtailcore"][model]
+            except KeyError:
+                pass
+        apps.clear_cache()
+
     def test_unique_together_raises_no_error(self):
         # The default unique_together should not raise an error
         errors = TestModel.check()
@@ -213,6 +222,20 @@ class TestSystemChecks(TestCase):
             TestModel._meta.constraints = []
 
         self.assertEqual(len(errors), 0)
+
+    def test_raises_warning_if_meta_is_not_inherited_from_translatablemixin(self):
+        # class Meta should be inherited from TranslatableMixin
+        from wagtail.models import TranslatableMixin
+
+        class TranslatableMixinWithoutInheritance(TranslatableMixin):
+            class Meta:
+                verbose_name = "My Model"
+
+        errors = TranslatableMixinWithoutInheritance.check()
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], checks.Warning)
+        self.assertEqual(errors[0].id, "wagtailcore.W002")
 
     def test_raises_error_if_both_unique_constraint_and_unique_together_are_missing(
         self,
