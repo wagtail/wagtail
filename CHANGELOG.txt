@@ -4,6 +4,7 @@ Changelog
 8.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Display translated text in the "Home" and "Snippets" breadcrumb items for snippet views (Shi Yao Wang)
  * Maintenance: Ignore `cached_property` deprecation in project template tests on Django 6.2+ (Sage Abdullah)
  * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
  * Maintenance: Migrate `FilteredSelect` widget from jQuery to Stimulus `RulesController` (`w-rules`) (LB (Ben) Johnston)

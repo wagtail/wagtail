@@ -17,7 +17,9 @@ from django.test import (
     tag,
 )
 from django.urls import NoReverseMatch, resolve, reverse
+from django.utils import translation
 from django.utils.timezone import now
+from django.utils.translation import gettext
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -53,6 +55,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.testapp.wagtail_hooks import FullFeaturedPermissionPolicy
 from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.users.models import UserProfile
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -1732,6 +1735,28 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "label": str(self.object),
             },
             {"url": "", "label": "Workflow history", "sublabel": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_rendered_in_user_preferred_language(self):
+        profile = UserProfile.get_for_user(self.user)
+        profile.preferred_language = "fr"
+        profile.save()
+
+        response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
+
+        with translation.override("fr"):
+            home_label = gettext("Home")
+            snippets_label = gettext("Snippets")
+
+        self.assertNotEqual([home_label, snippets_label], ["Home", "Snippets"])
+
+        self.base_breadcrumb_items = [
+            {"url": reverse("wagtailadmin_home"), "label": home_label}
+        ]
+        items = [
+            {"url": reverse("wagtailsnippets:index"), "label": snippets_label},
+            {"url": "", "label": "Adverts"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 

@@ -914,7 +914,7 @@ class SnippetViewSet(ModelViewSet):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
         breadcrumbs = [
-            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
+            {"url": reverse_lazy("wagtailadmin_home"), "label": gettext_lazy("Home")},
         ]
 
         if (
@@ -922,7 +922,10 @@ class SnippetViewSet(ModelViewSet):
             or not self.get_menu_item_is_registered()
         ):
             breadcrumbs.append(
-                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+                {
+                    "url": reverse_lazy("wagtailsnippets:index"),
+                    "label": gettext_lazy("Snippets"),
+                },
             )
 
         return breadcrumbs

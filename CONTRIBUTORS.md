@@ -1024,6 +1024,7 @@
 * Beth Parnell
 * Naman Khandelwal
 * Maarten Ureel
+* Shi Yao Wang
 
 ## Translators
 
