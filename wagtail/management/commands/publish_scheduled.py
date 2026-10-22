@@ -82,6 +82,7 @@ class Command(BaseCommand):
                 self.stdout.write("No expired objects to be deactivated found.")
         else:
             # Unpublish the expired objects
+            expired_count = 0
             for queryset in expired_objects:
                 # Cast to list to make sure the query is fully evaluated
                 # before unpublishing anything
@@ -89,6 +90,7 @@ class Command(BaseCommand):
                     obj.unpublish(
                         set_expired=True, log_action="wagtail.unpublish.scheduled"
                     )
+                    expired_count += 1
 
         # 2. get all revisions that need to be published
         revs_for_publishing = Revision.objects.filter(
@@ -114,7 +116,16 @@ class Command(BaseCommand):
             else:
                 self.stdout.write("No objects to go live.")
         else:
+            published_count = 0
             for rp in revs_for_publishing:
+                obj = rp.content_object
+                publish_now = not obj.go_live_at or obj.go_live_at <= timezone.now()
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the object live
                 rp.publish(log_action="wagtail.publish.scheduled")
+                if publish_now:
+                    published_count += 1
+            self.stdout.write(
+                "publish_scheduled complete - "
+                f"{published_count} pages published, {expired_count} pages expired"
+            )
