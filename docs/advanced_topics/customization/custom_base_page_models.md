@@ -4,10 +4,6 @@
 
 A custom base page model allows you to define application-specific fields to be available and queryable across all specific (subclassed) page models, without the overheads of multi-level inheritance. Custom base page models require additional configuration before Wagtail's migrations are run, and so are only supported on newly-created projects, and existing Django projects to which Wagtail is being added.
 
-```{versionadded} 8.0
-Support for custom base page models was added.
-```
-
 ```{warning}
 This feature is currently experimental. Some third-party packages may not be compatible.
 ```
