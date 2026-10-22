@@ -315,7 +315,8 @@ class TestMultiLanguageSitemapView(WagtailTestUtils, TestCase):
         self.de_locale = Locale.objects.create(language_code="de")
 
         self.en_homepage = Page.objects.get(depth=2)
-        self.en_homepage.copy_for_translation(self.fr_locale).save_revision().publish()
+        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+        self.fr_homepage.save_revision().publish()
         self.en_homepage.copy_for_translation(self.de_locale).save_revision().publish()
 
         self.en_blog_index = TestPage(title="Blog", slug="blog")
@@ -369,3 +370,103 @@ class TestMultiLanguageSitemapView(WagtailTestUtils, TestCase):
         self.assertEqual(response["Content-Type"], "application/xml")
         self.assertContains(response, "<loc>http://localhost/</loc>")
         self.assertNotContains(response, 'rel="alternate"')
+
+    def test_sitemap_lists_each_translation_once(self):
+        en_page = TestPage(title="About", slug="about")
+        self.en_homepage.add_child(instance=en_page)
+        fr_page = en_page.copy_for_translation(self.fr_locale)
+        fr_page.slug = "a-propos"
+        fr_page.save_revision().publish()
+
+        for url in ["/sitemap.xml", "/sitemap-simple.xml"]:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(
+                    response, "<loc>http://localhost/about/</loc>", count=1
+                )
+                self.assertContains(
+                    response, "<loc>http://localhost/a-propos/</loc>", count=1
+                )
+
+    def test_sitemap_lists_one_url_per_page(self):
+        # Pagination counts pages, so each page must produce a single URL for
+        # sitemap pages to stay within the limit
+        request = RequestFactory().get("/sitemap.xml")
+        sitemap = Sitemap(request, alternates=True)
+        urls = sitemap.get_urls(1, get_current_site(request), "http")
+        self.assertEqual(len(urls), sitemap.paginator.count)
+
+    def test_sitemap_includes_page_only_in_other_locale(self):
+        self.fr_homepage.add_child(
+            instance=TestPage(title="French only", slug="french-only")
+        )
+
+        for url in ["/sitemap.xml", "/sitemap-simple.xml"]:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(
+                    response, "<loc>http://localhost/french-only/</loc>", count=1
+                )
+
+    def test_sitemap_excludes_other_locales_when_i18n_disabled(self):
+        self.fr_homepage.add_child(
+            instance=TestPage(title="French only", slug="french-only")
+        )
+
+        with override_settings(WAGTAIL_I18N_ENABLED=False):
+            response = self.client.get("/sitemap.xml")
+        self.assertNotContains(response, "french-only")
+
+    def test_sitemap_includes_translation_of_unpublished_page(self):
+        en_page = TestPage(title="Draft in English", slug="draft-in-english")
+        self.en_homepage.add_child(instance=en_page)
+        fr_page = en_page.copy_for_translation(self.fr_locale)
+        fr_page.slug = "published-in-french"
+        fr_page.save_revision().publish()
+        de_page = en_page.copy_for_translation(self.de_locale)
+        de_page.slug = "published-in-german"
+        de_page.save_revision().publish()
+        en_page.unpublish()
+
+        for url in ["/sitemap.xml", "/sitemap-simple.xml"]:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(
+                    response,
+                    "<loc>http://localhost/published-in-french/</loc>",
+                    count=1,
+                )
+                self.assertContains(
+                    response,
+                    "<loc>http://localhost/published-in-german/</loc>",
+                    count=1,
+                )
+                self.assertNotContains(response, "draft-in-english")
+
+        # Alternates still link the translations when the default locale's page
+        # is not live
+        response = self.client.get("/sitemap.xml")
+        self.assertContains(
+            response,
+            'rel="alternate" hreflang="de" href="http://localhost/published-in-german/"',
+            count=2,
+        )
+        self.assertNotContains(
+            response, 'hreflang="en" href="http://localhost/draft-in-english/"'
+        )
+
+    def test_sitemap_includes_public_translation_of_private_page(self):
+        en_page = TestPage(title="Private in English", slug="private-in-english")
+        self.en_homepage.add_child(instance=en_page)
+        fr_page = en_page.copy_for_translation(self.fr_locale)
+        fr_page.slug = "public-in-french"
+        fr_page.save_revision().publish()
+        PageViewRestriction.objects.create(page=en_page, password="hello")
+
+        for url in ["/sitemap.xml", "/sitemap-simple.xml"]:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(
+                    response, "<loc>http://localhost/public-in-french/</loc>", count=1
+                )
+                self.assertNotContains(response, "private-in-english")

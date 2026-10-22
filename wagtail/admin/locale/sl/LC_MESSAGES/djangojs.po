@@ -1,12 +1,12 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Loic Teixeira, 2024
-# Andrej Marsetič, 2026
 # Mitja Pagon <mitja.pagon@inueni.com>, 2026
+# Andrej Marsetič, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2026\n"
+"Last-Translator: Andrej Marsetič, 2026\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,18 @@ msgstr[1] "%(num)s piksla"
 msgstr[2] "%(num)s pikslov"
 msgstr[3] "%(num)s pikslov"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Prišlo je do napake v omrežju."
+
+msgid "A server error occurred."
+msgstr "Prišlo je do napake na strežniku."
+
 msgid "Actions"
 msgstr "Dejanja"
 
@@ -59,6 +71,9 @@ msgstr "Nadomestno besedilo"
 msgid "Are you sure?"
 msgstr "Ali ste prepričani?"
 
+msgid "Autosave in progress…"
+msgstr "Poteka samodejno shranjevanje…"
+
 msgid "Blocks"
 msgstr "Bloki"
 
@@ -67,6 +82,9 @@ msgstr "Nepravilna povezava"
 
 msgid "Cancel"
 msgstr "Prekliči"
+
+msgid "Changes have been autosaved."
+msgstr "Spremembe so bile samodejno shranjene."
 
 msgid "Character count:"
 msgstr "Število znakov:"
@@ -79,6 +97,10 @@ msgstr "Zapri vse"
 
 msgid "Comment"
 msgstr "Komentar"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Kompleksno"
 
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
@@ -108,7 +130,7 @@ msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
 
 msgid "Enter your comments..."
-msgstr "Vnesite vaš komentar"
+msgstr "Vnesite vaš komentar..."
 
 msgid "Enter your reply..."
 msgstr "Vnesite svoj odgovor ..."
@@ -119,8 +141,15 @@ msgstr "Napaka pri pošiljanju podatkov za predogled."
 msgid "Expand all"
 msgstr "Razširi vse"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "V redu"
+
 msgid "Focus comment"
 msgstr "Fokus komentarja"
+
+msgid "Good"
+msgstr "Dobro"
 
 msgid "Horizontal line"
 msgstr "Vodoravna črta"
@@ -132,7 +161,7 @@ msgid "Line break"
 msgstr "Prelom vrstice"
 
 msgid "Loading…"
-msgstr "Nalaganje ..."
+msgstr "Nalaganje..."
 
 msgid "Main menu"
 msgstr "Glavni meni"
@@ -228,7 +257,7 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
-"shranjeno različico"
+"shranjeno različico."
 
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Največje število predmetov je %(max_num)d"

@@ -153,9 +153,9 @@ describe('PreviewController', () => {
           </button>
         </div>
       </template>
-      <h3>Word count: <span data-content-word-count>-</span></h3>
-      <h3>Reading time: <span data-content-reading-time>-</span></h3>
-      <h3>Readability: <span data-content-readability-score>-</span></h3>
+      <h3>Word count: <span data-metric-value="word-count">-</span></h3>
+      <h3>Reading time: <span data-metric-value="reading-time">-</span></h3>
+      <h3>Readability: <span data-metric-value="readability-score">-</span></h3>
       <h3>Issues found: <span data-content-checker-count>-</span></h3>
       <div data-checks-panel></div>
     </div>
@@ -2387,14 +2387,18 @@ describe('PreviewController', () => {
       );
       expect(toggleCounter.textContent.trim()).toEqual('2');
 
-      const wordCount = document.querySelector('[data-content-word-count]');
+      const wordCount = document.querySelector(
+        '[data-metric-value="word-count"]',
+      );
       expect(wordCount.textContent.trim()).toEqual('201');
 
-      const readingTime = document.querySelector('[data-content-reading-time]');
+      const readingTime = document.querySelector(
+        '[data-metric-value="reading-time"]',
+      );
       expect(readingTime.textContent.trim()).toEqual('1 min');
 
       const readabilityScore = document.querySelector(
-        '[data-content-readability-score]',
+        '[data-metric-value="readability-score"]',
       );
       expect(readabilityScore.textContent.trim()).toEqual('Complex');
 
@@ -2496,10 +2500,14 @@ describe('PreviewController', () => {
       );
       expect(toggleCounter.textContent.trim()).toEqual('2');
 
-      const wordCount = document.querySelector('[data-content-word-count]');
+      const wordCount = document.querySelector(
+        '[data-metric-value="word-count"]',
+      );
       expect(wordCount.textContent.trim()).toEqual('-');
 
-      const readingTime = document.querySelector('[data-content-reading-time]');
+      const readingTime = document.querySelector(
+        '[data-metric-value="reading-time"]',
+      );
       expect(readingTime.textContent.trim()).toEqual('-');
 
       const panelCounter = document.querySelector(

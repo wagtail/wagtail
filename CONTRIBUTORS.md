@@ -1010,6 +1010,18 @@
 * Ayush Kumar
 * Vignesh Komma
 * Jakub Mastalerz
+* xutao
+* Rajesh Murthy
+* Nguyen Dang Khoi
+* ma4ter0x22
+* Alberto Fernandez-de-Retana
+* Longwei Wang
+* Cerebrovinny
+* Anass Bali
+* Muted Cybersecurity S.L.
+* Dexx-tech
+* Roee Sivan
+* Beth Parnell
 
 ## Translators
 
@@ -1063,7 +1075,7 @@
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly, Ivan Waginger
 * Slovenian: Andrej Marsetič, Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
 * Spanish: Antoni Aloy, Mauricio Baeza, Lautaro Bringas, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Florian Merges, Oluwadamilare Ogunbanjo, Amós Oviedo, Maylon Pedroso, Enrique Sánchez-Reboto García, Joaquín Tita, Daniel Wohlgemuth, Rodrigo Yanez, Unai Zalakain
-* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Jonathan Lindén, Hannes Lohmander, Martin Sandström, Tomas Walch
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Jonathan Lindén, Hannes Lohmander, Daniel Nylander, Martin Sandström, Tomas Walch
 * Tamil: Ramakrishnan Sathyanarayanan
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Siramol Khunchai, Walaksawan Vervoort

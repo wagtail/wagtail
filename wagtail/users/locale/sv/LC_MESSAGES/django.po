@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -157,11 +157,39 @@ msgstr "användarprofil"
 msgid "user profiles"
 msgstr "användarprofiler"
 
+msgid "Yes, revoke"
+msgstr "Ja, återkalla"
+
+msgid "No, don't revoke"
+msgstr "Nej, återkalla inte"
+
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ""
+"Tokenen \"%(name)s\" har skapats. Kopiera den nu, den visas aldrig igen."
+
+msgid "API token"
+msgstr "API-token"
+
+msgid "Copy token"
+msgstr "Kopiera token"
+
+msgid "Back to API tokens"
+msgstr "Tillbaka till API-token"
+
 msgid "Copied to clipboard"
 msgstr "Kopierad till utklipp"
 
+msgid "Copying failed — please select and copy the token manually."
+msgstr "Kopieringen misslyckades — markera och kopiera tokenen manuellt."
+
 msgid "Status: "
 msgstr "Status:"
+
+msgid "Revoked"
+msgstr "Återkallad"
 
 msgid "Active"
 msgstr "Aktiv"
@@ -342,6 +370,31 @@ msgstr "Användare"
 
 msgid "Created"
 msgstr "Skapad"
+
+msgid "Last used"
+msgstr "Senast använd"
+
+msgid "Token"
+msgstr "Token"
+
+msgid "Revoke"
+msgstr "Återkalla"
+
+msgid "API token created"
+msgstr "API-token skapad"
+
+msgid "Never"
+msgstr "Aldrig"
+
+msgid "Are you sure you want to revoke this API token?"
+msgstr "Vill du verkligen återkalla den här API-tokenen?"
+
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr "API-tokenen ”%(name)s” återkallades."
+
+msgid "API tokens"
+msgstr "API-token"
 
 msgid "Assign role to selected users"
 msgstr "Tilldela roll till valda användare"

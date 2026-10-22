@@ -27,8 +27,23 @@ from wagtail.api.v3.schemas.params import (
     TranslationFilterSchema,
 )
 from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
+from wagtail.api.v3.schemas.workflows import (
+    WorkflowStateSchema,
+    WorkflowStatusSchema,
+    WorkflowTaskActionSchema,
+)
+from wagtail.api.v3.workflows import (
+    check_can_view_workflow,
+    resolve_task_state,
+)
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Locale,
+    RevisionMixin,
+    TranslatableMixin,
+    WorkflowMixin,
+)
 from wagtail.permissions import policy_registry
 from wagtail.snippets.api.v3.schemas import ParamTypeInjectingBody
 from wagtail.snippets.models import get_snippet_models
@@ -70,7 +85,7 @@ else:
         _NoSnippetModelsSchema
     )
 
-mixins = (RevisionMixin, DraftStateMixin, TranslatableMixin)
+mixins = (RevisionMixin, DraftStateMixin, TranslatableMixin, WorkflowMixin)
 literals_by_mixin = {}
 schemas_by_mixin = {}
 for mixin in mixins:
@@ -417,6 +432,147 @@ def copy_for_translation(
     new_instance = action.execute()
     new_instance.save()
     return Status(201, new_instance)
+
+
+@router.get(
+    "/{type}/{pk}/workflow/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_workflow_status",
+    summary="Snippet workflow status",
+    operation_id="snippets_workflow_status",
+)
+def get_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
+    return snippet
+
+
+@router.get(
+    "/{type}/{pk}/workflow/history/",
+    response=list[WorkflowStateSchema],
+    url_name="snippets_workflow_history",
+    summary="List snippet workflow states",
+    operation_id="snippets_workflow_history",
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_snippet_workflow_history(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
+    return snippet.workflow_states.prefetch_task_states().order_by("-created_at", "-id")
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/workflow/submit/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_actions_workflow_submit",
+    summary="Submit snippet for moderation",
+    operation_id="snippets_actions_workflow_submit",
+)
+@require_any_permission(get_model_from_params, ("change",))
+def submit_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    action_class = action_registry.get_action_class(model, "submit_workflow")
+    action_class(snippet, user=request.user).execute()
+    return snippet
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/workflow/approve/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_actions_workflow_approve",
+    summary="Approve the current workflow task",
+    operation_id="snippets_actions_workflow_approve",
+)
+def approve_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
+    task_state = resolve_task_state(snippet, data.task_state_id)
+    action_class = action_registry.get_action_class(model, "approve_task")
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
+    return snippet
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/workflow/reject/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_actions_workflow_reject",
+    summary="Reject the current workflow task",
+    operation_id="snippets_actions_workflow_reject",
+)
+def reject_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
+    task_state = resolve_task_state(snippet, data.task_state_id)
+    action_class = action_registry.get_action_class(model, "reject_task")
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
+    return snippet
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/workflow/resume/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_actions_workflow_resume",
+    summary="Resume the workflow after changes were requested",
+    operation_id="snippets_actions_workflow_resume",
+)
+@require_any_permission(get_model_from_params, ("change",))
+def resume_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    action_class = action_registry.get_action_class(model, "resume_workflow")
+    action_class(snippet, user=request.user).execute()
+    return snippet
+
+
+@actions_router.post(
+    "/{type}/{pk}/actions/workflow/cancel/",
+    response=WorkflowStatusSchema,
+    url_name="snippets_actions_workflow_cancel",
+    summary="Cancel the current workflow",
+    operation_id="snippets_actions_workflow_cancel",
+)
+def cancel_snippet_workflow(
+    request: HttpRequest,
+    type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
+    pk: str,
+):
+    model = resolve_model_string(type)
+    snippet = get_object_or_404(model, pk=unquote(pk))
+    check_can_view_workflow(snippet, request.user)
+    action_class = action_registry.get_action_class(model, "cancel_workflow")
+    action_class(snippet, user=request.user).execute()
+    return snippet
 
 
 router.add_router("/", actions_router)

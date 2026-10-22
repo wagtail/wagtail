@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:11+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,11 +26,17 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
 
+msgid "Wagtail API v3"
+msgstr "Wagtail API v3"
+
 msgid "Wagtail core"
 msgstr "Wagtail kärna"
 
 msgid "Add Comment"
 msgstr "Lägg till kommentar"
+
+msgid "- Select an option -"
+msgstr "– Välj ett alternativ –"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -168,6 +174,24 @@ msgstr "användare"
 
 msgid "name"
 msgstr "namn"
+
+msgid "A human-readable label to identify this token."
+msgstr "En läsbar etikett som identifierar denna token."
+
+msgid "created"
+msgstr "skapad"
+
+msgid "revoked at"
+msgstr "återkallad"
+
+msgid "last used at"
+msgstr "senast använd"
+
+msgid "API token"
+msgstr "API-token"
+
+msgid "API tokens"
+msgstr "API-token"
 
 msgid "content type"
 msgstr "innehållstyp"
@@ -351,6 +375,17 @@ msgstr ""
 "Sluggen '%(page_slug)s' används redan inom föräldersidan vid "
 "'%(parent_url_path)s'."
 
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Kan inte skriva över en revision som inte är den senaste för %(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Kan inte skriva över en revision som inte skapades av den aktuella "
+"användaren."
+
 msgid "show in menus"
 msgstr "visa i menyer"
 
@@ -448,6 +483,23 @@ msgstr "%(model_name)s kommer också raderas"
 msgid "prevents deletion"
 msgstr "förhindrar radering"
 
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "ställs in på standardvärdet %(model_name)s"
+
+msgid "will do nothing"
+msgstr "gör ingenting"
+
+msgid "may prevent deletion"
+msgstr "kan förhindra borttagning"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "ställs in på ett %(model_name)s som anges av systemet"
+
+msgid "will unset the reference"
+msgstr "tar bort referensen"
+
 msgid "created at"
 msgstr "skapad vid"
 
@@ -518,6 +570,12 @@ msgstr ""
 "%(hostname)s är redan konfigurerad till att vara din standardsajt. Du måste "
 "ändra det värdet innan du kan spara denna sajt som standard."
 
+msgid "group site permission"
+msgstr "gruppwebbplatsbehörighet"
+
+msgid "group site permissions"
+msgstr "gruppwebbplatsbehörigheter"
+
 msgid "Public"
 msgstr "Publik"
 
@@ -569,6 +627,13 @@ msgstr "begärdes av"
 
 msgid "current task state"
 msgstr "nuvarande uppgiftsstatus"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Det får bara finnas ett arbetsflödestillstånd per sida/snutt som pågår eller "
+"kräver ändringar."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
@@ -721,6 +786,18 @@ msgstr "Radera"
 msgid "Deleted"
 msgstr "Raderad"
 
+msgid "Create API token"
+msgstr "Skapa API-token"
+
+msgid "API token created"
+msgstr "API-token skapad"
+
+msgid "Revoke API token"
+msgstr "Återkalla API-token"
+
+msgid "API token revoked"
+msgstr "API-token återkallad"
+
 msgid "Published"
 msgstr "Publicerad"
 
@@ -838,6 +915,14 @@ msgstr ""
 "Revision %(revision_id)s från %(created_at)s schemalagd för publicering vid "
 "%(go_live_at)s."
 
+#, python-format
+msgid "%(model_name)s scheduled for publishing at %(go_live_at)s"
+msgstr "%(model_name)s är schemalagd för publicering %(go_live_at)s"
+
+#, python-format
+msgid "%(model_name)s scheduled for publishing"
+msgstr "%(model_name)s är schemalagd för publicering"
+
 msgid "Unschedule publication"
 msgstr "Avschemalägg publicering"
 
@@ -848,6 +933,15 @@ msgid ""
 msgstr ""
 "Revision %(revision_id)s från %(created_at)s avschemalagd för publicering "
 "vid %(go_live_at)s."
+
+#, python-format
+msgid "%(model_name)s unscheduled for publishing at %(go_live_at)s"
+msgstr ""
+"%(model_name)s är inte längre schemalagd för publicering %(go_live_at)s"
+
+#, python-format
+msgid "%(model_name)s unscheduled from publishing"
+msgstr "%(model_name)s är inte längre schemalagd för publicering"
 
 msgid "Add view restrictions"
 msgstr "Lägg till vyrestriktioner"
@@ -871,6 +965,10 @@ msgstr "Uppdaterade vyrestriktionen"
 
 msgid "Remove view restrictions"
 msgstr "Radera vyrestriktioner"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "Visningsbegränsningen ”%(restriction)s” togs bort. Sidan är offentlig."
 
 msgid "Removed view restriction"
 msgstr "Raderade vyrestriktionen"

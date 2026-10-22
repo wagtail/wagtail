@@ -32,7 +32,7 @@ The list uses the same pagination envelope as every list endpoint, with `count` 
 Which pages appear depends on the access tier:
 
 -   **Anonymous requests** see only publicly accessible pages: live, scoped to the request's site, and without any page view restrictions.
--   **Authenticated requests** see the pages the current user can explore in the admin, which includes draft-only pages.
+-   **Authenticated requests** see the pages the current user has change or publish permission for, which includes draft-only pages.
 
 ### Filters
 
@@ -210,6 +210,8 @@ The `/pages/{page_id}/revisions/{revision_id}/` endpoint returns a single revisi
 ## Page actions
 
 Page actions are operations Wagtail applies to a page as a whole, each exposed as a `POST /pages/{page_id}/actions/<name>/` endpoint. Each action requires an authenticated request and the permission indicated below, and runs through the same Wagtail action layer as the admin UI, so permissions, revisions, audit logs, hooks, and signals are preserved.
+
+Moderation workflow operations (submit for moderation, approve, reject, resume, and cancel) follow the same pattern under `actions/workflow/`, and are covered in [](api_v3_workflows).
 
 ### Publish
 

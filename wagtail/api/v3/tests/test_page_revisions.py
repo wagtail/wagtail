@@ -54,7 +54,7 @@ class TestV3PageRevisionsList(TestV3PageRevisionsBase):
     permission_matrix = [
         (None, 401),
         ([], 403),
-        ([Page.PERMISSION_CODENAMES.ADD], 403),
+        ([Page.PERMISSION_CODENAMES.ADD], 404),
         ([Page.PERMISSION_CODENAMES.CHANGE], 200),
         ([Page.PERMISSION_CODENAMES.PUBLISH], 200),
     ]
@@ -198,7 +198,7 @@ class TestV3PageRevisionsDetail(TestV3PageRevisionsBase):
     permission_matrix = [
         (None, 401),
         ([], 403),
-        ([Page.PERMISSION_CODENAMES.ADD], 403),
+        ([Page.PERMISSION_CODENAMES.ADD], 404),
         ([Page.PERMISSION_CODENAMES.CHANGE], 200),
         ([Page.PERMISSION_CODENAMES.PUBLISH], 200),
     ]

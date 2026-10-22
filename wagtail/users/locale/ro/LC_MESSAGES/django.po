@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Alex Morega, 2023,2026\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -392,9 +392,6 @@ msgstr "Revocă"
 
 msgid "API token created"
 msgstr "Token-ul API a fost creat"
-
-msgid "Token secrets are only displayed once, immediately after creation."
-msgstr "Secretele token sunt afișate o singură dată, imediat după creare."
 
 msgid "Never"
 msgstr "Niciodată"

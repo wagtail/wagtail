@@ -1,6 +1,7 @@
 from collections import defaultdict
 from itertools import islice
 
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
 from django.http import Http404
 
@@ -42,15 +43,16 @@ class Sitemap(DjangoSitemap):
         return site
 
     def items(self):
-        return (
-            self.get_wagtail_site()
-            .root_page.get_descendants(inclusive=True)
-            .live()
-            .public()
-            .order_by("path")
-            .defer_streamfields()
-            .specific()
-        )
+        root_page = self.get_wagtail_site().root_page
+        pages = root_page.get_descendants(inclusive=True)
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            # Each locale has its own page tree, so include the trees of the root
+            # page's translations to cover pages that only exist in other locales
+            for translation in root_page.get_translations():
+                pages |= translation.get_descendants(inclusive=True)
+
+        return pages.live().public().order_by("path").defer_streamfields().specific()
 
     def get_translations(self, page_instances):
         if not page_instances:

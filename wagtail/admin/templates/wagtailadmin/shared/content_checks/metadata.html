@@ -1,0 +1,44 @@
+{% load i18n wagtailadmin_tags %}
+{# Shared between the checks side panel and the userbar's checks dialog. #}
+{# Populated by renderMetadataSection in metadataPreview.ts. #}
+<div data-metadata-section>
+    <h2 class="w-my-5 w-text-16 w-font-bold w-text-text-label">
+        {% trans 'Page metadata' %}
+    </h2>
+    <details class="w-content-checks-disclosure w-mb-5" data-metadata-explainer>
+        <summary>
+            {% icon name="help" classname="w-w-4 w-h-4 w-mr-1" %}
+            {% trans 'This data explained' %}
+        </summary>
+        <div class="w-content-checks-disclosure__content">
+            <h3 class="w-h3">{% trans 'What is page metadata?' %}</h3>
+            <p>{% trans 'Metadata lives in the HTML of the page, and includes the page title and description used by search engines.' %}</p>
+            <h3 class="w-h3">{% trans 'How are the lengths calculated?' %}</h3>
+            <p>{% trans 'The title length of around 580 pixels or 60 characters, and description length of around 160 characters, are approximations of how this metadata is displayed in search results, rather than hard limits.' %}</p>
+            <hr>
+            {% help_block status="info" %}
+                {% fragment as guide_link %}https://guide.wagtail.org/en/reference/content-checks/page-metadata/{% endfragment %}
+                {% blocktrans trimmed %}
+                    See our <a href="{{ guide_link }}" target="_blank">page metadata guide</a> for more information on how metadata is used.
+                {% endblocktrans %}
+            {% endhelp_block %}
+        </div>
+    </details>
+    <div class="w-content-checks-preview__field w-mb-4">
+        <h3 class="w-my-1 w-text-14 w-text-text-placeholder">{% trans 'Title' %}</h3>
+        <p class="w-content-checks-preview__title" data-metadata-title></p>
+        <p class="w-content-checks-preview__length w-help-text w-tabular-nums" data-metadata-title-length></p>
+    </div>
+    <div class="w-content-checks-preview__field w-mb-4" data-metadata-description-field hidden>
+        <h3 class="w-my-1 w-text-14 w-text-text-placeholder">{% trans 'Description' %}</h3>
+        <p class="w-content-checks-preview__description" data-metadata-description></p>
+        <p class="w-content-checks-preview__length w-help-text w-tabular-nums" data-metadata-description-chars></p>
+    </div>
+    <details class="w-content-checks-disclosure w-mb-5" data-metadata-tags-disclosure>
+        <summary>
+            {% icon name="placeholder" classname="w-w-4 w-h-4 w-mr-1" %}
+            {% trans 'View more meta tags' %}
+        </summary>
+        <dl class="w-content-checks-preview__tags" data-metadata-tags></dl>
+    </details>
+</div>

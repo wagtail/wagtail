@@ -42,9 +42,7 @@ The capabilities a snippet exposes depend on the mixins its model uses:
 | `DraftStateMixin` | draft reads, `meta.action=publish`, publish/unpublish actions |
 | `TranslatableMixin` | locale/translation filtering + copy-for-translation |
 | `LockableMixin` | lock respected but no locking/unlocking via the API |
-| `WorkflowMixin` | not supported |
-
-A `RevisionMixin` model gains `GET /snippets/{type}/{pk}/revisions/` and `.../revisions/{revision_id}/`, plus a `revert` action. A `DraftStateMixin` model gains draft reads, an optional `meta.action=publish` on create/update, and `publish` / `unpublish` actions. A `TranslatableMixin` model gains locale and translation filtering and a `copy_for_translation` action.
+| `WorkflowMixin` | workflow actions, status and history reads, see [](api_v3_workflows) |
 
 ## Draft state and revisions
 
@@ -52,7 +50,7 @@ On a `DraftStateMixin` model, create and update produce a revision while keeping
 
 `meta.action` is optional on create/update. On a draft-state model it currently only accepts `publish` (which publishes the just-written revision); an invalid action value is rejected with `422`. On a model without `DraftStateMixin`, `meta.action` is silently ignored.
 
-Several actions are available on the relevant mixins: `publish`, `unpublish`, `revert`, `copy_for_translation`, and `delete`. This follows the same action pattern as pages.
+Several actions are available on the relevant mixins: `publish`, `unpublish`, `revert`, `copy_for_translation`, `delete`, and the workflow transitions. This follows the same action pattern as pages.
 
 ## Schema discovery
 

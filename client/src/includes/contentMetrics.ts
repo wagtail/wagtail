@@ -1,5 +1,6 @@
 import axe from 'axe-core';
 import { gettext, ngettext } from '../utils/gettext';
+import { PageMetadata, getPageMetadata } from './metadataExtraction';
 
 export const getWordCount = (lang: string, text: string): number => {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
@@ -116,6 +117,8 @@ export interface ExtractedContent {
   innerText: string;
   /** The HTML content of the target element. */
   innerHTML: string;
+  /** The SEO / social media metadata of the document's head. */
+  metadata: PageMetadata;
 }
 
 /**
@@ -138,6 +141,7 @@ export const contentExtractorPluginInstance = {
       lang,
       innerText: text,
       innerHTML: html,
+      metadata: getPageMetadata(document),
     });
   },
 };
@@ -160,31 +164,107 @@ export const getPreviewContent = (
     );
   });
 
-export const renderContentMetrics = ({
-  wordCount,
-  readingTime,
-  readabilityScore,
-}: ContentMetrics) => {
-  const wordCountContainer = document.querySelector<HTMLElement>(
-    '[data-content-word-count]',
-  );
-  const readingTimeContainer = document.querySelector<HTMLElement>(
-    '[data-content-reading-time]',
-  );
-  const readabilityScoreContainer = document.querySelector<HTMLElement>(
-    '[data-content-readability-score]',
-  );
+export interface MetricDefinition {
+  id: string;
+  /** Rendered value for a metric, derived from the extracted content. */
+  value: (data: ExtractedContent) => string;
+}
 
-  if (!wordCountContainer || !readingTimeContainer) return;
+/**
+ * Declarative definitions of the built-in content metrics. Rendered by
+ * `renderContentMetrics` into the `[data-metric-value]` slots of the shared
+ * `wagtailadmin/shared/content_checks/metrics.html` template.
+ */
+export const metricDefinitions: MetricDefinition[] = [
+  {
+    id: 'word-count',
+    value: (data) => getWordCount(data.lang, data.innerText).toString(),
+  },
+  {
+    id: 'reading-time',
+    value: (data) => {
+      const readingTime = getReadingTime(
+        data.lang,
+        getWordCount(data.lang, data.innerText),
+      );
+      return ngettext('%(num)s min', '%(num)s mins', readingTime).replace(
+        '%(num)s',
+        `${readingTime}`,
+      );
+    },
+  },
+  {
+    id: 'readability-score',
+    value: (data) =>
+      getReadabilityScore(getLIXScore(data.lang, data.innerText)),
+  },
+];
 
-  wordCountContainer.textContent = wordCount.toString();
-  readingTimeContainer.textContent = ngettext(
-    '%(num)s min',
-    '%(num)s mins',
-    readingTime,
-  ).replace('%(num)s', `${readingTime}`);
+export interface RegisteredMetric {
+  id: string;
+  /** The label for the metric's row, rendered client-side. */
+  getLabel: () => string;
+  /** The metric's value, computed from the extracted content. */
+  compute: (data: ExtractedContent) => string;
+}
 
-  if (readabilityScoreContainer) {
-    readabilityScoreContainer.textContent = readabilityScore.toString();
-  }
+const registeredMetrics: RegisteredMetric[] = [];
+
+/**
+ * Register a custom content metric, displayed as an extra row inside the
+ * `[data-metric-list]` containers. Exposed as
+ * `window.wagtail.userbar.registerMetric`, mirroring `registerCheck`.
+ */
+export const registerMetric = (metric: RegisteredMetric): void => {
+  registeredMetrics.push(metric);
+};
+
+/**
+ * Clear the registered metrics. For tests only.
+ */
+export const resetMetrics = (): void => {
+  registeredMetrics.length = 0;
+};
+
+/**
+ * Render content metrics into the `[data-metric-value]` slots within `root`,
+ * plus one row per registered custom metric into `[data-metric-list]`.
+ */
+export const renderContentMetrics = (
+  data: ExtractedContent,
+  root: ParentNode = document,
+) => {
+  metricDefinitions.forEach((metric) => {
+    const slot = root.querySelector<HTMLElement>(
+      `[data-metric-value="${metric.id}"]`,
+    );
+    if (slot) {
+      slot.textContent = metric.value(data);
+    }
+  });
+
+  if (!registeredMetrics.length) return;
+
+  const list = root.querySelector('[data-metric-list]');
+  if (!list) return;
+
+  // Replace any previously rendered rows – this renderer runs on every
+  // preview update and dialog open.
+  list
+    .querySelectorAll('[data-registered-metric]')
+    .forEach((row) => row.remove());
+
+  registeredMetrics.forEach((metric) => {
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('data-registered-metric', metric.id);
+    const label = document.createElement('h3');
+    label.className = 'w-my-2 w-text-14 w-text-text-placeholder';
+    label.textContent = metric.getLabel();
+    const value = document.createElement('p');
+    value.className = 'w-font-semibold w-text-text-label';
+    value.textContent = metric.compute(data);
+    value.setAttribute('data-metric-value', metric.id);
+    wrapper.append(label, value);
+    list.appendChild(wrapper);
+  });
 };

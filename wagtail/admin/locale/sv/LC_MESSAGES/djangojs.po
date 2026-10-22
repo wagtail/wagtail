@@ -6,10 +6,11 @@
 # Jonathan Lindén, 2025
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2026
 # Thomas Kunambi <kunambi@gmail.com>, 2026
+# Daniel Nylander <po@danielnylander.se>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2026\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -29,10 +30,27 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s fel"
 msgstr[1] "%(num)s fel"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minut"
+msgstr[1] "%(num)s minuter"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixlar"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Ett nätverksfel uppstod."
+
+msgid "A server error occurred."
+msgstr "Ett serverfel uppstod."
 
 msgid "Actions"
 msgstr "Handlingar"
@@ -49,6 +67,9 @@ msgstr "Alternativ text"
 msgid "Are you sure?"
 msgstr "Är du säker?"
 
+msgid "Autosave in progress…"
+msgstr "Automatisk sparning pågår …"
+
 msgid "Blocks"
 msgstr "Block"
 
@@ -57,6 +78,9 @@ msgstr "Bruten länk"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+msgid "Changes have been autosaved."
+msgstr "Ändringarna har sparats automatiskt."
 
 msgid "Character count:"
 msgstr "Antal tecken:"
@@ -69,6 +93,10 @@ msgstr "Expandera alla"
 
 msgid "Comment"
 msgstr "Kommentar"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Komplex"
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -109,8 +137,15 @@ msgstr "Fel vid skickande av förhandsgranskningdata"
 msgid "Expand all"
 msgstr "Kollapsa alla"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Godtagbar"
+
 msgid "Focus comment"
 msgstr "Fokusera kommentar"
+
+msgid "Good"
+msgstr "Bra"
 
 msgid "Horizontal line"
 msgstr "Horisontell linje"
@@ -154,6 +189,9 @@ msgstr "Sidutforskare"
 msgid "Pages"
 msgstr "Sidor"
 
+msgid "Pin toolbar"
+msgstr "Fäst verktygsfält"
+
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -190,6 +228,9 @@ msgstr "Sparar..."
 
 msgid "Search"
 msgstr "Sök"
+
+msgid "Search options…"
+msgstr "Sökalternativ …"
 
 msgid "See all"
 msgstr "Visa alla"
@@ -235,6 +276,9 @@ msgstr "Växla sidorad"
 
 msgid "Unfocus comment"
 msgstr "Avfokusera kommentar"
+
+msgid "Unpin toolbar"
+msgstr "Lossa verktygsfält"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Visa undersidor av '%(title)s'"

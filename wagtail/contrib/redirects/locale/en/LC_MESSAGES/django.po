@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,11 +38,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: forms.py:13 forms.py:112
+#: forms.py:13 forms.py:116
 msgid "From site"
 msgstr ""
 
-#: forms.py:16 forms.py:115
+#: forms.py:16 forms.py:119
 msgid "All sites"
 msgstr ""
 
@@ -59,11 +59,11 @@ msgstr ""
 msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
-#: forms.py:104
+#: forms.py:108
 msgid "From field"
 msgstr ""
 
-#: forms.py:108
+#: forms.py:112
 msgid "To field"
 msgstr ""
 

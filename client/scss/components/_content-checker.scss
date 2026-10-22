@@ -122,3 +122,122 @@
     line-height: theme('lineHeight.none');
   }
 }
+
+.w-content-checks-disclosure {
+  $disclosure: &;
+
+  > summary {
+    display: inline-flex;
+    align-items: center;
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-link-default');
+    cursor: pointer;
+    list-style: none;
+    gap: theme('spacing.1');
+
+    &:hover {
+      color: theme('colors.text-link-hover');
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    .icon {
+      width: theme('spacing.4');
+      height: theme('spacing.4');
+      fill: currentColor;
+    }
+
+    // Rotate the icon when open to indicate the state.
+    [aria-hidden='true'] {
+      transition: transform theme('transitionDuration.DEFAULT') ease;
+    }
+  }
+
+  &[open] > summary {
+    color: theme('colors.text-link-hover');
+  }
+
+  // Circle-chevron placeholder icons act as carets, pointing right when
+  // closed and down when open, as with collapsible panels.
+  > summary .icon-placeholder {
+    transition: transform theme('transitionDuration.DEFAULT') ease;
+    transform: rotate(-90deg);
+  }
+
+  &[open] > summary .icon-placeholder {
+    transform: rotate(0deg);
+  }
+
+  &__content {
+    padding: theme('spacing.3') 0 theme('spacing.2');
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-context');
+
+    h3 {
+      margin-top: theme('spacing.3');
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    hr {
+      margin: theme('spacing.3') 0;
+      border-color: theme('colors.border-furniture');
+    }
+  }
+}
+
+.w-content-checks-preview {
+  &__field {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    display: block;
+    margin: 0;
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-label');
+    overflow-wrap: anywhere;
+  }
+
+  &__description {
+    display: block;
+    margin: 0;
+    font-size: theme('fontSize.14');
+    color: theme('colors.text-placeholder');
+    overflow-wrap: anywhere;
+  }
+
+  // Right-aligned readouts, matching Draftail's MaxLength rendering.
+  &__length {
+    display: block;
+    margin: 0;
+    text-align: end;
+  }
+
+  &__tags {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(120px, max-content) 1fr;
+    gap: theme('spacing.1') theme('spacing.3');
+    font-size: theme('fontSize.14');
+
+    dt {
+      font-weight: theme('fontWeight.semibold');
+      font-family: theme('fontFamily.mono');
+      color: theme('colors.text-label');
+      overflow-wrap: anywhere;
+    }
+
+    dd {
+      margin: 0;
+      color: theme('colors.text-context');
+      overflow-wrap: anywhere;
+    }
+  }
+}

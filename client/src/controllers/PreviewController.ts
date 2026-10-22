@@ -22,6 +22,7 @@ import {
   getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
+import { renderMetadataSection } from '../includes/metadataPreview';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
@@ -965,7 +966,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('content', { detail: { content, metrics } });
 
-    renderContentMetrics(metrics);
+    renderContentMetrics(content);
+    renderMetadataSection(content.metadata ?? null, document);
   }
 
   /**

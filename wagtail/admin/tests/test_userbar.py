@@ -299,6 +299,61 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
         self.assertIsInstance(config, dict)
         self.assertGreater(len(config.keys()), 0)
 
+    def test_checks_panel_renders_metric_slots_and_disclosure(self):
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=(2,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'data-metric-value="word-count"')
+        self.assertContains(response, 'data-metric-value="reading-time"')
+        self.assertContains(response, 'data-metric-value="readability-score"')
+        self.assertContains(response, "data-metric-list")
+        self.assertContains(response, "data-content-metrics-explainer")
+        self.assertContains(response, "This data explained")
+        # The former explainer modal is replaced by the disclosure
+        self.assertNotContains(response, "metrics-explainer-dialog")
+
+    def test_checks_panel_renders_metadata_section(self):
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=(2,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "data-metadata-section")
+        self.assertContains(response, "data-metadata-title")
+        self.assertContains(response, "data-metadata-title-length")
+        self.assertContains(response, "data-metadata-description-field")
+        self.assertContains(response, "data-metadata-description-chars")
+        self.assertContains(response, "data-metadata-tags-disclosure")
+        self.assertContains(response, "View more meta tags")
+
+    def test_userbar_dialog_renders_metrics_and_metadata(self):
+        content = self.get_content()
+        html = str(content)
+
+        # Content metrics section
+        self.assertIn('data-metric-value="word-count"', html)
+        self.assertIn("data-content-metrics-explainer", html)
+        # Page metadata section
+        self.assertIn("data-metadata-section", html)
+        self.assertIn("data-metadata-tags-disclosure", html)
+
+        # The dialog is titled "Checks"
+        dialog = content.select_one("#checker-results")
+        self.assertIsNotNone(dialog)
+        title = dialog.get("aria-label") or ""
+        heading = dialog.select_one("[data-dialog-title], h2, h3")
+        labels = " ".join(
+            [
+                title,
+                heading.get_text() if heading else "",
+                str(dialog.get("class", [])),
+            ]
+        )
+        self.assertIn("Checks", labels)
+
+        # Icons used by the shared partials must ship in the userbar's sprite
+        for icon_name in ("icon-help", "icon-placeholder"):
+            self.assertIsNotNone(
+                content.select_one(f"svg#{icon_name}"),
+                f"{icon_name} is missing from the userbar icon sprite",
+            )
+
     def test_messages(self):
         # Should include Wagtail's error messages
         config = self.get_config()
@@ -775,7 +830,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     def test_render_no_request(self):
@@ -804,7 +859,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
@@ -856,7 +911,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     def test_render_with_page(self):
@@ -865,7 +920,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         )
         soup = self.get_soup(rendered)
 
-        links = soup.select("li a")
+        links = soup.select("#wagtail-userbar-items > li > a")
         expected_urls = [
             reverse("wagtailadmin_home"),
             reverse("wagtailadmin_explore", args=(self.parent_page.id,)),
@@ -882,7 +937,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(checker_button)
         self.assertEqual(
             checker_button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL=None)
@@ -913,7 +968,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Checks",
+            "Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")

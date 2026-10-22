@@ -93,7 +93,7 @@ class DbWhitelister(Whitelister):
             tag.replace_with(embed_tag)
         elif tag.name == "a" and "data-linktype" in tag.attrs:
             # first, whitelist the contents of this tag
-            for child in tag.contents:
+            for child in list(tag.contents):
                 self.clean_node(doc, child)
 
             link_type = tag["data-linktype"]

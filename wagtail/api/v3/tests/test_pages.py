@@ -2,12 +2,13 @@ import unittest
 from io import StringIO
 
 import swapper
+from django.contrib.auth.models import Group, Permission
 from django.core import management
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
-from wagtail.models import Locale, Site
+from wagtail.models import GroupPagePermission, Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
@@ -245,20 +246,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [4])
 
-    def test_ancestor_of_unknown_page_gives_error(self):
+    def test_ancestor_of_unknown_page(self):
         response = self.get_response(ancestor_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["ancestor_of"],
-                    "msg": f"No {self.page_name} matches the given ancestor_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_ancestor_of_not_positive_integer_gives_error(self):
         response = self.get_response(ancestor_of="abc")
@@ -323,20 +316,11 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
 
-    def test_child_of_unknown_page_gives_error(self):
+    def test_child_of_unknown_page(self):
         response = self.get_response(child_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["child_of"],
-                    "msg": f"No {self.page_name} matches the given child_of value.",
-                }
-            ],
-        )
+        content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_child_of_not_positive_integer_gives_error(self):
         response = self.get_response(child_of="abc")
@@ -417,20 +401,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [16, 18, 19])
 
-    def test_descendant_of_unknown_page_gives_error(self):
+    def test_descendant_of_unknown_page(self):
         response = self.get_response(descendant_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["descendant_of"],
-                    "msg": f"No {self.page_name} matches the given descendant_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     def test_descendant_of_not_positive_integer_gives_error(self):
         response = self.get_response(descendant_of="abc")
@@ -510,20 +486,12 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.get_page_id_list(content), [])
 
-    def test_translation_of_unknown_page_gives_error(self):
+    def test_translation_of_unknown_page(self):
         response = self.get_response(translation_of=1000)
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "does_not_exist",
-                    "loc": ["translation_of"],
-                    "msg": f"No {self.page_name} matches the given translation_of value.",
-                }
-            ],
-        )
+        content = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_locale_filter(self):
@@ -1193,6 +1161,90 @@ class TestV3PageDetail(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase
                 }
             ],
         )
+
+    def test_version_draft_requires_explicit_permission(self):
+        # To access a draft page, the user must have explicit change or publish permission on the page,
+        # not just implicit permission from being a common ancestor of pages they can edit.
+        page1 = models.BlogEntryPage.objects.get(slug="blog-post")
+        page2 = models.BlogEntryPage.objects.get(slug="blog-post-again")
+        blog_index = models.BlogIndexPage.objects.get(slug="blog-index")
+        blog_index.title = "Updated title"
+        blog_index.save_revision()
+
+        user = self.create_user(username="testuser", password="password")
+        group = Group.objects.create(name="Test group")
+        change_permission = Permission.objects.get(
+            content_type__app_label=Page._meta.app_label,
+            codename=Page.PERMISSION_CODENAMES.CHANGE,
+        )
+        user.groups.add(group)
+        GroupPagePermission.objects.create(
+            group=group,
+            page=page1,
+            permission=change_permission,
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=page2,
+            permission=change_permission,
+        )
+        self.login(username="testuser", password="password")
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": blog_index.id})
+        response = self.client.get(url, {"version": "draft"})
+        self.assertEqual(response.status_code, 404)
+
+    def test_unpublished_page_requires_explicit_permission(self):
+        # To access an unpublished page, the user must have explicit change or publish permission on the page,
+        # not just implicit permission from being a common ancestor of pages they can edit.
+        page1 = models.BlogEntryPage.objects.get(slug="blog-post")
+        page2 = models.BlogEntryPage.objects.get(slug="blog-post-again")
+        blog_index = models.BlogIndexPage.objects.get(slug="blog-index")
+        blog_index.unpublish()
+
+        user = self.create_user(username="testuser", password="password")
+        group = Group.objects.create(name="Test group")
+        change_permission = Permission.objects.get(
+            content_type__app_label=Page._meta.app_label,
+            codename=Page.PERMISSION_CODENAMES.CHANGE,
+        )
+        user.groups.add(group)
+        GroupPagePermission.objects.create(
+            group=group,
+            page=page1,
+            permission=change_permission,
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=page2,
+            permission=change_permission,
+        )
+        self.login(username="testuser", password="password")
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": blog_index.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_lock_permission_is_insufficent_for_retrieving_draft(self):
+        page = models.BlogEntryPage.objects.get(id=16)
+        page.title = "Updated title"
+        page.save_revision()
+        user = self.create_user(username="testuser", password="password")
+        group = Group.objects.create(name="Test group")
+        lock_permission = Permission.objects.get(
+            content_type__app_label=Page._meta.app_label,
+            codename=Page.PERMISSION_CODENAMES.LOCK,
+        )
+        user.groups.add(group)
+        GroupPagePermission.objects.create(
+            group=group,
+            page=page,
+            permission=lock_permission,
+        )
+
+        self.login(username="testuser", password="password")
+        url = reverse("wagtailapi_v3:detail_page", kwargs={"page_id": page.id})
+
+        response = self.client.get(url, {"version": "draft"})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestV3PageFind(PageFixturesMixin, TestV3Base, WagtailTestUtils, TestCase):

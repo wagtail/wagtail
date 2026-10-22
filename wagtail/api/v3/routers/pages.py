@@ -37,6 +37,15 @@ from wagtail.api.v3.schemas.params import (
     locale_filter_q,
 )
 from wagtail.api.v3.schemas.revisions import RevisionDetailSchema, RevisionSchema
+from wagtail.api.v3.schemas.workflows import (
+    WorkflowStateSchema,
+    WorkflowStatusSchema,
+    WorkflowTaskActionSchema,
+)
+from wagtail.api.v3.workflows import (
+    check_can_view_workflow,
+    resolve_task_state,
+)
 from wagtail.api.validators import SiteFilterValidator
 from wagtail.coreutils import find_available_slug, resolve_model_string
 from wagtail.models import Locale, Site, get_page_models
@@ -114,11 +123,7 @@ class PageFilterSchema(FilterSchema):
 
     @staticmethod
     def get_page(page_id: int, loc: str) -> Page:
-        try:
-            return Page.objects.get(pk=page_id)
-        except Page.DoesNotExist as e:
-            message = f"No {Page._meta.object_name} matches the given {loc} value."
-            raise as_validation_error(e, message, loc=(loc,)) from e
+        return Page.objects.get(pk=page_id)
 
     @staticmethod
     def get_page_or_root(
@@ -137,7 +142,10 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.ancestor_of is None:
             return queryset
-        relative_to = self.get_page(self.ancestor_of, "ancestor_of")
+        try:
+            relative_to = self.get_page(self.ancestor_of, "ancestor_of")
+        except Page.DoesNotExist:
+            return queryset.none()
         return queryset.ancestor_of(relative_to)
 
     def apply_descendant_of(
@@ -149,7 +157,10 @@ class PageFilterSchema(FilterSchema):
         if relative_to is None:
             return queryset
         loc = "child_of" if self.child_of else "descendant_of"
-        relative_to = self.get_page_or_root(request, relative_to, loc)
+        try:
+            relative_to = self.get_page_or_root(request, relative_to, loc)
+        except Page.DoesNotExist:
+            return queryset.none()
         if self.child_of:
             return queryset.child_of(relative_to)
         return queryset.descendant_of(relative_to)
@@ -161,9 +172,12 @@ class PageFilterSchema(FilterSchema):
     ) -> PageQuerySet:
         if self.translation_of is None:
             return queryset
-        relative_to = self.get_page_or_root(
-            request, self.translation_of, "translation_of"
-        )
+        try:
+            relative_to = self.get_page_or_root(
+                request, self.translation_of, "translation_of"
+            )
+        except Page.DoesNotExist:
+            return queryset.none()
         return queryset.translation_of(relative_to)
 
     def apply_custom_filters(
@@ -395,6 +409,35 @@ def get_page_revision(request: HttpRequest, page_id: int, revision_id: PositiveI
     _check_can_view_revisions(request, page)
     revisions = page.revisions.select_related("content_type", "base_content_type")
     return get_object_or_404(revisions, pk=revision_id)
+
+
+@router.get(
+    "/{page_id}/workflow/",
+    response=WorkflowStatusSchema,
+    url_name="get_page_workflow",
+    summary="Page workflow status",
+    operation_id="pages_workflow_status",
+    auth=BearerTokenAuth(),
+)
+def get_page_workflow(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return page
+
+
+@router.get(
+    "/{page_id}/workflow/history/",
+    response=list[WorkflowStateSchema],
+    url_name="list_page_workflow_history",
+    summary="List page workflow states",
+    operation_id="pages_workflow_history",
+    auth=BearerTokenAuth(),
+)
+@paginate(WagtailLimitOffsetPagination)
+def list_page_workflow_history(request: HttpRequest, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id)
+    check_can_view_workflow(page, request.user)
+    return page.workflow_states.prefetch_task_states().order_by("-created_at", "-id")
 
 
 @actions_router.post(
@@ -722,6 +765,91 @@ def copy_for_translation(
     except ParentNotTranslatedError as e:
         raise as_validation_error(e) from e
     return Status(201, new_page)
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/submit/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_submit",
+    summary="Submit page for moderation",
+    operation_id="pages_actions_workflow_submit",
+)
+@require_any_permission(Page, ("change",))
+def submit_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "submit_workflow")
+    action_class(page, user=request.user).execute()
+    return page
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/approve/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_approve",
+    summary="Approve the current workflow task",
+    operation_id="pages_actions_workflow_approve",
+)
+def approve_workflow(
+    request,
+    page_id: PositiveInt,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    check_can_view_workflow(page, request.user)
+    task_state = resolve_task_state(page, data.task_state_id)
+    action_class = action_registry.get_action_class(Page, "approve_task")
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
+    return page
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/reject/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_reject",
+    summary="Reject the current workflow task",
+    operation_id="pages_actions_workflow_reject",
+)
+def reject_workflow(
+    request,
+    page_id: PositiveInt,
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+):
+    page = get_object_or_404(Page, pk=page_id).specific
+    check_can_view_workflow(page, request.user)
+    task_state = resolve_task_state(page, data.task_state_id)
+    action_class = action_registry.get_action_class(Page, "reject_task")
+    action_class(task_state, user=request.user, data=data.get_form_data()).execute()
+    return page
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/resume/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_resume",
+    summary="Resume the workflow after changes were requested",
+    operation_id="pages_actions_workflow_resume",
+)
+@require_any_permission(Page, ("change",))
+def resume_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    action_class = action_registry.get_action_class(Page, "resume_workflow")
+    action_class(page, user=request.user).execute()
+    return page
+
+
+@actions_router.post(
+    "/{page_id}/actions/workflow/cancel/",
+    response=WorkflowStatusSchema,
+    url_name="pages_actions_workflow_cancel",
+    summary="Cancel the current workflow",
+    operation_id="pages_actions_workflow_cancel",
+)
+def cancel_workflow(request, page_id: PositiveInt):
+    page = get_object_or_404(Page, pk=page_id).specific
+    check_can_view_workflow(page, request.user)
+    action_class = action_registry.get_action_class(Page, "cancel_workflow")
+    action_class(page, user=request.user).execute()
+    return page
 
 
 router.add_router("/", actions_router)
