@@ -352,6 +352,28 @@ class TestPageWorkflows(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertEqual(workflow_state.current_task_state.task, task_2)
         self.assertTrue(workflow_state.is_active)
 
+    def test_resume_workflow_rolls_back_if_update_fails(self):
+        data = self.start_workflow()
+        workflow_state = data["workflow_state"]
+
+        workflow_state.current_task_state.approve(user=None)
+        workflow_state.refresh_from_db()
+        workflow_state.current_task_state.reject(user=None)
+        workflow_state.refresh_from_db()
+
+        rejected_task_state = workflow_state.current_task_state
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
+
+        with mock.patch.object(
+            WorkflowState, "update", side_effect=RuntimeError("Update failed")
+        ):
+            with self.assertRaises(RuntimeError):
+                workflow_state.resume(user=None)
+
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
+        self.assertEqual(workflow_state.current_task_state, rejected_task_state)
+
     def test_tasks_with_status_on_resubmission(self):
         # test that a Workflow rejected and resumed shows the status of the latest tasks when _`all_tasks_with_status` is called
         data = self.start_workflow()
