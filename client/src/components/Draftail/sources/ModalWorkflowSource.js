@@ -6,8 +6,6 @@ import { Component } from 'react';
 import { gettext } from '../../../utils/gettext';
 import { getSelectionText } from '../DraftUtils';
 
-const $ = window.jQuery;
-
 const EMBED = 'EMBED';
 const DOCUMENT = 'DOCUMENT';
 
@@ -51,7 +49,7 @@ class ModalWorkflowSource extends Component {
       selectedText,
     );
 
-    $(document.body).on('hidden.bs.modal', this.onClose);
+    document.body.addEventListener('hidden.bs.modal', this.onClose);
 
     this.workflow = window.ModalWorkflow({
       url,
@@ -69,7 +67,7 @@ class ModalWorkflowSource extends Component {
   componentWillUnmount() {
     this.workflow = null;
 
-    $(document.body).off('hidden.bs.modal', this.onClose);
+    document.body.removeEventListener('hidden.bs.modal', this.onClose);
   }
 
   onChosen(data) {
