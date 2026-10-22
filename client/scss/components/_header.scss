@@ -174,4 +174,11 @@
       }
     }
   }
+
+  // Fix odd vertical alignment of filter button on small screens
+  @include media-breakpoint-down(sm) {
+    &__search-form {
+      align-items: flex-start;
+    }
+  }
 }
