@@ -68,6 +68,25 @@ class SchemaGenerator:
         nested schema doesn't recurse back into a model it's already within.
         """
 
+        self._foreign_key_schemas_being_built: set[type[Model]] = set()
+        """
+        Models whose foreign key schemas are currently being built, so a
+        foreign key back to one of them (directly, or through other models)
+        uses a reference schema instead of recursing forever.
+        """
+
+        self._foreign_key_reference_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Schemas already built for a foreign key's related model that only
+        identify the object, see ``get_foreign_key_reference_schema``.
+        """
+
+        self._foreign_key_meta_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Meta schemas for a foreign key's related model, shared by its foreign
+        key schema and its reference schema.
+        """
+
     @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
         return [
@@ -166,8 +185,21 @@ class SchemaGenerator:
     def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
         """Build a nested schema for a foreign key's related model, without
         following any reverse relations (to avoid infinite recursion).
+
+        Foreign keys within the related model's ``api_fields`` are expanded
+        in the same way, except for a foreign key back to a model whose
+        foreign key schema is already being built (e.g. a ``parent`` foreign
+        key to the same model), which would otherwise recurse forever. That
+        uses the related model's reference schema instead, see
+        ``get_foreign_key_reference_schema``.
         """
-        if model not in self._foreign_key_schema_cache:
+        if model in self._foreign_key_schema_cache:
+            return self._foreign_key_schema_cache[model]
+        if model in self._foreign_key_schemas_being_built:
+            return self.get_foreign_key_reference_schema(model)
+
+        self._foreign_key_schemas_being_built.add(model)
+        try:
             name = f"{model._meta.object_name}ForeignKeySchema"
             schema = self.build_schema(
                 model,
@@ -176,15 +208,42 @@ class SchemaGenerator:
                 nested=True,
                 follow_reverse_related=False,
             )
-            meta_schema = self._narrowed_meta_schema(
+            self._foreign_key_schema_cache[model] = self.extend_schema(
+                schema,
+                name,
+                {"meta": (self._get_foreign_key_meta_schema(model), ..., None)},
+            )
+        finally:
+            self._foreign_key_schemas_being_built.discard(model)
+        return self._foreign_key_schema_cache[model]
+
+    def get_foreign_key_reference_schema(self, model: type[Model]) -> type[Schema]:
+        """Build a schema for a foreign key's related model that only
+        identifies the object, with its primary key and ``meta.type``.
+        """
+        if model not in self._foreign_key_reference_schema_cache:
+            name = f"{model._meta.object_name}ForeignKeyReferenceSchema"
+            schema = create_schema(
+                model,
+                name=f"{name}Base",
+                fields=self._get_pk_names(model),
+                base_class=BaseSchema,
+            )
+            self._foreign_key_reference_schema_cache[model] = self.extend_schema(
+                schema,
+                name,
+                {"meta": (self._get_foreign_key_meta_schema(model), ..., None)},
+            )
+        return self._foreign_key_reference_schema_cache[model]
+
+    def _get_foreign_key_meta_schema(self, model: type[Model]) -> type[Schema]:
+        if model not in self._foreign_key_meta_schema_cache:
+            self._foreign_key_meta_schema_cache[model] = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation,
                 model,
                 name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
-            self._foreign_key_schema_cache[model] = self.extend_schema(
-                schema, name, {"meta": (meta_schema, ..., None)}
-            )
-        return self._foreign_key_schema_cache[model]
+        return self._foreign_key_meta_schema_cache[model]
 
     def extend_schema(
         self,
