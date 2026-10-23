@@ -93,11 +93,12 @@ class PublishRevisionAction(BaseAction):
     def _after_publish(self):
         from wagtail.models import WorkflowMixin
 
-        published.send(
-            sender=type(self.object),
-            instance=self.object,
-            revision=self.revision,
-        )
+        if self.object.live:
+            published.send(
+                sender=type(self.object),
+                instance=self.object,
+                revision=self.revision,
+            )
 
         if isinstance(self.object, WorkflowMixin):
             if getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True) and (
