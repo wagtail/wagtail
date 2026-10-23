@@ -491,32 +491,43 @@ export class TypedTableBlock {
   setError(error) {
     if (!error) return;
 
-    // Non block errors
-    const container = this.container[0];
-    removeErrorMessages(container);
-
-    if (error.messages) {
-      addErrorMessages(container, error.messages);
+    // Non block-specific errors (e.g. the minimum rows / columns check) are returned as a list.
+    // These are rendered against the overall block, rather than a specific child block.
+    let blockErrors = [];
+    if (error.blockErrors) {
+      blockErrors = error.blockErrors;
+    } else if (Array.isArray(error)) {
+      blockErrors = error;
     }
 
-    if (error.blockErrors) {
-      for (const [rowIndex, rowErrors] of Object.entries(error.blockErrors)) {
-        for (const [colIndex, cellError] of Object.entries(rowErrors)) {
-          this.rows[rowIndex].blocks[colIndex].setError(cellError);
-        }
+    if (blockErrors.length) {
+      // The blockErrors array may contain nulls, so filter them out
+      const nonNullErrors = blockErrors.filter((e) => e);
+      if (nonNullErrors.length) {
+        addErrorMessages(this.container[0], nonNullErrors);
       }
+    }
+
+    if (error.cellErrors) {
+      this.rows.forEach((row, rowIndex) => {
+        row.blocks.forEach((block, colIndex) => {
+          const cellError = error.cellErrors[rowIndex]?.[colIndex];
+          if (cellError) {
+            block.setError(cellError);
+          }
+        });
+      });
     }
   }
 
   getState() {
-    const state = {
+    return {
       columns: this.getColumnStates(),
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getState()),
       })),
       caption: this.caption,
     };
-    return state;
   }
 
   getDuplicatedState() {
@@ -529,6 +540,7 @@ export class TypedTableBlock {
             : block.getDuplicatedState(),
         ),
       })),
+      caption: this.caption,
     };
   }
 
@@ -551,64 +563,15 @@ export class TypedTableBlock {
   }
 
   getTextLabel(opts) {
-    /* Use as many child text labels as we can fit into maxLength */
-    const maxLength = opts && opts.maxLength;
-    let result = '';
-
-    for (const row of this.rows) {
-      for (const block of row.blocks) {
-        if (block.getTextLabel) {
-          const childLabel = block.getTextLabel({ maxLength });
-          if (childLabel) {
-            if (!result) {
-              // always use the first child, truncated as necessary
-              result = childLabel;
-            } else {
-              const newResult = result + ', ' + childLabel;
-              if (maxLength && newResult.length > maxLength - 1) {
-                // too long, so don't add this; return the current list with an ellipsis instead
-                if (!result.endsWith('…')) result += '…';
-                return result;
-              }
-              result = newResult;
-            }
-          }
-        }
-      }
+    if (this.caption) {
+      return this.caption;
     }
-    return result;
+    return null;
   }
 
   focus(opts) {
-    if (!this.columns.length) {
-      this.appendColumnButton.focus();
-    } else if (!this.rows.length) {
-      this.addRowButton.focus();
-    } else {
-      this.rows[0].blocks[0].focus(opts);
+    if (this.captionInput) {
+      this.captionInput.focus();
     }
   }
 }
-
-export class TypedTableBlockDefinition {
-  constructor(name, childBlockDefs, childBlockDefaultStates, meta) {
-    this.name = name;
-    this.childBlockDefs = childBlockDefs;
-    this.childBlockDefaultStates = childBlockDefaultStates;
-    this.meta = meta;
-  }
-
-  render(placeholder, prefix, initialState, initialError) {
-    return new TypedTableBlock(
-      this,
-      placeholder,
-      prefix,
-      initialState,
-      initialError,
-    );
-  }
-}
-window.telepath.register(
-  'wagtail.contrib.typed_table_block.blocks.TypedTableBlock',
-  TypedTableBlockDefinition,
-);
