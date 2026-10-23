@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 from wagtail.fields import RichTextField
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
+from wagtail.images.rich_text.contentstate import ImageElementHandler
 from wagtail.images.rich_text.editor_html import (
     ImageEmbedHandler as EditorHtmlImageEmbedHandler,
 )
@@ -154,3 +155,74 @@ class TestEntityFeatureChooserUrls(TestCase):
             image.data["chooserUrls"]["imageChooser"],
             reverse_lazy("wagtailimages_chooser:choose"),
         )
+
+
+class TestImageElementHandler(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.image = Image.objects.create(
+            id=1, title="Test", file=get_test_image_file()
+        )
+        self.handler = ImageElementHandler()
+
+    def test_create_entity_with_valid_attrs(self):
+        entity = self.handler.create_entity(
+            "embed",
+            {"id": "1", "format": "left", "alt": "A test image"},
+            None,
+            None,
+        )
+        self.assertEqual(entity.entity_type, "IMAGE")
+        self.assertEqual(entity.mutability, "IMMUTABLE")
+        self.assertEqual(entity.data["id"], "1")
+        self.assertEqual(entity.data["format"], "left")
+        self.assertEqual(entity.data["alt"], "A test image")
+        self.assertTrue(
+            entity.data["src"].endswith(".png") or "/images/" in entity.data["src"]
+        )
+
+    def test_create_entity_with_missing_id(self):
+        # Reproduces issue where pasting broken embed or image+link has no 'id' in attrs
+        entity = self.handler.create_entity(
+            "embed",
+            {"format": "left", "alt": "A test image"},
+            None,
+            None,
+        )
+        self.assertEqual(entity.entity_type, "IMAGE")
+        self.assertIsNone(entity.data["id"])
+        self.assertEqual(entity.data["src"], "")
+        self.assertEqual(entity.data["format"], "left")
+
+    def test_create_entity_with_missing_format(self):
+        entity = self.handler.create_entity(
+            "embed",
+            {"id": "1", "alt": "A test image"},
+            None,
+            None,
+        )
+        self.assertEqual(entity.entity_type, "IMAGE")
+        self.assertEqual(entity.data["id"], "1")
+        self.assertEqual(entity.data["src"], "")
+        self.assertIsNone(entity.data["format"])
+
+    def test_create_entity_with_invalid_id(self):
+        entity = self.handler.create_entity(
+            "embed",
+            {"id": "not-an-int", "format": "left"},
+            None,
+            None,
+        )
+        self.assertEqual(entity.entity_type, "IMAGE")
+        self.assertEqual(entity.data["id"], "not-an-int")
+        self.assertEqual(entity.data["src"], "")
+
+    def test_create_entity_with_nonexistent_image(self):
+        entity = self.handler.create_entity(
+            "embed",
+            {"id": "9999", "format": "left"},
+            None,
+            None,
+        )
+        self.assertEqual(entity.entity_type, "IMAGE")
+        self.assertEqual(entity.data["id"], "9999")
+        self.assertEqual(entity.data["src"], "")
