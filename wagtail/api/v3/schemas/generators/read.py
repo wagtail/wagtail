@@ -89,15 +89,13 @@ class SchemaGenerator:
 
     @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
-        return [
-            field.name
-            # For parent-link FKs, use the parent's PK name
-            # (e.g. `id` instead of `page_ptr`)
-            if not (field.remote_field and field.remote_field.parent_link)
-            else field.remote_field.model._meta.pk.name
-            # Iterate over all PK fields, since a model can have a composite PK
-            for field in model._meta.pk_fields
-        ]
+        # With multi-table inheritance, the PK is a parent link (e.g. page_ptr),
+        # so use the PK of the root model (e.g. Page.id) that's inherited by
+        # the model, following the parent links through every level.
+        while (pk := model._meta.pk).remote_field and pk.remote_field.parent_link:
+            model = pk.remote_field.model
+        # Use all PK fields, since a model can have a composite PK
+        return [field.name for field in model._meta.pk_fields]
 
     @staticmethod
     def _custom_serializer_schema(api_field: APIField) -> FieldSchema:

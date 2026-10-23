@@ -71,3 +71,24 @@ class TestForeignKeyCycles(TestCase):
             latest_article_schema.model_fields["meta"].annotation,
             schema.model_fields["meta"].annotation,
         )
+
+    @isolate_apps("wagtail.test.testapp", "wagtail")
+    def test_reference_to_multi_level_subclass(self):
+        class TestsMeta:
+            app_label = "tests"
+
+        class Place(models.Model):
+            Meta = TestsMeta
+
+        class Restaurant(Place):
+            Meta = TestsMeta
+
+        class Bistro(Restaurant):
+            Meta = TestsMeta
+
+        schema = self.get_generator().get_foreign_key_reference_schema(Bistro)
+
+        # The primary key is the root model's (id), rather than the parent
+        # links (restaurant_ptr or place_ptr)
+        self.assertEqual(schema.__name__, "BistroForeignKeyReferenceSchema")
+        self.assertEqual(list(schema.model_fields), ["meta", "id"])
