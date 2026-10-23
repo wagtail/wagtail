@@ -1,6 +1,6 @@
 import json
 from types import UnionType
-from typing import TYPE_CHECKING, Any, Union, cast, get_origin
+from typing import TYPE_CHECKING, Any, Union, cast, get_args, get_origin
 
 from django.test import TestCase
 from rest_framework.fields import Field
@@ -8,6 +8,7 @@ from rest_framework.fields import Field
 from wagtail.api import APIField
 from wagtail.api.v3.fields import FieldSerializer
 from wagtail.api.v3.schemas import BasePageSchema, read_generator
+from wagtail.api.v3.schemas.pages import SimpleBasePageSchema
 from wagtail.images.api.v3.fields import ImageRenditionDict, ImageRenditionErrorDict
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
@@ -181,6 +182,78 @@ class TestGeneratePageSchema(TestCase):
 
         self.assertEqual(instance.feed_image.id, image.pk)
         self.assertEqual(instance.feed_image.meta.type, "wagtailimages.Image")
+        json.loads(instance.model_dump_json())
+
+    def test_foreign_key_to_page(self):
+        """
+        A ForeignKey to the base Page model ("link_page" on
+        HomePage.related_links), which has no api_fields, uses the same
+        schema as meta.parent, with the page's title, specific type, and URLs.
+        """
+        home = HomePage(title="Home", slug="home-schema-test-page-fk")
+        self.root_page.add_child(instance=home)
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-page-fk")
+        home.add_child(instance=blog_index)
+        cast(Any, home).related_links.create(title="Blog", link_page=blog_index)
+
+        schema = read_generator.generate_schema(HomePage, base_class=BasePageSchema)
+        related_link_schema = get_args(schema.model_fields["related_links"].annotation)[
+            0
+        ]
+        self.assertEqual(
+            related_link_schema.model_fields["link_page"].annotation,
+            SimpleBasePageSchema | None,
+        )
+
+        instance = cast(Any, schema.from_orm(home, context={"request": None}))
+        [related_link] = instance.related_links
+        self.assertEqual(related_link.link_page.id, blog_index.pk)
+        self.assertEqual(related_link.link_page.title, "Blog")
+        self.assertEqual(related_link.link_page.meta.type, "demosite.BlogIndexPage")
+        json.loads(instance.model_dump_json())
+
+    def test_foreign_key_to_specific_page_model(self):
+        """
+        A ForeignKey to a specific page model includes the same fields as
+        meta.parent, along with the page model's api_fields (without reverse
+        relations, as with any ForeignKey).
+        """
+        blog_index = BlogIndexPage(title="Blog", slug="blog-schema-test-specific-fk")
+        self.root_page.add_child(instance=blog_index)
+        entry = BlogEntryPage(
+            title="Entry",
+            slug="entry-schema-test-specific-fk",
+            body="<p>body</p>",
+            date="2020-01-01",
+        )
+        blog_index.add_child(instance=entry)
+
+        schema = read_generator.get_foreign_key_schema(BlogEntryPage)
+        self.assertTrue(issubclass(schema, SimpleBasePageSchema))
+        self.assertEqual(
+            set(schema.model_fields),
+            {
+                "meta",
+                "id",
+                "title",
+                "body",
+                "tags",
+                "date",
+                "feed_image",
+                "feed_image_thumbnail",
+                "feed_image_thumbnail_serializer",
+            },
+        )
+        self.assertIs(
+            schema.model_fields["meta"].annotation,
+            SimpleBasePageSchema.model_fields["meta"].annotation,
+        )
+
+        instance = cast(Any, schema.from_orm(entry, context={"request": None}))
+        self.assertEqual(instance.id, entry.pk)
+        self.assertEqual(instance.title, "Entry")
+        self.assertEqual(instance.meta.type, "demosite.BlogEntryPage")
+        self.assertEqual(instance.body, "<p>body</p>")
         json.loads(instance.model_dump_json())
 
     def test_tag_field_resolves_to_tag_names(self):
