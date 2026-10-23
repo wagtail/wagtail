@@ -297,7 +297,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         content = response.json()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.get_page_id_list(content), [4, 5, 6, 12, 20])
+        self.assertEqual(self.get_page_id_list(content), [4, 5, 6, 20, 12])
 
     def test_child_of_with_type(self):
         response = self.get_response(type="demosite.EventPage", child_of=5)
@@ -381,7 +381,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             self.get_page_id_list(content),
-            [4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12],
         )
 
     def test_descendant_of_with_type(self):
@@ -435,7 +435,7 @@ class TestV3PageListingFilters(TestV3PageListingBase, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             self.get_page_id_list(content),
-            [2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12],
         )
 
     def test_descendant_of_when_filtering_by_child_of_gives_error(self):
@@ -537,11 +537,10 @@ class TestV3PageListingOrdering(TestV3PageListingBase, TestCase):
         content = response.json()
 
         self.assertEqual(response.status_code, 200)
-        # v3 orders by id rather than treebeard path (v2 parity does not
-        # apply to ordering here).
+        # Pages are in the page tree order by default, like v2.
         self.assertEqual(
             self.get_page_id_list(content),
-            [2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12],
         )
 
     def test_ordering_by_title(self):
@@ -709,7 +708,7 @@ class TestV3PageListingFieldFilter(TestV3PageListingBase, TestCase):
         content = response.json()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.get_page_id_list(content), [8, 9, 16, 17, 18, 19])
+        self.assertEqual(self.get_page_id_list(content), [8, 9, 16, 18, 19, 17])
 
     def test_filtering_doesnt_work_on_specific_fields_without_type(self):
         # Unlike v2, filtering by a field not recognised for the current

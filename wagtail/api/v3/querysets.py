@@ -45,4 +45,5 @@ def get_pages_queryset(request: HttpRequest, model=Page):
             {"change", "publish"},
         )
 
-    return queryset.select_related("content_type", "locale").order_by("pk")
+    # Default to the page tree order (PageManager's default)
+    return queryset.select_related("content_type", "locale")

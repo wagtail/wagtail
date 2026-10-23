@@ -4,12 +4,20 @@ from typing import Annotated, Any, Iterable, Union
 
 from django.db.models import Model
 from ninja import Schema
-from pydantic import Discriminator, Field, Tag
+from pydantic import ConfigDict, Discriminator, Field, Tag
+from typing_extensions import TypeAliasType
 
 from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 
+#: Config for schemas used in responses. Fields with a default value are always
+#: present in responses, so mark them as required in the JSON schema for the
+#: response (serialization) direction. This does not affect request validation.
+RESPONSE_SCHEMA_CONFIG = ConfigDict(json_schema_serialization_defaults_required=True)
+
 
 class BaseMetaSchema(Schema):
+    model_config = RESPONSE_SCHEMA_CONFIG
+
     type: str
     warnings: list[RichTextRemoval | str] | None = Field(
         None, exclude_if=lambda v: not v
@@ -25,6 +33,8 @@ class BaseMetaSchema(Schema):
 
 
 class BaseSchema(Schema):
+    model_config = RESPONSE_SCHEMA_CONFIG
+
     meta: BaseMetaSchema
 
     @staticmethod
@@ -85,10 +95,16 @@ def discriminate_meta_type(value: Any) -> str | None:
 def build_discriminated_union(
     models: list[type[Model]],
     schema_for: Callable[[type[Model]], type[Any]],
+    name: str | None = None,
 ) -> Any:
     """Build a union of ``schema_for(model)`` over ``models``, tagged and
     resolved by ``discriminator`` - or just the one schema if there's only
     one model, since a single-member union is redundant.
+
+    If ``name`` is given, the union is defined as a type alias with that name,
+    so that it's a named component in the OpenAPI schema. Ninja also derives
+    the name of a paginated list's schema from it (e.g. ``Paged{name}``),
+    which would otherwise be the same ``PagedAnnotated`` for every union.
     """
     if len(models) == 1:
         return schema_for(models[0])
@@ -98,7 +114,7 @@ def build_discriminated_union(
         for model in models
         if (schema := schema_for(model)) is not None
     )
-    return Annotated[
+    union = Annotated[
         Union[members],  # ty: ignore[invalid-type-form]
         Discriminator(discriminate_meta_type),
         # Ideally, we'd use the proper "discriminator" OpenAPI field here, but
@@ -114,6 +130,9 @@ def build_discriminated_union(
             }
         ),
     ]
+    if name:
+        return TypeAliasType(name, union)  # ty: ignore[invalid-type-alias-type]
+    return union
 
 
 @dataclass(frozen=True)
@@ -125,7 +144,10 @@ class DiscriminatedUnionSchemas:
     update: Any
 
 
-def build_union_schemas(models: Iterable[type[Model]]) -> DiscriminatedUnionSchemas:
+def build_union_schemas(
+    models: Iterable[type[Model]],
+    name: str | None = None,
+) -> DiscriminatedUnionSchemas:
     """Build the detail, create, and update unions for ``models`` together.
 
     The detail union tags each model's schema, generated fresh here, with
@@ -133,6 +155,10 @@ def build_union_schemas(models: Iterable[type[Model]]) -> DiscriminatedUnionSche
     :func:`discriminate_meta_type` - Pydantic's smart union mode can't be
     trusted to guess the right member from field overlap alone, since most
     of our generated extra fields default to ``None``.
+
+    If ``name`` is given, the unions are named ``{name}DetailUnion``,
+    ``{name}CreateUnion``, and ``{name}UpdateUnion``. The ``Union`` suffix
+    avoids clashes with the per-model schemas, which end with ``Schema``.
     """
 
     from wagtail.api.v3.registry import registry
@@ -147,13 +173,16 @@ def build_union_schemas(models: Iterable[type[Model]]) -> DiscriminatedUnionSche
         detail=build_discriminated_union(
             models,
             lambda model: registered_schema_for(model, "read_schema"),
+            name=name and f"{name}DetailUnion",
         ),
         create=build_discriminated_union(
             models,
             lambda model: registered_schema_for(model, "create_schema"),
+            name=name and f"{name}CreateUnion",
         ),
         update=build_discriminated_union(
             models,
             lambda model: registered_schema_for(model, "patch_schema"),
+            name=name and f"{name}UpdateUnion",
         ),
     )
