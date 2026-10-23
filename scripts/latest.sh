@@ -74,8 +74,8 @@ if [ "$1" = "get" ]; then
 
     shift
 
-    if [ -e "$2" ]; then
-        printf >&2 -- "%s: \"%s\": already exists, won't overwrite\\n" "$0"
+    if [ -e "$1" ]; then
+        printf >&2 -- "%s: \"%s\": already exists, won't overwrite\\n" "$0" "$1"
         exit 1
     fi
 
