@@ -65,4 +65,24 @@ describe('SubMenuItem', () => {
       type: 'set-navigation-path',
     });
   });
+
+  it('should not be open or active when a sibling path shares its name as a prefix', () => {
+    const wrapper = shallow(
+      <SubMenuItem
+        item={{ classNames: '', menuItems: [], attrs: {} }}
+        items={[]}
+        state={{
+          navigationPath: '.qualtrics-360',
+          activePath: '.qualtrics-360.surveys',
+        }}
+        path=".qualtrics"
+      />,
+    );
+
+    expect(wrapper.find('.sidebar-menu-item__link').prop('aria-expanded')).toBe(
+      'false',
+    );
+    expect(wrapper.find('.sidebar-sub-menu-item--open')).toHaveLength(0);
+    expect(wrapper.find('.sidebar-menu-item--active')).toHaveLength(0);
+  });
 });
