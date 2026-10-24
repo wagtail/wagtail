@@ -29,7 +29,7 @@
             <tbody>
                 {% for content_perms_dict in object_perms %}
                     <tr>
-                        <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
+                        <th scope="row" class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></th>
                         <td>
                             {% if content_perms_dict.add %}
                                 <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.add.perm.name }}</label>
@@ -110,7 +110,7 @@
             <tbody>
                 {% for perm_tuple in other_perms %}
                     <tr>
-                        <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{% trans perm_tuple.0.name %}</label></td>
+                        <th scope="row" class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{% trans perm_tuple.0.name %}</label></th>
                         <td>
                             {{ perm_tuple.1.tag }}
                         </td>
