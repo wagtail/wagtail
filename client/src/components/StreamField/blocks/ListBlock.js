@@ -49,6 +49,29 @@ class ListChild extends BaseSequenceChild {
       opts,
     );
   }
+
+  getTextLabel(opts) {
+    const { labelFormat } = this.sequence.blockDef.meta;
+
+    // Allow using the empty string for the additional text in collapsed state
+    if (typeof labelFormat === 'string') {
+      /* use labelFormat - regexp replace any field references like '{first_name}'
+      with the text label of that sub-block */
+      return labelFormat.replace(/\{(\w+)\}/g, (_, blockName) => {
+        const child = this.block.childBlocks?.[blockName];
+        if (child && child.getTextLabel) {
+          /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
+          in the format string, and dividing the remainder across all the placeholders in the string,
+          rather than just passing opts on to the child. But that would get complicated, and this is
+          better than nothing... */
+          return child.getTextLabel(opts);
+        }
+        return '';
+      });
+    }
+
+    return super.getTextLabel(opts);
+  }
 }
 
 /**
