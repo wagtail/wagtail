@@ -48,11 +48,19 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
             # We are no longer using the term `webmaster` except in this case, where we continue to match Django's default: https://github.com/django/django/blob/stable/3.2.x/django/conf/global_settings.py#L223
             from_email = "webmaster@localhost"
 
-    connection = kwargs.get("connection", False) or get_connection(
-        username=kwargs.get("auth_user", None),
-        password=kwargs.get("auth_password", None),
-        fail_silently=kwargs.get("fail_silently", None),
-    )
+    connection = kwargs.get("connection", False)
+    if not connection:
+        # Only pass the arguments that have been given. On Django 6.1 and above these
+        # are applied on top of the mailer configuration, so passing None would replace
+        # the configured username and password, leaving the backend unauthenticated.
+        connection_kwargs = {}
+        if kwargs.get("auth_user") is not None:
+            connection_kwargs["username"] = kwargs["auth_user"]
+        if kwargs.get("auth_password") is not None:
+            connection_kwargs["password"] = kwargs["auth_password"]
+        if kwargs.get("fail_silently") is not None:
+            connection_kwargs["fail_silently"] = kwargs["fail_silently"]
+        connection = get_connection(**connection_kwargs)
     multi_alt_kwargs = {
         "connection": connection,
         "headers": {

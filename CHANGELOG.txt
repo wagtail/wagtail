@@ -53,6 +53,7 @@ Changelog
  * Fix: Improved handling of ForeignKey schema generation for multi-level relations, multi-table inheritance, and self-references (Sage Abdullah)
  * Fix: Remove duplicates of discriminated union schemas for page models and snippets in API v3
  * Fix: Respect page tree ordering in listings endpoint by default (Sage Abdullah)
+ * Fix: Use credentials configured in the `MAILERS` setting on Django 6.1 when sending form submission emails (Maarten Ureel)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
