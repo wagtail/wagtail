@@ -1,11 +1,12 @@
 import copy
-from typing import Annotated, Any, Callable, Literal, cast, get_type_hints
+from typing import Annotated, Any, Callable, Literal, TypeGuard, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
 from django.db.models.fields import Field
 from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
@@ -327,7 +328,9 @@ class SchemaGenerator:
           already being built further up - otherwise omitted - so recursion
           stops rather than cycling through the same models. If
           ``follow_reverse_related`` is False, reverse relations are always
-          omitted.
+          omitted. A child relation's ``ParentalKey`` back to the model it's
+          nested in is typed with that model's reference schema, see
+          ``get_foreign_key_reference_schema``.
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
@@ -342,6 +345,21 @@ class SchemaGenerator:
             )
         finally:
             self._models_being_built.pop()
+
+    def _is_parent_link(
+        self, field: Field | ForeignObjectRel
+    ) -> TypeGuard[ParentalKey]:
+        """Whether ``field`` is the ``ParentalKey`` of a child relation that
+        links the model being built back to the model it's nested in (e.g. an
+        ``InlinePanel`` item's ``page``).
+
+        That object is the one being serialized, so repeating it in full for
+        every item would be redundant.
+        """
+        if len(self._models_being_built) < 2 or not isinstance(field, ParentalKey):
+            return False
+        parent_model = self._models_being_built[-2]
+        return field.remote_field in get_all_child_relations(parent_model)
 
     def _build_schema(
         self,
@@ -397,6 +415,19 @@ class SchemaGenerator:
                         )
                     )
                 ):
+                    continue
+
+                if (
+                    nested
+                    and follow_reverse_related
+                    and self._is_parent_link(model_field)
+                ):
+                    reference_schema = self.get_foreign_key_reference_schema(
+                        model_field.related_model
+                    )
+                    if model_field.null:
+                        reference_schema = reference_schema | None
+                    extra_fields[field.name] = (reference_schema, None, None)
                     continue
 
                 # See if field's class or its parents have a registered schema
