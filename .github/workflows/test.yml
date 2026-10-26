@@ -185,6 +185,10 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
+          # Remove when the project template is updated to use Django 6.2+.
+          filterwarnings(
+              "ignore", "django.utils.functional.cached_property is deprecated."
+          )
           EOF
           python manage.py makemigrations --check --dry-run
           python manage.py migrate
