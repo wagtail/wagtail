@@ -121,6 +121,7 @@ export class ActionController extends Controller<
     const formElement = this.createFormElement();
     document.body.appendChild(formElement);
     formElement.submit();
+    formElement.remove();
   }
 
   /**
