@@ -82,8 +82,9 @@ This covers a wide range of Wagtail capabilities but not all of it. [Share your 
 - Support for Site settings.
 - Precise StreamField block schemas.
 - Official client libraries or UIs that reuse the API.
-- Deprecation and eventual removal of the v2 API.
 - Official API tutorial.
+
+The v3 API replaces the v2 API, which is planned for deprecation in a future release. See the [deprecation timeline](api_v2_deprecation) and [](api_v3_migration).
 
 ## Pagination
 

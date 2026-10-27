@@ -4,7 +4,18 @@
 
 The v3 API has major differences with v2. We aim for all v2 capabilities to be present or replicable in v3, with exceptions. Treat moving to it as a migration to a new API: audit each client against the v3 behaviour described in this reference.
 
-The v2 API remains **available and supported**. Existing headless integrations can keep running on v2 untouched. There is no need to migrate unless you want v3's more extensive read and write operations, authenticated access, or OpenAPI schema discovery.
+The v2 API is planned for deprecation in favor of v3. It currently remains available, but we recommend planning your migration now. See the [deprecation timeline](api_v2_deprecation) below.
+
+(api_v2_deprecation)=
+
+## Deprecation timeline for the v2 API
+
+-   **Wagtail 8.1**: the v2 API remains available and supported, with no changes. We recommend trying v3 on your project, and [sharing feedback](https://github.com/wagtail/wagtail/discussions/14531) on anything that makes migrating difficult.
+-   **Wagtail 8.2**: the v2 API is deprecated, and using it raises deprecation warnings. It is also published as a separate package for projects that need more time to migrate. We plan for the v3 API to be stable from this release.
+-   **Wagtail 8.3 (LTS)**: the v2 API remains included, with deprecation warnings.
+-   **Wagtail 9.0**: the v2 API is removed from Wagtail. Projects that still use it can switch to the separate package.
+
+Only the v2 API's endpoints, views, and serializers are affected. [`APIField` and `api_fields`](api_v3_schema) are shared with the v3 API, and are not deprecated.
 
 ## Comparison of v2 and v3 APIs
 
