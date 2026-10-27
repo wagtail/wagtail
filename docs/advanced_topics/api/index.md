@@ -12,7 +12,7 @@ for full details on our stabilization policy.
 
 Wagtail is built on Django, so you can also use other Django solutions for building APIs such as [with Django Ninja](https://github.com/sinnwerkstatt/wagtail-ninja) or [with GraphQL](https://github.com/torchbox/wagtail-grapple).
 
-The v2 read API remains available and unchanged, while v3 is under active development. See the configuration guides below for more usage information.
+The v2 read API remains available, but is planned for deprecation in favor of v3. See the [deprecation timeline](api_v2_deprecation) and [](api_v3_migration). See the configuration guides below for more usage information.
 
 ```{toctree}
 ---
