@@ -1028,6 +1028,7 @@
 * Benedict Jackson
 * Émile Nadeau
 * Jeonghun Mun
+* Dan Tompkins
 
 ## Translators
 

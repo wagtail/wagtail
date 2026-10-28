@@ -75,6 +75,11 @@ class TestServeView(TestCase):
     def test_no_sniff_content_type(self):
         self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
 
+    def test_no_content_encoding_header_for_uncompressed_file(self):
+        for document in (self.document, self.pdf_document):
+            with self.subTest(filename=document.filename):
+                self.assertNotIn("Content-Encoding", self.get(document).headers)
+
     @mock.patch("wagtail.documents.views.serve.hooks")
     @mock.patch("wagtail.documents.views.serve.get_object_or_404")
     def test_non_local_filesystem_headers(self, mock_get_object_or_404, mock_hooks):
