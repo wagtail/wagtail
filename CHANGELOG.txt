@@ -59,6 +59,7 @@ Changelog
  * Maintenance: Rewrite page privacy ancestor link formatting to verify XSS safety (Keerthi Kumar, Matt Westcott)
  * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
  * Maintenance: Update project template to use Django 6.1's `MAILERS` setting (Sage Abdullah)
+ * Maintenance: Add soft deprecation notice for Wagtail API v2 (Sage Abdullah)
 
 
 8.0.1 (20.10.2026)
