@@ -1,8 +1,11 @@
+import warnings
+
 import swapper
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.utils.deprecation import removed_in_next_version_warning
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -14,14 +17,20 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
     paginate_by = 50
 
     def get_filtered_queryset(self):
-        return self.filter_queryset(self.get_queryset())
+        warnings.warn(
+            "ReportView.get_filtered_queryset() is deprecated. "
+            "Use get_queryset() instead.",
+            removed_in_next_version_warning,
+            stacklevel=2,
+        )
+        return self.get_queryset()
 
     def decorate_paginated_queryset(self, object_list):
         # A hook point to allow rewriting the object list after pagination has been applied
         return object_list
 
     def get(self, request, *args, **kwargs):
-        self.object_list = self.get_filtered_queryset()
+        self.object_list = self.get_queryset()
         context = self.get_context_data()
         # Decorate the queryset *after* Django's BaseListView has returned a paginated/reduced
         # list of objects

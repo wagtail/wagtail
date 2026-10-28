@@ -113,7 +113,7 @@ class LogEntriesView(ReportView):
     def get_filename(self):
         return "audit-log-{}".format(datetime.datetime.today().strftime("%Y-%m-%d"))
 
-    def get_filtered_queryset(self):
+    def get_queryset(self):
         """
         Since this report combines records from multiple log models, the standard pattern of
         returning a queryset from get_queryset() to be filtered by filter_queryset() is not
@@ -127,7 +127,7 @@ class LogEntriesView(ReportView):
         1. For each model, construct a values() queryset consisting of id, timestamp and an
            annotation to indicate which model it is, and filter this with filter_queryset
         2. Form a union() queryset from these queries, and order it by -timestamp
-           (this is the result returned from get_filtered_queryset)
+           (this is the result returned from get_queryset)
         3. Apply pagination (done in MultipleObjectMixin.get_context_data)
         4. (In decorate_paginated_queryset:) For each model included in the result set, look up
            the set of model instances by ID. Use these to form a final list of model instances

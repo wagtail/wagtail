@@ -17,6 +17,7 @@ from openpyxl import load_workbook
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.admin.views.reports import page_types_usage
 from wagtail.admin.views.reports.audit_logging import LogEntriesView
+from wagtail.admin.views.reports.locked_pages import LockedPagesView
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -32,6 +33,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.utils.deprecation import removed_in_next_version_warning
 
 
 class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -1515,3 +1517,26 @@ class TestPageTypesUsageReportViewPermissions(
             f"<a href={edit_simple_page_url}>{latest_edited_simple_page.get_admin_display_title()}</a>",
             html=True,
         )
+
+
+class TestReportViewFilterQuerysetAppliedOnce(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:locked_pages"
+
+    def test_filter_queryset_applied_once(self):
+        with mock.patch.object(
+            LockedPagesView,
+            "filter_queryset",
+            autospec=True,
+            wraps=LockedPagesView.filter_queryset,
+        ) as mock_filter_queryset:
+            response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(mock_filter_queryset.call_count, 1)
+
+    def test_get_filtered_queryset_is_deprecated(self):
+        request = RequestFactory().get("/")
+        request.user = self.user
+        view = LockedPagesView()
+        view.setup(request)
+        with self.assertWarns(removed_in_next_version_warning):
+            view.get_filtered_queryset()
