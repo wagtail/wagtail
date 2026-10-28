@@ -1,5 +1,6 @@
 # General coding guidelines
 
+(use_of_generative_ai)=
 ## Use of generative AI
 
 AI assistance when working on Wagtail is permitted. Purely AI-generated contributions are not - if we wanted those, we would prompt an AI agent ourselves.
