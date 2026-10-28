@@ -64,6 +64,7 @@ Changelog
  * Maintenance: Remove jQuery usage in ExpandingFormset (Keerthi Kumar)
  * Maintenance: Rewrite page privacy ancestor link formatting to verify XSS safety (Keerthi Kumar, Matt Westcott)
  * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
+ * Maintenance: Update project template to use Django 6.1's `MAILERS` setting (Sage Abdullah)
 
 
 8.0.1 (20.10.2026)
