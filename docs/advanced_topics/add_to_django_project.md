@@ -265,7 +265,7 @@ ADMINS = [
 ]
 MANAGERS = ADMINS
 
-# Default to dummy email backend. Configure dev/production/local backend
+# Default to console email backend. Configure dev/production/local backend
 # as per https://docs.djangoproject.com/en/stable/topics/email/
 MAILERS = {
     "default": {
