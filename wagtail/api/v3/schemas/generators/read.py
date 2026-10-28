@@ -1,11 +1,12 @@
 import copy
-from typing import Annotated, Any, Callable, Literal, cast, get_type_hints
+from typing import Annotated, Any, Callable, Literal, TypeGuard, cast, get_type_hints
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
 from django.db.models.fields import Field
 from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
@@ -68,17 +69,34 @@ class SchemaGenerator:
         nested schema doesn't recurse back into a model it's already within.
         """
 
+        self._foreign_key_schemas_being_built: set[type[Model]] = set()
+        """
+        Models whose foreign key schemas are currently being built, so a
+        foreign key back to one of them (directly, or through other models)
+        uses a reference schema instead of recursing forever.
+        """
+
+        self._foreign_key_reference_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Schemas already built for a foreign key's related model that only
+        identify the object, see ``get_foreign_key_reference_schema``.
+        """
+
+        self._foreign_key_meta_schema_cache: dict[type[Model], type[Schema]] = {}
+        """
+        Meta schemas for a foreign key's related model, shared by its foreign
+        key schema and its reference schema.
+        """
+
     @staticmethod
     def _get_pk_names(model: type[Model]) -> list[str]:
-        return [
-            field.name
-            # For parent-link FKs, use the parent's PK name
-            # (e.g. `id` instead of `page_ptr`)
-            if not (field.remote_field and field.remote_field.parent_link)
-            else field.remote_field.model._meta.pk.name
-            # Iterate over all PK fields, since a model can have a composite PK
-            for field in model._meta.pk_fields
-        ]
+        # With multi-table inheritance, the PK is a parent link (e.g. page_ptr),
+        # so use the PK of the root model (e.g. Page.id) that's inherited by
+        # the model, following the parent links through every level.
+        while (pk := model._meta.pk).remote_field and pk.remote_field.parent_link:
+            model = pk.remote_field.model
+        # Use all PK fields, since a model can have a composite PK
+        return [field.name for field in model._meta.pk_fields]
 
     @staticmethod
     def _custom_serializer_schema(api_field: APIField) -> FieldSchema:
@@ -166,25 +184,96 @@ class SchemaGenerator:
     def get_foreign_key_schema(self, model: type[Model]) -> type[Schema]:
         """Build a nested schema for a foreign key's related model, without
         following any reverse relations (to avoid infinite recursion).
+
+        Foreign keys within the related model's ``api_fields`` are expanded
+        in the same way, except for a foreign key back to a model whose
+        foreign key schema is already being built (e.g. a ``parent`` foreign
+        key to the same model), which would otherwise recurse forever. That
+        uses the related model's reference schema instead, see
+        ``get_foreign_key_reference_schema``.
+
+        A foreign key to a page also includes the same fields as a page's
+        ``meta.parent``, i.e. the page's ID, title, specific type, and URLs.
+        If the page model has no ``api_fields`` (e.g. the base ``Page``
+        model), the schema is the same as ``meta.parent``.
         """
-        if model not in self._foreign_key_schema_cache:
+        from wagtail.api.v3.schemas.pages import (
+            SimpleBasePageMetaSchema,
+            SimpleBasePageSchema,
+        )
+        from wagtail.models import AbstractPage
+
+        if model in self._foreign_key_schema_cache:
+            return self._foreign_key_schema_cache[model]
+        if model in self._foreign_key_schemas_being_built:
+            return self.get_foreign_key_reference_schema(model)
+
+        is_page = issubclass(model, AbstractPage)
+        if is_page and not APIField.get_fields_for_model(model):
+            return SimpleBasePageSchema
+
+        self._foreign_key_schemas_being_built.add(model)
+        try:
             name = f"{model._meta.object_name}ForeignKeySchema"
             schema = self.build_schema(
                 model,
                 name=f"{name}Base",
-                base_class=BaseSchema,
+                base_class=SimpleBasePageSchema if is_page else BaseSchema,
                 nested=True,
                 follow_reverse_related=False,
             )
-            meta_schema = self._narrowed_meta_schema(
+            # A page's meta.type isn't narrowed to the model, as it's the
+            # page's specific type, which may be a subclass of the model
+            meta_schema = (
+                SimpleBasePageMetaSchema
+                if is_page
+                else self._get_foreign_key_meta_schema(model)
+            )
+            self._foreign_key_schema_cache[model] = self.extend_schema(
+                schema,
+                name,
+                {"meta": (meta_schema, ..., None)},
+            )
+        finally:
+            self._foreign_key_schemas_being_built.discard(model)
+        return self._foreign_key_schema_cache[model]
+
+    def get_foreign_key_reference_schema(self, model: type[Model]) -> type[Schema]:
+        """Build a schema for a foreign key's related model that only
+        identifies the object, with its primary key and ``meta.type``.
+
+        For a page, this is the same as a page's ``meta.parent``, with the
+        page's ID, title, specific type, and URLs.
+        """
+        from wagtail.api.v3.schemas.pages import SimpleBasePageSchema
+        from wagtail.models import AbstractPage
+
+        if issubclass(model, AbstractPage):
+            return SimpleBasePageSchema
+
+        if model not in self._foreign_key_reference_schema_cache:
+            name = f"{model._meta.object_name}ForeignKeyReferenceSchema"
+            schema = create_schema(
+                model,
+                name=f"{name}Base",
+                fields=self._get_pk_names(model),
+                base_class=BaseSchema,
+            )
+            self._foreign_key_reference_schema_cache[model] = self.extend_schema(
+                schema,
+                name,
+                {"meta": (self._get_foreign_key_meta_schema(model), ..., None)},
+            )
+        return self._foreign_key_reference_schema_cache[model]
+
+    def _get_foreign_key_meta_schema(self, model: type[Model]) -> type[Schema]:
+        if model not in self._foreign_key_meta_schema_cache:
+            self._foreign_key_meta_schema_cache[model] = self._narrowed_meta_schema(
                 BaseSchema.model_fields["meta"].annotation,
                 model,
                 name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
-            self._foreign_key_schema_cache[model] = self.extend_schema(
-                schema, name, {"meta": (meta_schema, ..., None)}
-            )
-        return self._foreign_key_schema_cache[model]
+        return self._foreign_key_meta_schema_cache[model]
 
     def extend_schema(
         self,
@@ -239,7 +328,9 @@ class SchemaGenerator:
           already being built further up - otherwise omitted - so recursion
           stops rather than cycling through the same models. If
           ``follow_reverse_related`` is False, reverse relations are always
-          omitted.
+          omitted. A child relation's ``ParentalKey`` back to the model it's
+          nested in is typed with that model's reference schema, see
+          ``get_foreign_key_reference_schema``.
         - anything else (a plain Python property, typically): typed as ``Any``
           and read straight off the instance.
         """
@@ -254,6 +345,21 @@ class SchemaGenerator:
             )
         finally:
             self._models_being_built.pop()
+
+    def _is_parent_link(
+        self, field: Field | ForeignObjectRel
+    ) -> TypeGuard[ParentalKey]:
+        """Whether ``field`` is the ``ParentalKey`` of a child relation that
+        links the model being built back to the model it's nested in (e.g. an
+        ``InlinePanel`` item's ``page``).
+
+        That object is the one being serialized, so repeating it in full for
+        every item would be redundant.
+        """
+        if len(self._models_being_built) < 2 or not isinstance(field, ParentalKey):
+            return False
+        parent_model = self._models_being_built[-2]
+        return field.remote_field in get_all_child_relations(parent_model)
 
     def _build_schema(
         self,
@@ -309,6 +415,19 @@ class SchemaGenerator:
                         )
                     )
                 ):
+                    continue
+
+                if (
+                    nested
+                    and follow_reverse_related
+                    and self._is_parent_link(model_field)
+                ):
+                    reference_schema = self.get_foreign_key_reference_schema(
+                        model_field.related_model
+                    )
+                    if model_field.null:
+                        reference_schema = reference_schema | None
+                    extra_fields[field.name] = (reference_schema, None, None)
                     continue
 
                 # See if field's class or its parents have a registered schema
