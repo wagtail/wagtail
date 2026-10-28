@@ -23,6 +23,7 @@ Changelog
  * Add support for nested inline relations in API v3 write requests (Sage Abdullah)
  * Add `ImageRenditionField` for API v3 (Sage Abdullah)
  * Expand more details of ForeignKey, ManyToManyField, GenericRelation in API v3 schemas(Sage Abdullah)
+ * Add resolved `location` to `Redirect` schema in API v3 (Sage Abdullah)
  * Add `HTMLToMarkdownConverter` to convert arbitrary HTML, such as rendered pages, to Markdown (Albina Starykova)
  * Add support for workflow operations in the v3 API for pages and snippets using `WorkflowMixin` (Thibaud Colas)
  * Describe StreamField blocks in API v3 schemas (Sage Abdullah)
@@ -48,6 +49,8 @@ Changelog
  * Fix: Produce valid Markdown in V3 API `markdown` rich text output for styled text around links, line breaks, multi-paragraph quotes and nested lists (Albina Starykova)
  * Fix: Prevent N+1 queries in `Site.get_site_root_paths()` when internationalization is enabled (Andy Babic)
  * Fix: Skip API v3 setup and schema generation on startup when `wagtail.api.v3` is not installed (Sage Abdullah)
+ * Fix: Improved handling of ForeignKey schema generation for multi-level relations, multi-table inheritance, and self-references (Sage Abdullah)
+ * Fix: Remove duplicates of discriminated union schemas for page models and snippets in API v3
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
