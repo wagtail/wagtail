@@ -1540,3 +1540,16 @@ class TestReportViewFilterQuerysetAppliedOnce(BaseReportViewTestCase):
         view.setup(request)
         with self.assertWarns(removed_in_next_version_warning):
             view.get_filtered_queryset()
+
+    def test_overridden_get_filtered_queryset_is_honoured(self):
+        class OverridingLockedPagesView(LockedPagesView):
+            def get_filtered_queryset(self):
+                return super().get_filtered_queryset().none()
+
+        request = RequestFactory().get("/")
+        request.user = self.user
+        view = OverridingLockedPagesView()
+        view.setup(request)
+        with self.assertWarns(removed_in_next_version_warning):
+            view.get(request)
+        self.assertEqual(list(view.object_list), [])

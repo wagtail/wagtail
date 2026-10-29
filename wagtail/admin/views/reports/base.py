@@ -30,7 +30,13 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
         return object_list
 
     def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
+        if type(self).get_filtered_queryset is not ReportView.get_filtered_queryset:
+            # Honour overrides of the deprecated get_filtered_queryset()
+            # until Wagtail 9.0. The deprecation warning is issued by the
+            # base implementation when the override calls super().
+            self.object_list = self.get_filtered_queryset()
+        else:
+            self.object_list = self.get_queryset()
         context = self.get_context_data()
         # Decorate the queryset *after* Django's BaseListView has returned a paginated/reduced
         # list of objects
