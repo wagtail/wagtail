@@ -40,6 +40,10 @@
     {% endblock %}
 </div>
 
+{% if label_format_widgets_data %}
+    {{ label_format_widgets_data|json_script:label_format_widgets_id }}
+{% endif %}
+
 {% block js_init %}
     <script>
         (function() {
