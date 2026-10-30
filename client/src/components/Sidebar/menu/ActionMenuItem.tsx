@@ -5,12 +5,12 @@ import * as React from 'react';
 import { WAGTAIL_CONFIG } from '../../../config/wagtailConfig';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
-import { isDismissed } from './MenuItem';
+import { isDismissed, isWithinPath } from './MenuItem';
 
 export const ActionMenuItem: React.FunctionComponent<
   MenuItemProps<ActionMenuItemDefinition>
 > = ({ item, slim, path, state, dispatch }) => {
-  const isActive = state.activePath.startsWith(path);
+  const isActive = isWithinPath(state.activePath, path);
   const isInSubMenu = path.split('.').length > 2;
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {

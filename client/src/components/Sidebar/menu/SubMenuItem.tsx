@@ -6,7 +6,12 @@ import Icon from '../../Icon/Icon';
 
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { SidebarPanel } from '../SidebarPanel';
-import { MenuItemDefinition, MenuItemProps, isDismissed } from './MenuItem';
+import {
+  MenuItemDefinition,
+  MenuItemProps,
+  isDismissed,
+  isWithinPath,
+} from './MenuItem';
 import SubMenuCloseButton from './SubMenuCloseButton';
 import { renderMenu } from '.';
 
@@ -22,8 +27,8 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
   dispatch,
   navigate,
 }) => {
-  const isOpen = state.navigationPath.startsWith(path);
-  const isActive = isOpen || state.activePath.startsWith(path);
+  const isOpen = isWithinPath(state.navigationPath, path);
+  const isActive = isOpen || isWithinPath(state.activePath, path);
   const depth = path.split('.').length;
   const [isVisible, setIsVisible] = React.useState(false);
   const [hasBeenOpened, setHasBeenOpened] = React.useState(false);
