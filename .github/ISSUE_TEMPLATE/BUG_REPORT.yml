@@ -73,5 +73,6 @@ body:
         If you would like to contribute to this issue, follow these steps:
         - Confirm that the issue is reproducible, either on a fresh Wagtail project or the [bakerydemo](https://github.com/wagtail/bakerydemo).
         - Once confirmed, view our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html), add a comment to the issue once you're ready to start.
+        - Purely AI-generated contributions are not welcome. If you intend to use AI assistance, please read [our policy on AI-assisted contributions](https://docs.wagtail.org/en/latest/contributing/general_guidelines.html#use-of-generative-ai).
     validations:
       required: false

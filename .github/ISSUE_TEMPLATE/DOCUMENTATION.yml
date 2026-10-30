@@ -42,5 +42,7 @@ body:
         Please let us know here. Otherwise, leave the following content as-is.
       value: |
         Anyone can contribute to this. View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html), add a comment to the issue once you're ready to start.
+
+        Purely AI-generated contributions are not welcome. If you intend to use AI assistance, please read [our policy on AI-assisted contributions](https://docs.wagtail.org/en/latest/contributing/general_guidelines.html#use-of-generative-ai).
     validations:
       required: false

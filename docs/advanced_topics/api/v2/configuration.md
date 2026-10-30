@@ -2,6 +2,10 @@
 
 # Wagtail API v2 configuration guide
 
+```{warning}
+The v2 API is planned for deprecation in a future release. See the [deprecation timeline](api_v2_deprecation), and consider the [v3 API](api_v3) for new projects.
+```
+
 This section of the docs will show you how to set up a public API for your
 Wagtail site.
 

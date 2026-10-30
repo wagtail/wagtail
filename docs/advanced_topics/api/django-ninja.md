@@ -2,8 +2,8 @@
 
 # How to set up Django Ninja
 
-While Wagtail provides a [built-in API module](api) based on Django REST Framework, it is possible to use other API frameworks.
-Here is information on usage with [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Wagtail's [built-in v3 API](api_v3) is built on [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Here is information on using Django Ninja directly, to build your own API independently of Wagtail's built-in API.
 
 ## Basic configuration
 
