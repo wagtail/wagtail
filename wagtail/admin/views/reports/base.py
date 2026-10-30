@@ -17,12 +17,9 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
     paginate_by = 50
 
     def get_filtered_queryset(self):
-        warnings.warn(
-            "ReportView.get_filtered_queryset() is deprecated. "
-            "Use get_queryset() instead.",
-            removed_in_next_version_warning,
-            stacklevel=2,
-        )
+        # Deprecated: kept for backwards compatibility until Wagtail 9.0.
+        # The deprecation warning is issued in get(), so it fires exactly
+        # once, including for overrides that do not call super().
         return self.get_queryset()
 
     def decorate_paginated_queryset(self, object_list):
@@ -32,8 +29,15 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
     def get(self, request, *args, **kwargs):
         if type(self).get_filtered_queryset is not ReportView.get_filtered_queryset:
             # Honour overrides of the deprecated get_filtered_queryset()
-            # until Wagtail 9.0. The deprecation warning is issued by the
-            # base implementation when the override calls super().
+            # until Wagtail 9.0, with a deprecation warning issued here so
+            # it fires exactly once, including for overrides that do not
+            # call super().
+            warnings.warn(
+                "ReportView.get_filtered_queryset() is deprecated. "
+                "Use get_queryset() instead.",
+                removed_in_next_version_warning,
+                stacklevel=2,
+            )
             self.object_list = self.get_filtered_queryset()
         else:
             self.object_list = self.get_queryset()

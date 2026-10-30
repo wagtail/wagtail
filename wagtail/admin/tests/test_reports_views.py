@@ -1533,18 +1533,23 @@ class TestReportViewFilterQuerysetAppliedOnce(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(mock_filter_queryset.call_count, 1)
 
-    def test_get_filtered_queryset_is_deprecated(self):
-        request = RequestFactory().get("/")
-        request.user = self.user
-        view = LockedPagesView()
-        view.setup(request)
-        with self.assertWarns(removed_in_next_version_warning):
-            view.get_filtered_queryset()
-
     def test_overridden_get_filtered_queryset_is_honoured(self):
         class OverridingLockedPagesView(LockedPagesView):
             def get_filtered_queryset(self):
                 return super().get_filtered_queryset().none()
+
+        request = RequestFactory().get("/")
+        request.user = self.user
+        view = OverridingLockedPagesView()
+        view.setup(request)
+        with self.assertWarns(removed_in_next_version_warning):
+            view.get(request)
+        self.assertEqual(list(view.object_list), [])
+
+    def test_overridden_get_filtered_queryset_without_super_warns(self):
+        class OverridingLockedPagesView(LockedPagesView):
+            def get_filtered_queryset(self):
+                return self.get_queryset().none()
 
         request = RequestFactory().get("/")
         request.user = self.user
