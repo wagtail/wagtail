@@ -101,6 +101,8 @@ def sendfile(
     response["Content-Disposition"] = "; ".join(parts)
     response["Content-length"] = os.path.getsize(filename)
     response["Content-Type"] = mimetype
-    response["Content-Encoding"] = encoding or guessed_encoding
+    content_encoding = encoding or guessed_encoding
+    if content_encoding:
+        response["Content-Encoding"] = content_encoding
 
     return response
