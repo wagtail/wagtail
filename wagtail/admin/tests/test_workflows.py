@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import get_messages
 from django.core import mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail.backends.locmem import EmailBackend
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
@@ -2209,7 +2209,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.test_submit_sends_mail_without_base_url()
 
     @mock.patch.object(
-        EmailMultiAlternatives, "send", side_effect=IOError("Server down")
+        EmailBackend, "send_messages", side_effect=IOError("Server down")
     )
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
@@ -2218,6 +2218,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
+        mock_fn.assert_called()
         self.assertEqual(response.status_code, 302)
         self.client.get(reverse("wagtailadmin_home"))
 

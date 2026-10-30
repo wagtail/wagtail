@@ -880,6 +880,8 @@ class FormPage(AbstractEmailForm):
         )
 ```
 
+On Django 6.1 and above, you can pass `using` to send the email with one of the mailers configured in the [`MAILERS`](inv:django#MAILERS) setting, for example `send_mail(..., using="forms")`. The default mailer is used otherwise.
+
 ## Custom `clean_name` generation
 
 -   Each time a new `FormField` is added a `clean_name` also gets generated based on the user-entered `label`.
