@@ -2006,14 +2006,16 @@ class AbstractPage(
             "lastmod": (self.last_published_at or self.latest_revision_created_at),
         }
         # Translations are listed as their own entries, so only link to them here
-        if len(getattr(self, "_translations_cache", [])) > 1:
-            url_info["alternates"] = [
-                {
-                    "location": translation.get_full_url(request),
-                    "lang_code": translation.locale.language_code,
-                }
-                for translation in self._translations_cache
+        translations = getattr(self, "_translations_cache", [])
+        if len(translations) > 1:
+            # Translations without a URL (e.g. outside of any site) can't be linked to
+            alternates = [
+                {"location": location, "lang_code": translation.locale.language_code}
+                for translation in translations
+                if (location := translation.get_full_url(request)) is not None
             ]
+            if len(alternates) > 1:
+                url_info["alternates"] = alternates
         return [url_info]
 
     def get_ancestors(self, inclusive=False):
