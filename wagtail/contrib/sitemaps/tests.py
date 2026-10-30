@@ -470,3 +470,47 @@ class TestMultiLanguageSitemapView(WagtailTestUtils, TestCase):
                     response, "<loc>http://localhost/public-in-french/</loc>", count=1
                 )
                 self.assertNotContains(response, "private-in-english")
+
+    def add_translation_without_url(self, page, locale):
+        # A live translation directly under the root page isn't in any site,
+        # so it has no URL
+        translation = TestPage(
+            title="No URL",
+            slug="no-url",
+            locale=locale,
+            translation_key=page.translation_key,
+        )
+        Page.get_first_root_node().add_child(instance=translation)
+        self.assertIsNone(translation.get_full_url())
+        return translation
+
+    def test_sitemap_skips_alternates_without_url(self):
+        en_page = TestPage(title="About", slug="about")
+        self.en_homepage.add_child(instance=en_page)
+        fr_page = en_page.copy_for_translation(self.fr_locale)
+        fr_page.slug = "a-propos"
+        fr_page.save_revision().publish()
+        self.add_translation_without_url(en_page, self.de_locale)
+
+        response = self.client.get("/sitemap.xml")
+        self.assertContains(
+            response,
+            'rel="alternate" hreflang="en" href="http://localhost/about/"',
+            count=2,
+        )
+        self.assertContains(
+            response,
+            'rel="alternate" hreflang="fr" href="http://localhost/a-propos/"',
+            count=2,
+        )
+        self.assertNotContains(response, 'href="None"')
+
+    def test_sitemap_omits_alternates_if_only_one_translation_has_url(self):
+        en_page = TestPage(title="About", slug="about")
+        self.en_homepage.add_child(instance=en_page)
+        self.add_translation_without_url(en_page, self.de_locale)
+
+        response = self.client.get("/sitemap.xml")
+        self.assertContains(response, "<loc>http://localhost/about/</loc>", count=1)
+        self.assertNotContains(response, 'href="http://localhost/about/"')
+        self.assertNotContains(response, 'href="None"')
