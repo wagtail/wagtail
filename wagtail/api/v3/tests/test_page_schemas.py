@@ -3,11 +3,12 @@ from types import UnionType
 from typing import TYPE_CHECKING, Any, Union, cast, get_args, get_origin
 
 from django.test import TestCase
+from django.utils.functional import cached_property
 from rest_framework.fields import Field
 
 from wagtail.api import APIField
 from wagtail.api.v3.fields import FieldSerializer
-from wagtail.api.v3.schemas import BasePageSchema, read_generator
+from wagtail.api.v3.schemas import BasePageSchema, PageSchema, read_generator
 from wagtail.api.v3.schemas.pages import SimpleBasePageSchema
 from wagtail.images.api.v3.fields import ImageRenditionDict, ImageRenditionErrorDict
 from wagtail.images.models import Image
@@ -256,6 +257,26 @@ class TestGeneratePageSchema(TestCase):
         self.assertEqual(instance.body, "<p>body</p>")
         json.loads(instance.model_dump_json())
 
+    def test_primary_keys_are_required(self):
+        """
+        Ninja makes primary keys nullable, but they are always set for a
+        top-level object or a ForeignKey's related object. Only child objects
+        (e.g. in a preview) may not be saved yet.
+        """
+        page_schema = read_generator.generate_schema(Page, base_class=PageSchema)
+        self.assertIs(page_schema.model_fields["id"].annotation, int)
+        self.assertTrue(page_schema.model_fields["id"].is_required())
+
+        image_fk_schema = read_generator.get_foreign_key_schema(Image)
+        self.assertIs(image_fk_schema.model_fields["id"].annotation, int)
+        self.assertTrue(image_fk_schema.model_fields["id"].is_required())
+
+        schema = read_generator.generate_schema(HomePage, base_class=BasePageSchema)
+        related_link_schema = get_args(schema.model_fields["related_links"].annotation)[
+            0
+        ]
+        self.assertEqual(related_link_schema.model_fields["id"].annotation, int | None)
+
     def test_tag_field_resolves_to_tag_names(self):
         """
         BlogEntryPage.api_fields includes a taggit-backed manager ("tags").
@@ -389,3 +410,59 @@ class TestGeneratePageSchema(TestCase):
             APIField("title", serializer=field)
         )
         self.assertIn(Any, getattr(annotation, "__args__", ()))
+
+
+class AttributeAnnotationModel:
+    @property
+    def annotated_property(self) -> bool:
+        return True
+
+    @cached_property
+    def annotated_cached_property(self) -> list[str]:
+        return []
+
+    def annotated_method(self) -> int:
+        return 1
+
+    @property
+    def unannotated_property(self):
+        return True
+
+    @property
+    def unsupported_type(self) -> Page:
+        return Page()
+
+    plain_attribute = "value"
+
+
+class TestAttributeAnnotation(TestCase):
+    """
+    An APIField that isn't a Django field (a property or method) is typed by
+    its return annotation, if it has a type Pydantic supports.
+    """
+
+    def assertAnnotation(self, name, expected):
+        self.assertEqual(
+            read_generator._attribute_annotation(
+                cast(Any, AttributeAnnotationModel), name
+            ),
+            expected,
+        )
+
+    def test_property(self):
+        self.assertAnnotation("annotated_property", bool)
+
+    def test_cached_property(self):
+        self.assertAnnotation("annotated_cached_property", list[str])
+
+    def test_method(self):
+        self.assertAnnotation("annotated_method", int)
+
+    def test_unannotated_property(self):
+        self.assertAnnotation("unannotated_property", Any)
+
+    def test_unsupported_type(self):
+        self.assertAnnotation("unsupported_type", Any)
+
+    def test_plain_attribute(self):
+        self.assertAnnotation("plain_attribute", Any)

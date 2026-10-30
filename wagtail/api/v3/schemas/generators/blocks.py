@@ -1,7 +1,15 @@
 from collections.abc import Callable, Iterable
 from datetime import date, datetime, time
 from decimal import Decimal
-from typing import Annotated, Any, Literal, NotRequired, Union, cast
+from typing import (
+    Annotated,
+    Any,
+    Literal,
+    NotRequired,
+    Union,
+    cast,
+    get_type_hints,
+)
 
 from django.db.models import IntegerField
 from pydantic import Field as PydanticField
@@ -100,9 +108,28 @@ class BlockSchemaBuilder:
                 getattr(block_class, method) is not getattr(cls, method)
                 for method in self.representation_methods
             ):
-                return Any
+                return self.get_api_representation_type(
+                    block_class, cast(type[Block], cls)
+                )
             return func(self, block, name)
-        return Any
+        return self.get_api_representation_type(block_class, Block)
+
+    def get_api_representation_type(
+        self, block_class: type[Block], base_class: type[Block]
+    ) -> Any:
+        """
+        Return the type of ``block_class``'s value from the return annotation
+        of its ``get_api_representation``, if it overrides the one from
+        ``base_class``. Otherwise, the type is unknown, so return ``Any``.
+        """
+        method = block_class.get_api_representation
+        if self.for_input or method is base_class.get_api_representation:
+            return Any
+        try:
+            return get_type_hints(method)["return"]
+        except (KeyError, NameError, TypeError):
+            # No return type, or it's only available when TYPE_CHECKING
+            return Any
 
     def get_typed_dict(self, name: str, fields: dict[str, Any]) -> type:
         """Return a ``TypedDict`` with ``fields``, reusing an identical one."""

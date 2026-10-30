@@ -43,6 +43,8 @@ An unknown content type returns `404`.
 
 Schemas are generated at runtime from the project's models and panels. The read side comes from a model's `api_fields`, and the write side additionally requires a field to be a real editable model field declared `APIField(..., writable=True)`. A field that is readable but not exposed as writable appears in `read` but not in `create` or `patch`.
 
+On the read side, an `api_fields` entry that isn't a model field, such as a property or a method, is described by its return type annotation, if it has one that can be represented in the schema. Otherwise, it's described as any value. As the value is validated against its annotation, make sure the annotation is accurate.
+
 Note: avoid using the same model name across multiple apps. Schemas aren’t prefixed with the app label, so a `BlogPage` in two different apps would collide. Similarly, avoid using the same names for type variables, as they will also create confusion in the generated project-wide schema.
 
 Because the generic `pages` entry is for discovery across all page types, only its `read` schema is populated today: its `create` and `patch` directions fall back to a `Not yet available` placeholder. Use a concrete page type registration (for example `tests.BlogPage`) to get actionable `create` and `patch` schemas.
