@@ -1776,6 +1776,44 @@ describe('PreviewController', () => {
       jest.clearAllMocks();
     });
 
+    it('should load the newly selected mode when it changes while the iframe is loading', async () => {
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      previewModeElement.value = 'landing';
+      previewModeElement.dispatchEvent(new Event('change'));
+      await Promise.resolve();
+      await Promise.resolve();
+
+      const loadingIframe = document.querySelectorAll('iframe')[1];
+      expect(loadingIframe.src).toBe(
+        `http://localhost${url}?mode=landing&in_preview_panel=true`,
+      );
+
+      previewModeElement.value = 'form';
+      previewModeElement.dispatchEvent(new Event('change'));
+      await Promise.resolve();
+
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(loadingIframe.src).toContain('mode=landing');
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      loadingIframe.contentWindow.scroll = jest.fn();
+      loadingIframe.dispatchEvent(new Event('load'));
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      await expectIframeReloaded(
+        `http://localhost${url}?mode=form&in_preview_panel=true`,
+      );
+    });
+
     it('should show an alert if the request fails when changing the preview mode', async () => {
       fetch.mockResponseFailure();
 
