@@ -170,6 +170,7 @@ Benjamin Van Renterghem <benjaaa.vr.gmail.com>
 Bram <bram2w.live.nl>
 Brecht Dervaux <info.dervauxbrecht.be>
 Coen van der Kamp <cvanderkamp.gmail.com>
+Filip Van
 Franklin Kingma <franklin.statix.net>
 Harmen <sigmo.sigmo.nl>
 Huib Keemink <huib.creativedutchmen.com>
@@ -478,6 +479,7 @@ Hamed NAJAND <hmd.nzhd.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Mehdi <myjahromi.gmail.com>
+Mohammad Foroutan
 Mohammad Hossein Mojtahedi <Mhm5000.gmail.com>
 Mohammad Sharif Shokouhi <m.sh.shokouhi.outlook.com>
 Mohammad reza Jelveh <mrj.eleven.gmail.com>
@@ -663,6 +665,7 @@ Alexander Holmbäck <alexander.holmback.creuna.se>
 Andreas Bergström <andreas.bergstrom.gmail.com>
 Andreas Lans <andreas.lans.gmail.com>
 André Karlsson <andre.sess.se>
+Daniel Nylander <po.danielnylander.se>
 Elias Johnstone <eli87as.gmail.com>
 Hannes Lohmander <c.hannes.l.gmail.com>
 Jim Brouzoulis <jim.brouzoulis.chalmers.se>

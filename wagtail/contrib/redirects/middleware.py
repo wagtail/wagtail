@@ -1,8 +1,12 @@
 from urllib.parse import urlparse
 
 from django import http
-from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
+
+try:
+    from django.middleware import MiddlewareMixin
+except ImportError:  # DJANGO_VERSION < (6, 2)
+    from django.utils.deprecation import MiddlewareMixin
 
 from wagtail.contrib.redirects import models
 from wagtail.models import Site

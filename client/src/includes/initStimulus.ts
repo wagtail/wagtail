@@ -9,6 +9,7 @@ export class WagtailApplication extends Application {
   /**
    * Returns the first Stimulus controller that matches the identifier.
    * @param identifier - The identifier of the controller to query.
+   * @param root - The node to search within (the node itself is not matched), defaults to `document`.
    * @returns The first controller instance that matches the identifier, or null if not found.
    *
    * @example - Querying the PreviewController
@@ -17,9 +18,12 @@ export class WagtailApplication extends Application {
    * const content = await controller?.extractContent();
    * ```
    */
-  queryController<T extends Controller<Element>>(identifier: string) {
+  queryController<T extends Controller<Element>>(
+    identifier: string,
+    root: ParentNode = document,
+  ) {
     return this.getControllerForElementAndIdentifier(
-      document.querySelector(
+      root.querySelector(
         `[${this.schema.controllerAttribute}~="${identifier}"]`,
       )!,
       identifier,
@@ -29,6 +33,7 @@ export class WagtailApplication extends Application {
   /**
    * Returns all Stimulus controllers that match the identifier.
    * @param identifier - The identifier of the controller to query.
+   * @param root - The node to search within (the node itself is not matched), defaults to `document`.
    * @returns An array of controller instances that match the identifier.
    *
    * @example - Querying all instances of the ActionController
@@ -37,9 +42,12 @@ export class WagtailApplication extends Application {
    * controllers.forEach((controller) => controller.reset());
    * ```
    */
-  queryControllerAll<T extends Controller<Element>>(identifier: string): T[] {
+  queryControllerAll<T extends Controller<Element>>(
+    identifier: string,
+    root: ParentNode = document,
+  ): T[] {
     return Array.from(
-      document.querySelectorAll(
+      root.querySelectorAll(
         `[${this.schema.controllerAttribute}~="${identifier}"]`,
       ),
     )

@@ -11,7 +11,7 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.testapp.models import (
     CustomPreviewSizesPage,
     EventCategory,
@@ -20,7 +20,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     StreamPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestIssue2599(WagtailTestUtils, TestCase):
@@ -91,7 +91,7 @@ def clear_edit_handler(page_cls):
     return decorator
 
 
-class TestPreview(WagtailTestUtils, TestCase):
+class TestPreview(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

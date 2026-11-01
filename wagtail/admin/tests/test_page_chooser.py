@@ -1,6 +1,7 @@
 import json
 from urllib.parse import parse_qs, urlsplit
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
@@ -8,14 +9,14 @@ from django.utils.html import escape
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     SimplePage,
     SingleEventPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 class TestChooserBrowse(WagtailTestUtils, TestCase):
@@ -215,7 +216,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter
-        # (or an explicit page_type of wagtailcore.page)
+        # (or an explicit page_type of the base page model)
         response = self.get({"page_type": ""})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
@@ -292,7 +293,9 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
     def test_with_admin_display_title(self):
         # Check the display of the child page title when it's a child
-        response = self.get({"page_type": "wagtailcore.Page"})
+        response = self.get(
+            {"page_type": swapper.get_model_name("wagtailcore", "Page")}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
@@ -312,7 +315,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         # Use the child page as the chooser parent
         response = self.client.get(
             reverse("wagtailadmin_choose_page_child", args=(self.child_page.id,)),
-            params={"page_type": "wagtailcore.Page"},
+            params={"page_type": swapper.get_model_name("wagtailcore", "Page")},
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
@@ -385,7 +388,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
+class TestChooserSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -470,7 +473,7 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter
-        # (or an explicit page_type of wagtailcore.page)
+        # (or an explicit page_type of the base page model)
         response = self.get({"q": "foobarbaz", "page_type": ""})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
@@ -584,7 +587,10 @@ class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
 
     def test_type_page(self):
         self.assertEqual(
-            self.get_best_root({"page_type": "wagtailcore.Page"}), self.tree_root
+            self.get_best_root(
+                {"page_type": swapper.get_model_name("wagtailcore", "Page")}
+            ),
+            self.tree_root,
         )
 
     def test_type_eventpage(self):
@@ -1468,7 +1474,7 @@ class TestChooserPhoneLink(WagtailTestUtils, TestCase):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestCanChoosePage(WagtailTestUtils, TestCase):
+class TestCanChoosePage(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1584,7 +1590,7 @@ class TestCanChoosePage(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
+class TestPageChooserLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     LOCALE_SELECTOR_HTML = r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+English"

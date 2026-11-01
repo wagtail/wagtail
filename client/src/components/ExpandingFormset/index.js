@@ -1,4 +1,35 @@
-import $ from 'jquery';
+const JS_TYPES = new Set([
+  '',
+  'text/javascript',
+  'application/javascript',
+  'text/ecmascript',
+  'application/ecmascript',
+  'module',
+]);
+
+const runScripts = (element) => {
+  const scripts = element.matches?.('script')
+    ? [element]
+    : Array.from(element.querySelectorAll?.('script') || []);
+
+  scripts.forEach((script) => {
+    const type = (script.type || '').split(';')[0].trim().toLowerCase();
+    if (JS_TYPES.has(type)) {
+      const newScript = document.createElement('script');
+      Array.from(script.attributes).forEach((attr) => {
+        if (attr.nodeName !== 'type') {
+          newScript.setAttribute(attr.nodeName, attr.nodeValue || '');
+        }
+      });
+      if (type === 'module') {
+        newScript.type = 'module';
+      }
+      newScript.async = false;
+      newScript.text = script.text;
+      script.replaceWith(newScript);
+    }
+  });
+};
 
 /**
  * Usage of this class directly is deprecated for admin core code use.
@@ -11,9 +42,9 @@ import $ from 'jquery';
 export class ExpandingFormset {
   constructor(prefix, opts = {}, initControls = true) {
     this.opts = opts;
-    const addButton = $('#' + prefix + '-ADD');
-    this.formContainer = $('#' + prefix + '-FORMS');
-    this.totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
+    const addButton = document.getElementById(prefix + '-ADD');
+    this.formContainer = document.getElementById(prefix + '-FORMS');
+    this.totalFormsInput = document.getElementById(prefix + '-TOTAL_FORMS');
 
     const emptyFormElement = document.getElementById(
       prefix + '-EMPTY_FORM_TEMPLATE',
@@ -28,14 +59,14 @@ export class ExpandingFormset {
         }
       }
 
-      addButton.on('click', () => {
+      addButton?.addEventListener('click', () => {
         this.addForm();
       });
     }
   }
 
   get formCount() {
-    return parseInt(this.totalFormsInput.val(), 10);
+    return parseInt(this.totalFormsInput.value, 10);
   }
 
   /**
@@ -49,9 +80,17 @@ export class ExpandingFormset {
       formIndex + '$1',
     );
 
-    this.formContainer.append(newFormHtml);
+    const template = document.createElement('template');
+    template.innerHTML = newFormHtml;
+    const fragment = template.content;
+    const insertedElements = Array.from(fragment.children);
 
-    this.totalFormsInput.val(this.formCount + 1);
+    this.formContainer.appendChild(fragment);
+    insertedElements.forEach((element) => {
+      runScripts(element);
+    });
+
+    this.totalFormsInput.value = this.formCount + 1;
 
     if (!('runCallbacks' in opts) || opts.runCallbacks) {
       if (this.opts.onAdd) this.opts.onAdd(formIndex);

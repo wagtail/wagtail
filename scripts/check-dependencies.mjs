@@ -1,17 +1,17 @@
 /**
- * Compares the `package.json` dev dependencies against the `.pre-commit-config.yaml`.
+ * Compares the `package-lock.json` installed versions against the `.pre-commit-config.yaml`.
  * Validating that any pre commit hook dependencies are in sync with the project packages.
  */
 
 import fs from 'node:fs';
 import { parse } from 'yaml';
 
-import packageJson from '../package.json' with { type: 'json' };
+import packageLockJson from '../package-lock.json' with { type: 'json' };
 
-const PACKAGE_JSON = 'package.json';
+const PACKAGE_LOCK_JSON = 'package-lock.json';
 const PRE_COMMIT_PATH = 'pre-commit-config.yaml';
 
-const { devDependencies } = packageJson;
+const { packages } = packageLockJson;
 const { repos: preCommitRepos } = parse(
   fs.readFileSync('.' + PRE_COMMIT_PATH, 'utf8'),
 );
@@ -28,14 +28,14 @@ preCommitRepos.forEach(({ hooks }) => {
     dependencies.forEach((dependency) => {
       const preCommitVersion = dependency.split('@').at(-1);
       const [packageName] = dependency.split(`@${preCommitVersion}`, 1);
-      const packageVersion = devDependencies[packageName];
-      if (packageVersion?.endsWith(preCommitVersion) || false) return;
+      const packageVersion = packages[`node_modules/${packageName}`]?.version;
+      if (packageVersion === preCommitVersion) return;
 
       errorMessages.push(
         [
           ' →',
           `${PRE_COMMIT_PATH} [${packageName}: ${preCommitVersion}]`,
-          `${PACKAGE_JSON}: [${packageName}: ${packageVersion ?? 'not found'}]`,
+          `${PACKAGE_LOCK_JSON}: [${packageName}: ${packageVersion ?? 'not found'}]`,
         ].join(' '),
       );
     });
@@ -45,7 +45,7 @@ preCommitRepos.forEach(({ hooks }) => {
 if (errorMessages.length) {
   throw new Error(
     [
-      `The following '${PACKAGE_JSON}' dependencies are not in sync with '${PRE_COMMIT_PATH}':`,
+      `The following '${PACKAGE_LOCK_JSON}' dependencies are not in sync with '${PRE_COMMIT_PATH}':`,
       ...errorMessages,
       '',
     ].join('\n'),

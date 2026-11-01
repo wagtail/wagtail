@@ -2,6 +2,7 @@ from datetime import timedelta
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
@@ -13,7 +14,6 @@ from django.utils import timezone
 from wagtail.embeds.models import Embed
 from wagtail.models import (
     Collection,
-    Page,
     PageLogEntry,
     Revision,
     Task,
@@ -29,10 +29,10 @@ from wagtail.test.testapp.models import (
     SecretPage,
     SimplePage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestFixTreeCommand(TestCase):
+class TestFixTreeCommand(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def badly_delete_page(self, page):
@@ -148,7 +148,7 @@ class TestFixTreeCommand(TestCase):
         self.assertTrue(Page.objects.filter(path=events_index.path + "0001").exists())
 
 
-class TestMovePagesCommand(TestCase):
+class TestMovePagesCommand(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def run_command(self, from_, to):
@@ -168,7 +168,7 @@ class TestMovePagesCommand(TestCase):
             self.assertEqual(Page.objects.get(id=page_id).get_parent(), about_us)
 
 
-class TestSetUrlPathsCommand(TestCase):
+class TestSetUrlPathsCommand(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def run_command(self):
@@ -185,7 +185,7 @@ class TestSetUrlPathsCommand(TestCase):
         },
     }
 )
-class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
+class TestPublishScheduledPagesCommand(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -225,7 +225,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(48):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -283,7 +283,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(48):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -320,7 +320,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(48):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
@@ -349,7 +349,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(42):
+        with self.assertNumQueries(41):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
@@ -386,7 +386,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
 
-            with self.assertNumQueries(29):
+            with self.assertNumQueries(28):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -431,7 +431,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         },
     }
 )
-class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
+class TestPublishScheduledCommand(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -772,7 +772,7 @@ class TestPurgeRevisionsCommandForSnippetsWithPagesOnly(
         return self.assertRevisionExists(revision)
 
 
-class TestPurgeEmbedsCommand(TestCase):
+class TestPurgeEmbedsCommand(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -806,7 +806,7 @@ class TestPurgeEmbedsCommand(TestCase):
         self.assertEqual(Embed.objects.count(), 0)
 
 
-class TestCreateLogEntriesFromRevisionsCommand(TestCase):
+class TestCreateLogEntriesFromRevisionsCommand(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -883,8 +883,13 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
         )
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
+        method_path = (
+            "wagtail.test.basepage.models.BasePage.specific_class"
+            if swapper.is_swapped("wagtailcore", "Page")
+            else "wagtail.models.Page.specific_class"
+        )
         with mock.patch(
-            "wagtail.models.Page.specific_class",
+            method_path,
             return_value=None,
             new_callable=mock.PropertyMock,
         ):

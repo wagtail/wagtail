@@ -1,8 +1,11 @@
+import swapper
 from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
 
-from wagtail.models import DraftStateMixin, Page, Revision
+from wagtail.models import DraftStateMixin, Revision
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def revision_date_expired(r):

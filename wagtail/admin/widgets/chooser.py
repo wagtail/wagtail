@@ -1,5 +1,6 @@
 import json
 
+import swapper
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
@@ -15,7 +16,6 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import register
 from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page
 
 
 class BaseChooser(widgets.Input):
@@ -167,7 +167,7 @@ class BaseChooser(widgets.Input):
 
         js = self.render_js_init(id_, name, value_data)
         out = f"{widget_html}<script>{js}</script>"
-        return mark_safe(out)
+        return mark_safe(out)  # noqa: S308 - TODO: investigate if susceptible to XSS
 
     @property
     def base_js_init_options(self):
@@ -232,6 +232,8 @@ class AdminPageChooser(BaseChooser):
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
     ):
         super().__init__(**kwargs)
+
+        Page = swapper.load_model("wagtailcore", "Page")
 
         if target_models:
             if not isinstance(target_models, (set, list, tuple)):

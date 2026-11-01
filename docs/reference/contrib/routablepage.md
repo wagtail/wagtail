@@ -26,7 +26,7 @@ INSTALLED_APPS = [
 
 ## The basics
 
-To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
+To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page` (or a custom {class}`wagtail.models.AbstractPage` subclass), then define some view methods and decorate them with `path` or `re_path`.
 
 These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object.
 You may use the `RoutablePageMixing.render` method to override the context and template that the default page rendering would use.
@@ -49,12 +49,11 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, path, re_pat
 
 
 class EventIndexPage(RoutablePageMixin, Page):
-
     # Routable pages can have fields like any other - here we would
     # render the intro text on a template with {{ page.intro|richtext }}
     intro = RichTextField()
 
-    @path('') # will override the default Page serving mechanism
+    @path("")  # will override the default Page serving mechanism
     def current_events(self, request):
         """
         View function for the current events page
@@ -63,12 +62,15 @@ class EventIndexPage(RoutablePageMixin, Page):
 
         # NOTE: We can use the RoutablePageMixin.render() method to render
         # the page as normal, but with some of the context values overridden
-        return self.render(request, context_overrides={
-            'title': "Current events",
-            'events': events,
-        })
+        return self.render(
+            request,
+            context_overrides={
+                "title": "Current events",
+                "events": events,
+            },
+        )
 
-    @path('past/')
+    @path("past/")
     def past_events(self, request):
         """
         View function for the past events page
@@ -79,15 +81,15 @@ class EventIndexPage(RoutablePageMixin, Page):
         return self.render(
             request,
             context_overrides={
-                'title': "Past events",
-                'events': events,
+                "title": "Past events",
+                "events": events,
             },
             template="events/event_index_historical.html",
         )
 
     # Multiple routes!
-    @path('year/<int:year>/')
-    @path('year/current/')
+    @path("year/<int:year>/")
+    @path("year/current/")
     def events_for_year(self, request, year=None):
         """
         View function for the events for year page
@@ -97,12 +99,15 @@ class EventIndexPage(RoutablePageMixin, Page):
 
         events = EventPage.objects.live().filter(event_date__year=year)
 
-        return self.render(request, context_overrides={
-            'title': "Events for %d" % year,
-            'events': events,
-        })
+        return self.render(
+            request,
+            context_overrides={
+                "title": "Events for %d" % year,
+                "events": events,
+            },
+        )
 
-    @re_path(r'^year/(\d+)/count/$')
+    @re_path(r"^year/(\d+)/count/$")
     def count_for_year(self, request, year=None):
         """
         View function that returns a simple JSON response that
@@ -112,7 +117,7 @@ class EventIndexPage(RoutablePageMixin, Page):
 
         # NOTE: The usual template/context rendering process is irrelevant
         # here, so we'll just return a HttpResponse directly
-        return JsonResponse({'count': events.count()})
+        return JsonResponse({"count": events.count()})
 ```
 
 ### Rendering other pages
@@ -122,13 +127,15 @@ Another way of returning an `HttpResponse` is to call the `serve` method of anot
 For example, `EventIndexPage` could be extended with a `next/` route that displays the page for the next event:
 
 ```python
-@path('next/')
+@path("next/")
 def next_event(self, request):
     """
     Display the page for the next event
     """
-    future_events = EventPage.objects.live().filter(event_date__gt=datetime.date.today())
-    next_event = future_events.order_by('event_date').first()
+    future_events = EventPage.objects.live().filter(
+        event_date__gt=datetime.date.today()
+    )
+    next_event = future_events.order_by("event_date").first()
 
     return next_event.serve(request)
 ```
@@ -143,7 +150,7 @@ def next_event(self, request):
     'year/2015/'
 ```
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {meth}`~wagtail.models.Page.get_url` method or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {meth}`~wagtail.models.AbstractPage.get_url` method or the {attr}`~wagtail.models.AbstractPage.full_url` attribute on your page:
 
 ```python
 >>> event_page.get_url() + event_page.reverse_subpage('events_for_year', args=(2015, ))
@@ -165,7 +172,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, re_path
 class EventPage(RoutablePageMixin, Page):
     ...
 
-    @re_path(r'^year/(\d+)/$', name='year')
+    @re_path(r"^year/(\d+)/$", name="year")
     def events_for_year(self, request, year):
         """
         View function for the events for year page
@@ -186,7 +193,7 @@ class EventPage(RoutablePageMixin, Page):
 
   .. automethod:: route
 
-    This method overrides the default :meth:`Page.route() <wagtail.models.Page.route>`
+    This method overrides the default :meth:`AbstractPage.route() <wagtail.models.AbstractPage.route>`
     method to route requests to the appropriate view method.
 
     It sets ``routable_resolver_match`` on the request object to make sub-URL routing

@@ -5,11 +5,12 @@ from wagtail.images.shortcuts import (
     get_rendition_or_not_found,
     get_renditions_or_not_found,
 )
+from wagtail.test.utils import PageFixturesMixin
 
 from .utils import Image, get_test_image_file
 
 
-class TestShortcuts(TestCase):
+class TestShortcuts(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_fallback_to_not_found(self):

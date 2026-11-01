@@ -1,36 +1,15 @@
-from urllib.parse import urlsplit
+import swapper
+from django.db.models import Q
 
-from django.conf import settings
-from django.utils.encoding import force_str
-
+from wagtail.api.utils import get_full_url
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page, Site
+from wagtail.models import Collection, CollectionViewRestriction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class BadRequestError(Exception):
     pass
-
-
-def get_base_url(request=None):
-    base_url = getattr(settings, "WAGTAILAPI_BASE_URL", None)
-
-    if base_url is None and request:
-        site = Site.find_for_request(request)
-        if site:
-            base_url = site.root_url
-
-    if base_url:
-        # We only want the scheme and netloc
-        base_url_parsed = urlsplit(force_str(base_url))
-
-        return base_url_parsed.scheme + "://" + base_url_parsed.netloc
-
-
-def get_full_url(request, path):
-    if path.startswith(("http://", "https://")):
-        return path
-    base_url = get_base_url(request) or ""
-    return base_url + path
 
 
 def get_object_detail_url(router, request, model, pk):
@@ -268,3 +247,31 @@ def parse_boolean(value):
         return False
     else:
         raise ValueError("expected 'true' or 'false', got '%s'" % value)
+
+
+def get_restricted_collection_ids(request):
+    """
+    Returns a set of collection IDs that are restricted for the given request.
+    """
+    restricted_root_collection_ids = {
+        restriction.collection_id
+        for restriction in CollectionViewRestriction.objects.all()
+        if not restriction.accept_request(request)
+    }
+
+    if not restricted_root_collection_ids:
+        return set()
+
+    restricted_collection_paths = Collection.objects.filter(
+        id__in=restricted_root_collection_ids
+    ).values_list("path", flat=True)
+
+    restricted_collection_filters = Q()
+    for path in restricted_collection_paths:
+        restricted_collection_filters |= Q(path__startswith=path)
+
+    return set(
+        Collection.objects.filter(restricted_collection_filters).values_list(
+            "id", flat=True
+        )
+    )

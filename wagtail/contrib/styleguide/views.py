@@ -2,6 +2,7 @@ import os
 import re
 from collections import defaultdict
 
+import swapper
 from django import forms
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
@@ -25,8 +26,9 @@ from wagtail.admin.widgets import (
 from wagtail.compat import URLField
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
-from wagtail.models import Page
 from wagtail.snippets.widgets import AdminSnippetChooser
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class FakeAdminSnippetChooser(AdminSnippetChooser):

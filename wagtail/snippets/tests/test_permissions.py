@@ -4,10 +4,10 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.test.testapp.models import Advert
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
+class TestAddOnlyPermissions(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -61,7 +61,7 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
+class TestEditOnlyPermissions(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -115,7 +115,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
+class TestDeleteOnlyPermissions(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

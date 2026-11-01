@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-25 14:11+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -161,6 +161,12 @@ msgstr "Trava tuir oráriu"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Agora dadaun xave no sei publika diretu iha data ne'ebé marka ona"
 
+msgid "user"
+msgstr "Uzuáriu"
+
+msgid "name"
+msgstr "Naran"
+
 msgid "content type"
 msgstr "Tipu konteudu"
 
@@ -206,9 +212,6 @@ msgstr "Xavi tiha ona"
 msgid "collection"
 msgstr "Koleksaun"
 
-msgid "name"
-msgstr "Naran"
-
 msgid "collections"
 msgstr "Koleksaun sira"
 
@@ -248,6 +251,12 @@ msgstr "Publika kualker pajina"
 msgid "Unlock"
 msgstr "Loke"
 
+msgid "page"
+msgstr "Pajina"
+
+msgid "pages"
+msgstr "pájina sira"
+
 msgid "title"
 msgstr "titlu"
 
@@ -269,20 +278,14 @@ msgstr "Dalan URL"
 msgid "owner"
 msgstr "nain"
 
-msgid "show in menus"
-msgstr "Hatudu iha menus sira"
-
 msgid "latest revision created at"
 msgstr "Revizaun ikus kria ona iha"
 
+msgid "show in menus"
+msgstr "Hatudu iha menus sira"
+
 msgid "For site menus"
 msgstr "Ba sítiu menu sira"
-
-msgid "page"
-msgstr "Pajina"
-
-msgid "pages"
-msgstr "pájina sira"
 
 msgid "group page permission"
 msgstr "Grupu pajina permisaun"
@@ -298,9 +301,6 @@ msgstr "Estandar"
 
 msgid "created at"
 msgstr "Kria iha"
-
-msgid "user"
-msgstr "Uzuáriu"
 
 msgid "content JSON"
 msgstr "Konteudu JSON"
@@ -369,14 +369,35 @@ msgstr "Publiku"
 msgid "groups"
 msgstr "Grupu sira"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Dalarum iha ida mak iha progresu ka presija troka fluxu servisu nia estatus "
+"kada pájina/fragmentu."
+
 msgid "Not started"
 msgstr "Seidauk hahú"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Fluxu servisu ativu bele aumenta ona ba pájina sira/fragmentu sira. Desativa "
+"fluxu servisu ida la hasai nia hosi pájina sira/fragmentu sira."
 
 msgid "workflows"
 msgstr "fluxu servisu sira"
 
 msgid "task"
 msgstr "tarefa"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pájina sira/fragmentu sira iha etapa ida-ne'e iha fluxu servisu sei bele "
+"moderadu ona ka aprova ona tuir grupu sira hosi uzuáriu sira"
 
 msgid "Approve"
 msgstr "Aprova"

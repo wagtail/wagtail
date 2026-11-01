@@ -773,7 +773,12 @@ class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCa
 class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
-        self.login()
+        # Grant the marketing group permission to make changes to their collections
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_collection,
+            permission=self.change_permission,
+        )
 
     def get(self, collection_id, params=None):
         return self.client.get(
@@ -781,7 +786,14 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
             params,
         )
 
+    def post(self, collection_id, params=None):
+        return self.client.post(
+            reverse("wagtailadmin_collections:set_privacy", args=(collection_id,)),
+            params,
+        )
+
     def test_privacy_for_collection(self):
+        self.login()
         response = self.get(self.finance_collection.id)
 
         # Check response
@@ -793,7 +805,63 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
             "/admin/collections/{}/privacy/".format(self.finance_collection.id),
         )
 
+    def test_get_as_ordinary_user(self):
+        self.login(self.marketing_user, password="password")
+
+        response = self.get(self.marketing_collection.id)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.get(self.finance_collection.id)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_set_privacy_as_superuser(self):
+        self.login()
+        response = self.post(
+            self.finance_collection.id,
+            {"restriction_type": "password", "password": "password123"},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        # parse response JSON
+        response_json = json.loads(response.content)
+        self.assertEqual(response_json["step"], "set_privacy_done")
+        self.assertFalse(response_json["is_public"])
+
+        # Check that the restriction was created
+        restriction = CollectionViewRestriction.objects.get(
+            collection=self.finance_collection
+        )
+        self.assertEqual(restriction.restriction_type, "password")
+        self.assertEqual(restriction.password, "password123")
+
+    def test_set_privacy_as_ordinary_user(self):
+        self.login(self.marketing_user, password="password")
+
+        response = self.post(
+            self.marketing_collection.id,
+            {"restriction_type": "password", "password": "password123"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            CollectionViewRestriction.objects.filter(
+                collection=self.marketing_collection
+            ).exists()
+        )
+
+        response = self.post(
+            self.finance_collection.id,
+            {"restriction_type": "password", "password": "password123"},
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertFalse(
+            CollectionViewRestriction.objects.filter(
+                collection=self.finance_collection
+            ).exists()
+        )
+
     def test_get_private_child(self):
+        self.login()
         CollectionViewRestriction.objects.create(
             collection=self.root_collection,
             restriction_type="password",

@@ -84,10 +84,13 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
     }
   };
 
+  const isInSubMenu = path.split('.').length > 2;
+
   const className =
     'sidebar-menu-item sidebar-sub-menu-item' +
     (isActive ? ' sidebar-menu-item--active' : '') +
-    (isOpen ? ' sidebar-sub-menu-item--open' : '');
+    (isOpen ? ' sidebar-sub-menu-item--open' : '') +
+    (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
   const sidebarTriggerIconClassName =
     'sidebar-sub-menu-trigger-icon' +

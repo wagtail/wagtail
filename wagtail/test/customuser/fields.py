@@ -43,7 +43,7 @@ class ConvertedValueField(models.IntegerField):
     def pre_save(self, instance, add):
         value = getattr(instance, self.attname, None)
         if not value:
-            value = ConvertedValue(random.randint(LOWER_BOUND, UPPER_BOUND))
+            value = ConvertedValue(random.randint(LOWER_BOUND, UPPER_BOUND))  # noqa: S311 - random not used cryptographically
             setattr(instance, self.attname, value)
         return value
 

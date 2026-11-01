@@ -1,4 +1,8 @@
-from wagtail.models import Page, get_translatable_models
+import swapper
+
+from wagtail.models import get_translatable_models
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_locale_usage(locale):

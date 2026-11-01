@@ -10,16 +10,16 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects import models
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.test.routablepage.models import RoutablePageTest
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 @override_settings(
     ALLOWED_HOSTS=["testserver", "localhost", "test.example.com", "other.example.com"]
 )
-class TestRedirects(TestCase):
+class TestRedirects(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_path_normalisation(self):
@@ -830,7 +830,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         },
     },
 )
-class TestRedirectsAddView(WagtailTestUtils, TestCase):
+class TestRedirectsAddView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

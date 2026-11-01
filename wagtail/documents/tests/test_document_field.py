@@ -81,3 +81,31 @@ class TestWagtailDocumentField(TestCase):
         """Help text should be shown when a size limit is configured."""
         field = self.get_field()
         self.assertIn(filesizeformat(1 * 1024 * 1024), field.help_text)
+
+    # --- Format-related help text ---
+
+    @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf", "txt"])
+    def test_help_text_shows_formats(self):
+        """Help text should show supported formats when extensions are configured."""
+        field = self.get_field()
+        self.assertEqual(field.help_text, "Supported formats: PDF, TXT.")
+
+    @override_settings(
+        WAGTAILDOCS_MAX_UPLOAD_SIZE=1 * 1024 * 1024,
+        WAGTAILDOCS_EXTENSIONS=["pdf", "txt"],
+    )
+    def test_help_text_shows_formats_and_size(self):
+        """Help text should show both formats and size when both are configured."""
+        field = self.get_field()
+        self.assertIn("Supported formats: PDF, TXT.", field.help_text)
+        self.assertIn(filesizeformat(1 * 1024 * 1024), field.help_text)
+
+    # --- to_python ---
+
+    @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
+    def test_to_python_regression_valid_upload(self):
+        """A valid upload should pass through to_python without errors."""
+        field = self.get_field()
+        valid_file = self.get_test_file(name="test.pdf")
+        cleaned_file = field.to_python(valid_file)
+        self.assertEqual(cleaned_file, valid_file)

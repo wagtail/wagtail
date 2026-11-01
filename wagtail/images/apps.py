@@ -1,8 +1,8 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
-from . import checks, get_image_model  # NOQA: F401
+from . import checks, get_image_model, get_permission_policy  # NOQA: F401
 
 
 class WagtailImagesAppConfig(AppConfig):
@@ -13,6 +13,11 @@ class WagtailImagesAppConfig(AppConfig):
     default_attrs = {}
 
     def ready(self):
+        from wagtail.permissions import register_permission_policy
+
+        Image = get_image_model()
+        register_permission_policy(Image, get_permission_policy())
+
         from .signal_handlers import register_signal_handlers
 
         register_signal_handlers()
@@ -22,7 +27,6 @@ class WagtailImagesAppConfig(AppConfig):
 
         from .widgets import AdminImageChooser
 
-        Image = get_image_model()
         register_form_field_override(
             ForeignKey, to=Image, override={"widget": AdminImageChooser}
         )
@@ -46,3 +50,30 @@ class WagtailImagesAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Image)
+
+        if apps.is_installed("wagtail.api.v3"):
+            from .api.v3.registry import register_content_types
+
+            register_content_types()
+
+            from wagtail.api.v3.api import api
+
+            from .api.v3.router import router
+
+            api.add_router("/images/", router)
+
+            from wagtail.api.v3.schemas.generators import read, write
+            from wagtail.api.v3.schemas.generators.blocks import struct_block_schema
+
+            from .blocks import ImageBlock
+
+            # Its value is represented as a plain StructBlock value
+            for builder in (read.block_schema_builder, write.block_schema_builder):
+                builder.register_block_schema(ImageBlock, struct_block_schema)
+
+            from wagtail.api.v3.signal_handlers import use_frontend_cache
+
+            from .api.v3.signal_handlers import register_signal_handlers
+
+            if use_frontend_cache():
+                register_signal_handlers()

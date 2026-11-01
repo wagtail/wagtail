@@ -1,5 +1,6 @@
 import uuid
 
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -9,7 +10,8 @@ from django.utils.translation import gettext
 from django.views import View
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class ViewDraftView(View):

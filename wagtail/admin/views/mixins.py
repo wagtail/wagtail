@@ -212,6 +212,9 @@ class SpreadsheetExportMixin:
             cell = WriteOnlyCell(
                 worksheet, self.preprocess_field_value(field, value, self.FORMAT_XLSX)
             )
+            if cell.data_type == "f":
+                # override anything that openpyxl detects as a formula back to a string
+                cell.data_type = "s"
             if date_format and isinstance(value, datetime.datetime):
                 cell.number_format = date_format
             yield cell

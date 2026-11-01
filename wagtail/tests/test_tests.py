@@ -8,7 +8,7 @@ from django.template import Context, Origin, Template
 from django.test import SimpleTestCase, TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
-from wagtail.models import PAGE_MODEL_CLASSES, Page, Site
+from wagtail.models import PAGE_MODEL_CLASSES, Site
 from wagtail.test.dummy_external_storage import DummyExternalStorage
 from wagtail.test.numberformat import ignore_numberformat
 from wagtail.test.testapp.models import (
@@ -26,7 +26,7 @@ from wagtail.test.testapp.models import (
     SimpleParentPage,
     StreamPage,
 )
-from wagtail.test.utils import WagtailPageTests, WagtailTestUtils
+from wagtail.test.utils import Page, WagtailPageTests, WagtailTestUtils
 from wagtail.test.utils.form_data import (
     inline_formset,
     nested_form_data,

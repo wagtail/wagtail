@@ -1,5 +1,6 @@
 from typing import Any
 
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
@@ -13,10 +14,10 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
-from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def page_filter_search(q, pages, all_pages=None, ordering=None):
@@ -45,7 +46,6 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
 
 class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -112,7 +112,7 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
 
         if getattr(settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True):
             self.all_pages = self.all_pages.filter(
-                pk__in=page_permission_policy.explorable_instances(
+                pk__in=self.permission_policy.explorable_instances(
                     self.request.user
                 ).values_list("pk", flat=True)
             )

@@ -4,9 +4,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import escape
 
-from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestLocking(WagtailTestUtils, TestCase):

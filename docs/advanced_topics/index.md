@@ -28,4 +28,5 @@ streamfield_validation
 reference_index
 headless
 content_personalization
+varying_page_responses
 ```

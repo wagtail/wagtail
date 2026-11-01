@@ -1,5 +1,5 @@
 from wagtail.admin.widgets.datetime import AdminDateTimeInput
-from wagtail.models import Page
+from wagtail.models import AbstractPage
 
 from .field_panel import FieldPanel
 from .group import MultiFieldPanel
@@ -54,7 +54,7 @@ class PublishingPanel(MultiFieldPanel):
             context["instance"] = self.instance
             context["classname"] = self.classname
             context["model_opts"] = self.instance._meta
-            if isinstance(self.instance, Page):
+            if isinstance(self.instance, AbstractPage):
                 context["page"] = self.instance
             return context
 

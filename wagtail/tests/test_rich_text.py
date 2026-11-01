@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.utils import translation
 
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
@@ -16,10 +16,11 @@ from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
 from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.utils import Page, PageFixturesMixin
 from wagtail.test.utils.form_data import rich_text
 
 
-class TestPageLinktypeHandler(TestCase):
+class TestPageLinktypeHandler(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_expand_db_attributes(self):
@@ -45,7 +46,7 @@ class TestPageLinktypeHandler(TestCase):
     ],
     ROOT_URLCONF="wagtail.test.urls_multilang",
 )
-class TestPageLinktypeHandlerWithI18N(TestCase):
+class TestPageLinktypeHandlerWithI18N(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -86,7 +87,7 @@ class TestExtractAttrs(TestCase):
         self.assertEqual(result, {"foo": "bar", "baz": "quux"})
 
 
-class TestExpandDbHtml(TestCase):
+class TestExpandDbHtml(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_expand_db_html_no_linktype(self):
@@ -219,7 +220,7 @@ This is another image: <embed embedtype="image" id="2" format="left" />
         )
 
 
-class TestRichTextValue(TestCase):
+class TestRichTextValue(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_construct_with_none(self):
@@ -359,7 +360,7 @@ class TestLinkRewriterTagReplacing(TestCase):
         )
 
 
-class TestRichTextField(TestCase):
+class TestRichTextField(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_get_searchable_content(self):

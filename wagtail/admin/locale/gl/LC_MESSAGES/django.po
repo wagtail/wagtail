@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,7 +74,7 @@ msgid "Sorry, you do not have permission to access this area."
 msgstr "Síntoo, non tes permiso para acceder a esta área."
 
 msgid "You do not have permission to access the admin."
-msgstr "Non tes permiso para acceder ó administrador."
+msgstr "Non tes permiso para acceder ó admin."
 
 msgid "None"
 msgstr "Ningún"
@@ -170,7 +170,7 @@ msgid ""
 "itself or one of its descendants."
 msgstr ""
 "Selecciona posición xerárquica. Nota: unha colección non pode converterse en "
-"filla de si mesma ou un dos seus descendentes."
+"filla de sí mesma ou un dos seus descendentes."
 
 msgid "Please select another parent."
 msgstr "Por favor, elixe outra nai."
@@ -255,6 +255,10 @@ msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Manter as novas páxinas actualizadas con futuros cambios"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr "Non tes permisos para publicar páxinas en \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -929,7 +933,7 @@ msgid "Remember me"
 msgstr "Lémbrame"
 
 msgid "Signing in…"
-msgstr "Entrando..."
+msgstr "Entrando…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -971,7 +975,7 @@ msgid ""
 "\"%(task)s\"."
 msgstr ""
 "O %(model_name)s \"%(title)s\" aprobouse no estado de moderación "
-"\"%(task)s\"-"
+"\"%(task)s\"."
 
 #, python-format
 msgid "You can edit the %(model_name)s here:"
@@ -2557,6 +2561,10 @@ msgid "Changes requested"
 msgstr "Cambios solicitados"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Cancelado por %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Aprobado por %(approved_by)s"
 
@@ -3369,6 +3377,12 @@ msgstr "Tipo de acción"
 
 msgid "Date/Time"
 msgstr "Data/hora"
+
+msgid "Locked by"
+msgstr "Bloqueada por"
+
+msgid "Anyone"
+msgstr "Calquera"
 
 msgid "Locked pages"
 msgstr "Páxinas bloqueadas"

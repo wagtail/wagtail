@@ -11,6 +11,10 @@ class WagtailAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
+        from wagtail.actions import register_default_actions
+
+        register_default_actions()
+
         from wagtail.models import AbstractPage
         from wagtail.models.reference_index import ReferenceIndex
 

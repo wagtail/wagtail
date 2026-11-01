@@ -1,6 +1,8 @@
 import datetime
+import unittest
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
@@ -12,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.models import (
     GroupPagePermission,
     Locale,
-    Page,
     PageViewRestriction,
     Revision,
 )
@@ -32,7 +33,7 @@ from wagtail.test.testapp.models import (
     StandardChild,
     StandardIndex,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 
@@ -489,10 +490,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Title field should be present and have TitleFieldPanel behaviour
         # including syncing with slug
         self.assertContains(response, 'data-w-sync-target-value="#id_slug"')
-        # SEO title should be present in promote tab
-        self.assertContains(
-            response, "The name of the page displayed on search engine results"
-        )
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            # SEO title should be present in promote tab
+            self.assertContains(
+                response, "The name of the page displayed on search engine results"
+            )
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -1843,6 +1845,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.context["form"], "title", "This field is required."
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "SEO title is not available on custom base page models",
+    )
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
             "title": "Hello",
@@ -1889,7 +1895,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         page = Page.objects.order_by("-id").first()
         self.assertEqual(page.title, "Hello")
         self.assertEqual(page.draft_title, "Hello")
-        self.assertEqual(page.seo_title, "hello SEO")
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            self.assertEqual(page.seo_title, "hello SEO")
 
     def test_long_slug(self):
         post_data = {
@@ -2399,7 +2406,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
 
-class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
+class TestPermissionedFieldPanels(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2758,7 +2765,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(new_page.social_links.count(), 1)
 
 
-class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
+class TestInlinePanelNonFieldErrors(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     Test that non field errors will render for InlinePanels
     https://github.com/wagtail/wagtail/issues/3890
@@ -2812,7 +2819,7 @@ class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(WagtailTestUtils, TestCase):
+class TestLocaleSelector(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2891,7 +2898,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
+class TestLocaleSelectorOnRootPage(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

@@ -1,6 +1,7 @@
 import logging
 from contextlib import contextmanager
 
+import swapper
 from asgiref.local import Local
 from django.core.cache import cache
 from django.db import transaction
@@ -12,10 +13,11 @@ from django.db.models.signals import (
     pre_migrate,
 )
 
-from wagtail.models import Locale, Page, ReferenceIndex, Site
+from wagtail.models import Locale, ReferenceIndex, Site
 
 from .tasks import update_reference_index_task
 
+Page = swapper.load_model("wagtailcore", "Page")
 logger = logging.getLogger("wagtail")
 
 

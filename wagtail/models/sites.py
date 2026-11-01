@@ -1,5 +1,6 @@
 from collections import namedtuple
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -10,6 +11,8 @@ from django.db.models import Case, IntegerField, Q, When
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
+
+swapper.set_app_prefix("wagtailcore", "wagtail")
 
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
@@ -106,7 +109,7 @@ class Site(models.Model):
         help_text=_("Human-readable name for the site."),
     )
     root_page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("root page"),
         related_name="sites_rooted_here",
         on_delete=models.CASCADE,
@@ -234,25 +237,35 @@ class Site(models.Model):
 
         if result is None:
             result = []
-
-            for site in Site.objects.select_related(
+            sites = Site.objects.select_related(
                 "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
+            ).order_by("-root_page__url_path", "-is_default_site", "hostname")
+
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                Page = swapper.load_model("wagtailcore", "Page")
+                translation_keys = {site.root_page.translation_key for site in sites}
+                root_pages_by_translation_key = {}
+                for translation_key, url_path, language_code in Page.objects.filter(
+                    translation_key__in=translation_keys
+                ).values_list("translation_key", "url_path", "locale__language_code"):
+                    root_pages_by_translation_key.setdefault(
+                        translation_key, []
+                    ).append((url_path, language_code))
+
+                for site in sites:
+                    for url_path, language_code in root_pages_by_translation_key.get(
+                        site.root_page.translation_key, ()
+                    ):
+                        result.append(
                             SiteRootPath(
                                 site.id,
-                                root_page.url_path,
+                                url_path,
                                 site.root_url,
-                                root_page.locale.language_code,
+                                language_code,
                             )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
+                        )
+            else:
+                for site in sites:
                     result.append(
                         SiteRootPath(
                             site.id,

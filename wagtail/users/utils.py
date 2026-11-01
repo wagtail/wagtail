@@ -1,6 +1,7 @@
 from urllib.parse import parse_qs, urlparse, urlunparse
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +11,43 @@ from wagtail.coreutils import safe_md5
 delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
+change_user_perm = "{}.change_{}".format(
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
+)
+
+
+def user_can_manage_token(current_user, token_owner, perm):
+    """
+    Mirrors user_can_delete_user: the given APIToken model permission gates
+    self-service, the user model's change permission gates cross-user
+    management, and ordinary users may never manage superusers' tokens.
+    """
+    if not current_user.has_perm(perm):
+        return False
+
+    if current_user == token_owner:
+        return True
+
+    if not current_user.has_perm(change_user_perm):
+        return False
+
+    if token_owner.is_superuser and not current_user.is_superuser:
+        # ordinary users may not manage superusers' tokens
+        return False
+
+    return True
+
+
+def get_manageable_token_owners(current_user):
+    """The users for whom current_user may create/manage API tokens."""
+
+    User = get_user_model()
+    if current_user.has_perm(change_user_perm):
+        qs = User.objects.all()
+        if not current_user.is_superuser:
+            qs = qs.filter(is_superuser=False)
+        return qs
+    return User.objects.filter(pk=current_user.pk)
 
 
 def user_can_delete_user(current_user, user_to_delete):

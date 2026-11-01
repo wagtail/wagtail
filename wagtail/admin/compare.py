@@ -296,7 +296,7 @@ class BaseSequenceBlockComparison(BlockComparison):
             classes = " ".join(classes)
             comparisons_html.append(f'<div class="{classes}">{block_rendered}</div>')
 
-        return mark_safe("\n".join(comparisons_html))
+        return mark_safe("\n".join(comparisons_html))  # noqa: S308
 
 
 class StreamBlockComparison(BaseSequenceBlockComparison):
@@ -792,7 +792,7 @@ class TextDiff:
                     )
                 )
 
-        return mark_safe(self.separator.join(html))
+        return mark_safe(self.separator.join(html))  # noqa: S308
 
 
 def diff_text(a, b):

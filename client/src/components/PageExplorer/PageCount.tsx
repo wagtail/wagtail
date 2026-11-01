@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
-import { gettext } from '../../utils/gettext';
+import { ngettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 
 interface PageCountProps {
@@ -21,12 +21,10 @@ const PageCount: React.FunctionComponent<PageCountProps> = ({ page }) => {
       href={`${WAGTAIL_CONFIG.ADMIN_URLS.PAGES}${page.id}/`}
       className="c-page-explorer__see-more"
     >
-      {gettext('See all')}
-      <span>{` ${count} ${
-        count === 1
-          ? gettext('Page').toLowerCase()
-          : gettext('Pages').toLowerCase()
-      }`}</span>
+      {ngettext('See all %(num)s page', 'See all %(num)s pages', count).replace(
+        '%(num)s',
+        `${count}`,
+      )}
       <Icon name="arrow-right" />
     </a>
   );

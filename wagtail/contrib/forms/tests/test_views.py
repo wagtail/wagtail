@@ -21,7 +21,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_custom_submission,
 )
 from wagtail.contrib.forms.utils import get_form_types
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.test.demosite.models import FormPage as FormPageDemo
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
@@ -34,9 +34,10 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomSubmission,
     FormPageWithCustomSubmissionListView,
     FormPageWithRedirect,
+    HeadlessForm,
     JadeFormPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 
 
@@ -156,7 +157,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
         self.assertFalse(self.panel.is_shown())
 
 
-class TestFormsIndex(WagtailTestUtils, TestCase):
+class TestFormsIndex(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -178,6 +179,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
             FormPageWithCustomSubmissionListView,
             JadeFormPage,
             FormPageDemo,
+            HeadlessForm,
         ]
         cls.make_form_pages()
 
@@ -342,7 +344,9 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
+class TestFormsIndexWithLocalisationEnabled(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -701,37 +705,38 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
 
 
 class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
+    def create_form_submission(self, form_data, submit_time):
+        form_submission = FormSubmission.objects.create(
+            page=self.form_page, form_data=form_data
+        )
+        if settings.USE_TZ:
+            form_submission.submit_time = f"{submit_time}.000Z"
+        else:
+            form_submission.submit_time = submit_time
+        form_submission.save()
+        return form_submission
+
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page()
 
         # Add a couple of form submissions
-        old_form_submission = FormSubmission.objects.create(
-            page=self.form_page,
-            form_data={
+        self.create_form_submission(
+            {
                 "your_email": "old@example.com",
                 "your_message": "this is a really old message",
                 "your_choices": ["foo", "baz"],
             },
+            "2013-01-01T12:00:00",
         )
-        if settings.USE_TZ:
-            old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
-        else:
-            old_form_submission.submit_time = "2013-01-01T12:00:00"
-        old_form_submission.save()
 
-        new_form_submission = FormSubmission.objects.create(
-            page=self.form_page,
-            form_data={
+        self.create_form_submission(
+            {
                 "your_email": "new@example.com",
                 "your_message": "this is a fairly new message",
             },
+            "2014-01-01T12:00:00",
         )
-        if settings.USE_TZ:
-            new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
-        else:
-            new_form_submission.submit_time = "2014-01-01T12:00:00"
-        new_form_submission.save()
 
         # Login
         self.login()
@@ -801,6 +806,26 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             ],
         )
         self.assertEqual(len(cell_array), 3)
+
+    def test_list_submissions_xlsx_export_formula_injection(self):
+        self.create_form_submission(
+            {
+                "your_email": "=cmd|' /C calc'!A0",
+                "your_message": "=cmd|' /C calc'!A0",
+            },
+            "2015-01-01T12:00:00",
+        )
+        response = self.client.get(
+            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+            {"export": "xlsx"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        rows = list(worksheet.rows)
+        self.assertEqual(rows[3][1].value, "=cmd|' /C calc'!A0")
+        self.assertEqual(rows[3][1].data_type, "s")  # string, not formula
 
     def test_list_submissions_csv_large_export(self):
         for i in range(100):
@@ -1393,7 +1418,7 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
 
-class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
+class TestDeleteFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1562,7 +1587,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.assertRedirects(response, next_url)
 
 
-class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
+class TestDeleteCustomFormSubmission(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1893,7 +1918,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(WagtailTestUtils, TestCase):
         self.assertContains(response, "192.0.2.15")
 
 
-class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
+class TestDuplicateFormFieldLabels(PageFixturesMixin, WagtailTestUtils, TestCase):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585

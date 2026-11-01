@@ -1,3 +1,4 @@
+(quick_install)=
 # Quick install
 
 ```{note}

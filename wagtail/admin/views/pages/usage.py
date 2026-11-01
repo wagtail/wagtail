@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
@@ -10,7 +11,8 @@ from wagtail.admin.views.pages.listing import IndexView
 from wagtail.admin.views.pages.utils import (
     GenericPageBreadcrumbsMixin,
 )
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class ContentTypeUseView(IndexView):

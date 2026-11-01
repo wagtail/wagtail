@@ -6,10 +6,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import Page
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 
 
 class TestPageUnpublish(WagtailTestUtils, TestCase):

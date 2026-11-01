@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.http import Http404
@@ -49,10 +50,11 @@ from wagtail.admin.views.pages.workflow import (
     WorkflowActionView,
 )
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
-from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
 
 from .base import ViewSet
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageListingViewSet(ListingViewSetMixin, ViewSet):
@@ -531,9 +533,9 @@ class PageViewSet(PageListingViewSet):
         fields of a specific child page model in the explorer.
 
         By default, if the main :attr:`model`
-        :attr:`~wagtail.models.Page.parent_page_types` is defined, this will be
+        :attr:`~wagtail.models.AbstractPage.parent_page_types` is defined, this will be
         every model in the list that also defines
-        :attr:`~wagtail.models.Page.subpage_types` with only this viewset's
+        :attr:`~wagtail.models.AbstractPage.subpage_types` with only this viewset's
         model (or its subclasses). In other words, this will apply to this
         viewset model's parents that only allow this viewset model (or its
         subclasses) as children.

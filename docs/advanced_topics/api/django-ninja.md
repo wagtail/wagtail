@@ -2,8 +2,8 @@
 
 # How to set up Django Ninja
 
-While Wagtail provides a [built-in API module](api) based on Django REST Framework, it is possible to use other API frameworks.
-Here is information on usage with [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Wagtail's [built-in v3 API](api_v3) is built on [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Here is information on using Django Ninja directly, to build your own API independently of Wagtail's built-in API.
 
 ## Basic configuration
 
@@ -15,6 +15,7 @@ We will create a new `api.py` module next to the existing `urls.py` file in the 
 
 ```python
 # api.py
+
 from typing import Literal
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
@@ -54,9 +55,9 @@ We will create a simple endpoint that returns a list of all pages in the site. W
 class BasePageSchema(ModelSchema):
     url: str = Field(None, alias="get_url")
 
-    class Config:
+    class Meta:
         model = Page
-        model_fields = [
+        fields = [
             "id",
             "title",
             "slug",
@@ -93,9 +94,9 @@ from blog.models import BlogPage
 
 
 class BlogPageSchema(BasePageSchema, ModelSchema):
-    class Config(BasePageSchema.Config):
+    class Meta(BasePageSchema.Meta):
         model = BlogPage
-        model_fields = [
+        fields = [
             "intro",
         ]
 
@@ -119,8 +120,9 @@ from home.models import HomePage
 
 
 class HomePageSchema(BasePageSchema, ModelSchema):
-    class Config(BasePageSchema.Config):
+    class Meta(BasePageSchema.Meta):
         model = HomePage
+
 
 @api.get("/pages/{page_id}/", response=BlogPageSchema | HomePageSchema)
 def get_page(request: "HttpRequest", page_id: int):
@@ -145,9 +147,9 @@ class BasePageSchema(ModelSchema):
     def resolve_content_type(page: Page) -> str:
         return page.specific_class._meta.model_name
 
-    class Config:
+    class Meta:
         model = Page
-        model_fields = [
+        fields = [
             "id",
             "title",
             "slug",
@@ -167,9 +169,9 @@ class BlogPageSchema(BasePageSchema, ModelSchema):
     content_type: Literal["blogpage"]
     authors: list[str] = []
 
-    class Config(BasePageSchema.Config):
+    class Meta(BasePageSchema.Meta):
         model = BlogPage
-        model_fields = [
+        fields = [
             "intro",
         ]
 
@@ -193,7 +195,7 @@ class HomePageSchema(BasePageSchema, ModelSchema):
     content_type: Literal["homepage"]
     body: str
 
-    class Config(BasePageSchema.Config):
+    class Meta(BasePageSchema.Meta):
         model = HomePage
 
     @staticmethod
@@ -217,9 +219,9 @@ class RenditionSchema(ModelSchema):
     url: str = Field(None, alias="file.url")
     alt: str = Field(None, alias="alt")
 
-    class Config:
+    class Meta:
         model = AbstractRendition
-        model_fields = [
+        fields = [
             "width",
             "height",
         ]

@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 
+from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
 
 
@@ -19,11 +20,14 @@ class ConvertAliasPagePermissionError(PermissionDenied):
     pass
 
 
-class ConvertAliasPageAction:
+class ConvertAliasPageAction(BaseAction):
+    action_name = "convert_alias"
+    permission_error_class = ConvertAliasPagePermissionError
+
     def __init__(self, page, *, log_action="wagtail.convert_alias", user=None):
+        super().__init__(page, user=user)
         self.page = page
         self.log_action = log_action
-        self.user = user
 
     def check(self, skip_permission_checks=False):
         if not self.page.alias_of_id:

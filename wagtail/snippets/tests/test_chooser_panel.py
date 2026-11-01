@@ -9,10 +9,10 @@ from wagtail.test.testapp.models import (
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
+class TestSnippetChooserPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -80,7 +80,9 @@ class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
         self.assertEqual(widget.model, Advert)
 
 
-class TestSnippetChooserPanelWithCustomPrimaryKey(WagtailTestUtils, TestCase):
+class TestSnippetChooserPanelWithCustomPrimaryKey(
+    PageFixturesMixin, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

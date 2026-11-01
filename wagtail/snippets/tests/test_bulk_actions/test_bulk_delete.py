@@ -119,6 +119,31 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         for snippet in self.test_snippets:
             self.assertTrue(self.snippet_model.objects.filter(pk=snippet.pk).exists())
 
+    def test_delete_with_custom_permissions(self):
+        self.user.first_name = "[FORBIDDEN]"
+        self.user.last_name = "Joe"
+        self.user.save()
+
+        response = self.client.get(self.get_url())
+        self.assertEqual(response.status_code, 200)
+
+        html = response.content.decode()
+        self.assertInHTML(
+            "<p>You don't have permission to delete these full-featured snippets</p>",
+            html,
+        )
+
+        for snippet in self.test_snippets:
+            self.assertInHTML(f"<li>{snippet.text}</li>", html)
+
+        response = self.client.post(self.get_url())
+        # User should be redirected back to the index
+        self.assertEqual(response.status_code, 302)
+
+        # Snippets should not be deleted
+        for snippet in self.test_snippets:
+            self.assertTrue(self.snippet_model.objects.filter(pk=snippet.pk).exists())
+
     def test_before_bulk_action_hook_get(self):
         with self.register_hook(
             "before_bulk_action", lambda *args: HttpResponse("Overridden!")

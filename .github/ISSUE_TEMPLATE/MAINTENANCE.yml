@@ -55,5 +55,7 @@ body:
         Contribute to the discussion to help this move forward. Explain your use cases, discuss possible solutions, research how to adapt existing code, or compatibility concerns.
 
         View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html). Add a comment to the issue to explain what approach you are taking.
+
+        Purely AI-generated contributions are not welcome. If you intend to use AI assistance, please read [our policy on AI-assisted contributions](https://docs.wagtail.org/en/latest/contributing/general_guidelines.html#use-of-generative-ai).
     validations:
       required: false

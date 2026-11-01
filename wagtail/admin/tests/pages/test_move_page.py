@@ -7,7 +7,6 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
@@ -15,10 +14,10 @@ from wagtail.test.testapp.models import (
     SimplePage,
     SimpleParentPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestPageMove(WagtailTestUtils, TestCase):
+class TestPageMove(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -204,6 +203,7 @@ class TestPageMove(WagtailTestUtils, TestCase):
             parent_page_after=self.section_b,
             url_path_before="/home/section-a/hello-world/",
             url_path_after="/home/section-b/hello-world/",
+            instance_before=Page.objects.get(pk=self.test_page_a.pk).specific,
         )
 
     def test_before_move_page_hook(self):

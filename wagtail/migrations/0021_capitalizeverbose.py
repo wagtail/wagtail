@@ -1,6 +1,7 @@
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -26,7 +27,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name="group_permissions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="page",
             ),
         ),
@@ -197,7 +198,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name="revisions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="page",
             ),
         ),
@@ -225,7 +226,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name="view_restrictions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="page",
             ),
         ),
@@ -265,7 +266,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name="sites_rooted_here",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="root page",
             ),
         ),

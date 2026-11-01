@@ -1,9 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.test import TestCase
 
-from wagtail.models import GroupPagePermission, Page, get_default_page_content_type
+from wagtail.models import GroupPagePermission, get_default_page_content_type
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.tests.permission_policies.test_permission_policies import (
     PermissionPolicyTestUtils,
 )
@@ -27,7 +28,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=root_editors_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.CHANGE
             ),
         )
 
@@ -36,7 +37,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_editors_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.CHANGE
             ),
         )
 
@@ -45,7 +46,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_adders_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="add_page"
+                content_type=page_type, codename=Page.PERMISSION_CODENAMES.ADD
             ),
         )
 
@@ -521,3 +522,20 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
             ),
             [self.superuser],
         )
+
+    def test_instances_user_has_any_permission_for_collapses_nested_permissions(self):
+        # The report editor also gets change permission on an ancestor of the
+        # page they already have permission on, which makes the report
+        # permission redundant
+        self.report_editor.groups.add(Group.objects.get(name="Root editors"))
+        report_editor = get_user_model().objects.get(pk=self.report_editor.pk)
+
+        pages = self.policy.instances_user_has_any_permission_for(
+            report_editor, {"change"}
+        )
+
+        self.assertResultSetEqual(
+            pages, Page.objects.descendant_of(self.root_page, inclusive=True)
+        )
+        # only one subtree is queried for, rather than one per permission row
+        self.assertEqual(str(pages.query).count("LIKE"), 1)

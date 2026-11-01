@@ -1,6 +1,7 @@
 import datetime
 import os
 
+import swapper
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
@@ -15,6 +16,8 @@ from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
+
+swapper.set_app_prefix("wagtailcore", "wagtail")
 
 FORM_FIELD_CHOICES = (
     ("singleline", _("Single line text")),
@@ -42,7 +45,9 @@ class AbstractFormSubmission(models.Model):
     """
 
     form_data = models.JSONField(encoder=DjangoJSONEncoder)
-    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    page = models.ForeignKey(
+        swapper.get_model_name("wagtailcore", "Page"), on_delete=models.CASCADE
+    )
 
     submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
 
@@ -157,10 +162,8 @@ class AbstractFormField(Orderable):
         as this would invalidate any previously submitted data.
         """
 
-        is_new = self.pk is None
-        if is_new:
-            clean_name = self.get_field_clean_name()
-            self.clean_name = clean_name
+        if not self.clean_name:
+            self.clean_name = self.get_field_clean_name()
 
         super().save(*args, **kwargs)
 
@@ -177,12 +180,6 @@ class FormMixin:
     form_builder = FormBuilder
 
     submissions_list_view_class = None
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not hasattr(self, "landing_page_template"):
-            name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + "_landing" + ext
 
     def get_form_fields(self):
         """
@@ -222,7 +219,11 @@ class FormMixin:
         return form_class(*args, **form_params)
 
     def get_landing_page_template(self, *args, **kwargs):
-        return self.landing_page_template
+        if hasattr(self, "landing_page_template"):
+            return self.landing_page_template
+
+        name, ext = os.path.splitext(self.template)
+        return name + "_landing" + ext
 
     def get_submission_class(self):
         """

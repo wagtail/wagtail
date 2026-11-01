@@ -18,11 +18,16 @@ from django.db import models
 
 
 class ADGroup(models.Model):
-    guid = models.CharField(verbose_name="GUID", max_length=64, db_index=True, unique=True)
+    guid = models.CharField(
+        verbose_name="GUID", max_length=64, db_index=True, unique=True
+    )
     name = models.CharField(verbose_name="Group", max_length=255)
     domain = models.CharField(verbose_name="Domain", max_length=255, db_index=True)
     description = models.TextField(verbose_name="Description", blank=True, null=True)
-    roles = models.ManyToManyField(Group, verbose_name="Role", related_name="adgroups", blank=True)
+    roles = models.ManyToManyField(
+        Group, verbose_name="Role", related_name="adgroups", blank=True
+    )
+
 
 class Meta:
     verbose_name = "AD group"

@@ -18,6 +18,7 @@ from wagtail.test.testapp.models import (
     StreamPage,
     TaggedPage,
 )
+from wagtail.test.utils import PageFixturesMixin
 
 
 class TestFieldComparison(TestCase):
@@ -1049,7 +1050,7 @@ class TestTagsFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
 
-class TestM2MFieldComparison(TestCase):
+class TestM2MFieldComparison(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
     comparison_class = compare.M2MFieldComparison
 

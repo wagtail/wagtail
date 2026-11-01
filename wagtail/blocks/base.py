@@ -311,7 +311,7 @@ class Block(metaclass=BaseBlock):
         else:
             new_context = self.get_context(value, parent_context=dict(context))
 
-        return mark_safe(render_to_string(template, new_context))
+        return mark_safe(render_to_string(template, new_context))  # noqa: S308 - rendered template marked as safe
 
     def get_preview_context(self, value, parent_context=None):
         """
@@ -643,7 +643,7 @@ class BoundBlock:
         an unrelated method that just happened to have that name - for example, when called on a
         PageChooserBlock it could end up calling page.render.
         """
-        return self.block.render(self.value, context=context)
+        return self.render(context)
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)

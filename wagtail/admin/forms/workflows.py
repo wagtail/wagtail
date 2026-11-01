@@ -1,3 +1,4 @@
+import swapper
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -14,8 +15,10 @@ from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.coreutils import get_content_type_label, get_model_string
-from wagtail.models import Page, Task, Workflow, WorkflowContentType, WorkflowPage
+from wagtail.models import Task, Workflow, WorkflowContentType, WorkflowPage
 from wagtail.snippets.models import get_workflow_enabled_models
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class TaskChooserSearchForm(forms.Form):

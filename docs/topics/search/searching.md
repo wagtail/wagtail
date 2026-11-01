@@ -306,25 +306,26 @@ Here's an example of how this function can be used in a search view:
 ```python
 from wagtail.search.utils import parse_query_string
 
+
 def search(request):
-    query_string = request.GET['query']
+    query_string = request.GET["query"]
 
     # Parse query
-    filters, query = parse_query_string(query_string, operator='and')
+    filters, query = parse_query_string(query_string, operator="and")
 
     # Published filter
     # An example filter that accepts either `published:yes` or `published:no` and filters the pages accordingly
-    published_filter = filters.get('published')
+    published_filter = filters.get("published")
     published_filter = published_filter and published_filter.lower()
-    if published_filter in ['yes', 'true']:
+    if published_filter in ["yes", "true"]:
         pages = pages.filter(live=True)
-    elif published_filter in ['no', 'false']:
+    elif published_filter in ["no", "false"]:
         pages = pages.filter(live=False)
 
     # Search
     pages = pages.search(query)
 
-    return render(request, 'search_results.html', {'pages': pages})
+    return render(request, "search_results.html", {"pages": pages})
 ```
 
 ### Custom ordering
@@ -386,7 +387,7 @@ from wagtail.contrib.search_promotions.models import Query
 
 def search(request):
     # Search
-    search_query = request.GET.get('query', None)
+    search_query = request.GET.get("query", None)
     if search_query:
         search_results = Page.objects.live().search(search_query)
 
@@ -396,10 +397,14 @@ def search(request):
         search_results = Page.objects.none()
 
     # Render template
-    return render(request, 'search_results.html', {
-        'search_query': search_query,
-        'search_results': search_results,
-    })
+    return render(
+        request,
+        "search_results.html",
+        {
+            "search_query": search_query,
+            "search_results": search_results,
+        },
+    )
 ```
 
 And here's a template to go with it:

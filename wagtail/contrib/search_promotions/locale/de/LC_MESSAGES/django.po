@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,6 +60,12 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
+
+msgid "query"
+msgstr "Abfrage"
+
+msgid "queries"
+msgstr "Abfragen"
 
 msgid "Query Daily Hits"
 msgstr "Nach täglichen Treffern suchen"

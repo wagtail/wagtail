@@ -15,17 +15,6 @@ from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 
 
-def document_etag(request, document_id, document_filename):
-    Document = get_document_model()
-    if hasattr(Document, "file_hash"):
-        return (
-            Document.objects.filter(id=document_id)
-            .values_list("file_hash", flat=True)
-            .first()
-        )
-
-
-@etag(document_etag)
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
@@ -74,44 +63,58 @@ def serve(request, document_id, document_filename):
         # backwards compatibility behaviour.
         return redirect(direct_url)
 
-    if local_path:
-        # Use wagtail.utils.sendfile to serve the file;
-        # this provides support for mimetypes, if-modified-since and django-sendfile backends
+    # Authentication checks have passed and we are serving the file directly (not redirecting).
+    # The remaining serve logic happens in an inner function which we wrap in the etag decorator
+    # to provide conditional GET support.
 
-        sendfile_opts = {
-            "attachment": (doc.content_disposition != "inline"),
-            "attachment_filename": doc.filename,
-            "mimetype": doc.content_type,
-        }
-        if not hasattr(settings, "SENDFILE_BACKEND"):
-            # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
-            sendfile_opts["backend"] = sendfile_streaming_backend.sendfile
+    def get_etag(request):
+        try:
+            return doc.file_hash
+        except AttributeError:
+            return None
 
-        response = sendfile(request, local_path, **sendfile_opts)
+    @etag(get_etag)
+    def serve_local(request):
+        if local_path:
+            # Use wagtail.utils.sendfile to serve the file;
+            # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
-    else:
-        # We are using a storage backend which does not expose filesystem paths
-        # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
-        # redirecting to the file url directly.
-        # Fall back on pre-sendfile behaviour of reading the file content and serving it
-        # as a FileResponse
-        response = FileResponse(doc.file, doc.content_type)
+            sendfile_opts = {
+                "attachment": (doc.content_disposition != "inline"),
+                "attachment_filename": doc.filename,
+                "mimetype": doc.content_type,
+            }
+            if not hasattr(settings, "SENDFILE_BACKEND"):
+                # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
+                sendfile_opts["backend"] = sendfile_streaming_backend.sendfile
 
-        # set filename and filename* to handle non-ascii characters in filename
-        # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
-        response["Content-Disposition"] = doc.content_disposition
+            response = sendfile(request, local_path, **sendfile_opts)
 
-        # FIXME: storage backends are not guaranteed to implement 'size'
-        response["Content-Length"] = doc.file.size
+        else:
+            # We are using a storage backend which does not expose filesystem paths
+            # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
+            # redirecting to the file url directly.
+            # Fall back on pre-sendfile behaviour of reading the file content and serving it
+            # as a FileResponse
+            response = FileResponse(doc.file, doc.content_type)
 
-    # Add a CSP header to prevent inline execution
-    if getattr(settings, "WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT", True):
-        response["Content-Security-Policy"] = "default-src 'none'"
+            # set filename and filename* to handle non-ascii characters in filename
+            # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+            response["Content-Disposition"] = doc.content_disposition
 
-    # Prevent browsers from auto-detecting the content-type of a document
-    response["X-Content-Type-Options"] = "nosniff"
+            # FIXME: storage backends are not guaranteed to implement 'size'
+            response["Content-Length"] = doc.file.size
 
-    return response
+        # Add a CSP header to prevent inline execution
+        if getattr(settings, "WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT", True):
+            response["Content-Security-Policy"] = "default-src 'none'"
+
+        # Prevent browsers from auto-detecting the content-type of a document
+        response["X-Content-Type-Options"] = "nosniff"
+
+        return response
+
+    return serve_local(request)
 
 
 def authenticate_with_password(request, restriction_id):

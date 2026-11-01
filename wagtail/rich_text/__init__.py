@@ -94,7 +94,7 @@ class RichText:
         )
 
     def __str__(self):
-        return mark_safe(self.__html__())
+        return mark_safe(self.__html__())  # noqa: S308 - needs to be safe
 
     def __bool__(self):
         return bool(self.source)

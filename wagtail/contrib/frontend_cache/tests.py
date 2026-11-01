@@ -17,8 +17,9 @@ from wagtail.contrib.frontend_cache.backends import (
     HTTPBackend,
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.utils import Page, PageFixturesMixin
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .utils import (
     PurgeBatch,
@@ -129,6 +130,34 @@ class TestBackendConfiguration(SimpleTestCase):
             backends["azure_cdn"]._cdn_endpoint_name, "wagtail-io-endpoint"
         )
 
+    @mock.patch("azure.mgmt.cdn.__version__", "12.0.0")
+    def test_azure_cdn_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "Support for azure-mgmt-cdn 12.0.0 will be dropped in a future release. "
+            "Please upgrade to azure-mgmt-cdn >= 13.0.0.",
+        ):
+            backends = get_backends(
+                backend_settings={
+                    "azure_cdn": {
+                        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureCdnBackend",
+                        "RESOURCE_GROUP_NAME": "test-resource-group",
+                        "CDN_PROFILE_NAME": "wagtail-org-profile",
+                        "CDN_ENDPOINT_NAME": "wagtail-org-endpoint",
+                    },
+                }
+            )
+
+        self.assertEqual(set(backends.keys()), {"azure_cdn"})
+        self.assertIsInstance(backends["azure_cdn"], AzureCdnBackend)
+        self.assertEqual(
+            backends["azure_cdn"]._resource_group_name, "test-resource-group"
+        )
+        self.assertEqual(backends["azure_cdn"]._cdn_profile_name, "wagtail-org-profile")
+        self.assertEqual(
+            backends["azure_cdn"]._cdn_endpoint_name, "wagtail-org-endpoint"
+        )
+
     def test_azure_front_door(self):
         backends = get_backends(
             backend_settings={
@@ -147,6 +176,32 @@ class TestBackendConfiguration(SimpleTestCase):
         )
         self.assertEqual(
             backends["azure_front_door"]._front_door_name, "wagtail-io-front-door"
+        )
+
+    @mock.patch("azure.mgmt.frontdoor.__version__", "1.0.0")
+    def test_azure_front_door_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "Support for azure-mgmt-frontdoor 1.0.0 will be dropped in a future release. "
+            "Please upgrade to azure-mgmt-frontdoor >= 1.1.0.",
+        ):
+            backends = get_backends(
+                backend_settings={
+                    "azure_front_door": {
+                        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend",
+                        "RESOURCE_GROUP_NAME": "test-resource-group",
+                        "FRONT_DOOR_NAME": "wagtail-org-front-door",
+                    },
+                }
+            )
+
+        self.assertEqual(set(backends.keys()), {"azure_front_door"})
+        self.assertIsInstance(backends["azure_front_door"], AzureFrontDoorBackend)
+        self.assertEqual(
+            backends["azure_front_door"]._resource_group_name, "test-resource-group"
+        )
+        self.assertEqual(
+            backends["azure_front_door"]._front_door_name, "wagtail-org-front-door"
         )
 
     def test_azure_cdn_get_client(self):
@@ -200,6 +255,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "CDN_PROFILE_NAME": "wagtail-io-profile",
                     "CDN_ENDPOINT_NAME": "wagtail-io-endpoint",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -241,6 +297,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "RESOURCE_GROUP_NAME": "test-resource-group",
                     "FRONT_DOOR_NAME": "wagtail-io-front-door",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -468,7 +525,7 @@ class MockBackend(BaseBackend):
 
 class MockCloudflareBackend(CloudflareBackend):
     def _purge_urls(self, urls):
-        if len(urls) > self.CHUNK_SIZE:
+        if len(urls) > self.purge_batch_size:
             raise Exception("Cloudflare backend is not chunking requests as expected")
 
         PURGED_URLS.update(urls)
@@ -486,7 +543,7 @@ class MockCloudflareBackend(CloudflareBackend):
         }
     },
 )
-class TestCachePurgingFunctions(TestCase):
+class TestCachePurgingFunctions(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -670,6 +727,49 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         self.assertCountEqual(PURGED_URLS, set(urls))
 
 
+@mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.post")
+class TestCloudflarePurgeBatchSize(SimpleTestCase):
+    def get_backend(self, **extra_params):
+        return CloudflareBackend(
+            {
+                "ZONEID": "zone",
+                "BEARER_TOKEN": "token",
+                **extra_params,
+            }
+        )
+
+    def get_purged_chunks(self, requests_post_mock):
+        return [
+            call.kwargs["json"]["files"] for call in requests_post_mock.call_args_list
+        ]
+
+    def test_default_purge_batch_size(self, requests_post_mock):
+        urls = [f"https://localhost/foo{i}" for i in range(65)]
+
+        self.get_backend().purge_batch(urls)
+
+        chunks = self.get_purged_chunks(requests_post_mock)
+        self.assertEqual([len(chunk) for chunk in chunks], [30, 30, 5])
+        self.assertEqual([url for chunk in chunks for url in chunk], urls)
+
+    def test_custom_purge_batch_size(self, requests_post_mock):
+        urls = [f"https://localhost/foo{i}" for i in range(250)]
+
+        self.get_backend(PURGE_BATCH_SIZE=100).purge_batch(urls)
+
+        chunks = self.get_purged_chunks(requests_post_mock)
+        self.assertEqual([len(chunk) for chunk in chunks], [100, 100, 50])
+
+    def test_invalid_purge_batch_size(self, requests_post_mock):
+        for value in [0, "100", True]:
+            with self.subTest(value=value):
+                with self.assertRaisesMessage(
+                    ImproperlyConfigured,
+                    "'PURGE_BATCH_SIZE' must be a positive integer",
+                ):
+                    self.get_backend(PURGE_BATCH_SIZE=value)
+
+
 @override_settings(
     WAGTAILFRONTENDCACHE={
         "varnish": {
@@ -677,7 +777,7 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         },
     }
 )
-class TestCachePurgingSignals(TestCase):
+class TestCachePurgingSignals(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -766,8 +866,35 @@ class TestCachePurgingSignals(TestCase):
             {"http://localhost/en/events/", "http://localhost/en/events/past/"},
         )
 
+    def test_purge_on_move(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+        target = Page.objects.get(url_path="/home/events/saint-patrick/")
 
-class TestPurgeBatchClass(TestCase):
+        page.move(target, pos="first-child")
+
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/events/saint-patrick/christmas/",
+                "http://localhost/events/christmas/",
+            },
+        )
+
+    def test_purge_on_slug_change(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        page.slug = "crimbo"
+
+        with self.captureOnCommitCallbacks(execute=True):
+            page.save()
+
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/christmas/", "http://localhost/events/crimbo/"},
+        )
+
+
+class TestPurgeBatchClass(PageFixturesMixin, TestCase):
     # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
     # by TestCachePurgingFunctions.test_purge_batch above
 

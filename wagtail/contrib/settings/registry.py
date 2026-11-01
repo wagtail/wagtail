@@ -9,6 +9,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.menu import MenuItem
+from wagtail.permissions import policy_registry, register_permission_policy
 
 from .forms import SitePermissionForm
 
@@ -16,7 +17,6 @@ from .forms import SitePermissionForm
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
-        self.permission_policy = self.model.get_permission_policy()
         super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse(
@@ -29,7 +29,8 @@ class SettingMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        return self.permission_policy.user_has_permission(request.user, "change")
+        permission_policy = policy_registry.get_by_type(self.model)
+        return permission_policy.user_has_permission(request.user, "change")
 
 
 class SiteSettingAdminURLFinder(ModelAdminURLFinder):
@@ -98,18 +99,19 @@ class Registry(list):
 
         # Register an admin URL finder
         permission_policy = model.get_permission_policy()
+        register_permission_policy(model, permission_policy)
 
         if issubclass(model, BaseSiteSetting):
             finder_class = type(
                 "_SiteSettingAdminURLFinder",
                 (SiteSettingAdminURLFinder,),
-                {"model": model, "permission_policy": permission_policy},
+                {"model": model},
             )
         elif issubclass(model, BaseGenericSetting):
             finder_class = type(
                 "_GenericSettingAdminURLFinder",
                 (GenericSettingAdminURLFinder,),
-                {"model": model, "permission_policy": permission_policy},
+                {"model": model},
             )
         else:
             raise NotImplementedError

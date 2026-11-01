@@ -98,6 +98,13 @@ function ActivateWorkflowActionsForEditView(formSelector) {
                   'workflow-action-name',
                   buttonElement.dataset.workflowActionName,
                 );
+                if ('workflowTaskStateId' in buttonElement.dataset) {
+                  addHiddenInput(
+                    form,
+                    'workflow-task-state-id',
+                    buttonElement.dataset.workflowTaskStateId,
+                  );
+                }
                 addHiddenInput(
                   form,
                   'workflow-action-extra-data',
@@ -118,6 +125,13 @@ function ActivateWorkflowActionsForEditView(formSelector) {
             'workflow-action-name',
             buttonElement.dataset.workflowActionName,
           );
+          if ('workflowTaskStateId' in buttonElement.dataset) {
+            addHiddenInput(
+              form,
+              'workflow-task-state-id',
+              buttonElement.dataset.workflowTaskStateId,
+            );
+          }
         }
       },
       { capture: true },

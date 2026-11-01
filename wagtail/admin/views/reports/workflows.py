@@ -1,6 +1,7 @@
 import datetime
 
 import django_filters
+import swapper
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -26,10 +27,12 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policy_registry
 from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_requested_by_queryset(request):
@@ -40,7 +43,7 @@ def get_requested_by_queryset(request):
 
 
 def get_editable_page_ids_query(request):
-    pages = page_permission_policy.instances_user_has_permission_for(
+    pages = policy_registry.get_by_type(Page).instances_user_has_permission_for(
         request.user, "change"
     )
     # Need to cast the page ids to string because Postgres doesn't support
@@ -144,7 +147,6 @@ class WorkflowView(ReportView):
     filterset_class = WorkflowReportFilterSet
     index_url_name = "wagtailadmin_reports:workflow"
     index_results_url_name = "wagtailadmin_reports:workflow_results"
-    permission_policy = page_permission_policy
     any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
@@ -163,6 +165,12 @@ class WorkflowView(ReportView):
         "requested_by",
         "created_at",
     ]
+
+    @cached_property
+    def permission_policy(self):
+        # This view lists WorkflowState objects, but we want to check permissions
+        # against the Page model.
+        return policy_registry.get_by_type(Page)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -223,7 +231,6 @@ class WorkflowTasksView(ReportView):
     filterset_class = WorkflowTasksReportFilterSet
     index_url_name = "wagtailadmin_reports:workflow_tasks"
     index_results_url_name = "wagtailadmin_reports:workflow_tasks_results"
-    permission_policy = page_permission_policy
     any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
@@ -244,6 +251,12 @@ class WorkflowTasksView(ReportView):
         "finished_at",
         "finished_by",
     ]
+
+    @cached_property
+    def permission_policy(self):
+        # This view lists TaskState objects, but we want to check permissions
+        # against the Page model.
+        return policy_registry.get_by_type(Page)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

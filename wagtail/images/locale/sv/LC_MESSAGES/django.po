@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -81,6 +81,9 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr "Filen är för stor. Maximal filstorlek %(max_filesize)s."
 
+msgid "unknown number"
+msgstr "okänt antal"
+
 msgid "Full width"
 msgstr "Full bredd"
 
@@ -95,9 +98,6 @@ msgstr "Samling"
 
 msgid "Format"
 msgstr "Format"
-
-msgid "Filter"
-msgstr "Filter"
 
 msgid "Original size"
 msgstr "Originalstorlek"
@@ -116,6 +116,9 @@ msgstr "Ändra storleken till max"
 
 msgid "Resize to fill"
 msgstr "Ändra storleken till att fylla"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Width"
 msgstr "Bredd"
@@ -573,6 +576,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Generera URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "De filteralternativ du har valt är inte giltiga."
 
 msgid "Delete image"
 msgstr "Radera bild"

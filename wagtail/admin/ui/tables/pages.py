@@ -69,7 +69,7 @@ class ParentPageColumn(Column):
     """
     A column that displays the parent page of a given page. It uses a
     ``_parent_page`` annotation if present on the page instance for efficiency,
-    before falling back to calling  :meth:`~wagtail.models.Page.get_parent()`.
+    before falling back to calling :meth:`~wagtail.models.AbstractPage.get_parent()`.
     """
 
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
@@ -138,7 +138,7 @@ class NavigateToChildrenColumn(BaseColumn):
         # This column has no header, as the cell's function will vary between "explore child pages"
         # and "add child page", and this link provides all the signposting needed. Render it as a
         # <td> rather than <th> as headings cannot be empty (https://dequeuniversity.com/rules/axe/4.9/empty-table-header).
-        return mark_safe("<td></td>")
+        return mark_safe("<td></td>")  # noqa: S308 - no security implications
 
 
 class PageTable(OrderableTableMixin, Table):

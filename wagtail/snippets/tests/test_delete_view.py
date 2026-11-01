@@ -9,10 +9,10 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.test.testapp.models import Advert, VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetDelete(WagtailTestUtils, TestCase):
+class TestSnippetDelete(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

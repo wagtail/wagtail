@@ -1,5 +1,6 @@
 import os
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.messages import constants as message_constants
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
@@ -58,7 +59,7 @@ if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
-SECRET_KEY = "not needed"
+SECRET_KEY = "not needed"  # noqa: S105 -  false positive, test setting
 
 ROOT_URLCONF = "wagtail.test.urls"
 
@@ -172,7 +173,9 @@ INSTALLED_APPS = [
     "wagtail.documents",
     "wagtail.admin",
     "wagtail.api.v2",
+    "wagtail.api.v3",
     "wagtail",
+    "ninja",
     "taggit",
     "rest_framework",
     "django_filters",
@@ -205,7 +208,7 @@ ALLOWED_HOSTS = [
     "testserver",
     "other.example.com",
     "127.0.0.1",
-    "0.0.0.0",
+    "0.0.0.0",  # noqa: S104 -  false positive, test setting
 ]
 
 WAGTAILSEARCH_BACKENDS = {
@@ -214,7 +217,14 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+if DJANGO_VERSION < (6, 1):
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.console.EmailBackend",
+        },
+    }
 
 if os.environ.get("USE_EMAIL_USER_MODEL"):
     INSTALLED_APPS.append("wagtail.users")
@@ -226,6 +236,12 @@ else:
     INSTALLED_APPS.append("wagtail.test.apps.CustomUsersAppConfig")
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
+
+if os.environ.get("USE_CUSTOM_PAGE_MODEL"):
+    INSTALLED_APPS.insert(2, "wagtail.test.basepage")
+    WAGTAIL_PAGE_MODEL = "basepage.BasePage"
+    print("Custom base page model active")  # noqa: T201
+
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")

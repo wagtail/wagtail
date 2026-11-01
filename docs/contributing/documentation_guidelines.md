@@ -480,8 +480,9 @@ With its [autodoc](inv:sphinx#ext-autodoc) feature, Sphinx supports writing docu
 Modules, classes, and functions can be documented with docstrings. Class and instance attributes can be documented with docstrings (with triple quotes `"""`) or doc comments (with hash-colon `#:`). Docstrings are preferred, as they have better integration with code editors. Docstrings in Python code must be written in reStructuredText syntax.
 
 ```py
-SLUG_REGEX = r'^[-a-zA-Z0-9_]+$'
+SLUG_REGEX = r"^[-a-zA-Z0-9_]+$"
 """Docstring for module-level variable ``SLUG_REGEX``."""
+
 
 class Foo:
     """Docstring for class ``Foo``."""

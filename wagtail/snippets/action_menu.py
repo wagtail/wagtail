@@ -150,6 +150,7 @@ class WorkflowMenuItem(ActionMenuItem):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["launch_modal"] = self.launch_modal
+        context["current_task_state"] = context["instance"].current_workflow_task_state
         return context
 
     def is_shown(self, context):

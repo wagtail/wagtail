@@ -75,7 +75,7 @@ The template conditionally renders content based on the chosen segment. Here, we
 
 ## Previewing segments in the admin
 
-You can use [preview modes](wagtail.models.Page.preview_modes) on the page to let editors switch between anonymous and logged-in variants. This mixin stores the selected mode on the request so the block’s `get_context` can apply it during preview.
+You can use [preview modes](wagtail.models.AbstractPage.preview_modes) on the page to let editors switch between anonymous and logged-in variants. This mixin stores the selected mode on the request so the block’s `get_context` can apply it during preview.
 
 ```python
 class PersonalizationPreviewMixin:

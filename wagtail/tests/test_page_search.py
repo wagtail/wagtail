@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db.models import F
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import (
@@ -13,14 +12,14 @@ from wagtail.search.backends.base import (
     OrderByFieldError,
 )
 from wagtail.test.testapp.models import SimplePage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 @mock.patch("wagtail.tests.DummySearchBackend", create=True)
 @override_settings(
     WAGTAILSEARCH_BACKENDS={"default": {"BACKEND": "wagtail.tests.DummySearchBackend"}}
 )
-class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
+class TestInsertOrUpdateObject(PageFixturesMixin, WagtailTestUtils, TestCase):
     def test_converts_to_specific_page(self, backend):
         root_page = Page.objects.get(id=1)
         page = root_page.add_child(
@@ -28,7 +27,7 @@ class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
         )
 
         # Convert page into a generic "Page" object and add it into the index
-        unspecific_page = page.page_ptr
+        unspecific_page = page.get_base_page()
 
         backend().reset_mock()
 
@@ -38,7 +37,7 @@ class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
         backend().add.assert_called_with(page)
 
 
-class PageSearchTests:
+class PageSearchTests(PageFixturesMixin):
     # A TestCase with this class mixed in will be dynamically created
     # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
     # as self.backend_name

@@ -31,4 +31,5 @@ client_side_panels
 rich_text_internals
 extending_draftail
 custom_bulk_actions
+reusable_app_base_page
 ```

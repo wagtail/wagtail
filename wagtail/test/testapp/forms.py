@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.widgets import AdminDateInput
 
 
@@ -48,3 +48,15 @@ class FavouriteColourForm(forms.ModelForm):
 
     class Media:
         js = ["vendor/colorpicker.js"]
+
+
+class UUIDSnippetWithRelationsAPIForm(WagtailAdminModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        if (
+            "feed_image" in self.fields
+            and cleaned_data.get("body")
+            and not cleaned_data.get("feed_image")
+        ):
+            self.add_error("feed_image", "This field is required when body is given.")
+        return cleaned_data

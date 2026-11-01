@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
@@ -10,7 +11,8 @@ from wagtail import hooks
 from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import messages
 from wagtail.admin.forms.pages import MoveForm
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class MoveChooseDestinationView(TemplateView, FormMixin):

@@ -10,7 +10,7 @@ class Block:
         self.type = typ
         self.depth = depth
         self.text = ""
-        self.key = key if key else "".join(random.choice(ALPHANUM) for _ in range(5))
+        self.key = key if key else "".join(random.choice(ALPHANUM) for _ in range(5))  # noqa: S311 - random not used cryptographically
         self.inline_style_ranges = []
         self.entity_ranges = []
 
@@ -85,7 +85,7 @@ class ContentState:
         return {
             "blocks": [block.as_dict() for block in self.blocks],
             "entityMap": {
-                key: entity.as_dict() for (key, entity) in self.entity_map.items()
+                str(key): entity.as_dict() for (key, entity) in self.entity_map.items()
             },
         }
 

@@ -1,3 +1,5 @@
+(rich_text_internals)=
+
 # Rich text internals
 
 At first glance, Wagtail's rich text capabilities appear to give editors direct control over a block of HTML content. In reality, it's necessary to give editors a representation of rich text content that is several steps removed from the final HTML output, for several reasons:
@@ -149,8 +151,9 @@ Below is an example custom rewrite handler that implements some of these methods
 from django.contrib.auth import get_user_model
 from wagtail.rich_text import LinkHandler
 
+
 class UserLinkHandler(LinkHandler):
-    identifier = 'user'
+    identifier = "user"
 
     @staticmethod
     def get_model():
@@ -159,7 +162,7 @@ class UserLinkHandler(LinkHandler):
     @classmethod
     def get_instance(cls, attrs):
         model = cls.get_model()
-        return model.objects.get(username=attrs['username'])
+        return model.objects.get(username=attrs["username"])
 
     @classmethod
     def expand_db_attributes(cls, attrs):
@@ -183,7 +186,8 @@ This method allows you to register a custom handler deriving from ``wagtail.rich
 from wagtail import hooks
 from my_app.handlers import MyCustomLinkHandler
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_link_handler(features):
     features.register_link_type(MyCustomLinkHandler)
 ```
@@ -195,15 +199,17 @@ from django.utils.html import escape
 from wagtail import hooks
 from wagtail.rich_text import LinkHandler
 
+
 class NoFollowExternalLinkHandler(LinkHandler):
-    identifier = 'external'
+    identifier = "external"
 
     @classmethod
     def expand_db_attributes(cls, attrs):
         href = attrs["href"]
         return '<a href="%s" rel="nofollow">' % escape(href)
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_external_link(features):
     features.register_link_type(NoFollowExternalLinkHandler)
 ```
@@ -222,7 +228,8 @@ This method allows you to register a custom handler deriving from ``wagtail.rich
 from wagtail import hooks
 from my_app.handlers import MyCustomEmbedHandler
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_embed_handler(features):
     features.register_embed_type(MyCustomEmbedHandler)
 ```
@@ -242,9 +249,9 @@ For example, a third-party Wagtail extension might introduce `table` as a new ri
 The `default_features` attribute of the feature registry is a list of feature identifiers to be used whenever an explicit feature list has not been given in `RichTextField` / `RichTextBlock` or `WAGTAILADMIN_RICH_TEXT_EDITORS`. This list can be modified within the `register_rich_text_features` hook to make new features enabled by default, and retrieved by calling `get_default_features()`.
 
 ```python
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def make_h1_default(features):
-    features.default_features.append('h1')
+    features.default_features.append("h1")
 ```
 
 Outside of the `register_rich_text_features` hook - for example, inside a widget class - the feature registry can be imported as the object `wagtail.rich_text.features`. A possible starting point for a rich text editor with feature support would be:
@@ -253,13 +260,14 @@ Outside of the `register_rich_text_features` hook - for example, inside a widget
 from django.forms import widgets
 from wagtail.rich_text import features
 
+
 class CustomRichTextArea(widgets.TextArea):
     accepts_features = True
 
     def __init__(self, *args, **kwargs):
-        self.options = kwargs.pop('options', None)
+        self.options = kwargs.pop("options", None)
 
-        self.features = kwargs.pop('features', None)
+        self.features = kwargs.pop("features", None)
         if self.features is None:
             self.features = features.get_default_features()
 
@@ -305,3 +313,34 @@ For details of the rule definition format for the ``contentstate`` converter, se
 
 Within a converter class, the rule definition for a given feature can be retrieved via the ``get_converter_rule`` method, passing the converter's own identifier string and the feature identifier. This will return ``None`` if no matching rule has been registered.
 ```
+
+### Validating database HTML input
+
+For HTML content coming from API clients or content importers, Wagtail provides a `DbHTMLConverter`. It validates HTML that is already in Wagtail's database format against a feature list:
+
+```python
+from wagtail.admin.rich_text.converters.db_html import DbHTMLConverter
+
+converter = DbHTMLConverter(features=["bold", "italic", "link", "h2"])
+cleaned_html, removals = converter.clean("<h1>Title</h1><p><b>text</b></p>")
+# cleaned_html: 'Title<p><b>text</b></p>'
+# removals: [RichTextRemoval(tag='h1', action='unwrapped', reason='feature_disabled', ...)]
+```
+
+Like the editor converters, it is built from the feature registry's `editorhtml` converter rules, so allowlisting matches what the editor enforces for the same feature set. Out-of-features elements, unknown link or embed types, and references missing their required attributes are removed, with each removal reported as a `RichTextRemoval` (`tag`, `action`, `reason`, and a short `detail` snippet of the source markup — raw input content that callers must treat as untrusted).
+References to missing pages, images, or documents are preserved, matching the editor's handling of broken references.
+
+(converting_html_to_markdown)=
+
+### Converting HTML to Markdown
+
+To convert arbitrary HTML, such as a rendered page or block, to Markdown, Wagtail provides an `HTMLToMarkdownConverter`. It uses the same conversion pipeline as rich text, and outputs CommonMark, with GitHub Flavored Markdown tables and strikethrough:
+
+```python
+from wagtail.admin.rich_text.converters.html_markdown import HTMLToMarkdownConverter
+
+converter = HTMLToMarkdownConverter(base_url="https://example.com/blog/my-post/")
+markdown = converter.convert(response.content.decode(response.charset))
+```
+
+`base_url` makes relative link and image URLs absolute. By default, only the content of the `<main>` element is converted, falling back to `<body>`; pass a CSS selector as `content_selector` to convert another element instead. Without a `<main>` element, site headers and footers are converted too. Elements with a `data-markdown-ignore` attribute are left out, as are scripts, styles, form controls, navigation and hidden elements.

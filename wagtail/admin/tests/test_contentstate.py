@@ -2,14 +2,14 @@ import json
 from unittest.mock import patch
 
 from django.test import TestCase
-from draftjs_exporter.dom import DOM
-from draftjs_exporter.html import HTML as HTMLExporter
+from draftjs_exporter import DOM, HTMLExporter
 
 from wagtail.admin.rich_text.converters.contentstate import (
     ContentstateConverter,
     persist_key_for_block,
 )
 from wagtail.embeds.models import Embed
+from wagtail.test.utils import PageFixturesMixin
 
 
 def content_state_equal(v1, v2, match_keys=False):
@@ -35,7 +35,7 @@ def content_state_equal(v1, v2, match_keys=False):
         return v1 == v2
 
 
-class TestHtmlToContentState(TestCase):
+class TestHtmlToContentState(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def assertContentStateEqual(self, v1, v2, match_keys=False):

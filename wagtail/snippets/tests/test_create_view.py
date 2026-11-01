@@ -28,7 +28,7 @@ from wagtail.test.testapp.models import (
     RevisableCluster,
     RevisableModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 
@@ -587,7 +587,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
+class TestLocaleSelectorOnCreate(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

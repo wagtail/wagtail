@@ -76,5 +76,4 @@ export interface DebouncedFunction<F extends AnyFunction> {
 
 /** A function that can be debounced. */
 export type DebouncibleFunction<F extends AnyFunction> =
-  | DebouncedFunction<F>
-  | F;
+  DebouncedFunction<F> | F;

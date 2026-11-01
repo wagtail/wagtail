@@ -6,6 +6,7 @@ import PageExplorerHeader from './PageExplorerHeader';
 const mockProps = {
   page: {
     meta: {
+      depth: 3,
       parent: {
         id: 1,
       },
@@ -37,11 +38,28 @@ describe('PageExplorerHeader', () => {
         page={{
           id: 'a',
           admin_display_title: 'test',
-          meta: { parent: { id: 1 } },
+          meta: { depth: 3, parent: { id: 1 } },
         }}
       />,
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('shows "Pages" instead of the root page title', () => {
+    const wrapper = shallow(
+      <PageExplorerHeader
+        {...mockProps}
+        depth={0}
+        page={{
+          id: 1,
+          admin_display_title: 'Root',
+          meta: { depth: 1, parent: null },
+        }}
+      />,
+    );
+    expect(
+      wrapper.find('.c-page-explorer__header__title__inner span').text(),
+    ).toBe('Pages');
   });
 
   it('#onClick', () => {

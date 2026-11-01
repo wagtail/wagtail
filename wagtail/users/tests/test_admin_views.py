@@ -29,12 +29,11 @@ from wagtail.models import (
     GroupCollectionPermission,
     GroupPagePermission,
     LockableMixin,
-    Page,
 )
 from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
 from wagtail.test.customuser.viewsets import CustomUserViewSet
 from wagtail.test.testapp.models import VariousOnDeleteModel
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import GroupForm
 from wagtail.users.models import UserProfile
@@ -46,6 +45,7 @@ from wagtail.users.wagtail_hooks import get_viewset_cls
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
+view_user_perm_codename = f"view_{AUTH_USER_MODEL_NAME.lower()}"
 
 User = get_user_model()
 
@@ -1422,6 +1422,10 @@ class TestUserCopyView(WagtailTestUtils, TestCase):
                 content_type__app_label=AUTH_USER_APP_LABEL,
                 codename=add_user_perm_codename,
             ),
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename=view_user_perm_codename,
+            ),
         )
 
         # Form should be prefilled
@@ -1724,7 +1728,10 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["change_page", "publish_page"],
+                "page_permissions-0-permissions": [
+                    Page.PERMISSION_CODENAMES.CHANGE,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
+                ],
                 "page_permissions-TOTAL_FORMS": ["1"],
                 "document_permissions-0-collection": [
                     Collection.get_first_root_node().pk
@@ -1752,9 +1759,9 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "name": "test group",
                 "page_permissions-0-page": ["1"],
-                "page_permissions-0-permissions": ["publish_page"],
+                "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.PUBLISH],
                 "page_permissions-1-page": ["1"],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2068,7 +2075,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "page_permissions-MAX_NUM_FORMS": ["1000"],
             "page_permissions-INITIAL_FORMS": ["1"],
             "page_permissions-0-page": [self.root_page.pk],
-            "page_permissions-0-permissions": ["add_page"],
+            "page_permissions-0-permissions": [Page.PERMISSION_CODENAMES.ADD],
             "document_permissions-TOTAL_FORMS": ["1"],
             "document_permissions-MAX_NUM_FORMS": ["1000"],
             "document_permissions-INITIAL_FORMS": ["1"],
@@ -2178,9 +2185,9 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-0-permissions": [
-                    "add_page",
-                    "publish_page",
-                    "change_page",
+                    Page.PERMISSION_CODENAMES.ADD,
+                    Page.PERMISSION_CODENAMES.PUBLISH,
+                    Page.PERMISSION_CODENAMES.CHANGE,
                 ],
             }
         )
@@ -2323,7 +2330,8 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             page_permissions_formset.forms[0]["page"].value(), self.root_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[0]["permissions"].value(), ["add_page"]
+            page_permissions_formset.forms[0]["permissions"].value(),
+            [Page.PERMISSION_CODENAMES.ADD],
         )
 
         # add edit permission on root
@@ -2346,7 +2354,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
 
         # add edit permission on home
@@ -2368,13 +2376,14 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]["permissions"].value()),
-            {"add_page", "change_page"},
+            {Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE},
         )
         self.assertEqual(
             page_permissions_formset.forms[1]["page"].value(), self.home_page.pk
         )
         self.assertEqual(
-            page_permissions_formset.forms[1]["permissions"].value(), ["change_page"]
+            page_permissions_formset.forms[1]["permissions"].value(),
+            [Page.PERMISSION_CODENAMES.CHANGE],
         )
 
     def test_duplicate_page_permissions_error(self):
@@ -2382,7 +2391,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.post(
             {
                 "page_permissions-1-page": [self.root_page.pk],
-                "page_permissions-1-permissions": ["change_page"],
+                "page_permissions-1-permissions": [Page.PERMISSION_CODENAMES.CHANGE],
                 "page_permissions-TOTAL_FORMS": ["2"],
             }
         )
@@ -2715,10 +2724,10 @@ class TestGroupViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "group_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.group_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.group_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "group_viewset")
 
@@ -2771,10 +2780,10 @@ class TestUserViewSet(TestCase):
         with unittest.mock.patch.object(
             self.app_config, "user_viewset", new="asdfasdf"
         ):
-            with self.assertRaisesMessage(
+            with self.assertRaisesRegex(
                 ImproperlyConfigured,
-                f"Invalid setting for {self.app_config_class_name}.user_viewset: "
-                "asdfasdf doesn't look like a module path",
+                rf"Invalid setting for {self.app_config_class_name}\.user_viewset: "
+                ".*asdfasdf.*",
             ):
                 get_viewset_cls(self.app_config, "user_viewset")
 

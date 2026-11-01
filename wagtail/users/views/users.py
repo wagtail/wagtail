@@ -36,6 +36,7 @@ from wagtail.admin.widgets.button import (
     ButtonWithDropdown,
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.permissions import policy_registry
 from wagtail.search import index
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
@@ -370,7 +371,7 @@ class UserViewSet(ModelViewSet):
     def search_area_class(self):
         class UsersSearchArea(SearchArea):
             def is_shown(search_area, request):
-                return self.permission_policy.user_has_any_permission(
+                return policy_registry.get_by_type(User).user_has_any_permission(
                     request.user, {"add", "change", "delete"}
                 )
 

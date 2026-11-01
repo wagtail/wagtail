@@ -92,10 +92,14 @@ class ConfirmImportManagementForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         for key in {"import_file_name", "input_format"}:
+            if key not in cleaned_data:
+                # a missing field will raise a ValidationError elsewhere, so skip it here
+                continue
+
             try:
                 cleaned_data[key] = self.signer.unsign(cleaned_data[key])
             except BadSignature as e:
-                raise forms.ValidationError(e.message) from e
+                raise forms.ValidationError(str(e)) from e
         return cleaned_data
 
 

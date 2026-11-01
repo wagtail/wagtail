@@ -8,22 +8,48 @@ from django.utils.translation import gettext_lazy as _
 class WagtailDocumentField(FileField):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # Get max upload size from settings, default is None (no limit)
+        self.allowed_document_extensions = getattr(
+            settings, "WAGTAILDOCS_EXTENSIONS", None
+        )
         self.max_upload_size = getattr(settings, "WAGTAILDOCS_MAX_UPLOAD_SIZE", None)
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
-        # Help text
-        if self.max_upload_size is not None:
-            self.help_text = _("Maximum filesize: %(max_upload_size)s.") % {
-                "max_upload_size": self.max_upload_size_text
-            }
+        if self.allowed_document_extensions is not None:
+            self.supported_formats_text = ", ".join(
+                self.allowed_document_extensions
+            ).upper()
         else:
-            self.help_text = ""
+            self.supported_formats_text = None
+
+        hints = []
+        if self.supported_formats_text:
+            hints.append(
+                _("Supported formats: %(supported_formats)s.")
+                % {
+                    "supported_formats": self.supported_formats_text,
+                }
+            )
+        if self.max_upload_size is not None:
+            hints.append(
+                _("Maximum filesize: %(max_upload_size)s.")
+                % {
+                    "max_upload_size": self.max_upload_size_text,
+                }
+            )
+        self.help_text = " ".join(hints)
 
         # Error messages
         # Translation placeholders should all be interpolated at the same time to avoid escaping,
         # either right now if all values are known, otherwise when used.
+        if self.supported_formats_text:
+            self.error_messages["invalid_document_extension"] = _(
+                "Not a supported document format. Supported formats: %(supported_formats)s."
+            ) % {"supported_formats": self.supported_formats_text}
+        else:
+            self.error_messages["invalid_document_extension"] = _(
+                "Not a supported document format."
+            )
+
         self.error_messages["file_too_large"] = _(
             "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
         )

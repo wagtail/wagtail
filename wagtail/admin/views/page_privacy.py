@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -8,8 +9,10 @@ from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
 from wagtail.admin.forms.pages import PageViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import PageViewRestriction
 from wagtail.models.view_restrictions import BaseViewRestriction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class SetPrivacyView(ModelFormMixin, ProcessFormView):
@@ -52,16 +55,15 @@ class SetPrivacyView(ModelFormMixin, ProcessFormView):
                 ),
                 title=self.restriction_on_ancestor.page.specific_deferred.get_admin_display_title(),
             )
+            inherit_from_parent_message = mark_safe(  # noqa: S308 - ancestor_page_link is generated safely by format_html above
+                _("Privacy is inherited from the ancestor page - %(ancestor_page)s")
+                % {"ancestor_page": ancestor_page_link}
+            )
             inherit_from_parent_choice = (
                 BaseViewRestriction.NONE,
                 format_html(
                     "<span>{}</span>",
-                    mark_safe(
-                        _(
-                            "Privacy is inherited from the ancestor page - %(ancestor_page)s"
-                        )
-                        % {"ancestor_page": ancestor_page_link}
-                    ),
+                    inherit_from_parent_message,
                 ),
             )
             form.fields["restriction_type"].choices = [

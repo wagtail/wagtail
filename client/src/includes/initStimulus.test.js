@@ -203,5 +203,71 @@ describe('initStimulus', () => {
       expect(controllers[0].itemTargets.length).toEqual(1);
       expect(controllers[1].itemTargets.length).toEqual(0);
     });
+
+    it('should allow querying for a controller within a root element', async () => {
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <section data-controller="w-test-mock">
+              <div id="item2" data-w-test-mock-target="item"></div>
+            </section>
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controller = application.queryController(
+        'w-test-mock',
+        document.querySelector('footer'),
+      );
+      expect(controller).toBeInstanceOf(TestMockController);
+      expect(controller.itemTargets).toHaveLength(1);
+      expect(controller.itemTargets[0].id).toEqual('item2');
+    });
+
+    it('should return null if no controller is found within the root element', async () => {
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <p>No controllers here</p>
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controller = application.queryController(
+        'w-test-mock',
+        document.querySelector('footer'),
+      );
+      expect(controller).toBeNull();
+    });
+
+    it('should allow querying for all controllers within a root element', async () => {
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <section data-controller="w-test-mock">
+              <div id="item2" data-w-test-mock-target="item"></div>
+            </section>
+            <section data-controller="w-test-mock">
+              <div id="item3" data-w-test-mock-target="item"></div>
+            </section>
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controllers = application.queryControllerAll(
+        'w-test-mock',
+        document.querySelector('footer'),
+      );
+      expect(controllers).toHaveLength(2);
+      expect(controllers[0]).toBeInstanceOf(TestMockController);
+      expect(controllers[1]).toBeInstanceOf(TestMockController);
+      expect(controllers[0].itemTargets[0].id).toEqual('item2');
+      expect(controllers[1].itemTargets[0].id).toEqual('item3');
+
+      expect(application.queryControllerAll('w-test-mock')).toHaveLength(3);
+    });
   });
 });

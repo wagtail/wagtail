@@ -13,7 +13,6 @@ from freezegun import freeze_time
 
 from wagtail.models import (
     GroupApprovalTask,
-    Page,
     Task,
     TaskState,
     Workflow,
@@ -28,10 +27,11 @@ from wagtail.test.testapp.models import (
     SimplePage,
     SimpleTask,
 )
+from wagtail.test.utils import Page, PageFixturesMixin
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
-class TestWorkflowModels(TestCase):
+class TestWorkflowModels(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_create_workflow(self):
@@ -142,7 +142,7 @@ class TestWorkflowModels(TestCase):
             self.assertEqual(tasks, [Task.objects.get(name="Moderators approval")])
 
 
-class TestPageWorkflows(WagtailTestUtils, TestCase):
+class TestPageWorkflows(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

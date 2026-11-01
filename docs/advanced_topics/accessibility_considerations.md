@@ -154,21 +154,22 @@ class CustomContentCheckerItem(ContentCheckerItem):
                 "id": "p-as-heading",
                 "options": {
                     "margins": [
-                        { "weight": 150 },
+                        {"weight": 150},
                     ],
                     "passLength": 1,
-                    "failLength": 0.5
+                    "failLength": 0.5,
                 },
             },
         )
         return checks
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_content_checker(request, items, page):
     items[:] = [
         CustomContentCheckerItem(in_editor=item.in_editor)
-        if isinstance(item, ContentCheckerItem) else item
+        if isinstance(item, ContentCheckerItem)
+        else item
         for item in items
     ]
 ```
@@ -294,11 +295,12 @@ class CustomContentCheckerItem(ContentCheckerItem):
             return self.axe_run_only
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_content_checker(request, items, page):
     items[:] = [
         CustomContentCheckerItem(in_editor=item.in_editor)
-        if isinstance(item, ContentCheckerItem) else item
+        if isinstance(item, ContentCheckerItem)
+        else item
         for item in items
     ]
 ```

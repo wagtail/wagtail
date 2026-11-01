@@ -3,10 +3,10 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.test.testapp.models import ModelWithStringTypePrimaryKey
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestGenericIndexView(WagtailTestUtils, TestCase):
+class TestGenericIndexView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def get(self, params=None):
@@ -25,7 +25,7 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(h1.text.strip(), "Model with string type primary keys")
 
 
-class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
+class TestGenericIndexViewWithoutModel(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def get(self, params=None):
@@ -38,8 +38,11 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
         self.assertEqual(response_object_count, 4)
 
 
-class TestGenericCreateView(WagtailTestUtils, TestCase):
+class TestGenericCreateView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.login()
 
     def get(self, params=None):
         return self.client.get(reverse("testapp_generic_create"), params)
@@ -71,7 +74,7 @@ class TestGenericCreateView(WagtailTestUtils, TestCase):
         )
 
 
-class TestGenericEditView(WagtailTestUtils, TestCase):
+class TestGenericEditView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):
@@ -117,7 +120,7 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
                 self.assertEqual(delete_url_pk, quote(object_pk))
 
 
-class TestGenericDeleteView(WagtailTestUtils, TestCase):
+class TestGenericDeleteView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def get(self, object_pk, params=None):

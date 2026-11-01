@@ -1040,21 +1040,8 @@ class TestBackgroundColorFilter(TestCase):
 
 
 class TestWebpFormatConversion(TestCase):
-    def test_webp_convert_to_png(self):
-        """by default, webp images will be converted to png"""
-
-        fil = Filter(spec="width-400")
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_webp(),
-        )
-        out = fil.run(image, BytesIO())
-
-        self.assertEqual(out.format_name, "png")
-
-    @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"webp": "webp"})
-    def test_override_webp_convert_to_png(self):
-        """WAGTAILIMAGES_FORMAT_CONVERSIONS can be overridden to disable webp conversion"""
+    def test_webp_preserved_by_default(self):
+        """by default, webp images will not be converted"""
 
         fil = Filter(spec="width-400")
         image = Image.objects.create(
@@ -1064,6 +1051,19 @@ class TestWebpFormatConversion(TestCase):
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, "webp")
+
+    @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"webp": "png"})
+    def test_override_webp_convert_to_png(self):
+        """WAGTAILIMAGES_FORMAT_CONVERSIONS can be overridden to convert webp to png"""
+
+        fil = Filter(spec="width-400")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_webp(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "png")
 
 
 class TestCheckSize(TestCase):

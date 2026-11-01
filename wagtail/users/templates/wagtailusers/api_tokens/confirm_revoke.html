@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+
+{% block form %}
+    <form action="{{ view.get_delete_url }}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button serious">{% trans 'Yes, revoke' %}</button>
+        <a href="{{ view.get_success_url }}" class="button button-secondary">{% trans "No, don't revoke" %}</a>
+    </form>
+{% endblock %}

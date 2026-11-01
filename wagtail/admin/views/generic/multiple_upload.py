@@ -16,7 +16,7 @@ from wagtail.models import UploadedFile
 
 class AddView(PermissionCheckedMixin, TemplateView):
     # subclasses need to provide:
-    # - permission_policy
+    # - permission_policy (if one does not exist in the registry for the model)
     # - template_name
 
     # - edit_object_url_name
@@ -195,9 +195,9 @@ class AddView(PermissionCheckedMixin, TemplateView):
         return context
 
 
-class EditView(View):
+class EditView(PermissionCheckedMixin, View):
     # subclasses need to provide:
-    # - permission_policy
+    # - permission_policy (if one does not exist in the registry for the model)
     # - pk_url_kwarg
     # - edit_object_form_prefix
     # - context_object_name
@@ -265,9 +265,9 @@ class EditView(View):
             )
 
 
-class DeleteView(View):
+class DeleteView(PermissionCheckedMixin, View):
     # subclasses need to provide:
-    # - permission_policy
+    # - permission_policy (if one does not exist in the registry for the model)
     # - pk_url_kwarg
     # - context_object_id_name
 

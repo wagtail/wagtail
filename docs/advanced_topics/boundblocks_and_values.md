@@ -7,7 +7,7 @@ All StreamField block types accept a `template` parameter to determine how they 
 ```python
 class HeadingBlock(blocks.CharBlock):
     class Meta:
-        template = 'blocks/heading.html'
+        template = "blocks/heading.html"
 ```
 
 where `blocks/heading.html` consists of:
@@ -20,11 +20,13 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
 
 ```python
 class BlogPage(Page):
-    body = StreamField([
-        # ...
-        ('heading', HeadingBlock()),
-        # ...
-    ])
+    body = StreamField(
+        [
+            # ...
+            ("heading", HeadingBlock()),
+            # ...
+        ]
+    )
 ```
 
 ```html+django
@@ -52,7 +54,7 @@ class EventBlock(blocks.StructBlock):
     # ...
 
     class Meta:
-        template = 'blocks/event.html'
+        template = "blocks/event.html"
 ```
 
 In `blocks/event.html`:
@@ -94,11 +96,14 @@ This limitation does not apply to StructBlock and StreamBlock values as children
 class EventBlock(blocks.StructBlock):
     heading = HeadingBlock()
     description = blocks.TextBlock()
-    guest_speaker = blocks.StructBlock([
-        ('first_name', blocks.CharBlock()),
-        ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock()),
-    ], template='blocks/speaker.html')
+    guest_speaker = blocks.StructBlock(
+        [
+            ("first_name", blocks.CharBlock()),
+            ("surname", blocks.CharBlock()),
+            ("photo", ImageChooserBlock()),
+        ],
+        template="blocks/speaker.html",
+    )
 ```
 
 then `{% include_block value.guest_speaker %}` within the EventBlock's template will pick up the template rendering from `blocks/speaker.html` as intended.

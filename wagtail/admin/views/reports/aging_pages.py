@@ -1,4 +1,5 @@
 import django_filters
+import swapper
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db.models import OuterRef, Subquery
@@ -7,11 +8,12 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
-from wagtail.models import Page, PageLogEntry, get_page_content_types
-from wagtail.permissions import page_permission_policy
+from wagtail.models import PageLogEntry, get_page_content_types
 from wagtail.users.utils import get_deleted_user_display_name
 
 from .base import PageReportView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class AgingPagesReportFilterSet(WagtailFilterSet):
@@ -99,7 +101,7 @@ class AgingPagesView(PageReportView):
             page=OuterRef("pk"), action__exact="wagtail.publish"
         )
         self.queryset = (
-            page_permission_policy.instances_user_has_permission_for(
+            self.permission_policy.instances_user_has_permission_for(
                 self.request.user, "publish"
             )
             .exclude(last_published_at__isnull=True)

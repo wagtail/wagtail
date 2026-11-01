@@ -6,17 +6,17 @@ from django.core import management
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page, ReferenceIndex
+from wagtail.models import ReferenceIndex
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
     EventPage,
     GenericSnippetPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
-class TestUsageCount(TestCase):
+class TestUsageCount(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -30,7 +30,7 @@ class TestUsageCount(TestCase):
         self.assertEqual(ReferenceIndex.get_grouped_references_to(advert).count(), 2)
 
 
-class TestUsedBy(TestCase):
+class TestUsedBy(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     @classmethod
@@ -49,7 +49,7 @@ class TestUsedBy(TestCase):
         self.assertIsInstance(usage[0][1][0], ReferenceIndex)
 
 
-class TestSnippetUsageView(WagtailTestUtils, TestCase):
+class TestSnippetUsageView(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

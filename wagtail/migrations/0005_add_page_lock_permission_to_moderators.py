@@ -1,9 +1,10 @@
 from django.db import migrations
+import swapper
 
 
 def add_page_lock_permission_to_moderators(apps, schema_editor):
     Group = apps.get_model("auth.Group")
-    Page = apps.get_model("wagtailcore.Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
 
     root_pages = Page.objects.filter(depth=1)

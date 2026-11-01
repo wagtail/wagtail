@@ -22,7 +22,6 @@ from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
-    Page,
     ReferenceIndex,
     UploadedFile,
 )
@@ -33,7 +32,7 @@ from wagtail.test.testapp.models import (
     EventPageRelatedLink,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
@@ -2144,7 +2143,9 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
+class TestDocumentChooserViewSearch(
+    PageFixturesMixin, WagtailTestUtils, TransactionTestCase
+):
     fixtures = ["test_empty.json"]
 
     def setUp(self):
@@ -2326,7 +2327,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(WagtailTestUtils, Test
         self.assertEqual(doc.get().collection, self.evil_plans_collection)
 
 
-class TestUsageCount(WagtailTestUtils, TestCase):
+class TestUsageCount(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2362,7 +2363,9 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertContains(response, "Used 0 times")
 
 
-class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestGetUsage(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
 
     def setUp(self):

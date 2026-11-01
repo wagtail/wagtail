@@ -70,12 +70,17 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinxcontrib.openapi",
+    "sphinxcontrib.httpdomain",
 ]
 
 autodoc_type_aliases = {
     "File": "django.core.files.File",
 }
 autodoc_member_order = "groupwise"
+
+# Warn about all references where the target cannot be found.
+nitpicky = True
 
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
@@ -105,6 +110,17 @@ if not on_rtd:
 
 if on_rtd or os.environ.get("BUILD_LLMS_TXT", ""):
     extensions.append("sphinx_llm.txt")
+
+# Generate llms-full.txt, which is linked from support.md
+# (sphinx_llm 1.1.0 changed the default to False)
+llms_txt_full_build = True
+
+# sphinx-markdown-builder (used by sphinx_llm to generate llms.txt) cannot render
+# these nodes, and would otherwise fail the build as warnings:
+# - abbreviation: the keyword-only `*` separator in Python signatures
+#   (https://github.com/liran-funaro/sphinx-markdown-builder/issues/42)
+# - toctree: the hidden toctree in deployment/index.md
+llms_txt_suppress_unknown_node_warnings = ["abbreviation", "toctree"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -188,7 +204,7 @@ intersphinx_mapping = {
         None,
     ),
     "treebeard": (
-        "https://django-treebeard.readthedocs.io/en/stable/",
+        "https://django-treebeard.readthedocs.io/en/5.3.0/",
         None,
     ),
     "sphinx": (
@@ -435,6 +451,7 @@ def setup(app):
         indextemplate="pair: %s; field lookup type",
     )
 
+    from django.db.models import Model
     from django.http import HttpRequest
 
     from wagtail.admin.ui.components import Component
@@ -443,6 +460,7 @@ def setup(app):
         # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
         # type annotations - see https://github.com/wagtail/wagtail/pull/12777
         HttpRequest: "django.http",
+        Model: "django.db.models",
         # Document `Component` as part of our own API instead of Laces for
         # cross-linking, as the latter does not use Sphinx for docs.
         Component: "wagtail.admin.ui.components",

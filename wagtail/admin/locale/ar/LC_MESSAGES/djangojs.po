@@ -59,6 +59,12 @@ msgstr[5] "%(num)s بكسل"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "حدث خطأ في الشبكة."
+
+msgid "A server error occurred."
+msgstr "حدث خطأ في الخادم."
+
 msgid "Actions"
 msgstr "الإجراءات"
 
@@ -74,6 +80,9 @@ msgstr "نص بديل"
 msgid "Are you sure?"
 msgstr "هل أنت متأكد؟"
 
+msgid "Autosave in progress…"
+msgstr "جارٍ الحفظ التلقائي..."
+
 msgid "Blocks"
 msgstr "الكتل"
 
@@ -82,6 +91,9 @@ msgstr "رابط معطوب"
 
 msgid "Cancel"
 msgstr "إلغاء"
+
+msgid "Changes have been autosaved."
+msgstr "تم حفظ التغييرات تلقائيًا."
 
 msgid "Character count:"
 msgstr "عدد الأحرف:"
@@ -94,6 +106,10 @@ msgstr "طي الكل"
 
 msgid "Comment"
 msgstr "تعليق"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "معقد"
 
 msgid "Dashboard"
 msgstr "لوحة التحكم"
@@ -134,8 +150,15 @@ msgstr "حدث خطأ أثناء إرسال بيانات المعاينة."
 msgid "Expand all"
 msgstr "توسيع الكل"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "عادل"
+
 msgid "Focus comment"
 msgstr "تركيز التعليق"
+
+msgid "Good"
+msgstr "جيد"
 
 msgid "Horizontal line"
 msgstr "خط أفقي"

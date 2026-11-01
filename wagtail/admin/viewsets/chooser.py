@@ -1,3 +1,5 @@
+import warnings
+
 from django.db.models import ForeignKey
 from django.urls import path
 from django.utils.functional import cached_property
@@ -8,6 +10,8 @@ from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
 from wagtail.blocks import ChooserBlock
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
+from wagtail.utils.registry import resolve_model_string
 
 from .base import ViewSet
 
@@ -84,7 +88,17 @@ class ChooserViewSet(ViewSet):
     create_action_clicked_label = None  #: Alternative text to display on the submit button after it has been clicked
     creation_tab_label = None  #: Label for the 'create' tab in the chooser modal (defaults to the same as create_action_label)
 
-    permission_policy = None
+    # Let the views consult the registry at request time by default.
+    permission_policy = ViewSet.UNDEFINED
+    """
+    The permission policy for the model.
+
+    .. versionchanged:: 8.0
+
+        This property is deprecated and will be removed in a future release.
+        Register the permission policy for the model via
+        :func:`wagtail.permissions.register_permission_policy()` instead.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -95,6 +109,8 @@ class ChooserViewSet(ViewSet):
         return super().get_common_view_kwargs(
             **{
                 "model": self.model,
+                # RemovedInWagtail90Warning: remove in favour of registering the
+                # policy via the registry.
                 "permission_policy": self.permission_policy,
                 "preserve_url_parameters": self.preserve_url_parameters,
                 "url_filter_parameters": self.url_filter_parameters,
@@ -232,3 +248,13 @@ class ChooserViewSet(ViewSet):
             if self.widget_telepath_adapter_class:
                 adapter = self.widget_telepath_adapter_class()
                 register_telepath_adapter(adapter, self.widget_class)
+
+        model = resolve_model_string(self.model)
+        if self.permission_policy and self.permission_policy is not self.UNDEFINED:
+            warnings.warn(
+                f"A permission policy for {model.__name__} was set via "
+                f"{self.__class__.__name__}. Please register the policy with "
+                f"wagtail.permissions.register_permission_policy("
+                f"{model.__name__}, <policy_instance>) instead.",
+                RemovedInWagtail90Warning,
+            )

@@ -8,9 +8,14 @@ import { Action, State } from './reducers';
 
 type ThunkActionType = ThunkAction<void, State, unknown, Action>;
 
+const getPageStart = createAction('GET_PAGE_START', (id: number) => ({ id }));
 const getPageSuccess = createAction(
   'GET_PAGE_SUCCESS',
-  (id: number, data: admin.WagtailPageAPI) => ({ id, data }),
+  (id: number, data: admin.WagtailExplorerAPI, offset: number) => ({
+    id,
+    data,
+    offset,
+  }),
 );
 const getPageFailure = createAction(
   'GET_PAGE_FAILURE',
@@ -18,86 +23,32 @@ const getPageFailure = createAction(
 );
 
 /**
- * Gets a page from the API.
+ * Gets a page, its translations, and its children from the API.
  */
-function getPage(id: number): ThunkActionType {
-  return (dispatch) =>
-    admin.getPage(id).then(
+function getPage(id: number, offset = 0): ThunkActionType {
+  return (dispatch, getState) => {
+    dispatch(getPageStart(id));
+
+    return admin.getExplorerPage(id, { offset }).then(
       (data) => {
-        dispatch(getPageSuccess(id, data));
+        const nbPages = offset + data.children.items.length;
+        dispatch(getPageSuccess(id, data, offset));
+
+        // Stop if the response was discarded as stale, e.g. the explorer was
+        // closed and reopened while loading, so a newer request is in charge.
+        const page = getState().nodes[id];
+        if (!page || page.children.items.length !== nbPages) {
+          return;
+        }
+
+        // Load more pages if necessary. Only one request is created even though
+        // more might be needed, thus naturally throttling the loading.
+        if (nbPages < data.children.count && nbPages < MAX_EXPLORER_PAGES) {
+          dispatch(getPage(id, nbPages));
+        }
       },
       (error) => {
         dispatch(getPageFailure(id, error));
-      },
-    );
-}
-
-const getChildrenStart = createAction('GET_CHILDREN_START', (id: number) => ({
-  id,
-}));
-const getChildrenSuccess = createAction(
-  'GET_CHILDREN_SUCCESS',
-  (id, items: admin.WagtailPageAPI[], meta: any) => ({ id, items, meta }),
-);
-const getChildrenFailure = createAction(
-  'GET_CHILDREN_FAILURE',
-  (id: number, error: Error) => ({ id, error }),
-);
-
-/**
- * Gets the children of a node from the API.
- */
-function getChildren(id: number, offset = 0): ThunkActionType {
-  return (dispatch) => {
-    dispatch(getChildrenStart(id));
-
-    return admin
-      .getPageChildren(id, {
-        offset: offset,
-      })
-      .then(
-        ({ items, meta }) => {
-          const nbPages = offset + items.length;
-          dispatch(getChildrenSuccess(id, items, meta));
-
-          // Load more pages if necessary. Only one request is created even though
-          // more might be needed, thus naturally throttling the loading.
-          if (nbPages < meta.total_count && nbPages < MAX_EXPLORER_PAGES) {
-            dispatch(getChildren(id, nbPages));
-          }
-        },
-        (error) => {
-          dispatch(getChildrenFailure(id, error));
-        },
-      );
-  };
-}
-
-const getTranslationsStart = createAction('GET_TRANSLATIONS_START', (id) => ({
-  id,
-}));
-const getTranslationsSuccess = createAction(
-  'GET_TRANSLATIONS_SUCCESS',
-  (id, items) => ({ id, items }),
-);
-const getTranslationsFailure = createAction(
-  'GET_TRANSLATIONS_FAILURE',
-  (id, error) => ({ id, error }),
-);
-
-/**
- * Gets the translations of a node from the API.
- */
-function getTranslations(id) {
-  return (dispatch) => {
-    dispatch(getTranslationsStart(id));
-
-    return admin.getAllPageTranslations(id, { onlyWithChildren: true }).then(
-      (items) => {
-        dispatch(getTranslationsSuccess(id, items));
-      },
-      (error) => {
-        dispatch(getTranslationsFailure(id, error));
       },
     );
   };
@@ -107,26 +58,9 @@ const openPageExplorerPrivate = createAction('OPEN_EXPLORER', (id) => ({ id }));
 export const closePageExplorer = createAction('CLOSE_EXPLORER');
 
 export function openPageExplorer(id: number): ThunkActionType {
-  return (dispatch, getState) => {
-    const { nodes } = getState();
-
-    const page = nodes[id];
-
+  return (dispatch) => {
     dispatch(openPageExplorerPrivate(id));
-
-    if (!page) {
-      dispatch(getChildren(id));
-
-      if (id !== 1) {
-        dispatch(getTranslations(id));
-      }
-    }
-
-    // We need to get the title of the starting page, only if it is not the site's root.
-    const isNotRoot = id !== 1;
-    if (isNotRoot) {
-      dispatch(getPage(id));
-    }
+    dispatch(getPage(id));
   };
 }
 
@@ -140,14 +74,13 @@ export function gotoPage(id: number, transition: number): ThunkActionType {
     const { nodes } = getState();
     const page = nodes[id];
 
+    // Pages that were only listed as children or translations of another page
+    // need to be loaded to get their parent, translations, and children.
+    // Start loading before navigating, so the node exists when it is rendered.
+    if (!page || (!page.isLoaded && !page.isFetching)) {
+      dispatch(getPage(id));
+    }
+
     dispatch(gotoPagePrivate(id, transition));
-
-    if (page && !page.isFetchingChildren && !(page.children.count > 0)) {
-      dispatch(getChildren(id));
-    }
-
-    if (page && !page.isFetchingTranslations && page.translations == null) {
-      dispatch(getTranslations(id));
-    }
   };
 }

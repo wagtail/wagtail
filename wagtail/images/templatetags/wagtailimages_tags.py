@@ -2,12 +2,10 @@ from django import template
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
 
-from wagtail.images.models import Filter, Picture, ResponsiveImage
 from wagtail.images.shortcuts import (
     get_rendition_or_not_found,
     get_renditions_or_not_found,
 )
-from wagtail.images.views.serve import generate_image_url
 
 register = template.Library()
 
@@ -17,6 +15,8 @@ def image(parser, token):
     Image tag parser implementation. Shared between all image tags supporting filter specs
     as space-separated arguments.
     """
+    from wagtail.images.models import Filter
+
     tag_name, *bits = token.split_contents()
     image_expr = parser.compile_filter(bits[0])
     bits = bits[1:]
@@ -112,6 +112,8 @@ class ImageNode(template.Node):
         self.filter_specs = filter_specs
 
     def get_filter(self):
+        from wagtail.images.models import Filter
+
         return Filter(spec="|".join(self.filter_specs))
 
     def validate_image(self, context):
@@ -157,10 +159,14 @@ class ImageNode(template.Node):
 
 class SrcsetImageNode(ImageNode):
     def get_filters(self):
+        from wagtail.images.models import Filter
+
         filter_specs = Filter.expand_spec(self.filter_specs)
         return [Filter(spec=f) for f in filter_specs]
 
     def render(self, context):
+        from wagtail.images.models import ResponsiveImage
+
         image = self.validate_image(context)
 
         if not image:
@@ -184,6 +190,8 @@ class SrcsetImageNode(ImageNode):
 
 class PictureNode(SrcsetImageNode):
     def render(self, context):
+        from wagtail.images.models import Picture
+
         image = self.validate_image(context)
 
         if not image:
@@ -209,6 +217,8 @@ class PictureNode(SrcsetImageNode):
 
 @register.simple_tag()
 def image_url(image, filter_spec, viewname="wagtailimages_serve"):
+    from wagtail.images.views.serve import generate_image_url
+
     try:
         return generate_image_url(image, filter_spec, viewname)
     except NoReverseMatch as e:

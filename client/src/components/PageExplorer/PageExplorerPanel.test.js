@@ -69,12 +69,12 @@ describe('PageExplorerPanel', () => {
               1: {
                 id: 1,
                 admin_display_title: 'Test',
-                meta: { status: {}, type: 'test' },
+                meta: { depth: 3, status: 'live', live: true, type: 'test' },
               },
               2: {
                 id: 2,
                 admin_display_title: 'Foo',
-                meta: { status: {}, type: 'foo' },
+                meta: { depth: 3, status: 'live', live: true, type: 'foo' },
               },
             }}
           />,
@@ -138,7 +138,7 @@ describe('PageExplorerPanel', () => {
             1: {
               id: 1,
               admin_display_title: 'Test',
-              meta: { status: {}, type: 'test' },
+              meta: { depth: 3, status: 'live', live: true, type: 'test' },
             },
           }}
         />,

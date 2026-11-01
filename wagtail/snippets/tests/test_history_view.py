@@ -10,10 +10,10 @@ from django.utils.timezone import make_aware
 from wagtail.log_actions import LogContext, log
 from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import Advert, DraftStateModel, FullFeaturedSnippet
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import PageFixturesMixin, WagtailTestUtils
 
 
-class TestSnippetHistory(WagtailTestUtils, TestCase):
+class TestSnippetHistory(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def get(self, snippet, params=None):

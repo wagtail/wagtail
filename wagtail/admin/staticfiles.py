@@ -32,7 +32,7 @@ except AttributeError:
 if use_version_strings:
     # INSTALLED_APPS is used as a unique value to distinguish Wagtail apps
     # and avoid exposing the Wagtail version directly
-    VERSION_HASH = hashlib.sha1(
+    VERSION_HASH = hashlib.sha1(  # noqa: S324 -  use of sha1 is acceptable here for non-security purposes
         "".join([__version__] + list(settings.INSTALLED_APPS)).encode(),
     ).hexdigest()[:8]
 else:

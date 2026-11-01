@@ -11,7 +11,6 @@ from openpyxl import load_workbook
 
 from wagtail.admin.viewsets.pages import PageViewSet, page_viewset_registry
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
 from wagtail.models.workflows import Workflow
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -22,7 +21,7 @@ from wagtail.test.testapp.models import (
     SimplePage,
     SimpleParentPage,
 )
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
@@ -106,7 +105,7 @@ class TestPageViewSet(SimpleTestCase):
             )
 
 
-class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
+class TestPageViewSetRegistry(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_as_view(self):
@@ -181,7 +180,9 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
             view(request, pk=2)
 
 
-class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+class TestCustomExplorableIndexView(
+    PageFixturesMixin, AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     fixtures = ["test.json"]
     base_breadcrumb_items = [
         {"url": reverse("wagtailadmin_explore_root"), "label": "Root"}
@@ -559,7 +560,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         )
 
 
-class TestCustomViews(WagtailTestUtils, TestCase):
+class TestCustomViews(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

@@ -42,7 +42,7 @@ class EventPageIndex(Page):
         events = events.filter(date_from__gte=date.today())
 
         # Order by date
-        events = events.order_by('date_from')
+        events = events.order_by("date_from")
 
         return events
 ```

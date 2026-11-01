@@ -216,9 +216,7 @@ export class SyncController extends Controller<HTMLInputElement> {
       ) => {
         const { detail: { element, name = '', value } = {} } = event;
         const target = event.target as
-          | HTMLInputElement
-          | HTMLTextAreaElement
-          | HTMLSelectElement;
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
         if (
           !NAMES.includes(name) ||

@@ -1,8 +1,10 @@
 import collections
 import json
+import unittest
 from io import StringIO
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
@@ -13,11 +15,11 @@ from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import Page, PageFixturesMixin, WagtailTestUtils
 
 
 def get_total_page_count():
@@ -35,7 +37,7 @@ class Test10411APIViewSet(PagesAPIViewSet):
     meta_fields = []
 
 
-class TestPageListing(WagtailTestUtils, TestCase):
+class TestPageListing(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -312,6 +314,25 @@ class TestPageListing(WagtailTestUtils, TestCase):
         response = self.get_response(type="demosite.BlogEntryPage", fields="*")
         content = json.loads(response.content.decode("UTF-8"))
 
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "seo_title",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+            }
+
         for page in content["items"]:
             self.assertEqual(
                 set(page.keys()),
@@ -330,23 +351,31 @@ class TestPageListing(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "seo_title",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_all_fields_then_remove_something(self):
+        expected_meta_keys = {
+            "type",
+            "detail_url",
+            "show_in_menus",
+            "first_published_at",
+            "alias_of",
+            "slug",
+            "html_url",
+            "search_description",
+            "locale",
+        }
+        removed_fields = "*,-title,-date,-seo_title"
+        if swapper.is_swapped("wagtailcore", "Page"):
+            expected_meta_keys = expected_meta_keys - {
+                "show_in_menus",
+                "search_description",
+            }
+            removed_fields = "*,-title,-date"
+
         response = self.get_response(
-            type="demosite.BlogEntryPage", fields="*,-title,-date,-seo_title"
+            type="demosite.BlogEntryPage", fields=removed_fields
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -366,17 +395,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
             )
             self.assertEqual(
                 set(page["meta"].keys()),
-                {
-                    "type",
-                    "detail_url",
-                    "show_in_menus",
-                    "first_published_at",
-                    "alias_of",
-                    "slug",
-                    "html_url",
-                    "search_description",
-                    "locale",
-                },
+                expected_meta_keys,
             )
 
     def test_remove_all_fields(self):
@@ -440,7 +459,17 @@ class TestPageListing(WagtailTestUtils, TestCase):
                 # Note: inline objects default to displaying all fields
                 self.assertEqual(
                     set(carousel_item.keys()),
-                    {"id", "meta", "image", "embed_url", "caption", "link"},
+                    {
+                        "id",
+                        "meta",
+                        "image",
+                        "embed_url",
+                        "caption",
+                        "link",
+                        "link_page",
+                        "link_document",
+                        "link_external",
+                    },
                 )
                 self.assertEqual(
                     set(carousel_item["image"].keys()),
@@ -604,6 +633,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [12])
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus="false")
         content = json.loads(response.content.decode("UTF-8"))
@@ -671,6 +704,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
             "field filter error. 'abc' is not a valid value for feed_image",
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "show_in_menus field is not available on custom base page models",
+    )
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus="abc")
         content = json.loads(response.content.decode("UTF-8"))
@@ -840,6 +877,12 @@ class TestPageListing(WagtailTestUtils, TestCase):
         )
 
     # SITE FILTER
+
+    def test_site_filter_nonexistent_site_gives_error(self):
+        response = self.get_response(site="not-a-site")
+        content = response.json()
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(content, {"message": "No Site matches the given query."})
 
     def test_site_filter_same_hostname_returns_error(self):
         response = self.get_response(site="localhost")
@@ -1099,7 +1142,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
 
 @tag("transaction")
-class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
+class TestPageListingSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase):
     fixtures = ["demosite.json"]
 
     def setUp(self):
@@ -1271,7 +1314,7 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(content["meta"]["total_count"], 0)
 
 
-class TestPageDetail(TestCase):
+class TestPageDetail(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, page_id, **params):
@@ -1382,7 +1425,17 @@ class TestPageDetail(TestCase):
         for carousel_item in content["carousel_items"]:
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "embed_url", "link", "caption", "image"},
+                {
+                    "id",
+                    "meta",
+                    "embed_url",
+                    "link",
+                    "caption",
+                    "image",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(set(carousel_item["meta"].keys()), {"type"})
 
@@ -1417,18 +1470,29 @@ class TestPageDetail(TestCase):
         ]
         self.assertEqual(list(content.keys()), field_order)
 
-        meta_field_order = [
-            "type",
-            "detail_url",
-            "html_url",
-            "slug",
-            "show_in_menus",
-            "seo_title",
-            "search_description",
-            "first_published_at",
-            "alias_of",
-            "parent",
-        ]
+        if swapper.is_swapped("wagtailcore", "Page"):
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
+        else:
+            meta_field_order = [
+                "type",
+                "detail_url",
+                "html_url",
+                "slug",
+                "show_in_menus",
+                "seo_title",
+                "search_description",
+                "first_published_at",
+                "alias_of",
+                "parent",
+            ]
         self.assertEqual(list(content["meta"].keys()), meta_field_order)
 
     def test_null_foreign_key(self):
@@ -1521,9 +1585,15 @@ class TestPageDetail(TestCase):
         self.assertNotIn("html_url", set(content["meta"].keys()))
 
     def test_remove_all_meta_fields(self):
+        if swapper.is_swapped("wagtailcore", "Page"):
+            removed_fields = (
+                "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-parent",
+            )
+        else:
+            removed_fields = "-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title"
         response = self.get_response(
             16,
-            fields="-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title",
+            fields=removed_fields,
         )
         content = json.loads(response.content.decode("UTF-8"))
 
@@ -1582,7 +1652,17 @@ class TestPageDetail(TestCase):
             # Note: inline objects default to displaying all fields
             self.assertEqual(
                 set(carousel_item.keys()),
-                {"id", "meta", "image", "embed_url", "caption", "link"},
+                {
+                    "id",
+                    "meta",
+                    "image",
+                    "embed_url",
+                    "caption",
+                    "link",
+                    "link_page",
+                    "link_document",
+                    "link_external",
+                },
             )
             self.assertEqual(
                 set(carousel_item["image"].keys()),
@@ -1712,8 +1792,71 @@ class TestPageDetail(TestCase):
             ],
         )
 
+    def test_rich_text_format_defaults_to_db_html(self):
+        blog_index = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
 
-class TestPageFind(TestCase):
+        content = json.loads(
+            self.get_response(16, fields="body").content.decode("UTF-8")
+        )
+
+        self.assertEqual(content["body"], db_html)
+
+    def test_rich_text_format_html_expands_entity_references(self):
+        blog_index = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        content = json.loads(
+            self.get_response(
+                16, fields="body", rich_text_format="html"
+            ).content.decode("UTF-8")
+        )
+
+        self.assertIn("/blog-index/", content["body"])
+        self.assertNotIn("linktype=", content["body"])
+
+    @override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html")
+    def test_rich_text_format_project_setting(self):
+        blog_index = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        content = json.loads(
+            self.get_response(16, fields="body").content.decode("UTF-8")
+        )
+
+        self.assertIn("/blog-index/", content["body"])
+
+    def test_rich_text_format_query_parameter_overrides_setting(self):
+        blog_index = models.BlogIndexPage.objects.get(id=5)
+        db_html = f'<p>Read more on the <a linktype="page" id="{blog_index.id}">blog index</a>.</p>'
+        models.BlogEntryPage.objects.filter(id=16).update(body=db_html)
+
+        with override_settings(WAGTAILAPI_RICH_TEXT_FORMAT="html"):
+            content = json.loads(
+                self.get_response(
+                    16, fields="body", rich_text_format="db_html"
+                ).content.decode("UTF-8")
+            )
+
+        self.assertEqual(content["body"], db_html)
+
+    def test_invalid_rich_text_format_gives_error(self):
+        response = self.get_response(16, rich_text_format="invalid")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            content,
+            {
+                "message": "rich_text_format must be one of 'db_html', 'db_markdown', 'html', 'markdown', got 'invalid'"
+            },
+        )
+
+
+class TestPageFind(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     def get_response(self, **params):
@@ -1792,8 +1935,118 @@ class TestPageFind(TestCase):
 
         self.assertEqual(content, {"message": "not found"})
 
+    def test_find_by_html_path_takes_precedence_over_id(self):
+        response = self.get_response(id=1234, html_path="/events-index/event-1/")
+        self.assertRedirects(
+            response,
+            "http://localhost" + reverse("wagtailapi_v2:pages:detail", args=[8]),
+            fetch_redirect_response=False,
+        )
 
-class TestPageDetailWithStreamField(TestCase):
+    def test_find_by_id_with_page_in_default_site(self):
+        # id=8 belongs to the default site's tree.
+        # Without ?site=, it is found.
+        response = self.get_response(id=8)
+        self.assertRedirects(
+            response,
+            "http://localhost" + reverse("wagtailapi_v2:pages:detail", args=[8]),
+            fetch_redirect_response=False,
+        )
+        # With site= for the default site, it is found.
+        response = self.get_response(id=8, site="localhost:80")
+        self.assertRedirects(
+            response,
+            "http://localhost"
+            + reverse("wagtailapi_v2:pages:detail", args=[8])
+            + "?site=localhost%3A80",
+            fetch_redirect_response=False,
+        )
+        # With ?site= for a different site, it is not found.
+        response = self.get_response(id=8, site="localhost:8001")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {"message": "not found"})
+
+    def test_find_by_id_with_page_in_non_default_site(self):
+        # id=24 is in a different (non-default) site tree.
+        # Without ?site=, we look for it based on the request's site, 404.
+        response = self.get_response(id=24)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {"message": "not found"})
+        # With the correct ?site=, it is found.
+        response = self.get_response(id=24, site="localhost:8001")
+        self.assertRedirects(
+            response,
+            "http://localhost"
+            + reverse("wagtailapi_v2:pages:detail", args=[24])
+            + "?site=localhost%3A8001",
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_with_page_in_default_site(self):
+        # /events-index/event-1/ belongs to the default site's tree.
+        # Without ?site=, it is found.
+        response = self.get_response(html_path="/events-index/event-1/")
+        self.assertRedirects(
+            response,
+            "http://localhost" + reverse("wagtailapi_v2:pages:detail", args=[8]),
+            fetch_redirect_response=False,
+        )
+        # With site= for the default site, it is found.
+        response = self.get_response(
+            html_path="/events-index/event-1/",
+            site="localhost:80",
+        )
+        self.assertRedirects(
+            response,
+            "http://localhost"
+            + reverse("wagtailapi_v2:pages:detail", args=[8])
+            + "?site=localhost%3A80",
+            fetch_redirect_response=False,
+        )
+        # With ?site= for a different site, it is not found.
+        response = self.get_response(
+            html_path="/events-index/event-1/",
+            site="localhost:8001",
+        )
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {"message": "not found"})
+
+    def test_find_by_html_path_matching_only_in_site_param_tree(self):
+        # A fresh site+page whose html_path only exists in the new tree,
+        # not in the tree of the site the request actually arrives on.
+        root = Page.objects.get(pk=1)
+        new_site_root = models.HomePage(title="New site root", slug="new-site-root")
+        root.add_child(instance=new_site_root)
+        new_site = Site.objects.create(
+            hostname="othersite.new",
+            port=80,
+            root_page=new_site_root,
+        )
+        page_in_new_site = models.StandardIndexPage(
+            title="Only on new site",
+            slug="only-on-new-site",
+            live=True,
+        )
+        new_site_root.add_child(instance=page_in_new_site)
+
+        # Without ?site=, the page is not found.
+        response = self.get_response(html_path="/only-on-new-site/")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {"message": "not found"})
+
+        # With ?site= for the new site, the page should've been found.
+        # However, the current implementation does not find it, because it only
+        # routes the path through the site of the request.
+        # Is this the desired behaviour?
+        response = self.get_response(
+            html_path="/only-on-new-site/",
+            site=new_site.hostname,
+        )
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json(), {"message": "not found"})
+
+
+class TestPageDetailWithStreamField(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1872,7 +2125,7 @@ class TestPageDetailWithStreamField(TestCase):
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
 @mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
-class TestPageCacheInvalidation(TestCase):
+class TestPageCacheInvalidation(PageFixturesMixin, TestCase):
     fixtures = ["demosite.json"]
 
     @classmethod
@@ -1920,7 +2173,7 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
         )
 
 
-class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
+class TestAPIDetailQueryCount(PageFixturesMixin, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):

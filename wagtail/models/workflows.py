@@ -1,3 +1,4 @@
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -91,6 +92,27 @@ class WorkflowStateQuerySet(models.QuerySet):
                 ),
                 object_id=str(instance.pk),
             )
+
+    def prefetch_task_states(self):
+        """
+        Performance optimisation for listing workflow states.
+        Fetches the workflow, requester and current task state of each workflow state,
+        and prefetches its task states (oldest first) onto ``_prefetched_task_states``.
+        """
+        return self.select_related(
+            "workflow",
+            "requested_by",
+            "current_task_state__task__content_type",
+            "current_task_state__finished_by",
+        ).prefetch_related(
+            models.Prefetch(
+                "task_states",
+                queryset=TaskState.objects.select_related(
+                    "task__content_type", "finished_by"
+                ).order_by("started_at", "id"),
+                to_attr="_prefetched_task_states",
+            )
+        )
 
 
 WorkflowStateManager = models.Manager.from_queryset(WorkflowStateQuerySet)
@@ -200,7 +222,7 @@ class WorkflowState(models.Model):
 
     def resume(self, user=None):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
-        from wagtail.models import Page
+        from wagtail.models import AbstractPage
 
         if self.status != self.STATUS_NEEDS_CHANGES:
             raise PermissionDenied
@@ -211,7 +233,7 @@ class WorkflowState(models.Model):
         self.save()
 
         instance = self.content_object
-        if isinstance(instance, Page):
+        if isinstance(instance, AbstractPage):
             instance = self.content_object.specific
 
         log(
@@ -323,7 +345,7 @@ class WorkflowState(models.Model):
 
     def cancel(self, user=None):
         """Cancels the workflow state"""
-        from wagtail.models import Page
+        from wagtail.models import AbstractPage
 
         if self.status not in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             raise PermissionDenied
@@ -331,7 +353,7 @@ class WorkflowState(models.Model):
         self.save()
 
         instance = self.content_object
-        if isinstance(instance, Page):
+        if isinstance(instance, AbstractPage):
             instance = self.content_object.specific
 
         log(
@@ -601,9 +623,7 @@ class AbstractWorkflow(ClusterableModel):
         """
         Returns a queryset of all the pages that this Workflow applies to.
         """
-        from wagtail.models import Page
-
-        pages = Page.objects.none()
+        pages = swapper.load_model("wagtailcore", "Page").objects.none()
 
         for workflow_page in self.workflow_pages.all():
             pages |= workflow_page.get_pages()

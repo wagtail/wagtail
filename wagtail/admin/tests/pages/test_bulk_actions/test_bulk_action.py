@@ -1,7 +1,12 @@
+import swapper
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.test.utils import WagtailTestUtils
+
+page_app, page_model = swapper.split(
+    swapper.get_model_name("wagtailcore", "Page").lower()
+)
 
 
 class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
@@ -13,8 +18,8 @@ class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
         url = reverse(
             "wagtail_bulk_action",
             args=(
-                "wagtailcore",
-                "page",
+                page_app,
+                page_model,
                 "ships",
             ),
         )

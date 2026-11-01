@@ -3,17 +3,21 @@
 
 {% block item_content %}
     <button type="button" id="checker-trigger" role="menuitem">
-        <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-content-checker__count" data-content-checker-count></span>
+        <span class="w-content-checker__count" data-content-checker-count></span>
         {% trans 'Checks' %}
     </button>
     {{ axe_configuration|json_script:"checker-axe-configuration" }}
-    {% trans 'Warnings' as dialog_title %}
-    {% fragment as issues_found %}
-        {% trans 'Issues found' %}
-        <span class="w-content-checker__count" data-content-checker-count></span>
-    {% endfragment %}
+    {% trans 'Checks' as dialog_title %}
     {% fragment as dialog_classname %}w-dialog--userbar {% admin_theme_classname %}{% endfragment %}
-    {% dialog id="checker-results" theme="floating" classname=dialog_classname title=dialog_title subtitle=issues_found dialog_root_selector="[data-wagtail-userbar]" %}
+    {% dialog id="checker-results" theme="floating" classname=dialog_classname title=dialog_title dialog_root_selector="[data-wagtail-userbar]" %}
+        {% include "wagtailadmin/shared/content_checks/metrics.html" %}
+        {% include "wagtailadmin/shared/content_checks/metadata.html" %}
+        <div>
+            <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold">
+                <span>{% trans 'Issues found' %}</span><span class="w-content-checker__count" data-content-checker-count>0</span>
+            </h2>
+            <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
+        </div>
     {% enddialog %}
     {# Contents of the dialog created in JS based on these templates. #}
     <template id="w-content-checker-row-template">

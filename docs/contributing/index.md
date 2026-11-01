@@ -6,7 +6,8 @@ Thank you for your interest in improving Wagtail!
 
 1. Read this document first.
 2. We don’t assign tasks. Feel free to pick any issue/task that isn’t already being worked on by someone else.
-3. Read the [Your first contribution guide](first_contribution_guide).
+3. **Purely AI-generated contributions are not welcome.** If you intend to use AI assistance, please read [our policy on AI-assisted contributions](use_of_generative_ai).
+4. Read the [Your first contribution guide](first_contribution_guide).
 
 ## Issues
 
@@ -60,7 +61,7 @@ There are many more ways to contribute to the Wagtail community, through code or
 
 -   Contribute to one of the other [core Wagtail projects](https://github.com/orgs/wagtail/repositories) in GitHub.
 -   Contribute to one of the community-maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
--   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
+-   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en/contributing/).
 -   Star the [wagtail](https://github.com/wagtail/wagtail) project on GitHub
 -   Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
 -   Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).
@@ -78,6 +79,7 @@ Creating and maintaining packages is a great way to contribute to the Django and
 
 first_contribution_guide
 developing
+api_development
 general_guidelines
 python_guidelines
 ui_guidelines
