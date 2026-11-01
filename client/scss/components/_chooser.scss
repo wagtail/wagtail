@@ -95,4 +95,8 @@ $preview-size: 2.625rem; // 42px
 
 .w-active-choices {
   @apply w-m-0 w-py-2 w-flex w-flex-wrap w-list-none w-gap-2;
+
+  &:empty {
+    display: none;
+  }
 }

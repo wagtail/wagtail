@@ -88,7 +88,7 @@ class SearchController {
       return false;
     });
 
-    this.multipleChoice = new Map();
+    this.multipleChoice = opts.multipleChoice || new Map();
   }
 
   attachSearchInput(selector) {
@@ -147,10 +147,6 @@ class SearchController {
   searchFromForm() {
     this.search(this.form.serialize());
   }
-
-  updateMultipleChoice(choices) {
-    this.multipleChoice = choices;
-  }
 }
 
 class ChooserModalOnloadHandlerFactory {
@@ -179,7 +175,6 @@ class ChooserModalOnloadHandlerFactory {
       opts?.creationFormTabSelector || '#tab-create';
 
     this.searchController = null;
-    this.multipleChoice = new Map();
   }
 
   ajaxifyLinks(modal, containerElement) {
@@ -204,9 +199,7 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    const form = modal.container[0].querySelector(
-      '[data-multiple-choice-form]',
-    );
+    const form = modal.body.querySelector('[data-multiple-choice-form]');
     if (!form) return;
 
     // Creates a pill for each hidden choice
@@ -218,25 +211,42 @@ class ChooserModalOnloadHandlerFactory {
       );
       const choice = form.querySelector(`li.w-pill[data-key="${key}"]`);
       if (!checkbox && !choice) {
-        const liElement = document.createElement('li');
-        liElement.classList.add('w-pill');
-        liElement.dataset.key = key;
-        liElement.innerHTML = `<span class="w-pill__content"></span>
-          <button class="w-pill__remove" type="button" aria-label="${gettext('Clear')}">
-              <svg class="icon icon-cross w-h-4 w-w-4" aria-hidden="true"><use href="#icon-cross"></use></svg>
-          </button>`;
-        liElement.querySelector('.w-pill__content').textContent = value;
-        choicesContainer.appendChild(liElement);
+        choicesContainer.appendChild(this.createChoicePill(key, value));
       } else if (checkbox && choice) {
         choice.remove();
       }
     });
   }
 
-  initMultipleChoices(modal) {
-    this.multipleChoice = new Map();
-    this.searchController.updateMultipleChoice(this.multipleChoice);
+  createChoicePill(key, label) {
+    const liElement = document.createElement('li');
+    liElement.classList.add('w-pill');
+    liElement.dataset.key = key;
 
+    const content = document.createElement('span');
+    content.classList.add('w-pill__content');
+    content.textContent = label;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('w-pill__remove');
+    button.setAttribute(
+      'aria-label',
+      gettext("Remove '%(title)s'").replace('%(title)s', label),
+    );
+    button.innerHTML = `<svg class="icon icon-cross w-h-4 w-w-4" aria-hidden="true"><use href="#icon-cross"></use></svg>`;
+
+    // Submits this choice while its checkbox is not on the current page
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'id';
+    input.value = key;
+
+    liElement.append(content, button, input);
+    return liElement;
+  }
+
+  initMultipleChoices(modal) {
     const form = modal.body[0].querySelector('[data-multiple-choice-form]');
     if (!form) return;
 
@@ -264,10 +274,6 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
       liElement.remove();
     });
-
-    $(form).on('submit', () => {
-      this.getMissingCheckboxes(form);
-    });
   }
 
   updateMultipleChoiceSubmitEnabledState(modal) {
@@ -281,24 +287,6 @@ class ChooserModalOnloadHandlerFactory {
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
     }
-  }
-
-  // get Checkbox States and create hidden inputs on submit to update the form with the missing checkboxes.
-  getMissingCheckboxes(form) {
-    this.multipleChoice.forEach((value, key) => {
-      const checkbox = form.querySelector(
-        `input[type="checkbox"][value="${key}"]`,
-      );
-
-      if (!checkbox?.checked) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'id';
-        input.value = key;
-        form.appendChild(input);
-      }
-    });
-    this.multipleChoice.clear();
   }
 
   ajaxifyCreationForm(modal) {
@@ -318,6 +306,7 @@ class ChooserModalOnloadHandlerFactory {
       form: $(this.searchFormSelector, modal.body),
       containerElement: modal.body,
       resultsContainerSelector: this.resultsContainerSelector,
+      multipleChoice: this.multipleChoice,
       onLoadResults: (containerElement) => {
         this.ajaxifyLinks(modal, containerElement);
       },
@@ -332,6 +321,7 @@ class ChooserModalOnloadHandlerFactory {
   }
 
   onLoadChooseStep(modal) {
+    this.multipleChoice = new Map();
     this.initSearchController(modal);
     this.initMultipleChoices(modal);
     this.ajaxifyLinks(modal, modal.body);
