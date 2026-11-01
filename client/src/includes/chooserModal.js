@@ -88,7 +88,7 @@ class SearchController {
       return false;
     });
 
-    this.multipleChoice = new Set();
+    this.multipleChoice = new Map();
   }
 
   attachSearchInput(selector) {
@@ -204,33 +204,10 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    // Listener for syncing multipleChoice for the current page
-    $(modal.container).on('change', '[data-multiple-choice-select]', (e) => {
-      const el = e.currentTarget;
-
-      if (el.checked) {
-        const label = e.currentTarget
-          .closest('tr')
-          .querySelector('td.title')
-          .textContent.trim();
-        this.multipleChoice.set(el.value, label);
-      } else {
-        this.multipleChoice.delete(el.value);
-      }
-      this.searchController.updateMultipleChoice(this.multipleChoice);
-    });
-
-    // Listener for removing active choices from multipleChoice for other pages/search
-    $(modal.container).on('click', '.w-active-choices button', (e) => {
-      const liElement = e.currentTarget.closest('li');
-      this.multipleChoice.delete(liElement.dataset.key);
-      this.updateMultipleChoiceSubmitEnabledState(modal);
-      liElement.remove();
-    });
-
     const form = modal.container[0].querySelector(
       '[data-multiple-choice-form]',
     );
+    if (!form) return;
 
     // Creates a pill for each hidden choice
     const choicesContainer =
@@ -244,15 +221,51 @@ class ChooserModalOnloadHandlerFactory {
         const liElement = document.createElement('li');
         liElement.classList.add('w-pill');
         liElement.dataset.key = key;
-        liElement.innerHTML = `<span class="w-pill__content">${value}</span>
+        liElement.innerHTML = `<span class="w-pill__content"></span>
           <button class="w-pill__remove" type="button" aria-label="${gettext('Clear')}">
               <svg class="icon icon-cross w-h-4 w-w-4" aria-hidden="true"><use href="#icon-cross"></use></svg>
           </button>`;
+        liElement.querySelector('.w-pill__content').textContent = value;
         choicesContainer.appendChild(liElement);
+      } else if (checkbox && choice) {
+        choice.remove();
       }
     });
+  }
 
-    form.addEventListener('submit', () => {
+  initMultipleChoices(modal) {
+    this.multipleChoice = new Map();
+    this.searchController.updateMultipleChoice(this.multipleChoice);
+
+    const form = modal.body[0].querySelector('[data-multiple-choice-form]');
+    if (!form) return;
+
+    // Listener for syncing multipleChoice for the current page
+    $(form).on('change', '[data-multiple-choice-select]', (e) => {
+      const el = e.currentTarget;
+
+      if (el.checked) {
+        const label =
+          el
+            .closest('tr, li')
+            ?.querySelector('td.title, h3')
+            ?.textContent.trim() || el.value;
+        this.multipleChoice.set(el.value, label);
+      } else {
+        this.multipleChoice.delete(el.value);
+      }
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+    });
+
+    // Listener for removing active choices from multipleChoice for other pages/search
+    $(form).on('click', '.w-active-choices button', (e) => {
+      const liElement = e.currentTarget.closest('li');
+      this.multipleChoice.delete(liElement.dataset.key);
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+      liElement.remove();
+    });
+
+    $(form).on('submit', () => {
       this.getMissingCheckboxes(form);
     });
   }
@@ -261,7 +274,7 @@ class ChooserModalOnloadHandlerFactory {
     // update the enabled state of the multiple choice submit button depending on whether
     // any items have been selected
     if (
-      $('[data-multiple-choice-select]:checked', modal.body).length +
+      $('[data-multiple-choice-select]:checked', modal.body).length ||
       this.multipleChoice.size
     ) {
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
@@ -277,7 +290,7 @@ class ChooserModalOnloadHandlerFactory {
         `input[type="checkbox"][value="${key}"]`,
       );
 
-      if (checkbox?.checked === false || !checkbox) {
+      if (!checkbox?.checked) {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'id';
@@ -320,6 +333,7 @@ class ChooserModalOnloadHandlerFactory {
 
   onLoadChooseStep(modal) {
     this.initSearchController(modal);
+    this.initMultipleChoices(modal);
     this.ajaxifyLinks(modal, modal.body);
     this.ajaxifyCreationForm(modal);
     // Set up submissions of the "choose multiple items" form to open in the modal.
