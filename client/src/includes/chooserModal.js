@@ -199,7 +199,9 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    const form = modal.body.querySelector('[data-multiple-choice-form]');
+    const form = modal.container[0].querySelector(
+      '[data-multiple-choice-form]',
+    );
     if (!form) return;
 
     // Creates a pill for each hidden choice
