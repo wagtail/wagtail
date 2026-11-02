@@ -1488,6 +1488,21 @@ describe('RulesController', () => {
         expect(countryField.value).toEqual('');
       });
 
+      it('should clear a selected option that is also the default selected option if it is being hidden/disabled', async () => {
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+
+        countryField.querySelector('option[value="8"]').defaultSelected = true; // Turkey
+        expect(countryField.value).toEqual('8');
+
+        continentField.value = '2'; // Africa
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+        expect(countryField.value).toEqual('');
+      });
+
       it('should support resetting to the correct default value from the select field options', async () => {
         const continentField = document.getElementById('continent-field');
         const countryField = document.getElementById('country-field');

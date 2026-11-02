@@ -235,8 +235,10 @@ export class RulesController extends Controller<
           if (!select) return;
 
           const resetValue =
-            Array.from(select.options).find((option) => option.defaultSelected)
-              ?.value || '';
+            Array.from(select.options).find(
+              (option) =>
+                option.defaultSelected && !option.disabled && !option.hidden,
+            )?.value || '';
 
           const currentValue = select.value;
 
