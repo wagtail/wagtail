@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.1 (xx.xx.xxxx) - IN DEVELOPMENT
+8.1 (02.11.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add page metadata (title, description and meta tags) to the content checks panel and userbar Checks dialog, with the userbar dialog now matching the page editor's Checks panel (Thibaud Colas)
