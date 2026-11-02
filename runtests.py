@@ -65,22 +65,29 @@ def runtests():
 
     if args.elasticsearch7:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
-        os.environ.setdefault("ELASTICSEARCH_VERSION", "7")
+        os.environ["ELASTICSEARCH_VERSION"] = "7"
+        os.environ.pop("OPENSEARCH_VERSION", None)
     elif args.elasticsearch8:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
-        os.environ.setdefault("ELASTICSEARCH_VERSION", "8")
+        os.environ["ELASTICSEARCH_VERSION"] = "8"
+        os.environ.pop("OPENSEARCH_VERSION", None)
     elif args.elasticsearch9:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
-        os.environ.setdefault("ELASTICSEARCH_VERSION", "9")
+        os.environ["ELASTICSEARCH_VERSION"] = "9"
+        os.environ.pop("OPENSEARCH_VERSION", None)
     elif args.opensearch2:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
-        os.environ.setdefault("OPENSEARCH_VERSION", "2")
+        os.environ["OPENSEARCH_VERSION"] = "2"
+        os.environ.pop("ELASTICSEARCH_VERSION", None)
     elif args.opensearch3:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
-        os.environ.setdefault("OPENSEARCH_VERSION", "3")
+        os.environ["OPENSEARCH_VERSION"] = "3"
+        os.environ.pop("ELASTICSEARCH_VERSION", None)
     elif "ELASTICSEARCH_URL" in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ["ELASTICSEARCH_URL"]
+        os.environ.pop("ELASTICSEARCH_VERSION", None)
+        os.environ.pop("OPENSEARCH_VERSION", None)
 
     if args.emailuser:
         os.environ["USE_EMAIL_USER_MODEL"] = "1"
@@ -103,10 +110,13 @@ def runtests():
     try:
         execute_from_command_line(argv)
     finally:
-        from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
-
-        shutil.rmtree(STATIC_ROOT, ignore_errors=True)
-        shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
+        try:
+            from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
+        except Exception:
+            pass
+        else:
+            shutil.rmtree(STATIC_ROOT, ignore_errors=True)
+            shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
 if __name__ == "__main__":
