@@ -1,7 +1,6 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2022
 # Mohammed Abdul gadir <weekmo@aol.com>, 2022
-# ultraify media <ultraify@gmail.com>, 2022
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022
 # Younes Oumakhou, 2022
 # Loic Teixeira, 2024
@@ -193,9 +192,6 @@ msgstr "لا"
 msgid "No results"
 msgstr "لا توجد نتائج"
 
-msgid "Page"
-msgstr "صفحة"
-
 msgid "Page explorer"
 msgstr "مستكشف الصفحات"
 
@@ -242,9 +238,6 @@ msgstr "بحث"
 
 msgid "Search options…"
 msgstr "خيارات البحث…"
-
-msgid "See all"
-msgstr "عرض الكل"
 
 msgid "Server Error"
 msgstr "خطأ في الخادم"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2025\n"
@@ -161,6 +161,7 @@ msgstr "Leita"
 msgid "All collections"
 msgstr "Öll söfn"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Yfirsíða"
 
@@ -1881,6 +1882,47 @@ msgstr "Sýna/fela brauðmolaslóð"
 msgid "Breadcrumb"
 msgstr "Brauðmolar"
 
+msgid "This data explained"
+msgstr "Útskýring á gögnum"
+
+msgid "Words"
+msgstr "Orð"
+
+msgid "Reading time"
+msgstr "Lestími"
+
+msgid "Readability"
+msgstr "Lesanleiki"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Við grípum efnið úr forskoðuninni, fjarlægjum alla stíla og reiknum út "
+"orðafjölda."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Við reiknum lestíma út frá fjölda orða, með því að notast við mismunandi "
+"leshraða fyrir mismunandi tungumál."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Við notum lesanleika formúlu sem byggir á lengd orða og setninga. Langar "
+"setningar og orð valda lækkun á lesanleika einkunn."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Skoðaðu <a href=\"%(guide_link)s\" target=\"_blank\">leiðbeiningarnar</"
+"a>fyrir frekari upplýsingar um hvernig einkunnir eru reiknaðar."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2038,50 +2080,6 @@ msgstr "Sýna vandamál"
 
 msgid "Content metrics"
 msgstr "Efnisupplýsingar"
-
-msgid "Words"
-msgstr "Orð"
-
-msgid "Reading time"
-msgstr "Lestími"
-
-msgid "Readability"
-msgstr "Lesanleiki"
-
-msgid "This data explained"
-msgstr "Útskýring á gögnum"
-
-msgid "How we calculate our metrics"
-msgstr "Hvernig við reiknum út einkunnina."
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Við grípum efnið úr forskoðuninni, fjarlægjum alla stíla og reiknum út "
-"orðafjölda."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Við reiknum lestíma út frá fjölda orða, með því að notast við mismunandi "
-"leshraða fyrir mismunandi tungumál."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Við notum lesanleika formúlu sem byggir á lengd orða og setninga. Langar "
-"setningar og orð valda lækkun á lesanleika einkunn."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Skoðaðu <a href=\"%(guide_link)s\" target=\"_blank\">leiðbeiningarnar</"
-"a>fyrir frekari upplýsingar um hvernig einkunnir eru reiknaðar."
 
 msgid "Issues found"
 msgstr "Atriði fundust"
@@ -2313,9 +2311,6 @@ msgstr "Skoða flýtivalmynd Wagtail"
 
 msgid "Checks"
 msgstr "Athuganir"
-
-msgid "Warnings"
-msgstr "Viðvaranir"
 
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
@@ -2748,6 +2743,10 @@ msgstr "Stillingarnar þínar hafa verið uppfærðar!"
 
 msgid "You have been successfully logged out."
 msgstr "Þú hefur verið skráður út."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Yfirsíða"
 
 msgid "Collections"
 msgstr "Söfn"

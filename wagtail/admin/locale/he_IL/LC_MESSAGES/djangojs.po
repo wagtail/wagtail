@@ -36,9 +36,6 @@ msgstr "העבר מטה"
 msgid "Move up"
 msgstr "העבר מעלה"
 
-msgid "Page"
-msgstr "עמוד"
-
 msgid "Pages"
 msgstr "עמודים"
 

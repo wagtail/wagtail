@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mohammad Foroutan, 2026\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,6 +163,7 @@ msgstr "جستجو"
 msgid "All collections"
 msgstr "همه مجموعه ها"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "والد"
 
@@ -1362,6 +1363,10 @@ msgstr "تنظیمات حساب شما با موفقیت تغییر یافت!"
 
 msgid "You have been successfully logged out."
 msgstr "با موفقیت خارج شدید."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "والد"
 
 msgid "Collections"
 msgstr "مجموعه ها"

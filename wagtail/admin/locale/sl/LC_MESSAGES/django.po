@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2026\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -168,6 +168,7 @@ msgstr "Iskanje"
 msgid "All collections"
 msgstr "Vse zbirke"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Nadrejeni"
 
@@ -1604,6 +1605,15 @@ msgstr "Preklop navigacijske sledi"
 msgid "Breadcrumb"
 msgstr "Drobtina"
 
+msgid "Words"
+msgstr "Besede"
+
+msgid "Reading time"
+msgstr "Čas branja"
+
+msgid "Readability"
+msgstr "Berljivost"
+
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
 msgstr "Prosimo vpišite <b>%(wagtail_site_name)s</b> za potrditev."
@@ -1738,15 +1748,6 @@ msgstr "Prikaži težavo"
 
 msgid "Content metrics"
 msgstr "Meritve vsebine"
-
-msgid "Words"
-msgstr "Besede"
-
-msgid "Reading time"
-msgstr "Čas branja"
-
-msgid "Readability"
-msgstr "Berljivost"
 
 msgid "Issues found"
 msgstr "Najdene težave"
@@ -1959,9 +1960,6 @@ msgstr "Oglejte si hitra dejanja Wagtail"
 
 msgid "Checks"
 msgstr "Preverjanja"
-
-msgid "Warnings"
-msgstr "Opozorila"
 
 msgid "Add a child page"
 msgstr "Dodaj podrejeno stran"
@@ -2363,6 +2361,10 @@ msgstr "Vaše nastavitve računa so bile uspešno spremenjene!"
 
 msgid "You have been successfully logged out."
 msgstr "Uspešno ste bili odjavljeni."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Nadrejeni"
 
 msgid "Collections"
 msgstr "Zbirke"

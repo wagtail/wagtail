@@ -165,9 +165,6 @@ msgstr "Ei"
 msgid "No results"
 msgstr "Ei tuloksia"
 
-msgid "Page"
-msgstr "Sivu"
-
 msgid "Page explorer"
 msgstr "Sivuselain"
 
@@ -211,9 +208,6 @@ msgstr "Tallennetaan..."
 
 msgid "Search"
 msgstr "Haku"
-
-msgid "See all"
-msgstr "Katso kaikki"
 
 msgid "Server Error"
 msgstr "Palvelinvirhe"

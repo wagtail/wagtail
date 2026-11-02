@@ -61,9 +61,6 @@ msgstr "Mū ki runga"
 msgid "No results"
 msgstr "Karekau he tukunga iho "
 
-msgid "Page"
-msgstr "Whārangi"
-
 msgid "Page explorer"
 msgstr "Kaihōpara-a-whārangi"
 
@@ -84,9 +81,6 @@ msgstr "Puritia"
 
 msgid "Search"
 msgstr "Haha"
-
-msgid "See all"
-msgstr "Kitea katoa"
 
 msgid "Server Error"
 msgstr "Hapa rorohiko"
