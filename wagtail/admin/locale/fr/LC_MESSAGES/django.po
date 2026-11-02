@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -190,6 +190,7 @@ msgstr "Rechercher"
 msgid "All collections"
 msgstr "Toutes les collections"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Parent"
 
@@ -2016,6 +2017,90 @@ msgstr "Afficher/masquer le fil d'Ariane"
 msgid "Breadcrumb"
 msgstr "Fil d'Ariane"
 
+msgid "Page metadata"
+msgstr "Métadonnées de la page"
+
+msgid "This data explained"
+msgstr "Ces données expliquées"
+
+msgid "What is page metadata?"
+msgstr "Que sont les métadonnées d'une page"
+
+msgid ""
+"Metadata lives in the HTML of the page, and includes the page title and "
+"description used by search engines."
+msgstr ""
+"Les métadonnées sont définies dans le HTML de la page, et incluent le titre "
+"et la description de page utilisés par les moteurs de recherche."
+
+msgid "How are the lengths calculated?"
+msgstr "Comment sont calculées les tailles ?"
+
+msgid ""
+"The title length of around 580 pixels or 60 characters, and description "
+"length of around 160 characters, are approximations of how this metadata is "
+"displayed in search results, rather than hard limits."
+msgstr ""
+"La taille de titre d'environ 580 pixels ou 60 caractères, et la taille de la "
+"description d'environ 160 caractères, sont des approximations sur comment "
+"ces métadonnées sont affichées dans les résultats de recherche, plutôt que "
+"des limites forcées."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">page metadata guide</a> "
+"for more information on how metadata is used."
+msgstr ""
+"Consulter notre <a href=\"%(guide_link)s\" target=\"_blank\">guide des "
+"métadonnées de page</a> pour plus d'informations sur comment les métadonnées "
+"sont utilisées."
+
+msgid "Description"
+msgstr "Description"
+
+msgid "View more meta tags"
+msgstr "Voir plus de balises méta"
+
+msgid "Words"
+msgstr "Mots"
+
+msgid "Reading time"
+msgstr "Durée de lecture"
+
+msgid "Readability"
+msgstr "Lisibilité"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Nous extrayons le contenu principal de la prévisualisation, en retirant tout "
+"formatage, puis calculons le nombre de mots."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Nous calculons la durée de lecture depuis le nombre de mots, en utilisant "
+"différentes vitesse de lecture pour chaque langue."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Nous utilisons une formule de lisibilité basée sur la longueur des mots et "
+"des phrases. De longues phrases et mots conduisent à un score de lisibilité "
+"moins bon."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consulter notre <a href=\"%(guide_link)s\" target=\"_blank\">guide sur les "
+"vérifications de contenu</a>pour plus d'information sur comment les "
+"indicateurs sont calculés."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2203,52 +2288,6 @@ msgstr "Afficher le problème"
 
 msgid "Content metrics"
 msgstr "Métriques de contenu"
-
-msgid "Words"
-msgstr "Mots"
-
-msgid "Reading time"
-msgstr "Durée de lecture"
-
-msgid "Readability"
-msgstr "Lisibilité"
-
-msgid "This data explained"
-msgstr "Ces données expliquées"
-
-msgid "How we calculate our metrics"
-msgstr "Comment nous calculons ces indicateurs"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Nous extrayons le contenu principal de la prévisualisation, en retirant tout "
-"formatage, puis calculons le nombre de mots."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Nous calculons la durée de lecture depuis le nombre de mots, en utilisant "
-"différentes vitesse de lecture pour chaque langue."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Nous utilisons une formule de lisibilité basée sur la longueur des mots et "
-"des phrases. De longues phrases et mots conduisent à un score de lisibilité "
-"moins bon."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Consulter notre <a href=\"%(guide_link)s\" target=\"_blank\">guide sur les "
-"vérifications de contenu</a>pour plus d'information sur comment les "
-"indicateurs sont calculés."
 
 msgid "Issues found"
 msgstr "Problèmes trouvés"
@@ -2492,9 +2531,6 @@ msgstr "Voir les actions rapides Wagtail"
 
 msgid "Checks"
 msgstr "Vérifications"
-
-msgid "Warnings"
-msgstr "Alertes"
 
 msgid "Add a child page"
 msgstr "Ajouter une sous-page"
@@ -2943,6 +2979,10 @@ msgstr "Vos paramètres de compte ont été mis à jour avec succès !"
 msgid "You have been successfully logged out."
 msgstr "Vous avez été déconnecté avec succès."
 
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Parent"
+
 msgid "Collections"
 msgstr "Collections"
 
@@ -3068,6 +3108,12 @@ msgstr "Enregistrer écrira une nouvelle version."
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr ""
 "Le/la %(model_name)s n'a pu être enregistré(e) car il/elle est verrouillé(e)"
+
+msgid ""
+"The workflow action could not be performed as the workflow state has changed."
+msgstr ""
+"L'action de workflow n'a pas pas pu être exécutée car l'état du workflow a "
+"changé."
 
 #, python-format
 msgid ""

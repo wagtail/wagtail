@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022,2024-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,8 +26,22 @@ msgid "Wagtail documents"
 msgstr "Documentos de Wagtail"
 
 #, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos soportados: %(supported_formats)s."
+
+#, python-format
 msgid "Maximum filesize: %(max_upload_size)s."
 msgstr "Máximo tamaño de arquivo: %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"Not a supported document format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Non é un formato de documento soportado. Formatos soportados: "
+"%(supported_formats)s."
+
+msgid "Not a supported document format."
+msgstr "Formato de documento non soportado."
 
 #, python-format
 msgid ""

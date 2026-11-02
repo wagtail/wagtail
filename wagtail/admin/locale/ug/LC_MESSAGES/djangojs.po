@@ -168,9 +168,6 @@ msgstr "ياق"
 msgid "No results"
 msgstr "نەتىجە يوق"
 
-msgid "Page"
-msgstr "بەت"
-
 msgid "Page explorer"
 msgstr "بەت باشقۇرۇش"
 
@@ -218,9 +215,6 @@ msgstr "ئىزدەش"
 
 msgid "Search options…"
 msgstr "ئىزدەش تاللانمىسى…"
-
-msgid "See all"
-msgstr "ھەممىنى كۆرسەت"
 
 msgid "Server Error"
 msgstr "مۇلازىمېتىر خاتالىقى"

@@ -181,9 +181,6 @@ msgstr "Nu"
 msgid "No results"
 msgstr "Niciun rezultat"
 
-msgid "Page"
-msgstr "Pagină"
-
 msgid "Page explorer"
 msgstr "Explorator de pagini"
 
@@ -232,9 +229,6 @@ msgstr "Caută"
 
 msgid "Search options…"
 msgstr "Opțiuni de căutare…"
-
-msgid "See all"
-msgstr "Vezi toate"
 
 msgid "Server Error"
 msgstr "Eroare de server"

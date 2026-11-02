@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -143,6 +143,7 @@ msgstr "Szukaj"
 msgid "All collections"
 msgstr "Wszystkie kolekcje"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Rodzic"
 
@@ -1793,6 +1794,12 @@ msgstr "Przełącz okruszki"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
+msgid "Words"
+msgstr "Słowa"
+
+msgid "Reading time"
+msgstr "Czas czytania"
+
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
 msgstr "Proszę wpisz <b>%(wagtail_site_name)s</b> aby potwierdzić."
@@ -1924,12 +1931,6 @@ msgstr "Pokaż problem"
 
 msgid "Content metrics"
 msgstr "Metryki treści"
-
-msgid "Words"
-msgstr "Słowa"
-
-msgid "Reading time"
-msgstr "Czas czytania"
 
 msgid "Issues found"
 msgstr "Odnalezione problemy"
@@ -2145,9 +2146,6 @@ msgstr "Sortuj"
 
 msgid "View Wagtail quick actions"
 msgstr "Wyświetl szybkie akcje Wagtail"
-
-msgid "Warnings"
-msgstr "Ostrzeżenia"
 
 msgid "Add a child page"
 msgstr "Dodaj stronę podrzędną"
@@ -2529,6 +2527,10 @@ msgstr "Ustawienia Twojego konta zostały zmienione pomyślnie!"
 
 msgid "You have been successfully logged out."
 msgstr "Zostałeś pomyślnie wylogowany."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Rodzic"
 
 msgid "Collections"
 msgstr "Kolekcje"

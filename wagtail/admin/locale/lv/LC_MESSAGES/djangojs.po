@@ -73,9 +73,6 @@ msgstr "Nē"
 msgid "No results"
 msgstr "Nav rezultātu"
 
-msgid "Page"
-msgstr "Lapa"
-
 msgid "Page explorer"
 msgstr "Lapu pārlūks"
 
@@ -99,9 +96,6 @@ msgstr "Saglabā..."
 
 msgid "Search"
 msgstr "Meklēt"
-
-msgid "See all"
-msgstr "Apskatīt visu"
 
 msgid "Server Error"
 msgstr "Servera kļūda"

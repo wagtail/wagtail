@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mario <mario@catalpa.io>, 2019,2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -164,8 +164,9 @@ msgstr "Buka"
 msgid "All collections"
 msgstr "Koleksaun hotu-hotu"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Inan-aman"
+msgstr "inan-aman"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -1650,6 +1651,18 @@ msgstr "Troka breadcrumbs"
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
 
+msgid "This data explained"
+msgstr "Dadus ne'e esplika ona"
+
+msgid "Words"
+msgstr "Liafuan"
+
+msgid "Reading time"
+msgstr "Oras lee"
+
+msgid "Readability"
+msgstr "Lejibilidade"
+
 msgid "You saved a new version in another window"
 msgstr "Ita-boot salva versaun foun iha janela seluk"
 
@@ -1763,18 +1776,6 @@ msgstr "Minimapa"
 msgid "Toggle side panel"
 msgstr "Altera painél sorin"
 
-msgid "Words"
-msgstr "Liafuan"
-
-msgid "Reading time"
-msgstr "Oras lee"
-
-msgid "Readability"
-msgstr "Lejibilidade"
-
-msgid "This data explained"
-msgstr "Dadus ne'e esplika ona"
-
 msgid "Locale: "
 msgstr "Lokál"
 
@@ -1866,9 +1867,6 @@ msgstr "Orden"
 
 msgid "Checks"
 msgstr "Cek"
-
-msgid "Warnings"
-msgstr "Alerta"
 
 msgid "Add a child page"
 msgstr "Aumenta pájina oan ida"
@@ -2035,6 +2033,10 @@ msgstr "Ita-boot nia konta konfigurasaun sira atualiza ona ho susesu!"
 
 msgid "You have been successfully logged out."
 msgstr "Ita boot sai ona ho sussessu."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "inan-aman"
 
 msgid "Collections"
 msgstr "Koleksaun"

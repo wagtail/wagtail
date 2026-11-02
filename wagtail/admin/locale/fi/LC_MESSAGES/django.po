@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -139,6 +139,7 @@ msgstr "Haku"
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Isäntä"
 
@@ -1258,6 +1259,12 @@ msgstr "Murupolut päälle/pois"
 msgid "Breadcrumb"
 msgstr "Linkkipolku"
 
+msgid "Words"
+msgstr "Sanoja"
+
+msgid "Reading time"
+msgstr "Lukuaika"
+
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
 msgstr "Kirjoita <b>%(wagtail_site_name)s</b> vahvistaaksesi."
@@ -1357,12 +1364,6 @@ msgstr "Sivupaneeli päälle/pois"
 
 msgid "Side panel width"
 msgstr "Sivupaneelin leveys"
-
-msgid "Words"
-msgstr "Sanoja"
-
-msgid "Reading time"
-msgstr "Lukuaika"
 
 msgid "Issues found"
 msgstr "Ongelmia löytynyt"
@@ -1552,9 +1553,6 @@ msgstr "Järjestä"
 
 msgid "View Wagtail quick actions"
 msgstr "Näytä Wagtailin pikatoiminnot"
-
-msgid "Warnings"
-msgstr "Varoitukset"
 
 msgid "Add a child page"
 msgstr "Lisää alasivu"
@@ -1839,6 +1837,10 @@ msgstr "Tilisi asetukset on muutettu onnistuneesti!"
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Isäntä"
 
 msgid "Collections"
 msgstr "Kokoelmat"

@@ -57,9 +57,6 @@ msgstr "މައްޗަށް ދޭ"
 msgid "No"
 msgstr "ނޫން"
 
-msgid "Page"
-msgstr "ސަފްހާ"
-
 msgid "Pages"
 msgstr "ސަފްހާތައް"
 

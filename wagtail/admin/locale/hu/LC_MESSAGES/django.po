@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -154,6 +154,7 @@ msgstr "Keresés"
 msgid "All collections"
 msgstr "Összes gyűjtemény"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Szülő"
 
@@ -1871,6 +1872,12 @@ msgstr "Morzsamenü kapcsolása"
 msgid "Breadcrumb"
 msgstr "Navigációs sáv"
 
+msgid "Words"
+msgstr "Szavak"
+
+msgid "Reading time"
+msgstr "Olvasási idő"
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2009,12 +2016,6 @@ msgstr "Probléma megjelenítése"
 
 msgid "Content metrics"
 msgstr "Tartalmi mérőszámok"
-
-msgid "Words"
-msgstr "Szavak"
-
-msgid "Reading time"
-msgstr "Olvasási idő"
 
 msgid "Issues found"
 msgstr "Problémák találhatóak"
@@ -2242,9 +2243,6 @@ msgstr "Gyors akciók megtekintése"
 
 msgid "Checks"
 msgstr "Ellenőrzések"
-
-msgid "Warnings"
-msgstr "Figyelmeztetések"
 
 msgid "Add a child page"
 msgstr "Gyermek oldal hozzáadása"
@@ -2664,6 +2662,10 @@ msgstr "A fiók beállításainak mentése sikeres volt!"
 
 msgid "You have been successfully logged out."
 msgstr "A kijelentkezés sikeres volt."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Szülő"
 
 msgid "Collections"
 msgstr "Gyűjtemények"

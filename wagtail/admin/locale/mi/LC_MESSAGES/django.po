@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -111,6 +111,7 @@ msgstr "Haha-a-karangatanga"
 msgid "Search"
 msgstr "Haha"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Mātua"
 
@@ -543,6 +544,10 @@ msgstr "Tukurua"
 
 msgid "Password"
 msgstr "Kupu muna"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Mātua"
 
 msgid "Home"
 msgstr "Kainga"

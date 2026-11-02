@@ -185,9 +185,6 @@ msgstr "No"
 msgid "No results"
 msgstr "Nessun risultato"
 
-msgid "Page"
-msgstr "Pagina"
-
 msgid "Page explorer"
 msgstr "Esplora pagine"
 
@@ -236,9 +233,6 @@ msgstr "Cerca"
 
 msgid "Search options…"
 msgstr "Opzioni di ricerca..."
-
-msgid "See all"
-msgstr "Vedi tutto"
 
 msgid "Server Error"
 msgstr "Errore del server"

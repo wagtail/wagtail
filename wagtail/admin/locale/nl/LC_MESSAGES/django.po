@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -186,8 +186,9 @@ msgstr "Zoeken"
 msgid "All collections"
 msgstr "Alle collecties"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Bovenliggende pagina"
+msgstr "Bovenliggende"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -1957,6 +1958,89 @@ msgstr "Toon/verberg kruimelpad"
 msgid "Breadcrumb"
 msgstr "Kruimelpad"
 
+msgid "Page metadata"
+msgstr "Pagina metadata"
+
+msgid "This data explained"
+msgstr "Deze data uitgelegd"
+
+msgid "What is page metadata?"
+msgstr "Wat is pagina metadata?"
+
+msgid ""
+"Metadata lives in the HTML of the page, and includes the page title and "
+"description used by search engines."
+msgstr ""
+"Metadata zit verwerkt in de HTML-broncode van de pagina. Deze metadata bevat "
+"onder andere de paginatitel, paginabeschrijving en andere gegevens die door "
+"zoekmachines en andere systemen gelezen worden."
+
+msgid "How are the lengths calculated?"
+msgstr "Hoe wordt de lengte berekent?"
+
+msgid ""
+"The title length of around 580 pixels or 60 characters, and description "
+"length of around 160 characters, are approximations of how this metadata is "
+"displayed in search results, rather than hard limits."
+msgstr ""
+"De lengte van een titel als deze op 580 pixels breedte wordt getoond in "
+"zoekmachine resultaten is ongeveer 60 tekens. Van een beschrijving worden "
+"ongeveer 160 tekens getoond. Dit zijn richtlijnen om je te helpen met SEO "
+"optimalisatie, geen harde limieten."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">page metadata guide</a> "
+"for more information on how metadata is used."
+msgstr ""
+"Bekijk de <a href=\"%(guide_link)s\" target=\"_blank\">pagina metadata "
+"handleiding</a> voor meer informatie over hoe metadata gebruikt wordt."
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "View more meta tags"
+msgstr "Bekijk meer meta tags"
+
+msgid "Words"
+msgstr "Woorden"
+
+msgid "Reading time"
+msgstr "Geschatte leestijd"
+
+msgid "Readability"
+msgstr "Leesbaarheid"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
+"en tellen het aantal woorden."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"We berekenen de leestijd op basis van het aantal woorden, met verschillende "
+"leessnelheden voor verschillende talen."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"We gebruiken een leesbaarheidsformule die is gebaseerd op de lengte van "
+"woorden en zinnen. Lange zinnen en woorden leiden tot een lagere "
+"leesbaarheidsscore."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Zie de <a href=\"%(guide_link)s\" target=\"_blank\">gids voor "
+"contentcontroles</a> voor meer informatie over hoe de controles werken."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2144,51 +2228,6 @@ msgstr "Toon probleem"
 
 msgid "Content metrics"
 msgstr "Content statistieken"
-
-msgid "Words"
-msgstr "Woorden"
-
-msgid "Reading time"
-msgstr "Geschatte leestijd"
-
-msgid "Readability"
-msgstr "Leesbaarheid"
-
-msgid "This data explained"
-msgstr "Deze data uitgelegd"
-
-msgid "How we calculate our metrics"
-msgstr "Hoe we tot deze meetwaarden komen"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
-"en tellen het aantal woorden."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"We berekenen de leestijd op basis van het aantal woorden, met verschillende "
-"leessnelheden voor verschillende talen."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"We gebruiken een leesbaarheidsformule die is gebaseerd op de lengte van "
-"woorden en zinnen. Lange zinnen en woorden leiden tot een lagere "
-"leesbaarheidsscore."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Zie de <a href=\"%(guide_link)s\" target=\"_blank\">gids voor "
-"contentcontroles</a> voor meer informatie over hoe de controles werken."
 
 msgid "Issues found"
 msgstr "Problemen gevonden"
@@ -2430,9 +2469,6 @@ msgstr "Bekijk Wagtail snel acties"
 
 msgid "Checks"
 msgstr "Checks"
-
-msgid "Warnings"
-msgstr "Waarschuwingen"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
@@ -2879,6 +2915,10 @@ msgstr "Je accountinstellingen zijn succesvol opgeslagen!"
 msgid "You have been successfully logged out."
 msgstr "Je bent succesvol uitgelogd."
 
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Bovenliggende"
+
 msgid "Collections"
 msgstr "Collecties"
 
@@ -3003,6 +3043,12 @@ msgstr "Door op te slaan wordt een nieuwere versie overschreven."
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
+
+msgid ""
+"The workflow action could not be performed as the workflow state has changed."
+msgstr ""
+"De workflow actie kan niet worden uitgevoerd omdat de staat waarin de "
+"workflow zich bevindt is gewijzigd."
 
 #, python-format
 msgid ""
