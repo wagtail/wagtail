@@ -62,6 +62,7 @@ Changelog
  * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
  * Maintenance: Update project template to use Django 6.1's `MAILERS` setting (Sage Abdullah)
  * Maintenance: Add soft deprecation notice for Wagtail API v2 (Sage Abdullah)
+ * Maintenance: Use `MAILERS` on Django 6.1+ when sending emails to avoid deprecation warnings (Sage Abdullah)
 
 
 8.0.1 (20.10.2026)
