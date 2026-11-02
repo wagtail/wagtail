@@ -1027,6 +1027,7 @@
 * Shi Yao Wang
 * Benedict Jackson
 * Émile Nadeau
+* Jeonghun Mun
 
 ## Translators
 

@@ -380,7 +380,7 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
         if include_superusers:
             recipients = get_user_model().objects.filter(is_superuser=True)
         if triggering_user:
-            recipients.exclude(pk=triggering_user.pk)
+            recipients = recipients.exclude(pk=triggering_user.pk)
 
         return recipients
 

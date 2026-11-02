@@ -21,6 +21,7 @@ from wagtail.admin.mail import (
     BaseWorkflowStateEmailNotifier,
     WorkflowStateApprovalEmailNotifier,
     WorkflowStateRejectionEmailNotifier,
+    WorkflowStateSubmissionEmailNotifier,
 )
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.utils import (
@@ -5009,6 +5010,20 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                     notifier.get_recipient_users(workflow_state, user=self.submitter),
                     set(),
                 )
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
+    def test_workflowstate_submission_email_notifier_excludes_triggering_superuser(
+        self,
+    ):
+        self.workflow.start(self.object, user=self.superuser)
+        workflow_state = self.object.current_workflow_state
+        notifier = WorkflowStateSubmissionEmailNotifier()
+
+        self.assertIn(self.superuser, notifier.get_recipient_users(workflow_state))
+        self.assertNotIn(
+            self.superuser,
+            notifier.get_recipient_users(workflow_state, user=self.superuser),
+        )
 
     @mock.patch("wagtail.admin.mail.BaseWorkflowStateEmailNotifier.get_recipient_users")
     def test_base_workflowstate_email_notifier_get_valid_recipients(
