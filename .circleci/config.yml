@@ -6,7 +6,7 @@ orbs:
 jobs:
   backend:
     docker:
-      - image: cimg/python:3.15
+      - image: cimg/python:3.14
     resource_class: arm.medium
     steps:
       - checkout
