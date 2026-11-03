@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -215,8 +215,9 @@ msgstr "Suche"
 msgid "All collections"
 msgstr "Alle Sammlungen"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Übergeordnetes Element"
+msgstr "Übergeordnet"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -2017,6 +2018,52 @@ msgstr "Breadcrumbs ein-/ausblenden"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
+msgid "This data explained"
+msgstr "Diese Daten erklärt"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Words"
+msgstr "Wörter"
+
+msgid "Reading time"
+msgstr "Lesezeit"
+
+msgid "Readability"
+msgstr "Lesbarkeit"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Wir extrahieren den Hauptinhalt aus der Seitenvorschau, entfernen alle "
+"Formatierungen und berechnen die Anzahl der Wörter."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Wir berechnen die Lesezeit anhand der Wortzahl und verwenden dabei "
+"unterschiedliche Lesegeschwindigkeiten für verschiedene Sprachen."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Wir verwenden eine Lesbarkeitsformel, die auf der Länge von Wörtern und "
+"Sätzen basiert. Lange Sätze und Wörter führen zu einer schlechteren "
+"Lesbarkeitsbewertung."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Weitere Informationen zur Berechnung von Content-Metriken finden Sie in "
+"unserem <a href=\"%(guide_link)s\" target=\"_blank\">Leitfaden zur "
+"Inhaltsprüfung</a>."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2207,52 +2254,6 @@ msgstr "Problem anzeigen"
 
 msgid "Content metrics"
 msgstr "Inhaltsmetriken"
-
-msgid "Words"
-msgstr "Wörter"
-
-msgid "Reading time"
-msgstr "Lesezeit"
-
-msgid "Readability"
-msgstr "Lesbarkeit"
-
-msgid "This data explained"
-msgstr "Diese Daten erklärt"
-
-msgid "How we calculate our metrics"
-msgstr "Wie wir unsere Kennzahlen berechnen"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Wir extrahieren den Hauptinhalt aus der Seitenvorschau, entfernen alle "
-"Formatierungen und berechnen die Anzahl der Wörter."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Wir berechnen die Lesezeit anhand der Wortzahl und verwenden dabei "
-"unterschiedliche Lesegeschwindigkeiten für verschiedene Sprachen."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Wir verwenden eine Lesbarkeitsformel, die auf der Länge von Wörtern und "
-"Sätzen basiert. Lange Sätze und Wörter führen zu einer schlechteren "
-"Lesbarkeitsbewertung."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Weitere Informationen zur Berechnung von Content-Metriken finden Sie in "
-"unserem <a href=\"%(guide_link)s\" target=\"_blank\">Leitfaden zur "
-"Inhaltsprüfung</a>."
 
 msgid "Issues found"
 msgstr "Probleme gefunden"
@@ -2495,9 +2496,6 @@ msgstr "Wagtails Schnellaktionen ansehen"
 
 msgid "Checks"
 msgstr "Überprüfungen"
-
-msgid "Warnings"
-msgstr "Warnungen"
 
 msgid "Add a child page"
 msgstr "Unterseite hinzufügen"
@@ -2948,6 +2946,10 @@ msgstr "Ihre Accounteinstellungen wurden erfolgreich geändert!"
 
 msgid "You have been successfully logged out."
 msgstr "Sie wurden erfolgreich abgemeldet."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Übergeordnet"
 
 msgid "Collections"
 msgstr "Sammlungen"

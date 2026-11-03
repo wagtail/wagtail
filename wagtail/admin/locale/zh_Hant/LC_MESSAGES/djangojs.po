@@ -92,9 +92,6 @@ msgstr "否"
 msgid "No results"
 msgstr "沒有結果"
 
-msgid "Page"
-msgstr "頁面"
-
 msgid "Page explorer"
 msgstr "頁面瀏覽器"
 
@@ -127,9 +124,6 @@ msgstr "儲存中..."
 
 msgid "Search"
 msgstr "搜尋"
-
-msgid "See all"
-msgstr "查看全部"
 
 msgid "Server Error"
 msgstr "伺服器錯誤"

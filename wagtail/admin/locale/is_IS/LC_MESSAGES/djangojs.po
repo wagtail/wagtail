@@ -153,9 +153,6 @@ msgstr "Nei"
 msgid "No results"
 msgstr "Engar niðurstöður"
 
-msgid "Page"
-msgstr "Síða"
-
 msgid "Page explorer"
 msgstr "Veftré"
 
@@ -202,9 +199,6 @@ msgstr "Leita"
 
 msgid "Search options…"
 msgstr "Leitar möguleikar..."
-
-msgid "See all"
-msgstr "Sjá allt"
 
 msgid "Server Error"
 msgstr "Villa á vefþjóni"

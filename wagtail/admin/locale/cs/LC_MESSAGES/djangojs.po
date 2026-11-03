@@ -97,9 +97,6 @@ msgstr "Ne"
 msgid "No results"
 msgstr "Žádné výsledky"
 
-msgid "Page"
-msgstr "Stránka"
-
 msgid "Page explorer"
 msgstr "Explorer"
 
@@ -135,9 +132,6 @@ msgstr "Ukládám ..."
 
 msgid "Search"
 msgstr "Hledat"
-
-msgid "See all"
-msgstr "Zobrazit vše"
 
 msgid "Server Error"
 msgstr "Chyba serveru"

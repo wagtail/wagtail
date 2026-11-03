@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -176,6 +176,7 @@ msgstr "بحث"
 msgid "All collections"
 msgstr "جميع الرزم"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "الأصل"
 
@@ -2108,6 +2109,50 @@ msgstr "تبديل مسار التصفح"
 msgid "Breadcrumb"
 msgstr "مسار تصفح"
 
+msgid "This data explained"
+msgstr "هذه البيانات وضحت"
+
+msgid "Description"
+msgstr "وصف"
+
+msgid "Words"
+msgstr "كلمات"
+
+msgid "Reading time"
+msgstr "وقت القراءة"
+
+msgid "Readability"
+msgstr "سهولة القراءة"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"نقوم باستخراج المحتوى الرئيسي من معاينة الصفحة، وإزالة جميع التنسيقات، وحساب "
+"عدد الكلمات."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"نقوم بحساب وقت القراءة من حساب عدد الكلمات، باستخدام سرعات قراءة مختلفة "
+"للغات مختلفة."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"نستخدم معادلة لقياس سهولة القراءة تعتمد على طول الكلمات والجمل. فالجمل "
+"والكلمات الطويلة تؤدي إلى انخفاض درجة سهولة القراءة."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"راجع <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</a> "
+"لمزيد من المعلومات حول كيفية حساب مقاييس المحتوى."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2304,50 +2349,6 @@ msgstr "إظهار المشكلة"
 
 msgid "Content metrics"
 msgstr "مقاييس المحتوى"
-
-msgid "Words"
-msgstr "كلمات"
-
-msgid "Reading time"
-msgstr "وقت القراءة"
-
-msgid "Readability"
-msgstr "سهولة القراءة"
-
-msgid "This data explained"
-msgstr "هذه البيانات وضحت"
-
-msgid "How we calculate our metrics"
-msgstr "كيف نحسب مقاييسنا"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"نقوم باستخراج المحتوى الرئيسي من معاينة الصفحة، وإزالة جميع التنسيقات، وحساب "
-"عدد الكلمات."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"نقوم بحساب وقت القراءة من حساب عدد الكلمات، باستخدام سرعات قراءة مختلفة "
-"للغات مختلفة."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"نستخدم معادلة لقياس سهولة القراءة تعتمد على طول الكلمات والجمل. فالجمل "
-"والكلمات الطويلة تؤدي إلى انخفاض درجة سهولة القراءة."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"راجع <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</a> "
-"لمزيد من المعلومات حول كيفية حساب مقاييس المحتوى."
 
 msgid "Issues found"
 msgstr "تم العثور على مشاكل"
@@ -2588,9 +2589,6 @@ msgstr "عرض إجراءات Wagtail السريعة"
 
 msgid "Checks"
 msgstr "فحوصات"
-
-msgid "Warnings"
-msgstr "تحذيرات"
 
 msgid "Add a child page"
 msgstr "إضافة صفحة فرعية"
@@ -3043,6 +3041,10 @@ msgstr "تم تغيير إعدادات حسابك بنجاح!"
 
 msgid "You have been successfully logged out."
 msgstr "لقد تم تسجيل الخروج بنجاح."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "الأصل"
 
 msgid "Collections"
 msgstr "رزم"

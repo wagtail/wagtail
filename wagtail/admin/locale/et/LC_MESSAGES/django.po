@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -120,6 +120,7 @@ msgstr "Otsing"
 msgid "All collections"
 msgstr "Kõik kollektsioonid"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Vanem"
 
@@ -1127,6 +1128,10 @@ msgstr "Parool"
 
 msgid "You have been successfully logged out."
 msgstr "Teid on edukalt välja logitud."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Vanem"
 
 msgid "Collections"
 msgstr "Kogud"

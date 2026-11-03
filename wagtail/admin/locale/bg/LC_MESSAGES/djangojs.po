@@ -42,9 +42,6 @@ msgstr "Нагоре"
 msgid "No"
 msgstr "Не"
 
-msgid "Page"
-msgstr "Страница"
-
 msgid "Pages"
 msgstr "Страници"
 

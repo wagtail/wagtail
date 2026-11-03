@@ -54,9 +54,6 @@ msgstr "Bevæg op"
 msgid "No results"
 msgstr "Ingen resultater"
 
-msgid "Page"
-msgstr "Side"
-
 msgid "Pages"
 msgstr "Sider"
 
@@ -77,9 +74,6 @@ msgstr "Gemmer..."
 
 msgid "Search"
 msgstr "Søg"
-
-msgid "See all"
-msgstr "Se alle"
 
 msgid "Server Error"
 msgstr "Server Fejl"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -127,6 +127,7 @@ msgstr "Søk"
 msgid "All collections"
 msgstr "Alle samlinger"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Forelder"
 
@@ -1071,6 +1072,9 @@ msgstr "Tøm"
 msgid "Breadcrumb"
 msgstr "Brødsmuler"
 
+msgid "Description"
+msgstr "Beskrivelse"
+
 msgid "Continue"
 msgstr "Fortsett"
 
@@ -1202,6 +1206,10 @@ msgstr "Passord"
 
 msgid "You have been successfully logged out."
 msgstr "Du er nå logget ut."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Forelder"
 
 msgid "Collections"
 msgstr "Samlinger"

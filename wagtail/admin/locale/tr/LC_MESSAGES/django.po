@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -171,8 +171,9 @@ msgstr "Ara"
 msgid "All collections"
 msgstr "Tüm koleksiyonlar"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Üst-Ebeveyn"
+msgstr "Üst öğre"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -1553,6 +1554,9 @@ msgstr "Hesap avatarını düzenle"
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
+msgid "Words"
+msgstr "Kelimeler"
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -1666,9 +1670,6 @@ msgstr "Yan panel genişliği"
 
 msgid "Show issue"
 msgstr "Sorunu göster"
-
-msgid "Words"
-msgstr "Kelimeler"
 
 msgid "Issues found"
 msgstr "Bulunan sorunlar"
@@ -1845,9 +1846,6 @@ msgstr "Wagtail hızlı eylemlerini görüntüle"
 
 msgid "Checks"
 msgstr "Kontroller"
-
-msgid "Warnings"
-msgstr "Uyarılar"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
@@ -2149,6 +2147,10 @@ msgstr "Hesap ayarlarınız başarıyla değiştirildi!"
 
 msgid "You have been successfully logged out."
 msgstr "Başarılı bir şekilde çıkış yaptınız."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Üst öğre"
 
 msgid "Collections"
 msgstr "Koleksiyonlar"

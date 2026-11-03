@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2023,2026\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -179,6 +179,7 @@ msgstr "搜索"
 msgid "All collections"
 msgstr "所有集合"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "上一级"
 
@@ -1339,6 +1340,9 @@ msgstr "面包屑开关"
 msgid "Breadcrumb"
 msgstr "面包屑导航"
 
+msgid "Description"
+msgstr "描述"
+
 msgid "Close dialog"
 msgstr "关闭对话框"
 
@@ -1557,9 +1561,6 @@ msgstr "排序"
 
 msgid "View Wagtail quick actions"
 msgstr "查看Wagtail快捷动作"
-
-msgid "Warnings"
-msgstr "警告"
 
 msgid "Add a child page"
 msgstr "添加子页面"
@@ -1782,6 +1783,10 @@ msgstr "您的帐号设置已经修改成功。"
 
 msgid "You have been successfully logged out."
 msgstr "注销成功"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "上一级"
 
 msgid "Collections"
 msgstr "集合"

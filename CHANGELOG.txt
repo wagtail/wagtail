@@ -6,9 +6,10 @@ Changelog
 
  * Maintenance: Ignore `cached_property` deprecation in project template tests on Django 6.2+ (Sage Abdullah)
  * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
+ * Maintenance: Migrate `FilteredSelect` widget from jQuery to Stimulus `RulesController` (`w-rules`) (LB (Ben) Johnston)
 
 
-8.1 (xx.xx.xxxx) - IN DEVELOPMENT
+8.1 (02.11.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add page metadata (title, description and meta tags) to the content checks panel and userbar Checks dialog, with the userbar dialog now matching the page editor's Checks panel (Thibaud Colas)
@@ -69,6 +70,7 @@ Changelog
  * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
  * Maintenance: Update project template to use Django 6.1's `MAILERS` setting (Sage Abdullah)
  * Maintenance: Add soft deprecation notice for Wagtail API v2 (Sage Abdullah)
+ * Maintenance: Use `MAILERS` on Django 6.1+ when sending emails to avoid deprecation warnings (Sage Abdullah)
 
 
 8.0.1 (20.10.2026)

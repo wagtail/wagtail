@@ -48,9 +48,6 @@ msgstr "Posunúť vyššie"
 msgid "No results"
 msgstr "Žiadne výsledky"
 
-msgid "Page"
-msgstr "Stránka"
-
 msgid "Pages"
 msgstr "Stránky"
 
@@ -65,9 +62,6 @@ msgstr "Ukladám..."
 
 msgid "Search"
 msgstr "Hľadať"
-
-msgid "See all"
-msgstr "Vidieť všetko"
 
 msgid "Server Error"
 msgstr "Chyba servera"

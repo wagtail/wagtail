@@ -154,9 +154,6 @@ msgstr "Nem"
 msgid "No results"
 msgstr "Nincs találat"
 
-msgid "Page"
-msgstr "Oldal"
-
 msgid "Page explorer"
 msgstr "Intéző"
 
@@ -203,9 +200,6 @@ msgstr "Keresés"
 
 msgid "Search options…"
 msgstr "Lehetőségek keresése..."
-
-msgid "See all"
-msgstr "Összes megjelenítése"
 
 msgid "Server Error"
 msgstr "Szerverhiba"

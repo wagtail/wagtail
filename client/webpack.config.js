@@ -39,7 +39,6 @@ export default function exports(env, argv) {
       'core',
       'date-time-chooser',
       'draftail',
-      'filtered-select',
       'icons',
       'modal-workflow',
       'page-chooser-modal',

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021,2025\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -127,6 +127,7 @@ msgstr "Pretraga"
 msgid "All collections"
 msgstr "Sve zbirke"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Roditelj"
 
@@ -1225,6 +1226,10 @@ msgstr "Lozinka"
 
 msgid "You have been successfully logged out."
 msgstr "Uspješno ste odjavljeni."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Roditelj"
 
 msgid "Collections"
 msgstr "Zbirke"

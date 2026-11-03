@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Alex Morega, 2023-2024,2026\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,6 +163,7 @@ msgstr "Căutare"
 msgid "All collections"
 msgstr "Toate colecțiile"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Părinte"
 
@@ -1973,6 +1974,49 @@ msgstr "Comută traseul de navigare"
 msgid "Breadcrumb"
 msgstr "Traseu de navigare"
 
+msgid "This data explained"
+msgstr "Explicația acestor date"
+
+msgid "Words"
+msgstr "Cuvinte"
+
+msgid "Reading time"
+msgstr "Timp de citire"
+
+msgid "Readability"
+msgstr "Lizibilitate"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Extragem conținutul principal din previzualizarea paginii, eliminăm "
+"formatarea și calculăm numărul de cuvinte."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calculăm timpul de citire pe baza numărului de cuvinte, folosind viteze de "
+"citire diferite pentru limbi diferite."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Folosim o formulă de lizibilitate bazată pe lungimea cuvintelor și a "
+"propozițiilor. Propozițiile și cuvintele lungi duc la un scor de "
+"lizibilitate mai slab."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consultați <a href=\"%(guide_link)s\" target=\"_blank\">ghidul de verificări "
+"de conținut</a> pentru mai multe informații despre cum sunt calculate "
+"metricile de conținut."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2163,52 +2207,6 @@ msgstr "Arată problema"
 
 msgid "Content metrics"
 msgstr "Metrici de conținut"
-
-msgid "Words"
-msgstr "Cuvinte"
-
-msgid "Reading time"
-msgstr "Timp de citire"
-
-msgid "Readability"
-msgstr "Lizibilitate"
-
-msgid "This data explained"
-msgstr "Explicația acestor date"
-
-msgid "How we calculate our metrics"
-msgstr "Cum calculăm aceste metrici"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Extragem conținutul principal din previzualizarea paginii, eliminăm "
-"formatarea și calculăm numărul de cuvinte."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Calculăm timpul de citire pe baza numărului de cuvinte, folosind viteze de "
-"citire diferite pentru limbi diferite."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Folosim o formulă de lizibilitate bazată pe lungimea cuvintelor și a "
-"propozițiilor. Propozițiile și cuvintele lungi duc la un scor de "
-"lizibilitate mai slab."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Consultați <a href=\"%(guide_link)s\" target=\"_blank\">ghidul de verificări "
-"de conținut</a> pentru mai multe informații despre cum sunt calculate "
-"metricile de conținut."
 
 msgid "Issues found"
 msgstr "Probleme găsite"
@@ -2452,9 +2450,6 @@ msgstr "Vezi acțiunile rapide Wagtail"
 
 msgid "Checks"
 msgstr "Verificări"
-
-msgid "Warnings"
-msgstr "Avertismente"
 
 msgid "Add a child page"
 msgstr "Adaugă o subpagină"
@@ -2908,6 +2903,10 @@ msgstr "Setările contului dvs. au fost schimbate cu succes!"
 
 msgid "You have been successfully logged out."
 msgstr "V-ați deconectat cu succes."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Părinte"
 
 msgid "Collections"
 msgstr "Colecții"
