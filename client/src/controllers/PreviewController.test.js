@@ -1814,6 +1814,43 @@ describe('PreviewController', () => {
       );
     });
 
+    it('should apply a mode change after the fetch resolves without a second request', async () => {
+      // Covers the !!reloadPromise === false half of the guard: mode changes
+      // after the fetch resolves but before reloadIframe reads renderUrl still
+      // reach that iframe, so finishUpdate must not start a second request.
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const controller = application.getControllerForElementAndIdentifier(
+        element,
+        identifier,
+      );
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      const originalReloadIframe = controller.reloadIframe.bind(controller);
+      jest.spyOn(controller, 'reloadIframe').mockImplementation(() => {
+        // Fetch has resolved; reloadPromise is not set yet. Change mode here
+        // before the iframe URL is chosen from renderUrl.
+        previewModeElement.value = 'form';
+        previewModeElement.dispatchEvent(new Event('change'));
+        originalReloadIframe();
+      });
+
+      previewModeElement.value = 'landing';
+      previewModeElement.dispatchEvent(new Event('change'));
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      await expectIframeReloaded(
+        `http://localhost${url}?mode=form&in_preview_panel=true`,
+      );
+
+      // expectIframeReloaded clears fetch; a queued retry would have started one
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+
     it('should show an alert if the request fails when changing the preview mode', async () => {
       fetch.mockResponseFailure();
 

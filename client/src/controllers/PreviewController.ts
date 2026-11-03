@@ -1031,10 +1031,11 @@ export class PreviewController extends Controller<HTMLElement> {
 
     // A mode change that arrived after this iframe URL was chosen still needs
     // its own request. This is not covered by the stale-edit retry below,
-    // which only runs when auto-update is enabled.
+    // which only runs when auto-update is enabled. Use WithAlert so a failed
+    // retry surfaces the same way as setPreviewMode's normal path.
     if (this.#modeChangePending) {
       this.#modeChangePending = false;
-      this.setPreviewData();
+      this.setPreviewDataWithAlert();
       return;
     }
 
