@@ -1,18 +1,19 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@6.0.0
+  codecov: codecov/codecov@6.1.0
 
 jobs:
   backend:
     docker:
       - image: cimg/python:3.14
+    resource_class: arm.medium
     steps:
       - checkout
       - run: python --version > .python_version
       - run: pip install uv
       - restore_cache:
-          key: &uv-cache uv-cache-v1-{{ checksum "uv.lock" }}-{{ checksum ".python_version" }}
+          key: &uv-cache uv-cache-v1-{{ arch }}-{{ checksum "uv.lock" }}-{{ checksum ".python_version" }}
       - run: uv sync --locked --extra testing --extra docs
       - save_cache:
           key: *uv-cache
@@ -34,7 +35,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:24.20.0
+      - image: cimg/node:24.22.1
     steps:
       - checkout
       - restore_cache:
@@ -60,7 +61,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.14-browsers
+      - image: cimg/python:3.15-node
     environment:
       DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
       DJANGO_DEBUG: 'true'
@@ -85,9 +86,8 @@ jobs:
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
-          if [[ ! -e "~/.cache/ms-playwright" ]]; then
-              npm --prefix ./client/tests/integration exec playwright install
-          fi
+      # Skips the browser download if it's already cached, but always installs system dependencies.
+      - run: npm --prefix ./client/tests/integration exec -- playwright install --with-deps --only-shell chromium
       - save_cache:
           key: *ui_tests-npm-cache
           paths:
@@ -120,7 +120,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.14-node
+      - image: cimg/python:3.15-node
     steps:
       - checkout
       - run: pip install --user build boto3
