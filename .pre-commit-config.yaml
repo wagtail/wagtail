@@ -20,7 +20,7 @@ repos:
         files: \.(css|scss|js|ts|tsx|json|jsonc|yaml|yml)$
         additional_dependencies:
           # Keep in sync with package-lock.json
-          - prettier@3.9.6
+          - prettier@3.9.10
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.39.1
     hooks:
