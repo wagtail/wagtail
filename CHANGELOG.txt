@@ -144,6 +144,11 @@ Changelog
  * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
  * Maintenance: Use Ubuntu 26.04 ARM runner for GitHub Actions workflows (Storm Heg)
 
+7.4.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent `published` / `page_published` signals and alias updates when scheduling a revision for future publishing (Benedict Jackson, Émile Nadeau)
+
 7.4.4 (20.10.2026)
 ~~~~~~~~~~~~~~~~~~
 

@@ -1023,6 +1023,8 @@
 * Roee Sivan
 * Beth Parnell
 * Maarten Ureel
+* Benedict Jackson
+* Émile Nadeau
 
 ## Translators
 
