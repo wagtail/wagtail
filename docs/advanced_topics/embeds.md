@@ -400,3 +400,21 @@ as the embed code they generate may be slightly different and lead to
 inconsistency on your site.
 
 In general, whenever you make changes to embed settings you are recommended to clear out Embed objects using [`purge_embeds` command](purge_embeds).
+
+(embeds_referrer_policy)=
+
+## Referrer policy
+
+Some embed providers, including YouTube, require the browser to send a `Referer` header when loading embedded content. If the header is missing, the provider may refuse to show the content and display an error in place of the embed.
+
+Django's [`SecurityMiddleware`](inv:django:std:label#security-middleware) (enabled in projects created with `wagtail start`) sends a `Referrer-Policy` header based on the [`SECURE_REFERRER_POLICY`](inv:django:std:setting#SECURE_REFERRER_POLICY) setting. Its default value, `same-origin`, prevents the browser from sending a `Referer` header to other sites, which includes requests made by embedded `<iframe>` elements.
+
+Some providers include a `referrerpolicy` attribute on the `<iframe>` in their embed HTML, which takes precedence over the site-wide policy. For example, current YouTube embeds use `referrerpolicy="strict-origin-when-cross-origin"` and display correctly with Django's default setting. However, embeds can still be affected when the provider does not include this attribute, such as embed HTML returned by other providers or custom finders, or YouTube embed HTML that was fetched and stored in the `Embed` model before the attribute was added. In the latter case, deleting the affected records from the `Embed` model (or all of them, using the [`purge_embeds` command](purge_embeds)) will cause the latest embed HTML to be fetched the next time the content is displayed. Note that embeds whose content is no longer available from the provider cannot be fetched again once deleted.
+
+To allow embeds without this attribute to display, set `SECURE_REFERRER_POLICY` to a value that sends the origin of your site on cross-origin requests. We recommend `strict-origin-when-cross-origin`, which is also the default policy used by browsers:
+
+```python
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+```
+
+With this policy, only the origin of your site (for example `https://www.example.com/`) is sent to other sites, not the full URL of the page. See the [MDN documentation for `Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy) for details of the available values.
