@@ -9,6 +9,10 @@ window.comments = {
   getContentPath: jest.fn(),
 };
 
+beforeEach(() => {
+  localStorage.clear();
+});
+
 // Define some callbacks in global scope that can be mocked in tests
 let constructor = (_widgetName, _name, _id, _initialState) => {};
 let setState = (_widgetName, _state) => {};

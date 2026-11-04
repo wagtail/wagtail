@@ -213,12 +213,9 @@ export class StreamBlock extends BaseSequenceBlock {
     // which are left behind as hidden elements with a '-deleted' input so that the
     // server-side form handler knows to skip it)
     this.sequenceContainer = dom.find('[data-streamfield-stream-container]');
-    this.setState(initialState || []);
-    if (this.blockDef.meta.collapsed) {
-      this.children.forEach((block) => {
-        block.collapse();
-      });
-    }
+    this.setState(initialState || [], {
+      collapsed: this.blockDef.meta.collapsed,
+    });
 
     if (initialError) {
       this.setError(initialError);
@@ -411,10 +408,6 @@ export class StreamBlock extends BaseSequenceBlock {
         }
       });
     }
-  }
-
-  setState(values) {
-    super.setState(values);
   }
 
   setError(error) {

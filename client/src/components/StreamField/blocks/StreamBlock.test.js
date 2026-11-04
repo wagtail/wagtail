@@ -15,6 +15,10 @@ window.comments = {
   getContentPath: jest.fn(),
 };
 
+beforeEach(() => {
+  localStorage.clear();
+});
+
 // Define some callbacks in global scope that can be mocked in tests
 let constructor = (_widgetName, _name, _id, _initialState) => {};
 let setState = (_widgetName, _state) => {};
@@ -141,9 +145,27 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
-  test('it renders menus on opening', () => {
-    boundBlock.inserters[1].open();
-    expect(document.body.innerHTML).toMatchSnapshot();
+  test('saved expansion overrides the default collapsed state', () => {
+    const blockDef = boundBlock.blockDef;
+    blockDef.meta.collapsed = true;
+    const render = () => {
+      document.body.innerHTML = '<div id="placeholder"></div>';
+      return blockDef.render($('#placeholder'), 'the-prefix', [
+        { id: '1', type: 'test_block_a', value: 'First value' },
+      ]);
+    };
+
+    render();
+    const toggle = document.querySelector('[data-panel-toggle]');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    toggle.click();
+
+    render();
+    const restoredToggle = document.querySelector('[data-panel-toggle]');
+    expect(restoredToggle.getAttribute('aria-expanded')).toBe('true');
+    expect(
+      document.getElementById('block-1-content').hasAttribute('hidden'),
+    ).toBe(false);
   });
 
   test('Widget constructors are called with correct parameters', () => {
@@ -484,10 +506,15 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
     ]);
   });
 
-  test('it renders correctly', () => {
+  test('renders block labels as literal text in the insertion menu', () => {
     boundBlock.inserters[0].open();
     const listbox = document.querySelector('[role="listbox"]');
-    expect(listbox.innerHTML).toMatchSnapshot();
+    expect(
+      Array.from(listbox.querySelectorAll('[role="option"]')).map(
+        (option) => option.textContent,
+      ),
+    ).toEqual(['Test Block <A>', 'Test Block <B>']);
+    expect(listbox.querySelector('a, b')).toBeNull();
   });
 });
 
