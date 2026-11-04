@@ -4700,6 +4700,262 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual(log_entry.data["comment"]["contentpath"], comment.contentpath)
         self.assertEqual(log_entry.data["comment"]["text"], comment.text)
 
+    def test_comment_position_is_saved_on_never_published_page(self):
+        page = SimplePage(
+            title="Draft with an annotation",
+            slug="draft-with-annotation",
+            content="Some content",
+            live=False,
+        )
+        self.root_page.add_child(instance=page)
+        comment = Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="Check this text",
+            contentpath="content",
+            position='[{"key":"body","start":0,"end":4}]',
+        )
+        previous_revision = page.save_revision(user=self.user)
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=[page.pk]),
+            {
+                "title": page.title,
+                "slug": page.slug,
+                "content": "Some edited content",
+                "comments-TOTAL_FORMS": "1",
+                "comments-INITIAL_FORMS": "1",
+                "comments-MIN_NUM_FORMS": "0",
+                "comments-MAX_NUM_FORMS": "",
+                "comments-0-id": str(comment.pk),
+                "comments-0-contentpath": "content",
+                "comments-0-text": comment.text,
+                "comments-0-position": position,
+                "comments-0-replies-TOTAL_FORMS": "0",
+                "comments-0-replies-INITIAL_FORMS": "0",
+                "comments-0-replies-MIN_NUM_FORMS": "0",
+                "comments-0-replies-MAX_NUM_FORMS": "0",
+            },
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=[page.pk])
+        )
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+        self.assertIsNone(page.first_published_at)
+        latest = page.get_latest_revision_as_object()
+        self.assertEqual(latest.content, "Some edited content")
+        self.assertEqual(latest.wagtail_admin_comments.get().position, position)
+        previous_revision.refresh_from_db()
+        self.assertEqual(
+            previous_revision.content["wagtail_admin_comments"][0]["position"],
+            '[{"key":"body","start":0,"end":4}]',
+        )
+
+    def make_page_with_comment_position(self):
+        page = SimplePage(
+            title="Annotated draft",
+            slug="annotated-draft",
+            content="Some content",
+            live=False,
+        )
+        self.root_page.add_child(instance=page)
+        comment = Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="Check this text",
+            contentpath="content",
+            position='[{"key":"body","start":0,"end":4}]',
+        )
+        revision = page.save_revision(user=self.user)
+        return page, comment, revision
+
+    def post_comment_position(self, page, comment, position, *, url=None, **extra):
+        return self.client.post(
+            url or reverse("wagtailadmin_pages:edit", args=[page.pk]),
+            {
+                "title": page.title,
+                "slug": page.slug,
+                "content": "Some edited content",
+                "comments-TOTAL_FORMS": "1",
+                "comments-INITIAL_FORMS": "1",
+                "comments-MIN_NUM_FORMS": "0",
+                "comments-MAX_NUM_FORMS": "",
+                "comments-0-id": str(comment.pk),
+                "comments-0-contentpath": "content",
+                "comments-0-text": comment.text,
+                "comments-0-position": position,
+                "comments-0-replies-TOTAL_FORMS": "0",
+                "comments-0-replies-INITIAL_FORMS": "0",
+                "comments-0-replies-MIN_NUM_FORMS": "0",
+                "comments-0-replies-MAX_NUM_FORMS": "0",
+                **extra,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+    def assert_editor_comment_position(self, page, position):
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[page.pk]))
+        self.assertEqual(response.status_code, 200)
+        form = response.context["form"].formsets["comments"].forms[0]
+        self.assertEqual(form["position"].value(), position)
+
+    def test_draft_comment_position_does_not_change_live_content(self):
+        page, comment, original = self.make_page_with_comment_position()
+        original.publish()
+        page.refresh_from_db()
+        old_position = comment.position
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.post_comment_position(page, comment, position)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        page.refresh_from_db()
+        comment.refresh_from_db()
+        self.assertEqual(page.content, "Some content")
+        self.assertEqual(comment.position, old_position)
+        latest = page.get_latest_revision_as_object()
+        self.assertEqual(latest.content, "Some edited content")
+        self.assertEqual(latest.wagtail_admin_comments.get().position, position)
+        self.assert_editor_comment_position(page, position)
+        original.refresh_from_db()
+        self.assertEqual(
+            original.content["wagtail_admin_comments"][0]["position"], old_position
+        )
+
+    def test_comment_position_after_unpublish_and_revert(self):
+        page, comment, original = self.make_page_with_comment_position()
+        original.publish()
+        page.refresh_from_db()
+        page.unpublish()
+        page.refresh_from_db()
+        self.assertIsNotNone(page.first_published_at)
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.post_comment_position(page, comment, position)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+        self.assertEqual(page.content, "Some edited content")
+        self.assertEqual(page.wagtail_admin_comments.get().position, position)
+        changed = page.get_latest_revision()
+        self.assertEqual(
+            changed.content["wagtail_admin_comments"][0]["position"], position
+        )
+        self.assert_editor_comment_position(page, position)
+
+        old_position = original.content["wagtail_admin_comments"][0]["position"]
+        response = self.post_comment_position(
+            page,
+            comment,
+            old_position,
+            url=reverse(
+                "wagtailadmin_pages:revisions_revert", args=[page.pk, original.pk]
+            ),
+            content="Some content",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        page.refresh_from_db()
+        self.assertEqual(page.content, "Some content")
+        self.assertEqual(page.wagtail_admin_comments.get().position, old_position)
+        self.assert_editor_comment_position(page, old_position)
+        changed.refresh_from_db()
+        original.refresh_from_db()
+        self.assertEqual(
+            changed.content["wagtail_admin_comments"][0]["position"], position
+        )
+        self.assertEqual(
+            original.content["wagtail_admin_comments"][0]["position"], old_position
+        )
+
+    def test_first_publication_keeps_edited_draft_comment_position(self):
+        page, comment, original = self.make_page_with_comment_position()
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.post_comment_position(page, comment, position)
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        published = page.get_latest_revision()
+        published.publish()
+        page.refresh_from_db()
+        self.assertTrue(page.live)
+        self.assertEqual(page.wagtail_admin_comments.get().position, position)
+        self.assertEqual(page.live_revision_id, published.pk)
+
+        next_position = '[{"key":"body","start":0,"end":6}]'
+        response = self.post_comment_position(page, comment, next_position)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        page.refresh_from_db()
+        self.assertEqual(page.wagtail_admin_comments.get().position, position)
+        self.assertEqual(
+            page.get_latest_revision_as_object().wagtail_admin_comments.get().position,
+            next_position,
+        )
+
+    def test_autosave_overwrites_draft_comment_position(self):
+        page, comment, original = self.make_page_with_comment_position()
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.post_comment_position(page, comment, position)
+        self.assertEqual(response.status_code, 200)
+        page.refresh_from_db()
+        revision = page.get_latest_revision()
+        revision_count = page.revisions.count()
+        next_position = '[{"key":"body","start":0,"end":6}]'
+        response = self.post_comment_position(
+            page,
+            comment,
+            next_position,
+            loaded_revision_id=revision.pk,
+            overwrite_revision_id=revision.pk,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        page.refresh_from_db()
+        self.assertEqual(page.revisions.count(), revision_count)
+        self.assertEqual(page.latest_revision_id, revision.pk)
+        revision.refresh_from_db()
+        self.assertEqual(
+            revision.content["wagtail_admin_comments"][0]["position"], next_position
+        )
+        self.assertEqual(page.wagtail_admin_comments.get().position, next_position)
+        self.assert_editor_comment_position(page, next_position)
+
+    def test_rejected_revision_overwrite_rolls_back_comment_position(self):
+        page, comment, original = self.make_page_with_comment_position()
+        other_revision = page.save_revision(user=self.subscriber)
+        old_position = comment.position
+        other_revision.refresh_from_db()
+        before = other_revision.content
+        position = '[{"key":"body","start":0,"end":5}]'
+        response = self.post_comment_position(
+            page,
+            comment,
+            position,
+            loaded_revision_id=other_revision.pk,
+            overwrite_revision_id=other_revision.pk,
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error_code"], "invalid_revision")
+        page.refresh_from_db()
+        comment.refresh_from_db()
+        other_revision.refresh_from_db()
+        self.assertEqual(page.content, "Some content")
+        self.assertEqual(comment.position, old_position)
+        self.assertEqual(page.latest_revision_id, other_revision.pk)
+        self.assertEqual(other_revision.content, before)
+        self.assertEqual(page.revisions.count(), 2)
+        self.assert_editor_comment_position(page, old_position)
+
+    def test_explicit_comment_position_save_does_not_fetch_page(self):
+        page, comment, original = self.make_page_with_comment_position()
+        comment = Comment.objects.get(pk=comment.pk)
+        comment.position = '[{"key":"body","start":0,"end":5}]'
+        self.assertNotIn("page", comment._state.fields_cache)
+        comment.save(update_fields=["position"])
+        self.assertNotIn("page", comment._state.fields_cache)
+        comment.refresh_from_db()
+        self.assertEqual(comment.position, '[{"key":"body","start":0,"end":5}]')
+
     def test_edit_another_users_comment(self):
         comment = Comment.objects.create(
             page=self.child_page,
