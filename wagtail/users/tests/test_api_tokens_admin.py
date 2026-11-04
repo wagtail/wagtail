@@ -1,3 +1,4 @@
+import json
 import re
 from unittest.mock import patch
 
@@ -7,6 +8,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.utils import get_user_display_name
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import APIToken
 from wagtail.test.utils import WagtailTestUtils
@@ -381,6 +383,249 @@ class TestAPITokenAdmin(TestCase):
         self.assertIn("wagtail.apitoken.revoke", actions)
 
 
+class TestAPITokenUserChooser(WagtailTestUtils, TestCase):
+    """
+    The "user" field of the create form is a searchable, paginated chooser
+    instead of a <select> listing every manageable user, which does not scale
+    to large user tables. The chooser must apply the same scoping as
+    get_manageable_token_owners() at every entry point.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.root = WagtailTestUtils.create_superuser("root")
+        cls.manager = WagtailTestUtils.create_user(
+            "mgr",
+            permissions=[
+                "access_admin",
+                "add_apitoken",
+                f"change_{User._meta.model_name}",
+            ],
+        )
+        cls.plain = WagtailTestUtils.create_user(
+            "plain", permissions=["access_admin", "add_apitoken"]
+        )
+        cls.others = [
+            WagtailTestUtils.create_user(f"bulkuser{i:02d}") for i in range(25)
+        ]
+
+    def chooser_url(self, url_name, **kwargs):
+        return reverse(f"wagtailusers_api_token_user_chooser:{url_name}", **kwargs)
+
+    def get_html(self, url_name, params=None):
+        response = self.client.get(self.chooser_url(url_name), params or {})
+        self.assertEqual(response.status_code, 200)
+        if response["Content-Type"].startswith("application/json"):
+            return json.loads(response.content)["html"]
+        return response.content.decode()
+
+    def test_add_form_does_not_render_every_user(self):
+        self.client.force_login(self.root)
+        response = self.client.get(reverse("wagtailusers_api_tokens:add"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "<select")
+        self.assertNotContains(response, "bulkuser00@example.com")
+        self.assertNotContains(response, "bulkuser24@example.com")
+        # the chooser widget is wired up to the token-specific chooser
+        self.assertContains(response, self.chooser_url("choose"))
+
+    def test_add_form_loads_chooser_widget_js(self):
+        self.client.force_login(self.root)
+        response = self.client.get(reverse("wagtailusers_api_tokens:add"))
+        self.assertContains(response, "wagtailadmin/js/chooser-widget.js")
+
+    def test_add_form_with_valid_submission_still_works(self):
+        self.client.force_login(self.manager)
+        response = self.client.post(
+            reverse("wagtailusers_api_tokens:add"),
+            {"user": self.others[3].pk, "name": "chosen via chooser"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(APIToken.objects.get().user, self.others[3])
+
+    def test_rerendered_form_shows_chosen_user(self):
+        self.client.force_login(self.manager)
+        response = self.client.post(
+            reverse("wagtailusers_api_tokens:add"),
+            {"user": self.others[3].pk, "name": ""},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, get_user_display_name(self.others[3]))
+
+    def test_rerendered_form_does_not_disclose_out_of_scope_user(self):
+        # a plain user can only choose themselves; submitting someone else's
+        # pk must not leak that user's display name when the form re-renders
+        victim = WagtailTestUtils.create_user(
+            "victim", first_name="Hidden", last_name="Person"
+        )
+        self.client.force_login(self.plain)
+        response = self.client.post(
+            reverse("wagtailusers_api_tokens:add"),
+            {"user": victim.pk, "name": "sneaky"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("user", response.context["form"].errors)
+        self.assertNotContains(response, get_user_display_name(victim))
+        self.assertNotContains(response, victim.email)
+
+    def test_choose_lists_manageable_users_for_superuser(self):
+        self.client.force_login(self.root)
+        html = self.get_html("choose_results", {"q": "mgr"})
+        self.assertIn(get_user_display_name(self.manager), html)
+        html = self.get_html("choose_results", {"q": "root"})
+        self.assertIn(get_user_display_name(self.root), html)
+
+    def test_choose_excludes_superusers_for_manager(self):
+        self.client.force_login(self.manager)
+        html = self.get_html("choose_results", {"q": "root"})
+        self.assertIn("there are no matches", html)
+        self.assertNotIn("data-chooser-modal-choice", html)
+        html = self.get_html("choose_results", {"q": "plain"})
+        self.assertIn(get_user_display_name(self.plain), html)
+
+    def test_choose_only_lists_self_without_change_user_perm(self):
+        self.client.force_login(self.plain)
+        html = self.get_html("choose")
+        self.assertIn(get_user_display_name(self.plain), html)
+        self.assertNotIn(get_user_display_name(self.manager), html)
+        self.assertNotIn(get_user_display_name(self.others[0]), html)
+
+    def test_choose_is_paginated(self):
+        self.client.force_login(self.root)
+        response = self.client.get(self.chooser_url("choose_results"))
+        self.assertEqual(response.status_code, 200)
+        # 25 bulk users + root + mgr + plain
+        paginator = response.context["results"].paginator
+        self.assertEqual(paginator.count, 28)
+        self.assertEqual(len(response.context["results"]), paginator.per_page)
+        self.assertLess(paginator.per_page, 28)
+
+        response = self.client.get(self.chooser_url("choose_results"), {"p": 2})
+        self.assertEqual(response.status_code, 200)
+
+    def test_choose_search(self):
+        self.client.force_login(self.root)
+        target = self.others[7]
+        html = self.get_html("choose_results", {"q": target.email})
+        self.assertIn(get_user_display_name(target), html)
+        self.assertNotIn(get_user_display_name(self.others[8]), html)
+
+    def test_choose_search_is_case_insensitive(self):
+        self.client.force_login(self.root)
+        target = self.others[7]
+        html = self.get_html("choose_results", {"q": target.email.upper()})
+        self.assertIn(get_user_display_name(target), html)
+
+    def test_choose_modal_has_search_box(self):
+        self.client.force_login(self.root)
+        self.assertIn('name="q"', self.get_html("choose"))
+
+    def test_chosen_returns_manageable_user(self):
+        self.client.force_login(self.manager)
+        response = self.client.get(self.chooser_url("chosen", args=[self.plain.pk]))
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data["step"], "chosen")
+        self.assertEqual(data["result"]["id"], str(self.plain.pk))
+        self.assertEqual(data["result"]["title"], get_user_display_name(self.plain))
+
+    def test_chosen_404s_for_out_of_scope_user(self):
+        self.client.force_login(self.manager)
+        # superusers are out of scope for a manager
+        response = self.client.get(self.chooser_url("chosen", args=[self.root.pk]))
+        self.assertEqual(response.status_code, 404)
+
+        self.client.force_login(self.plain)
+        response = self.client.get(self.chooser_url("chosen", args=[self.manager.pk]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_chosen_response_is_identical_for_missing_and_out_of_scope_users(self):
+        self.client.force_login(self.plain)
+        missing_pk = "does-not-exist-99999"
+        out_of_scope = self.client.get(
+            self.chooser_url("chosen", args=[self.manager.pk])
+        )
+        missing = self.client.get(self.chooser_url("chosen", args=[missing_pk]))
+        self.assertEqual(out_of_scope.status_code, missing.status_code)
+
+    def test_chosen_multiple_ignores_malformed_ids(self):
+        self.client.force_login(self.manager)
+        response = self.client.get(
+            self.chooser_url("chosen_multiple"),
+            {"id": [self.plain.pk, "not-a-valid-pk-!"]},
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_rerendered_form_tolerates_malformed_user_value(self):
+        self.client.force_login(self.manager)
+        response = self.client.post(
+            reverse("wagtailusers_api_tokens:add"),
+            {"user": "not-a-valid-pk-!", "name": "bad"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("user", response.context["form"].errors)
+
+    def test_chosen_multiple_drops_out_of_scope_users(self):
+        self.client.force_login(self.manager)
+        response = self.client.get(
+            self.chooser_url("chosen_multiple"),
+            {"id": [self.plain.pk, self.root.pk]},
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content)["result"]
+        self.assertEqual([item["id"] for item in result], [str(self.plain.pk)])
+
+    def test_chooser_cannot_be_used_to_create_users(self):
+        creator = WagtailTestUtils.create_user(
+            "creator",
+            permissions=[
+                "access_admin",
+                "add_apitoken",
+                f"add_{User._meta.model_name}",
+                f"change_{User._meta.model_name}",
+            ],
+        )
+        self.client.force_login(creator)
+        user_count = User.objects.count()
+        # no 'create' tab is offered...
+        self.assertNotIn('id="tab-create"', self.get_html("choose"))
+        # ...and the endpoint itself refuses to create anything
+        self.client.post(
+            self.chooser_url("create"),
+            {"username": "sneaky", "email": "sneaky@example.com"},
+        )
+        self.assertEqual(User.objects.count(), user_count)
+
+    def test_chooser_requires_add_apitoken_permission(self):
+        viewer = WagtailTestUtils.create_user(
+            "viewer",
+            permissions=["access_admin", f"change_{User._meta.model_name}"],
+        )
+        self.client.force_login(viewer)
+        for url_name, kwargs in [
+            ("choose", {}),
+            ("choose_results", {}),
+            ("chosen", {"args": [self.plain.pk]}),
+            ("chosen_multiple", {}),
+        ]:
+            with self.subTest(url_name=url_name):
+                response = self.client.get(self.chooser_url(url_name, **kwargs))
+                self.assertNotEqual(response.status_code, 200)
+
+    def test_chooser_requires_login(self):
+        response = self.client.get(self.chooser_url("choose"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_widget_is_not_registered_for_all_user_foreign_keys(self):
+        # The chooser is only meant for the API token form; it must not
+        # replace the default widget for every ForeignKey to the user model.
+        from wagtail.admin.forms.models import formfield_for_dbfield
+
+        field = APIToken._meta.get_field("user")
+        form_field = formfield_for_dbfield(field)
+        self.assertNotIn("chooser", type(form_field.widget).__name__.lower())
+
+
 class TestAPITokenViewSetRegistration(SimpleTestCase):
     def test_registered_when_v3_installed(self):
         with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=True):
@@ -391,3 +636,13 @@ class TestAPITokenViewSetRegistration(SimpleTestCase):
         with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=False):
             names = [vs.name for vs in register_viewset()]
         self.assertNotIn("wagtailusers_api_tokens", names)
+
+    def test_user_chooser_registered_with_tokens_when_v3_installed(self):
+        with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=True):
+            names = [vs.name for vs in register_viewset()]
+        self.assertIn("wagtailusers_api_token_user_chooser", names)
+
+    def test_user_chooser_omitted_when_v3_not_installed(self):
+        with patch("wagtail.users.wagtail_hooks.apps.is_installed", return_value=False):
+            names = [vs.name for vs in register_viewset()]
+        self.assertNotIn("wagtailusers_api_token_user_chooser", names)
