@@ -1025,6 +1025,8 @@
 * Naman Khandelwal
 * Maarten Ureel
 * Shi Yao Wang
+* Benedict Jackson
+* Émile Nadeau
 
 ## Translators
 
