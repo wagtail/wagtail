@@ -43,6 +43,13 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
 -   [Varnish](https://varnish-cache.org/docs/3.0/tutorial/purging.html)
 -   [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#how-can-i-purge-an-object-from-my-cache)
 
+!!! note
+
+    If you are using nginx as the frontend cache, Django sends a `Vary: Cookie`
+    header (even when the session is not accessed), which prevents nginx from
+    caching responses by default. Add `uwsgi_ignore_headers Vary;` to your nginx
+    configuration to allow caching.
+
 (frontendcache_cloudflare)=
 
 ### Cloudflare
