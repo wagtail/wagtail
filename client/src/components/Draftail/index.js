@@ -223,6 +223,11 @@ const initEditor = (selector, originalOptions, currentScript) => {
         <>
           <BlockToolbar
             {...props}
+            onCompleteSource={(nextState) => {
+              if (nextState) {
+                props.onChange(nextState);
+              }
+            }}
             triggerIcon={ADD_ICON}
             triggerLabel={comboBoxTriggerLabel}
             comboLabel={comboBoxLabel}
