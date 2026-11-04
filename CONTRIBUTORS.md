@@ -988,6 +988,8 @@
 * Nguyen Dang Khoi
 * ma4ter0x22
 * Alberto Fernandez-de-Retana
+* Benedict Jackson
+* Émile Nadeau
 
 ## Translators
 
