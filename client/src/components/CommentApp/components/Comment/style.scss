@@ -41,6 +41,7 @@ $box-padding: 20px;
     border: 1px solid theme('colors.border-field-default');
     border-radius: 5px;
     color: $color-box-text;
+    box-sizing: border-box;
 
     &::placeholder {
       color: theme('colors.text-placeholder');
