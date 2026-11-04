@@ -1,6 +1,11 @@
 Changelog
 =========
 
+8.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent `published` / `page_published` signals and alias updates when scheduling a revision for future publishing (Benedict Jackson, Émile Nadeau)
+
 8.1 (02.11.2026)
 ~~~~~~~~~~~~~~~~
 
