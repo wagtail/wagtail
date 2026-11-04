@@ -22,24 +22,19 @@ $tooltip-color-no: theme('colors.critical.100');
 }
 
 @mixin arrow--left {
-  margin-inline-start: $tooltip-arrow-spacing;
+  margin-inline-start: $tooltip-spacing;
   transform: translateY(-50%);
 
   &::before {
-    top: 50%;
-    inset-inline-end: 100%;
-    transform: translateY(-50%);
-    border-inline-end-color: $tooltip-chrome;
+    content: none;
   }
 }
 
 @mixin arrow--top-left {
-  margin-top: $tooltip-arrow-spacing;
+  margin-top: $tooltip-spacing;
 
   &::before {
-    bottom: 100%;
-    inset-inline-start: $tooltip-arrow-spacing;
-    border-bottom-color: $tooltip-chrome;
+    content: none;
   }
 }
 
