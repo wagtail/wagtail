@@ -16,6 +16,10 @@ window.comments = {
   getContentPath: jest.fn(),
 };
 
+beforeEach(() => {
+  localStorage.clear();
+});
+
 // Define some callbacks in global scope that can be mocked in tests
 let constructor = (_widgetName, _name, _id, _initialState) => {};
 let setState = (_widgetName, _state) => {};
@@ -132,6 +136,29 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
 
   test('it renders correctly', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('saved expansion overrides the default collapsed state', () => {
+    const blockDef = boundBlock.blockDef;
+    blockDef.meta.collapsed = true;
+    const render = () => {
+      document.body.innerHTML = '<div id="placeholder"></div>';
+      return blockDef.render($('#placeholder'), 'the-prefix', [
+        { id: '1', value: 'First value' },
+      ]);
+    };
+
+    render();
+    const toggle = document.querySelector('[data-panel-toggle]');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    toggle.click();
+
+    render();
+    const restoredToggle = document.querySelector('[data-panel-toggle]');
+    expect(restoredToggle.getAttribute('aria-expanded')).toBe('true');
+    expect(
+      document.getElementById('block-1-content').hasAttribute('hidden'),
+    ).toBe(false);
   });
 
   test('Widget constructors are called with correct parameters', () => {
