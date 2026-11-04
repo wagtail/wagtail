@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/tables/title_cell.html" %}
+
+{% block title %}
+    {% if link_url %}
+        <button type="button"{% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ title }}</button>
+    {% else %}
+        {{ title }}
+    {% endif %}
+{% endblock %}
