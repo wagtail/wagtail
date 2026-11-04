@@ -736,6 +736,30 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         # Any other revisions are deleted
         self.assertRevisionNotExists(revision_purged)
 
+    def test_live_revision_not_purged(self):
+        """Live (published) revision must not be purged even if not latest.
+
+        Regression test: DraftStateMixin.live_revision uses on_delete=SET_NULL,
+        so deleting the live revision silently NULLs the FK, leaving the object
+        in a broken state (live=True, live_revision=None).
+        """
+        # Publish the object — this creates a live_revision
+        live_rev = self.object.save_revision()
+        live_rev.publish()
+        self.object.refresh_from_db()
+        self.assertEqual(self.object.live_revision_id, live_rev.id)
+
+        # Save a newer draft so live_rev is no longer the latest revision
+        self.object.save_revision()
+
+        self.run_command()
+
+        # The live revision must still exist
+        self.assertRevisionExists(live_rev)
+        # And the FK must still point to it
+        self.object.refresh_from_db()
+        self.assertEqual(self.object.live_revision_id, live_rev.id)
+
 
 class TestPurgeRevisionsCommandForSnippets(TestPurgeRevisionsCommandForPages):
     def get_object(self):
