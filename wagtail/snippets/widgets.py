@@ -2,12 +2,21 @@ from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, lazy
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import register
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
+
+
+def _interpolate(text, params):
+    return text % params
+
+
+# Applying "%" to a lazy translation evaluates it straight away, in whichever
+# language is active at that point. This defers the interpolation as well.
+_interpolate_lazy = lazy(_interpolate, str)
 
 
 class AdminSnippetChooser(BaseChooser):
@@ -19,9 +28,15 @@ class AdminSnippetChooser(BaseChooser):
         if model is not None:
             self.model = model
         name = self.model._meta.verbose_name
-        self.choose_one_text = _("Choose %(object)s") % {"object": name}
-        self.choose_another_text = _("Choose another %(object)s") % {"object": name}
-        self.link_to_chosen_text = _("Edit this %(object)s") % {"object": name}
+        self.choose_one_text = _interpolate_lazy(
+            _("Choose %(object)s"), {"object": name}
+        )
+        self.choose_another_text = _interpolate_lazy(
+            _("Choose another %(object)s"), {"object": name}
+        )
+        self.link_to_chosen_text = _interpolate_lazy(
+            _("Edit this %(object)s"), {"object": name}
+        )
 
         super().__init__(**kwargs)
 
