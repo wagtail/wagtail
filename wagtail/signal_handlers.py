@@ -37,6 +37,11 @@ def pre_delete_page_unpublish(sender, instance, **kwargs):
         instance.unpublish(commit=False, log_action=None)
 
 
+def pre_delete_page_clear_site_root_paths_cache(sender, instance, **kwargs):
+    if instance.is_site_root():
+        Site.clear_site_root_paths_cache()
+
+
 def post_delete_page_log_deletion(sender, instance, **kwargs):
     logger.info('Page deleted: "%s" id=%d', instance.title, instance.id)
 
@@ -112,6 +117,7 @@ def register_signal_handlers():
     post_delete.connect(post_delete_site_signal_handler, sender=Site)
 
     pre_delete.connect(pre_delete_page_unpublish, sender=Page)
+    pre_delete.connect(pre_delete_page_clear_site_root_paths_cache, sender=Page)
     post_delete.connect(post_delete_page_log_deletion, sender=Page)
 
     post_save.connect(reset_locales_display_names_cache, sender=Locale)
