@@ -13,6 +13,8 @@ If you use generative AI for your contribution, please fill in the "AI usage" po
 
 > _"This pull request includes code written by Claude Code. I have verified in-browser that this fixes the issue."_
 
+If you use AI to scan the codebase for bugs, please only report issues where you have personally reproduced them and confirmed that they represent a real, actual problem that a user might encounter. Bug reports obtained through fully automated scanning of the codebase are not welcome.
+
 ### Acceptable uses
 
 -  Gaining understanding of the existing Wagtail code
@@ -24,6 +26,7 @@ If you use generative AI for your contribution, please fill in the "AI usage" po
 - Entire work (code changes, documentation update, pull request descriptions) are LLM-generated without there being a clear understanding of the solution implementation from the contributor.
 - Responding to questions asked during code review by pasting those questions into an LLM
 - Allowing an LLM to make unchecked false statements through the use of stock phrases, such as claiming to have manually tested a bugfix, or claiming to have experience of an issue through a real-world project
+- Submitting issues for bugs found purely by automated scanning, without verifying that they represent real-world problems
 
 We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.
 
