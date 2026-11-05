@@ -1,16 +1,31 @@
 import copy
-from typing import Annotated, Any, Callable, Literal, TypeGuard, cast, get_type_hints
+import inspect
+from typing import (
+    Annotated,
+    Any,
+    Callable,
+    Literal,
+    TypeGuard,
+    Union,
+    cast,
+    get_args,
+    get_origin,
+    get_type_hints,
+)
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Model
 from django.db.models.fields import Field
 from django.db.models.fields.related import RelatedField
 from django.db.models.fields.reverse_related import ForeignObjectRel
+from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.errors import ConfigError
 from ninja.orm import create_schema
+from ninja.orm.fields import get_schema_field
+from pydantic import PydanticSchemaGenerationError, TypeAdapter
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
@@ -99,6 +114,54 @@ class SchemaGenerator:
         return [field.name for field in model._meta.pk_fields]
 
     @staticmethod
+    def _attribute_annotation(model: type[Model], name: str) -> Any:
+        """
+        Return the type of a model attribute that isn't a Django field, from
+        the return annotation of the property or method, or ``Any``.
+        """
+        attr = inspect.getattr_static(model, name, None)
+        if isinstance(attr, property):
+            func = attr.fget
+        elif isinstance(attr, cached_property):
+            func = attr.func
+        elif callable(attr):
+            func = attr
+        else:
+            return Any
+        try:
+            return_type = get_type_hints(func)["return"]
+        except (KeyError, NameError, TypeError):
+            # No return type, or it's only available when TYPE_CHECKING
+            return Any
+        try:
+            # Unlike a StreamField's documented block types, the value is
+            # validated against this, so it must be a type Pydantic supports
+            TypeAdapter(return_type)
+        except PydanticSchemaGenerationError:
+            return Any
+        return return_type
+
+    @staticmethod
+    def _required_field(field: Field) -> tuple[str, Any, FieldInfo]:
+        """
+        Return a ``create_schema`` custom field definition for ``field``, as
+        Ninja generates it but non-nullable and required.
+        """
+        python_type, field_info = get_schema_field(field)
+        if get_origin(python_type) is Union:
+            python_type = Union[  # noqa: UP007
+                tuple(arg for arg in get_args(python_type) if arg is not type(None))
+            ]
+        required_field_info = FieldInfo(
+            alias=field_info.alias,
+            validation_alias=field_info.validation_alias,
+            serialization_alias=field_info.serialization_alias,
+            title=field_info.title,
+            description=field_info.description,
+        )
+        return field.name, python_type, required_field_info
+
+    @staticmethod
     def _custom_serializer_schema(api_field: APIField) -> FieldSchema:
         """Temporary API v2 compat shim for an ``APIField(serializer=...)``.
 
@@ -178,6 +241,8 @@ class SchemaGenerator:
                 name=f"{model._meta.object_name}Schema",
                 base_class=BaseSchema,
                 nested=True,
+                # Child objects in a preview or revision may not be saved yet
+                pk_required=False,
             )
         return self._reverse_related_schema_cache[model]
 
@@ -306,8 +371,12 @@ class SchemaGenerator:
         base_class: type[Schema],
         nested: bool,
         follow_reverse_related: bool = True,
+        pk_required: bool = True,
     ) -> type[Schema]:
         """Build a schema for ``model``'s ``api_fields``, on top of ``base_class``.
+
+        The model's primary key is always included, and is required (non-null)
+        unless ``pk_required`` is False.
 
         Each entry in ``api_fields`` is classified as:
 
@@ -342,6 +411,7 @@ class SchemaGenerator:
                 base_class=base_class,
                 nested=nested,
                 follow_reverse_related=follow_reverse_related,
+                pk_required=pk_required,
             )
         finally:
             self._models_being_built.pop()
@@ -369,12 +439,21 @@ class SchemaGenerator:
         base_class: type[Schema],
         nested: bool,
         follow_reverse_related: bool,
+        pk_required: bool,
     ) -> type[Schema]:
-        real_names = [
-            field.name
+        pk_fields = [
+            field
             for field in model._meta.pk_fields
             if not (field.remote_field and field.remote_field.parent_link)
+            # Already defined by the base class, e.g. a page's `id`
+            and field.name not in base_class.model_fields
         ]
+        real_names = [field.name for field in pk_fields]
+        # Ninja always makes primary keys nullable and optional
+        # https://github.com/vitalik/django-ninja/issues/1227
+        custom_fields = (
+            [self._required_field(field) for field in pk_fields] if pk_required else []
+        )
         extra_fields: dict[str, FieldSchema] = {}
 
         meta_field = base_class.model_fields.get("meta")
@@ -402,8 +481,13 @@ class SchemaGenerator:
             try:
                 model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
-                # Not a real Django field, so treat it as a plain Python property.
-                extra_fields[field.name] = (Any, None, None)
+                # Not a real Django field, so treat it as a plain Python property
+                # (or method), typed by its return annotation if it has one.
+                extra_fields[field.name] = (
+                    self._attribute_annotation(model, field.name),
+                    None,
+                    None,
+                )
             else:
                 if isinstance(model_field, ForeignObjectRel) and (
                     not follow_reverse_related
@@ -449,6 +533,7 @@ class SchemaGenerator:
                     model,
                     name=f"{name}Base" if extra_fields else name,
                     fields=real_names,
+                    custom_fields=custom_fields,
                     base_class=base_class,
                 )
             except ConfigError:

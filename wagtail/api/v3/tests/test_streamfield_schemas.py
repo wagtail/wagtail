@@ -4,6 +4,7 @@ from unittest import mock
 from django.test import SimpleTestCase
 from ninja import Schema
 from pydantic import TypeAdapter
+from typing_extensions import TypedDict
 
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.generators import read, write
@@ -41,6 +42,22 @@ class PersonBlock(StructBlock):
     name = CharBlock()
 
 
+class PersonSummary(TypedDict):
+    name: str
+    initials: str
+
+
+class AnnotatedPersonBlock(PersonBlock):
+    def get_api_representation(self, value, context=None) -> PersonSummary:
+        name = value["name"]
+        return {"name": name, "initials": "".join(p[0] for p in name.split())}
+
+
+class AnnotatedBlock(Block):
+    def get_api_representation(self, value, context=None) -> list[int]:
+        return [value]
+
+
 class BlockSchemaTestMixin:
     for_input = False
 
@@ -55,7 +72,7 @@ class BlockSchemaTestMixin:
         schema = self.json_schema(StreamBlock([("block", block)]))
         suffix = "Input" if self.for_input else ""
         value = schema["$defs"][f"TestBlockItem{suffix}"]["properties"]["value"]
-        value.pop("title")
+        value.pop("title", None)
         return value
 
 
@@ -155,6 +172,18 @@ class TestBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
     def test_unknown_block_is_any(self):
         self.assertEqual(self.value_schema(Block()), {})
 
+    def test_annotated_api_representation(self):
+        self.assertEqual(
+            self.value_schema(AnnotatedPersonBlock()),
+            {"$ref": "#/$defs/PersonSummary"},
+        )
+
+    def test_annotated_api_representation_of_unknown_block(self):
+        self.assertEqual(
+            self.value_schema(AnnotatedBlock()),
+            {"items": {"type": "integer"}, "type": "array"},
+        )
+
     def test_choice_block(self):
         self.assertEqual(
             self.value_schema(
@@ -226,6 +255,12 @@ class TestInputBlockSchema(BlockSchemaTestMixin, SimpleTestCase):
     def test_overridden_api_representation_is_still_typed(self):
         self.assertEqual(
             self.value_schema(ExtendedImageChooserBlock()), NULLABLE_INTEGER
+        )
+
+    def test_annotated_api_representation_is_not_used(self):
+        self.assertEqual(
+            self.value_schema(AnnotatedPersonBlock()),
+            {"$ref": "#/$defs/AnnotatedPersonBlockInput"},
         )
 
 

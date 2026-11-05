@@ -4,13 +4,20 @@ from typing import Annotated, Any, Iterable, Union
 
 from django.db.models import Model
 from ninja import Schema
-from pydantic import Discriminator, Field, Tag
+from pydantic import ConfigDict, Discriminator, Field, Tag
 from typing_extensions import TypeAliasType
 
 from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 
+#: Config for schemas used in responses. Fields with a default value are always
+#: present in responses, so mark them as required in the JSON schema for the
+#: response (serialization) direction. This does not affect request validation.
+RESPONSE_SCHEMA_CONFIG = ConfigDict(json_schema_serialization_defaults_required=True)
+
 
 class BaseMetaSchema(Schema):
+    model_config = RESPONSE_SCHEMA_CONFIG
+
     type: str
     warnings: list[RichTextRemoval | str] | None = Field(
         None, exclude_if=lambda v: not v
@@ -26,6 +33,8 @@ class BaseMetaSchema(Schema):
 
 
 class BaseSchema(Schema):
+    model_config = RESPONSE_SCHEMA_CONFIG
+
     meta: BaseMetaSchema
 
     @staticmethod
