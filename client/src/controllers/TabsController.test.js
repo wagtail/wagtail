@@ -1113,6 +1113,52 @@ describe('TabsController', () => {
       expect(tab3Panel.hidden).toBeFalsy();
     });
 
+    it('should retry the contentpath lookup if the element is not yet rendered on connect', async () => {
+      window.location.hash = '#:w:contentpath=abc1.d2e';
+
+      await setup(`
+        <div id="location-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#select" data-w-tabs-use-location-value="true">
+          <div role="tablist">
+            <a id="tab-1" href="#tab-panel-1" role="tab" data-w-tabs-target="trigger" data-action="w-tabs#select:prevent" aria-selected="true">A</a>
+            <a id="tab-2" href="#tab-panel-2" role="tab" data-w-tabs-target="trigger" data-action="w-tabs#select:prevent">B</a>
+          </div>
+          <section id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel">A (content)</section>
+          <section id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel">B (content)</section>
+        </div>
+      `);
+
+      expect(errors).toHaveLength(0);
+
+      const [tab1, tab2] = document.querySelectorAll('[role="tab"]');
+      const [tab1Panel, tab2Panel] = document.querySelectorAll('section');
+
+      // Nothing matches the contentpath yet, so it falls back to tab-1
+
+      expect(tab1.getAttribute('aria-selected')).toBe('true');
+      expect(tab2.getAttribute('aria-selected')).toBe(null);
+
+      // Simulate telepath.unpack() inserting the StreamField block into the
+      // DOM shortly after TabsController.connect() has already run
+
+      document
+        .getElementById('tab-panel-2')
+        .insertAdjacentHTML(
+          'beforeend',
+          '<div data-contentpath="abc1"><div data-contentpath="d2e">HERE</div></div>',
+        );
+
+      // Let the queued requestAnimationFrame retry run
+
+      jest.advanceTimersByTime(20);
+      await flushPromises();
+
+      expect(tab1.getAttribute('aria-selected')).toBe(null);
+      expect(tab2.getAttribute('aria-selected')).toBe('true');
+
+      expect(tab1Panel.hidden).toBeTruthy();
+      expect(tab2Panel.hidden).toBeFalsy();
+    });
+
     it('should use the current URL hash on load but gracefully handle not found ids', async () => {
       window.location.hash = '#goes-nowhere-does-nothing';
 
