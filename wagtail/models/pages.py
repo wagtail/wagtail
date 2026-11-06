@@ -158,6 +158,7 @@ PAGE_PERMISSION_TYPES = [
     ("add", _("Add"), _("Add/edit pages you own")),
     ("bulk_delete", _("Bulk delete"), _("Delete pages with children")),
     ("change", _("Edit"), _("Edit any page")),
+    ("choose", _("Choose"), _("Choose pages")),
     ("lock", _("Lock"), _("Lock/unlock pages you've locked")),
     ("publish", _("Publish"), _("Publish any page")),
     ("unlock", _("Unlock"), _("Unlock any page")),
@@ -258,6 +259,7 @@ class PagePermissionCodenames:
     def __init__(self, model_name):
         self.ADD = f"add_{model_name}"
         self.CHANGE = f"change_{model_name}"
+        self.CHOOSE = f"choose_{model_name}"
         self.DELETE = f"delete_{model_name}"
         self.PUBLISH = f"publish_{model_name}"
         self.LOCK = f"lock_{model_name}"
