@@ -1,6 +1,6 @@
 (api_ninja)=
 
-# How to set up Django Ninja
+# How to build your own API with Django Ninja
 
 ```{versionadded} 8.0
 Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
