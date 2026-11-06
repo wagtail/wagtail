@@ -89,6 +89,8 @@ This covers a wide range of CMS operations that are available in the Wagtail adm
 
 The v3 API replaces the v2 API, which is planned for deprecation in a future release. See the [deprecation timeline](api_v2_deprecation) and [](api_v3_migration).
 
+(api_v3_pagination)=
+
 ## Pagination
 
 List endpoints use `?limit` and `?offset` query parameters for pagination. The `count` in responses is the total number of results without pagination:
