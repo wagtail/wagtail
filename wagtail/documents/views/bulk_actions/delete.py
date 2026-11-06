@@ -3,6 +3,7 @@ from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
+from wagtail.log_actions import log
 
 
 class DeleteBulkAction(ReferenceIndexMixin, DocumentBulkAction):
@@ -21,6 +22,9 @@ class DeleteBulkAction(ReferenceIndexMixin, DocumentBulkAction):
     @classmethod
     def execute_action(cls, objects, **kwargs):
         num_parent_objects = len(objects)
+        for obj in objects:
+            # Log before deleting, while the objects still exist.
+            log(instance=obj, action="wagtail.delete", deleted=True)
         cls.get_default_model().objects.filter(
             pk__in=[obj.pk for obj in objects]
         ).delete()
