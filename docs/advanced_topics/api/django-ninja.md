@@ -1,6 +1,6 @@
 (api_ninja)=
 
-# How to set up Django Ninja
+# How to build your own API with Django Ninja
 
 Wagtail's [built-in v3 API](api_v3) is built on [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
 Here is information on using Django Ninja directly, to build your own API independently of Wagtail's built-in API.
