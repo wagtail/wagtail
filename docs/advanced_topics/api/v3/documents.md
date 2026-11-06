@@ -2,17 +2,17 @@
 
 # Documents
 
-Documents are managed through the v3 API at `/api/v3/documents/`. You can list, read, upload, update metadata for, and delete documents, with the same collection permissions, validation, and behaviour as the admin. The document routes are flat rather than nested under collections.
+Documents are managed through the v3 API at `/api/v3/documents/`. You can list, read, upload, update metadata for, and delete documents, with the same collection permissions, validation, and behavior as the admin. The document routes are flat rather than nested under collections.
 
 ```{note}
-Document reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behaviour below.
+Document reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behavior below.
 ```
 
 ## Reading documents
 
 The `/documents/` endpoint lists documents, and the `/documents/{id}/` endpoint returns a single document. A document response includes its ID, title, collection, tags, and its type, detail and absolute download URLs.
 
-Both endpoints are public for anonymous requests, but a document is excluded when a view restriction attached **directly to the document's own collection** is not satisfied by the request. A bearer-authenticated request can satisfy an applicable restriction through the user's and groups' identities, and a password-restriction's session state is honoured, in the same way as the documented read behaviour elsewhere in v3.
+Both endpoints are public for anonymous requests, but a document is excluded when a view restriction attached **directly to the document's own collection** is not satisfied by the request. A bearer-authenticated request can satisfy an applicable restriction through the user's and groups' identities, and a password-restriction's session state is honored, in the same way as the documented read behavior elsewhere in v3.
 
 ```{note}
 A restriction on an ancestor collection does not hide a document in a descendant collection: only restrictions on the document's own collection affect its visibility.
@@ -20,7 +20,7 @@ A restriction on an ancestor collection does not hide a document in a descendant
 
 ### Listing and filtering
 
-The documents list supports pagination with `?limit` / `?offset` (see [](api_v3)). You can filter on the document's own fields (`id` and `title`, plus any `api_fields` the project declares) as exact-match query parameters, order the results, and run full-text search:
+The documents list supports pagination with `?limit` / `?offset` (see [](api_v3_pagination)). You can filter on the document's own fields (`id` and `title`, plus any `api_fields` the project declares) as exact-match query parameters, order the results, and run full-text search:
 
 ```sh
 # Documents titled "report", ordered by title
@@ -67,7 +67,7 @@ The `/documents/{id}/` endpoint deletes a document. It requires an authenticated
 
 ## Custom document models
 
-The active document model, set with `WAGTAILDOCS_DOCUMENT_MODEL` (see [](custom_document_model)), is used for the API: generated schemas and forms include the model's custom API and admin fields, and its custom form validation. Dedicated tests cover custom model reads, create, update, and schemas.
+The active document model, set with `WAGTAILDOCS_DOCUMENT_MODEL` (see [](custom_document_model)), is used for the API: generated schemas and forms include the model's custom API and admin fields, and its custom form validation.
 
 ## Example: upload a document and use it in a page
 
@@ -104,4 +104,4 @@ curl -X POST "$BASE/pages/" \
   }'
 ```
 
-The full, generated OpenAPI reference for every document endpoint — request and response shapes included — is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
+The full, generated OpenAPI reference for every document endpoint is rendered from Wagtail's own OpenAPI snapshot, see [](api_v3_reference).
