@@ -23,10 +23,13 @@ describe('ModalWorkflowSource', () => {
   beforeEach(() => {
     jest.spyOn(global, 'ModalWorkflow');
     jest.spyOn(DraftUtils, 'getSelectionText').mockImplementation(() => '');
+    jest.spyOn(document.body, 'addEventListener');
+    jest.spyOn(document.body, 'removeEventListener');
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
+    document.body.replaceWith(document.body.cloneNode(true));
   });
 
   it('works', () => {
@@ -284,7 +287,10 @@ describe('ModalWorkflowSource', () => {
     global.ModalWorkflow.mock.calls[0][0].responses.embedChosen('test', {});
 
     expect(global.ModalWorkflow).toHaveBeenCalled();
-    expect(global.jQuery().on).toHaveBeenCalled();
+    expect(document.body.addEventListener).toHaveBeenCalledWith(
+      'hidden.bs.modal',
+      wrapper.instance().onClose,
+    );
     expect(wrapper.instance().onChosen).toHaveBeenCalled();
   });
 
@@ -307,7 +313,10 @@ describe('ModalWorkflowSource', () => {
     global.ModalWorkflow.mock.calls[0][0].onError();
 
     expect(global.ModalWorkflow).toHaveBeenCalled();
-    expect(global.jQuery().on).toHaveBeenCalled();
+    expect(document.body.addEventListener).toHaveBeenCalledWith(
+      'hidden.bs.modal',
+      wrapper.instance().onClose,
+    );
     expect(window.alert).toHaveBeenCalled();
     expect(onClose).toHaveBeenCalled();
   });
@@ -323,9 +332,14 @@ describe('ModalWorkflowSource', () => {
       />,
     );
 
+    const { onClose } = wrapper.instance();
+
     wrapper.instance().componentWillUnmount();
 
-    expect(global.jQuery().off).toHaveBeenCalled();
+    expect(document.body.removeEventListener).toHaveBeenCalledWith(
+      'hidden.bs.modal',
+      onClose,
+    );
   });
 
   describe('#onChosen', () => {
