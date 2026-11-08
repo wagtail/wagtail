@@ -322,6 +322,16 @@ class IndexView(
 
     def get_reorder_url(self):
         if self.reorder_url_name and self.user_has_permission("change"):
+            if self.model and isinstance(self.model._meta.pk, models.UUIDField):
+                # The reorder URL is a template: the orderable table JS
+                # replaces the 999999 placeholder with the pk of the item
+                # being moved. A UUID primary key cannot be reversed with
+                # that placeholder, so reverse with a dummy UUID and swap
+                # it for the placeholder instead.
+                dummy_pk = "00000000-0000-0000-0000-000000000000"
+                return reverse(self.reorder_url_name, args=(dummy_pk,)).replace(
+                    dummy_pk, "999999"
+                )
             return reverse(self.reorder_url_name, args=(999999,))
 
     def get_add_url(self):

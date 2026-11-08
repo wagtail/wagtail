@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.test.testapp.models import FullFeaturedSnippet
+from wagtail.test.testapp.models import FullFeaturedSnippet, UUIDOrderableSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -160,6 +160,97 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
 
         self.test_header_button_rendered()
         self.test_show_ordering_column()
+
+
+class TestIndexViewReorderingWithUUIDPrimaryKey(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        # This model has a UUID primary key and a sort_order_field,
+        # so the reorder view is enabled for it.
+        self.obj1 = UUIDOrderableSnippet.objects.create(text="Toy 1", sort_order=0)
+        self.obj2 = UUIDOrderableSnippet.objects.create(text="Toy 2", sort_order=1)
+        self.obj3 = UUIDOrderableSnippet.objects.create(text="Toy 3", sort_order=2)
+
+    def get_url_name(self, name):
+        return UUIDOrderableSnippet.snippet_viewset.get_url_name(name)
+
+    def test_header_button_rendered(self):
+        index_url = reverse(self.get_url_name("list"))
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(index_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNotNone(button)
+        self.assertEqual(button.text.strip(), "Sort item order")
+
+    def test_show_ordering_column(self):
+        index_url = reverse(self.get_url_name("list"))
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # The table should have the w-orderable controller
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertEqual(table.get("data-controller"), "w-orderable")
+        # The reorder URL is a template: the JS replaces the 999999
+        # placeholder with the pk of the item being moved.
+        self.assertEqual(
+            table.get("data-w-orderable-url-value"),
+            index_url + "reorder/999999/",
+        )
+
+        # All rows have the corresponding attributes for reordering
+        rows = table.select("tbody tr")
+        self.assertEqual(len(rows), 3)
+        expected = [
+            {
+                "id": f"item_{quote(obj.pk)}",
+                "data-w-orderable-item-id": str(quote(obj.pk)),
+                "data-w-orderable-item-label": str(obj),
+                "data-w-orderable-target": "item",
+            }
+            for obj in [self.obj1, self.obj2, self.obj3]
+        ]
+        for row, expected_attrs in zip(rows, expected):
+            for attr, value in expected_attrs.items():
+                self.assertEqual(row.get(attr), value)
+
+
+class TestReorderViewWithUUIDPrimaryKey(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.obj1 = UUIDOrderableSnippet.objects.create(text="Toy 1", sort_order=0)
+        self.obj2 = UUIDOrderableSnippet.objects.create(text="Toy 2", sort_order=1)
+        self.obj3 = UUIDOrderableSnippet.objects.create(text="Toy 3", sort_order=2)
+
+    def get_url(self, obj):
+        return reverse(
+            UUIDOrderableSnippet.snippet_viewset.get_url_name("reorder"),
+            args=(quote(obj.pk),),
+        )
+
+    def assertOrder(self, objs):
+        self.assertSequenceEqual(
+            [
+                (obj, obj.sort_order)
+                for obj in UUIDOrderableSnippet.objects.order_by("sort_order")
+            ],
+            objs,
+        )
+
+    def test_move_position_down(self):
+        # Move obj1 to the second position
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decreasing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 0), (self.obj1, 1), (self.obj3, 2)])
 
 
 class TestCreateViewReordering(WagtailTestUtils, TestCase):
