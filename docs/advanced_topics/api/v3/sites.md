@@ -14,7 +14,9 @@ Sites are exposed as CRUD:
 
 A site is described by its `id`, `hostname`, `port`, `site_name`, `root_page_id`, and `is_default_site` state. The list and detail endpoints are filtered by the permission policy, so a caller only sees sites they have a permission on.
 
-Create and update take the site fields as JSON and go through `SiteForm`, so the same rules apply as in the admin: hostname normalization, uniqueness and default-site constraints, root page validation, and cache invalidation. Mutations run through Wagtail actions and return `201` on create and `204` on delete. Creating a site:
+Create and update operations take the site fields as JSON and go through `SiteForm`, so the same rules apply as in the admin: hostname normalization, uniqueness and default-site constraints, root page validation, and cache invalidation.
+
+The following is an example of creating a site:
 
 ```sh
 curl -X POST "https://example.com/api/v3/sites/" \
