@@ -6,7 +6,7 @@ The v3 API exposes its generated JSON schemas so clients can discover what each 
 
 ## Listing registered content types
 
-The `/schema/` endpoint lists the content types registered with the API. Each entry has a `name` (the exact Django model label, or the generic `pages`) and a `label` (a human-readable name):
+The `/schema/` endpoint lists the content types registered with the API. Each entry has a `name` (the exact Django model label) and a `label` (a human-readable name):
 
 ```sh
 curl -H "Authorization: Bearer $TOKEN" "https://example.com/api/v3/schema/"
@@ -15,14 +15,14 @@ curl -H "Authorization: Bearer $TOKEN" "https://example.com/api/v3/schema/"
 ```json
 {
     "types": [
-        {"name": "pages", "label": "Pages"},
-        {"name": "tests.BlogPage", "label": "Blog page"},
-        {"name": "mymodels.Advert", "label": "Advert"}
+        {"name": "wagtailcore.Page", "label": "page"},
+        {"name": "blog.BlogPage", "label": "blog page"},
+        {"name": "myapp.Advert", "label": "advert"}
     ]
 }
 ```
 
-The registered types depend on the project's installed apps and registered models, so the exact list is specific to each site.
+The content types depend on the project's installed apps and registered models, so the exact list is specific to each site.
 
 ## Reading the schemas for a content type
 
@@ -43,9 +43,9 @@ An unknown content type returns `404`.
 
 Schemas are generated at runtime from the project's models and panels. The read side comes from a model's `api_fields`, and the write side additionally requires a field to be a real editable model field declared `APIField(..., writable=True)`. A field that is readable but not exposed as writable appears in `read` but not in `create` or `patch`.
 
-Note: avoid using the same model name across multiple apps. Schemas aren’t prefixed with the app label, so a `BlogPage` in two different apps would collide. Similarly, avoid using the same names for type variables, as they will also create confusion in the generated project-wide schema.
-
-Because the generic `pages` entry is for discovery across all page types, only its `read` schema is populated today: its `create` and `patch` directions fall back to a `Not yet available` placeholder. Use a concrete page type registration (for example `tests.BlogPage`) to get actionable `create` and `patch` schemas.
+```{note}
+Avoid using the same model name across multiple apps. Schemas aren’t prefixed with the app label, so a `BlogPage` in two different apps would collide. Similarly, avoid using the same names for type variables, as they may cause confusion in the generated project-wide schema.
+```
 
 ## Compared with the v2 API
 
