@@ -90,6 +90,8 @@ Two query parameters control the response:
 -   **`version`**: `live` (the default) returns the currently live page. `draft` returns the latest revision for an authenticated request.
 -   **`rich_text_format`**: the output format for rich text fields, as described in [](api_v3_rich_text).
 
+(api_v3_pages_create)=
+
 ## Creating a page
 
 The `/pages/` endpoint creates a new page under a parent. It requires an authenticated request and the page `add` (create) permission on the desired tree position.
@@ -206,6 +208,8 @@ Each entry includes the revision ID, object ID, creation time, authoring user ID
 ### Revision detail
 
 The `/pages/{page_id}/revisions/{revision_id}/` endpoint returns a single revision's metadata, its content and base content types, and a `content_object` reconstructed from the revision. Revision IDs are scoped to the page: a revision belonging to another page returns `404`.
+
+(api_v3_pages_actions)=
 
 ## Page actions
 
