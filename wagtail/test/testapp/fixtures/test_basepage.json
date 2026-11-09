@@ -810,6 +810,15 @@
       "permission": ["unlock_basepage", "basepage", "basepage"]
     }
   },
+  {
+    "pk": 10,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event editors"],
+      "page": 2,
+      "permission": ["choose_basepage", "basepage", "basepage"]
+    }
+  },
 
   {
     "pk": 1,

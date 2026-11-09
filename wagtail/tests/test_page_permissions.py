@@ -651,6 +651,25 @@ class TestPagePermission(PageFixturesMixin, TestCase):
                 page_matches_policy_model,
             )
 
+    def test_chooser_navigable_pages(self):
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+        home_page = Page.objects.get(url_path="/home/")
+        unpublished_event_page = EventPage.objects.get(
+            url_path="/home/events/tentative-unpublished-event/"
+        )
+        inaccessible_page = Page.objects.get(url_path="/does-not-exist/")
+
+        policy = self.policy_class(self.model)
+        navigable_pages = policy.chooser_navigable_instances(event_editor)
+
+        # Verify all pages below /home/ are explorable
+        if self.model is Page:  # skip if testing permission policy for EventPage
+            self.assertTrue(navigable_pages.filter(id=home_page.id).exists())
+        self.assertTrue(navigable_pages.filter(id=unpublished_event_page.id).exists())
+
+        # Verify page outside /home/ tree are not explorable
+        self.assertFalse(navigable_pages.filter(id=inaccessible_page.id).exists())
+
     def test_editable_pages_for_user_with_edit_permission(self):
         event_moderator = get_user_model().objects.get(
             email="eventmoderator@example.com"
