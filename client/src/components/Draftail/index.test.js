@@ -108,6 +108,34 @@ describe('Draftail', () => {
         }).toThrow(SyntaxError);
       });
 
+      it('ariaLabelledBy assigns id to label if missing', () => {
+        document.body.innerHTML = `
+          <label for="test">Body</label>
+          <input id="test" value="null" />
+        `;
+        const field = document.querySelector('#test');
+
+        draftail.initEditor('#test', {});
+
+        expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
+        expect(document.querySelector('label').id).toBe('test-label');
+      });
+
+      it('ariaLabelledBy respects existing label id', () => {
+        document.body.innerHTML = `
+        <label id="custom-label-id" for="test">Body</label>
+        <input id="test" value="null" />
+      `;
+        const field = document.querySelector('#test');
+
+        draftail.initEditor('#test', {});
+
+        expect(field.draftailEditor.props.ariaLabelledBy).toBe(
+          'custom-label-id',
+        );
+        expect(document.querySelector('label').id).toBe('custom-label-id');
+      });
+
       it('fails to instantiate on the right field when currentScript is not used', () => {
         window.draftail = draftail;
         document.body.innerHTML = `
