@@ -25,11 +25,11 @@ Here is a comparison of the two versions across high-level areas relevant for co
 | --- | --- | --- |
 | Framework | [Django REST Framework](https://www.django-rest-framework.org/) | [Django Ninja](https://django-ninja.dev/) and Pydantic |
 | Operations | Read-only lists, detail, and find | Read/write, actions, and revisions |
-| Resources | Pages, images, documents, redirects, by registered endpoints | All of v2 and sites, locales, snippets, schema, and whoami |
+| Resources | Pages, images, documents, redirects, by registered endpoints | All of v2 and sites, locales, snippets, schema, and `whoami` |
 | Authentication | Public by default, DRF-configurable auth | Anonymous reads by default, Wagtail-provided bearer tokens |
 | Page visibility | Public/live queryset by default | Public/live anonymously; drafts with change or publish permission when authenticated |
 | Pagination envelope | `{"meta": {"total_count": N}, "items": [...]}` | `{"count": N, "items": [...]}` |
-| Field projection | Rich `?fields=` with nested fields | Not supported. Fixed generated schemas |
+| Field projection | Rich `?fields=` with nested fields | Not supported in favor of fixed generated schemas |
 | API fields | DRF serializers, sources, computed fields | Read compatibility plus typed Pydantic schemas and explicit writable fields |
 | Unknown queries | Rejected | Unknown arbitrary field filters are often skipped |
 | Ordering encoding | Comma-oriented v2 filters | Repeated/list query parameters |
