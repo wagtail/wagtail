@@ -9,6 +9,7 @@ Wagtail 8.0 introduces a preview of the v3 API, which can read and write CMS con
 maxdepth: 1
 ---
 authentication
+fields
 pages
 workflows
 images
@@ -57,6 +58,20 @@ urlpatterns = [
 The above example will mount the API root at `/api/v3-preview/`. This includes read-only endpoints and write endpoints (protected with authentication and permission checks).
 
 Available endpoints depend on which Wagtail apps are in `INSTALLED_APPS`. Pages are always available, while images, documents, snippets, locales, and redirects appear only when their app is installed.
+
+Finally, expose the fields of your models through `api_fields`:
+
+```python
+from wagtail.api import APIField
+
+
+class BlogPage(Page):
+    ...
+
+    api_fields = [APIField("body", writable=True)]
+```
+
+See [](api_v3_fields) for the full details.
 
 To get started, browse the generated docs:
 

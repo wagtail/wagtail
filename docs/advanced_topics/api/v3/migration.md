@@ -15,7 +15,7 @@ The v2 API is planned for deprecation in favor of v3. It currently remains avail
 -   **Wagtail 8.3 (LTS)**: the v2 API remains included, with deprecation warnings.
 -   **Wagtail 9.0**: the v2 API is removed from Wagtail. Projects that still use it can switch to the separate package.
 
-Only the v2 API's endpoints, views, and serializers are affected. [`APIField` and `api_fields`](api_v3_schema) are shared with the v3 API, and are not deprecated.
+Only the v2 API's endpoints, views, and serializers are affected. [`APIField` and `api_fields`](api_v3_fields) are shared with the v3 API, and are not deprecated.
 
 ## Comparison of v2 and v3 APIs
 
