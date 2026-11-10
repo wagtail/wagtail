@@ -4,13 +4,13 @@ import * as React from 'react';
 
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
-import { isDismissed } from './MenuItem';
+import { isDismissed, isWithinPath } from './MenuItem';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
 > = ({ item, slim, path, state, dispatch, navigate }) => {
   const isCurrent = state.activePath === path;
-  const isActive = state.activePath.startsWith(path);
+  const isActive = isWithinPath(state.activePath, path);
   const isInSubMenu = path.split('.').length > 2;
 
   const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
