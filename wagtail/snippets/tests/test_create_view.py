@@ -713,11 +713,10 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
         soup = self.get_soup(html)
-        dialog = soup.select_one(
-            """
-            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
-            #schedule-publishing-dialog
-            """
+        dialog = self.select_in_template(
+            soup,
+            "#schedule-publishing-dialog",
+            template_selector='template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]',
         )
         self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute

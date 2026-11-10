@@ -538,7 +538,7 @@ class TestPreview(WagtailTestUtils, TestCase):
 
         # Previews use a dummy request object, so the userbar should use
         # relative URLs to avoid using the wrong host.
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [

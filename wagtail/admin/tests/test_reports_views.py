@@ -137,9 +137,8 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='locked_by']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locked_by_select = drilldown.select_one("select[name='locked_by']")
         label = soup.select_one(f"label[for='{locked_by_select.get('id')}']")
         locked_by_options = locked_by_select.select("option")
         self.assertEqual(label.text.strip(), "Locked by")
@@ -190,9 +189,8 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(
-            f"{self.drilldown_selector} select[name='locked_by'] option"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locked_by_options = drilldown.select("select[name='locked_by'] option")
         # The options should only display users who have locked pages
         self.assertEqual(len(locked_by_options), 2)
         self.assertEqual(locked_by_options[0].text, "Anyone")
@@ -475,11 +473,10 @@ class TestFilteredLogEntriesView(PageFixturesMixin, BaseReportViewTestCase):
 
     def assert_filter_actions(self, response, expected):
         soup = self.get_soup(response.content)
+        drilldown = soup.select_one(self.drilldown_selector)
         actual = {
             choice.get("value")
-            for choice in soup.select(
-                f"{self.drilldown_selector} input[name='action'][type='checkbox']"
-            )
+            for choice in drilldown.select("input[name='action'][type='checkbox']")
         }
         self.assertSetEqual(actual, set(expected))
 
@@ -1100,9 +1097,8 @@ class TestFilteredAgingPagesView(PageFixturesMixin, BaseReportViewTestCase):
         self.assertActiveFilter(soup, "content_type", ct_pk)
 
         # Should render the filter inside the drilldown component
-        ct_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='content_type']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        ct_select = drilldown.select_one("select[name='content_type']")
         self.assertIsNotNone(ct_select)
         selected_option = ct_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)
@@ -1330,9 +1326,8 @@ class PageTypesReportFiltersTests(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown component
         soup = self.get_soup(response.content)
-        locale_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='page_locale']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locale_select = drilldown.select_one("select[name='page_locale']")
         self.assertIsNotNone(locale_select)
         selected_option = locale_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)

@@ -140,7 +140,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             '[data-w-teleport-mode-value="innerHTML"]'
         )
         self.assertIsNotNone(header_buttons)
-        add_button = header_buttons.select_one(":is(template > a)")
+        add_button = header_buttons.select_one('a[aria-label="Add child page"]')
         self.assertIsNotNone(add_button)
         self.assertEqual(
             add_button.get("href"),
@@ -912,7 +912,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             '[data-w-teleport-mode-value="innerHTML"]'
         )
         self.assertIsNotNone(header_buttons)
-        add_button = header_buttons.select_one(":is(template > a)")
+        add_button = header_buttons.select_one('a[aria-label="Add child page"]')
         self.assertIsNotNone(add_button)
         self.assertEqual(
             add_button.get("href"),
