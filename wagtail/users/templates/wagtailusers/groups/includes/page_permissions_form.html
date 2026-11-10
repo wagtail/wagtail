@@ -1,9 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 
-<td>
+<th scope="row">
     {% formattedfield field=form.page sr_only_label=True %}
     {{ form.DELETE }}
-</td>
+</th>
 
 {% for option in form.permissions %}
     <td><label for="{{ option.id_for_label }}" class="w-sr-only">{{ option.choice_label }}</label>{{ option.tag }}</td>

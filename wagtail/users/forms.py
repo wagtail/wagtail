@@ -275,6 +275,19 @@ class GroupForm(forms.ModelForm):
         return group
 
 
+class PermissionMultipleChoiceField(forms.ModelMultipleChoiceField):
+    """
+    Allows the custom labels from ``Page.permission_types`` to be applied to
+    permission checkboxes for the ``PagePermissionsForm`` below
+    """
+
+    def label_from_instance(self, obj):
+        for codename, short_label, long_label in Page.permission_types:
+            if codename == obj.codename:
+                return long_label
+        return str(obj)
+
+
 class PagePermissionsForm(forms.Form):
     """
     Note 'Permissions' (plural). A single instance of this form defines the permissions
@@ -285,7 +298,7 @@ class PagePermissionsForm(forms.Form):
         queryset=Page.objects.all(),
         widget=AdminPageChooser(show_edit_link=False, can_choose_root=True),
     )
-    permissions = forms.ModelMultipleChoiceField(
+    permissions = PermissionMultipleChoiceField(
         queryset=Permission.objects.filter(
             content_type__app_label=Page._meta.app_label,
             content_type__model=Page._meta.model_name,
