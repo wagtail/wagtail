@@ -10,7 +10,7 @@ Every snippet endpoint requires an authenticated request with the relevant model
 
 ## Registering snippets
 
-A snippet model is exposed through the v3 API only if it declares at least one `APIField`. The schema for a snippet model is generated similarly to pages and can be inspected via [schema discovery](api_v3_schema). The main difference is that snippets use the same schema for both the listing and detail endpoints.
+A snippet model is exposed through the v3 API only if it declares at least one entry in [`api_fields`](api_v3_fields). The schema for a snippet model is generated similarly to pages and can be inspected via [schema discovery](api_v3_schema). The main difference is that snippets use the same schema for both the listing and detail endpoints.
 
 The routes for a snippet model use the exact Django model label as the path segment, for example `mymodels.Advert`. Primary keys are accepted as string path input, supporting integer, UUID, and other string primary keys.
 

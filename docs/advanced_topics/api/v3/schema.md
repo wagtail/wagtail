@@ -41,7 +41,7 @@ An unknown content type returns `404`.
 
 ## How schemas are generated
 
-Schemas are generated at runtime from the project's models and panels. The read side comes from a model's `api_fields`, and the write side additionally requires a field to be a real editable model field declared `APIField(..., writable=True)`. A field that is readable but not exposed as writable appears in `read` but not in `create` or `patch`.
+Schemas are generated at runtime from the project's models. The fields in each direction depend on the model's `api_fields`, as described in [](api_v3_fields).
 
 ```{note}
 Avoid using the same model name across multiple apps. Schemas aren’t prefixed with the app label, so a `BlogPage` in two different apps would collide. Similarly, avoid using the same names for type variables, as they may cause confusion in the generated project-wide schema.
