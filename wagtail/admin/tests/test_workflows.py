@@ -3368,9 +3368,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3388,9 +3387,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3412,9 +3410,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(
-            f"{self.header_buttons_parent_selector} .w-dropdown [data-w-action-url-value]"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
@@ -3432,9 +3429,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
@@ -3451,9 +3447,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(
-            f"{self.header_buttons_parent_selector} .w-dropdown [data-w-action-url-value]"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_tasks_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
@@ -3471,9 +3466,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
