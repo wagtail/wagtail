@@ -432,7 +432,7 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         edit_url = reverse("wagtailsettings:edit", args=("tests", "IconGenericSetting"))
         edit_response = self.client.get(edit_url, follow=True)
         soup = self.get_soup(edit_response.content)
-        self.assertIsNotNone(soup.select_one("h2 svg use[href='#icon-tag']"))
+        self.assertIsNotNone(soup.select_one("h1 svg use[href='#icon-tag']"))
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
