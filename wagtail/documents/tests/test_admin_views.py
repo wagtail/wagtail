@@ -971,6 +971,42 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "Test document changed!",
         )
 
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_post_rejects_new_tag_with_spaces(self):
+        # The tag widget submits a pasted multi-word tag in quotes
+        response = self.client.post(
+            reverse("wagtaildocs:edit", args=(self.document.id,)),
+            {"title": "Edited", "tags": '"fine dining"'},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "tags",
+            "Tag(s) fine dining contain spaces, which are not allowed.",
+        )
+        document = models.Document.objects.get(id=self.document.id)
+        self.assertEqual(document.title, "Test document")
+        self.assertFalse(document.tags.exists())
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_post_keeps_existing_tag_with_spaces(self):
+        # A multi-word tag created before spaces were disallowed must not
+        # block saving unrelated changes
+        self.document.tags.add("fine dining")
+
+        response = self.client.post(
+            reverse("wagtaildocs:edit", args=(self.document.id,)),
+            {"title": "Edited", "tags": '"fine dining"'},
+        )
+
+        self.assertRedirects(response, reverse("wagtaildocs:index"))
+        document = models.Document.objects.get(id=self.document.id)
+        self.assertEqual(document.title, "Edited")
+        self.assertEqual(
+            list(document.tags.values_list("name", flat=True)), ["fine dining"]
+        )
+
     def test_edit_with_next_url(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")

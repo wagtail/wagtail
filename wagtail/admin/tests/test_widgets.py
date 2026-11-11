@@ -588,6 +588,89 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({"tags": tag_name})
         self.assertFalse(form.is_valid())
 
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_tag_with_spaces_rejected_when_spaces_not_allowed(self):
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        # A pasted multi-word tag is submitted quoted by the tag widget
+        form = RestaurantTagForm({"tags": 'Italian, "fine dining"'})
+        self.assertFalse(form.is_valid())
+        self.assertIn(
+            "Tag(s) fine dining contain spaces, which are not allowed.",
+            form.errors["tags"],
+        )
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_single_word_tags_accepted_when_spaces_not_allowed(self):
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({"tags": "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data["tags"]), {"Italian", "delicious"})
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_existing_tag_with_spaces_accepted_when_spaces_not_allowed(self):
+        # Multi-word tags created before the setting was turned off must not
+        # block saving an object that already carries them
+        RestaurantTag.objects.create(name="fine dining", slug="fine-dining")
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({"tags": 'Italian, "fine dining"'})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data["tags"]), {"Italian", "fine dining"})
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False, TAGGIT_CASE_INSENSITIVE=True)
+    def test_existing_tag_with_spaces_matched_case_insensitively(self):
+        # taggit reuses "Fine Dining" for "fine dining" in this mode, so it is
+        # not a new multi-word tag
+        RestaurantTag.objects.create(name="Fine Dining", slug="fine-dining")
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({"tags": 'Italian, "fine dining"'})
+        self.assertTrue(form.is_valid())
+
+        form = RestaurantTagForm({"tags": 'Italian, "street food"'})
+        self.assertFalse(form.is_valid())
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False, TAGGIT_CASE_INSENSITIVE=False)
+    def test_existing_tag_with_spaces_matched_case_sensitively(self):
+        # Without case-insensitive tagging, taggit would create a separate
+        # "fine dining" tag, so it counts as new
+        RestaurantTag.objects.create(name="Fine Dining", slug="fine-dining")
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({"tags": 'Italian, "fine dining"'})
+        self.assertFalse(form.is_valid())
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_existing_tag_with_spaces_selectable_without_free_tagging(self):
+        RestaurantTag.objects.create(name="fine dining", slug="fine-dining")
+
+        class RestaurantTagForm(forms.Form):
+            # RestaurantTag sets free_tagging=False at the model level
+            tags = TagField(tag_model=RestaurantTag)
+
+        form = RestaurantTagForm({"tags": '"fine dining", "street food"'})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["tags"], ["fine dining"])
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=True)
+    def test_tag_with_spaces_accepted_when_spaces_allowed(self):
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({"tags": 'Italian, "fine dining"'})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data["tags"]), {"Italian", "fine dining"})
+
 
 class TestFilteredSelect(TestCase):
     def test_render(self):

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagField as TaggitTagField
@@ -24,6 +25,42 @@ def validate_tag_length(
                 "value_too_long": value_too_long,
                 "max_tag_length": max_tag_length,
             }
+        )
+
+
+def validate_tag_spaces(value, tag_model=Tag):
+    """
+    Reject new tags containing whitespace when WAGTAIL_TAG_SPACES_ALLOWED is False.
+
+    The tag widget only blocks typing a space; pasted or quoted multi-word tags
+    still reach the server, so the setting is enforced here.
+    Tags that already exist are allowed, so objects carrying multi-word tags
+    created before the setting was turned off can still be saved. Existing tags
+    are matched the same way django-taggit matches them when saving, which is
+    case-insensitively if TAGGIT_CASE_INSENSITIVE is True.
+    """
+    if not value or getattr(settings, "WAGTAIL_TAG_SPACES_ALLOWED", True):
+        return
+    tags_with_spaces = [tag for tag in value if any(char.isspace() for char in tag)]
+    if not tags_with_spaces:
+        return
+    if getattr(settings, "TAGGIT_CASE_INSENSITIVE", False):
+        new_tags_with_spaces = [
+            tag
+            for tag in tags_with_spaces
+            if not tag_model.objects.filter(name__iexact=tag).exists()
+        ]
+    else:
+        existing = set(
+            tag_model.objects.filter(name__in=tags_with_spaces).values_list(
+                "name", flat=True
+            )
+        )
+        new_tags_with_spaces = [tag for tag in tags_with_spaces if tag not in existing]
+    if new_tags_with_spaces:
+        raise ValidationError(
+            _("Tag(s) %(tags_with_spaces)s contain spaces, which are not allowed.")
+            % {"tags_with_spaces": ", ".join(new_tags_with_spaces)}
         )
 
 
@@ -64,5 +101,7 @@ class TagField(TaggitTagField):
                     "name", flat=True
                 )
             )
+
+        validate_tag_spaces(value, self.tag_model)
 
         return value

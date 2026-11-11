@@ -842,6 +842,8 @@ WAGTAIL_TAG_SPACES_ALLOWED = False
 
 Tags can only consist of a single word, no spaces allowed. The default setting is `True` (spaces in tags are allowed).
 
+When set to `False`, this is also enforced when the form is saved: new tags containing spaces, such as a multi-word tag pasted into the tag field, are rejected with a validation error. Tags that already exist, for example ones created before this setting was turned off, can still be used.
+
 ### `WAGTAIL_TAG_LIMIT`
 
 ```python

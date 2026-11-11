@@ -1530,6 +1530,36 @@ class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/images/%d/" % self.image.id
         self.assertEqual(url_finder.get_edit_url(self.image), expected_url)
 
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_edit_rejects_new_tag_with_spaces(self):
+        # The tag widget submits a pasted multi-word tag in quotes
+        response = self.post({"title": "Edited", "tags": '"fine dining"'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "tags",
+            "Tag(s) fine dining contain spaces, which are not allowed.",
+        )
+        self.update_from_db()
+        self.assertEqual(self.image.title, "Test image")
+        self.assertFalse(self.image.tags.exists())
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    def test_edit_keeps_existing_tag_with_spaces(self):
+        # A multi-word tag created before spaces were disallowed must not
+        # block saving unrelated changes
+        self.image.tags.add("fine dining")
+
+        response = self.post({"title": "Edited", "tags": '"fine dining"'})
+
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+        self.update_from_db()
+        self.assertEqual(self.image.title, "Edited")
+        self.assertEqual(
+            list(self.image.tags.values_list("name", flat=True)), ["fine dining"]
+        )
+
     def test_edit_with_next_url(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")

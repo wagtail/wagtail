@@ -13,7 +13,7 @@ from wagtail.admin.forms.collections import (
     CollectionChoiceField,
     collection_member_permission_formset_factory,
 )
-from wagtail.admin.forms.tags import validate_tag_length
+from wagtail.admin.forms.tags import validate_tag_length, validate_tag_spaces
 from wagtail.admin.widgets import AdminTagWidget
 from wagtail.images import get_image_model
 from wagtail.images.fields import WagtailImageField
@@ -103,6 +103,9 @@ class BaseImageForm(BaseCollectionMemberForm):
     def clean_tags(self):
         tags = self.cleaned_data["tags"]
         validate_tag_length(tags)
+        validate_tag_spaces(
+            tags, self._meta.model._meta.get_field("tags").related_model
+        )
         return tags
 
 
