@@ -464,9 +464,15 @@ class TestPublishScheduledCommand(PageFixturesMixin, WagtailTestUtils, TestCase)
                 .exists()
             )
 
+            output = StringIO()
             with self.assertNumQueries(15):
                 with self.captureOnCommitCallbacks(execute=True):
-                    management.call_command("publish_scheduled")
+                    management.call_command("publish_scheduled", stdout=output)
+
+            self.assertEqual(
+                output.getvalue(),
+                "publish_scheduled complete - 1 pages published, 0 pages expired\n",
+            )
 
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
@@ -579,6 +585,16 @@ class TestPublishScheduledCommand(PageFixturesMixin, WagtailTestUtils, TestCase)
             .exists()
         )
 
+    def test_outputs_zero_published_count(self):
+        output = StringIO()
+        with self.assertNumQueries(6):
+            management.call_command("publish_scheduled", stdout=output)
+
+        self.assertEqual(
+            output.getvalue(),
+            "publish_scheduled complete - 0 pages published, 0 pages expired\n",
+        )
+
     def test_expired_will_be_unpublished(self):
         # Connect a mock signal handler to unpublished signal
         signal_fired = [False]
@@ -597,9 +613,15 @@ class TestPublishScheduledCommand(PageFixturesMixin, WagtailTestUtils, TestCase)
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
 
+            output = StringIO()
             with self.assertNumQueries(10):
                 with self.captureOnCommitCallbacks(execute=True):
-                    management.call_command("publish_scheduled")
+                    management.call_command("publish_scheduled", stdout=output)
+
+            self.assertEqual(
+                output.getvalue(),
+                "publish_scheduled complete - 0 pages published, 1 pages expired\n",
+            )
 
             self.snippet.refresh_from_db()
             self.assertFalse(self.snippet.live)
