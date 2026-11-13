@@ -276,25 +276,36 @@ class BrowseView(View):
         )
 
         # Find parent page
+        self.parent_page = None
         if parent_page_id:
-            self.parent_page = get_object_or_404(
-                self.permission_policy.chooser_navigable_instances(request.user),
-                id=parent_page_id,
-            )
-        elif self.desired_classes == (Page,):
-            # Use the navigable root page
-            self.parent_page = self.permission_policy.chooser_navigable_root_instance(
-                request.user
-            )
-        else:
-            # Find the highest common ancestor for the specific classes passed in
-            # In many cases, such as selecting an EventPage under an EventIndex,
-            # this will help the administrator find their page quicker.
-            navigable_pages = self.permission_policy.chooser_navigable_instances(
-                request.user
-            )
-            all_desired_pages = navigable_pages.type(*self.desired_classes)
-            self.parent_page = all_desired_pages.first_common_ancestor()
+            try:
+                self.parent_page = self.permission_policy.chooser_navigable_instances(
+                    request.user
+                ).get(
+                    id=parent_page_id,
+                )
+            except Page.DoesNotExist:
+                # The specified parent page does not exist or is not navigable. This can happen legitimately
+                # if the user is updating a chooser previously set by a user with choose permission
+                # elsewhere in the tree, causing it to reopen somewhere inaccessible - so in this situation
+                # we fall through to the standard logic for choosing an initial parent page.
+                pass
+
+        if not self.parent_page:
+            if self.desired_classes == (Page,):
+                # Use the navigable root page
+                self.parent_page = (
+                    self.permission_policy.chooser_navigable_root_instance(request.user)
+                )
+            else:
+                # Find the highest common ancestor for the specific classes passed in
+                # In many cases, such as selecting an EventPage under an EventIndex,
+                # this will help the administrator find their page quicker.
+                navigable_pages = self.permission_policy.chooser_navigable_instances(
+                    request.user
+                )
+                all_desired_pages = navigable_pages.type(*self.desired_classes)
+                self.parent_page = all_desired_pages.first_common_ancestor()
 
         if not self.parent_page:
             # user has no choose permission anywhere in the page tree
