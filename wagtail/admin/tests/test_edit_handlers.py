@@ -1,3 +1,4 @@
+import re
 from collections.abc import Mapping
 from datetime import date, datetime, timezone
 from functools import wraps
@@ -45,6 +46,7 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.images import get_image_model
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Comment, CommentReply, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
@@ -1016,6 +1018,50 @@ class TestFieldPanel(TestCase):
                 image,
             )
 
+    def test_request_user_is_passed_to_widget(self):
+        form = self._get_form(fields=["feed_image"])
+        bound_panel = self._get_bound_panel(FieldPanel("feed_image"), form)
+
+        bound_panel.render_html()
+
+        widget = bound_panel.bound_field.field.widget
+        self.assertIs(widget.user, self.request.user)
+
+    def test_chooser_edit_link_hidden_for_user_without_permission(self):
+        image = get_image_model().objects.create(
+            title="Test image", file=get_test_image_file()
+        )
+        self.event.feed_image = image
+
+        form = self._get_form(fields=["feed_image"])
+        bound_panel = self._get_bound_panel(FieldPanel("feed_image"), form)
+
+        result = bound_panel.render_html()
+
+        edit_link = re.search(r"<a data-chooser-edit-link[^>]*>", result)
+        self.assertIsNotNone(edit_link)
+        self.assertIn("hidden", edit_link.group(0))
+
+    def test_chooser_edit_link_shown_for_user_with_permission(self):
+        image = get_image_model().objects.create(
+            title="Test image", file=get_test_image_file()
+        )
+        self.event.feed_image = image
+        self.request.user = get_user_model().objects.create_superuser(
+            username="superuser_field_panel",
+            email="superuser_field_panel@example.com",
+            password="password",
+        )
+
+        form = self._get_form(fields=["feed_image"])
+        bound_panel = self._get_bound_panel(FieldPanel("feed_image"), form)
+
+        result = bound_panel.render_html()
+
+        edit_link = re.search(r"<a data-chooser-edit-link[^>]*>", result)
+        self.assertIsNotNone(edit_link)
+        self.assertNotIn("hidden", edit_link.group(0))
+
     def test_required_fields(self):
         result = self.end_date_panel.get_form_options()["fields"]
         self.assertEqual(result, ["date_to"])
@@ -1257,6 +1303,19 @@ class TestPageChooserPanel(PageFixturesMixin, TestCase):
             '<div class="chooser__title" data-chooser-title id="id_page-title">Christmas</div>',
             result,
         )
+        # the request user is anonymous, so the edit link is hidden
+        self.assertIn(
+            '<a data-chooser-edit-link href="" aria-describedby="id_page-title" hidden',
+            result,
+        )
+
+    def test_render_html_with_edit_permission(self):
+        self.request.user = get_user_model().objects.create_superuser(
+            username="superuser_page_chooser",
+            email="superuser_page_chooser@example.com",
+            password="password",
+        )
+        result = self.page_chooser_panel.render_html()
         self.assertIn(
             '<a data-chooser-edit-link href="/admin/pages/%d/edit/" aria-describedby="id_page-title"'
             % self.christmas_page.id,
