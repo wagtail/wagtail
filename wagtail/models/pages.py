@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import functools
 import logging
-import posixpath
 import uuid
 import warnings
 from typing import TYPE_CHECKING
@@ -59,7 +58,7 @@ from wagtail.coreutils import (
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.query import PageQuerySet
+from wagtail.query import PageQuerySet, _get_common_ancestor_path
 from wagtail.search import index
 from wagtail.signals import (
     page_published,
@@ -187,11 +186,7 @@ class BasePageManager(MP_NodeManager):
         else:
             paths = list({page.path[: -self.model.steplen] for page in pages})
 
-        # This method works on anything, not just file system paths.
-        common_parent_path = posixpath.commonprefix(paths)
-        extra_chars = len(common_parent_path) % self.model.steplen
-        if extra_chars != 0:
-            common_parent_path = common_parent_path[:-extra_chars]
+        common_parent_path = _get_common_ancestor_path(paths, self.model.steplen)
 
         if common_parent_path == "":
             if strict:
