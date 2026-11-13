@@ -31,10 +31,19 @@ def register_viewset():
     ]
     # Only register if the relevant app is installed.
     if apps.is_installed("wagtail.api.v3"):
-        from wagtail.users.views.api_tokens import APITokenViewSet
+        from wagtail.users.views.api_tokens import (
+            APITokenUserChooserViewSet,
+            APITokenViewSet,
+        )
 
         viewsets.append(
             APITokenViewSet("wagtailusers_api_tokens", url_prefix="api-tokens")
+        )
+        viewsets.append(
+            APITokenUserChooserViewSet(
+                "wagtailusers_api_token_user_chooser",
+                url_prefix="api-token-user-chooser",
+            )
         )
     return viewsets
 
