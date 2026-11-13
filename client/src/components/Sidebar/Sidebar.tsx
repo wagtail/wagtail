@@ -41,6 +41,24 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   const [collapsed, setCollapsed] = React.useState(collapsedOnLoad);
   const mobileNavToggleRef = React.useRef<HTMLButtonElement>(null);
 
+  React.useEffect(() => {
+    const messages = document.querySelector<HTMLElement>('.messages');
+    const toggle = mobileNavToggleRef.current;
+    if (!messages || !toggle) return undefined;
+
+    const updateMessageHeight = () => {
+      toggle.style.setProperty(
+        '--w-messages-height',
+        `${messages.offsetHeight}px`,
+      );
+    };
+    const observer = new ResizeObserver(updateMessageHeight);
+    observer.observe(messages);
+    updateMessageHeight();
+
+    return () => observer.disconnect();
+  }, []);
+
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
     if (collapsed && onExpandCollapse) {
