@@ -4,6 +4,7 @@ Changelog
 8.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Remember expanded and collapsed panels across page reloads and draft saves
  * Fix: Display translated text in the "Home" and "Snippets" breadcrumb items for snippet views (Shi Yao Wang)
  * Fix: Exclude the triggering user from workflow submission emails (Jeonghun Mun)
  * Fix: Require POST requests for XLSX/CSV export endpoints (Matt Westcott, Sage Abdullah)
