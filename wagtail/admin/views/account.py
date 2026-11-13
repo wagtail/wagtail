@@ -4,6 +4,7 @@ from functools import cached_property
 from django.conf import settings
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
+from django.core.mail import send_mail
 from django.db import transaction
 from django.forms import Media
 from django.http import Http404
@@ -366,6 +367,26 @@ class PasswordResetConfirmView(
 ):
     template_name = "wagtailadmin/account/password_reset/confirm.html"
     success_url = reverse_lazy("wagtailadmin_password_reset_complete")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.user
+        context = {"user": user}
+        subject = render_to_string(
+            "wagtailadmin/account/password_reset/password_changed_email_subject.txt",
+            context,
+        ).strip()
+        message = render_to_string(
+            "wagtailadmin/account/password_reset/password_changed_email.txt",
+            context,
+        )
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+        )
+        return response
 
 
 class PasswordResetCompleteView(
