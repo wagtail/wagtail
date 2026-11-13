@@ -1044,7 +1044,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
           </div>
         </div>
       <div data-contentpath="heading_text">
-        <label class="w-field__label" for="the-prefix-0-value-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <label class="w-field__label" id="the-prefix-0-value-heading_text-label" for="the-prefix-0-value-heading_text">Heading text<span class="w-required-mark">*</span></label>
         <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-heading_text-errors" data-field-errors="">
@@ -1057,7 +1057,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
         </div>
       </div>
       </div><div data-contentpath="size">
-        <label class="w-field__label" for="the-prefix-0-value-size">Size</label>
+        <label class="w-field__label" id="the-prefix-0-value-size-label" for="the-prefix-0-value-size">Size</label>
         <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-0-value-size-errors" data-field-errors="">
