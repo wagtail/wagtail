@@ -12,6 +12,7 @@ Changelog
  * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
  * Maintenance: Migrate `FilteredSelect` widget from jQuery to Stimulus `RulesController` (`w-rules`) (LB (Ben) Johnston)
  * Maintenance: Remove unused `user_can_edit_snippet_type` helper (Vignesh Komma)
+ * Maintenance: Fix tests for compatibility with soupsieve 4.x (Matt Westcott)
 
 
 8.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
