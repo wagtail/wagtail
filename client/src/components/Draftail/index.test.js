@@ -221,4 +221,18 @@ describe('Draftail', () => {
     expect(draftail.ModalWorkflowSource).toBeDefined());
   it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
   it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
+
+  describe('DraftailRichTextArea', () => {
+    it('#render and getDuplicatedState', () => {
+      document.body.innerHTML = '<div id="placeholder"></div>';
+      const widgetDef = new draftail.DraftailRichTextArea({});
+      const boundWidget = widgetDef.render(
+        document.getElementById('placeholder'),
+        'test-field',
+        'test-field',
+        'null',
+      );
+      expect(boundWidget.getDuplicatedState()).toBe('null');
+    });
+  });
 });
