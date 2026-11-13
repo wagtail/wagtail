@@ -3,6 +3,7 @@ from urllib.parse import parse_qs, urlsplit
 
 import swapper
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, TransactionTestCase, override_settings, tag
 from django.urls import reverse
 from django.utils.html import escape
@@ -32,10 +33,122 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
     def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page"), params)
 
+    def get_modal_workflow_soup(self, response):
+        decoded_content = response.content.decode()
+        response_json = json.loads(decoded_content)
+        response_html = response_json["html"]
+        return self.get_soup(response_html)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at root level
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper")
+        self.assertEqual(title_cell.text.strip(), "Root")
+        self.assertIsNone(
+            title_cell.select_one("a")
+        )  # The root page should not be choosable
+
+    def test_as_editor_with_full_choose_permission(self):
+        user = self.create_user("editor", password="password")
+        user.groups.add(Group.objects.get(name="Editors"))
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at root level
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper")
+        self.assertEqual(title_cell.text.strip(), "Root")
+        self.assertIsNone(
+            title_cell.select_one("a")
+        )  # The root page should not be choosable
+
+    def test_as_editor_with_limited_choose_permission(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        # Change editor group to only have choose permission for the child page
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).update(
+            page=self.child_page
+        )
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at child page (which is choosable)
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper a")
+        self.assertEqual(title_cell.text.strip(), "foobarbaz (simple page)")
+
+    def test_as_editor_with_multiple_choose_permissions(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        self.other_child_page = SimplePage(title="foobarbaz 2", content="hello")
+        self.root_page.add_child(instance=self.other_child_page)
+
+        # Give editor group choose permission for both child pages
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).delete()
+        editor_group.page_permissions.create(
+            permission=page_choose_permission, page=self.child_page
+        )
+        editor_group.page_permissions.create(
+            permission=page_choose_permission, page=self.other_child_page
+        )
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at closest common ancestor page
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper")
+        self.assertIsNone(
+            title_cell.select_one("a")
+        )  # The parent page should not be choosable
+        self.assertEqual(title_cell.text.strip(), "Welcome to your new Wagtail site!")
+
+    def test_as_editor_with_no_choose_permissions(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        # Remove choose permission from editor group
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).delete()
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse_forbidden.html")
+
+        self.assertContains(response, "You do not have permission to choose pages")
+
+        # There should be no page listing table
+        soup = self.get_modal_workflow_soup(response)
+        self.assertIsNone(soup.select_one("tr.parent-page"))
 
     def test_construct_queryset_hook(self):
         page = SimplePage(title="Test shown", content="hello")
@@ -126,6 +239,12 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
         self.login()
 
+    def get_modal_workflow_soup(self, response):
+        decoded_content = response.content.decode()
+        response_json = json.loads(decoded_content)
+        response_html = response_json["html"]
+        return self.get_soup(response_html)
+
     def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_choose_page_child", args=(self.root_page.id,)), params
@@ -140,9 +259,82 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper a")
+        self.assertEqual(title_cell.text.strip(), "Welcome to your new Wagtail site!")
 
     def test_get_invalid(self):
-        self.assertEqual(self.get_invalid().status_code, 404)
+        # Rather than 404ing, fall back on the navigable root page
+        response = self.get_invalid()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper")
+        self.assertEqual(title_cell.text.strip(), "Root")
+        self.assertIsNone(title_cell.select_one("a"))  # should not be choosable
+
+    def test_as_editor_with_full_choose_permission(self):
+        user = self.create_user("editor", password="password")
+        user.groups.add(Group.objects.get(name="Editors"))
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper a")
+        self.assertEqual(title_cell.text.strip(), "Welcome to your new Wagtail site!")
+
+    def test_as_editor_with_limited_choose_permission(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        # Add grandchild page
+        grandchild_page = SimplePage(title="foobarbaz child", content="hello")
+        self.child_page.add_child(instance=grandchild_page)
+
+        # Change editor group to only have choose permission for the grandchild page
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).update(
+            page=grandchild_page.id
+        )
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at grandchild page (which is choosable)
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper a")
+        self.assertEqual(title_cell.text.strip(), "foobarbaz child (simple page)")
+
+    def test_as_editor_with_no_choose_permissions(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        # Remove choose permission from editor group
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).delete()
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse_forbidden.html")
+
+        self.assertContains(response, "You do not have permission to choose pages")
+
+        # There should be no page listing table
+        soup = self.get_modal_workflow_soup(response)
+        self.assertIsNone(soup.select_one("tr.parent-page"))
 
     def test_with_page_type(self):
         # Add a page that is not a SimplePage
@@ -419,6 +611,33 @@ class TestChooserSearch(PageFixturesMixin, WagtailTestUtils, TransactionTestCase
             response,
             f'<a href="{expected_url}" class="navigate-parent">{self.root_page.title}</a>',
         )
+
+    def test_filtering_by_choose_permission(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.create(name="Editors")
+        editor_group.permissions.add(Permission.objects.get(codename="access_admin"))
+
+        child_page_2 = SimplePage(title="foobarbaz 2", content="hello")
+        self.root_page.add_child(instance=child_page_2)
+
+        # Give editor group only choose permission for the second child page
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.create(
+            permission=page_choose_permission, page=child_page_2
+        )
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get({"q": "foobarbaz"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
+
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(response, "foobarbaz 2 (simple page)")
+        self.assertNotContains(response, "foobarbaz (simple page)")
 
     def test_partial_match(self):
         response = self.get({"q": "fooba"})
