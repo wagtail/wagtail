@@ -262,6 +262,19 @@ class BrowseView(View):
         except (ValueError, LookupError) as e:
             raise Http404 from e
 
+        context = shared_context(
+            request,
+            {
+                "page_type_string": page_type_string,
+                "page_type_names": [
+                    desired_class.get_verbose_name()
+                    for desired_class in self.desired_classes
+                ],
+                "page_types_restricted": (page_type_string != base_page_type_string),
+                "is_multiple_choice": self.is_multiple_choice,
+            },
+        )
+
         # Find parent page
         if parent_page_id:
             self.parent_page = get_object_or_404(
@@ -282,6 +295,16 @@ class BrowseView(View):
             )
             all_desired_pages = navigable_pages.type(*self.desired_classes)
             self.parent_page = all_desired_pages.first_common_ancestor()
+
+        if not self.parent_page:
+            # user has no choose permission anywhere in the page tree
+            return render_modal_workflow(
+                request,
+                "wagtailadmin/chooser/browse_forbidden.html",
+                None,
+                context,
+                json_data={"step": "browse"},
+            )
 
         self.parent_page = self.parent_page.specific
 
@@ -401,25 +424,17 @@ class BrowseView(View):
         )
 
         # Render
-        context = shared_context(
-            request,
+        context.update(
             {
+                "search_form": SearchForm(),
                 "parent_page": self.parent_page,
                 "parent_page_id": self.parent_page.pk,
                 "table": table,
                 "pagination_page": pages,
-                "search_form": SearchForm(),
-                "page_type_string": page_type_string,
-                "page_type_names": [
-                    desired_class.get_verbose_name()
-                    for desired_class in self.desired_classes
-                ],
-                "page_types_restricted": (page_type_string != base_page_type_string),
                 "show_locale_controls": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
-                "is_multiple_choice": self.is_multiple_choice,
-            },
+            }
         )
 
         return render_modal_workflow(
