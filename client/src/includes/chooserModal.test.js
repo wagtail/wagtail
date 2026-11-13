@@ -1,4 +1,7 @@
-import { validateCreationForm } from './chooserModal';
+import {
+  ChooserModalOnloadHandlerFactory,
+  validateCreationForm,
+} from './chooserModal';
 
 jest.useFakeTimers();
 
@@ -58,6 +61,34 @@ describe('chooserModal', () => {
       expect({ ...button.dataset }).toEqual({
         controller: 'w-progress',
       });
+    });
+  });
+
+  describe('ChooserModalOnloadHandlerFactory.ajaxifyLinks', () => {
+    let factory;
+    let modal;
+
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <div id="container">
+        <button type="button" data-chooser-modal-choice data-chooser-modal-choice-url="/chosen/1/">Button choice</button>
+        <a data-chooser-modal-choice href="/chosen/2/">Link choice</a>
+      </div>`;
+
+      factory = new ChooserModalOnloadHandlerFactory();
+      factory.searchController = {};
+      modal = { loadUrl: jest.fn(), body: document.body };
+      factory.ajaxifyLinks(modal, document.getElementById('container'));
+    });
+
+    it('should load the URL from the data attribute for button choices', () => {
+      document.querySelector('button').click();
+      expect(modal.loadUrl).toHaveBeenCalledWith('/chosen/1/');
+    });
+
+    it('should load the URL from the href for link choices', () => {
+      document.querySelector('a').click();
+      expect(modal.loadUrl).toHaveBeenCalledWith('http://localhost/chosen/2/');
     });
   });
 });

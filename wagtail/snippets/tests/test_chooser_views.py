@@ -51,6 +51,26 @@ class TestSnippetChoose(PageFixturesMixin, WagtailTestUtils, TestCase):
         response_html = response.json()["html"]
         self.assertIn('href="/admin/snippets/tests/advert/add/"', response_html)
 
+    def test_results_are_rendered_as_buttons(self):
+        Advert.objects.all().delete()
+        advert = Advert.objects.create(text="Choose me")
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.json()["html"])
+        choice = soup.select_one("[data-chooser-modal-choice]")
+
+        # The choice should be a button, so that the 'chosen' view's JSON
+        # response can't be opened in a new tab via the browser's native link
+        # behaviour (e.g. middle-click).
+        self.assertEqual(choice.name, "button")
+        self.assertEqual(choice["type"], "button")
+        self.assertIsNone(choice.get("href"))
+        self.assertEqual(
+            choice["data-chooser-modal-choice-url"],
+            reverse("wagtailsnippetchoosers_tests_advert:chosen", args=(advert.pk,)),
+        )
+        self.assertEqual(choice.get_text(strip=True), "Choose me")
+
     def test_ordering(self):
         """
         Listing should be ordered by PK if no ordering has been set on the model
