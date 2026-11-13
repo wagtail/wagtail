@@ -87,6 +87,8 @@ class SearchController {
       this.searchFromForm();
       return false;
     });
+
+    this.multipleChoice = opts.multipleChoice || new Map();
   }
 
   attachSearchInput(selector) {
@@ -116,6 +118,15 @@ class SearchController {
         this.request = null;
         this.resultsContainer.html(resultsData);
         if (this.onLoadResults) {
+          // save the state of the checkboxes when the user searches or navigates between pages.
+          const checkboxes = this.resultsContainer[0].querySelectorAll(
+            'form[data-multiple-choice-form] input[type="checkbox"]',
+          );
+          checkboxes.forEach((checkbox) => {
+            if (this.multipleChoice.has(checkbox.value)) {
+              checkbox.setAttribute('checked', true);
+            }
+          });
           this.onLoadResults(this.resultsContainer);
         }
       },
@@ -187,12 +198,93 @@ class ChooserModalOnloadHandlerFactory {
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
+
+    const form = modal.container[0].querySelector(
+      '[data-multiple-choice-form]',
+    );
+    if (!form) return;
+
+    // Creates a pill for each hidden choice
+    const choicesContainer =
+      modal.container[0].querySelector('.w-active-choices');
+    this.multipleChoice.forEach((value, key) => {
+      const checkbox = form.querySelector(
+        `input[type="checkbox"][value="${key}"]`,
+      );
+      const choice = form.querySelector(`li.w-pill[data-key="${key}"]`);
+      if (!checkbox && !choice) {
+        choicesContainer.appendChild(this.createChoicePill(key, value));
+      } else if (checkbox && choice) {
+        choice.remove();
+      }
+    });
+  }
+
+  createChoicePill(key, label) {
+    const liElement = document.createElement('li');
+    liElement.classList.add('w-pill');
+    liElement.dataset.key = key;
+
+    const content = document.createElement('span');
+    content.classList.add('w-pill__content');
+    content.textContent = label;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('w-pill__remove');
+    button.setAttribute(
+      'aria-label',
+      gettext("Remove '%(title)s'").replace('%(title)s', label),
+    );
+    button.innerHTML = `<svg class="icon icon-cross w-h-4 w-w-4" aria-hidden="true"><use href="#icon-cross"></use></svg>`;
+
+    // Submits this choice while its checkbox is not on the current page
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'id';
+    input.value = key;
+
+    liElement.append(content, button, input);
+    return liElement;
+  }
+
+  initMultipleChoices(modal) {
+    const form = modal.body[0].querySelector('[data-multiple-choice-form]');
+    if (!form) return;
+
+    // Listener for syncing multipleChoice for the current page
+    $(form).on('change', '[data-multiple-choice-select]', (e) => {
+      const el = e.currentTarget;
+
+      if (el.checked) {
+        const label =
+          el
+            .closest('tr, li')
+            ?.querySelector('td.title, h3')
+            ?.textContent.trim() || el.value;
+        this.multipleChoice.set(el.value, label);
+      } else {
+        this.multipleChoice.delete(el.value);
+      }
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+    });
+
+    // Listener for removing active choices from multipleChoice for other pages/search
+    $(form).on('click', '.w-active-choices button', (e) => {
+      const liElement = e.currentTarget.closest('li');
+      this.multipleChoice.delete(liElement.dataset.key);
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+      liElement.remove();
+    });
   }
 
   updateMultipleChoiceSubmitEnabledState(modal) {
     // update the enabled state of the multiple choice submit button depending on whether
     // any items have been selected
-    if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+    if (
+      $('[data-multiple-choice-select]:checked', modal.body).length ||
+      this.multipleChoice.size
+    ) {
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
@@ -216,6 +308,7 @@ class ChooserModalOnloadHandlerFactory {
       form: $(this.searchFormSelector, modal.body),
       containerElement: modal.body,
       resultsContainerSelector: this.resultsContainerSelector,
+      multipleChoice: this.multipleChoice,
       onLoadResults: (containerElement) => {
         this.ajaxifyLinks(modal, containerElement);
       },
@@ -230,7 +323,9 @@ class ChooserModalOnloadHandlerFactory {
   }
 
   onLoadChooseStep(modal) {
+    this.multipleChoice = new Map();
     this.initSearchController(modal);
+    this.initMultipleChoices(modal);
     this.ajaxifyLinks(modal, modal.body);
     this.ajaxifyCreationForm(modal);
     // Set up submissions of the "choose multiple items" form to open in the modal.
