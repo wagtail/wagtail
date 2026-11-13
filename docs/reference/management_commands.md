@@ -22,7 +22,11 @@ You can also use the `--template` option with the `start` command to generate a 
 ./manage.py publish_scheduled
 ```
 
-This command publishes, updates, or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
+This command publishes, updates, or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command at least once an hour.
+
+To see the pages which will be published without publishing them, pass `--dryrun`.
+
+By default, `publish_scheduled` actions objects whose publish or expiry date is in the past. If `publish_scheduled` is run infrequently, pages can be published long after the expected date. Pass `--include-future=n` to look ahead for `n` seconds, and if pages are found wait for them to be due and publish them before exiting. If no future pages are found, nothing happens. If this behaviour is desired, it's recommended to set this to just below the frequency `publish_scheduled` is run at (for example 9 minutes if running every 10 minutes).
 
 (fixtree)=
 
