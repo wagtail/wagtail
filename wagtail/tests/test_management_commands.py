@@ -361,6 +361,45 @@ class TestPublishScheduledPagesCommand(PageFixturesMixin, WagtailTestUtils, Test
             .exists()
         )
 
+    def test_future_go_live_page_will_be_published_when_include_future(self):
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+            live=False,
+            go_live_at=timezone.now() + timedelta(seconds=2),
+        )
+        self.root_page.add_child(instance=page)
+
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
+        p = Page.objects.get(slug="hello-world")
+        self.assertFalse(p.live)
+        self.assertTrue(
+            Revision.page_revisions.filter(object_id=p.id)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        with self.assertNumQueries(39):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages")
+
+        p.refresh_from_db()
+        self.assertFalse(p.live)
+
+        with self.assertNumQueries(48):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages", include_future=2)
+
+        p.refresh_from_db()
+        self.assertTrue(p.live)
+        self.assertFalse(
+            Revision.page_revisions.filter(object_id=p.id)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
     def test_expired_page_will_be_unpublished(self):
         # Connect a mock signal handler to page_unpublished signal
         signal_fired = [False]
@@ -422,6 +461,35 @@ class TestPublishScheduledPagesCommand(PageFixturesMixin, WagtailTestUtils, Test
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertFalse(p.expired)
+
+    def test_future_expired_page_will_be_unpublished_with_include_future(self):
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+            live=True,
+            expire_at=timezone.now() + timedelta(seconds=2),
+        )
+        self.root_page.add_child(instance=page)
+
+        p = Page.objects.get(slug="hello-world")
+        self.assertTrue(p.live)
+
+        with self.assertNumQueries(6):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages")
+
+        p.refresh_from_db()
+        self.assertTrue(p.live)
+        self.assertFalse(p.expired)
+
+        with self.assertNumQueries(28):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages", include_future=2)
+
+        p.refresh_from_db()
+        self.assertFalse(p.live)
+        self.assertTrue(p.expired)
 
 
 @override_settings(
