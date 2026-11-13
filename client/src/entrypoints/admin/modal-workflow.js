@@ -76,6 +76,9 @@ function ModalWorkflow(opts) {
     self.container.on('hidden.bs.modal', () => {
       self.triggerElement.focus();
       self.container.remove();
+      document.body.dispatchEvent(
+        new CustomEvent('hidden.bs.modal', { bubbles: true }),
+      );
     });
 
     self.url = opts.url;
