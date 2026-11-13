@@ -47,6 +47,9 @@ class DummyWidgetDefinition {
         getValue(widgetName);
         return `value: ${widgetName} - ${name}`;
       },
+      getTextLabel() {
+        return `label: ${name}`;
+      },
       focus() {
         focus(widgetName);
       },
@@ -754,5 +757,95 @@ describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
     expect(boundBlock.children.length).toEqual(1);
     expect(boundBlock.children[0].type).toEqual('heading_block');
     expect(document.querySelectorAll('[data-panel-toggle]').length).toBe(1);
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock with labelFormat', () => {
+  const buildBoundBlock = (labelFormat) => {
+    const blockDef = new ListBlockDefinition(
+      'list',
+      new StructBlockDefinition(
+        'heading_block',
+        [
+          new FieldBlockDefinition(
+            'heading_text',
+            new DummyWidgetDefinition('Heading widget'),
+            {
+              label: 'Heading text',
+              required: true,
+              icon: 'placeholder',
+              classname: '',
+            },
+          ),
+          new FieldBlockDefinition(
+            'size',
+            new DummyWidgetDefinition('Size widget'),
+            {
+              label: 'Size',
+              required: false,
+              icon: 'placeholder',
+              classname: '',
+            },
+          ),
+        ],
+        {
+          label: 'Heading block',
+          required: false,
+          icon: 'title',
+          classname: 'struct-block',
+          formLayout: new BlockGroupDefinition({
+            children: [
+              ['heading_text', 'heading_text'],
+              ['size', 'size'],
+            ],
+            settings: [],
+          }),
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        labelFormat,
+      },
+    );
+
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    return blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: 'heading-block-1',
+        value: {
+          heading_text: 'Test heading text',
+          size: '123',
+        },
+      },
+    ]);
+  };
+
+  test('getTextLabel() returns text label according to labelFormat', () => {
+    const boundBlock = buildBoundBlock('{heading_text} - {size}');
+    expect(boundBlock.children[0].getTextLabel()).toBe(
+      'label: the-prefix-0-value-heading_text - label: the-prefix-0-value-size',
+    );
+  });
+
+  test('getTextLabel() gracefully handles bad variables in labelFormat', () => {
+    const boundBlock = buildBoundBlock('{bad_variable} - {size}');
+    expect(boundBlock.children[0].getTextLabel()).toBe(
+      ' - label: the-prefix-0-value-size',
+    );
+  });
+
+  test('getTextLabel() allows empty labelFormat', () => {
+    const boundBlock = buildBoundBlock('');
+    expect(boundBlock.children[0].getTextLabel()).toBe('');
+  });
+
+  test('getTextLabel() falls back to the child block when no labelFormat is set', () => {
+    const boundBlock = buildBoundBlock(undefined);
+    expect(boundBlock.children[0].getTextLabel()).toBe(
+      'label: the-prefix-0-value-heading_text',
+    );
   });
 });
