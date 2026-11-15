@@ -33,7 +33,7 @@ If you believe you or your organisation should receive full details of vulnerabi
 
 At any given time, the Wagtail team provides official security support for several versions of Wagtail:
 
--   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support.
+-   The `main` development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support. Security issues that only affect the `main` development branch and not any stable released versions are fixed in public without going through the [disclosure process](#how-wagtail-discloses-security-issues).
 -   The two most recent Wagtail release series receive security support.
     For example, during the development cycle leading to the release of
     Wagtail 2.6, support will be provided for Wagtail 2.5 and Wagtail 2.4. Upon the release of Wagtail 2.6, Wagtail 2.4's security support will end.
@@ -56,6 +56,7 @@ If you have found a vulnerability in Wagtail, please report it using the informa
 
 Any CVEs issued for vulnerabilities not discussed with the Wagtail security team, or otherwise issued or requested erroneously will be disputed and may be later rejected.
 
+(how-wagtail-discloses-security-issues)=
 ## How Wagtail discloses security issues
 
 Our process for taking a security issue from private discussion to public disclosure involves multiple steps.
@@ -85,15 +86,15 @@ Since the CSV format has no concept of formulae or macros, there is also no agre
 
 Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimizes the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
 
-### Cross-site scripting through document uploads
+### Cross-site scripting through uploads
 
-Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
+Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if image or document uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
 
 When Wagtail serves these files itself (ie the content is returned in the response directly), the required protections are already in place. This can be done using the [dynamic image serve](using_images_outside_wagtail) view for images and by setting [](wagtaildocs_serve_method) to `serve_view`. However, when files are served from where they're being stored directly (such as directly from the AWS S3 bucket), Wagtail has little to no control over how the files are served. Instead, developers must make sure care is taken when configuring file storage to serve files. The relevant documentation for [images](svg_security_considerations) and [documents](documents_security_considerations) should be read before serving files directly from remote storage.
 
 Because the considerations needed for remote storage are already documented, we do not consider misconfiguration of storage, particularly when served directly from the media source, as a security vulnerability in Wagtail. This includes when using Django's built-in media serving capabilities via `MEDIA_URL`. Vulnerabilities in Wagtail's built-in serve views are still considered.
 
-Wagtail does not take any measures to block the execution of JavaScript within PDF documents. To the extent that browsers allow this, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
+Wagtail does not sanitize JavaScript within HTML / SVG / PDF documents, though we do prevent its execution when serving files via Wagtail, using a strict [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy). To the extent that browsers allow JavaScript in PDFs, they do so in a locked-down sandbox environment with no access to the origin site or the network. The ability to open an alert box from a PDF does not in itself demonstrate a viable cross-site scripting attack, and we do not consider this to be a security vulnerability. However, we would be happy to consider reports that demonstrate actual exfiltration of user data through a PDF document.
 
 ### Privilege escalation by users with user management roles
 

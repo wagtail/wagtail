@@ -1,13 +1,9 @@
 (api_ninja)=
 
-# How to set up Django Ninja
+# How to build your own API with Django Ninja
 
-```{versionadded} 8.0
-Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
-```
-
-While Wagtail provides a [built-in API module](api) based on Django REST Framework, it is possible to use other API frameworks.
-Here is information on usage with [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Wagtail's [built-in v3 API](api_v3) is built on [Django Ninja](https://django-ninja.dev/), an API framework built on Python type hints and [Pydantic](https://docs.pydantic.dev/latest/), which includes built-in support for OpenAPI schemas.
+Here is information on using Django Ninja directly, to build your own API independently of Wagtail's built-in API.
 
 ## Basic configuration
 
@@ -55,6 +51,7 @@ We will create a simple endpoint that returns a list of all pages in the site. W
 ```python
 # api.py
 
+
 class BasePageSchema(ModelSchema):
     url: str = Field(None, alias="get_url")
 
@@ -95,6 +92,7 @@ We also create a new schema for a specific page type: here, `BlogPage`, with `Ba
 ```python
 from blog.models import BlogPage
 
+
 class BlogPageSchema(BasePageSchema, ModelSchema):
     class Meta(BasePageSchema.Meta):
         model = BlogPage
@@ -119,6 +117,7 @@ Here is an example with an additional schema for our `HomePage` type:
 
 ```python
 from home.models import HomePage
+
 
 class HomePageSchema(BasePageSchema, ModelSchema):
     class Meta(BasePageSchema.Meta):
@@ -191,6 +190,7 @@ This can also be done with [Ninja resolvers](https://django-ninja.dev/guides/res
 ```python
 from wagtail.rich_text import expand_db_html
 
+
 class HomePageSchema(BasePageSchema, ModelSchema):
     content_type: Literal["homepage"]
     body: str
@@ -212,6 +212,7 @@ We use the [`get_renditions()` method](image_renditions_multiple) to retrieve th
 
 ```python
 from wagtail.images.models import AbstractRendition
+
 
 class RenditionSchema(ModelSchema):
     # We need to use the Field / alias API for properties

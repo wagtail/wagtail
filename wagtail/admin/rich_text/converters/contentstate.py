@@ -2,9 +2,7 @@ import json
 import logging
 import re
 
-from draftjs_exporter.defaults import render_children
-from draftjs_exporter.dom import DOM
-from draftjs_exporter.html import HTML as HTMLExporter
+from draftjs_exporter import DOM, HTMLExporter, render_children
 
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BLOCK_KEY_NAME,

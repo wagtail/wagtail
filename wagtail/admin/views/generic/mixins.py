@@ -374,6 +374,11 @@ class CreateEditViewOptionalFeaturesMixin:
         # The workflow might have been cancelled/ended after the page was loaded
         if not self.current_workflow_task:
             return False
+        task_state_id = self.request.POST.get("workflow-task-state-id")
+        if task_state_id and task_state_id != str(
+            self.object.current_workflow_task_state.pk
+        ):
+            return False
         self.workflow_action = self.request.POST.get("workflow-action-name")
         available_actions = self.current_workflow_task.get_actions(
             self.object, self.request.user
@@ -853,6 +858,15 @@ class CreateEditViewOptionalFeaturesMixin:
             self.produced_error_message = capfirst(
                 _("The %(model_name)s could not be saved as it is locked")
                 % {"model_name": self.model._meta.verbose_name}
+            )
+            return False
+
+        # The workflow might have been cancelled/ended after the object was loaded
+        if self.request.POST.get("action-workflow-action") and self.action == "edit":
+            self.produced_error_code = "workflow_action_unavailable"
+            self.produced_error_message = _(
+                "The workflow action could not be performed "
+                "as the workflow state has changed."
             )
             return False
 

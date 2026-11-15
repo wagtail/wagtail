@@ -12,6 +12,7 @@
 # Bram <bram2w@live.nl>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Filip Van, 2026
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022-2023
 # Huib Keemink <huib@creativedutchmen.com>, 2015
@@ -36,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 16:30+0100\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -185,8 +186,9 @@ msgstr "Zoeken"
 msgid "All collections"
 msgstr "Alle collecties"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Bovenliggende pagina"
+msgstr "Bovenliggende"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -280,6 +282,11 @@ msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Werk nieuwe pagina's bij als er wijzigingen plaatsvinden"
+
+#, python-format
+msgid "You do not have permission to publish pages at \"%(page_title)s\""
+msgstr ""
+"Je hebt geen rechten om pagina's te publiceren onder \"%(page_title)s\""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -1522,7 +1529,7 @@ msgid ""
 msgstr ""
 "Je kunt de publicatie van deze pagina ook <a "
 "href=\"%(unpublish_url)s\">intrekken</a>. Dit zorgt ervoor dat de pagina "
-"niet meer publiekelijk zichtbaar is en u kunt de pagina later bewerken of "
+"niet meer publiekelijk zichtbaar is en je kan de pagina later bewerken of "
 "opnieuw publiceren."
 
 #, python-format
@@ -1829,10 +1836,10 @@ msgid "Save schedule"
 msgstr "Schema opslaan"
 
 msgid "Collection management permissions"
-msgstr "Collectie beheer machtigingen"
+msgstr "Collectiebeheermachtigingen"
 
 msgid "Add a collection permission"
-msgstr "Voeg een collectie-machtiging toe"
+msgstr "Voeg een collectiemachtiging toe"
 
 msgid "Last published"
 msgstr "Voor het laatst gepubliceerd"
@@ -1950,6 +1957,89 @@ msgstr "Toon/verberg kruimelpad"
 
 msgid "Breadcrumb"
 msgstr "Kruimelpad"
+
+msgid "Page metadata"
+msgstr "Pagina metadata"
+
+msgid "This data explained"
+msgstr "Deze data uitgelegd"
+
+msgid "What is page metadata?"
+msgstr "Wat is pagina metadata?"
+
+msgid ""
+"Metadata lives in the HTML of the page, and includes the page title and "
+"description used by search engines."
+msgstr ""
+"Metadata zit verwerkt in de HTML-broncode van de pagina. Deze metadata bevat "
+"onder andere de paginatitel, paginabeschrijving en andere gegevens die door "
+"zoekmachines en andere systemen gelezen worden."
+
+msgid "How are the lengths calculated?"
+msgstr "Hoe wordt de lengte berekent?"
+
+msgid ""
+"The title length of around 580 pixels or 60 characters, and description "
+"length of around 160 characters, are approximations of how this metadata is "
+"displayed in search results, rather than hard limits."
+msgstr ""
+"De lengte van een titel als deze op 580 pixels breedte wordt getoond in "
+"zoekmachine resultaten is ongeveer 60 tekens. Van een beschrijving worden "
+"ongeveer 160 tekens getoond. Dit zijn richtlijnen om je te helpen met SEO "
+"optimalisatie, geen harde limieten."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">page metadata guide</a> "
+"for more information on how metadata is used."
+msgstr ""
+"Bekijk de <a href=\"%(guide_link)s\" target=\"_blank\">pagina metadata "
+"handleiding</a> voor meer informatie over hoe metadata gebruikt wordt."
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "View more meta tags"
+msgstr "Bekijk meer meta tags"
+
+msgid "Words"
+msgstr "Woorden"
+
+msgid "Reading time"
+msgstr "Geschatte leestijd"
+
+msgid "Readability"
+msgstr "Leesbaarheid"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
+"en tellen het aantal woorden."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"We berekenen de leestijd op basis van het aantal woorden, met verschillende "
+"leessnelheden voor verschillende talen."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"We gebruiken een leesbaarheidsformule die is gebaseerd op de lengte van "
+"woorden en zinnen. Lange zinnen en woorden leiden tot een lagere "
+"leesbaarheidsscore."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Zie de <a href=\"%(guide_link)s\" target=\"_blank\">gids voor "
+"contentcontroles</a> voor meer informatie over hoe de controles werken."
 
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
@@ -2139,51 +2229,6 @@ msgstr "Toon probleem"
 msgid "Content metrics"
 msgstr "Content statistieken"
 
-msgid "Words"
-msgstr "Woorden"
-
-msgid "Reading time"
-msgstr "Geschatte leestijd"
-
-msgid "Readability"
-msgstr "Leesbaarheid"
-
-msgid "This data explained"
-msgstr "Deze data uitgelegd"
-
-msgid "How we calculate our metrics"
-msgstr "Hoe we tot deze meetwaarden komen"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
-"en tellen het aantal woorden."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"We berekenen de leestijd op basis van het aantal woorden, met verschillende "
-"leessnelheden voor verschillende talen."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"We gebruiken een leesbaarheidsformule die is gebaseerd op de lengte van "
-"woorden en zinnen. Lange zinnen en woorden leiden tot een lagere "
-"leesbaarheidsscore."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Zie de <a href=\"%(guide_link)s\" target=\"_blank\">gids voor "
-"contentcontroles</a> voor meer informatie over hoe de controles werken."
-
 msgid "Issues found"
 msgstr "Problemen gevonden"
 
@@ -2233,7 +2278,7 @@ msgid "Not visible to the public"
 msgstr "Niet openbaar"
 
 msgid "Choose who can view the live version of this page"
-msgstr "Kies wie de live versie van deze pagina kan bekijken"
+msgstr "Kies wie de live-versie van deze pagina kan bekijken"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
@@ -2291,7 +2336,7 @@ msgid "Set schedule"
 msgstr "Stel schema in"
 
 msgid "Preview in new tab"
-msgstr "Voorvertoning in een nieuw tabblad"
+msgstr "Voorbeeld in een nieuw tabblad"
 
 msgid "Loading"
 msgstr "Laden"
@@ -2303,17 +2348,17 @@ msgid "Refresh"
 msgstr "Herladen"
 
 msgid "Preview is out of date"
-msgstr "Voorvertoning is verouderd"
+msgstr "Voorbeeld is verouderd"
 
 msgid ""
 "Correct the validation errors to resume preview (saving will highlight "
 "errors)"
 msgstr ""
-"Corrigeer de validatiefouten om door te gaan met voorvertoning (opslaan zal "
+"Corrigeer de validatiefouten om door te gaan met het voorbeeld (opslaan zal "
 "de fouten markeren)"
 
 msgid "Preview mode"
-msgstr "Voorvertoning modus"
+msgstr "Voorbeeldmodus"
 
 msgid "First published"
 msgstr "Voor het eerst gepubliceerd"
@@ -2398,10 +2443,10 @@ msgid ""
 "target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
 "in your web browser</a>."
 msgstr ""
-"Javascript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
+"JavaScript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
 "JavaScript ingeschakeld te zijn. <br /><a href=\"https://www.enable-"
 "javascript.com/\" target=\"_blank\" rel=\"noreferrer\">De instructies om "
-"javascript in te schakelen zijn hier te vinden</a>."
+"JavaScript in te schakelen zijn hier te vinden</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2424,9 +2469,6 @@ msgstr "Bekijk Wagtail snel acties"
 
 msgid "Checks"
 msgstr "Checks"
-
-msgid "Warnings"
-msgstr "Waarschuwingen"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
@@ -2605,6 +2647,10 @@ msgid "Changes requested"
 msgstr "Wijzigingen gevraagd"
 
 #, python-format
+msgid "Cancelled by %(cancelled_by)s"
+msgstr "Geannuleerd door %(cancelled_by)s"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Goedgekeurd door %(approved_by)s"
 
@@ -2773,8 +2819,8 @@ msgid ""
 "Focus on the drag button and press up or down arrows to move the item, then "
 "press enter to submit the change."
 msgstr ""
-"Focus de versleep-knop en gebruik de pijltje omhoog en omlaag toetsen om het "
-"item de verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
+"Focus de versleep-knop en gebruik de toetsen pijltje omhoog en omlaag om het "
+"item te verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
 "slaan."
 
 #, python-format
@@ -2794,7 +2840,7 @@ msgstr ""
 "volgorde."
 
 msgid "Button text is empty"
-msgstr "Knop tekst is leeg"
+msgstr "Knoptekst is leeg"
 
 msgid "Use meaningful text for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2803,10 +2849,10 @@ msgid "Empty heading found"
 msgstr "Lege kop gevonden"
 
 msgid "Table header text is empty"
-msgstr "Tabel kop tekst is leeg"
+msgstr "Tabelkoptekst is leeg"
 
 msgid "Empty frame title found"
-msgstr "Lege frame titel gevonden"
+msgstr "Lege frametitel gevonden"
 
 msgid "Use a meaningful title for screen reader users"
 msgstr "Gebruik betekenisvolle tekst voor gebruikers met een schermlezer"
@@ -2818,10 +2864,10 @@ msgid "Avoid skipping levels"
 msgstr "Voorkom dat er niveaus worden overgeslagen"
 
 msgid "Input button text is empty"
-msgstr "Invoerknop tekst is leeg"
+msgstr "Invoerknop-tekst is leeg"
 
 msgid "Link text is empty"
-msgstr "Link tekst is leeg"
+msgstr "Link-tekst is leeg"
 
 msgid "Misusing paragraphs as headings"
 msgstr "Paragrafen gebruikt als koppen"
@@ -2830,7 +2876,7 @@ msgid "Use proper heading tags"
 msgstr "Gebruik de daarvoor bedoelde kop-tags"
 
 msgid "Image alt text has inappropriate pattern"
-msgstr "Afbeelding alt tekst bevat een verdacht patroon"
+msgstr "Alt-tekst van de afbeelding bevat een ongepast patroon"
 
 msgid "Use meaningful text"
 msgstr "Gebruik betekenisvolle tekst"
@@ -2858,7 +2904,7 @@ msgid "Profile picture"
 msgstr "Profielfoto"
 
 msgid "Theme preferences"
-msgstr "Thema voorkeuren"
+msgstr "Themavoorkeuren"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -2868,6 +2914,10 @@ msgstr "Je accountinstellingen zijn succesvol opgeslagen!"
 
 msgid "You have been successfully logged out."
 msgstr "Je bent succesvol uitgelogd."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Bovenliggende"
 
 msgid "Collections"
 msgstr "Collecties"
@@ -2911,7 +2961,7 @@ msgid "There are no %(model_name)s to display."
 msgstr "Er zijn geen %(model_name)s om te tonen."
 
 msgid "Live version"
-msgstr "Live versie"
+msgstr "Live-versie"
 
 msgid "Current draft"
 msgstr "Huidig concept"
@@ -2923,7 +2973,7 @@ msgid "Compare with current version"
 msgstr "Vergelijk met huidige versie"
 
 msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
+msgstr "Annuleer geplande publicatie"
 
 msgid "Workflow history"
 msgstr "Workflow-geschiedenis"
@@ -2993,6 +3043,12 @@ msgstr "Door op te slaan wordt een nieuwere versie overschreven."
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
+
+msgid ""
+"The workflow action could not be performed as the workflow state has changed."
+msgstr ""
+"De workflow actie kan niet worden uitgevoerd omdat de staat waarin de "
+"workflow zich bevindt is gewijzigd."
 
 #, python-format
 msgid ""
@@ -3389,7 +3445,7 @@ msgid "Pages using"
 msgstr "Pagina's van het type"
 
 msgid "Page types usage"
-msgstr "Pagina type gebruik"
+msgstr "Paginatypegebruik"
 
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
@@ -3413,7 +3469,7 @@ msgid "Last published at"
 msgstr "Voor het laatst gepubliceerd op"
 
 msgid "Site history"
-msgstr "Site geschiedenis"
+msgstr "Sitegeschiedenis"
 
 msgid "ID"
 msgstr "ID"
@@ -3423,6 +3479,12 @@ msgstr "Actietype"
 
 msgid "Date/Time"
 msgstr "Datum/tijd"
+
+msgid "Locked by"
+msgstr "Vergrendeld door"
+
+msgid "Anyone"
+msgstr "Iedereen"
 
 msgid "Locked pages"
 msgstr "Vergrendelde pagina's"
@@ -3599,7 +3661,7 @@ msgid "Link"
 msgstr "Link"
 
 msgid "Strikethrough"
-msgstr "Doorgestreept"
+msgstr "Doorstreept"
 
 msgid "Code"
 msgstr "Code"

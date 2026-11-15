@@ -41,6 +41,7 @@ from wagtail.api import APIField
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,
+    IntegerBlock,
     ListBlock,
     RawHTMLBlock,
     RichTextBlock,
@@ -64,6 +65,7 @@ from wagtail.contrib.settings.models import (
 )
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.documents import get_document_model
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import AbstractDocument, Document
@@ -96,7 +98,11 @@ else:
 
 from ...locks import WorkflowLock
 from .fields import CommentableJSONField
-from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
+from .forms import (
+    FormClassAdditionalFieldPageForm,
+    UUIDSnippetWithRelationsAPIForm,
+    ValidatedPageForm,
+)
 
 EVENT_AUDIENCE_CHOICES = (
     ("public", _("Public")),
@@ -295,6 +301,10 @@ class RelatedGenericRelation(models.Model):
 class PageWithGenericRelation(Page):
     generic_relation = GenericRelation("tests.RelatedGenericRelation")
 
+    api_fields = [
+        APIField("generic_relation"),
+    ]
+
 
 class PageWithOldStyleRouteMethod(Page):
     """
@@ -338,6 +348,11 @@ class EventPageRelatedLink(TranslatableMixin, Orderable, RelatedLink):
         "tests.EventPage", related_name="related_links", on_delete=models.CASCADE
     )
 
+    api_fields = (
+        APIField("title", writable=True),
+        APIField("link_external", writable=True),
+    )
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
@@ -357,6 +372,11 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
     )
 
     panels = ["name", "date_awarded", "certificate"]
+
+    api_fields = (
+        APIField("name", writable=True),
+        APIField("date_awarded", writable=True),
+    )
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -390,6 +410,13 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
         MultiFieldPanel(LinkFields.panels, "Link"),
         InlinePanel("awards", label="award"),
     ]
+
+    api_fields = (
+        APIField("first_name", writable=True),
+        APIField("last_name", writable=True),
+        # A nested child relation (an InlinePanel within an InlinePanel).
+        APIField("awards", writable=True),
+    )
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -485,6 +512,19 @@ class EventPage(Page):
         FieldPanel("feed_image"),
     ]
 
+    api_fields = (
+        APIField("date_from", writable=True),
+        APIField("audience", writable=True),
+        APIField("location", writable=True),
+        APIField("cost", writable=True),
+        APIField("related_links", writable=True),
+        # A child relation whose model uses a custom primary key name.
+        APIField("head_counts", writable=True),
+        # A reverse relation with a related_query_name that differs from
+        # its accessor (related_name).
+        APIField("speakers", writable=True),
+    )
+
     class Meta:
         permissions = [
             ("custom_see_panel_setting", "Can see the panel."),
@@ -507,6 +547,8 @@ class HeadCountRelatedModelUsingPK(models.Model):
     )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
+
+    api_fields = (APIField("head_count", writable=True),)
 
 
 # Override the standard WagtailAdminPageForm to add field that is not in model
@@ -570,6 +612,20 @@ class EventIndex(Page):
     # NOTE: Using a mix of enum and string values to test handling of both
     allowed_http_methods = [HTTPMethod.GET, "OPTIONS"]
 
+    # Serve HTML by default, or Markdown when the client asks for it, as
+    # described in docs/advanced_topics/varying_page_responses.md.
+    response_media_types = ["text/html", "text/markdown"]
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_response_media_type(request) == "text/markdown":
+            return TemplateResponse(
+                request,
+                "tests/event_index.md",
+                self.get_context(request, *args, **kwargs),
+                content_type="text/markdown; charset=utf-8",
+            )
+        return super().serve(request, *args, **kwargs)
+
     def get_events(self):
         return self.get_children().live().type(EventPage)
 
@@ -627,14 +683,6 @@ class FormPage(EmailFormMixin, FormMixin, Page):
         context = super().get_context(request)
         context["greeting"] = "hello world"
         return context
-
-    # FIXME: replace the recipe at
-    # https://docs.wagtail.org/en/stable/reference/contrib/forms/customization.html#customise-form-submissions-listing-in-wagtail-admin
-    # which no longer works because wagtail.contrib.forms.views cannot be imported before models are loaded.
-    # Overriding get_submissions_list_view_class is the quick fix, but a registry mapping form page models to viewsets
-    # would be cleaner.
-    #
-    # submissions_list_view_class = SubmissionsListView
 
     def get_submissions_list_view_class(self):
         from wagtail.contrib.forms.views import SubmissionsListView
@@ -1092,6 +1140,12 @@ class Advert(ClusterableModel):
         FieldPanel("tags"),
     ]
 
+    api_fields = (
+        APIField("url", writable=True),
+        APIField("text", writable=True),
+        APIField("tags", writable=True),
+    )
+
     def __str__(self):
         return self.text
 
@@ -1109,6 +1163,12 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
         FieldPanel("text"),
     ]
 
+    api_fields = (
+        APIField("url", writable=True),
+        APIField("text", writable=True),
+        APIField("snippetchoosermodelwithcustomprimarykey_set"),
+    )
+
     def __str__(self):
         return self.text
 
@@ -1116,7 +1176,7 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
-class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
+class AdvertWithCustomUUIDPrimaryKey(index.Indexed, PreviewableMixin, ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -1135,8 +1195,130 @@ class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
     def __str__(self):
         return self.text
 
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_model.html"
+
 
 register_snippet(AdvertWithCustomUUIDPrimaryKey)
+
+
+class UUIDSnippetWithRelationsSection(models.Model):
+    snippet = ParentalKey(
+        "UUIDSnippetWithRelations", related_name="sections", on_delete=models.CASCADE
+    )
+    caption = models.CharField(max_length=255, blank=True)
+    link_external = models.URLField(blank=True)
+    link_document = models.ForeignKey(
+        "wagtaildocs.Document", null=True, blank=True, on_delete=models.CASCADE
+    )
+    internal_note = models.CharField(max_length=255, blank=True)
+
+    def clean(self):
+        if not self.link_external and not self.link_document:
+            raise ValidationError(
+                "You must provide a related document or an external URL"
+            )
+
+    api_fields = (
+        APIField("caption", writable=True),
+        APIField("link_external", writable=True),
+        APIField("link_document", writable=True),
+        APIField("internal_note"),  # listed but not writable
+    )
+
+    panels = [
+        FieldPanel("caption"),
+        FieldPanel("link_external"),
+        FieldPanel("link_document"),
+    ]
+
+
+class UUIDSnippetWithRelations(index.Indexed, ClusterableModel):
+    """FK, StreamField, rich text, and child-relation coverage, with a UUID PK."""
+
+    api_base_form_class = UUIDSnippetWithRelationsAPIForm
+
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    text = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255, blank=True)
+    intro = models.CharField(max_length=255, blank=True)
+    rich_body = RichTextField(
+        blank=True,
+        features=["image", "italic", "link", "quotation", "embed"],
+    )
+    feed_image = models.ForeignKey(
+        Image,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+            (
+                "product",
+                StructBlock(
+                    [
+                        ("name", CharBlock()),
+                        ("price", CharBlock()),
+                    ]
+                ),
+            ),
+            ("raw_html", RawHTMLBlock()),
+            (
+                "books",
+                StreamBlock(
+                    [
+                        ("title", CharBlock()),
+                        ("author", CharBlock()),
+                    ]
+                ),
+            ),
+            (
+                "title_list",
+                ListBlock(CharBlock()),
+            ),
+            ("image_with_alt", ImageBlock()),
+        ],
+        blank=True,
+    )
+
+    @property
+    def display_text(self):
+        return f"{self.text} ({self.subtitle})" if self.subtitle else self.text
+
+    # `intro` is a real field deliberately left out of api_fields entirely.
+    api_fields = (
+        APIField("text", writable=True),
+        APIField("subtitle"),  # listed but not writable
+        APIField("display_text"),  # a property, not a real field
+        APIField("rich_body", writable=True),
+        APIField("feed_image", writable=True),
+        APIField("body", writable=True),
+        APIField("sections", writable=True),
+    )
+
+    panels = [
+        FieldPanel("text"),
+        FieldPanel("subtitle"),
+        FieldPanel("rich_body"),
+        FieldPanel("feed_image"),
+        FieldPanel("body"),
+        InlinePanel("sections", label="section"),
+    ]
+
+    search_fields = [
+        index.SearchField("text"),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(UUIDSnippetWithRelations)
 
 
 class AdvertWithTabbedInterface(models.Model):
@@ -1195,6 +1377,12 @@ class RevisableModel(RevisionMixin, models.Model):
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
 
+    api_fields = (
+        APIField("id"),
+        APIField("text", writable=True),
+        APIField("secret_text", writable=True),
+    )
+
     # The edit_handler is defined on the viewset
 
 
@@ -1221,6 +1409,8 @@ class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Mod
         FieldPanel("first_published_at"),
         PublishingPanel(),
     ]
+
+    api_fields = (APIField("text", writable=True),)
 
     def __str__(self):
         return self.text
@@ -1370,11 +1560,20 @@ class FullFeaturedSnippet(
 
     panels = ["text", "country_code", "some_number"]
 
+    api_fields = (
+        APIField("text", writable=True),
+        APIField("country_code", writable=True),
+        APIField("some_number", writable=True),
+    )
+
     search_fields = [
         index.SearchField("text"),
         index.AutocompleteField("text"),
         index.FilterField("text"),
         index.FilterField("country_code"),
+        index.FilterField("locale"),
+        index.FilterField("translation_key"),
+        index.FilterField("id"),
     ]
 
     def __str__(self):
@@ -1693,6 +1892,8 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
         FieldPanel("advertwithcustomprimarykey"),
     ]
 
+    api_fields = (APIField("advertwithcustomprimarykey", writable=True),)
+
 
 class CustomImage(AbstractImage):
     caption = models.CharField(max_length=255, blank=True)
@@ -1806,8 +2007,10 @@ class ExtendedImageChooserBlock(ImageChooserBlock):
 
     def get_api_representation(self, value, context=None):
         image_id = super().get_api_representation(value, context=context)
-        if "request" in context and context["request"].query_params.get(
-            "extended", False
+        if (
+            context
+            and context.get("request")
+            and context["request"].GET.get("extended", False)
         ):
             return {"id": image_id, "title": value.title}
         return image_id
@@ -1843,6 +2046,16 @@ class StreamPage(Page):
                 ListBlock(CharBlock()),
             ),
             ("image_with_alt", ImageBlock()),
+            ("table", TableBlock()),
+            (
+                "typed_table",
+                TypedTableBlock(
+                    [
+                        ("text", CharBlock()),
+                        ("number", IntegerBlock()),
+                    ]
+                ),
+            ),
         ],
     )
 
@@ -2100,6 +2313,12 @@ class ManyToManyBlogPage(Page):
         FieldPanel("first_published_at"),
     ]
 
+    api_fields = [
+        APIField("body", writable=True),
+        APIField("adverts", writable=True),
+        APIField("blog_categories", writable=True),
+    ]
+
 
 class OneToOnePage(Page):
     """
@@ -2208,6 +2427,8 @@ class DefaultRichTextFieldPage(Page):
         FieldPanel("body"),
     ]
 
+    api_fields = (APIField("body", writable=True),)
+
 
 class DefaultRichBlockFieldPage(Page):
     body = StreamField(
@@ -2217,6 +2438,8 @@ class DefaultRichBlockFieldPage(Page):
     )
 
     content_panels = Page.content_panels + [FieldPanel("body")]
+
+    api_fields = (APIField("body", writable=True),)
 
 
 class CustomRichTextFieldPage(Page):
@@ -2232,6 +2455,10 @@ class CustomRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock(editor="custom")),
+            (
+                "rich_text_limited",
+                RichTextBlock(features=["quotation", "embed"]),
+            ),
         ],
     )
 
@@ -2239,6 +2466,8 @@ class CustomRichBlockFieldPage(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
+
+    api_fields = (APIField("body", writable=True),)
 
 
 class RichTextFieldWithFeaturesPage(Page):
@@ -2248,6 +2477,8 @@ class RichTextFieldWithFeaturesPage(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
+
+    api_fields = (APIField("body", writable=True),)
 
 
 # a page that only contains RichTextField within an InlinePanel,
@@ -2673,9 +2904,12 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
 
 
+QUOTE_CHRS = '":/_#?;@&=+$,"[]<>%\n\\'
+QUOTABLE_PK = QUOTE_CHRS + "a1"
+
+
 def random_quotable_pk():
-    quote_chrs = '":/_#?;@&=+$,"[]<>%\n\\'
-    components = (quote_chrs, string.ascii_letters, string.digits)
+    components = (QUOTE_CHRS, string.ascii_letters, string.digits)
     return "".join(random.choice(components[i % len(components)]) for i in range(10))  # noqa: S311 - random not used cryptographically
 
 
@@ -2789,3 +3023,7 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class HeadlessForm(FormMixin, Page):
+    pass

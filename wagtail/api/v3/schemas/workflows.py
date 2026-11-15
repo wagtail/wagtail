@@ -1,0 +1,128 @@
+from datetime import datetime
+from typing import Any, Literal
+from uuid import UUID
+
+from django.contrib.contenttypes.models import ContentType
+from ninja import Schema
+from pydantic import BaseModel, ConfigDict, PositiveInt
+
+from wagtail.actions.workflow import get_available_workflow_transitions
+from wagtail.admin.utils import get_user_display_name
+
+from .base import BaseSchema
+
+
+class WorkflowUserSummarySchema(Schema):
+    id: int | str | UUID
+    name: str
+
+    @staticmethod
+    def resolve_id(obj) -> int | str | UUID:
+        return obj.pk
+
+    @staticmethod
+    def resolve_name(obj) -> str:
+        return get_user_display_name(obj)
+
+
+class WorkflowSummarySchema(Schema):
+    id: int
+    name: str
+
+
+class WorkflowTaskSummarySchema(Schema):
+    id: int
+    name: str
+    type: str
+
+    @staticmethod
+    def resolve_type(obj) -> str:
+        content_type = ContentType.objects.get_for_id(obj.content_type_id)
+        if model := content_type.model_class():
+            return model._meta.label
+        return f"{content_type.app_label}.{content_type.model}"
+
+
+class WorkflowTaskStateSchema(BaseSchema):
+    id: int
+    task: WorkflowTaskSummarySchema
+    status: Literal["in_progress", "approved", "rejected", "skipped", "cancelled"]
+    revision_id: int
+    started_at: datetime
+    finished_at: datetime | None = None
+    finished_by: WorkflowUserSummarySchema | None = None
+    comment: str
+
+
+class WorkflowTaskTimelineItemSchema(Schema):
+    task: WorkflowTaskSummarySchema
+    task_state: WorkflowTaskStateSchema | None = None
+
+
+class WorkflowStateSchema(BaseSchema):
+    id: int
+    workflow: WorkflowSummarySchema
+    status: Literal["in_progress", "needs_changes", "approved", "cancelled"]
+    created_at: datetime
+    requested_by: WorkflowUserSummarySchema | None = None
+    current_task_state: WorkflowTaskStateSchema | None = None
+    task_states: list[WorkflowTaskStateSchema]
+
+    @staticmethod
+    def resolve_task_states(obj) -> list[WorkflowTaskStateSchema]:
+        # Populated by WorkflowStateQuerySet.prefetch_task_states().
+        return obj._prefetched_task_states
+
+
+class WorkflowStateDetailSchema(WorkflowStateSchema):
+    tasks: list[WorkflowTaskTimelineItemSchema]
+
+    @staticmethod
+    def resolve_tasks(obj) -> list[dict[str, Any]]:
+        # Swap in the prefetched task states, which have their task and
+        # finished_by already fetched.
+        task_states = {
+            task_state.id: task_state for task_state in obj._prefetched_task_states
+        }
+        return [
+            {
+                "task": task,
+                "task_state": task.task_state
+                and task_states.get(task.task_state.id, task.task_state),
+            }
+            for task in obj.all_tasks_with_state()
+        ]
+
+
+class WorkflowStatusSchema(Schema):
+    workflow: WorkflowSummarySchema | None = None
+    workflow_state: WorkflowStateDetailSchema | None = None
+    allowed_actions: list[str] = []
+
+    @staticmethod
+    def resolve_workflow(obj):
+        return obj.get_workflow()
+
+    @staticmethod
+    def resolve_workflow_state(obj):
+        return (
+            obj.workflow_states.prefetch_task_states()
+            .order_by("-created_at", "-id")
+            .first()
+        )
+
+    @staticmethod
+    def resolve_allowed_actions(obj, context: dict) -> list[str]:
+        return get_available_workflow_transitions(obj, context["request"].user)
+
+
+class WorkflowTaskActionSchema(BaseModel):
+    # Extra fields are passed on to the task's form for the action, along with
+    # the comment.
+    model_config = ConfigDict(extra="allow")
+
+    comment: str | None = None
+    task_state_id: PositiveInt | None = None
+
+    def get_form_data(self) -> dict[str, Any]:
+        return self.model_dump(exclude={"task_state_id"}, exclude_none=True)

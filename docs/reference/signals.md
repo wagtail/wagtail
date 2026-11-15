@@ -17,16 +17,19 @@ import requests
 
 # Let everyone know when a new page is published
 def send_to_slack(sender, **kwargs):
-    instance = kwargs['instance']
-    url = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+    instance = kwargs["instance"]
+    url = (
+        "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    )
     values = {
-        "text" : "%s was published by %s " % (instance.title, instance.owner.username),
+        "text": "%s was published by %s " % (instance.title, instance.owner.username),
         "channel": "#publish-notifications",
         "username": "the squid of content",
-        "icon_emoji": ":octopus:"
+        "icon_emoji": ":octopus:",
     }
 
     response = requests.post(url, values)
+
 
 # Register a receiver
 page_published.connect(send_to_slack)
@@ -44,10 +47,12 @@ is published:
 from wagtail.signals import page_published
 from mysite.models import BlogPostPage
 
+
 # Do something clever for each model type
 def receiver(sender, **kwargs):
     # Do something with blog posts
     pass
+
 
 # Register listeners for each page model class
 page_published.connect(receiver, sender=BlogPostPage)
@@ -123,6 +128,8 @@ The following arguments are emitted for both signals:
 -   `url_path_after` - The value of `instance.url_path` **after** moving.
 -   `kwargs` - Any other arguments passed to `pre_page_move.send()` or `post_page_move.send()`.
 
+Additionally, `post_page_move` receives `instance_before`, which is the specific `Page` instance from before the move (as passed as `instance` to `pre_page_move`).
+
 #### Distinguishing between a 'move' and a 'reorder'
 
 The signal can be emitted as a result of a page being moved to a different section (a 'move'), or as a result of a page being moved to a different position within the same section (a 'reorder'). Knowing the difference between the two can be particularly useful, because only a 'move' affects a page's URL (and that of its descendants), whereas a 'reorder' only affects the natural page order; which is probably less impactful.
@@ -133,16 +140,18 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the `ur
 from wagtail.signals import pre_page_move
 from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
 
+
 # Clear a page's old URLs from the cache when it moves to a different section
 def clear_page_url_from_cache_on_move(sender, **kwargs):
 
-    if kwargs['url_path_before'] == kwargs['url_path_after']:
+    if kwargs["url_path_before"] == kwargs["url_path_after"]:
         # No URLs are changing :) nothing to do here!
         return
 
     # The page is moving to a new section (possibly even a new site)
     # so clear old URL(s) from the cache
-    purge_page_from_cache(kwargs['instance'])
+    purge_page_from_cache(kwargs["instance"])
+
 
 # Register a receiver
 pre_page_move.connect(clear_old_page_urls_from_cache)
@@ -177,9 +186,11 @@ Here's an example of how to use this signal to pre-populate a new page's title u
 ```python
 from wagtail.signals import init_new_page
 
+
 def prepopulate_page(sender, page, parent, **kwargs):
     if parent:
         page.title = f"{parent.title}: New Page Title"
+
 
 init_new_page.connect(prepopulate_page)
 ```

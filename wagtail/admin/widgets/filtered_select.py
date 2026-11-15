@@ -1,40 +1,31 @@
-from django import forms
+import json
 
-from wagtail.admin.staticfiles import versioned_static
+from django import forms
 
 
 class FilteredSelect(forms.Select):
     """
     A select box where the options are shown and hidden dynamically in response to another
-    form field whose HTML `id` is specified in `filter_field`.
+    form field whose HTML `name` is specified in `filter_field`.
 
     The `choices` list accepts entries of the form `(value, label, filter_values)` in addition
     to the standard `(value, label)` tuples, where `filter_values` is a list of values;
     whenever `filter_field` is set to a non-empty value, only the items with that value in their
     `filter_values` list are shown.
 
-    filter_field and filter_values are inserted as 'data-' attributes on the rendered HTML, where
-    they are picked up by the JavaScript behaviour code -
-    see wagtailadmin/js/filtered-select.js for an example of how these attributes are configured.
+    filter_field and filter_values are inserted as 'data-w-rules' attributes on the rendered
+    <option> elements, where they are picked up by the Stimulus `RulesController` (w-rules).
+    Relies on the containing form having the suitable data attributes set.
+    See client/src/controllers/RulesController.test.js and RulesController.stories.js for examples.
     """
 
     def __init__(self, attrs=None, choices=(), filter_field=""):
         super().__init__(attrs, choices)
         self.filter_field = filter_field
 
-    def build_attrs(self, base_attrs, extra_attrs=None):
-        my_attrs = {
-            "data-widget": "filtered-select",
-            "data-filter-field": self.filter_field,
-        }
-        if extra_attrs:
-            my_attrs.update(extra_attrs)
-
-        return super().build_attrs(base_attrs, my_attrs)
-
     def optgroups(self, name, value, attrs=None):
         # copy of Django's Select.optgroups, modified to accept filter_value as a
-        # third item in the tuple and expose that as a data-filter-value attribute
+        # third item in the tuple and expose that as a data-w-rules attribute
         # on the final <option>
         groups = []
         has_selected = False
@@ -106,17 +97,14 @@ class FilteredSelect(forms.Select):
         option = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
+
         if filter_value is not None:
-            option["attrs"]["data-filter-value"] = ",".join(
-                [str(val) for val in filter_value]
-            )
+            # Ensure we match against empty selected values
+            rules = {self.filter_field: ["", *[str(val) for val in filter_value]]}
+            option["attrs"] = {
+                **(option["attrs"] or {}),
+                "data-w-rules": json.dumps(rules),
+                "data-w-rules-target": "enable show",
+            }
 
         return option
-
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailadmin/js/filtered-select.js"),
-            ]
-        )

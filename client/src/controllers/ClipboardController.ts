@@ -21,9 +21,7 @@ export class ClipboardController extends Controller<HTMLElement> {
 
   declare readonly hasValueTarget: boolean;
   declare readonly valueTarget:
-    | HTMLInputElement
-    | HTMLTextAreaElement
-    | HTMLSelectElement;
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
   /**
    * Copies the value from either the Custom Event detail, Stimulus action params or

@@ -53,9 +53,6 @@ msgstr "Symyd i lawr"
 msgid "Move up"
 msgstr "Symyd i fyny"
 
-msgid "Page"
-msgstr "Tudalen"
-
 msgid "Pages"
 msgstr "Tudalennau"
 

@@ -1,5 +1,3 @@
-(changing_rich_text_representation)=
-
 # Changing rich text representation
 
 The HTML representation of an image in rich text can be customized - for example, to display captions or custom fields.
@@ -38,7 +36,6 @@ from wagtail.images.formats import Format, register_image_format
 
 
 class CaptionedImageFormat(Format):
-
     def image_to_html(self, image, alt_text, extra_attributes=None):
 
         default_html = super().image_to_html(image, alt_text, extra_attributes)
@@ -47,7 +44,9 @@ class CaptionedImageFormat(Format):
 
 
 register_image_format(
-    CaptionedImageFormat('captioned_fullwidth', 'Full width captioned', 'bodytext-image', 'width-750')
+    CaptionedImageFormat(
+        "captioned_fullwidth", "Full width captioned", "bodytext-image", "width-750"
+    )
 )
 ```
 

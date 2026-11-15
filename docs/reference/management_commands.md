@@ -168,9 +168,9 @@ Displays a summary of the contents of the references index. This shows the numbe
 ```
 
 This command provides the ability to regenerate image renditions.
-This is useful if you have deployed to a server where the image renditions have not yet been generated or you have changed the underlying image rendition behavior and need to ensure all renditions are created again.
+This is useful if you have changed the underlying image rendition behavior and need to ensure all existing renditions are created again.
 
-This does not remove unused rendition images, this can be done by clearing the folder using `rm -rf` or similar, once this is done you can then use the management command to generate the renditions.
+The command only operates on existing renditions; it will not create renditions that do not already exist. Deleting a rendition also removes its file from storage.
 
 Options:
 

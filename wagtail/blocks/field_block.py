@@ -16,6 +16,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.api.rich_text import APIRichText
 from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
@@ -37,14 +38,13 @@ class FieldBlock(Block):
 
     def value_from_form(self, value):
         """
+        Perform any necessary conversion from the form field value to the block's native value.
+        As standard, this returns the form field value unchanged.
+
         The value that we get back from the form field might not be the type
         that this block works with natively; for example, the block may want to
         wrap a simple value such as a string in an object that provides a fancy
         HTML rendering (e.g. EmbedBlock).
-
-        We therefore provide this method to perform any necessary conversion
-        from the form field value to the block's native value. As standard,
-        this returns the form field value unchanged.
         """
         return value
 
@@ -785,6 +785,13 @@ class RichTextBlock(FieldBlock):
         # the JSONish representation
         return value.source
 
+    def get_api_representation(self, value, context=None):
+        rich_text_format = None
+        if request := (context and context.get("request")):
+            rich_text_format = request.GET.get("rich_text_format")
+        rich_text_format = APIRichText.resolve_format(rich_text_format)
+        return APIRichText.serialize(value.source, format=rich_text_format)
+
     def normalize(self, value):
         if isinstance(value, RichText):
             return value
@@ -891,6 +898,12 @@ class ChooserBlock(FieldBlock):
             help_text=self._help_text,
         )
 
+    @cached_property
+    def pk_field(self):
+        # the primary key field of the target model, used to convert serialised
+        # primary key values to their native Python type in bulk_to_python
+        return self.model_class._meta.pk
+
     def to_python(self, value):
         # the incoming serialised value should be None or an ID
         if value is None:
@@ -907,11 +920,17 @@ class ChooserBlock(FieldBlock):
         The instances must be returned in the same order as the values and keep None values.
         If the same ID appears multiple times, a distinct object instance is created for each one.
         """
-        objects = self.model_class.objects.in_bulk(values)
+        # serialised primary key values (e.g. a UUID string) need to be converted to the
+        # field's native Python type before looking them up, as in_bulk keys them by that
+        pk_values = [
+            self.pk_field.to_python(value) if value is not None else None
+            for value in values
+        ]
+        objects = self.model_class.objects.in_bulk(pk_values)
         seen_ids = set()
         result = []
 
-        for id in values:
+        for id in pk_values:
             obj = objects.get(id)
             if obj is not None and id in seen_ids:
                 # this object is already in the result list, so we need to make a copy

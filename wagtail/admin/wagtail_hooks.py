@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
-from draftjs_exporter.dom import DOM
+from draftjs_exporter import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import __version__, hooks
@@ -447,6 +447,12 @@ def register_core_features(features):
             WhitelistRule("ul", allow_without_attributes),
             WhitelistRule("li", allow_without_attributes),
         ],
+    )
+
+    features.register_converter_rule(
+        "editorhtml",
+        "hr",
+        [WhitelistRule("hr", allow_without_attributes)],
     )
 
     # Draftail

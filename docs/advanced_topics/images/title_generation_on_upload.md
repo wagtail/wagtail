@@ -43,9 +43,10 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
+
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    script_url = static('js/wagtail_admin.js')
+    script_url = static("js/wagtail_admin.js")
     return format_html('<script src="{}"></script>', script_url)
 ```
 
@@ -101,9 +102,10 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
+
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    script_url = static('js/stop_prefill.js')
+    script_url = static("js/stop_prefill.js")
     return format_html('<script src="{}"></script>', script_url)
 ```
 

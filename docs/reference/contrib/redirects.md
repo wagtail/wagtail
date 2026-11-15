@@ -15,15 +15,13 @@ The `redirects` module is not enabled by default. To install it, add `wagtail.co
 ```python
 INSTALLED_APPS = [
     # ...
-
-    'wagtail.contrib.redirects',
+    "wagtail.contrib.redirects",
 ]
 
 MIDDLEWARE = [
     # ...
     # all other django middleware first
-
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 ```
 
@@ -54,11 +52,20 @@ Overrides to the following `Page` methods are respected when generating redirect
 -   {meth}`~wagtail.models.AbstractPage.get_url_parts()`
 -   {meth}`~wagtail.models.AbstractPage.get_route_paths()`
 
-If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
+The `WAGTAILREDIRECTS_AUTO_CREATE` setting controls when automatic redirects are created:
 
-```python
-WAGTAILREDIRECTS_AUTO_CREATE = False
-```
+-   `True` (the default): redirects are only created for published (live) pages.
+-   `False`: automatic redirects are never created. If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
+
+    ```python
+    WAGTAILREDIRECTS_AUTO_CREATE = False
+    ```
+
+-   `"always"`: redirects are created whenever a page (or a descendant of a page) is moved or its slug is changed, regardless of whether the page is live.
+
+    ```python
+    WAGTAILREDIRECTS_AUTO_CREATE = "always"
+    ```
 
 ## Management commands
 
@@ -107,7 +114,7 @@ Add the following code to add the redirects endpoint:
 ```python
 from wagtail.contrib.redirects.api import RedirectsAPIViewSet
 
-api_router.register_endpoint('redirects', RedirectsAPIViewSet)
+api_router.register_endpoint("redirects", RedirectsAPIViewSet)
 ```
 
 With this configuration, redirects will be available at `/api/v2/redirects/`.

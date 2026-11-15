@@ -93,6 +93,27 @@ class WorkflowStateQuerySet(models.QuerySet):
                 object_id=str(instance.pk),
             )
 
+    def prefetch_task_states(self):
+        """
+        Performance optimisation for listing workflow states.
+        Fetches the workflow, requester and current task state of each workflow state,
+        and prefetches its task states (oldest first) onto ``_prefetched_task_states``.
+        """
+        return self.select_related(
+            "workflow",
+            "requested_by",
+            "current_task_state__task__content_type",
+            "current_task_state__finished_by",
+        ).prefetch_related(
+            models.Prefetch(
+                "task_states",
+                queryset=TaskState.objects.select_related(
+                    "task__content_type", "finished_by"
+                ).order_by("started_at", "id"),
+                to_attr="_prefetched_task_states",
+            )
+        )
+
 
 WorkflowStateManager = models.Manager.from_queryset(WorkflowStateQuerySet)
 

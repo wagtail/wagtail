@@ -16,6 +16,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
 from wagtail.api.querysets import get_public_pages_queryset
+from wagtail.api.rich_text import APIRichText, RichTextFormatError
 from wagtail.models import Site
 
 from .filters import (
@@ -65,6 +66,7 @@ class BaseAPIViewSet(GenericViewSet):
             "order",
             "search",
             "search_operator",
+            "rich_text_format",
             # Used by jQuery for cache-busting. See #1671
             "_",
             # Required by BrowsableAPIRenderer
@@ -352,6 +354,16 @@ class BaseAPIViewSet(GenericViewSet):
             for field in cls.get_field_serializer_overrides(model).items()
             if field[0] in fields
         }
+
+        # Skip API v3 field serializers, which API v2 (DRF) cannot
+        # serialize; they are read-only anyway, so omit them entirely.
+        from wagtail.api.v3.fields import FieldSerializer
+
+        for field_name, serializer in list(field_serializer_overrides.items()):
+            if isinstance(serializer, FieldSerializer):
+                del field_serializer_overrides[field_name]
+                fields.remove(field_name)
+
         return get_serializer_class(
             model,
             fields,
@@ -401,7 +413,21 @@ class BaseAPIViewSet(GenericViewSet):
             "request": self.request,
             "view": self,
             "router": self.request.wagtailapi_router,
+            "_wagtail_rich_text_format": self.resolve_rich_text_format(),
         }
+
+    def resolve_rich_text_format(self):
+        """
+        Resolve and validate ``?rich_text_format=`` for this request.
+
+        This is the single validation point for API requests; serializers
+        should use the value from the serializer context.
+        """
+        raw = self.request.GET.get("rich_text_format")
+        try:
+            return APIRichText.resolve_format(raw)
+        except RichTextFormatError as exc:
+            raise BadRequestError(str(exc)) from exc
 
     def get_renderer_context(self):
         context = super().get_renderer_context()

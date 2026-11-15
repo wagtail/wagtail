@@ -139,6 +139,12 @@ def register_core_log_actions(actions):
     actions.register_action("wagtail.create", _("Create"), _("Created"))
     actions.register_action("wagtail.edit", _("Edit"), _("Edited"))
     actions.register_action("wagtail.delete", _("Delete"), _("Deleted"))
+    actions.register_action(
+        "wagtail.apitoken.create", _("Create API token"), _("API token created")
+    )
+    actions.register_action(
+        "wagtail.apitoken.revoke", _("Revoke API token"), _("API token revoked")
+    )
     actions.register_action("wagtail.publish", _("Publish"), _("Published"))
     actions.register_action(
         "wagtail.publish.scheduled",

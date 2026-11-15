@@ -11,6 +11,7 @@ from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch
 from django.urls.base import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from django.views.generic.base import View
 
 from wagtail import hooks
@@ -417,7 +418,10 @@ class SearchView(View):
                 label=_("Title"),
                 is_multiple_choice=self.is_multiple_choice,
             ),
-            ParentPageColumn("parent", label=_("Parent")),
+            ParentPageColumn(
+                "parent",
+                label=pgettext_lazy("parent page column header", "Parent"),
+            ),
             DateColumn(
                 "updated",
                 label=_("Updated"),

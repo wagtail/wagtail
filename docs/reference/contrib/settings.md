@@ -14,7 +14,7 @@ Add `wagtail.contrib.settings` to your `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS += [
-    'wagtail.contrib.settings',
+    "wagtail.contrib.settings",
 ]
 ```
 
@@ -38,9 +38,11 @@ from wagtail.contrib.settings.models import (
     register_setting,
 )
 
+
 @register_setting
 class GenericSocialMediaSettings(BaseGenericSetting):
     facebook = models.URLField()
+
 
 @register_setting
 class SiteSpecificSocialMediaSettings(BaseSiteSetting):
@@ -60,29 +62,30 @@ Add a `panels` setting to your model defining all the edit handlers required:
 @register_setting
 class GenericImportantPages(BaseGenericSetting):
     donate_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
     sign_up_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
 
     panels = [
-        FieldPanel('donate_page'),
-        FieldPanel('sign_up_page'),
+        FieldPanel("donate_page"),
+        FieldPanel("sign_up_page"),
     ]
+
 
 @register_setting
 class SiteSpecificImportantPages(BaseSiteSetting):
     donate_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
     sign_up_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
 
     panels = [
-        FieldPanel('donate_page'),
-        FieldPanel('sign_up_page'),
+        FieldPanel("donate_page"),
+        FieldPanel("sign_up_page"),
     ]
 ```
 
@@ -91,20 +94,23 @@ You can also customize the edit handlers [like you would do for `Page` model](cu
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
 
+
 @register_setting
 class MySettings(BaseGenericSetting):
     # ...
     first_tab_panels = [
-        FieldPanel('field_1'),
+        FieldPanel("field_1"),
     ]
     second_tab_panels = [
-        FieldPanel('field_2'),
+        FieldPanel("field_2"),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(first_tab_panels, heading='First tab'),
-        ObjectList(second_tab_panels, heading='Second tab'),
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(first_tab_panels, heading="First tab"),
+            ObjectList(second_tab_panels, heading="Second tab"),
+        ]
+    )
 ```
 
 ## Permissions
@@ -120,15 +126,18 @@ You can add an icon to the menu by passing an `icon` argument to the
 `register_setting` decorator:
 
 ```python
-@register_setting(icon='placeholder')
+@register_setting(icon="placeholder")
 class GenericSocialMediaSettings(BaseGenericSetting):
     ...
+
     class Meta:
         verbose_name = "Social media settings for all sites"
 
-@register_setting(icon='placeholder')
+
+@register_setting(icon="placeholder")
 class SiteSpecificSocialMediaSettings(BaseSiteSetting):
     ...
+
     class Meta:
         verbose_name = "Site-specific social media settings"
 ```
@@ -175,7 +184,9 @@ retrieve settings for, you can use
 
 ```python
 def view(request):
-    social_media_settings = SiteSpecificSocialMediaSettings.for_site(site=user.origin_site)
+    social_media_settings = SiteSpecificSocialMediaSettings.for_site(
+        site=user.origin_site
+    )
     ...
 ```
 
@@ -318,20 +329,19 @@ following shows how `select_related` can be set to improve efficiency:
 ```python
 @register_setting
 class GenericImportantPages(BaseGenericSetting):
-
     # Fetch these pages when looking up GenericImportantPages for or a site
     select_related = ["donate_page", "sign_up_page"]
 
     donate_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
     sign_up_page = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+'
+        "wagtailcore.Page", null=True, on_delete=models.SET_NULL, related_name="+"
     )
 
     panels = [
-        FieldPanel('donate_page'),
-        FieldPanel('sign_up_page'),
+        FieldPanel("donate_page"),
+        FieldPanel("sign_up_page"),
     ]
 ```
 

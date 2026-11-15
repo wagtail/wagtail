@@ -80,9 +80,6 @@ msgstr "Не"
 msgid "No results"
 msgstr "Няма вынікаў"
 
-msgid "Page"
-msgstr "Старонка"
-
 msgid "Page explorer"
 msgstr "Агляд старонак"
 
@@ -106,9 +103,6 @@ msgstr "Захаванне..."
 
 msgid "Search"
 msgstr "Пошук"
-
-msgid "See all"
-msgstr "Усё паглядзець"
 
 msgid "Server Error"
 msgstr "Памылка Сервера"

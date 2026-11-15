@@ -94,12 +94,13 @@ You can now run searches and view results. However, the search currently only re
 # Add to the existing imports:
 from wagtail.search import index
 
+
 class BlogPage(Page):
     # Keep the existing parent_page_types, fields, methods and content_panels definitions, and add:
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField("intro"),
+        index.SearchField("body"),
     ]
 ```
 

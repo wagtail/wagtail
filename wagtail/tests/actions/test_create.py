@@ -241,3 +241,19 @@ class TestCreateAction(WagtailTestUtils, TestCase):
         advert = Advert(text="No user", url="https://example.com")
         CreateAction(advert).execute()
         self.assertIsNotNone(advert.pk)
+
+    def test_publish_without_publish_permission_raises_error(self):
+        user = self.create_user(username="adder")
+        user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="tests", codename="add_draftstatemodel"
+            )
+        )
+        instance = DraftStateModel(text="New")
+        with self.assertRaisesMessage(
+            CreatePermissionError,
+            "You do not have permission to publish this draft state model.",
+        ):
+            CreateAction(instance, user=user, publish=True).execute()
+        self.assertIsNone(instance.pk)
+        self.assertEqual(Revision.objects.count(), 0)

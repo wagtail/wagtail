@@ -12,7 +12,10 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.panels import (
+    ObjectList,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
@@ -45,9 +48,14 @@ from wagtail.models import (
 )
 from wagtail.permissions import policy_registry
 from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
+from wagtail.snippets.models import (
+    SNIPPET_MODELS,
+    SnippetAdminURLFinder,
+    get_snippet_models,
+)
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.utils.decorators import cached_classmethod
 
 
 # == Helper functions ==
@@ -166,6 +174,7 @@ class ModelIndexView(generic.BaseListingView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
+    export_requires_post = True
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request
@@ -906,7 +915,7 @@ class SnippetViewSet(ModelViewSet):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
         breadcrumbs = [
-            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
+            {"url": reverse_lazy("wagtailadmin_home"), "label": gettext_lazy("Home")},
         ]
 
         if (
@@ -914,7 +923,10 @@ class SnippetViewSet(ModelViewSet):
             or not self.get_menu_item_is_registered()
         ):
             breadcrumbs.append(
-                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+                {
+                    "url": reverse_lazy("wagtailsnippets:index"),
+                    "label": gettext_lazy("Snippets"),
+                },
             )
 
         return breadcrumbs
@@ -1235,13 +1247,22 @@ class SnippetViewSet(ModelViewSet):
         checks.register(snippets_model_check, "panels")
 
     def register_snippet_model(self):
-        snippet_models = get_snippet_models()
-        if self.model in snippet_models:
+        # Do not use get_snippet_models here to avoid searching for hooks. We
+        # only care if the model is already registered, not any other models
+        # that may be registered later.
+        if self.model in SNIPPET_MODELS:
             raise ImproperlyConfigured(
                 f"The {self.model.__name__} model is already registered as a snippet"
             )
-        snippet_models.append(self.model)
-        snippet_models.sort(key=lambda x: x._meta.verbose_name)
+        SNIPPET_MODELS.append(self.model)
+        SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
+
+    def attach_model_edit_handler(self):
+        @cached_classmethod
+        def _get_edit_handler(cls):
+            return self.get_edit_handler()
+
+        self.model.get_edit_handler = _get_edit_handler
 
     def on_register(self):
         super().on_register()
@@ -1251,6 +1272,7 @@ class SnippetViewSet(ModelViewSet):
         self.register_chooser_viewset()
         self.register_model_check()
         self.register_snippet_model()
+        self.attach_model_edit_handler()
 
 
 class SnippetViewSetGroup(ModelViewSetGroup):

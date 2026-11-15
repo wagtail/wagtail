@@ -1,6 +1,67 @@
+from typing import Any
+
+from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 
-from wagtail.users.utils import get_gravatar_url
+from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.utils import (
+    get_gravatar_url,
+    get_manageable_token_owners,
+    user_can_manage_token,
+)
+
+User: Any = get_user_model()
+
+
+class TestUserCanManageToken(TestCase):
+    change_user_codename = f"change_{User._meta.model_name}"
+
+    def test_self_service_with_model_perm(self):
+        user = WagtailTestUtils.create_user("ed", permissions=["add_apitoken"])
+        self.assertTrue(user_can_manage_token(user, user, "wagtailcore.add_apitoken"))
+
+    def test_self_service_without_model_perm_denied(self):
+        user = WagtailTestUtils.create_user("ed")
+        self.assertFalse(user_can_manage_token(user, user, "wagtailcore.add_apitoken"))
+
+    def test_cross_user_requires_change_user_perm(self):
+        owner = WagtailTestUtils.create_user("owner")
+        manager = WagtailTestUtils.create_user(
+            "mgr", permissions=["add_apitoken", self.change_user_codename]
+        )
+        self.assertTrue(
+            user_can_manage_token(manager, owner, "wagtailcore.add_apitoken")
+        )
+        no_cross = WagtailTestUtils.create_user("plain", permissions=["add_apitoken"])
+        self.assertFalse(
+            user_can_manage_token(no_cross, owner, "wagtailcore.add_apitoken")
+        )
+
+    def test_superuser_tokens_only_manageable_by_superusers(self):
+        root = WagtailTestUtils.create_superuser("root")
+        manager = WagtailTestUtils.create_user(
+            "mgr", permissions=["add_apitoken", self.change_user_codename]
+        )
+        self.assertFalse(
+            user_can_manage_token(manager, root, "wagtailcore.add_apitoken")
+        )
+        self.assertTrue(user_can_manage_token(root, root, "wagtailcore.add_apitoken"))
+
+    def test_manageable_owners_queryset(self):
+        plain = WagtailTestUtils.create_user("plain", permissions=["add_apitoken"])
+        manager = WagtailTestUtils.create_user(
+            "mgr", permissions=["add_apitoken", self.change_user_codename]
+        )
+        root = WagtailTestUtils.create_superuser("root")
+        self.assertQuerySetEqual(
+            get_manageable_token_owners(plain), [plain], ordered=False
+        )
+        # Managers see everyone except superusers.
+        owners = get_manageable_token_owners(manager)
+        self.assertIn(plain, owners)
+        self.assertNotIn(root, owners)
+        # Superusers see everyone.
+        self.assertIn(root, get_manageable_token_owners(root))
 
 
 class TestGravatar(TestCase):

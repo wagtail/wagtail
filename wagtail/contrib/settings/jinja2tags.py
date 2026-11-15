@@ -4,10 +4,6 @@ import jinja2
 from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
-from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting
-from wagtail.contrib.settings.registry import registry
-from wagtail.models import Site
-
 # Settings are cached per template context, to prevent excessive database
 # lookups. The cached settings are disposed of once the template context is no
 # longer used.
@@ -42,6 +38,12 @@ class Setting(dict):
         except ValueError as e:
             raise KeyError(f"Invalid model name: `{key}`") from e
 
+        from wagtail.contrib.settings.models import (
+            BaseGenericSetting,
+            BaseSiteSetting,
+        )
+        from wagtail.contrib.settings.registry import registry
+
         Model = registry.get_by_natural_key(app_label, model_name)
         if Model is None:
             raise RuntimeError(f"Could not find model matching `{key}`.")
@@ -49,6 +51,8 @@ class Setting(dict):
         if issubclass(Model, BaseGenericSetting):
             out = self[key] = Model.load(request_or_site=self.site)
         elif issubclass(Model, BaseSiteSetting):
+            from wagtail.models import Site
+
             if self.site is None or not isinstance(self.site, Site):
                 raise RuntimeError(
                     "Site-specific settings cannot be identified because "
@@ -65,8 +69,12 @@ class Setting(dict):
 def get_setting(context, model_string, use_default_site=False):
     cache_key = None
     if use_default_site:
+        from wagtail.models import Site
+
         cache_key = Site.objects.get(is_default_site=True)
     elif "request" in context:
+        from wagtail.models import Site
+
         cache_key = Site.find_for_request(context["request"])
 
     # Sadly, WeakKeyDictionary can not implement __missing__, so we have to do

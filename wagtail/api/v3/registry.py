@@ -52,6 +52,10 @@ class ContentTypeRegistry:
             for reg in self._registry.values()
         ]
 
+    def has(self, name: str) -> bool:
+        """Return ``True`` if ``name`` is registered, ``False`` otherwise."""
+        return name in self._registry
+
     def get(self, name: str) -> ContentTypeRegistration | None:
         """Return the registration for ``name``, or ``None`` if unknown."""
         return self._registry.get(name)
@@ -60,9 +64,7 @@ class ContentTypeRegistry:
         """Return the JSON schemas for each direction of content type ``name``.
 
         Returns ``None`` when ``name`` is not registered. Directions without a
-        schema fall back to a placeholder (``{"description": "Not yet available."}``)
-        for ``create`` and ``patch`` so schema discovery keeps advertising the
-        planned write directions.
+        schema fall back to a placeholder (``{"description": "Not available."}``).
         """
         registration = self.get(name)
         if registration is None:
@@ -73,10 +75,8 @@ class ContentTypeRegistry:
             schema = self._schema_for_direction(registration, direction)
             if schema is not None:
                 result[direction] = schema
-            elif direction in ("create", "patch"):
-                # TODO Placeholder until write endpoints land; keeps schema discovery
-                # showing that create/patch directions are planned.
-                result[direction] = {"description": "Not yet available."}
+            else:
+                result[direction] = {"description": "Not available."}
         return result
 
     def register_defaults(self) -> None:
@@ -94,33 +94,33 @@ class ContentTypeRegistry:
         )
         from wagtail.models import get_page_models
 
-        self.register(
-            ContentTypeRegistration(
-                name="pages",
-                label="Pages",
-                read_schema=PageSchema,
-            )
-        )
-
         for model in get_page_models():
+            read_schema = read_generator.generate_schema(model, base_class=PageSchema)
+            # Do not generate create and patch schemas for the base page model
+            # unless it is explicitly marked as creatable.
+            if model is model.base_page_model and not model.is_creatable:
+                create_schema = None
+                patch_schema = None
+            else:
+                create_schema = create_generator.generate_schema(
+                    model,
+                    base_class=PageCreateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                    required_fields=("title",),
+                )
+                patch_schema = patch_generator.generate_schema(
+                    model,
+                    base_class=PageUpdateBaseSchema,
+                    fields=BASE_PAGE_FIELDS,
+                )
+
             self.register(
                 ContentTypeRegistration(
                     name=model._meta.label,
                     label=str(model._meta.verbose_name),
-                    read_schema=read_generator.generate_schema(
-                        model, base_class=PageSchema
-                    ),
-                    create_schema=create_generator.generate_schema(
-                        model,
-                        base_class=PageCreateBaseSchema,
-                        fields=BASE_PAGE_FIELDS,
-                        required_fields=("title",),
-                    ),
-                    patch_schema=patch_generator.generate_schema(
-                        model,
-                        base_class=PageUpdateBaseSchema,
-                        fields=BASE_PAGE_FIELDS,
-                    ),
+                    read_schema=read_schema,
+                    create_schema=create_schema,
+                    patch_schema=patch_schema,
                 )
             )
 

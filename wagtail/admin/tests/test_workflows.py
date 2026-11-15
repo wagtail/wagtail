@@ -8,8 +8,9 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.messages import get_messages
 from django.core import mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail.backends.locmem import EmailBackend
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
@@ -20,6 +21,7 @@ from wagtail.admin.mail import (
     BaseWorkflowStateEmailNotifier,
     WorkflowStateApprovalEmailNotifier,
     WorkflowStateRejectionEmailNotifier,
+    WorkflowStateSubmissionEmailNotifier,
 )
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.utils import (
@@ -487,7 +489,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
                 "workflow_tasks-1-ORDER": ["2"],
                 "workflow_tasks-1-DELETE": [""],
                 "pages-TOTAL_FORMS": ["2"],
-                "pages-INITIAL_FORMS": ["1"],
+                "pages-INITIAL_FORMS": ["0"],
                 "pages-MIN_NUM_FORMS": ["0"],
                 "pages-MAX_NUM_FORMS": ["1000"],
                 "pages-0-page": [str(self.root_page.id)],
@@ -2208,7 +2210,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.test_submit_sends_mail_without_base_url()
 
     @mock.patch.object(
-        EmailMultiAlternatives, "send", side_effect=IOError("Server down")
+        EmailBackend, "send_messages", side_effect=IOError("Server down")
     )
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
@@ -2217,6 +2219,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
+        mock_fn.assert_called()
         self.assertEqual(response.status_code, 302)
         self.client.get(reverse("wagtailadmin_home"))
 
@@ -3161,11 +3164,12 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         https://github.com/wagtail/wagtail/issues/13856
 
         Approving a workflow that has been cancelled after the page was loaded
-        should result in a normal save instead of an error or a publish action.
+        should not save or publish, and should keep the edits in the form.
         """
         workflow_state = self.object.current_workflow_state
         workflow_state.cancel(user=self.superuser)
         self.object.refresh_from_db()
+        revisions_before = self.object.revisions.count()
 
         response = self.post(
             "workflow-action",
@@ -3176,13 +3180,120 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             },
         )
 
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Edited Title")
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
         self.object.refresh_from_db()
         self.assertFalse(self.object.live)
-        self.assertEqual(
-            getattr(self.object.get_latest_revision_as_object(), self.title_field),
-            "Edited Title",
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def test_duplicate_workflow_action_after_workflow_finished(self):
+        self.object.current_workflow_state.current_task_state.approve(
+            user=self.moderator
         )
+        revisions_before = self.object.revisions.count()
+
+        response = self.post("workflow-action", {"workflow-action-name": "approve"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
+        self.object.refresh_from_db()
+        self.assertTrue(self.object.live)
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def add_second_task(self):
+        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
+        task_2.groups.set(Group.objects.filter(name="Moderators"))
+        WorkflowTask.objects.create(workflow=self.workflow, task=task_2, sort_order=2)
+        return task_2
+
+    def test_workflow_action_buttons_include_task_state_id(self):
+        response = self.client.get(self.get_url("edit"))
+
+        soup = self.get_soup(response.content)
+        buttons = soup.select("[data-workflow-action-name]")
+        self.assertTrue(buttons)
+        task_state_id = str(self.object.current_workflow_task_state.pk)
+        for button in buttons:
+            self.assertEqual(button["data-workflow-task-state-id"], task_state_id)
+
+    def test_workflow_action_with_current_task_state(self):
+        task_2 = self.add_second_task()
+        task_state = self.object.current_workflow_task_state
+
+        response = self.post(
+            "workflow-action",
+            {
+                "workflow-action-name": "approve",
+                "workflow-task-state-id": str(task_state.pk),
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        task_state.refresh_from_db()
+        self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+        self.assertEqual(self.object.current_workflow_task, task_2)
+
+    def test_duplicate_workflow_action_after_task_changed(self):
+        task_2 = self.add_second_task()
+        stale_task_state = self.object.current_workflow_task_state
+        stale_task_state.approve(user=self.moderator)
+        self.assertEqual(self.object.current_workflow_task, task_2)
+        revisions_before = self.object.revisions.count()
+
+        response = self.post(
+            "workflow-action",
+            {
+                "workflow-action-name": "approve",
+                "workflow-task-state-id": str(stale_task_state.pk),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            "The workflow action could not be performed as the workflow state has changed.",
+            [str(m).strip() for m in get_messages(response.wsgi_request)],
+        )
+        current_task_state = self.object.current_workflow_task_state
+        self.assertEqual(current_task_state.task.specific, task_2)
+        self.assertEqual(
+            current_task_state.status, current_task_state.STATUS_IN_PROGRESS
+        )
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+        self.assertEqual(self.object.revisions.count(), revisions_before)
+
+    def test_workflow_action_on_task_user_cannot_act_on(self):
+        other_group = Group.objects.create(name="Other reviewers")
+        task_2 = GroupApprovalTask.objects.create(name="test_task_2")
+        task_2.groups.set([other_group])
+        WorkflowTask.objects.create(workflow=self.workflow, task=task_2, sort_order=2)
+        stale_task_state = self.object.current_workflow_task_state
+        stale_task_state.approve(user=self.moderator)
+        current_task_state = self.object.current_workflow_task_state
+        self.assertEqual(current_task_state.task.specific, task_2)
+        self.assertEqual(task_2.get_actions(self.object, self.moderator), [])
+
+        for task_state_id in [None, stale_task_state.pk, current_task_state.pk]:
+            with self.subTest(task_state_id=task_state_id):
+                data = {"workflow-action-name": "approve"}
+                if task_state_id:
+                    data["workflow-task-state-id"] = str(task_state_id)
+
+                self.post("workflow-action", data)
+
+                current_task_state.refresh_from_db()
+                self.assertEqual(
+                    current_task_state.status, current_task_state.STATUS_IN_PROGRESS
+                )
+                self.object.refresh_from_db()
+                self.assertFalse(self.object.live)
 
 
 class TestApproveRejectSnippetWorkflow(
@@ -3223,6 +3334,9 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def get(self, url, params=None):
         return self.client.get(url, params)
 
+    def post_report(self, url, params=None):
+        return self.client.post(url, query_params=params)
+
     def setup_workflow_and_tasks(self):
         self.workflow = Workflow.objects.create(name="test_workflow")
         self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
@@ -3254,9 +3368,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3274,9 +3387,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3298,12 +3410,13 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("data-w-action-url-value") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3316,9 +3429,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
@@ -3335,12 +3447,13 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_tasks_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("data-w-action-url-value") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3353,9 +3466,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
@@ -3380,7 +3492,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def test_workflow_report_export(self):
         for export_format in self.export_formats:
             with self.subTest(export_format=export_format):
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"export": export_format},
                 )
@@ -3391,7 +3503,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"export": export_format},
                 )
@@ -3404,7 +3516,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             with self.subTest(export_format=export_format):
                 # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
                 self.login(self.moderator)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3415,7 +3527,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3425,7 +3537,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
 
                 # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
                 self.login(self.submitter)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3435,7 +3547,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertNotIn("submitter", content)
                 self.assertNotIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -4899,6 +5011,20 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                     notifier.get_recipient_users(workflow_state, user=self.submitter),
                     set(),
                 )
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
+    def test_workflowstate_submission_email_notifier_excludes_triggering_superuser(
+        self,
+    ):
+        self.workflow.start(self.object, user=self.superuser)
+        workflow_state = self.object.current_workflow_state
+        notifier = WorkflowStateSubmissionEmailNotifier()
+
+        self.assertIn(self.superuser, notifier.get_recipient_users(workflow_state))
+        self.assertNotIn(
+            self.superuser,
+            notifier.get_recipient_users(workflow_state, user=self.superuser),
+        )
 
     @mock.patch("wagtail.admin.mail.BaseWorkflowStateEmailNotifier.get_recipient_users")
     def test_base_workflowstate_email_notifier_get_valid_recipients(

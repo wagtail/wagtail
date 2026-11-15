@@ -9,25 +9,29 @@ As standard, Wagtail organizes panels for pages into two tabs: 'Content' and 'Pr
 ```python
 from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
 
+
 class BlogPage(Page):
     # field definitions omitted
 
     content_panels = [
-        TitleFieldPanel('title', classname="title"),
-        FieldPanel('date'),
-        FieldPanel('body'),
+        TitleFieldPanel("title", classname="title"),
+        FieldPanel("date"),
+        FieldPanel("body"),
     ]
     sidebar_content_panels = [
-        FieldPanel('advert'),
-        InlinePanel('related_links'),
+        FieldPanel("advert"),
+        InlinePanel("related_links"),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading='Content'),
-        ObjectList(sidebar_content_panels, heading='Sidebar content'),
-        ObjectList(Page.promote_panels, heading='Promote'),
-        ObjectList(Page.settings_panels, heading='Settings'), # The default settings are now displayed in the sidebar but need to be in the `TabbedInterface`.
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Content"),
+            ObjectList(sidebar_content_panels, heading="Sidebar content"),
+            ObjectList(Page.promote_panels, heading="Promote"),
+            # The default settings are now displayed in the sidebar but need to be in the `TabbedInterface`.
+            ObjectList(Page.settings_panels, heading="Settings"),
+        ]
+    )
 ```
 
 Permissions can be set using `permission` on the `ObjectList` to restrict entire groups of panels to specific users.
@@ -35,24 +39,28 @@ Permissions can be set using `permission` on the `ObjectList` to restrict entire
 ```python
 from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
 
+
 class FundingPage(Page):
     # field definitions omitted
 
     shared_panels = [
-        TitleFieldPanel('title', classname="title"),
-        FieldPanel('date'),
-        FieldPanel('body'),
+        TitleFieldPanel("title", classname="title"),
+        FieldPanel("date"),
+        FieldPanel("body"),
     ]
     private_panels = [
-        FieldPanel('approval'),
+        FieldPanel("approval"),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(shared_panels, heading='Details'),
-        ObjectList(private_panels, heading='Admin only', permission="superuser"),
-        ObjectList(Page.promote_panels, heading='Promote'),
-        ObjectList(Page.settings_panels, heading='Settings'), # The default settings are now displayed in the sidebar but need to be in the `TabbedInterface`.
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(shared_panels, heading="Details"),
+            ObjectList(private_panels, heading="Admin only", permission="superuser"),
+            ObjectList(Page.promote_panels, heading="Promote"),
+            # The default settings are now displayed in the sidebar but need to be in the `TabbedInterface`.
+            ObjectList(Page.settings_panels, heading="Settings"),
+        ]
+    )
 ```
 
 For more details on how to work with `Panel` and `PanelGroup` classes, see [](forms_panels_overview).
@@ -72,7 +80,7 @@ class BookPage(Page):
     body = RichTextField()
 
     content_panels = Page.content_panels + [
-        FieldPanel('body'),
+        FieldPanel("body"),
     ]
 ```
 
@@ -92,7 +100,7 @@ By default, the rich text editor provides users with a wide variety of options f
 This can be achieved by passing a `features` keyword argument to `RichTextField`, with a list of identifiers for the features you wish to allow:
 
 ```python
-body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
+body = RichTextField(features=["h2", "h3", "bold", "italic", "link"])
 ```
 
 The feature identifiers provided on a default Wagtail installation are as follows:
@@ -132,7 +140,9 @@ As an example, add a "thumbnail" format:
 # image_formats.py
 from wagtail.images.formats import Format, register_image_format
 
-register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
+register_image_format(
+    Format("thumbnail", "Thumbnail", "richtext-image thumbnail", "max-120x120")
+)
 ```
 
 To begin, import the `Format` class, `register_image_format` function, and optionally `unregister_image_format` function. To register a new `Format`, call the `register_image_format` with the `Format` object as the argument. The `Format` class takes the following constructor arguments:
@@ -180,16 +190,16 @@ from wagtail.models import Page
 class EventPage(Page):
     event_date = models.DateField(
         validators=[NoFutureDateValidator()],
-        help_text="The date when this event occurred"
+        help_text="The date when this event occurred",
     )
     birth_date = models.DateField(
         validators=[NoFutureDateValidator("Birth date cannot be in the future.")],
-        help_text="Person's date of birth"
+        help_text="Person's date of birth",
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('event_date'),
-        FieldPanel('birth_date'),
+        FieldPanel("event_date"),
+        FieldPanel("birth_date"),
     ]
 ```
 
@@ -242,10 +252,10 @@ class EventPageForm(WagtailAdminPageForm):
         cleaned_data = super().clean()
 
         # Make sure that the event starts before it ends
-        start_date = cleaned_data['start_date']
-        end_date = cleaned_data['end_date']
+        start_date = cleaned_data["start_date"]
+        end_date = cleaned_data["end_date"]
         if start_date and end_date and start_date > end_date:
-            self.add_error('end_date', 'The end date must be after the start date')
+            self.add_error("end_date", "The end date must be after the start date")
 
         return cleaned_data
 
@@ -256,7 +266,7 @@ class EventPageForm(WagtailAdminPageForm):
         page.duration = (page.end_date - page.start_date).days
 
         # Fetch the location by geocoding the address
-        page.location = geocoder.arcgis(self.cleaned_data['address'])
+        page.location = geocoder.arcgis(self.cleaned_data["address"])
 
         if commit:
             page.save()
@@ -270,10 +280,10 @@ class EventPage(Page):
     location = models.CharField(max_length=255)
 
     content_panels = [
-        TitleFieldPanel('title'),
-        FieldPanel('start_date'),
-        FieldPanel('end_date'),
-        FieldPanel('address'),
+        TitleFieldPanel("title"),
+        FieldPanel("start_date"),
+        FieldPanel("end_date"),
+        FieldPanel("address"),
     ]
     base_form_class = EventPageForm
 ```
@@ -294,13 +304,13 @@ class EventPageForm(WagtailAdminPageForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        start_date = cleaned_data['start_date']
-        end_date = cleaned_data['end_date']
+        start_date = cleaned_data["start_date"]
+        end_date = cleaned_data["end_date"]
 
         # Only check at full-validation time if the event starts before it ends
         if not self.is_deferred_validation:
             if start_date and end_date and start_date > end_date:
-                self.add_error('end_date', 'The end date must be after the start date')
+                self.add_error("end_date", "The end date must be after the start date")
 
         return cleaned_data
 
@@ -314,7 +324,7 @@ class EventPageForm(WagtailAdminPageForm):
             page.duration = None
 
         # Fetch the location by geocoding the address
-        page.location = geocoder.arcgis(self.cleaned_data['address'])
+        page.location = geocoder.arcgis(self.cleaned_data["address"])
 
         if commit:
             page.save()
@@ -329,10 +339,10 @@ class EventPage(Page):
     location = models.CharField(max_length=255)
 
     content_panels = [
-        TitleFieldPanel('title'),
-        FieldPanel('start_date'),
-        FieldPanel('end_date'),
-        FieldPanel('address'),
+        TitleFieldPanel("title"),
+        FieldPanel("start_date"),
+        FieldPanel("end_date"),
+        FieldPanel("address"),
     ]
     base_form_class = EventPageForm
 ```
@@ -368,11 +378,11 @@ class CustomCopyForm(CopyForm):
         Override the default copy form to auto-increment the slug.
         """
         super().__init__(*args, **kwargs)
-        suffix = 2 # set initial_slug as incremented slug
+        suffix = 2  # set initial_slug as incremented slug
         parent_page = self.page.get_parent()
         if self.page.slug:
             try:
-                suffix = int(self.page.slug[-1])+1
+                suffix = int(self.page.slug[-1]) + 1
                 base_slug = self.page.slug[:-2]
 
             except ValueError:
@@ -385,15 +395,18 @@ class CustomCopyForm(CopyForm):
 
         self.fields["new_slug"].initial = new_slug
 
+
 class BlogPage(Page):
-    copy_form_class = CustomCopyForm # Set the custom copy form for all EventPage models
+    copy_form_class = (
+        CustomCopyForm  # Set the custom copy form for all EventPage models
+    )
 
     introduction = models.TextField(blank=True)
     body = RichTextField()
 
     content_panels = Page.content_panels + [
-        FieldPanel('introduction'),
-        FieldPanel('body'),
+        FieldPanel("introduction"),
+        FieldPanel("body"),
     ]
 ```
 
@@ -410,9 +423,10 @@ Django's `models.SlugField` fields will automatically use the Wagtail admin's `S
 
 # ... imports
 
+
 class MyPage(Page):
     promote_panels = [
-        FieldPanel("slug"), # automatically uses `SlugInput`
+        FieldPanel("slug"),  # automatically uses `SlugInput`
         # ... other panels
     ]
 ```
@@ -429,9 +443,11 @@ The simplest, if you have already set custom `promote_panels`, is to leverage th
 from wagtail.admin.widgets.slug import SlugInput
 # ... other imports
 
+
 class MyPage(Page):
     promote_panels = [
-        FieldPanel("slug", widget=SlugInput(locale="uk-UK")), # force a specific locale for this page's slug only
+        # force a specific locale for this page's slug only
+        FieldPanel("slug", widget=SlugInput(locale="uk-UK")),
         # ... other panels need to be declared
     ]
 ```
@@ -450,7 +466,6 @@ from wagtail.models import Page
 
 
 class MyPageForm(WagtailAdminPageForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # force a specific locale for this page's slug only
@@ -525,12 +540,11 @@ from wagtail.models import Page
 
 
 class MyPageForm(WagtailAdminPageForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["slug"].widget = SlugInput(
-            formatters = [
-                r"(?i)\b(?:and|or|the|in|of|to)\b", # remove common stop words
+            formatters=[
+                r"(?i)\b(?:and|or|the|in|of|to)\b",  # remove common stop words
             ]
         )
 

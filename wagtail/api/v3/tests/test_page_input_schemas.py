@@ -1,3 +1,4 @@
+from types import UnionType
 from typing import Literal
 
 from django.db import models
@@ -119,13 +120,19 @@ class TestSchemaMetaNamespacing(TestSchemaGenerator):
 
         home_meta = home_schema.model_fields["meta"].annotation
         simple_meta = simple_schema.model_fields["meta"].annotation
+        self.assertIsInstance(home_meta, UnionType)
+        self.assertIsInstance(simple_meta, UnionType)
+        home_meta_schema, home_meta_none = home_meta.__args__
+        simple_meta_schema, simple_meta_none = simple_meta.__args__
+        self.assertIs(home_meta_none, type(None))
+        self.assertIs(simple_meta_none, type(None))
 
         self.assertEqual(
-            home_meta.model_fields["type"].annotation.__args__,
+            home_meta_schema.model_fields["type"].annotation.__args__,
             (Literal["demosite.HomePage"], type(None)),
         )
         self.assertEqual(
-            simple_meta.model_fields["type"].annotation.__args__,
+            simple_meta_schema.model_fields["type"].annotation.__args__,
             (Literal["tests.SimplePage"], type(None)),
         )
 
@@ -222,3 +229,70 @@ class TestPatchSchemaPreservesRequiredForeignKeyAlias(TestSchemaGenerator):
             patch_json_schema["properties"]["related_thing_id"]["title"],
             "Related Thing",
         )
+
+
+class TestRichTextFieldInputSchema(TestSchemaGenerator):
+    @isolate_apps("wagtail.test.testapp", "wagtail")
+    def make_model(self, **field_kwargs):
+        from wagtail.fields import RichTextField
+
+        class RichTextModel(models.Model):
+            body = RichTextField(**field_kwargs)
+
+            api_fields = (APIField("body", writable=True),)
+
+            class Meta:
+                app_label = "tests"
+
+        return RichTextModel
+
+    def generate(self, model):
+        return self.create_generator.generate_schema(
+            model, base_class=Schema, fields=()
+        )
+
+    def test_annotation_is_str_or_envelope(self):
+        from wagtail.api.v3.schemas.generators.write import RichTextInputSchema
+
+        schema = self.generate(self.make_model())
+        annotation = schema.model_fields["body"].annotation
+        self.assertIn(str, annotation.__args__)
+        self.assertIn(RichTextInputSchema, annotation.__args__)
+
+    def test_plain_string_validates(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body="<p>x</p>")
+        # Normalizes into an envelope
+        self.assertEqual(instance.body.format, "db_html")
+        self.assertEqual(instance.body.content, "<p>x</p>")
+
+    def test_envelope_validates(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body={"format": "db_html", "content": "<p>x</p>"})
+        self.assertEqual(instance.body.format, "db_html")
+        self.assertEqual(instance.body.content, "<p>x</p>")
+
+    def test_normalizes_other_format_into_db_html_envelope(self):
+        schema = self.generate(self.make_model())
+        instance = schema(body={"format": "db_markdown", "content": "**Hi**"})
+        self.assertEqual(instance.body.format, "db_html")
+        self.assertEqual(instance.body.content, "<p><b>Hi</b></p>")
+
+    def test_unknown_format_rejected(self):
+        from pydantic import ValidationError as PydanticValidationError
+
+        schema = self.generate(self.make_model())
+        with self.assertRaises(PydanticValidationError):
+            schema(body={"format": "markdown", "content": "# Hi"})
+
+    def test_features_in_json_schema_extra(self):
+        schema = self.generate(self.make_model(features=["bold", "link"]))
+        extra = schema.model_fields["body"].json_schema_extra
+        self.assertEqual(extra, {"features": ["bold", "link"]})
+
+    def test_features_default_to_registry_defaults(self):
+        from wagtail.rich_text import features as feature_registry
+
+        schema = self.generate(self.make_model())
+        extra = schema.model_fields["body"].json_schema_extra
+        self.assertEqual(extra, {"features": feature_registry.get_default_features()})

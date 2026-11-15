@@ -103,7 +103,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # Check that the keyboard shortcuts dialog is present
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         self.assertIsNotNone(shortcuts_dialog)
 
         # Check that the keyboard shortcuts dialog has basic accessible content
@@ -125,7 +125,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         all_shortcuts_text = [
             kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
         ]
@@ -146,7 +146,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         all_shortcuts_text = [
             kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
         ]
@@ -163,7 +163,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         soup = self.get_soup(response.content)
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         self.assertIsNotNone(shortcuts_dialog)
 
         account_link = shortcuts_dialog.select_one("a[href$='account/']")
@@ -182,7 +182,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home"))
 
         soup = self.get_soup(response.content)
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         self.assertIn(
             "Keyboard shortcuts are currently disabled", shortcuts_dialog.prettify()
         )
@@ -194,7 +194,7 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         profile = UserProfile.get_for_user(self.test_user)
         response = self.client.get(reverse("wagtailadmin_home"))
         soup = self.get_soup(response.content)
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
 
         self.assertTrue(profile.keyboard_shortcuts)
         self.assertIn(
@@ -224,7 +224,7 @@ class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         # Check that the keyboard shortcuts dialog has Mac-specific content
         soup = self.get_soup(response.content)
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         self.assertIn("⌘", shortcuts_dialog.prettify())
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=True)
@@ -240,7 +240,7 @@ class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         all_shortcuts_text = [
             kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
         ]
@@ -261,7 +261,7 @@ class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
-        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        shortcuts_dialog = self.select_in_template(soup, "#keyboard-shortcuts-dialog")
         all_shortcuts_text = [
             kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
         ]

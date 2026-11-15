@@ -597,14 +597,12 @@ function handleArrowAtContentEnd(
   const lastBlock = newState.getCurrentContent().getLastBlock();
   const textDirection = newState.getDirectionMap().get(lastBlock.getKey());
 
-  if (
-    !(
-      textDirection === direction &&
-      selection.isCollapsed() &&
-      selection.getAnchorKey() === lastBlock.getKey() &&
-      selection.getAnchorOffset() === lastBlock.getLength()
-    )
-  ) {
+  if (!(
+    textDirection === direction &&
+    selection.isCollapsed() &&
+    selection.getAnchorKey() === lastBlock.getKey() &&
+    selection.getAnchorOffset() === lastBlock.getLength()
+  )) {
     return;
   }
   setEditorState(

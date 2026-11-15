@@ -39,10 +39,10 @@ from wagtail import hooks
 from .views import index
 
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_admin_urls")
 def register_calendar_url():
     return [
-        path('calendar/', index, name='calendar'),
+        path("calendar/", index, name="calendar"),
     ]
 ```
 
@@ -65,14 +65,19 @@ import calendar
 from django.shortcuts import render
 from django.utils import timezone
 
+
 def index(request):
     current_year = timezone.now().year
     calendar_html = calendar.HTMLCalendar().formatyear(current_year)
 
-    return render(request, 'wagtailcalendar/index.html', {
-        'current_year': current_year,
-        'calendar_html': calendar_html,
-    })
+    return render(
+        request,
+        "wagtailcalendar/index.html",
+        {
+            "current_year": current_year,
+            "calendar_html": calendar_html,
+        },
+    )
 ```
 
 Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` app, containing `index.html` and `calendar.css` as follows:
@@ -128,16 +133,16 @@ from wagtail import hooks
 from .views import index
 
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_admin_urls")
 def register_calendar_url():
     return [
-        path('calendar/', index, name='calendar'),
+        path("calendar/", index, name="calendar"),
     ]
 
 
-@hooks.register('register_admin_menu_item')
+@hooks.register("register_admin_menu_item")
 def register_calendar_menu_item():
-    return MenuItem('Calendar', reverse('calendar'), icon_name='date')
+    return MenuItem("Calendar", reverse("calendar"), icon_name="date")
 ```
 
 A 'Calendar' item will now appear in the menu.

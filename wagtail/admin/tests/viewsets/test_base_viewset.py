@@ -37,7 +37,8 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         main_menu = self.get_main_menu_items(response)
-        misc_items = self.get_submenu_items(main_menu, "miscellaneous")
+        settings = self.get_submenu_items(main_menu, "settings")
+        misc_items = self.get_submenu_items(settings, "miscellaneous")
 
         # The Miscellaneous group's submenu contains its explicit `items` first
         # (in declaration order), followed by the items collected via its

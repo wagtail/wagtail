@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
@@ -75,6 +76,40 @@ class EditAction(BaseAction):
         # The revision created by execute(), if any.
         self.revision = None
 
+    def check_lock(self):
+        from wagtail.models import LockableMixin
+
+        if (
+            isinstance(self.instance, LockableMixin)
+            and self.user
+            and (lock := self.instance.get_lock()) is not None
+            and lock.for_user(self.user)
+        ):
+            model_name = self.instance._meta.verbose_name
+            raise EditPermissionError(
+                f"The {model_name} could not be saved as it is locked."
+            )
+
+    def check_publish(self):
+        if (
+            self.draftstate_enabled
+            and self.user
+            and not self.permission_policy.user_has_permission_for_instance(
+                self.user, "publish", self.instance
+            )
+        ):
+            model_name = self.instance._meta.verbose_name
+            raise EditPermissionError(
+                f"You do not have permission to publish this {model_name}."
+            )
+
+    def check(self, skip_permission_checks=False):
+        super().check(skip_permission_checks=skip_permission_checks)
+        if not skip_permission_checks:
+            self.check_lock()
+            if self.publish:
+                self.check_publish()
+
     def _clean_instance(self):
         # Always clean if a form is provided, as the form cannot be saved
         # if it has not been validated.
@@ -108,6 +143,7 @@ class EditAction(BaseAction):
             else:
                 self.instance.save()
 
+    @transaction.atomic
     def _edit(self, skip_permission_checks=False):
         self._clean_instance()
 

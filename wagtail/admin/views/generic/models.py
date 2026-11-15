@@ -485,6 +485,23 @@ class IndexView(
         context["model_opts"] = self.model and self.model._meta
         return context
 
+    def get(self, request, *args, **kwargs):
+        if self.is_export and not self.list_export:
+            # There's nothing to export (the view hasn't specified which fields to
+            # include via list_export), so bypass the usual get_queryset() /
+            # get_context_data() pipeline entirely and hand as_spreadsheet an empty
+            # list directly. This avoids building (and, via get_context_data's
+            # items_count calculation, evaluating) a queryset that the export was
+            # never going to use, which can be expensive for a large queryset.
+            return self.as_spreadsheet([], request.GET.get("export"))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not self.is_export:
+            return redirect(self.get_non_export_url())
+
+        return self.get(request, *args, **kwargs)
+
     def render_to_response(self, context, **response_kwargs):
         if self.is_export:
             return self.as_spreadsheet(
@@ -772,9 +789,17 @@ class CreateView(
 
 class CopyViewMixin:
     def get_object(self, queryset=None):
-        return get_object_or_404(
+        obj = get_object_or_404(
             self.model, pk=unquote(str(self.kwargs[self.pk_url_kwarg]))
         )
+        if (
+            self.permission_policy
+            and not self.permission_policy.user_has_any_permission_for_instance(
+                self.request.user, ["change", "view"], obj
+            )
+        ):
+            raise PermissionDenied
+        return obj
 
     def get_initial_form_instance(self):
         return self.get_object()

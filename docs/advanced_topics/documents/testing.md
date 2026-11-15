@@ -25,11 +25,13 @@ class CustomDocumentFormTest(TestCase):
             "tags": [],
         }
         file_data = {
-            "file": SimpleUploadedFile('simple.txt', b'hello world' * 1024 * 1024, content_type='text/plain'),
+            "file": SimpleUploadedFile(
+                "simple.txt", b"hello world" * 1024 * 1024, content_type="text/plain"
+            ),
         }
         form_cls = get_document_form(models.Document)
         form = form_cls(form_data, file_data)
         self.assertFormError(
-            form, 'file', ['The file size exceeds the configured limit (1MB).']
+            form, "file", ["The file size exceeds the configured limit (1MB)."]
         )
 ```

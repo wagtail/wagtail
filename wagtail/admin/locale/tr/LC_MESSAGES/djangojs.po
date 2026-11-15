@@ -77,9 +77,6 @@ msgstr "Yukarı çıkar"
 msgid "No results"
 msgstr "Sonuç yok"
 
-msgid "Page"
-msgstr "Sayfa"
-
 msgid "Page explorer"
 msgstr "Sayfa bulucu"
 
@@ -108,9 +105,6 @@ msgstr "Kaydediliyor"
 
 msgid "Search"
 msgstr "Ara"
-
-msgid "See all"
-msgstr "Tümünü gör"
 
 msgid "Server Error"
 msgstr "Sunucu Hatası"

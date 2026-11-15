@@ -55,7 +55,9 @@ class InstagramOEmbedFinder(OEmbedFinder):
 
         # Configure request
         request = Request(endpoint + "?" + urlencode(params))  # noqa: S310 - scheme controlled through configured endpoints, not exploitable
-        request.add_header("Authorization", f"Bearer {self.app_id}|{self.app_secret}")
+        request.add_unredirected_header(
+            "Authorization", f"Bearer {self.app_id}|{self.app_secret}"
+        )
 
         # Perform request
         try:

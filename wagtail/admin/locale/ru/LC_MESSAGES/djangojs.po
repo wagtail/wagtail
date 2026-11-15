@@ -193,9 +193,6 @@ msgstr "Нет"
 msgid "No results"
 msgstr "Нет результатов"
 
-msgid "Page"
-msgstr "Страница"
-
 msgid "Page explorer"
 msgstr "Просмотрщик страниц"
 
@@ -243,9 +240,6 @@ msgstr "Поиск"
 
 msgid "Search options…"
 msgstr "Параметры поиска…"
-
-msgid "See all"
-msgstr "Смотреть все"
 
 msgid "Server Error"
 msgstr "Ошибка Сервера"

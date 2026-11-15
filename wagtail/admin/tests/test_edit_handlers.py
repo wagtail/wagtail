@@ -1521,7 +1521,7 @@ class TestInlinePanel(PageFixturesMixin, WagtailTestUtils, TestCase):
         # render_js_init must provide the JS initializer
         self.assertIn("var panel = new InlinePanel(", panel.render_html())
 
-    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
         """
         Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers

@@ -27,6 +27,7 @@ from wagtail.contrib.settings.models import (
     register_setting,
 )
 
+
 @register_setting
 class NavigationSettings(BaseGenericSetting):
     linkedin_url = models.URLField(verbose_name="LinkedIn URL", blank=True)
@@ -75,7 +76,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-
                 # Add this to register the _settings_ context processor:
                 "wagtail.contrib.settings.context_processors.settings",
             ],
@@ -154,7 +154,6 @@ from django.db import models
 from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
-
     # import PublishingPanel:
     PublishingPanel,
 )
@@ -178,6 +177,7 @@ from wagtail.contrib.settings.models import (
 # import register_snippet:
 from wagtail.snippets.models import register_snippet
 
+
 # ...keep the definition of the NavigationSettings model and add the FooterText model:
 @register_snippet
 class FooterText(
@@ -187,7 +187,6 @@ class FooterText(
     TranslatableMixin,
     models.Model,
 ):
-
     body = RichTextField()
 
     panels = [

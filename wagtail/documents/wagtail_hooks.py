@@ -16,7 +16,6 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.documents import admin_urls, get_document_model
-from wagtail.documents.api.admin.views import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import (
@@ -41,11 +40,6 @@ def register_admin_urls():
     return [
         path("documents/", include(admin_urls, namespace="wagtaildocs")),
     ]
-
-
-@hooks.register("construct_admin_api")
-def construct_admin_api(router):
-    router.register_endpoint("documents", DocumentsAdminAPIViewSet)
 
 
 class DocumentsMenuItem(MenuItem):

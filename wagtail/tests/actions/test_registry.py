@@ -10,8 +10,23 @@ from wagtail.actions import (
     EditAction,
 )
 from wagtail.actions.base import BaseAction
+from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.registry import ActionRegistry, action_registry
-from wagtail.models import TranslatableMixin
+from wagtail.actions.revert_to_revision import RevertToRevisionAction
+from wagtail.actions.unpublish import UnpublishAction
+from wagtail.actions.workflow import (
+    ApproveTaskStateAction,
+    CancelWorkflowAction,
+    RejectTaskStateAction,
+    ResumeWorkflowAction,
+    SubmitWorkflowAction,
+)
+from wagtail.models import (
+    DraftStateMixin,
+    RevisionMixin,
+    TranslatableMixin,
+    WorkflowMixin,
+)
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
@@ -117,13 +132,30 @@ class TestDefaultActions(TestCase):
         )
 
     def test_custom_models_have_default_actions(self):
-        for model in (Advert, DraftStateModel, FullFeaturedSnippet):
+        for model in (
+            Advert,
+            DraftStateModel,
+            FullFeaturedSnippet,
+            RevisableModel,
+            RevisableChildModel,
+        ):
             with self.subTest(model=model):
                 actions = {
                     "create": CreateAction,
                     "edit": EditAction,
                     "delete": DeleteAction,
                 }
+                if issubclass(model, RevisionMixin):
+                    actions["revert"] = RevertToRevisionAction
+                if issubclass(model, DraftStateMixin):
+                    actions["publish"] = PublishRevisionAction
+                    actions["unpublish"] = UnpublishAction
                 if issubclass(model, TranslatableMixin):
                     actions["copy_for_translation"] = CopyForTranslationAction
+                if issubclass(model, WorkflowMixin):
+                    actions["submit_workflow"] = SubmitWorkflowAction
+                    actions["resume_workflow"] = ResumeWorkflowAction
+                    actions["approve_task"] = ApproveTaskStateAction
+                    actions["reject_task"] = RejectTaskStateAction
+                    actions["cancel_workflow"] = CancelWorkflowAction
                 self.assertEqual(action_registry.get_actions_for_model(model), actions)

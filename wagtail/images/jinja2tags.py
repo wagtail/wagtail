@@ -1,14 +1,15 @@
 from django import template
 from jinja2.ext import Extension
 
-from .models import Filter, Picture, ResponsiveImage
-from .shortcuts import get_rendition_or_not_found, get_renditions_or_not_found
 from .templatetags.wagtailimages_tags import image_url
 
 
 def image(image, filterspec, **attrs):
     if not image:
         return ""
+
+    from .models import Filter
+    from .shortcuts import get_rendition_or_not_found
 
     if not Filter.pipe_spec_pattern.match(filterspec):
         raise template.TemplateSyntaxError(
@@ -28,6 +29,9 @@ def srcset_image(image, filterspec, **attrs):
     if not image:
         return ""
 
+    from .models import Filter, ResponsiveImage
+    from .shortcuts import get_renditions_or_not_found
+
     if not Filter.pipe_expanding_spec_pattern.match(filterspec):
         raise template.TemplateSyntaxError(
             "filter specs in 'srcset_image' tag may only contain A-Z, a-z, 0-9, dots, hyphens, curly braces, commas, pipes and underscores. "
@@ -43,6 +47,9 @@ def srcset_image(image, filterspec, **attrs):
 def picture(image, filterspec, **attrs):
     if not image:
         return ""
+
+    from .models import Filter, Picture
+    from .shortcuts import get_renditions_or_not_found
 
     if not Filter.pipe_expanding_spec_pattern.match(filterspec):
         raise template.TemplateSyntaxError(

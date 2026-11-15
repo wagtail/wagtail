@@ -3,6 +3,7 @@ from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.cache import patch_vary_headers
 from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail import hooks
@@ -32,7 +33,12 @@ def serve(request, path):
         if isinstance(result, HttpResponse):
             return result
 
-    return on_serve_chain(page, request, args, kwargs)
+    response = on_serve_chain(page, request, args, kwargs)
+    # Applied here rather than in Page.serve(), so that the headers are set even
+    # when serve() is overridden or replaced by an on_serve_page hook.
+    if vary_headers := page.get_vary_headers(request):
+        patch_vary_headers(response, vary_headers)
+    return response
 
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):

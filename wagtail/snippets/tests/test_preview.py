@@ -160,6 +160,27 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_uuid_as_pk(self):
+        url = reverse(
+            "wagtailsnippets_tests_advertwithcustomuuidprimarykey:preview_on_add"
+        )
+        response = self.client.post(url, {"text": "A new advert", "url": ""})
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        response = self.client.get(url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+        self.assertContains(response, "<h1>A new advert</h1>", html=True)
+
     def test_preview_on_create_without_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
@@ -517,7 +538,7 @@ class TestPreview(WagtailTestUtils, TestCase):
 
         # Previews use a dummy request object, so the userbar should use
         # relative URLs to avoid using the wrong host.
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [

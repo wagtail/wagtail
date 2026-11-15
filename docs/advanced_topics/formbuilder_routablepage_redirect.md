@@ -20,7 +20,6 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 
 class FormPage(RoutablePageMixin, AbstractEmailForm):
-
     # fields, content_panels, …
 
     @path("")

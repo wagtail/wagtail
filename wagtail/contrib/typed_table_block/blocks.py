@@ -156,6 +156,45 @@ class BaseTypedTableBlock(Block):
             "caption": table.caption,
         }
 
+    def map_child_values(self, value, func):
+        """
+        Return ``value``, in the shape returned by ``get_prep_value``, with
+        ``func(child_block, child_value, child_path)`` applied to each cell.
+        Used by the API to convert the cells of a table submitted as JSON.
+        """
+        value = value or {}
+        columns = value.get("columns") or []
+        column_blocks = []
+        for column in columns:
+            try:
+                column_blocks.append(self.child_blocks[column["type"]])
+            except KeyError:
+                raise ValidationError(
+                    "Unrecognised column type %r" % column.get("type")
+                ) from None
+        return {
+            "columns": [
+                {"type": column["type"], "heading": column.get("heading") or ""}
+                for column in columns
+            ],
+            "rows": [
+                {
+                    "values": [
+                        func(
+                            column_block,
+                            row["values"][col_index]
+                            if col_index < len(row.get("values") or [])
+                            else None,
+                            "cell-%d-%d" % (row_index, col_index),
+                        )
+                        for col_index, column_block in enumerate(column_blocks)
+                    ]
+                }
+                for row_index, row in enumerate(value.get("rows") or [])
+            ],
+            "caption": value.get("caption") or "",
+        }
+
     def get_api_representation(self, table, context=None):
         return {
             "columns": [

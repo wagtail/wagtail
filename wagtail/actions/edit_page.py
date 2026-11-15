@@ -1,4 +1,4 @@
-from wagtail.actions.edit import EditAction
+from wagtail.actions.edit import EditAction, EditPermissionError
 
 
 class EditPageAction(EditAction):
@@ -13,3 +13,13 @@ class EditPageAction(EditAction):
         if not super().user_has_permission():
             return False
         return self.instance.permissions_for_user(self.user).can_edit()
+
+    def check_publish(self):
+        if (
+            self.user
+            and self.publish
+            and not self.instance.permissions_for_user(self.user).can_publish()
+        ):
+            raise EditPermissionError(
+                "You do not have permission to publish this page."
+            )

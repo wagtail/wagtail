@@ -55,13 +55,18 @@ describe('ActionController', () => {
 
     it('should allow for a form POST with created data', () => {
       const btn = document.querySelector('[data-controller="w-action"]');
-      const submitMock = jest.fn();
+      let form;
+      const submitMock = jest.fn(function submit() {
+        expect(this.isConnected).toBe(true);
+        form = this;
+      });
       window.HTMLFormElement.prototype.submit = submitMock;
 
       btn.click();
-      const form = document.querySelector('form');
 
       expect(submitMock).toHaveBeenCalled();
+      expect(form.isConnected).toBe(false);
+      expect(document.querySelector('form')).toBeNull();
       expect(form.action).toBe('https://www.github.com/');
       expect(new FormData(form).get('csrfmiddlewaretoken')).toBe('potato');
       expect(new FormData(form).get('next')).toBe('http://localhost/');

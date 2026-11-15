@@ -23,7 +23,7 @@ page_slug_changed = Signal()
 # provides args: instance, parent_page_before, parent_page_after, url_path_before, url_path_after
 pre_page_move = Signal()
 
-# provides args: instance, parent_page_before, parent_page_after, url_path_before, url_path_after
+# provides args: instance, parent_page_before, parent_page_after, url_path_before, url_path_after, instance_before
 post_page_move = Signal()
 
 

@@ -1,5 +1,6 @@
 import logging
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import get_connection
@@ -16,7 +17,16 @@ from wagtail.models import (
 )
 from wagtail.users.models import UserProfile
 
+if DJANGO_VERSION >= (6, 1):
+    from django.core.mail import mailers
+
 logger = logging.getLogger("wagtail.admin")
+
+
+def get_default_connection():
+    if DJANGO_VERSION >= (6, 1):
+        return mailers.default
+    return get_connection()
 
 
 class OpenedConnection:
@@ -48,13 +58,27 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
             # We are no longer using the term `webmaster` except in this case, where we continue to match Django's default: https://github.com/django/django/blob/stable/3.2.x/django/conf/global_settings.py#L223
             from_email = "webmaster@localhost"
 
-    connection = kwargs.get("connection", False) or get_connection(
-        username=kwargs.get("auth_user", None),
-        password=kwargs.get("auth_password", None),
-        fail_silently=kwargs.get("fail_silently", None),
-    )
+    using = kwargs.get("using")
+    connection = kwargs.get("connection")
+
+    if not connection:
+        # Only pass the arguments that have been given. On Django 6.1 and above these
+        # are applied on top of the mailer configuration, so passing None would replace
+        # the configured username and password, leaving the backend unauthenticated.
+        connection_kwargs = {}
+        if kwargs.get("auth_user") is not None:
+            connection_kwargs["username"] = kwargs["auth_user"]
+        if kwargs.get("auth_password") is not None:
+            connection_kwargs["password"] = kwargs["auth_password"]
+        if kwargs.get("fail_silently"):
+            connection_kwargs["fail_silently"] = kwargs["fail_silently"]
+
+        if DJANGO_VERSION >= (6, 1) and not connection_kwargs:
+            connection = mailers.default if using is None else mailers[using]
+        else:
+            connection = get_connection(**connection_kwargs)
+
     multi_alt_kwargs = {
-        "connection": connection,
         "headers": {
             "Auto-Submitted": "auto-generated",
         },
@@ -69,7 +93,9 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     if html_message:
         mail.attach_alternative(html_message, "text/html")
 
-    return mail.send()
+    if not mail.recipients():
+        return 0
+    return connection.send_messages([mail])
 
 
 def send_notification(recipient_users, notification, extra_context):
@@ -99,7 +125,7 @@ def send_notification(recipient_users, notification, extra_context):
     }
     context.update(extra_context)
 
-    connection = get_connection()
+    connection = get_default_connection()
 
     with OpenedConnection(connection) as open_connection:
         # Send emails
@@ -234,7 +260,7 @@ class EmailNotificationMixin:
         }
 
     def send_emails(self, template_set, context, recipients, **kwargs):
-        connection = get_connection()
+        connection = get_default_connection()
         sent_count = 0
         try:
             with OpenedConnection(connection) as open_connection:
@@ -354,7 +380,7 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
         if include_superusers:
             recipients = get_user_model().objects.filter(is_superuser=True)
         if triggering_user:
-            recipients.exclude(pk=triggering_user.pk)
+            recipients = recipients.exclude(pk=triggering_user.pk)
 
         return recipients
 

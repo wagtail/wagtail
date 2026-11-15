@@ -8,11 +8,9 @@ from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
-from wagtail.models import Site
 from wagtail.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
-Page = swapper.load_model("wagtailcore", "Page")
 register = template.Library()
 
 
@@ -23,6 +21,7 @@ def pageurl(context, page, fallback=None):
     current page, or absolute (http://example.com/foo/bar/) if not.
     If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
     """
+    Page = swapper.load_model("wagtailcore", "Page")
     if page is None and fallback:
         return resolve_url(fallback)
 
@@ -38,6 +37,7 @@ def fullpageurl(context, page, fallback=None):
     Outputs a page's absolute URL (http://example.com/foo/bar/)
     If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
     """
+    Page = swapper.load_model("wagtailcore", "Page")
     if page is None and fallback:
         fallback_url = resolve_url(fallback)
         if fallback_url and "request" in context and fallback_url[0] == "/":
@@ -59,6 +59,9 @@ def slugurl(context, slug):
     is not available in the context, then returns the URL for the first page
     that matches the slug on any site.
     """
+    from wagtail.models import Site
+
+    Page = swapper.load_model("wagtailcore", "Page")
 
     page = None
     try:
@@ -210,6 +213,8 @@ def wagtail_site(context):
     """
     Returns the Site object for the given request
     """
+    from wagtail.models import Site
+
     try:
         request = context["request"]
     except KeyError:

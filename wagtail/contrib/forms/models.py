@@ -162,10 +162,8 @@ class AbstractFormField(Orderable):
         as this would invalidate any previously submitted data.
         """
 
-        is_new = self.pk is None
-        if is_new:
-            clean_name = self.get_field_clean_name()
-            self.clean_name = clean_name
+        if not self.clean_name:
+            self.clean_name = self.get_field_clean_name()
 
         super().save(*args, **kwargs)
 
@@ -182,12 +180,6 @@ class FormMixin:
     form_builder = FormBuilder
 
     submissions_list_view_class = None
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not hasattr(self, "landing_page_template"):
-            name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + "_landing" + ext
 
     def get_form_fields(self):
         """
@@ -227,7 +219,11 @@ class FormMixin:
         return form_class(*args, **form_params)
 
     def get_landing_page_template(self, *args, **kwargs):
-        return self.landing_page_template
+        if hasattr(self, "landing_page_template"):
+            return self.landing_page_template
+
+        name, ext = os.path.splitext(self.template)
+        return name + "_landing" + ext
 
     def get_submission_class(self):
         """

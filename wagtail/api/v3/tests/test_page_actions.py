@@ -72,7 +72,7 @@ class TestV3PagePublish(TestV3PageActionsBase):
                     live=False,
                 )
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -133,7 +133,7 @@ class TestV3PageUnpublish(TestV3PageActionsBase):
                     self.home_page, title="Live", slug=f"live-{i}"
                 )
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -158,7 +158,7 @@ class TestV3PageUnpublish(TestV3PageActionsBase):
         self.assert_problem_response(
             response,
             status_code=403,
-            detail_contains="Permission denied",
+            detail_contains="You do not have permission to unpublish this page.",
         )
 
     def test_unknown_page_returns_404(self):
@@ -224,7 +224,7 @@ class TestV3PageCopy(TestV3PageActionsBase):
         ):
             with self.subTest(codenames=codenames, extra_payload=extra_payload):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = AnonymousUser()
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -336,6 +336,31 @@ class TestV3PageCopy(TestV3PageActionsBase):
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.title, "Custom Title")
 
+    def test_invalid_slug_returns_422(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        # keep_live=False exercises minimal_clean(), which previously skipped
+        # slug format validation and allowed a malformed slug to be saved.
+        response = self.post(page, {"keep_live": False, "slug": "bad slug"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
+
+    def test_non_ascii_slug_rejected_when_unicode_disabled(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        with self.settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False):
+            response = self.post(page, {"keep_live": False, "slug": "pàgé"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
+
     def test_unknown_destination_returns_404(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -389,7 +414,7 @@ class TestV3PageMove(TestV3PageActionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -525,17 +550,16 @@ class TestV3PageDelete(TestV3PageActionsBase):
         ([], 403),
         ([Page.PERMISSION_CODENAMES.ADD], 204),
     ]
+    url_name = "wagtailapi_v3:delete_page"
 
     def delete(self, page):
-        return self.client.delete(
-            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": page.pk})
-        )
+        return self.client.delete(reverse(self.url_name, kwargs={"page_id": page.pk}))
 
     def test_permission_matrix(self):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -581,17 +605,14 @@ class TestV3PageDelete(TestV3PageActionsBase):
     def test_unknown_page_returns_404(self):
         self.login()
         response = self.client.delete(
-            reverse("wagtailapi_v3:pages_actions_delete", kwargs={"page_id": 999999})
+            reverse(self.url_name, kwargs={"page_id": 999999})
         )
         self.assert_problem_response(response, status_code=404)
 
     def test_cannot_delete_root_page(self):
         self.login()
         response = self.client.delete(
-            reverse(
-                "wagtailapi_v3:pages_actions_delete",
-                kwargs={"page_id": self.root_page.pk},
-            )
+            reverse(self.url_name, kwargs={"page_id": self.root_page.pk})
         )
         self.assert_problem_response(response, status_code=403)
 
@@ -605,6 +626,12 @@ class TestV3PageDelete(TestV3PageActionsBase):
         )
         response = self.delete(section)
         self.assert_problem_response(response, status_code=403)
+
+
+class TestV3PageDeleteAction(TestV3PageDelete):
+    # The delete action is exposed both on the /{page_id}/ endpoint and the
+    # discrete /{page_id}/actions/delete/ endpoint.
+    url_name = "wagtailapi_v3:pages_actions_delete"
 
 
 class TestV3PageRevert(TestV3PageActionsBase):
@@ -627,7 +654,7 @@ class TestV3PageRevert(TestV3PageActionsBase):
         for i, (codenames, expected_status) in enumerate(self.permission_matrix):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -718,7 +745,7 @@ class TestV3PageConvertAlias(TestV3PageActionsBase):
             with self.subTest(codenames=codenames):
                 alias = self.make_alias(index=i)
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                 else:
                     self.login_with_permissions(*codenames, index=i)
 
@@ -797,7 +824,7 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
         ):
             with self.subTest(codenames=codenames):
                 if codenames is None:
-                    self.client.logout()
+                    self.unauthorize()
                     owner = None
                 else:
                     owner = self.login_with_permissions(*codenames, index=i)
@@ -859,6 +886,17 @@ class TestV3PageCreateAlias(TestV3PageActionsBase):
         new_page = Page.objects.get(pk=response.json()["id"])
         self.assertEqual(new_page.slug, "custom-alias-slug")
 
+    def test_invalid_slug_returns_422(self):
+        self.login()
+        page = self.add_simple_page(self.home_page, title="Src", slug="src")
+        response = self.post(page, {"slug": "bad slug"})
+        self.assert_problem_response(
+            response,
+            status_code=422,
+            detail_contains="Validation failed",
+            errors=[{"type": "value_error", "loc": ["body", "data", "slug"]}],
+        )
+
     def test_unknown_destination_returns_404(self):
         self.login()
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -914,13 +952,17 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         )
 
     def test_requires_submit_translation_permission(self):
-        self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
         response = self.post(page, {"locale": "fr"})
         self.assert_problem_response(response, status_code=403)
 
     def test_copy_for_translation(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         self.home_page.copy_for_translation(self.french)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -933,7 +975,9 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertFalse(new_page.live)
 
     def test_alias_copy_for_translation(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         self.home_page.copy_for_translation(self.french)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
@@ -945,7 +989,9 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertEqual(new_page.alias_of_id, page.pk)
 
     def test_missing_translated_parent_returns_422(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
 
@@ -958,13 +1004,16 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
             errors=[
                 {
                     "type": "parent_not_translated_error",
-                    "msg": "Parent page is not translated.",
+                    "msg": "Parent page 'Welcome to your new Wagtail site!' "
+                    "is not translated.",
                 }
             ],
         )
 
     def test_copy_parents_creates_missing_translated_parents(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
 
@@ -975,14 +1024,18 @@ class TestV3PageCopyForTranslation(TestV3PageActionsBase):
         self.assertEqual(new_page.locale, self.french)
 
     def test_unknown_locale_returns_404(self):
-        user = self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        user = self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         self.grant_submit_translation(user)
         page = self.add_simple_page(self.home_page, title="Src", slug="src")
         response = self.post(page, {"locale": "de"})
         self.assert_problem_response(response, status_code=404)
 
     def test_unknown_page_returns_404(self):
-        self.login_with_permissions(Page.PERMISSION_CODENAMES.ADD)
+        self.login_with_permissions(
+            Page.PERMISSION_CODENAMES.ADD, Page.PERMISSION_CODENAMES.CHANGE
+        )
         response = self.client.post(
             reverse(
                 "wagtailapi_v3:pages_actions_copy_for_translation",

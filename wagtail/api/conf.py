@@ -1,5 +1,26 @@
 from django.core.exceptions import FieldDoesNotExist
-from django.db.models import Model
+from django.db.models import Field, ForeignObjectRel, Model
+
+
+def get_model_field(model: type[Model], name: str) -> Field | ForeignObjectRel:
+    """
+    Like ``model._meta.get_field(name)``, but also finds a reverse relation by
+    its accessor name.
+
+    ``get_field()`` only finds a reverse relation by its query name, which
+    differs from the accessor when the relation sets a ``related_query_name``,
+    or has no ``related_name``.
+    """
+    try:
+        return model._meta.get_field(name)
+    except FieldDoesNotExist:
+        for field in model._meta.get_fields():
+            if (
+                isinstance(field, ForeignObjectRel)
+                and field.get_accessor_name() == name
+            ):
+                return field
+        raise
 
 
 class APIField:
@@ -32,7 +53,7 @@ class APIField:
             field = api_field if isinstance(api_field, cls) else cls(api_field)
             if db_fields_only:
                 try:
-                    model._meta.get_field(field.name)
+                    get_model_field(model, field.name)
                 except FieldDoesNotExist:
                     continue
             api_fields.append(field)

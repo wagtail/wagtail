@@ -111,9 +111,6 @@ msgstr "Ні"
 msgid "No results"
 msgstr "Результати відсутні"
 
-msgid "Page"
-msgstr "Сторінка"
-
 msgid "Page explorer"
 msgstr "Провідник сторінок"
 
@@ -157,9 +154,6 @@ msgstr "Пошук"
 
 msgid "Search options…"
 msgstr "Шукати ..."
-
-msgid "See all"
-msgstr "Показати всі"
 
 msgid "Server Error"
 msgstr "Помилка сервера"

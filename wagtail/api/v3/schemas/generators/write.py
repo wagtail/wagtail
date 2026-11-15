@@ -1,5 +1,6 @@
 from collections.abc import Iterable
-from typing import Any, Callable, Literal, cast
+from types import UnionType
+from typing import Annotated, Any, Callable, Literal, Union, cast, get_args, get_origin
 
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Field, ForeignKey, Model
@@ -8,11 +9,25 @@ from modelcluster.models import get_all_child_relations
 from ninja import Schema
 from ninja.orm import create_schema
 from ninja.orm.fields import get_schema_field
+from pydantic import AfterValidator, BaseModel
+from pydantic import Field as PydanticField
 from pydantic.fields import FieldInfo
 from taggit.managers import TaggableManager
 
+from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api import APIField
-from wagtail.fields import StreamField
+from wagtail.api.conf import get_model_field
+from wagtail.api.rich_text import APIRichText, RichTextInputFormat
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.rich_text import features as feature_registry
+
+from .blocks import (
+    BlockSchemaBuilder,
+    StreamFieldJsonSchema,
+    fixed_schema,
+    register_default_block_schemas,
+)
 
 #: (annotation, default), or None if the field has no defined writable shape.
 InputFieldSchema = tuple[Any, Any] | None
@@ -119,11 +134,14 @@ class InputSchemaGenerator:
             namespace: dict[str, Any] = {"__annotations__": {}}
             if self.for_update:
                 # Add the model's pk as an optional field, so a child relation
-                # can be identified by its id when updating an existing item.
+                # can be identified by its pk when updating an existing item.
+                # It uses the same name as the read schema (e.g. `custom_id`),
+                # so an item read from the API can be sent back as-is.
                 pk_schema = get_schema_field(model._meta.pk)
-                id_annotation, id_default = self._make_optional(pk_schema)
-                namespace["__annotations__"]["id"] = id_annotation
-                namespace["id"] = id_default
+                pk_annotation, pk_default = self._make_optional(pk_schema)
+                pk_name = model._meta.pk.name
+                namespace["__annotations__"][pk_name] = pk_annotation
+                namespace[pk_name] = pk_default
             for field_name, (annotation, default) in extra_fields.items():
                 namespace["__annotations__"][field_name] = annotation
                 namespace[field_name] = default
@@ -145,7 +163,7 @@ class InputSchemaGenerator:
                 continue
 
             try:
-                model_field = model._meta.get_field(field.name)
+                model_field = get_model_field(model, field.name)
             except FieldDoesNotExist:
                 # Not a real Django field (e.g. a plain Python property) -
                 # there's no defined writable shape for it, so skip it.
@@ -171,12 +189,20 @@ class InputSchemaGenerator:
         return extra_fields
 
     @staticmethod
+    def _is_optional(annotation: type[Any] | UnionType) -> bool:
+        return (
+            # Union: Optional[T] or Union[T, None]. UnionType: T | None.
+            get_origin(annotation) in (Union, UnionType)
+            and type(None) in get_args(annotation)
+        )
+
+    @staticmethod
     def _narrowed_meta_schema(
-        base_meta_schema: type[Schema],
+        base_meta_schema: type[Any],
         model: type[Model],
         name_suffix: str,
-        for_update: bool = False,
-    ) -> type[Schema]:
+        extra_fields: dict[str, tuple[Any, Any]] | None = None,
+    ) -> type[Schema] | UnionType:
         """Narrow ``base_meta_schema``'s ``type`` to a ``Literal`` for ``model``.
 
         A shared base class's ``meta`` field types ``type`` generically
@@ -186,6 +212,11 @@ class InputSchemaGenerator:
         validation) reflects the actual, constant value rather than an
         open-ended string.
 
+        ``extra_fields``, if given, adds further ``{name: (annotation, default)}``
+        entries to this same per-model subclass - e.g. an ``action`` field only
+        some concrete models support, without needing a whole separate hierarchy
+        of named meta-schema classes per capability/mixin combination.
+
         ``name_suffix`` (e.g. ``"Create"`` or ``"Patch"``) keeps this
         distinct from another schema generated for the same model under a
         different ``base_class`` (e.g. create vs. update): ninja/pydantic
@@ -194,16 +225,41 @@ class InputSchemaGenerator:
         shadow the other in the generated docs.
         """
         meta_type = Literal[model._meta.label]  # ty: ignore[invalid-type-form]
-        if for_update:
-            meta_type = meta_type | None
-        return cast(
+        is_optional = InputSchemaGenerator._is_optional
+        base_meta = base_meta_schema
+
+        # If the meta is optional, get the first Pydantic model in the union.
+        if meta_is_optional := is_optional(base_meta):
+            for args in get_args(base_meta):
+                if issubclass(args, BaseModel):
+                    base_meta = args
+                    break
+
+        # Check if existing meta type is optional, and if so, make the new meta
+        # type optional as well.
+        existing = base_meta.model_fields.get("type")
+        if existing and is_optional(existing.annotation):
+            meta_type = meta_type | None  # type: ignore[assignment]
+
+        # Build the narrowed meta schema class
+        namespace: dict[str, Any] = {"__annotations__": {"type": meta_type}}
+        for field_name, (annotation, default) in (extra_fields or {}).items():
+            namespace["__annotations__"][field_name] = annotation
+            namespace[field_name] = default
+
+        narrowed_meta = cast(
             type[Schema],
-            type(base_meta_schema)(
+            type(base_meta)(
                 f"{model._meta.object_name}{name_suffix}MetaSchema",
-                (base_meta_schema,),
-                {"__annotations__": {"type": meta_type}},
+                (base_meta,),
+                namespace,
             ),
         )
+
+        # Make the narrowed meta schema optional if the base meta was too.
+        if meta_is_optional:
+            narrowed_meta = narrowed_meta | None
+        return narrowed_meta
 
     @staticmethod
     def _make_optional(field_schema: tuple[Any, Any]) -> tuple[Any, Any]:
@@ -239,6 +295,7 @@ class InputSchemaGenerator:
         base_class: type[Schema],
         fields: Iterable[str] = (),
         required_fields: Iterable[str] = (),
+        extra_meta_fields: dict[str, tuple[Any, Any]] | None = None,
     ) -> type[Schema]:
         """Build an input (create/patch) schema for the concrete model ``model``.
 
@@ -254,6 +311,13 @@ class InputSchemaGenerator:
         :class:`wagtail.api.v3.schemas.pages.PageCreateBaseSchema`), it's
         narrowed to a ``Literal`` matching this specific model, the same way
         the read-side generator narrows ``meta.type`` for read schemas.
+
+        ``extra_meta_fields``, if given, adds further ``{name: (annotation,
+        default)}`` fields to that same narrowed ``meta`` schema - for a
+        capability only some concrete models support (e.g. ``action`` for
+        ``DraftStateMixin``), letting the caller decide per model rather than
+        needing a dedicated meta-schema subclass for every mixin/capability
+        combination.
         """
         field_names = [
             name
@@ -261,27 +325,40 @@ class InputSchemaGenerator:
             if name in {f.name for f in model._meta.get_fields()}
         ]
         name = f"{model._meta.object_name}{self.name_suffix}Schema"
-        schema = create_schema(
-            model,
-            # ninja's create_schema() caches globally by (model, name, fields,
-            # optional_fields, ...) - notably not base_class - so two calls for
-            # the same model/fields under different base classes would
-            # otherwise collide and silently reuse the first one's base_class.
-            # Folding base_class into the name keeps those calls distinct.
-            name=f"{name}Base_{base_class.__name__}",
-            fields=field_names,
-            optional_fields=[n for n in field_names if n not in required_fields],
-            base_class=base_class,
-        )
+        if field_names:
+            schema = create_schema(
+                model,
+                name=f"{name}Base_{base_class.__name__}",
+                fields=field_names,
+                optional_fields=[n for n in field_names if n not in required_fields],
+                base_class=base_class,
+            )
+        else:
+            # ninja's create_schema() treats an empty `fields` list as "no
+            # restriction" and includes every model field, so build an empty
+            # base schema directly instead - every field here is a
+            # relation/StreamField/etc handled below via _build_extra_fields.
+            schema = type(base_class)(
+                f"{name}Base_{base_class.__name__}",
+                (base_class,),
+                {},
+            )
 
         extra_fields = self._build_extra_fields(model)
         namespace: dict[str, Any] = {"__annotations__": {}}
 
         meta_field = base_class.model_fields.get("meta")
         if meta_field is not None:
-            namespace["__annotations__"]["meta"] = self._narrowed_meta_schema(
-                meta_field.annotation, model, self.name_suffix, self.for_update
+            meta_schema = namespace["__annotations__"]["meta"] = (
+                self._narrowed_meta_schema(
+                    meta_field.annotation,
+                    model,
+                    self.name_suffix,
+                    extra_fields=extra_meta_fields,
+                )
             )
+            if InputSchemaGenerator._is_optional(meta_schema):
+                namespace["meta"] = None
 
         for field_name, (annotation, default) in extra_fields.items():
             namespace["__annotations__"][field_name] = annotation
@@ -291,10 +368,42 @@ class InputSchemaGenerator:
         return cast(type[Schema], metaclass(name, (schema,), namespace))
 
 
+class RichTextInputSchema(BaseModel):
+    """Envelope form of rich text input. A plain string means DB HTML."""
+
+    format: RichTextInputFormat = "db_html"
+    content: str
+    removals: list[RichTextRemoval] = PydanticField([], exclude_if=lambda v: not v)
+
+
+def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
+    field = cast(RichTextField, field)
+    resolved_features = (
+        field.features
+        if field.features is not None
+        else feature_registry.get_default_features()
+    )
+    # Default is not normalized to an envelope for simplicity
+    default = FieldInfo(default="", json_schema_extra={"features": resolved_features})
+
+    def convert_content(value: str | RichTextInputSchema) -> RichTextInputSchema:
+        input = value if isinstance(value, str) else value.model_dump()
+        db_html, removals = APIRichText.convert_input(input, features=field.features)
+        # Result is normalized as an enveloped db_html
+        return RichTextInputSchema(format="db_html", content=db_html, removals=removals)
+
+    annotation = Annotated[str | RichTextInputSchema, AfterValidator(convert_content)]
+
+    return annotation, default
+
+
 def streamfield_schema(
     generator: InputSchemaGenerator, field: Field
 ) -> InputFieldSchema:
-    return list[Any], []
+    annotation = Annotated[
+        list[Any], StreamFieldJsonSchema(block_schema_builder, cast(StreamField, field))
+    ]
+    return annotation, []
 
 
 def tags_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
@@ -324,11 +433,20 @@ def foreign_key_schema(
 
 def register_default_field_schemas(generator: InputSchemaGenerator) -> None:
     """Register the default field-schema functions for ``generator``."""
+    generator.register_field_schema(RichTextField, rich_text_schema)
     generator.register_field_schema(StreamField, streamfield_schema)
     generator.register_field_schema(TaggableManager, tags_schema)
     generator.register_field_schema(ForeignObjectRel, child_relation_schema)
     generator.register_field_schema(ForeignKey, foreign_key_schema)
 
+
+#: Shared by the create and patch generators, since a StreamField accepts the
+#: same value for both.
+block_schema_builder = BlockSchemaBuilder(for_input=True)
+register_default_block_schemas(block_schema_builder)
+block_schema_builder.register_block_schema(
+    RichTextBlock, fixed_schema(str | RichTextInputSchema | None)
+)
 
 create_generator = InputSchemaGenerator()
 register_default_field_schemas(create_generator)

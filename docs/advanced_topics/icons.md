@@ -43,7 +43,7 @@ Add the icon with the `register_icons` hook.
 ```python
 @hooks.register("register_icons")
 def register_icons(icons):
-    return icons + ['app_name/toucan.svg']
+    return icons + ["app_name/toucan.svg"]
 ```
 
 The majority of Wagtail’s default icons are drawn on a 16x16 viewBox, sourced from the [FontAwesome v6 free icons set](https://fontawesome.com/v6/search?m=free).

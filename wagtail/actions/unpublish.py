@@ -19,7 +19,7 @@ class UnpublishPermissionError(PermissionDenied):
 
 class UnpublishAction(BaseAction):
     action_name = "unpublish"
-    permission_policy_action = "unpublish"
+    permission_policy_action = "publish"
     permission_error_class = UnpublishPermissionError
 
     def __init__(
@@ -35,16 +35,6 @@ class UnpublishAction(BaseAction):
         self.set_expired = set_expired
         self.commit = commit
         self.log_action = log_action
-
-    def check(self, skip_permission_checks=False):
-        if (
-            self.user
-            and not skip_permission_checks
-            and not self.object.permissions_for_user(self.user).can_unpublish()
-        ):
-            raise UnpublishPermissionError(
-                "You do not have permission to unpublish this object."
-            )
 
     def _commit_unpublish(self, object):
         object.save()

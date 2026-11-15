@@ -61,11 +61,7 @@ export interface SetScale {
 }
 
 export type WagtailMessage =
-  | AxeReady
-  | RequestScroll
-  | GetScrollPosition
-  | SetScrollPosition
-  | SetScale;
+  AxeReady | RequestScroll | GetScrollPosition | SetScrollPosition | SetScale;
 
 /**
  * Parses a message event that may contain a Wagtail message.

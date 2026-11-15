@@ -2,9 +2,10 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.api.v3.tests.base import TestV3Base
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestV3ErrorResponses(TestV3Base, TestCase):
+class TestV3ErrorResponses(TestV3Base, WagtailTestUtils, TestCase):
     def test_not_found_is_problem_json(self):
         response = self.client.get(
             reverse("wagtailapi_v3:detail_page", kwargs={"page_id": 999999})
@@ -29,6 +30,7 @@ class TestV3ErrorResponses(TestV3Base, TestCase):
         self.assert_problem_response(response, status_code=400)
 
     def test_unknown_schema_type_is_problem_json(self):
+        self.login()
         response = self.client.get(
             reverse(
                 "wagtailapi_v3:get_schema_for_type",

@@ -1,4 +1,3 @@
-from enum import Enum
 from http import HTTPStatus
 from typing import cast
 
@@ -13,14 +12,7 @@ from wagtail.permissions import policy_registry
 Page = swapper.load_model("wagtailcore", "Page")
 
 
-class AccessTier(str, Enum):
-    PUBLIC = "public"
-    AUTHENTICATED = "authenticated"
-
-
-def get_pages_queryset(
-    request: HttpRequest, tier: AccessTier = AccessTier.PUBLIC, model=Page
-):
+def get_pages_queryset(request: HttpRequest, model=Page):
     """
     Return the page queryset for the given access tier.
 
@@ -28,13 +20,13 @@ def get_pages_queryset(
 
     AUTHENTICATED: pages the current user can explore in the admin (for admin API tier; not wired to public endpoints yet).
     """
-    if tier == AccessTier.PUBLIC:
+    if not request.user.is_authenticated:
         try:
             queryset = get_public_pages_queryset(request, model)
         except ValueError as e:  # ?site= filter returned multiple sites
             raise HttpError(HTTPStatus.BAD_REQUEST, str(e)) from e
 
-    if tier == AccessTier.AUTHENTICATED:
+    else:
         permission_policy = cast(
             PagePermissionPolicy,
             policy_registry.get_by_type(Page),
@@ -46,12 +38,12 @@ def get_pages_queryset(
             # custom one registered for the base page model). Re-instantiate the
             # policy with the specific page type so we can get the specific
             # queryset to use for filtering.
-
-            # Alternatively, we could use the base page's policy to get
-            # explorable_instances(), and use it as a pk__in= filter for the
-            # specific queryset (i.e. V2 behavior), but that is inefficient.
             permission_policy = permission_policy.for_model(model)
 
-        queryset = permission_policy.explorable_instances(request.user)
+        queryset = permission_policy.instances_user_has_any_permission_for(
+            request.user,
+            {"change", "publish"},
+        )
 
+    # Default to the page tree order (PageManager's default)
     return queryset.select_related("content_type", "locale")

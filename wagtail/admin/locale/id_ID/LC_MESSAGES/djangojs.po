@@ -59,9 +59,6 @@ msgstr "Geser ke atas"
 msgid "No results"
 msgstr "Tidak ada hasil"
 
-msgid "Page"
-msgstr "Halaman"
-
 msgid "Page explorer"
 msgstr "Perambah halaman"
 
@@ -85,9 +82,6 @@ msgstr "Menyimpan..."
 
 msgid "Search"
 msgstr "Pencarian"
-
-msgid "See all"
-msgstr "Lihat semua"
 
 msgid "Server Error"
 msgstr "Kesalahan Server"

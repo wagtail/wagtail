@@ -86,7 +86,7 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
       "onDeactivate": [MockFunction],
     }
   }
-  paused={false}
+  paused={true}
 >
   <div
     aria-label="Page explorer"
@@ -124,6 +124,12 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
           <div
             key="children"
           />
+          <div
+            className="c-page-explorer__placeholder"
+            key="fetching"
+          >
+            <LoadingSpinner />
+          </div>
         </div>
       </div>
     </Transition>
@@ -185,7 +191,9 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
                   "admin_display_title": "Test",
                   "id": 1,
                   "meta": {
-                    "status": {},
+                    "depth": 3,
+                    "live": true,
+                    "status": "live",
                     "type": "test",
                   },
                 }
@@ -199,7 +207,9 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
                   "admin_display_title": "Foo",
                   "id": 2,
                   "meta": {
-                    "status": {},
+                    "depth": 3,
+                    "live": true,
+                    "status": "live",
                     "type": "foo",
                   },
                 }

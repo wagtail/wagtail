@@ -19,6 +19,7 @@ REDIRECT_FIELDS = {
     "redirect_link",
     "automatically_created",
     "created_at",
+    "location",
 }
 
 
@@ -40,9 +41,13 @@ class TestV3RedirectListing(TestV3Base, WagtailTestUtils, TestCase):
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v3:list_redirects"), params)
 
-    def test_anonymous_returns_401(self):
+    def test_anonymous_can_list_redirects(self):
+        # v2 parity: redirects are public data, readable without a token
+        # (they are resolved publicly by the redirect middleware anyway).
         response = self.get_response()
-        self.assert_problem_response(response, status_code=401)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["count"], Redirect.objects.count())
 
     def test_authenticated_returns_200(self):
         self.login()
@@ -74,11 +79,45 @@ class TestV3RedirectListing(TestV3Base, WagtailTestUtils, TestCase):
         response = self.get_response()
         self.assertEqual(response.status_code, 200)
 
-    def test_user_without_any_redirect_permission_gets_403(self):
+    def test_user_without_redirect_permission_can_still_list(self):
+        # Reads are public: a token user without redirect permissions gets
+        # the same public data as an anonymous caller.
         self.create_user(username="noperms", password="password")
         self.login(username="noperms", password="password")
         response = self.get_response()
-        self.assert_problem_response(response, status_code=403)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["count"], Redirect.objects.count())
+
+    def test_filter_by_old_path(self):
+        self.login()
+        content = self.get_response(old_path="/one").json()
+        self.assertEqual(content["count"], 1)
+        self.assertEqual(content["items"][0]["old_path"], "/one")
+
+    def test_filter_by_is_permanent(self):
+        self.login()
+        make_redirect(old_path="/temp", is_permanent=False)
+        content = self.get_response(is_permanent="false").json()
+        self.assertEqual(content["count"], 1)
+        self.assertEqual(content["items"][0]["old_path"], "/temp")
+
+    def test_filter_by_invalid_field_is_ignored(self):
+        self.login()
+        content = self.get_response(not_a_field="foo").json()
+        self.assertEqual(content["count"], Redirect.objects.count())
+
+    def test_order_by_old_path(self):
+        self.login()
+        content = self.get_response(order="old_path").json()
+        paths = [item["old_path"] for item in content["items"]]
+        self.assertEqual(paths, sorted(paths))
+
+    def test_order_by_old_path_descending(self):
+        self.login()
+        content = self.get_response(order="-old_path").json()
+        paths = [item["old_path"] for item in content["items"]]
+        self.assertEqual(paths, sorted(paths, reverse=True))
 
 
 class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
@@ -95,9 +134,11 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
             )
         )
 
-    def test_anonymous_returns_401(self):
+    def test_anonymous_can_get_redirect_detail(self):
+        # v2 parity: redirect details are public data.
         response = self.get_response(self.redirect.pk)
-        self.assert_problem_response(response, status_code=401)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["id"], self.redirect.pk)
 
     def test_detail_returns_correct_fields(self):
         self.login()
@@ -108,19 +149,105 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["id"], self.redirect.pk)
         self.assertEqual(content["old_path"], "/old")
         self.assertEqual(content["redirect_link"], "https://example.com/")
+        self.assertEqual(content["location"], "https://example.com/")
         self.assertIsNone(content["site_id"])
         self.assertTrue(content["is_permanent"])
 
-    def test_user_without_any_redirect_permission_gets_403(self):
+    def test_location_of_page_redirect(self):
+        root_page = Site.objects.get(is_default_site=True).root_page
+        page = root_page.add_child(instance=Page(title="Target", slug="target"))
+        redirect = make_redirect(
+            old_path="/to-page", redirect_link="", redirect_page=page
+        )
+        response = self.get_response(redirect.pk)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["redirect_page_id"], page.pk)
+        self.assertEqual(content["location"], "/target/")
+
+    def test_user_without_redirect_permission_can_still_get_detail(self):
         self.create_user(username="noperms", password="password")
         self.login(username="noperms", password="password")
         response = self.get_response(self.redirect.pk)
-        self.assert_problem_response(response, status_code=403)
+        self.assertEqual(response.status_code, 200)
 
     def test_unknown_id_returns_404(self):
         self.login()
         response = self.get_response(999999)
         self.assert_problem_response(response, status_code=404)
+
+
+class TestV3RedirectFind(TestV3Base, WagtailTestUtils, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.redirect = make_redirect(
+            old_path="/old", redirect_link="https://example.com/"
+        )
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailapi_v3:find_redirect"), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Redirect matches the given query.",
+        )
+
+    def test_find_by_id(self):
+        response = self.get_response(id=self.redirect.pk)
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=999999)
+        self.assert_problem_response(response, status_code=404)
+
+    def test_find_by_html_path(self):
+        response = self.get_response(html_path="/old")
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_find_by_html_path_nonexistent(self):
+        response = self.get_response(html_path="/no-such-path")
+        self.assert_problem_response(
+            response,
+            status_code=404,
+            detail_contains="No Redirect matches the given query.",
+        )
+
+    def test_find_by_html_path_takes_precedence_over_id(self):
+        other = make_redirect(
+            old_path="/other",
+            redirect_link="https://example.com/other/",
+        )
+        response = self.get_response(id=other.pk, html_path="/old")
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailapi_v3:detail_redirect",
+                kwargs={"redirect_id": self.redirect.pk},
+            ),
+            fetch_redirect_response=False,
+        )
+
+    def test_anonymous_can_find(self):
+        # v2 parity: redirect lookups are public data.
+        response = self.get_response(id=self.redirect.pk)
+        self.assertEqual(response.status_code, 302)
 
 
 class TestV3RedirectCreate(TestV3Base, WagtailTestUtils, TestCase):

@@ -1,6 +1,5 @@
 import json
 
-import swapper
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -16,7 +15,8 @@ from wagtail.test.demosite.models import (
     EventPage,
     HomePage,
 )
-from wagtail.test.testapp.models import StreamPage
+from wagtail.test.testapp.models import EventPage as SpeakerEventPage
+from wagtail.test.testapp.models import SimpleParentPage, StreamPage
 from wagtail.test.utils import Page, WagtailTestUtils
 
 
@@ -34,7 +34,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
 
     def test_anonymous_returns_401(self):
-        self.client.logout()
+        self.unauthorize()
         response = self.post(
             {
                 "meta": {
@@ -359,7 +359,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["slug"],
-                    "message": "The slug 'existing' is already in use within the parent page.",
+                    "msg": "The slug 'existing' is already in use within the parent page.",
                 }
             ],
         )
@@ -432,12 +432,12 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "required",
                     "loc": ["location"],
-                    "message": "This field is required.",
+                    "msg": "This field is required.",
                 },
                 {
                     "type": "required",
                     "loc": ["cost"],
-                    "message": "This field is required.",
+                    "msg": "This field is required.",
                 },
             ],
         )
@@ -480,7 +480,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["signup_link"],
-                    "message": "This field is required when publishing events via the API.",
+                    "msg": "This field is required when publishing events via the API.",
                 }
             ],
         )
@@ -495,69 +495,43 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assert_problem_response(response, status_code=404)
 
-    def test_missing_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_not_found",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-
-    def test_unknown_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk, "type": "not.AType"},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        content = self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_invalid",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-        error = content["errors"][0]
-        self.assertIn("'not.AType'", error["msg"])
-
-    def test_non_page_type_returns_422(self):
-        response = self.post(
-            {
-                "meta": {"parent_id": self.root_page.pk, "type": "auth.User"},
-                "title": "New page",
-                "slug": "new-page",
-            }
-        )
-        content = self.assert_problem_response(
-            response,
-            status_code=422,
-            detail_contains="Validation failed",
-            errors=[
-                {
-                    "type": "union_tag_invalid",
-                    "loc": ["body", "data"],
-                }
-            ],
-        )
-        error = content["errors"][0]
-        self.assertIn("'auth.User'", error["msg"])
+    def test_malformed_meta_type_returns_422(self):
+        problem_metas = [
+            (123, "123"),
+            ("not a dict", "not a dict"),
+            (["not", "a", "dict"], "['not', 'a', 'dict']"),
+            ({"type": 123}, "123"),
+            ({"type": ["not", "a", "string"]}, "['not', 'a', 'string']"),
+            ({"parent_id": self.root_page.pk}, ""),
+            ({"parent_id": self.root_page.pk, "type": 123}, "123"),
+            (
+                {"parent_id": self.root_page.pk, "type": ["not", "a", "string"]},
+                "['not', 'a', 'string']",
+            ),
+            ({"parent_id": self.root_page.pk, "type": "not.AType"}, "not.AType"),
+            ({"parent_id": self.root_page.pk, "type": "auth.User"}, "auth.User"),
+            (
+                {"parent_id": self.root_page.pk, "type": Page._meta.label},
+                Page._meta.label,
+            ),
+        ]
+        for meta, extracted in problem_metas:
+            with self.subTest(meta=meta):
+                data = {"meta": meta, "title": "New page", "slug": "new-page"}
+                response = self.post(data)
+                data = self.assert_problem_response(
+                    response,
+                    status_code=422,
+                    detail_contains="Validation failed",
+                    errors=[{"type": "union_tag_invalid", "loc": ["body", "data"]}],
+                )
+                self.assertEqual(len(data["errors"]), 1)
+                self.assertIn(
+                    f"Input tag '{extracted}' found using "
+                    "discriminate_meta_type() does not match any of the expected "
+                    "tags: ",
+                    data["errors"][0]["msg"],
+                )
 
     def test_user_without_add_permission_gets_403(self):
         self.create_user(username="noperms", password="password")
@@ -598,17 +572,50 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
+    def test_user_with_add_but_not_publish_permission_with_publish_action(self):
+        editor = self.create_user(username="editor", password="password")
+        editor_group = Group.objects.create(name="Page branch editors")
+        editor.groups.add(editor_group)
+        GroupPagePermission.objects.create(
+            group=editor_group,
+            page=self.root_page,
+            permission=Permission.objects.get(
+                codename=Page.PERMISSION_CODENAMES.ADD,
+            ),
+        )
+        self.login(username="editor", password="password")
+        logs_before = PageLogEntry.objects.count()
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogIndexPage",
+                    "action": "publish",
+                },
+                "title": "New page",
+                "slug": "new-page",
+            }
+        )
+        self.assert_problem_response(
+            response,
+            status_code=403,
+            detail_contains="You do not have permission to publish this page.",
+        )
+
+        self.assertIsNone(BlogIndexPage.objects.filter(slug="new-page").first())
+        self.assertEqual(PageLogEntry.objects.count(), logs_before)
+
     def test_disallowed_subpage_type_returns_403(self):
-        # BlogIndexPage's default page-type rules allow being created
-        # under the root, but wagtailcore.Page itself is not creatable at all.
         parent = self.root_page.add_child(
-            instance=BlogIndexPage(title="Parent", slug="parent-page")
+            instance=SimpleParentPage(title="Parent", slug="parent-page")
         )
         response = self.post(
             {
                 "meta": {
                     "parent_id": parent.pk,
-                    "type": swapper.get_model_name("wagtailcore", "Page"),
+                    # SimpleParentPage only allows SimpleChildPage as subpages,
+                    # so this should be rejected.
+                    "type": HomePage._meta.label,
                 },
                 "title": "New page",
                 "slug": "new-page",
@@ -643,7 +650,260 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
         content = self.assert_problem_response(response, status_code=422)
         self.assertEqual(
             content["errors"],
-            [{"message": "body: unrecognised block type 'not_a_real_block'"}],
+            [{"msg": "body: unrecognised block type 'not_a_real_block'"}],
+        )
+
+    def test_create_streamfield_page_with_invalid_chooser_value_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-invalid-chooser",
+                "body": [{"type": "image", "value": {"id": 1}}],
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(content["errors"], [{"msg": "body-0-value: invalid value"}])
+
+    def test_create_streamfield_page_with_invalid_struct_value_returns_422(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-invalid-struct",
+                "body": [{"type": "product", "value": "not a struct"}],
+            }
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            content["errors"], [{"msg": "body-0-value: value must be an object"}]
+        )
+
+    def test_create_streamfield_page_with_rich_text_block(self):
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-rich-text",
+                "body": [{"type": "rich_text", "value": "<p>hello <b>world</b></p>"}],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = StreamPage.objects.get(slug="stream-page-rich-text")
+        self.assertEqual(page.body[0].block_type, "rich_text")
+        self.assertIn("hello <b>world</b>", str(page.body[0].value))
+
+    def test_create_streamfield_page_with_various_block_types(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        table = {
+            "data": [["", "Column"], ["Row", "Value"]],
+            "first_col_is_header": True,
+            "first_row_is_table_header": True,
+            "mergeCells": [],
+            "table_caption": "Minimal API table",
+            "table_header_choice": "both",
+        }
+        cases = [
+            (
+                "text",
+                "hello streamfield",
+                lambda value: self.assertEqual(value, "hello streamfield"),
+                lambda value: self.assertEqual(value, "hello streamfield"),
+            ),
+            (
+                "product",
+                {"name": "Widget", "price": "9.99"},
+                lambda value: (
+                    self.assertEqual(value["name"], "Widget"),
+                    self.assertEqual(value["price"], "9.99"),
+                ),
+                lambda value: self.assertEqual(
+                    value, {"name": "Widget", "price": "9.99"}
+                ),
+            ),
+            (
+                "raw_html",
+                "<div>raw</div>",
+                lambda value: self.assertEqual(str(value), "<div>raw</div>"),
+                lambda value: self.assertEqual(value, "<div>raw</div>"),
+            ),
+            (
+                "books",
+                [
+                    {"type": "title", "value": "Dune"},
+                    {"type": "author", "value": "Frank Herbert"},
+                ],
+                lambda value: (
+                    self.assertEqual(value[0].block_type, "title"),
+                    self.assertEqual(value[0].value, "Dune"),
+                    self.assertEqual(value[1].block_type, "author"),
+                    self.assertEqual(value[1].value, "Frank Herbert"),
+                ),
+                # Each child gets its own server-generated "id" - assert one
+                # is present, then compare the rest.
+                lambda value: (
+                    self.assertTrue(all(item["id"] for item in value)),
+                    self.assertEqual(
+                        [
+                            {k: v for k, v in item.items() if k != "id"}
+                            for item in value
+                        ],
+                        [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    ),
+                ),
+            ),
+            (
+                "title_list",
+                ["First", "Second", "Third"],
+                lambda value: self.assertEqual(
+                    list(value), ["First", "Second", "Third"]
+                ),
+                lambda value: self.assertEqual(value, ["First", "Second", "Third"]),
+            ),
+            (
+                "image",
+                image.pk,
+                lambda value: self.assertEqual(value.pk, image.pk),
+                lambda value: self.assertEqual(value, image.pk),
+            ),
+            (
+                "image_with_alt",
+                {
+                    "image": image.pk,
+                    "decorative": False,
+                    "alt_text": "A test image",
+                },
+                lambda value: (
+                    self.assertEqual(value.pk, image.pk),
+                    self.assertEqual(value.contextual_alt_text, "A test image"),
+                ),
+                lambda value: self.assertEqual(
+                    value,
+                    {
+                        "image": image.pk,
+                        "decorative": False,
+                        "alt_text": "A test image",
+                    },
+                ),
+            ),
+            (
+                "table",
+                table,
+                lambda value: self.assertEqual(value, table),
+                lambda value: self.assertEqual(value, table),
+            ),
+        ]
+        for (
+            block_type,
+            input_value,
+            assert_db_value,
+            assert_api_value,
+        ) in cases:
+            with self.subTest(block_type=block_type):
+                slug = f"stream-page-{block_type}"
+                response = self.post(
+                    {
+                        "meta": {
+                            "parent_id": self.root_page.pk,
+                            "type": "tests.StreamPage",
+                        },
+                        "title": "Stream page",
+                        "slug": slug,
+                        "body": [{"type": block_type, "value": input_value}],
+                    }
+                )
+                self.assertEqual(response.status_code, 201)
+
+                page = StreamPage.objects.get(slug=slug)
+                self.assertEqual(page.body[0].block_type, block_type)
+                assert_db_value(page.body[0].value)
+
+                [block] = response.json()["body"]
+                self.assertEqual(block["type"], block_type)
+                self.assertTrue(block["id"])
+                assert_api_value(block["value"])
+
+    def test_create_streamfield_page_with_image_chooser_block_extended(self):
+        """
+        With an ?extended= query param, ExtendedImageChooserBlock's
+        get_api_representation returns a dict of id/title instead of a bare
+        pk. Ensure this is respected in the create response body.
+        """
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.client.post(
+            reverse("wagtailapi_v3:create_page") + "?extended=true",
+            data=json.dumps(
+                {
+                    "meta": {
+                        "parent_id": self.root_page.pk,
+                        "type": "tests.StreamPage",
+                    },
+                    "title": "Stream page",
+                    "slug": "stream-page-image-extended",
+                    "body": [{"type": "image", "value": image.pk}],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+        content = response.json()
+        [block] = content["body"]
+        self.assertEqual(block["type"], "image")
+        self.assertEqual(block["value"], {"id": image.pk, "title": image.title})
+
+    def test_create_streamfield_page_with_multiple_blocks(self):
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.StreamPage"},
+                "title": "Stream page",
+                "slug": "stream-page-multiple",
+                "body": [
+                    {"type": "text", "value": "hello"},
+                    {"type": "rich_text", "value": "<p>hi</p>"},
+                    {"type": "image", "value": image.pk},
+                    {
+                        "type": "product",
+                        "value": {"name": "Widget", "price": "9.99"},
+                    },
+                    {"type": "raw_html", "value": "<hr>"},
+                    {
+                        "type": "books",
+                        "value": [
+                            {"type": "title", "value": "Dune"},
+                            {"type": "author", "value": "Frank Herbert"},
+                        ],
+                    },
+                    {"type": "title_list", "value": ["First", "Second"]},
+                    {
+                        "type": "image_with_alt",
+                        "value": {
+                            "image": image.pk,
+                            "decorative": False,
+                            "alt_text": "A test image",
+                        },
+                    },
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        page = StreamPage.objects.get(slug="stream-page-multiple")
+        self.assertEqual(len(page.body), 8)
+        self.assertEqual(
+            [block.block_type for block in page.body],
+            [
+                "text",
+                "rich_text",
+                "image",
+                "product",
+                "raw_html",
+                "books",
+                "title_list",
+                "image_with_alt",
+            ],
         )
 
     def test_create_page_with_rich_text_field(self):
@@ -788,7 +1048,7 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid_choice",
                     "loc": ["feed_image"],
-                    "message": (
+                    "msg": (
                         "Select a valid choice. That choice is not one of "
                         "the available choices."
                     ),
@@ -820,7 +1080,182 @@ class TestV3PageCreate(TestV3Base, WagtailTestUtils, TestCase):
                 {
                     "type": "invalid",
                     "loc": ["carousel_items", 0, "__all__"],
-                    "message": "You must provide a related page, related document or an external URL",
+                    "msg": "You must provide a related page, related document or an external URL",
                 }
             ],
         )
+
+    def test_create_page_with_tags(self):
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "Tagged",
+                "slug": "tagged",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "tags": ["Shakespeare, William", "Poetry", "Sonnets and odes"],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = BlogEntryPage.objects.get(slug="tagged")
+        self.assertEqual(
+            sorted(page.tags.names()),
+            ["Poetry", "Shakespeare, William", "Sonnets and odes"],
+        )
+
+    def test_create_page_with_tag_containing_double_quote(self):
+        """
+        Tag names are converted to the same edit string the admin's tag
+        widget renders, which has no escape for double quotes - so, as in
+        the admin, a name containing one is split by taggit's parser.
+        """
+        response = self.post(
+            {
+                "meta": {
+                    "parent_id": self.root_page.pk,
+                    "type": "demosite.BlogEntryPage",
+                },
+                "title": "Tagged",
+                "slug": "tagged",
+                "body": "<p>body</p>",
+                "date": "2020-01-01",
+                "tags": ['O"Brien'],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = BlogEntryPage.objects.get(slug="tagged")
+        self.assertEqual(sorted(page.tags.names()), ["Brien", "O"])
+
+    def test_create_page_with_child_relation_with_related_query_name(self):
+        """
+        tests.EventPage's speakers relation has related_query_name="speaker",
+        so Django's get_field() doesn't find it by its accessor name.
+        """
+        response = self.post(
+            {
+                "meta": {"parent_id": self.root_page.pk, "type": "tests.EventPage"},
+                "title": "Event",
+                "slug": "event",
+                "date_from": "2026-01-01",
+                "audience": "public",
+                "location": "Bristol",
+                "cost": "Free",
+                "speakers": [
+                    {"first_name": "Ada", "last_name": "Lovelace"},
+                    {"first_name": "Grace", "last_name": "Hopper"},
+                ],
+            }
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = SpeakerEventPage.objects.get(slug="event")
+        self.assertEqual(
+            list(
+                page.speakers.order_by("sort_order").values_list(
+                    "first_name", "last_name"
+                )
+            ),
+            [("Ada", "Lovelace"), ("Grace", "Hopper")],
+        )
+        self.assertEqual(
+            [
+                (speaker["first_name"], speaker["last_name"])
+                for speaker in response.json()["speakers"]
+            ],
+            [("Ada", "Lovelace"), ("Grace", "Hopper")],
+        )
+
+    def post_speaker_event_page(self, slug, speakers, action=None):
+        meta = {"parent_id": self.root_page.pk, "type": "tests.EventPage"}
+        if action:
+            meta["action"] = action
+        return self.post(
+            {
+                "meta": meta,
+                "title": "Event",
+                "slug": slug,
+                "date_from": "2026-01-01",
+                "audience": "public",
+                "location": "Bristol",
+                "cost": "Free",
+                "speakers": speakers,
+            }
+        )
+
+    def test_create_page_with_nested_child_relations(self):
+        """
+        tests.EventPage's speakers InlinePanel has its own awards InlinePanel.
+        """
+        response = self.post_speaker_event_page(
+            "event",
+            [
+                {
+                    "first_name": "Ada",
+                    "last_name": "Lovelace",
+                    "awards": [
+                        {"name": "First programmer", "date_awarded": "1843-01-01"},
+                        {"name": "Analytical engine"},
+                    ],
+                },
+                {"first_name": "No", "last_name": "Awards", "awards": []},
+                {"first_name": "Awards", "last_name": "Omitted"},
+            ],
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        page = SpeakerEventPage.objects.get(slug="event")
+        speakers = list(page.speakers.order_by("sort_order"))
+        self.assertEqual(
+            [speaker.first_name for speaker in speakers], ["Ada", "No", "Awards"]
+        )
+        self.assertEqual(
+            [
+                (award.name, str(award.date_awarded))
+                for award in speakers[0].awards.order_by("sort_order")
+            ],
+            [("First programmer", "1843-01-01"), ("Analytical engine", "None")],
+        )
+        self.assertFalse(speakers[1].awards.exists())
+        self.assertFalse(speakers[2].awards.exists())
+
+        self.assertEqual(
+            [
+                (
+                    speaker["first_name"],
+                    [award["name"] for award in speaker["awards"]],
+                )
+                for speaker in response.json()["speakers"]
+            ],
+            [
+                ("Ada", ["First programmer", "Analytical engine"]),
+                ("No", []),
+                ("Awards", []),
+            ],
+        )
+        self.assertEqual(
+            response.json()["speakers"][0]["awards"][0]["id"],
+            speakers[0].awards.order_by("sort_order").first().pk,
+        )
+
+    def test_create_page_with_invalid_nested_child_returns_422(self):
+        response = self.post_speaker_event_page(
+            "event-invalid",
+            [
+                {"first_name": "Ada", "awards": [{"name": "First programmer"}]},
+                {
+                    "first_name": "Grace",
+                    # A new row with every field empty is skipped by the
+                    # formset rather than validated, so set another field.
+                    "awards": [{"name": "", "date_awarded": "1952-01-01"}],
+                },
+            ],
+            # Required fields are only enforced on publish, not for drafts.
+            action="publish",
+        )
+        content = self.assert_problem_response(response, status_code=422)
+        self.assertEqual(
+            [(error["type"], error["loc"]) for error in content["errors"]],
+            [("required", ["speakers", 1, "awards", 0, "name"])],
+        )
+        self.assertFalse(SpeakerEventPage.objects.filter(slug="event-invalid").exists())

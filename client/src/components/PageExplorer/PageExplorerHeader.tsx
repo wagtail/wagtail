@@ -67,6 +67,7 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({
 }) => {
   const isRoot = depth === 0;
   const isSiteRoot = page.id === 0;
+  const isTreeRoot = page.meta.depth === 1;
 
   return (
     <div className="c-page-explorer__header">
@@ -81,7 +82,9 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({
             name={isRoot ? 'home' : 'arrow-left'}
             className="icon--explorer-header"
           />
-          <span>{page.admin_display_title || gettext('Pages')}</span>
+          <span>
+            {(!isTreeRoot && page.admin_display_title) || gettext('Pages')}
+          </span>
         </div>
       </Link>
       {!isSiteRoot &&

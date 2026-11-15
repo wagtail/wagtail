@@ -4,13 +4,17 @@
 
 A custom base page model allows you to define application-specific fields to be available and queryable across all specific (subclassed) page models, without the overheads of multi-level inheritance. Custom base page models require additional configuration before Wagtail's migrations are run, and so are only supported on newly-created projects, and existing Django projects to which Wagtail is being added.
 
-```{versionadded} 8.0
-Support for custom base page models was added.
-```
-
 ```{warning}
 This feature is currently experimental. Some third-party packages may not be compatible.
 ```
+
+````{note}
+A ready-made Wagtail project template adapted to use a custom base page model following these instructions has been published as [wagtail-custom-base-page-template](https://github.com/wagtail/wagtail-custom-base-page-template). To set up a new project using this template, run:
+
+```bash
+wagtail start mysite --template=https://github.com/wagtail/wagtail-custom-base-page-template/archive/main.zip
+```
+````
 
 After creating a Wagtail project as detailed in [](quick_install) or [](/getting_started/integrating_into_django), but before running `python manage.py migrate`, create a new app to contain the base page model by running `python manage.py startapp basepage` and adding `"basepage"` to `INSTALLED_APPS`. It is recommended to keep an app solely to contain the base page model, to minimise the possibility of circular imports.
 
@@ -21,6 +25,7 @@ from django.db import models
 
 from wagtail.models import AbstractPage
 
+
 class BasePage(AbstractPage):
     category = models.CharField(max_length=100, blank=True)
     review_date = models.DateField(blank=True, null=True)
@@ -28,7 +33,9 @@ class BasePage(AbstractPage):
     promote_panels = AbstractPage.promote_panels + ["category", "review_date"]
 ```
 
-`AbstractPage` provides all of the standard fields from {class}`~wagtail.models.Page` with the exception of `show_in_menus`, `seo_title` and `search_description`.
+```{note}
+`AbstractPage` provides all of the standard fields from {class}`~wagtail.models.Page` with the exception of `show_in_menus`, `seo_title` and `search_description`. This means that the {meth}`~wagtail.query.PageQuerySet.in_menu` and {meth}`~wagtail.query.PageQuerySet.not_in_menu` methods will not work. To include the show-in-menu flag in your page model, set your class to inherit from both `AbstractPage` and {class}`~wagtail.models.ShowInMenusMixin`. To include all the default fields from `Page`, inherit from both `AbstractPage` and {class}`~wagtail.models.DefaultBasePageMixin`.
+```
 
 Add the setting `WAGTAIL_PAGE_MODEL` to your project's settings file, giving the dotted {attr}`~django.db.models.Options.label` of the base page model qualified by the app name:
 
@@ -55,11 +62,14 @@ and rename the created migration file to `0002_bootstrap_page_model.py`. Edit th
 ```python
 from django.db import migrations
 
-from wagtail.models import BootstrapLocaleField, BootstrapTranslatableModel, BootstrapTranslationKeyField
+from wagtail.models import (
+    BootstrapLocaleField,
+    BootstrapTranslatableModel,
+    BootstrapTranslationKeyField,
+)
 
 
 class Migration(migrations.Migration):
-
     # Keep the existing dependencies list from the auto-generated migration
     dependencies = [
         ("basepage", "0001_initial"),
@@ -109,26 +119,28 @@ The corresponding changes must also be made to the app's migration files. For ap
 In `0001_initial.py`, the `page_ptr` field should be renamed `basepage_ptr` and should point to `basepage.BasePage` instead of `wagtailcore.Page`, and `bases` should become `("basepage.basepage",)`:
 
 ```python
-migrations.CreateModel(
-    name="HomePage",
-    fields=[
-        (
-            "basepage_ptr",
-            models.OneToOneField(
-                on_delete=models.CASCADE,
-                parent_link=True,
-                auto_created=True,
-                primary_key=True,
-                serialize=False,
-                to="basepage.BasePage",
+(
+    migrations.CreateModel(
+        name="HomePage",
+        fields=[
+            (
+                "basepage_ptr",
+                models.OneToOneField(
+                    on_delete=models.CASCADE,
+                    parent_link=True,
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    to="basepage.BasePage",
+                ),
             ),
-        ),
-    ],
-    options={
-        "abstract": False,
-    },
-    bases=("basepage.basepage",),
-),
+        ],
+        options={
+            "abstract": False,
+        },
+        bases=("basepage.basepage",),
+    ),
+)
 ```
 
 In `0002_create_homepage.py`, the lookups for the `Page` model and content type should be changed to `BasePage`:
@@ -196,6 +208,14 @@ class FormPage(EmailFormMixin, FormMixin, BasePage)
 ```
 
 Likewise, the [`wagtail.contrib.routable_page`](routable_page_mixin) app provides a `RoutablePage` class which inherits from the default `Page` model and is unavailable when using a custom base page model; however, `RoutablePageMixin` can still be used.
+
+## Example use cases
+
+There are many scenarios where custom base page models are the right approach. Here are a few examples to illustrate:
+
+-   Add a site-wide `include_in_sitemap` field to allow excluding arbitrary pages.
+-   Set up an internal "Notes" field for CMS users to document their work directly in the CMS.
+-   Site-wide [content personalization](content_personalization) where each page can be assigned a target audience or goal.
 
 ## See also
 

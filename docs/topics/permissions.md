@@ -48,6 +48,10 @@ Access to specific sets of images and documents can be controlled by setting up 
 
 The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only visible to specific groups.
 
+```{note}
+The 'choose' permission is a UI-level affordance to guide users in selecting suitable images and documents, and is not intended to be a robust mechanism to hide sensitive documents or images from being seen by low-privilege editors. Editors can bypass the chooser interface to insert references to arbitrary documents and images, and access metadata such as document titles and image renditions. [Private collections](private_collections) can be used to prevent unauthorised users from reading document contents, provided these have been properly secured at the server level (see [](documents_security_considerations)); note that this does not apply to images.
+```
+
 (collection_management_permissions)=
 
 ## Collection management permissions

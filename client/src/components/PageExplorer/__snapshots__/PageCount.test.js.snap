@@ -5,10 +5,7 @@ exports[`PageCount plural 1`] = `
   className="c-page-explorer__see-more"
   href="/admin/pages/1/"
 >
-  See all
-  <span>
-     5 pages
-  </span>
+  See all 5 pages
   <Icon
     name="arrow-right"
   />
@@ -20,10 +17,7 @@ exports[`PageCount works 1`] = `
   className="c-page-explorer__see-more"
   href="/admin/pages/1/"
 >
-  See all
-  <span>
-     1 page
-  </span>
+  See all 1 page
   <Icon
     name="arrow-right"
   />

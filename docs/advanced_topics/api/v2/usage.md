@@ -2,6 +2,10 @@
 
 # Wagtail API v2 usage guide
 
+```{warning}
+The v2 API is planned for deprecation in a future release. See the [deprecation timeline](api_v2_deprecation), and consider the [v3 API](api_v3) for new projects.
+```
+
 The Wagtail API module exposes a public, read-only, JSON-formatted API which
 can be used by external clients (such as a mobile app) or the site's frontend.
 

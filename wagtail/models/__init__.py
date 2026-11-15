@@ -16,6 +16,7 @@ from treebeard.mp_tree import MP_Node  # noqa: F401
 
 from wagtail.query import PageQuerySet  # noqa: F401
 
+from .api import APIToken  # noqa: F401
 from .audit_log import (  # noqa: F401
     BaseLogEntry,
     BaseLogEntryManager,

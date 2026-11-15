@@ -33,7 +33,7 @@ from wagtail.models import (
     get_page_models,
     get_translatable_models,
 )
-from wagtail.signals import page_published
+from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
     AbstractPage,
     Advert,
@@ -1393,6 +1393,41 @@ class TestLiveRevision(PageFixturesMixin, TestCase):
                     )
                 ),
             )
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_publish_with_future_go_live_does_not_send_published_signals(self):
+        about_us = SimplePage.objects.get(url_path="/home/about-us/")
+        about_us.go_live_at = timezone.now() + datetime.timedelta(days=1)
+        revision = about_us.save_revision()
+
+        published_handler = Mock()
+        page_published_handler = Mock()
+        published.connect(published_handler)
+        self.addCleanup(published.disconnect, published_handler)
+        page_published.connect(page_published_handler)
+        self.addCleanup(page_published.disconnect, page_published_handler)
+
+        revision.publish()
+        about_us.refresh_from_db()
+
+        # Scheduling should not send signals
+        published_handler.assert_not_called()
+        page_published_handler.assert_not_called()
+
+        self.assertFalse(about_us.live)
+
+        # Signals should be sent when page goes live
+        with freeze_time("2017-01-02 12:00:01"):
+            revision.publish()
+
+        about_us.refresh_from_db()
+        self.assertTrue(about_us.live)
+
+        published_handler.assert_called_once()
+        page_published_handler.assert_called_once()
+        self.assertEqual(
+            page_published_handler.call_args.kwargs["instance"].pk, about_us.pk
+        )
 
 
 class TestPageGetSpecific(PageFixturesMixin, TestCase):
@@ -3112,6 +3147,77 @@ class TestUpdateAliases(PageFixturesMixin, TestCase):
             ).exists()
         )
 
+    def test_update_aliases_sets_last_published_at(self):
+        """
+        update_aliases() should sync last_published_at from the source page to
+        the alias. This is not carried over from the revision content because
+        the revision is created before publish (when last_published_at is still
+        None), so it must be set explicitly.
+        """
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        # Simulate the page having been saved as a draft before first publish
+        event_page.live = False
+        event_page.last_published_at = None
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug="new-event-page")
+        self.assertIsNone(alias.last_published_at)
+
+        event_page.save_revision().publish()
+
+        event_page.refresh_from_db()
+        alias.refresh_from_db()
+
+        self.assertIsNotNone(alias.last_published_at)
+        self.assertEqual(alias.last_published_at, event_page.last_published_at)
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_scheduled_publish_does_not_publish_aliases(self):
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        # Unpublish the page so that alias will be in draft
+        event_page.live = False
+        event_page.has_unpublished_changes = True
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug="new-event-page")
+        alias_alias = alias.create_alias(update_slug="new-event-page-2")
+
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        # Schedule the event page to be published in the future
+        event_page.title = "Updated title"
+        event_page.go_live_at = timezone.now() + datetime.timedelta(days=1)
+        revision = event_page.save_revision()
+        revision.publish()
+
+        event_page.refresh_from_db()
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertFalse(event_page.live)
+
+        # The aliases should not have been published or updated
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+        self.assertEqual(alias.title, "Christmas")
+        self.assertEqual(alias_alias.title, "Christmas")
+
+        # Check the aliases are updated when the page is made live
+        with freeze_time("2017-01-02 12:00:01"):
+            revision.publish()
+
+        event_page.refresh_from_db()
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+
+        self.assertTrue(event_page.live)
+        self.assertTrue(alias.live)
+        self.assertTrue(alias_alias.live)
+        self.assertEqual(alias.title, "Updated title")
+        self.assertEqual(alias_alias.title, "Updated title")
+
 
 class TestCopyForTranslation(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
@@ -3142,7 +3248,8 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
-            log_entry.message, "Copied for translation from Root (English)"
+            log_entry.message,
+            "Copied for translation from Welcome to the Wagtail test site! (English)",
         )
 
     def test_copy_homepage_slug_exists(self):
@@ -3187,8 +3294,7 @@ class TestCopyForTranslation(PageFixturesMixin, TestCase):
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
-            log_entry.message,
-            "Copied for translation from Welcome to the Wagtail test site! (English)",
+            log_entry.message, "Copied for translation from Events (English)"
         )
 
     def test_copy_childpage_without_parent(self):

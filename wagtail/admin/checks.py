@@ -236,7 +236,7 @@ def file_overwrite_check(app_configs, **kwargs):
 @register("datetime_format")
 def datetime_format_check(app_configs, **kwargs):
     """
-    If L10N is enabled, check if WAGTAIL_* formats are compatible with Django input formats.
+    Check if WAGTAIL_* formats are compatible with Django input formats.
     See https://docs.djangoproject.com/en/stable/topics/i18n/formatting/#creating-custom-format-files
     See https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-date-format-wagtail-datetime-format-wagtail-time-format
     """
@@ -245,9 +245,6 @@ def datetime_format_check(app_configs, **kwargs):
     from django.utils import formats
 
     errors = []
-
-    if not getattr(settings, "USE_L10N", False):
-        return errors
 
     for code, label in settings.LANGUAGES:
         for wagtail_setting, django_setting in [

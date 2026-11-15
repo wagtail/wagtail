@@ -22,7 +22,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
             ],
             WAGTAIL_DATE_FORMAT="%m/%d/%Y",
             WAGTAIL_TIME_FORMAT="%H:%M",
-            USE_L10N=True,
         ):
             errors = datetime_format_check(None)
 
@@ -38,7 +37,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
             ],
             WAGTAIL_DATE_FORMAT="%d.%m.%Y.",
             WAGTAIL_TIME_FORMAT="%H:%M",
-            USE_L10N=True,
         ):
             errors = datetime_format_check(None)
 
@@ -52,25 +50,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
         ]
         self.assertEqual(errors, expected_errors)
 
-    def test_datetime_format_with_unsupported_date_not_using_l10n(self):
-        """
-        Test that the check doesn't raise an error when USE_L10N is False.
-        """
-
-        with override_settings(
-            WAGTAIL_CONTENT_LANGUAGES=[
-                ("en", "English"),
-            ],
-            LANGUAGES=[
-                ("en", "English"),
-            ],
-            WAGTAIL_DATE_FORMAT="%d.%m.%Y.",
-            WAGTAIL_TIME_FORMAT="%H:%M",
-            USE_L10N=False,
-        ):
-            errors = datetime_format_check(None)
-        self.assertEqual(errors, [])
-
     def test_datetime_format_with_unsupported_datetime_and_time(self):
         with override_settings(
             WAGTAIL_CONTENT_LANGUAGES=[
@@ -81,7 +60,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
             ],
             WAGTAIL_DATETIME_FORMAT="%d.%m.%Y. %H:%M",
             WAGTAIL_TIME_FORMAT="%I:%M %p",
-            USE_L10N=True,
         ):
             errors = datetime_format_check(None)
 
@@ -111,7 +89,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
             ],
             WAGTAIL_DATETIME_FORMAT="%d.%m.%Y. %H:%M",
             FORMAT_MODULE_PATH=["wagtail.admin.tests.formats"],
-            USE_L10N=True,
         ):
             errors = datetime_format_check(None)
 
@@ -127,7 +104,6 @@ class TestDateTimeChecks(PageFixturesMixin, WagtailTestUtils, TestCase):
             ],
             WAGTAIL_DATETIME_FORMAT="%m.%d.%Y. %H:%M",
             FORMAT_MODULE_PATH=["wagtail.admin.tests.formats"],
-            USE_L10N=True,
         ):
             errors = datetime_format_check(None)
 

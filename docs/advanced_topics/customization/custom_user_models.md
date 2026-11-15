@@ -13,9 +13,12 @@ The custom user model must at minimum inherit from {class}`~django.contrib.auth.
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class User(AbstractUser):
-    country = models.CharField(verbose_name='country', max_length=255)
-    status = models.ForeignKey(MembershipStatus, on_delete=models.SET_NULL, null=True, default=1)
+    country = models.CharField(verbose_name="country", max_length=255)
+    status = models.ForeignKey(
+        MembershipStatus, on_delete=models.SET_NULL, null=True, default=1
+    )
 ```
 
 Add the app containing your user model to `INSTALLED_APPS` - it must be above the `'wagtail.users'` line,
@@ -23,7 +26,7 @@ in order to override Wagtail's built-in templates - and set [`AUTH_USER_MODEL`](
 your model. In this example the app is called `myapp` and the model is `User`.
 
 ```python
-AUTH_USER_MODEL = 'myapp.User'
+AUTH_USER_MODEL = "myapp.User"
 ```
 
 ## Creating custom user forms
@@ -42,7 +45,9 @@ from myapp.models import MembershipStatus
 
 
 class CustomUserEditForm(UserEditForm):
-    status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+    status = forms.ModelChoiceField(
+        queryset=MembershipStatus.objects, required=True, label=_("Status")
+    )
 
     # Use ModelForm's automatic form fields generation for the model's `country` field,
     # but use an explicit custom form field for `status`.
@@ -51,7 +56,9 @@ class CustomUserEditForm(UserEditForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+    status = forms.ModelChoiceField(
+        queryset=MembershipStatus.objects, required=True, label=_("Status")
+    )
 
     # Use ModelForm's automatic form fields generation for the model's `country` field,
     # but use an explicit custom form field for `status`.

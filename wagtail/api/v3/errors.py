@@ -10,6 +10,8 @@ from ninja.errors import ValidationError as NinjaValidationError
 from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
+from wagtail.actions import WorkflowStateError
+from wagtail.api.rich_text import RichTextFormatError
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.utils.forms import FormValidationError
 
@@ -35,6 +37,11 @@ def as_validation_error(
     Useful for converting exceptions raised in code that is normally caught
     via other mechanisms e.g. Django form validation or prevented by normal
     user interface.
+
+    The ``loc`` argument is best-effort, as the caller may not have enough
+    context to provide a full path to the field that caused the error. It may
+    also be different to how Ninja normally reports validation errors, which is
+    based on the request shape (i.e. may include "body" or "query").
     """
     return PydanticValidationError.from_exception_data(
         "Validation error",
@@ -119,12 +126,12 @@ def register_exception_handlers(api: NinjaAPI):
     ):
         if isinstance(exc, FormValidationError):
             errors = [
-                {"type": code, "loc": list(path), "message": message}
+                {"type": code, "loc": list(path), "msg": message}
                 for path, coded_messages in exc.loc_errors
                 for message, code in coded_messages
             ]
         elif isinstance(exc, DjangoValidationError):
-            errors = [{"message": msg} for msg in exc.messages]
+            errors = [{"msg": msg} for msg in exc.messages]
         elif isinstance(exc, NinjaValidationError):
             errors = exc.errors
         else:  # PydanticValidationError
@@ -142,11 +149,20 @@ def register_exception_handlers(api: NinjaAPI):
             errors=errors,
         )
 
+    @api.exception_handler(WorkflowStateError)
+    def workflow_state_error_handler(request: HttpRequest, exc: WorkflowStateError):
+        return problem_response(
+            status=422,
+            detail="Validation failed",
+            errors=[{"type": "workflow_state_error", "loc": [], "msg": str(exc)}],
+        )
+
     @api.exception_handler(PermissionDenied)
     def permission_denied_handler(request: HttpRequest, exc: PermissionDenied):
+        # v3 never trusts session auth: 401 unless a bearer token resolved.
         if not request.user.is_authenticated:
             return problem_response(status=401, detail="Authentication required")
-        return problem_response(status=403, detail="Permission denied")
+        return problem_response(status=403, detail=str(exc) or "Permission denied")
 
     @api.exception_handler(Http404)
     def not_found_handler(request: HttpRequest, exc: Http404):
@@ -155,6 +171,10 @@ def register_exception_handlers(api: NinjaAPI):
     @api.exception_handler(HttpError)
     def http_error_handler(request: HttpRequest, exc: HttpError):
         return problem_response(status=exc.status_code, detail=str(exc))
+
+    @api.exception_handler(RichTextFormatError)
+    def rich_text_format_error_handler(request: HttpRequest, exc: RichTextFormatError):
+        return problem_response(status=400, detail=str(exc))
 
     @api.exception_handler(Exception)
     def unhandled_exception_handler(request: HttpRequest, exc: Exception):

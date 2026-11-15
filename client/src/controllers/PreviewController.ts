@@ -22,6 +22,7 @@ import {
   getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
+import { renderMetadataSection } from '../includes/metadataPreview';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
@@ -383,16 +384,14 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel="checks"] [data-content-checker-count]',
     );
 
-    if (
-      !(
-        this.checksSidePanel &&
-        this.checksPanel &&
-        this.checkerRowTemplate &&
-        this.axeConfig &&
-        this.checksToggleCounter &&
-        this.checksPanelCounter
-      )
-    ) {
+    if (!(
+      this.checksSidePanel &&
+      this.checksPanel &&
+      this.checkerRowTemplate &&
+      this.axeConfig &&
+      this.checksToggleCounter &&
+      this.checksPanelCounter
+    )) {
       this.contentChecksEnabled = false;
       return;
     }
@@ -950,7 +949,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('content', { detail: { content, metrics } });
 
-    renderContentMetrics(metrics);
+    renderContentMetrics(content);
+    renderMetadataSection(content.metadata ?? null, document);
   }
 
   /**

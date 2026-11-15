@@ -643,7 +643,7 @@ class BoundBlock:
         an unrelated method that just happened to have that name - for example, when called on a
         PageChooserBlock it could end up calling page.render.
         """
-        return self.block.render(self.value, context=context)
+        return self.render(context)
 
     def id_for_label(self):
         return self.block.id_for_label(self.prefix)
