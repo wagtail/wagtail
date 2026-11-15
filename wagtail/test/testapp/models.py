@@ -1202,6 +1202,20 @@ class AdvertWithCustomUUIDPrimaryKey(index.Indexed, PreviewableMixin, Clusterabl
 register_snippet(AdvertWithCustomUUIDPrimaryKey)
 
 
+class OrderableUUIDSnippet(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
+    sort_order = models.IntegerField(null=True, blank=True)
+
+    sort_order_field = "sort_order"
+
+    def __str__(self):
+        return self.name
+
+
+register_snippet(OrderableUUIDSnippet)
+
+
 class UUIDSnippetWithRelationsSection(models.Model):
     snippet = ParentalKey(
         "UUIDSnippetWithRelations", related_name="sections", on_delete=models.CASCADE

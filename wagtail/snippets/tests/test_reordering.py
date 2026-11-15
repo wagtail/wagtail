@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.test.testapp.models import FullFeaturedSnippet
+from wagtail.test.testapp.models import FullFeaturedSnippet, OrderableUUIDSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -317,3 +317,66 @@ class TestReorderView(WagtailTestUtils, TestCase):
         # Check if obj1 is now the second item by taking obj2's sort_order
         # and decrementing sort_order of the other items before it by 1
         self.assertOrder([(self.obj2, 0), (self.obj1, 1), (self.obj3, 2)])
+
+
+class TestReorderingWithUUIDPrimaryKey(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.obj1 = OrderableUUIDSnippet.objects.create(name="Item 1", sort_order=0)
+        self.obj2 = OrderableUUIDSnippet.objects.create(name="Item 2", sort_order=1)
+        self.obj3 = OrderableUUIDSnippet.objects.create(name="Item 3", sort_order=2)
+
+    def get_url_name(self, name):
+        return OrderableUUIDSnippet.snippet_viewset.get_url_name(name)
+
+    def test_header_button_rendered(self):
+        # Regression test for #14789: reversing the reorder URL with the
+        # 999999 placeholder raised NoReverseMatch for UUID primary keys
+        index_url = reverse(self.get_url_name("list"))
+        response = self.client.get(index_url)
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNotNone(button)
+        self.assertEqual(button.text.strip(), "Sort item order")
+
+    def test_show_ordering_column(self):
+        index_url = reverse(self.get_url_name("list"))
+        response = self.client.get(index_url + "?ordering=sort_order")
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertEqual(table.get("data-controller"), "w-orderable")
+
+        # The URL template keeps the 999999 placeholder that the JS replaces,
+        # even though it is not a valid UUID
+        self.assertEqual(
+            table.get("data-w-orderable-url-value"),
+            index_url + "reorder/999999/",
+        )
+
+        rows = table.select("tbody tr")
+        self.assertEqual(
+            [row.get("data-w-orderable-item-id") for row in rows],
+            [str(self.obj1.pk), str(self.obj2.pk), str(self.obj3.pk)],
+        )
+
+    def test_reorder_view_moves_item(self):
+        url = reverse(self.get_url_name("reorder"), args=(quote(self.obj1.pk),))
+        response = self.client.post(url + "?position=2")
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            list(
+                OrderableUUIDSnippet.objects.order_by("sort_order").values_list(
+                    "pk", "sort_order"
+                )
+            ),
+            [(self.obj2.pk, 0), (self.obj3.pk, 1), (self.obj1.pk, 2)],
+        )
