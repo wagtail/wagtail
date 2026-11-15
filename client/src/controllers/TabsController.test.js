@@ -1137,6 +1137,8 @@ describe('TabsController', () => {
       expect(tab1.getAttribute('aria-selected')).toBe('true');
       expect(tab2.getAttribute('aria-selected')).toBe(null);
 
+      const historyLength = window.history.length;
+
       // Simulate telepath.unpack() inserting the StreamField block into the
       // DOM shortly after TabsController.connect() has already run
 
@@ -1157,6 +1159,12 @@ describe('TabsController', () => {
 
       expect(tab1Panel.hidden).toBeTruthy();
       expect(tab2Panel.hidden).toBeFalsy();
+
+      // The contentpath must stay in the URL (it is used to scroll to the
+      // content once the page has loaded) and no history entry should be added
+
+      expect(window.location.hash).toBe('#:w:contentpath=abc1.d2e');
+      expect(window.history.length).toBe(historyLength);
     });
 
     it('should use the current URL hash on load but gracefully handle not found ids', async () => {
