@@ -15,6 +15,17 @@ class WagtailTestUtils:
         return BeautifulSoup(markup, "html.parser", string_containers={})
 
     @staticmethod
+    def select_in_template(soup, selector, template_selector="template"):
+        """
+        Like soup.select_one, but looks inside <template> elements
+        """
+        templates = soup.select(template_selector)
+        for template in templates:
+            elem = template.select_one(selector)
+            if elem:
+                return elem
+
+    @staticmethod
     def create_test_user():
         """
         Override this method to return an instance of your custom user model

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -134,6 +134,7 @@ msgstr "검색"
 msgid "All collections"
 msgstr "모든 모음"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "상위"
 
@@ -1296,6 +1297,9 @@ msgstr "부분 전환"
 msgid "Breadcrumb"
 msgstr "브레드크럼"
 
+msgid "Description"
+msgstr "설명"
+
 msgid "System"
 msgstr "시스템"
 
@@ -1482,9 +1486,6 @@ msgstr "정렬"
 
 msgid "View Wagtail quick actions"
 msgstr "워그테일의 빠른 엑션 보기"
-
-msgid "Warnings"
-msgstr "경고"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
@@ -1740,6 +1741,10 @@ msgstr "당신의 계정설정이 성공적으로 변경되었습니다."
 
 msgid "You have been successfully logged out."
 msgstr "성공적으로 로그아웃 되었습니다."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "상위"
 
 msgid "Collections"
 msgstr "모음"

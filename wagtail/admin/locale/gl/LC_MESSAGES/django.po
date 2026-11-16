@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -162,6 +162,7 @@ msgstr "Procurar"
 msgid "All collections"
 msgstr "Todas as coleccións"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Nai"
 
@@ -698,7 +699,7 @@ msgid "Yes, delete"
 msgstr "Si, eliminar"
 
 msgid "No, don't delete"
-msgstr "Non, non eliminar."
+msgstr "Non, non eliminar"
 
 #, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
@@ -1911,6 +1912,86 @@ msgstr "Permutar migas de pan"
 msgid "Breadcrumb"
 msgstr "Miga de pan"
 
+msgid "Page metadata"
+msgstr "Metadatos da páxina"
+
+msgid "This data explained"
+msgstr "Explicación destes datos"
+
+msgid "What is page metadata?"
+msgstr "Qué son os metadatos da páxina?"
+
+msgid ""
+"Metadata lives in the HTML of the page, and includes the page title and "
+"description used by search engines."
+msgstr ""
+"Os metadatos residen no HTML da páxina, e inclúen o título da páxina e a "
+"descripción que usan os motores de busca."
+
+msgid "How are the lengths calculated?"
+msgstr "Cómo se calculan as lonxitudes?"
+
+msgid ""
+"The title length of around 580 pixels or 60 characters, and description "
+"length of around 160 characters, are approximations of how this metadata is "
+"displayed in search results, rather than hard limits."
+msgstr ""
+"Unha lonxitude do título duns 580 píxeles ou 60 caracteres, e unha lonxitude "
+"da descripción duns 160 caracteres, son aproximacións ó xeito no que os "
+"metadatos aparecen nos resultados de busca, non límites estrictos."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">page metadata guide</a> "
+"for more information on how metadata is used."
+msgstr ""
+"Revise a nosa <a href=\"%(guide_link)s\" target=\"_blank\">guía de metadatos "
+"da páxina</a> para máis información sobre cómo se usan os metadatos."
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "View more meta tags"
+msgstr "Ver máis meta-etiquetas"
+
+msgid "Words"
+msgstr "Palabras"
+
+msgid "Reading time"
+msgstr "Tempo de lectura"
+
+msgid "Readability"
+msgstr "Lexibilidade"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Extraemos o contido principal da previsualización, eliminamos todo o "
+"formato, e calculamos o número de palabras."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calculamos o tempo de lectura a partir do número de palabras, usando "
+"velocidades de lectura diferentes para cada lingua."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Usamos una fórmula de lexibilidade basada no lonxitude de palabras e frases. "
+"As palabras e frases largas teñen unha puntuación de lexibilidade peor."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Revise o nosa <a href=\"%(guide_link)s\" target=\"_blank\">guía de chequeo "
+"de contidos</a> para ter máis información de cómo se calculan as métricas."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2094,50 +2175,6 @@ msgstr "Mostrar asunto"
 
 msgid "Content metrics"
 msgstr "Métricas do contido"
-
-msgid "Words"
-msgstr "Palabras"
-
-msgid "Reading time"
-msgstr "Tempo de lectura"
-
-msgid "Readability"
-msgstr "Lexibilidade"
-
-msgid "This data explained"
-msgstr "Explicación destes datos"
-
-msgid "How we calculate our metrics"
-msgstr "Cómo calculamos as métricas"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Extraemos o contido principal da previsualización, eliminamos todo o "
-"formato, e calculamos o número de palabras."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Calculamos o tempo de lectura a partir do número de palabras, usando "
-"velocidades de lectura diferentes para cada lingua."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Usamos una fórmula de lexibilidade basada no lonxitude de palabras e frases. "
-"As palabras e frases largas teñen unha puntuación de lexibilidade peor."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Revise o nosa <a href=\"%(guide_link)s\" target=\"_blank\">guía de chequeo "
-"de contidos</a> para ter máis información de cómo se calculan as métricas."
 
 msgid "Issues found"
 msgstr "Problemas atopados"
@@ -2377,9 +2414,6 @@ msgstr "Ver accións rápidas de Wagtail"
 
 msgid "Checks"
 msgstr "Selecións"
-
-msgid "Warnings"
-msgstr "Avisos"
 
 msgid "Add a child page"
 msgstr "Engadir unha páxina filla"
@@ -2828,6 +2862,10 @@ msgstr "Os axustes da túa conta gardáronse correctamente!"
 msgid "You have been successfully logged out."
 msgstr "Fuches desconectado correctamente."
 
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Nai"
+
 msgid "Collections"
 msgstr "Coleccións"
 
@@ -2951,6 +2989,11 @@ msgstr "Gardar vai sobreescribir unha verión máis recente."
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr "O %(model_name)s non pudo ser gardado xa que está bloqueado"
+
+msgid ""
+"The workflow action could not be performed as the workflow state has changed."
+msgstr ""
+"A acción do fluxo non se pudo levar a cabo xa que cambióu o estado do fluxo."
 
 #, python-format
 msgid ""

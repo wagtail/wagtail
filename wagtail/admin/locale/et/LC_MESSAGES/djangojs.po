@@ -71,9 +71,6 @@ msgstr "Ei"
 msgid "No results"
 msgstr "Tulemused puuduvad"
 
-msgid "Page"
-msgstr "Leht"
-
 msgid "Page explorer"
 msgstr "Leheuurija"
 
@@ -94,9 +91,6 @@ msgstr "Salvesta"
 
 msgid "Search"
 msgstr "Otsing"
-
-msgid "See all"
-msgstr "Vaata kõiki"
 
 msgid "Server Error"
 msgstr "Serveri viga"

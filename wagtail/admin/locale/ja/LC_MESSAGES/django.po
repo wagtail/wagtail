@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -138,6 +138,7 @@ msgstr "検索"
 msgid "All collections"
 msgstr "全てのコレクション"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "上位階層"
 
@@ -796,6 +797,9 @@ msgstr "完了時刻"
 msgid "Breadcrumb"
 msgstr "パンくず"
 
+msgid "Description"
+msgstr "説明文"
+
 msgid "Continue"
 msgstr "続ける"
 
@@ -935,6 +939,10 @@ msgstr "パスワード"
 
 msgid "You have been successfully logged out."
 msgstr "ログアウトに成功しました。"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "上位階層"
 
 msgid "Collections"
 msgstr "各コレクション"

@@ -27,7 +27,7 @@ Validation rejects duplicate or unsupported language codes, and prevents deletin
 
 Beyond managing locales themselves, the v3 API supports translation workflows over the API:
 
-- Pages support `locale` and `translation_of` [filters](api_v3_pages), and the `copy_for_translation` [page action](api_v3_pages), with optional parent, subtree, and alias behaviour.
+- Pages support `locale` and `translation_of` [filters](api_v3_pages), and the `copy_for_translation` [page action](api_v3_pages_actions), with optional parent, subtree, and alias behaviour.
 - Snippets on a `TranslatableMixin` model support `locale` and `translation_of` [filters and a `copy_for_translation` action](api_v3_snippets).
 
 ## Locales API reference

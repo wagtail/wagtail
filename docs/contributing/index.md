@@ -6,7 +6,8 @@ Thank you for your interest in improving Wagtail!
 
 1. Read this document first.
 2. We don’t assign tasks. Feel free to pick any issue/task that isn’t already being worked on by someone else.
-3. Read the [Your first contribution guide](first_contribution_guide).
+3. **Purely AI-generated contributions are not welcome.** If you intend to use AI assistance, please read [our policy on AI-assisted contributions](use_of_generative_ai).
+4. Read the [Your first contribution guide](first_contribution_guide).
 
 ## Issues
 

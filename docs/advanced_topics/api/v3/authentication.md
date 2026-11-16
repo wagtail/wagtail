@@ -14,7 +14,7 @@ curl -H "Authorization: Bearer wagtail_…" https://example.com/api/v3/whoami/
 
 `GET /api/v3/whoami/` returns the authenticated user, profile, and groups, so you can validate a token and its level of access.
 
-## Anonymous requests and failed authentication.
+## Anonymous requests and failed authentication
 
 Public read endpoints (for example pages, images, documents, and redirects) allow both anonymous and authenticated access. On these endpoints, a missing, invalid or revoked token will be treated as an anonymous request.
 
@@ -22,7 +22,7 @@ Public read endpoints (for example pages, images, documents, and redirects) allo
 
 ### In the admin
 
-Users with the relevant permission can manage tokens under **Settings → API tokens** (shown when `wagtail.api.v3` is in `INSTALLED_APPS`). The token secret is displayed exactly once at creation, copy it somewhere safe.
+Users with the relevant permission can manage tokens under **Settings → API tokens**. The token secret is displayed exactly once at creation, copy it somewhere safe.
 
 ### On the command line
 
@@ -33,16 +33,30 @@ Users with the relevant permission can manage tokens under **Settings → API to
 The command prints the bare token, suitable for scripting:
 
 ```bash
-TOKEN=$(./manage.py api_tokens create --user=deploy --name="ci")
+TOKEN=$(./manage.py api_tokens create --user=deploybot --name="ci")
 ```
 
-Use `--json` for structured output. `./manage.py api_tokens list` shows tokens (prefix, name, owner, timestamps), and `api_tokens revoke` revokes by `--id` or by `--user` and `--prefix`.
+Other sub-commands are available:
+
+```bash
+# Show tokens (prefix, name, owner, timestamps)
+./manage.py api_tokens list
+```
+
+```bash
+# Revoke tokens by id, user, or prefix
+./manage.py api_tokens revoke --id 123
+./manage.py api_tokens revoke --user deploybot
+./manage.py api_tokens revoke --prefix wagtail_abc123
+```
+
+Use `--json` for structured output.
 
 ## Token security model
 
 - Only an HMAC-SHA-256 **digest** of each token is stored, bound to your `SECRET_KEY`. The plaintext exists only at creation time.
 - Token strings carry a `wagtail_` prefix and a checksum, so clients and secret scanners can recognize them.
-- **Rotating `SECRET_KEY`:** tokens created under a key listed in [`SECRET_KEY_FALLBACKS`](https://docs.djangoproject.com/en/stable/ref/settings/#secret-key-fallbacks) keep working until the fallback is removed. This is the same rotation mechanism as session authentication. Rotating `SECRET_KEY` without fallbacks revokes all tokens at once.
+- If you use a rotating `SECRET_KEY`, tokens created with a key listed in [`SECRET_KEY_FALLBACKS`](inv:django:std:setting#SECRET_KEY_FALLBACKS) keep working until the fallback is removed. This is the same rotation mechanism as session authentication. Rotating `SECRET_KEY` without fallbacks revokes all tokens at once.
 
 ## Token lifecycle
 
@@ -56,6 +70,6 @@ Tokens allow the same level of access as the user account they are attached to. 
 
 Token management itself is permission-gated:
 
-- Users need the `wagtailcore` `add` / `change` / `delete` permissions for API tokens (assignable via **Settings → Groups**) to manage tokens associated with their account.
+- Users need the `add` / `change` / `delete` permissions on the `wagtailcore.APIToken` model (assignable via **Settings → Groups**) to manage tokens associated with their account.
 - Managing **other users'** tokens additionally requires the user model's `change` permission, which grants access to sensitive account management features (password resets, group membership).
 - Tokens owned by superusers can only be managed by superusers.

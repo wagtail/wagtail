@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -26,6 +26,10 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumen"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format yang didukung: %(supported_formats)s."
 
 #, python-format
 msgid ""

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -176,8 +176,9 @@ msgstr "Cerca"
 msgid "All collections"
 msgstr "Tutte le raccolte"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Padre"
+msgstr "Genitore"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -1977,6 +1978,51 @@ msgstr "Attiva / disattiva breadcrumbs"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
+msgid "This data explained"
+msgstr "Spiegazione di questi dati"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Words"
+msgstr "Parole"
+
+msgid "Reading time"
+msgstr "Tempo di lettura"
+
+msgid "Readability"
+msgstr "Leggibilità"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Estraiamo il contenuto principale dall'anteprima della pagina, rimuoviamo "
+"tutta la formattazione e calcoliamo il numero di parole."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calcoliamo il tempo di lettura dal conteggio delle parole, usando velocità "
+"di lettura diverse per lingue diverse."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Usiamo una formula di leggibilità basata sulla lunghezza di parole e frasi. "
+"Frasi e parole lunghe risultano in un punteggio di leggibilità peggiore."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consulta la nostra <a href=\"%(guide_link)s\" target=\"_blank\">guida ai "
+"controlli del contenuto</a> per maggiori informazioni su come vengono "
+"calcolate le metriche del contenuto."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2137,51 +2183,6 @@ msgstr "Mostra problema"
 
 msgid "Content metrics"
 msgstr "Metriche del contenuto"
-
-msgid "Words"
-msgstr "Parole"
-
-msgid "Reading time"
-msgstr "Tempo di lettura"
-
-msgid "Readability"
-msgstr "Leggibilità"
-
-msgid "This data explained"
-msgstr "Spiegazione di questi dati"
-
-msgid "How we calculate our metrics"
-msgstr "Come calcoliamo le nostre metriche"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Estraiamo il contenuto principale dall'anteprima della pagina, rimuoviamo "
-"tutta la formattazione e calcoliamo il numero di parole."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Calcoliamo il tempo di lettura dal conteggio delle parole, usando velocità "
-"di lettura diverse per lingue diverse."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Usiamo una formula di leggibilità basata sulla lunghezza di parole e frasi. "
-"Frasi e parole lunghe risultano in un punteggio di leggibilità peggiore."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Consulta la nostra <a href=\"%(guide_link)s\" target=\"_blank\">guida ai "
-"controlli del contenuto</a> per maggiori informazioni su come vengono "
-"calcolate le metriche del contenuto."
 
 msgid "Issues found"
 msgstr "Problemi trovati"
@@ -2423,9 +2424,6 @@ msgstr "Vedi le azioni veloci di Wagtail"
 
 msgid "Checks"
 msgstr "Controlli"
-
-msgid "Warnings"
-msgstr "Avvisi"
 
 msgid "Add a child page"
 msgstr "Aggiungi pagina figlio"
@@ -2869,6 +2867,10 @@ msgstr "Le impostazioni del tuo account sono state cambiate con successo!"
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Genitore"
 
 msgid "Collections"
 msgstr "Raccolte"

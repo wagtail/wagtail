@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -126,6 +126,7 @@ msgstr "ހޯދާ"
 msgid "All collections"
 msgstr "ހުރިހާ ކަލެކްޝަންތަކެއް"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "ބެލެނިވެރިޔާއެވެ"
 
@@ -1604,9 +1605,6 @@ msgstr "ވެގްޓޭލް އަވަސް އަމަލުތައް ބަލާށެވެ"
 msgid "Checks"
 msgstr "ޗެކް ކުރެއެވެ"
 
-msgid "Warnings"
-msgstr "އިންޒާރުތައް"
-
 msgid "Add a child page"
 msgstr "ޗައިލްޑް ޕޭޖެއް އިތުރުކުރުން"
 
@@ -1844,6 +1842,10 @@ msgstr "އެކައުންޓް ސެޓިންގްސް އަށް ކާމިޔާބުކަ�
 
 msgid "You have been successfully logged out."
 msgstr "ކާމިޔާބުކަމާއެކު ލޮގްއައުޓް ވެއްޖެއެވެ."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "ބެލެނިވެރިޔާއެވެ"
 
 msgid "Collections"
 msgstr "ކަލެކްޝަންތައް"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -169,6 +169,7 @@ msgstr "Sök"
 msgid "All collections"
 msgstr "Alla samlingar"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Topp"
 
@@ -1903,6 +1904,48 @@ msgstr "Växla sökvägsnavigering"
 msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
 
+msgid "This data explained"
+msgstr "Förklaringar för denna data"
+
+msgid "Words"
+msgstr "Ord"
+
+msgid "Reading time"
+msgstr "Lästid"
+
+msgid "Readability"
+msgstr "Läsbarhet"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Vi extraherar innehållet från förhandsvisningen av sidan, tar bort all "
+"formatering, och räknar antalet ord."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Vi beräknar lästiden utifrån antal ord, med olika läshastighet för olika "
+"språk."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Vi använder en läsbarhetsformel baserad på längden på ord och meningar. "
+"Långa meningar och ord resulterar i ett sämre läsbarhetsvärde."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Se vår <a href=\"%(guide_link)s\" target=\"_blank\">guide för "
+"innehållskontroller</a> för mer information om hur mätvärdena för innehåll "
+"beräknas."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2085,51 +2128,6 @@ msgstr "Visa problem"
 
 msgid "Content metrics"
 msgstr "Mätvärden för innehåll"
-
-msgid "Words"
-msgstr "Ord"
-
-msgid "Reading time"
-msgstr "Lästid"
-
-msgid "Readability"
-msgstr "Läsbarhet"
-
-msgid "This data explained"
-msgstr "Förklaringar för denna data"
-
-msgid "How we calculate our metrics"
-msgstr "Hur vi beräknar våra mätvärden"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Vi extraherar innehållet från förhandsvisningen av sidan, tar bort all "
-"formatering, och räknar antalet ord."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Vi beräknar lästiden utifrån antal ord, med olika läshastighet för olika "
-"språk."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Vi använder en läsbarhetsformel baserad på längden på ord och meningar. "
-"Långa meningar och ord resulterar i ett sämre läsbarhetsvärde."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Se vår <a href=\"%(guide_link)s\" target=\"_blank\">guide för "
-"innehållskontroller</a> för mer information om hur mätvärdena för innehåll "
-"beräknas."
 
 msgid "Issues found"
 msgstr "Problem hittades"
@@ -2370,9 +2368,6 @@ msgstr "Se Wagtail snabbhandlingar"
 
 msgid "Checks"
 msgstr "Kontroller"
-
-msgid "Warnings"
-msgstr "Varningar"
 
 msgid "Add a child page"
 msgstr "Lägg till en undersida"
@@ -2818,6 +2813,10 @@ msgstr "Dina kontoinställningar har uppdaterats med bra resultat!"
 
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Topp"
 
 msgid "Collections"
 msgstr "Samlingar"

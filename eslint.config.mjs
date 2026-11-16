@@ -232,7 +232,6 @@ export default defineConfig(
       'client/src/components/StreamField/blocks/StructBlock.ts',
       'client/src/components/StreamField/blocks/StructBlock.test.js',
       'client/src/controllers/TagController.ts',
-      'client/src/entrypoints/admin/filtered-select.js',
       'client/src/entrypoints/admin/modal-workflow.js',
       'client/src/entrypoints/admin/page-chooser-modal.js',
       'client/src/entrypoints/admin/privacy-switch.js',

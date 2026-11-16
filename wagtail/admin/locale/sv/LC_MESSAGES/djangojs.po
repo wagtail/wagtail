@@ -180,9 +180,6 @@ msgstr "Nej"
 msgid "No results"
 msgstr "Inga resultat funna"
 
-msgid "Page"
-msgstr "Sida"
-
 msgid "Page explorer"
 msgstr "Sidutforskare"
 
@@ -231,9 +228,6 @@ msgstr "Sök"
 
 msgid "Search options…"
 msgstr "Sökalternativ …"
-
-msgid "See all"
-msgstr "Visa alla"
 
 msgid "Server Error"
 msgstr "Serverfel"

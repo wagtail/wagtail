@@ -184,9 +184,6 @@ msgstr "Ne"
 msgid "No results"
 msgstr "Ni zadetkov"
 
-msgid "Page"
-msgstr "Stran"
-
 msgid "Page explorer"
 msgstr "Raziskovalec strani"
 
@@ -234,9 +231,6 @@ msgstr "Iskanje"
 
 msgid "Search options…"
 msgstr "Možnosti iskanja..."
-
-msgid "See all"
-msgstr "Poglej vse"
 
 msgid "Server Error"
 msgstr "Napaka na strežniku"

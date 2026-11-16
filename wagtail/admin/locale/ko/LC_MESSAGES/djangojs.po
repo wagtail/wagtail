@@ -107,9 +107,6 @@ msgstr "아니오"
 msgid "No results"
 msgstr "결과 없음"
 
-msgid "Page"
-msgstr "페이지"
-
 msgid "Page explorer"
 msgstr "페이지 탐색"
 
@@ -153,9 +150,6 @@ msgstr "저장 중..."
 
 msgid "Search"
 msgstr "검색"
-
-msgid "See all"
-msgstr "모두 보기"
 
 msgid "Server Error"
 msgstr "서버 오류"

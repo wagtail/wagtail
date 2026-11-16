@@ -2,10 +2,10 @@
 
 # Images
 
-The v3 API has wide "read" and "write" support for images. You can list, read, upload, update metadata for, and delete images, with the same collection permissions, validation, and behaviour as the admin.
+The v3 API has wide "read" and "write" support for images. You can list, read, upload, update metadata for, and delete images, with the same collection permissions, validation, and behavior as the admin.
 
 ```{note}
-Image reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behaviour below.
+Image reads are public by default; uploads, metadata updates, and deletes always require an authenticated request from an account with the relevant permissions. See [](api_v3_authentication) and the collection behavior below.
 ```
 
 ## Reading images
@@ -16,7 +16,7 @@ Both endpoints are public for anonymous requests, but an image whose collection 
 
 ### Listing and filtering
 
-The images list supports pagination with `?limit` / `?offset` (see [](api_v3)). You can filter on the image's own fields (`title`, `width`, `height`, plus any `api_fields` the project declares) as exact-match query parameters, order the results, and run full-text search:
+The images list supports pagination with `?limit` / `?offset` (see [](api_v3_pagination)). You can filter on the image's own fields (`title`, `width`, `height`, plus any `api_fields` the project declares) as exact-match query parameters, order the results, and run full-text search:
 
 ```sh
 # Images titled "hero", newest first (highest id)
@@ -60,7 +60,7 @@ The `/images/{id}/` endpoint deletes an image. It requires an authenticated requ
 
 ## Custom image models
 
-The API supports custom models set via `WAGTAILIMAGES_IMAGE_MODEL` (see [](custom_image_model))
+The API supports custom models set via `WAGTAILIMAGES_IMAGE_MODEL` (see [](custom_image_model)).
 
 ## Image renditions
 

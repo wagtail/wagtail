@@ -122,9 +122,6 @@ msgstr "否"
 msgid "No results"
 msgstr "没有结果"
 
-msgid "Page"
-msgstr "页面"
-
 msgid "Page explorer"
 msgstr "页面管理"
 
@@ -171,9 +168,6 @@ msgstr "搜索"
 
 msgid "Search options…"
 msgstr "搜索项…"
-
-msgid "See all"
-msgstr "查看全部"
 
 msgid "Server Error"
 msgstr "服务器错误"

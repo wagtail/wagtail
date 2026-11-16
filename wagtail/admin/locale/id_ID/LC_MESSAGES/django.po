@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Imanu Wardi, 2026\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -141,6 +141,7 @@ msgstr "Pencarian"
 msgid "All collections"
 msgstr "Semua koleksi"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Induk"
 
@@ -736,6 +737,10 @@ msgstr "Kata Kunci"
 
 msgid "You have been successfully logged out."
 msgstr "Anda berhasil keluar."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Induk"
 
 msgid "Collections"
 msgstr "Koleksi-koleksi"

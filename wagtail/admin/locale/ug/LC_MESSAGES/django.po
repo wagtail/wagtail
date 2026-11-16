@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -158,6 +158,7 @@ msgstr "ئىزدە"
 msgid "All collections"
 msgstr "ھەممە توپلام"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "ئانا تۈر"
 
@@ -1856,6 +1857,18 @@ msgstr "بەلگە ئىزىنى ئالماشتۇر"
 msgid "Breadcrumb"
 msgstr "بەلگە ئىزى"
 
+msgid "This data explained"
+msgstr "بۇ سانلىق مەلۇمات چۈشەندۈرۈلگەن"
+
+msgid "Words"
+msgstr "سۆز"
+
+msgid "Reading time"
+msgstr "ئوقۇش ۋاقتى"
+
+msgid "Readability"
+msgstr "ئوقۇشچانلىقى"
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2011,21 +2024,6 @@ msgstr "مەسىلىنى كۆرسەت"
 
 msgid "Content metrics"
 msgstr "نۆۋەتتىكى ئۆلچەم"
-
-msgid "Words"
-msgstr "سۆز"
-
-msgid "Reading time"
-msgstr "ئوقۇش ۋاقتى"
-
-msgid "Readability"
-msgstr "ئوقۇشچانلىقى"
-
-msgid "This data explained"
-msgstr "بۇ سانلىق مەلۇمات چۈشەندۈرۈلگەن"
-
-msgid "How we calculate our metrics"
-msgstr "ئۆلچىمىمىزنى قانداق ھېسابلايمىز"
 
 msgid "Issues found"
 msgstr "تېپىلغان مەسىلە"
@@ -2261,9 +2259,6 @@ msgstr "Wagtail تېز مەشغۇلاتىنى كۆرسىتىدۇ"
 
 msgid "Checks"
 msgstr "\"تەكشۈرۈش"
-
-msgid "Warnings"
-msgstr "ئاگاھلاندۇرۇش"
 
 msgid "Add a child page"
 msgstr "بالا بەت قوش"
@@ -2700,6 +2695,10 @@ msgstr "ھېسابات تەڭشىكىڭىز مۇۋەپپەقىيەتلىك ئۆ�
 
 msgid "You have been successfully logged out."
 msgstr "مۇۋەپپەقىيەتلىك تىزىمدىن چىقتىڭىز."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "ئانا تۈر"
 
 msgid "Collections"
 msgstr "توپلام"

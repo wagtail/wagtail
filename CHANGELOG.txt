@@ -4,10 +4,24 @@ Changelog
 8.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Display translated text in the "Home" and "Snippets" breadcrumb items for snippet views (Shi Yao Wang)
+ * Fix: Exclude the triggering user from workflow submission emails (Jeonghun Mun)
+ * Fix: Require POST requests for XLSX/CSV export endpoints (Matt Westcott, Sage Abdullah)
+ * Docs: Add guidelines on bug reports found through automated scanning (Matt Westcott)
  * Maintenance: Ignore `cached_property` deprecation in project template tests on Django 6.2+ (Sage Abdullah)
+ * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
+ * Maintenance: Migrate `FilteredSelect` widget from jQuery to Stimulus `RulesController` (`w-rules`) (LB (Ben) Johnston)
+ * Maintenance: Remove unused `user_can_edit_snippet_type` helper (Vignesh Komma)
+ * Maintenance: Fix tests for compatibility with soupsieve 4.x (Matt Westcott)
 
 
-8.1 (xx.xx.xxxx) - IN DEVELOPMENT
+8.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent `published` / `page_published` signals and alias updates when scheduling a revision for future publishing (Benedict Jackson, Émile Nadeau)
+
+
+8.1 (02.11.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add page metadata (title, description and meta tags) to the content checks panel and userbar Checks dialog, with the userbar dialog now matching the page editor's Checks panel (Thibaud Colas)
@@ -52,10 +66,12 @@ Changelog
  * Fix: Improved handling of ForeignKey schema generation for multi-level relations, multi-table inheritance, and self-references (Sage Abdullah)
  * Fix: Remove duplicates of discriminated union schemas for page models and snippets in API v3
  * Fix: Respect page tree ordering in listings endpoint by default (Sage Abdullah)
+ * Fix: Use credentials configured in the `MAILERS` setting on Django 6.1 when sending form submission emails (Maarten Ureel)
  * Docs: Fix broken links to Cloudflare and Handsontable documentation (Roshan Ramani)
  * Docs: Update generative AI policy to require pull request descriptions to be human-written (Matt Westcott)
  * Docs: Fix documentation for `wagtail_update_image_renditions` command to correctly describe behaviour around purging of renditions (Saksham Chawla)
  * Docs: Document how to cache the sitemap (Albina Starykova)
+ * Docs: Add signpost to generative AI policy in contributing guidelines and issue templates (Matt Westcott)
  * Maintenance: Drop support for Python 3.10
  * Maintenance: Remove obsolete use of `USE_L10N` setting (DresdenGman)
  * Maintenance: Squash testapp migrations (Sage Abdullah)
@@ -66,6 +82,7 @@ Changelog
  * Maintenance: Ensure 'parent' can be translated correctly in different contexts (Storm Heg)
  * Maintenance: Update project template to use Django 6.1's `MAILERS` setting (Sage Abdullah)
  * Maintenance: Add soft deprecation notice for Wagtail API v2 (Sage Abdullah)
+ * Maintenance: Use `MAILERS` on Django 6.1+ when sending emails to avoid deprecation warnings (Sage Abdullah)
 
 
 8.0.1 (20.10.2026)
@@ -146,6 +163,11 @@ Changelog
  * Maintenance: Update guide.wagtail.org links to new versioning scheme (Raghad Dahi)
  * Maintenance: Format Python code in documentation using ruff (Thibaud Colas)
  * Maintenance: Use Ubuntu 26.04 ARM runner for GitHub Actions workflows (Storm Heg)
+
+7.4.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent `published` / `page_published` signals and alias updates when scheduling a revision for future publishing (Benedict Jackson, Émile Nadeau)
 
 7.4.4 (20.10.2026)
 ~~~~~~~~~~~~~~~~~~

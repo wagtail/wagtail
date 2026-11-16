@@ -479,7 +479,7 @@ class TestPreview(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link["href"], admin_url)
 
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [

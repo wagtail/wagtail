@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -135,8 +135,9 @@ msgstr "Hledat"
 msgid "All collections"
 msgstr "Všechny kolekce"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Nadřazená stránka"
+msgstr "Nadřazený objekt"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -1158,9 +1159,6 @@ msgstr "Přeskočit na hlavní obsah"
 msgid "Sort"
 msgstr "Třídění"
 
-msgid "Warnings"
-msgstr "Varování"
-
 msgid "Add a child page"
 msgstr "Přidat podstránku"
 
@@ -1384,6 +1382,10 @@ msgstr "Nastavení vašeho účtu byla úspěšně změněna."
 
 msgid "You have been successfully logged out."
 msgstr "Právě jste se úspěšně odhlásili."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Nadřazený objekt"
 
 msgid "Collections"
 msgstr "Kolekce"

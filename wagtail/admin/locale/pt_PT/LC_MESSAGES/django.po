@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -145,6 +145,7 @@ msgstr "Pesquisar"
 msgid "All collections"
 msgstr "Todas as coleções"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Mãe"
 
@@ -1293,6 +1294,9 @@ msgstr "Completado a"
 msgid "Breadcrumb"
 msgstr "Percurso"
 
+msgid "Description"
+msgstr "Descrição"
+
 msgid "Continue"
 msgstr "Continuar"
 
@@ -1643,6 +1647,10 @@ msgstr "As configurações da sua conta foram alteradas com sucesso!"
 
 msgid "You have been successfully logged out."
 msgstr "A sua sessão foi terminada com sucesso."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Mãe"
 
 msgid "Collections"
 msgstr "Coleções"

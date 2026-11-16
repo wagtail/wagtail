@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -94,6 +94,7 @@ msgstr "Hľadať"
 msgid "All collections"
 msgstr "Všetky kolekcie"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Rodič"
 
@@ -624,6 +625,10 @@ msgstr "Heslo"
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Rodič"
 
 msgid "Collections"
 msgstr "Kolekcie"

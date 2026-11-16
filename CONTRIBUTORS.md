@@ -1022,6 +1022,12 @@
 * Dexx-tech
 * Roee Sivan
 * Beth Parnell
+* Naman Khandelwal
+* Maarten Ureel
+* Shi Yao Wang
+* Benedict Jackson
+* Émile Nadeau
+* Jeonghun Mun
 
 ## Translators
 

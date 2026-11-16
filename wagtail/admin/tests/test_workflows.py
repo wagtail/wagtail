@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import get_messages
 from django.core import mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail.backends.locmem import EmailBackend
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
@@ -21,6 +21,7 @@ from wagtail.admin.mail import (
     BaseWorkflowStateEmailNotifier,
     WorkflowStateApprovalEmailNotifier,
     WorkflowStateRejectionEmailNotifier,
+    WorkflowStateSubmissionEmailNotifier,
 )
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.utils import (
@@ -2209,7 +2210,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.test_submit_sends_mail_without_base_url()
 
     @mock.patch.object(
-        EmailMultiAlternatives, "send", side_effect=IOError("Server down")
+        EmailBackend, "send_messages", side_effect=IOError("Server down")
     )
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
@@ -2218,6 +2219,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
+        mock_fn.assert_called()
         self.assertEqual(response.status_code, 302)
         self.client.get(reverse("wagtailadmin_home"))
 
@@ -3332,6 +3334,9 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def get(self, url, params=None):
         return self.client.get(url, params)
 
+    def post_report(self, url, params=None):
+        return self.client.post(url, query_params=params)
+
     def setup_workflow_and_tasks(self):
         self.workflow = Workflow.objects.create(name="test_workflow")
         self.task_1 = GroupApprovalTask.objects.create(name="test_task_1")
@@ -3363,9 +3368,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3383,9 +3387,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             response.content,
         )
         soup = self.get_soup(response.content)
-        by_task_link = soup.select_one(
-            f"{self.header_buttons_parent_selector} .w-header-button"
-        )
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        by_task_link = header_buttons_parent.select_one(".w-header-button")
         self.assertIsNotNone(by_task_link)
         self.assertEqual(
             by_task_link.get("href"),
@@ -3407,12 +3410,13 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("data-w-action-url-value") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3425,9 +3429,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
@@ -3444,12 +3447,13 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         soup = self.get_soup(response.content)
-        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        header_buttons_parent = soup.select_one(self.header_buttons_parent_selector)
+        links = header_buttons_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.workflow_tasks_url_name)
         filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("data-w-action-url-value") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -3462,9 +3466,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
-        inputs = soup.select(
-            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        inputs = drilldown.select("input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
         self.assertEqual(inputs[0].get("value"), "")
         self.assertIsNone(inputs[0].get("checked"))
@@ -3489,7 +3492,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def test_workflow_report_export(self):
         for export_format in self.export_formats:
             with self.subTest(export_format=export_format):
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"export": export_format},
                 )
@@ -3500,7 +3503,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"export": export_format},
                 )
@@ -3513,7 +3516,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             with self.subTest(export_format=export_format):
                 # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
                 self.login(self.moderator)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3524,7 +3527,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3534,7 +3537,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
 
                 # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
                 self.login(self.submitter)
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -3544,7 +3547,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertNotIn("submitter", content)
                 self.assertNotIn("2020-03-31", content)
 
-                response = self.get(
+                response = self.post_report(
                     reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
@@ -5008,6 +5011,20 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                     notifier.get_recipient_users(workflow_state, user=self.submitter),
                     set(),
                 )
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
+    def test_workflowstate_submission_email_notifier_excludes_triggering_superuser(
+        self,
+    ):
+        self.workflow.start(self.object, user=self.superuser)
+        workflow_state = self.object.current_workflow_state
+        notifier = WorkflowStateSubmissionEmailNotifier()
+
+        self.assertIn(self.superuser, notifier.get_recipient_users(workflow_state))
+        self.assertNotIn(
+            self.superuser,
+            notifier.get_recipient_users(workflow_state, user=self.superuser),
+        )
 
     @mock.patch("wagtail.admin.mail.BaseWorkflowStateEmailNotifier.get_recipient_users")
     def test_base_workflowstate_email_notifier_get_valid_recipients(

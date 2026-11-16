@@ -76,9 +76,6 @@ msgstr "حرکت به بالا"
 msgid "No results"
 msgstr "بدون نتیجه"
 
-msgid "Page"
-msgstr "صفحه"
-
 msgid "Page explorer"
 msgstr "کاوشگر صفحه"
 
@@ -102,9 +99,6 @@ msgstr "درحال ذخیره..."
 
 msgid "Search"
 msgstr "جستجو"
-
-msgid "See all"
-msgstr "نمایش همه"
 
 msgid "Server Error"
 msgstr "خطای سرور"

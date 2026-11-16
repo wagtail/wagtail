@@ -18,9 +18,6 @@ msgstr "წაშლა"
 msgid "Edit"
 msgstr "რედაქტირება"
 
-msgid "Page"
-msgstr "გვერდი"
-
 msgid "Save"
 msgstr "შენახვა"
 

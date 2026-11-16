@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -162,6 +162,7 @@ msgstr "Cercar"
 msgid "All collections"
 msgstr "Totes les col·leccions"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Pare"
 
@@ -1924,6 +1925,49 @@ msgstr "Commutar rutes de navegació"
 msgid "Breadcrumb"
 msgstr "Ruta de navegació"
 
+msgid "This data explained"
+msgstr "Aquestes dades explicaven"
+
+msgid "Words"
+msgstr "Paraules"
+
+msgid "Reading time"
+msgstr "Temps de lectura"
+
+msgid "Readability"
+msgstr "Llegibilitat"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Extraiem el contingut principal de la vista prèvia de la pàgina, eliminem "
+"tot el format i calculem el nombre de paraules."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calculem el temps de lectura a partir del recompte de paraules, utilitzant "
+"diferents velocitats de lectura per a diferents idiomes."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Fem servir una fórmula de llegibilitat basada en la longitud de les paraules "
+"i les frases. Les frases i les paraules llargues donen lloc a una pitjor "
+"puntuació de llegibilitat."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consulteu la nostra <a href=\"%(guide_link)s\" target=\"_blank\">guia de "
+"comprovació de contingut</a> sobre com es calculen les mètriques de "
+"contingut."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2108,52 +2152,6 @@ msgstr "Mostra incidència"
 
 msgid "Content metrics"
 msgstr "Mètriques de contingut"
-
-msgid "Words"
-msgstr "Paraules"
-
-msgid "Reading time"
-msgstr "Temps de lectura"
-
-msgid "Readability"
-msgstr "Llegibilitat"
-
-msgid "This data explained"
-msgstr "Aquestes dades explicaven"
-
-msgid "How we calculate our metrics"
-msgstr "Com calculem les nostres mètriques"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Extraiem el contingut principal de la vista prèvia de la pàgina, eliminem "
-"tot el format i calculem el nombre de paraules."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Calculem el temps de lectura a partir del recompte de paraules, utilitzant "
-"diferents velocitats de lectura per a diferents idiomes."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Fem servir una fórmula de llegibilitat basada en la longitud de les paraules "
-"i les frases. Les frases i les paraules llargues donen lloc a una pitjor "
-"puntuació de llegibilitat."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"Consulteu la nostra <a href=\"%(guide_link)s\" target=\"_blank\">guia de "
-"comprovació de contingut</a> sobre com es calculen les mètriques de "
-"contingut."
 
 msgid "Issues found"
 msgstr "Incidències trobades"
@@ -2395,9 +2393,6 @@ msgstr "Veure accions ràpides de Wagtail"
 
 msgid "Checks"
 msgstr "Marques"
-
-msgid "Warnings"
-msgstr "Advertències"
 
 msgid "Add a child page"
 msgstr "Afegir una pàgina filla"
@@ -2843,6 +2838,10 @@ msgstr "La configuració del vostre compte s'ha canviat correctament!"
 
 msgid "You have been successfully logged out."
 msgstr "Heu finalitzat la sessió."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Pare"
 
 msgid "Collections"
 msgstr "Col·leccions"

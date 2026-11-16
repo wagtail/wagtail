@@ -160,9 +160,14 @@ class SpreadsheetExportMixin:
 
     export_filename = "spreadsheet-export"
 
+    # If true, exports can only be performed through a POST request
+    export_requires_post = False
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.is_export = request.GET.get("export") in self.FORMATS
+        if self.is_export and self.export_requires_post and request.method != "POST":
+            self.is_export = False
 
     def get_paginate_by(self, queryset):
         if self.is_export:
@@ -302,6 +307,11 @@ class SpreadsheetExportMixin:
         params["export"] = format
         return self.request.path + "?" + params.urlencode()
 
+    def get_non_export_url(self):
+        params = self.request.GET.copy()
+        params.pop("export", None)
+        return self.request.path + "?" + params.urlencode()
+
     @property
     def xlsx_export_url(self):
         return self.get_export_url("xlsx")
@@ -314,6 +324,17 @@ class SpreadsheetExportMixin:
     def show_export_buttons(self):
         return bool(self.list_export)
 
+    def get_export_button_kwargs(self, url):
+        if not self.export_requires_post:
+            return {"url": url}
+        return {
+            "attrs": {
+                "data-controller": "w-action",
+                "data-action": "w-action#post",
+                "data-w-action-url-value": url,
+            }
+        }
+
     @cached_property
     def header_more_buttons(self):
         buttons = super().header_more_buttons.copy()
@@ -321,17 +342,17 @@ class SpreadsheetExportMixin:
             buttons.append(
                 Button(
                     _("Download XLSX"),
-                    url=self.xlsx_export_url,
                     icon_name="download",
                     priority=90,
+                    **self.get_export_button_kwargs(self.xlsx_export_url),
                 )
             )
             buttons.append(
                 Button(
                     _("Download CSV"),
-                    url=self.csv_export_url,
                     icon_name="download",
                     priority=100,
+                    **self.get_export_button_kwargs(self.csv_export_url),
                 )
             )
 

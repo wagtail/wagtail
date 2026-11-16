@@ -18,9 +18,6 @@ msgstr "ဖျက်သိမ်းပါ"
 msgid "Edit"
 msgstr "ပြင်ဆင်ပါ"
 
-msgid "Page"
-msgstr "စာမျက်နှာ"
-
 msgid "Pages"
 msgstr "စာမျက်နှာများ"
 

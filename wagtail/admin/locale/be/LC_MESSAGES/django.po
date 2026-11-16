@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -126,6 +126,7 @@ msgstr "Пошук"
 msgid "All collections"
 msgstr "Усе калекцыі"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Бацькоўскі элемент"
 
@@ -883,6 +884,10 @@ msgstr "Пароль"
 
 msgid "You have been successfully logged out."
 msgstr "Вы паспяхова выйшлі"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Бацькоўскі элемент"
 
 msgid "Collections"
 msgstr "Калекцыі"

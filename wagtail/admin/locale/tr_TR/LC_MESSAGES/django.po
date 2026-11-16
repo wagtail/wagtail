@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -113,8 +113,9 @@ msgstr "Ara"
 msgid "All collections"
 msgstr "Tüm koleksiyonlar"
 
+msgctxt "choose parent collection"
 msgid "Parent"
-msgstr "Üst-Ebeveyn"
+msgstr "Üst sayfa"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
@@ -649,6 +650,9 @@ msgstr "Bu elemanı düzenle"
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
+msgid "Description"
+msgstr "Açıklama"
+
 msgid "Continue"
 msgstr "Devam et"
 
@@ -776,6 +780,10 @@ msgstr "Parola"
 
 msgid "You have been successfully logged out."
 msgstr "Başarılı bir şekilde çıkış yaptınız."
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Üst sayfa"
 
 msgid "Collections"
 msgstr "Koleksiyonlar"

@@ -97,9 +97,6 @@ msgstr "Ne"
 msgid "No results"
 msgstr "Nema rezultata"
 
-msgid "Page"
-msgstr "Stranica"
-
 msgid "Page explorer"
 msgstr "Pretraživač stranica"
 

@@ -71,9 +71,6 @@ msgstr "Flytt opp"
 msgid "No results"
 msgstr "Ingen resultater"
 
-msgid "Page"
-msgstr "Side"
-
 msgid "Page explorer"
 msgstr "Sideutforsker"
 
@@ -104,9 +101,6 @@ msgstr "Lagrer..."
 
 msgid "Search"
 msgstr "Søk"
-
-msgid "See all"
-msgstr "Se alle"
 
 msgid "Server Error"
 msgstr "Serverfeil"

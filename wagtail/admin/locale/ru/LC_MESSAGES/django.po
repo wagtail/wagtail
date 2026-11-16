@@ -49,7 +49,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -200,6 +200,7 @@ msgstr "Поиск"
 msgid "All collections"
 msgstr "Все коллекции"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Родительский элемент"
 
@@ -2052,6 +2053,51 @@ msgstr "Переключить хлебные крошки"
 msgid "Breadcrumb"
 msgstr "Путь по сайту"
 
+msgid "This data explained"
+msgstr "Эти данные объясняют"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Words"
+msgstr "Слова"
+
+msgid "Reading time"
+msgstr "Время чтения"
+
+msgid "Readability"
+msgstr "Читабельность"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Мы извлекаем основной контент из предварительного просмотра страницы, "
+"удаляем все форматирование и подсчитываем количество слов."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Мы рассчитываем время чтения по количеству слов, используя разную скорость "
+"чтения для различных языков."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Мы используем формулу читабельности, основанную на длине слов и предложений. "
+"Длинные предложения и слова приводят к ухудшению показателя читабельности."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"См. наше <a href=\"%(guide_link)s\" target=\"_blank\">руководство по "
+"проверке контента</a> для получения дополнительной информации о том, как "
+"рассчитываются метрики контента."
+
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
 msgid_plural ""
@@ -2213,51 +2259,6 @@ msgstr "Показать проблему"
 
 msgid "Content metrics"
 msgstr "Метрики контента"
-
-msgid "Words"
-msgstr "Слова"
-
-msgid "Reading time"
-msgstr "Время чтения"
-
-msgid "Readability"
-msgstr "Читабельность"
-
-msgid "This data explained"
-msgstr "Эти данные объясняют"
-
-msgid "How we calculate our metrics"
-msgstr "Как мы рассчитываем наши метрики"
-
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-"Мы извлекаем основной контент из предварительного просмотра страницы, "
-"удаляем все форматирование и подсчитываем количество слов."
-
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-"Мы рассчитываем время чтения по количеству слов, используя разную скорость "
-"чтения для различных языков."
-
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-"Мы используем формулу читабельности, основанную на длине слов и предложений. "
-"Длинные предложения и слова приводят к ухудшению показателя читабельности."
-
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-"См. наше <a href=\"%(guide_link)s\" target=\"_blank\">руководство по "
-"проверке контента</a> для получения дополнительной информации о том, как "
-"рассчитываются метрики контента."
 
 msgid "Issues found"
 msgstr "Найдены проблемы"
@@ -2501,9 +2502,6 @@ msgstr "Просмотр быстрых действий"
 
 msgid "Checks"
 msgstr "Проверки "
-
-msgid "Warnings"
-msgstr "Предупреждения"
 
 msgid "Add a child page"
 msgstr "Добавить дочернюю страницу"
@@ -2952,6 +2950,10 @@ msgstr "Настройки вашей учетной записи были ус�
 
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Родительский элемент"
 
 msgid "Collections"
 msgstr "Коллекции"

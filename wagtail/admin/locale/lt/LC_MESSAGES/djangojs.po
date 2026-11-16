@@ -92,9 +92,6 @@ msgstr "Perkelti aukštyn"
 msgid "No results"
 msgstr "Nėra rezultatų"
 
-msgid "Page"
-msgstr "Puslapis"
-
 msgid "Page explorer"
 msgstr "Puslapių naršyklė"
 
@@ -130,9 +127,6 @@ msgstr "Saugojama..."
 
 msgid "Search"
 msgstr "Ieškoti"
-
-msgid "See all"
-msgstr "Žiūrėti viską"
 
 msgid "Server Error"
 msgstr "Serverio klaida"

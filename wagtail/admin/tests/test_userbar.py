@@ -60,8 +60,9 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
         soup = self.get_soup(content)
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
 
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = userbar_template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
@@ -136,8 +137,9 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         # Should render the "Go to Wagtail admin" link using an absolute URL
         soup = self.get_soup(content)
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
         admin_url = reverse("wagtailadmin_home")
-        admin_link = soup.select_one(f"a[href='//localhost{admin_url}']")
+        admin_link = userbar_template.select_one(f"a[href='//localhost{admin_url}']")
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
@@ -153,14 +155,15 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
         soup = self.get_soup(content)
+        userbar = soup.select_one("template#wagtail-userbar-template")
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='//localhost{edit_url}']")
+        edit_link = userbar.select_one(f"a[href='//localhost{edit_url}']")
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
+        explore_link = userbar.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -178,14 +181,15 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
         soup = self.get_soup(content)
+        userbar = soup.select_one("template#wagtail-userbar-template")
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='//localhost{edit_url}']")
+        edit_link = userbar.select_one(f"a[href='//localhost{edit_url}']")
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
+        explore_link = userbar.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -211,8 +215,9 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         # The explore link should still be visible
         soup = self.get_soup(content)
+        userbar = soup.select_one("template#wagtail-userbar-template")
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='//localhost{explore_url}']")
+        explore_link = userbar.select_one(f"a[href='//localhost{explore_url}']")
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -230,7 +235,8 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(content)
-        aside = soup.find("aside")
+        userbar = soup.select_one("template#wagtail-userbar-template")
+        aside = userbar.find("aside")
         self.assertIsNotNone(aside)
         self.assertIn("hidden", aside.attrs)
         self.assertEqual(aside.get("aria-labelledby"), "wagtail-userbar-trigger")
@@ -271,15 +277,20 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
 
     def test_position(self):
         content = self.get_content(position="top-left")
+        userbar = content.select_one("template#wagtail-userbar-template")
         # The element with the data-wagtail-userbar attribute should have the
         # right CSS class (w-userbar--top-left) for the positioning
-        target = content.select_one("aside [data-wagtail-userbar]")
+        target = userbar.select_one("aside [data-wagtail-userbar]")
         self.assertIsNotNone(target)
         self.assertIn("w-userbar--top-left", target.get("class"))
 
         # The checker results dialog should be teleported to the
         # [data-wagtail-userbar] element so that it is positioned correctly
-        dialog_content = content.select_one("#checker-results")
+        dialog_content = self.select_in_template(
+            userbar,
+            "#checker-results",
+            template_selector='template[data-controller="w-teleport"][data-w-teleport-target-value="[data-wagtail-userbar]"]',
+        )
         self.assertIsNotNone(dialog_content)
         template = dialog_content.parent
         self.assertIsNotNone(template)
@@ -333,24 +344,22 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
         self.assertIn("data-metadata-section", html)
         self.assertIn("data-metadata-tags-disclosure", html)
 
+        userbar = content.select_one("template#wagtail-userbar-template")
         # The dialog is titled "Checks"
-        dialog = content.select_one("#checker-results")
-        self.assertIsNotNone(dialog)
-        title = dialog.get("aria-label") or ""
-        heading = dialog.select_one("[data-dialog-title], h2, h3")
-        labels = " ".join(
-            [
-                title,
-                heading.get_text() if heading else "",
-                str(dialog.get("class", [])),
-            ]
+        dialog = self.select_in_template(
+            userbar,
+            "#checker-results",
+            template_selector='template[data-controller="w-teleport"][data-w-teleport-target-value="[data-wagtail-userbar]"]',
         )
-        self.assertIn("Checks", labels)
+        self.assertIsNotNone(dialog)
+
+        heading = dialog.select_one("#title-text-checker-results")
+        self.assertEqual(heading.string, "Checks")
 
         # Icons used by the shared partials must ship in the userbar's sprite
         for icon_name in ("icon-help", "icon-placeholder"):
             self.assertIsNotNone(
-                content.select_one(f"svg#{icon_name}"),
+                userbar.select_one(f"svg#{icon_name}"),
                 f"{icon_name} is missing from the userbar icon sprite",
             )
 
@@ -814,8 +823,9 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.request.user = AnonymousUser()
         rendered = Userbar().render_html({"request": self.request})
         soup = self.get_soup(rendered)
+        userbar = soup.select_one("template#wagtail-userbar-template")
 
-        items = soup.select("li")
+        items = userbar.select("li")
         self.assertEqual(len(items), 2)
 
         admin_url = f"//localhost{reverse('wagtailadmin_home')}"
@@ -839,12 +849,13 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         # Without a request provided, URLs should fall back to the
         # WAGTAILADMIN_BASE_URL setting
         base_url = "http://testserver"
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
 
-        userbar = soup.select_one("[data-wagtail-userbar]")
+        userbar = userbar_template.select_one("[data-wagtail-userbar]")
         self.assertIsNotNone(userbar)
         self.assertEqual(userbar.get("data-wagtail-userbar-origin"), base_url)
 
-        items = soup.select("li")
+        items = userbar_template.select("li")
         self.assertEqual(len(items), 2)
 
         admin_url = f"{base_url}{reverse('wagtailadmin_home')}"
@@ -862,7 +873,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             "Checks",
         )
 
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = userbar_template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
@@ -890,13 +901,14 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
     def test_render_minimal(self):
         rendered = Userbar().render_html({"request": self.request})
         soup = self.get_soup(rendered)
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
 
-        userbar = soup.select_one("[data-wagtail-userbar]")
+        userbar = userbar_template.select_one("[data-wagtail-userbar]")
         self.assertIsNotNone(userbar)
         # The origin should be based on the request's scheme and host information
         self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "//localhost")
 
-        items = soup.select("li")
+        items = userbar_template.select("li")
         self.assertEqual(len(items), 2)
 
         admin_url = f"//localhost{reverse('wagtailadmin_home')}"
@@ -919,8 +931,9 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
         )
         soup = self.get_soup(rendered)
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
 
-        links = soup.select("#wagtail-userbar-items > li > a")
+        links = userbar_template.select("#wagtail-userbar-items > li > a")
         expected_urls = [
             reverse("wagtailadmin_home"),
             reverse("wagtailadmin_explore", args=(self.parent_page.id,)),
@@ -933,7 +946,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             [f"//localhost{url}" for url in expected_urls],
         )
 
-        checker_button = soup.select_one("li button")
+        checker_button = userbar_template.select_one("li button")
         self.assertIsNotNone(checker_button)
         self.assertEqual(
             checker_button.get_text(separator=" | ", strip=True).strip(),
@@ -944,14 +957,15 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
     def test_render_without_request_and_admin_base_url_setting(self):
         rendered = Userbar().render_html({})
         soup = self.get_soup(rendered)
+        userbar_template = soup.select_one("template#wagtail-userbar-template")
 
-        userbar = soup.select_one("[data-wagtail-userbar]")
+        userbar = userbar_template.select_one("[data-wagtail-userbar]")
         self.assertIsNotNone(userbar)
         # Default to an empty string instead of rendering None,
         # so the JS code can provide the fallback
         self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "")
 
-        items = soup.select("li")
+        items = userbar_template.select("li")
         self.assertEqual(len(items), 2)
 
         # Becomes the root-relative URL since no request is provided
@@ -971,7 +985,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             "Checks",
         )
 
-        css_links = soup.select("link[rel='stylesheet']")
+        css_links = userbar_template.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
@@ -1007,7 +1021,8 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             )
             soup = self.get_soup(rendered)
 
-        self.assertIsNotNone(soup.css.select_one("a[href='#test-item']"))
+        userbar = soup.select_one("template#wagtail-userbar-template")
+        self.assertIsNotNone(userbar.select_one("a[href='#test-item']"))
 
     def test_component_item_with_media(self):
         class ItemWithMedia(Component):
@@ -1027,5 +1042,6 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             )
             soup = self.get_soup(rendered)
 
+        userbar = soup.select_one("template#wagtail-userbar-template")
         self.assertIsNotNone(soup.css.select_one('script[src$="custom-item.js"]'))
-        self.assertIsNotNone(soup.css.select_one('link[href$="custom-item.css"]'))
+        self.assertIsNotNone(userbar.select_one('link[href$="custom-item.css"]'))

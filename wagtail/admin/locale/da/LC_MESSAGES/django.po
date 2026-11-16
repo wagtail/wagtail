@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -105,6 +105,7 @@ msgstr "Søge term"
 msgid "Search"
 msgstr "Søg"
 
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr "Forældre"
 
@@ -570,6 +571,10 @@ msgstr "Fed"
 
 msgid "Italic"
 msgstr "Skråskrift"
+
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr "Forældre"
 
 msgid "Home"
 msgstr "Hjem"

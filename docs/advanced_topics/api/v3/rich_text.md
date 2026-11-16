@@ -15,7 +15,7 @@ Rich text fields use the `?rich_text_format=` query parameter, which supports th
 
 ## Input formats
 
-On writes, a top-level page rich text field value accepts either a plain string (database HTML, sanitised against the field's declared features) or an envelope object:
+On writes, a rich text field value (including a `RichTextBlock` value in a StreamField) accepts either a plain string (database HTML) or an envelope object:
 
 ```json
 "body": {"format": "db_markdown", "content": "# Title\n\n[about](wagtail://page?id=3)"}
@@ -24,12 +24,23 @@ On writes, a top-level page rich text field value accepts either a plain string 
 Supported input formats:
 
 - `db_html`: database HTML (the default when `format` is omitted).
-- `db_markdown`: Markdown using the `wagtail://` reference syntax described below.
+- `db_markdown`: Markdown using the `wagtail://` reference syntax.
 
-Markdown input is converted and sanitized for storage as database HTML.
+Input is sanitized against the field's or block's features. Elements that are removed or unwrapped as a result are reported in the response's `meta.warnings`, for example:
 
-```{note}
-These string and envelope input formats are guaranteed for top-level page rich text fields. Rich text fields on other models (for example snippets) do not currently share the same input conversion path, so treat string and envelope input there as unsupported.
+```json
+"meta": {
+  "type": "...",
+  "warnings": [
+    {
+      "tag": "h2",
+      "action": "unwrapped",
+      "reason": "feature_disabled",
+      "attribute": null,
+      "detail": "<h2>T</h2>"
+    }
+  ]
+}
 ```
 
-Sanitization removes content that is not allowed by the field's features, and these removals are not reported back to the caller: a response can silently contain less than what was submitted.
+The `reason` value is one of `feature_disabled`, `unknown_linktype`, `unknown_embedtype` or `missing_attribute`. Only element-level changes are reported: attributes stripped from an allowed element are not. The `detail` value is a truncated excerpt of the submitted markup and should be treated as untrusted.
