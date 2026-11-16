@@ -35,8 +35,13 @@ The full set of available permission types is as follows:
 -   **Bulk delete** - allows a user to delete pages that have descendants, in a single operation. Without this permission, a user has to delete the descendant pages individually before deleting the parent. This is a safeguard against accidental deletion. This permission must be used in conjunction with 'add' / 'edit' permission, as it does not provide any deletion rights of its own; it only provides a 'shortcut' for the permissions the user has already. For example, a user with just 'add' and 'bulk delete' permissions will only be able to bulk-delete if all the affected pages are owned by that user, and are unpublished.
 -   **Lock** - grants the ability to lock this page (and any pages underneath it) for editing, preventing other users from making any further edits to it.
 -   **Unlock** - grants the ability to unlock this page (and any pages underneath it), even if the page was locked by another user. Without this permission, only the user who locked the page (and superusers) can unlock the page.
+-   **Choose** - allows a user to see and select this page (and any pages underneath it) within the page chooser used to create links to other pages. Typically users are granted this permission over the full page tree so that they can create links to any other page regardless of ownership, but this can be set more narrowly to keep a better separation between subsites on the same Wagtail instance maintained by distinct editor teams.
 
 Drafts can be viewed only if the user has either Edit or Publish permission.
+
+```{note}
+The 'choose' permission is a UI-level affordance to guide users in selecting suitable pages, and is not intended to be a robust mechanism to hide pages from low-privilege editors. Even without choose permission an editor may be able to access page titles and tree locations. [Private pages](private_pages) can be used to prevent unauthorised users from reading page contents.
+```
 
 (image_document_permissions)=
 
