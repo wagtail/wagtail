@@ -245,9 +245,11 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         response_html = response_json["html"]
         return self.get_soup(response_html)
 
-    def get(self, params=None):
+    def get(self, params=None, page_id=None):
+        if page_id is None:
+            page_id = self.root_page.id
         return self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=(self.root_page.id,)), params
+            reverse("wagtailadmin_choose_page_child", args=(page_id,)), params
         )
 
     def get_invalid(self, params=None):
@@ -312,6 +314,44 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         soup = self.get_modal_workflow_soup(response)
         title_cell = soup.select_one("tr.parent-page .title-wrapper a")
         self.assertEqual(title_cell.text.strip(), "foobarbaz child (simple page)")
+
+    def test_breadcrumb_as_editor_with_multiple_choose_permissions(self):
+        user = self.create_user("editor", password="password")
+        editor_group = Group.objects.get(name="Editors")
+
+        # Add grandchild pages
+        grandchild_page_1 = SimplePage(title="foobarbaz child 1", content="hello")
+        self.child_page.add_child(instance=grandchild_page_1)
+        grandchild_page_2 = SimplePage(title="foobarbaz child 2", content="hello")
+        self.child_page.add_child(instance=grandchild_page_2)
+
+        # Give editor group choose permission for both grandchild pages
+        page_choose_permission = Permission.objects.get(
+            codename=Page.PERMISSION_CODENAMES.CHOOSE
+        )
+        editor_group.page_permissions.filter(permission=page_choose_permission).delete()
+        editor_group.page_permissions.create(
+            permission=page_choose_permission, page=grandchild_page_1
+        )
+        editor_group.page_permissions.create(
+            permission=page_choose_permission, page=grandchild_page_2
+        )
+
+        user.groups.add(editor_group)
+        self.login(username="editor")
+
+        response = self.get(page_id=grandchild_page_1.id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        # Chooser opens at grandchild page (which is choosable)
+        soup = self.get_modal_workflow_soup(response)
+        title_cell = soup.select_one("tr.parent-page .title-wrapper a")
+        self.assertEqual(title_cell.text.strip(), "foobarbaz child 1 (simple page)")
+
+        # Breadcrumb should start at self.child_page, the closest common ancestor of the choosable grandchild pages
+        breadcrumb_labels = [a.text.strip() for a in soup.select(".w-breadcrumbs a")]
+        self.assertEqual(breadcrumb_labels, ["foobarbaz (simple page)"])
 
     def test_as_editor_with_no_choose_permissions(self):
         user = self.create_user("editor", password="password")
