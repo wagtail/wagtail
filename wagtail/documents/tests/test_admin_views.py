@@ -1136,7 +1136,6 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTrue(self.document.file.storage.exists(old_filename))
         self.assertEqual(self.document.file.read(), old_content)
 
-
     def test_reupload_database_failure_preserves_original_file(self):
         old_filename = self.document.file.name
         old_content = self.document.file.read()
@@ -1150,17 +1149,12 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         document_table = models.Document._meta.db_table
 
         def fail_document_update(execute, sql, params, many, context):
-            if (
-                sql.lstrip().upper().startswith("UPDATE")
-                and document_table in sql
-            ):
+            if sql.lstrip().upper().startswith("UPDATE") and document_table in sql:
                 raise DatabaseError("Simulated database failure")
 
             return execute(sql, params, many, context)
 
-        with mock.patch.object(
-            storage, "_save", wraps=storage._save
-        ) as storage_save:
+        with mock.patch.object(storage, "_save", wraps=storage._save) as storage_save:
             with connection.execute_wrapper(fail_document_update):
                 with self.assertRaises(DatabaseError):
                     self.client.post(
@@ -1741,12 +1735,12 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertEqual(response_json["doc_id"], self.doc.id)
         self.assertTrue(response_json["success"])
 
+
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
 class TestMultipleCustomDocumentUploader(TestMultipleDocumentUploader):
     edit_post_data = dict(
         TestMultipleDocumentUploader.edit_post_data, description="New description."
     )
-
 
     def check_doc_after_edit(self):
         super().check_doc_after_edit()
