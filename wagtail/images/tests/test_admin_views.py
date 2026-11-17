@@ -899,6 +899,31 @@ class TestImageIndexViewSearch(
         self.assertEqual(usage_count_th.text.strip(), "Usage")
         self.assertIsNone(usage_count_th.select_one("a"))
 
+    def test_filter_by_usage_count_when_searching(self):
+        unused_image = Image.objects.create(
+            title="a cute abandoned toy",
+            file=get_test_image_file(size=(1, 1)),
+        )
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        cases = [
+            ({"usage_count_min": "1"}, [self.kitten_image, self.puppy_image]),
+            ({"usage_count_min": "2"}, [self.kitten_image]),
+            ({"usage_count_max": "0"}, [unused_image]),
+        ]
+        for params, expected_images in cases:
+            with self.subTest(params=params):
+                response = self.client.get(
+                    reverse("wagtailimages:index"), {"q": "cute", **params}
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertCountEqual(
+                    response.context["page_obj"].object_list,
+                    expected_images,
+                )
+
 
 @tag("transaction")
 class TestImageListingResultsView(
