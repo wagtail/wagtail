@@ -4,6 +4,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import DatabaseError, connection
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, TransactionTestCase, tag
@@ -1064,17 +1065,21 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         new_name = self.document.filename
         new_file = SimpleUploadedFile(new_name, b"An updated test content.")
 
-        response = self.client.post(
-            reverse("wagtaildocs:edit", args=(self.document.pk,)),
-            {
-                "title": self.document.title,
-                "file": new_file,
-            },
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(
+                reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                {
+                    "title": self.document.title,
+                    "file": new_file,
+                },
+            )
+
         self.assertRedirects(response, reverse("wagtaildocs:index"))
         self.document.refresh_from_db()
-        self.assertEqual(old_filename, self.document.file.name)
-        self.assertEqual(self.document.file.name, "documents/" + new_name)
+
+        self.assertNotEqual(old_filename, self.document.file.name)
+        self.assertFalse(self.document.file.storage.exists(old_filename))
+        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
         self.assertEqual(self.document.file.read(), b"An updated test content.")
 
     def test_reupload_different_name(self):
@@ -1086,19 +1091,93 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         new_name = "test_reupload_different_name.txt"
         new_file = SimpleUploadedFile(new_name, b"An updated test content.")
 
-        response = self.client.post(
-            reverse("wagtaildocs:edit", args=(self.document.pk,)),
-            {
-                "title": self.document.title,
-                "file": new_file,
-            },
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(
+                reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                {
+                    "title": self.document.title,
+                    "file": new_file,
+                },
+            )
+
         self.assertRedirects(response, reverse("wagtaildocs:index"))
         self.document.refresh_from_db()
         self.assertFalse(self.document.file.storage.exists(old_filename))
         self.assertTrue(self.document.file.storage.exists(self.document.file.name))
         self.assertEqual(self.document.file.name, "documents/" + new_name)
         self.assertEqual(self.document.file.read(), b"An updated test content.")
+
+    def test_reupload_storage_failure_preserves_original_file(self):
+        old_filename = self.document.file.name
+        old_content = self.document.file.read()
+
+        new_file = SimpleUploadedFile(
+            "replacement.txt",
+            b"New document content",
+        )
+
+        with mock.patch.object(
+            self.document.file.storage,
+            "_save",
+            side_effect=OSError("Simulated storage failure"),
+        ):
+            with self.assertRaises(OSError):
+                self.client.post(
+                    reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                    {
+                        "title": self.document.title,
+                        "file": new_file,
+                    },
+                )
+
+        self.document.refresh_from_db()
+
+        self.assertEqual(self.document.file.name, old_filename)
+        self.assertTrue(self.document.file.storage.exists(old_filename))
+        self.assertEqual(self.document.file.read(), old_content)
+
+
+    def test_reupload_database_failure_preserves_original_file(self):
+        old_filename = self.document.file.name
+        old_content = self.document.file.read()
+
+        new_file = SimpleUploadedFile(
+            "replacement.txt",
+            b"New document content",
+        )
+
+        storage = self.document.file.storage
+        document_table = models.Document._meta.db_table
+
+        def fail_document_update(execute, sql, params, many, context):
+            if (
+                sql.lstrip().upper().startswith("UPDATE")
+                and document_table in sql
+            ):
+                raise DatabaseError("Simulated database failure")
+
+            return execute(sql, params, many, context)
+
+        with mock.patch.object(
+            storage, "_save", wraps=storage._save
+        ) as storage_save:
+            with connection.execute_wrapper(fail_document_update):
+                with self.assertRaises(DatabaseError):
+                    self.client.post(
+                        reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                        {
+                            "title": self.document.title,
+                            "file": new_file,
+                        },
+                    )
+
+        storage_save.assert_called()
+
+        self.document.refresh_from_db()
+
+        self.assertEqual(self.document.file.name, old_filename)
+        self.assertTrue(storage.exists(old_filename))
+        self.assertEqual(self.document.file.read(), old_content)
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
@@ -1662,12 +1741,12 @@ class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertEqual(response_json["doc_id"], self.doc.id)
         self.assertTrue(response_json["success"])
 
-
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
 class TestMultipleCustomDocumentUploader(TestMultipleDocumentUploader):
     edit_post_data = dict(
         TestMultipleDocumentUploader.edit_post_data, description="New description."
     )
+
 
     def check_doc_after_edit(self):
         super().check_doc_after_edit()
