@@ -19,6 +19,7 @@ from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm,
     EmailLinkChooserForm,
     ExternalLinkChooserForm,
+    PageLinkChooserForm,
     PhoneLinkChooserForm,
 )
 from wagtail.admin.forms.search import SearchForm
@@ -397,6 +398,15 @@ class BrowseView(View):
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,
+                "anchor_form": (
+                    PageLinkChooserForm(
+                        initial={"anchor": request.GET.get("link_anchor", "")},
+                        prefix="page-link-chooser",
+                    )
+                    if request.GET.get("allow_page_anchor")
+                    and not self.is_multiple_choice
+                    else None
+                ),
             },
         )
 

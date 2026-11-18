@@ -37,6 +37,18 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
+    def test_page_anchor_field_is_opt_in(self):
+        self.assertIsNone(self.get().context["anchor_form"])
+        response = self.get({"allow_page_anchor": "true", "link_anchor": "contact"})
+        field = response.context["anchor_form"]["anchor"]
+        self.assertEqual(field.value(), "contact")
+        self.assertEqual(field.label, "Anchor (optional)")
+        self.assertFalse(field.field.required)
+
+    def test_multiple_page_chooser_has_no_anchor_field(self):
+        response = self.get({"allow_page_anchor": "true", "multiple": "1"})
+        self.assertIsNone(response.context["anchor_form"])
+
     def test_construct_queryset_hook(self):
         page = SimplePage(title="Test shown", content="hello")
         Page.get_first_root_node().add_child(instance=page)

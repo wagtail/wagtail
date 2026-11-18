@@ -3,6 +3,27 @@ import { ChooserModal } from '../../includes/chooserModal';
 
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   browse(modal, jsonData) {
+    const anchorInput = $('[name="page-link-chooser-anchor"]', modal.body);
+    if (anchorInput.length) {
+      if (modal.pageLinkAnchor === undefined) {
+        modal.pageLinkAnchor = anchorInput.val();
+      } else {
+        anchorInput.val(modal.pageLinkAnchor);
+      }
+      anchorInput.on('input', () => {
+        modal.pageLinkAnchor = anchorInput.val();
+      });
+    }
+
+    function choosePage(pageData) {
+      const anchor = anchorInput.val()?.trim().replace(/^#/, '');
+      if (anchor) {
+        pageData.anchor = anchor;
+      }
+      modal.respond('pageChosen', pageData);
+      modal.close();
+    }
+
     /* Set up link-types links to open in the modal */
     // eslint-disable-next-line func-names
     $('.link-types a', modal.body).on('click', function () {
@@ -87,8 +108,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       // eslint-disable-next-line func-names
       $('.page-results a.choose-page', modal.body).on('click', function () {
         const pageData = $(this).data();
-        modal.respond('pageChosen', pageData);
-        modal.close();
+        choosePage(pageData);
 
         return false;
       });
@@ -129,8 +149,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $('a.choose-page', modal.body).on('click', function () {
         const pageData = $(this).data();
         pageData.parentId = jsonData.parent_page_id;
-        modal.respond('pageChosen', pageData);
-        modal.close();
+        choosePage(pageData);
 
         return false;
       });

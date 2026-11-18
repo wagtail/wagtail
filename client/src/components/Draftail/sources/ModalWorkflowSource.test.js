@@ -125,6 +125,14 @@ describe('ModalWorkflowSource', () => {
       },
     });
     describe('LINK', () => {
+      it('initializes the page anchor when editing an internal link', () => {
+        const config = linkSource.getChooserConfig(
+          { getData: () => ({ id: 2, parentId: 1, anchor: 'contact' }) },
+          '',
+        );
+        expect(config.urlParams.allow_page_anchor).toBe(true);
+        expect(config.urlParams.link_anchor).toBe('contact');
+      });
       it('no entity', () => {
         expect(linkSource.getChooserConfig(null, '')).toMatchSnapshot();
       });
@@ -222,6 +230,21 @@ describe('ModalWorkflowSource', () => {
 
     const linkSource = new LinkModalWorkflowSource();
     describe('LINK', () => {
+      it('preserves and encodes a page anchor', () => {
+        expect(
+          linkSource.filterEntityData({
+            id: 60,
+            parentId: 1,
+            url: '/events/',
+            anchor: 'contact / café',
+          }),
+        ).toEqual({
+          id: 60,
+          parentId: 1,
+          url: '/events/#contact%20%2F%20caf%C3%A9',
+          anchor: 'contact / café',
+        });
+      });
       it('page', () => {
         expect(
           linkSource.filterEntityData({

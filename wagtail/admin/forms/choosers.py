@@ -32,6 +32,16 @@ class URLOrAbsolutePathField(URLField):
         return value
 
 
+class PageLinkChooserForm(forms.Form):
+    anchor = forms.CharField(
+        required=False,
+        label=_("Anchor (optional)"),
+        help_text=_(
+            "Link to a specific section of the selected page. For example: #contact"
+        ),
+    )
+
+
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=_("URL"))
     link_text = forms.CharField(required=False)
