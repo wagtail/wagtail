@@ -164,4 +164,37 @@ describe('PageExplorerPanel', () => {
       expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
     });
   });
+
+  describe('clickOutsideDeactivates', () => {
+    afterEach(() => {
+      document.body.innerHTML = '';
+    });
+
+    const getClickOutsideDeactivates = (wrapper) =>
+      wrapper.find('FocusTrap').prop('focusTrapOptions')
+        .clickOutsideDeactivates;
+
+    it('returns false (does not deactivate) when click target is the Pages menu button', () => {
+      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
+      const clickOutsideDeactivates = getClickOutsideDeactivates(wrapper);
+
+      const button = document.createElement('button');
+      const menuItem = document.createElement('div');
+      menuItem.className = 'sidebar-page-explorer-item';
+      menuItem.appendChild(button);
+      document.body.appendChild(menuItem);
+
+      expect(clickOutsideDeactivates({ target: button })).toBe(false);
+    });
+
+    it('returns true (deactivates) when click target is outside the Pages menu button', () => {
+      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
+      const clickOutsideDeactivates = getClickOutsideDeactivates(wrapper);
+
+      const outsideEl = document.createElement('div');
+      document.body.appendChild(outsideEl);
+
+      expect(clickOutsideDeactivates({ target: outsideEl })).toBe(true);
+    });
+  });
 });
