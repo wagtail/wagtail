@@ -9,7 +9,7 @@ from django.utils.html import escape
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.models import Locale
+from wagtail.models import Locale, Site
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
@@ -1154,6 +1154,97 @@ class TestChooserExternalLinkWithI18nNonRoot(
     TestChooserExternalLinkWithNonRootServePath
 ):
     prefix = "en/site/"
+
+
+class TestResolvePageLink(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+        self.page = SimplePage(title="About", content="About Foo")
+        Page.objects.get(pk=2).add_child(instance=self.page)
+
+    def get(self, url):
+        return self.client.get(reverse("wagtailadmin_resolve_page_link"), {"url": url})
+
+    def test_internal_page_with_anchor(self):
+        response = self.get(self.page.full_url + "#contact%20%2F%20caf%C3%A9")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {
+                "id": self.page.pk,
+                "parentId": 2,
+                "url": self.page.url,
+                "anchor": "contact / café",
+            },
+        )
+
+    def test_internal_page_without_anchor(self):
+        response = self.get(self.page.full_url)
+        self.assertEqual(
+            response.json(),
+            {
+                "id": self.page.pk,
+                "parentId": 2,
+                "url": self.page.url,
+            },
+        )
+
+    def test_relative_page_with_anchor(self):
+        response = self.get(self.page.url + "#contact")
+        self.assertEqual(response.json()["id"], self.page.pk)
+        self.assertEqual(response.json()["anchor"], "contact")
+
+    def test_external_url_is_preserved(self):
+        url = "https://example.com/about/#contact"
+        self.assertEqual(self.get(url).json(), {"url": url})
+
+    def test_query_parameters_are_not_discarded(self):
+        url = self.page.full_url + "?filter=water#contact"
+        self.assertEqual(self.get(url).json(), {"url": url})
+
+    def test_extra_path_components_are_preserved(self):
+        url = self.page.full_url + "extra/#contact"
+        self.assertEqual(self.get(url).json(), {"url": url})
+
+    def test_relative_url_is_not_resolved_when_sites_are_ambiguous(self):
+        Site.objects.create(
+            hostname="other.example.com", root_page=Page.objects.get(pk=2)
+        )
+        url = self.page.get_url_parts()[-1] + "#contact"
+        self.assertEqual(self.get(url).json(), {"url": url})
+
+    def test_chooser_queryset_hooks_are_respected(self):
+        def exclude_page(pages, request):
+            return pages.exclude(pk=self.page.pk)
+
+        with self.register_hook("construct_page_chooser_queryset", exclude_page):
+            response = self.get(self.page.full_url)
+        self.assertNotIn("id", response.json())
+
+    def test_conversion_settings(self):
+        url = self.page.full_url + "#contact"
+        for value in ("", "confirm"):
+            with (
+                self.subTest(value=value),
+                self.settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION=value),
+            ):
+                self.assertEqual(self.get(url).json(), {"url": url})
+        with self.settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="exact"):
+            self.assertEqual(self.get(url).json()["id"], self.page.pk)
+
+    def test_invalid_url(self):
+        for value in ("", "not a URL", "javascript:alert(1)"):
+            with self.subTest(value=value):
+                self.assertEqual(self.get(value).status_code, 400)
+
+    def test_admin_access_required(self):
+        self.client.logout()
+        self.assertEqual(self.get(self.page.full_url).status_code, 302)
+
+
+@override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
+class TestResolvePageLinkWithNonRootServePath(TestResolvePageLink):
+    pass
 
 
 class TestChooserAnchorLink(WagtailTestUtils, TestCase):

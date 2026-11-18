@@ -732,6 +732,7 @@ def register_core_features(features):
                 },
                 "chooserUrls": {
                     "pageChooser": reverse_lazy("wagtailadmin_choose_page"),
+                    "resolveLink": reverse_lazy("wagtailadmin_resolve_page_link"),
                     "externalLinkChooser": reverse_lazy(
                         "wagtailadmin_choose_page_external_link"
                     ),

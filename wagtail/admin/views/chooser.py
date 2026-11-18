@@ -1,11 +1,11 @@
 import re
 from collections import defaultdict
-from urllib.parse import parse_qs, quote, urlencode, urlsplit
+from urllib.parse import parse_qs, quote, unquote, urlencode, urlsplit
 
 import swapper
 from django.conf import settings
 from django.core.paginator import InvalidPage, Paginator
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch
@@ -612,6 +612,79 @@ LINK_CONVERSION_EXACT = "exact"
 LINK_CONVERSION_CONFIRM = "confirm"
 
 
+def get_page_url_matches(request, submitted_url):
+    """Yield routed pages and their canonical URLs for a submitted link."""
+    # Next, we should check if the url matches an internal page
+    # Strip the url of its query/fragment link parameters - these won't match a page
+    url_without_query = re.split(r"\?|#", submitted_url)[0]
+
+    # Start by finding any sites the url could potentially match
+    sites = getattr(request, "_wagtail_cached_site_root_paths", None)
+    if sites is None:
+        sites = Site.get_site_root_paths()
+
+    try:
+        # The serve view might not be routed to the root path of the domain,
+        # e.g. /pages/, so we need to account for the path to the serve view
+        serve_path = reverse("wagtail_serve", args=("",))
+    except NoReverseMatch:
+        serve_path = None
+
+    match_relative_paths = submitted_url.startswith("/") and len(sites) == 1
+    # We should only match relative urls if there's only a single site
+    # Otherwise this could get very annoying accidentally matching coincidentally
+    # named pages on different sites
+
+    possible_sites = defaultdict(list)
+
+    if match_relative_paths:
+        for pk, path, url, language_code in sites:
+            possible_sites[pk].append(url_without_query)
+
+            # If the submitted URL is prefixed with the serve path,
+            # also consider it without the serve path so we can match
+            # the page using Page.route()
+            if serve_path and url_without_query.startswith(serve_path):
+                possible_sites[pk].append(url_without_query[len(serve_path) - 1 :])
+    else:
+        for pk, path, url, language_code in sites:
+            if not submitted_url.startswith(url):
+                continue
+            possible_sites[pk].append(url_without_query[len(url) :])
+
+            # If the submitted URL is prefixed with the serve path,
+            # also consider it without the serve path so we can match
+            # the page using Page.route()
+            if serve_path and url_without_query.startswith(url + serve_path):
+                possible_sites[pk].append(
+                    url_without_query[len(url) + len(serve_path) - 1 :]
+                )
+
+    # Loop over possible sites to identify a page match
+    for pk, possible_urls in possible_sites.items():
+        site = Site.objects.select_related("root_page").get(pk=pk)
+        root_page = site.root_page.specific
+        for url in possible_urls:
+            try:
+                route = root_page.route(
+                    request,
+                    [component for component in url.split("/") if component],
+                )
+            except Http404:
+                continue
+
+            matched_page = route.page.specific
+
+            # Let's check what this page's normal url would be
+            normal_url = (
+                matched_page.get_url_parts(request=request)[-1]
+                if match_relative_paths
+                else matched_page.get_full_url(request=request)
+            )
+
+            yield matched_page, normal_url
+
+
 class ExternalLinkView(BaseLinkFormView):
     form_prefix = "external-link-chooser"
     form_class = ExternalLinkChooserForm
@@ -644,122 +717,93 @@ class ExternalLinkView(BaseLinkFormView):
                 # We should not attempt to convert external urls to page links
                 return self.render_chosen_response(result)
 
-            # Next, we should check if the url matches an internal page
-            # Strip the url of its query/fragment link parameters - these won't match a page
-            url_without_query = re.split(r"\?|#", submitted_url)[0]
+            for matched_page, normal_url in get_page_url_matches(
+                request, submitted_url
+            ):
+                internal_data = {
+                    "id": matched_page.pk,
+                    "parentId": matched_page.get_parent().pk,
+                    "adminTitle": matched_page.draft_title,
+                    "editUrl": reverse(
+                        "wagtailadmin_pages:edit", args=(matched_page.pk,)
+                    ),
+                    "url": matched_page.url,
+                }
 
-            # Start by finding any sites the url could potentially match
-            sites = getattr(request, "_wagtail_cached_site_root_paths", None)
-            if sites is None:
-                sites = Site.get_site_root_paths()
+                # If that's what the user provided, great. Let's just convert the external
+                # url to an internal link automatically unless we're set up tp manually check
+                # all conversions
+                if (
+                    normal_url == submitted_url
+                    and link_conversion != LINK_CONVERSION_CONFIRM
+                ):
+                    return self.render_chosen_response(internal_data)
+                # If not, they might lose query parameters or routable page information
 
-            try:
-                # The serve view might not be routed to the root path of the domain,
-                # e.g. /pages/, so we need to account for the path to the serve view
-                serve_path = reverse("wagtail_serve", args=("",))
-            except NoReverseMatch:
-                serve_path = None
+                if link_conversion == LINK_CONVERSION_EXACT:
+                    # We should only convert exact matches
+                    continue
 
-            match_relative_paths = submitted_url.startswith("/") and len(sites) == 1
-            # We should only match relative urls if there's only a single site
-            # Otherwise this could get very annoying accidentally matching coincidentally
-            # named pages on different sites
-
-            possible_sites = defaultdict(list)
-
-            if match_relative_paths:
-                for pk, path, url, language_code in sites:
-                    possible_sites[pk].append(url_without_query)
-
-                    # If the submitted URL is prefixed with the serve path,
-                    # also consider it without the serve path so we can match
-                    # the page using Page.route()
-                    if serve_path and url_without_query.startswith(serve_path):
-                        possible_sites[pk].append(
-                            url_without_query[len(serve_path) - 1 :]
-                        )
-            else:
-                for pk, path, url, language_code in sites:
-                    if not submitted_url.startswith(url):
-                        continue
-                    possible_sites[pk].append(url_without_query[len(url) :])
-
-                    # If the submitted URL is prefixed with the serve path,
-                    # also consider it without the serve path so we can match
-                    # the page using Page.route()
-                    if serve_path and url_without_query.startswith(url + serve_path):
-                        possible_sites[pk].append(
-                            url_without_query[len(url) + len(serve_path) - 1 :]
-                        )
-
-            # Loop over possible sites to identify a page match
-            for pk, possible_urls in possible_sites.items():
-                site = Site.objects.select_related("root_page").get(pk=pk)
-                root_page = site.root_page.specific
-                for url in possible_urls:
-                    try:
-                        route = root_page.route(
-                            request,
-                            [component for component in url.split("/") if component],
-                        )
-                    except Http404:
-                        continue
-
-                    matched_page = route.page.specific
-
-                    internal_data = {
-                        "id": matched_page.pk,
-                        "parentId": matched_page.get_parent().pk,
-                        "adminTitle": matched_page.draft_title,
-                        "editUrl": reverse(
-                            "wagtailadmin_pages:edit", args=(matched_page.pk,)
-                        ),
-                        "url": matched_page.url,
-                    }
-
-                    # Let's check what this page's normal url would be
-                    normal_url = (
-                        matched_page.get_url_parts(request=request)[-1]
-                        if match_relative_paths
-                        else matched_page.get_full_url(request=request)
+                # Let's confirm the conversion with them explicitly
+                else:
+                    return render_modal_workflow(
+                        request,
+                        "wagtailadmin/chooser/confirm_external_to_internal.html",
+                        None,
+                        {
+                            "submitted_url": submitted_url,
+                            "internal_url": normal_url,
+                            "page": matched_page.draft_title,
+                        },
+                        json_data={
+                            "step": "confirm_external_to_internal",
+                            "external": result,
+                            "internal": internal_data,
+                        },
                     )
-
-                    # If that's what the user provided, great. Let's just convert the external
-                    # url to an internal link automatically unless we're set up tp manually check
-                    # all conversions
-                    if (
-                        normal_url == submitted_url
-                        and link_conversion != LINK_CONVERSION_CONFIRM
-                    ):
-                        return self.render_chosen_response(internal_data)
-                    # If not, they might lose query parameters or routable page information
-
-                    if link_conversion == LINK_CONVERSION_EXACT:
-                        # We should only convert exact matches
-                        continue
-
-                    # Let's confirm the conversion with them explicitly
-                    else:
-                        return render_modal_workflow(
-                            request,
-                            "wagtailadmin/chooser/confirm_external_to_internal.html",
-                            None,
-                            {
-                                "submitted_url": submitted_url,
-                                "internal_url": normal_url,
-                                "page": matched_page.draft_title,
-                            },
-                            json_data={
-                                "step": "confirm_external_to_internal",
-                                "external": result,
-                                "internal": internal_data,
-                            },
-                        )
 
             # Otherwise, with no internal matches, fall back to an external url
             return self.render_chosen_response(result)
         else:  # form invalid
             return self.render_form_response()
+
+
+class ResolvePageLinkView(View):
+    """Resolve a pasted URL without losing query strings or routable subpaths."""
+
+    def get(self, request):
+        form = ExternalLinkChooserForm({"url": request.GET.get("url", "")})
+        if not form.is_valid():
+            return JsonResponse({"errors": form.errors}, status=400)
+        submitted_url = form.cleaned_data["url"]
+        result = {"url": submitted_url}
+        conversion = getattr(
+            settings, "WAGTAILADMIN_EXTERNAL_LINK_CONVERSION", LINK_CONVERSION_ALL
+        ).lower()
+        if conversion not in (LINK_CONVERSION_ALL, LINK_CONVERSION_EXACT):
+            return JsonResponse(result)
+        parsed = urlsplit(submitted_url)
+        if parsed.query:
+            return JsonResponse(result)
+        matching_url = parsed._replace(path=unquote(parsed.path), fragment="").geturl()
+        for page, normal_url in get_page_url_matches(request, matching_url):
+            if normal_url != matching_url:
+                continue
+            pages = Page.objects.filter(pk=page.pk)
+            for hook in hooks.get_hooks("construct_page_chooser_queryset"):
+                pages = hook(pages, request)
+            if not pages.exists():
+                continue
+            parent = page.get_parent()
+            result = {
+                "id": page.pk,
+                "parentId": parent.pk if parent else None,
+                "url": page.get_url(request=request),
+            }
+            if parsed.fragment:
+                result["anchor"] = unquote(parsed.fragment)
+            return JsonResponse(result)
+        return JsonResponse(result)
 
 
 class AnchorLinkView(BaseLinkFormView):

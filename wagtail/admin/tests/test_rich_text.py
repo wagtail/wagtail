@@ -620,7 +620,7 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         )
 
         self.assertIn(
-            '"chooserUrls": {"pageChooser": "/admin/choose-page/", "externalLinkChooser": "/admin/choose-external-link/", "emailLinkChooser": "/admin/choose-email-link/", "phoneLinkChooser": "/admin/choose-phone-link/", "anchorLinkChooser": "/admin/choose-anchor-link/"}',
+            '"chooserUrls": {"pageChooser": "/admin/choose-page/", "resolveLink": "/admin/choose-page/resolve-link/", "externalLinkChooser": "/admin/choose-external-link/", "emailLinkChooser": "/admin/choose-email-link/", "phoneLinkChooser": "/admin/choose-phone-link/", "anchorLinkChooser": "/admin/choose-anchor-link/"}',
             data,
         )
 

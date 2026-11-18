@@ -9,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import client from '../../../api/client';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
@@ -186,11 +187,77 @@ const insertContentWithLinks = (editorState, htmlOrText) => {
   return EditorState.push(editorState, content, 'insert-characters');
 };
 
-export const onPasteLink = (text, html, editorState, { setEditorState }) => {
-  const url = getValidLinkURL(text);
+/**
+ * Upgrade only the pasted entity, using the latest state so typing and undo are safe.
+ */
+const resolvePageLink = async (key, pastedURL, resolverURL, editor) => {
+  try {
+    const params = new URLSearchParams({ url: pastedURL });
+    const page = await client.get(`${resolverURL}?${params}`);
+    if (!page.id) return;
+    const state = editor.getEditorState();
+    let content = state.getCurrentContent();
+    const stillUsed = content
+      .getBlockMap()
+      .some((block) =>
+        block
+          .getCharacterList()
+          .some((character) => character.getEntity() === key),
+      );
+    if (!stillUsed) return;
+    const existing = content.getEntity(key).getData();
+    if (existing.url !== pastedURL || existing.id) return;
+    const data = { id: page.id, parentId: page.parentId, url: page.url };
+    if (page.anchor) {
+      data.anchor = page.anchor;
+      data.url += `#${encodeURIComponent(page.anchor)}`;
+    }
+    content = content.createEntity('LINK', 'MUTABLE', data);
+    const resolvedKey = content.getLastCreatedEntityKey();
+    const blockMap = content.getBlockMap().map((block) =>
+      block.set(
+        'characterList',
+        block
+          .getCharacterList()
+          .map((character) =>
+            character.getEntity() === key
+              ? CharacterMetadata.applyEntity(character, resolvedKey)
+              : character,
+          ),
+      ),
+    );
+    // A fresh entity leaves undo snapshots intact, without adding an undo step.
+    content = content.merge({ blockMap });
+    editor.setEditorState(EditorState.set(state, { currentContent: content }));
+  } catch {
+    // Keep the ordinary URL link if resolution fails or the editor has gone away.
+  }
+};
+
+export const onPasteLink = (
+  text,
+  html,
+  editorState,
+  editor,
+  entityType = {},
+) => {
+  const { setEditorState, getEditorState } = editor;
+  const localLink = /^(?:\/|#\S)\S*$/.test(text) ? text : false;
+  const url = getValidLinkURL(text) || localLink;
 
   if (url) {
-    setEditorState(insertSingleLink(editorState, text, url));
+    const nextState = insertSingleLink(editorState, text, url);
+    setEditorState(nextState);
+    const resolverURL = entityType.chooserUrls?.resolveLink;
+    if (resolverURL && getEditorState && /^(?:https?:\/\/|\/)/i.test(url)) {
+      const content = nextState.getCurrentContent();
+      resolvePageLink(
+        content.getLastCreatedEntityKey(),
+        url,
+        resolverURL,
+        editor,
+      );
+    }
     return 'handled';
   }
 
