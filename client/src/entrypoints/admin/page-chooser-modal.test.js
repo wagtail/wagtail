@@ -106,3 +106,40 @@ describe('page chooser anchors', () => {
     });
   });
 });
+
+describe('external link conversion confirmation', () => {
+  const data = {
+    internal: { id: 3, parentId: 2, url: '/events/', anchor: 'section-3' },
+    external: { url: 'http://localhost/events/#section-3' },
+  };
+  let modal;
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <div id="confirmation">
+        <button type="button" data-action-confirm>Convert to internal link</button>
+        <button type="button" data-action-deny>Use external link</button>
+      </div>`;
+    modal = {
+      body: document.getElementById('confirmation'),
+      respond: jest.fn(),
+      close: jest.fn(),
+    };
+    window.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS.confirm_external_to_internal(
+      modal,
+      data,
+    );
+  });
+
+  it('preserves the anchor when conversion is accepted', () => {
+    document.querySelector('[data-action-confirm]').click();
+    expect(modal.respond).toHaveBeenCalledWith('pageChosen', data.internal);
+    expect(modal.close).toHaveBeenCalled();
+  });
+
+  it('preserves the original URL when conversion is declined', () => {
+    document.querySelector('[data-action-deny]').click();
+    expect(modal.respond).toHaveBeenCalledWith('pageChosen', data.external);
+    expect(modal.close).toHaveBeenCalled();
+  });
+});

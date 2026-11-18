@@ -774,6 +774,54 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["result"]["url"], "/about/")
         self.assertEqual(response_json["result"]["id"], self.internal_page.pk)
 
+    def test_convert_external_link_with_fragment_to_internal_link(self):
+        url = (self.internal_page.full_url or "http://localhost/about/") + "#section-3"
+        response = self.post(
+            {
+                "external-link-chooser-url": url,
+                "external-link-chooser-link_text": "About",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["step"], "confirm_external_to_internal")
+        self.assertEqual(data["internal"]["id"], self.internal_page.pk)
+        self.assertEqual(data["internal"]["anchor"], "section-3")
+        self.assertEqual(data["internal"]["url"], self.internal_page.url)
+        self.assertEqual(data["external"]["url"], url)
+        expected_url = (
+            self.internal_page.full_url + "#section-3"
+            if self.internal_page.full_url
+            else None
+        )
+        self.assertEqual(response.context["internal_url"], expected_url)
+
+    def test_convert_external_link_with_encoded_fragment(self):
+        url = self.internal_page.full_url or "http://localhost/about/"
+        response = self.post(
+            {
+                "external-link-chooser-url": url + "#gebied%20%2F%20caf%C3%A9",
+                "external-link-chooser-link_text": "About",
+            }
+        )
+        self.assertEqual(response.json()["internal"]["anchor"], "gebied / café")
+        if self.internal_page.full_url:
+            self.assertEqual(
+                response.context["internal_url"],
+                self.internal_page.full_url + "#gebied%20%2F%20caf%C3%A9",
+            )
+
+    def test_convert_external_link_with_query_and_fragment(self):
+        url = self.internal_page.full_url or "http://localhost/about/"
+        response = self.post(
+            {
+                "external-link-chooser-url": url + "?filter=water#contact",
+                "external-link-chooser-link_text": "About",
+            }
+        )
+        self.assertEqual(response.json()["step"], "confirm_external_to_internal")
+        self.assertEqual(response.json()["internal"]["anchor"], "contact")
+
     def test_convert_external_link_with_query_parameters_to_internal_link(self):
         response = self.post(
             {

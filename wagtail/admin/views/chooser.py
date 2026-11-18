@@ -717,6 +717,7 @@ class ExternalLinkView(BaseLinkFormView):
                 # We should not attempt to convert external urls to page links
                 return self.render_chosen_response(result)
 
+            anchor = unquote(urlsplit(submitted_url).fragment)
             for matched_page, normal_url in get_page_url_matches(
                 request, submitted_url
             ):
@@ -729,6 +730,8 @@ class ExternalLinkView(BaseLinkFormView):
                     ),
                     "url": matched_page.url,
                 }
+                if anchor:
+                    internal_data["anchor"] = anchor
 
                 # If that's what the user provided, great. Let's just convert the external
                 # url to an internal link automatically unless we're set up tp manually check
@@ -746,13 +749,16 @@ class ExternalLinkView(BaseLinkFormView):
 
                 # Let's confirm the conversion with them explicitly
                 else:
+                    internal_url = normal_url
+                    if anchor and internal_url:
+                        internal_url += "#" + quote(anchor, safe="")
                     return render_modal_workflow(
                         request,
                         "wagtailadmin/chooser/confirm_external_to_internal.html",
                         None,
                         {
                             "submitted_url": submitted_url,
-                            "internal_url": normal_url,
+                            "internal_url": internal_url,
                             "page": matched_page.draft_title,
                         },
                         json_data={
