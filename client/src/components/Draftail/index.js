@@ -334,6 +334,13 @@ class BoundDraftailWidget {
     return this.input.draftailEditor.getEditorState();
   }
 
+  getDuplicatedState() {
+    if (this.input?.draftailEditor?.saveState) {
+      this.input.draftailEditor.saveState();
+    }
+    return this.getValue();
+  }
+
   setState(editorState) {
     this.input.draftailEditor.onChange(editorState);
   }
@@ -461,8 +468,8 @@ class DraftailRichTextArea {
     }
     // If the initialState is an EditorState, rather than serialized rawContentState, it's
     // easier for us to initialize the widget blank and then setState to the correct state
-    const initialiseBlank = !!initialState.getCurrentContent;
-    input.value = initialiseBlank ? 'null' : initialState;
+    const initialiseBlank = Boolean(initialState?.getCurrentContent);
+    input.value = initialiseBlank ? 'null' : initialState || 'null';
     container.appendChild(input);
 
     const boundDraftail = new BoundDraftailWidget(
