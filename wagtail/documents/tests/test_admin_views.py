@@ -1086,19 +1086,80 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         new_name = "test_reupload_different_name.txt"
         new_file = SimpleUploadedFile(new_name, b"An updated test content.")
 
-        response = self.client.post(
-            reverse("wagtaildocs:edit", args=(self.document.pk,)),
-            {
-                "title": self.document.title,
-                "file": new_file,
-            },
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(
+                reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                {
+                    "title": self.document.title,
+                    "file": new_file,
+                },
+            )
         self.assertRedirects(response, reverse("wagtaildocs:index"))
         self.document.refresh_from_db()
         self.assertFalse(self.document.file.storage.exists(old_filename))
         self.assertTrue(self.document.file.storage.exists(self.document.file.name))
         self.assertEqual(self.document.file.name, "documents/" + new_name)
         self.assertEqual(self.document.file.read(), b"An updated test content.")
+
+    def _post_replacement(self, new_name):
+        with self.captureOnCommitCallbacks(execute=True):
+            return self.client.post(
+                reverse("wagtaildocs:edit", args=(self.document.pk,)),
+                {
+                    "title": self.document.title,
+                    "file": SimpleUploadedFile(new_name, b"An updated test content."),
+                },
+            )
+
+    def _fail_first_real_save(self):
+        """
+        Make the first storage save of a non-backup file fail, leaving the backup
+        and restore saves untouched.
+        """
+        from django.core.files.storage import FileSystemStorage
+
+        original_save = FileSystemStorage._save
+        state = {"failed": False}
+
+        def _save(storage, name, content):
+            if not state["failed"] and not name.endswith(".bak"):
+                state["failed"] = True
+                raise OSError("disk full")
+            return original_save(storage, name, content)
+
+        return mock.patch.object(FileSystemStorage, "_save", _save)
+
+    def test_reupload_keeps_original_if_storage_save_fails(self):
+        """
+        If the replacement file cannot be stored, the original file must not be deleted.
+        """
+        old_filename = self.document.file.name
+        storage = self.document.file.storage
+        with self._fail_first_real_save(), self.assertRaises(OSError):
+            self._post_replacement("a_different_name.txt")
+        self.document.refresh_from_db()
+        self.assertEqual(self.document.file.name, old_filename)
+        self.assertTrue(storage.exists(old_filename))
+
+    def test_reupload_same_name_restores_original_if_save_fails(self):
+        old_filename = self.document.file.name
+        old_content = self.document.file.read()
+        self.document.file.close()
+        storage = self.document.file.storage
+        with self._fail_first_real_save(), self.assertRaises(OSError):
+            self._post_replacement(self.document.filename)
+        self.document.refresh_from_db()
+        self.assertEqual(self.document.file.name, old_filename)
+        with storage.open(old_filename) as f:
+            self.assertEqual(f.read(), old_content)
+
+    def test_reupload_keeps_original_if_database_save_fails(self):
+        old_filename = self.document.file.name
+        with mock.patch.object(
+            models.Document, "save", side_effect=RuntimeError("db error")
+        ), self.assertRaises(RuntimeError):
+            self._post_replacement("another_name.txt")
+        self.assertTrue(self.document.file.storage.exists(old_filename))
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")

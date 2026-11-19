@@ -1,5 +1,9 @@
+import os
+from functools import partial
+
 from django import forms
 from django.conf import settings
+from django.db import transaction
 from django.forms.models import modelform_factory
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -55,21 +59,53 @@ class BaseDocumentForm(BaseCollectionMemberForm):
         if "file" in self.changed_data:
             self.instance._set_document_file_metadata()
 
-        if commit:
-            if "file" in self.changed_data and self.original_file:
-                # If providing a new document file, delete the old one.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                self.original_file.storage.delete(self.original_file.name)
-                self.original_file = None
+        original_file = None
+        backup_name = None
+        if commit and "file" in self.changed_data and self.original_file:
+            original_file = self.original_file
+            storage = original_file.storage
+            new_name = self.instance.file.field.generate_filename(
+                self.instance, self.instance.file.name
+            )
+            if os.path.normpath(new_name) == os.path.normpath(original_file.name):
+                # The replacement reuses the original name, so the original has to
+                # be removed first to free the name. Keep a copy so that it can be
+                # restored if saving fails.
+                with storage.open(original_file.name) as f:
+                    backup_name = storage.save(f"{original_file.name}.bak", f)
+                storage.delete(original_file.name)
 
-        super().save(commit=commit)
+        try:
+            super().save(commit=commit)
+        except Exception:
+            if backup_name:
+                self._restore_original_file(original_file, backup_name)
+            raise
+
+        if backup_name:
+            storage.delete(backup_name)
+        elif original_file:
+            # Only remove the old file once the new one is saved, so that a failure
+            # does not leave the document pointing at a deleted file.
+            # NB Doing this via original_file.delete() clears the file field,
+            # which definitely isn't what we want...
+            transaction.on_commit(partial(storage.delete, original_file.name))
+        if original_file:
+            self.original_file = None
 
         if commit:
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(self.instance)
 
         return self.instance
+
+    def _restore_original_file(self, original_file, backup_name):
+        storage = original_file.storage
+        if storage.exists(original_file.name):
+            storage.delete(original_file.name)
+        with storage.open(backup_name) as f:
+            storage.save(original_file.name, f)
+        storage.delete(backup_name)
 
     class Meta:
         widgets = {
