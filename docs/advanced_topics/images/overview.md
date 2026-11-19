@@ -186,8 +186,4 @@ Images can also be accessed via Wagtail’s built-in API support. You can direct
 
 To access images directly, you can also [configure image endpoints for the v2 API](api_v2_configure_endpoints).
 
-```{versionadded} 8.0
-Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
-```
-
 The [v3 images API endpoints](api_v3_images) are also available whenever the v3 API is enabled, and provide more advanced features such as "write" operations.

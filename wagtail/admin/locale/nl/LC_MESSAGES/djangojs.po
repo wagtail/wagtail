@@ -1,6 +1,5 @@
 # Translators:
 # mahulst, 2022
-# benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2025
 # Rob Moorman <rob@moori.nl>, 2026
@@ -181,9 +180,6 @@ msgstr "Nee"
 msgid "No results"
 msgstr "Geen resultaten"
 
-msgid "Page"
-msgstr "Pagina"
-
 msgid "Page explorer"
 msgstr "Paginaverkenner"
 
@@ -231,8 +227,10 @@ msgstr "Zoeken"
 msgid "Search options…"
 msgstr "Zoek opties..."
 
-msgid "See all"
-msgstr "Toon"
+msgid "See all %(num)s page"
+msgid_plural "See all %(num)s pages"
+msgstr[0] "Bekijk %(num)s pagina"
+msgstr[1] "Bekijk alle %(num)s pagina's"
 
 msgid "Server Error"
 msgstr "Server Error"

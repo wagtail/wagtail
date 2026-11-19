@@ -19,6 +19,7 @@ REDIRECT_FIELDS = {
     "redirect_link",
     "automatically_created",
     "created_at",
+    "location",
 }
 
 
@@ -148,8 +149,21 @@ class TestV3RedirectDetail(TestV3Base, WagtailTestUtils, TestCase):
         self.assertEqual(content["id"], self.redirect.pk)
         self.assertEqual(content["old_path"], "/old")
         self.assertEqual(content["redirect_link"], "https://example.com/")
+        self.assertEqual(content["location"], "https://example.com/")
         self.assertIsNone(content["site_id"])
         self.assertTrue(content["is_permanent"])
+
+    def test_location_of_page_redirect(self):
+        root_page = Site.objects.get(is_default_site=True).root_page
+        page = root_page.add_child(instance=Page(title="Target", slug="target"))
+        redirect = make_redirect(
+            old_path="/to-page", redirect_link="", redirect_page=page
+        )
+        response = self.get_response(redirect.pk)
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content["redirect_page_id"], page.pk)
+        self.assertEqual(content["location"], "/target/")
 
     def test_user_without_redirect_permission_can_still_get_detail(self):
         self.create_user(username="noperms", password="password")

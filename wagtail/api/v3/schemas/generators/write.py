@@ -18,8 +18,16 @@ from wagtail.admin.rich_text.converters.db_html import RichTextRemoval
 from wagtail.api import APIField
 from wagtail.api.conf import get_model_field
 from wagtail.api.rich_text import APIRichText, RichTextInputFormat
+from wagtail.blocks import RichTextBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.rich_text import features as feature_registry
+
+from .blocks import (
+    BlockSchemaBuilder,
+    StreamFieldJsonSchema,
+    fixed_schema,
+    register_default_block_schemas,
+)
 
 #: (annotation, default), or None if the field has no defined writable shape.
 InputFieldSchema = tuple[Any, Any] | None
@@ -392,7 +400,10 @@ def rich_text_schema(generator: InputSchemaGenerator, field: Field) -> InputFiel
 def streamfield_schema(
     generator: InputSchemaGenerator, field: Field
 ) -> InputFieldSchema:
-    return list[Any], []
+    annotation = Annotated[
+        list[Any], StreamFieldJsonSchema(block_schema_builder, cast(StreamField, field))
+    ]
+    return annotation, []
 
 
 def tags_schema(generator: InputSchemaGenerator, field: Field) -> InputFieldSchema:
@@ -428,6 +439,14 @@ def register_default_field_schemas(generator: InputSchemaGenerator) -> None:
     generator.register_field_schema(ForeignObjectRel, child_relation_schema)
     generator.register_field_schema(ForeignKey, foreign_key_schema)
 
+
+#: Shared by the create and patch generators, since a StreamField accepts the
+#: same value for both.
+block_schema_builder = BlockSchemaBuilder(for_input=True)
+register_default_block_schemas(block_schema_builder)
+block_schema_builder.register_block_schema(
+    RichTextBlock, fixed_schema(str | RichTextInputSchema | None)
+)
 
 create_generator = InputSchemaGenerator()
 register_default_field_schemas(create_generator)

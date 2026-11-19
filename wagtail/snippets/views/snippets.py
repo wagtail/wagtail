@@ -174,6 +174,7 @@ class ModelIndexView(generic.BaseListingView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
+    export_requires_post = True
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request
@@ -914,7 +915,7 @@ class SnippetViewSet(ModelViewSet):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
         breadcrumbs = [
-            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
+            {"url": reverse_lazy("wagtailadmin_home"), "label": gettext_lazy("Home")},
         ]
 
         if (
@@ -922,7 +923,10 @@ class SnippetViewSet(ModelViewSet):
             or not self.get_menu_item_is_registered()
         ):
             breadcrumbs.append(
-                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+                {
+                    "url": reverse_lazy("wagtailsnippets:index"),
+                    "label": gettext_lazy("Snippets"),
+                },
             )
 
         return breadcrumbs

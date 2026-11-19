@@ -1,7 +1,7 @@
 # Translators:
+# Gladson <gladsonbrito@gmail.com>, 2022
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022
-# Gladson <gladsonbrito@gmail.com>, 2022
 # Iuri L. Machado, 2022
 # LB (Ben Johnston) <mail@lb.ee>, 2023
 # A M, 2023
@@ -152,9 +152,6 @@ msgstr "Não"
 msgid "No results"
 msgstr "Nenhum resultado"
 
-msgid "Page"
-msgstr "Página"
-
 msgid "Page explorer"
 msgstr "Navegador de páginas"
 
@@ -202,9 +199,6 @@ msgstr "Busca"
 
 msgid "Search options…"
 msgstr "Buscar opções..."
-
-msgid "See all"
-msgstr "Ver todos"
 
 msgid "Server Error"
 msgstr "Erro de servidor"

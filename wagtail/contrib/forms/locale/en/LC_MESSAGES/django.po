@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,33 +155,33 @@ msgstr ""
 msgid "help text"
 msgstr ""
 
-#: models.py:205 views.py:199
+#: models.py:199 views.py:199
 msgid "Submission date"
 msgstr ""
 
-#: models.py:305
+#: models.py:303
 msgid "Form"
 msgstr ""
 
-#: models.py:306
+#: models.py:304
 msgid "Landing page"
 msgstr ""
 
-#: models.py:337
+#: models.py:335
 msgid "to address"
 msgstr ""
 
-#: models.py:341
+#: models.py:339
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:347
+#: models.py:345
 msgid "from address"
 msgstr ""
 
-#: models.py:349
+#: models.py:347
 msgid "subject"
 msgstr ""
 

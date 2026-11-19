@@ -205,8 +205,4 @@ Documents in Wagtail can be accessed through the API via the `wagtail.documents.
 
 For more details, you can refer to the [API section](api_v2_configure_endpoints) that provides additional information and usage examples.
 
-```{versionadded} 8.0
-Wagtail’s new v3 API is based on Django Ninja and provides OpenAPI schemas.
-```
-
 The [v3 images API endpoints](api_v3_documents) are also available whenever the v3 API is enabled, and provide more advanced features such as "write" operations.

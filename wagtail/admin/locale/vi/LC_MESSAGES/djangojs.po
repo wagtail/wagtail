@@ -50,9 +50,6 @@ msgstr "Chỉnh sửa '%(title)s'"
 msgid "Loading…"
 msgstr "Đang tải..."
 
-msgid "Page"
-msgstr "Trang"
-
 msgid "Pages"
 msgstr "Trang"
 

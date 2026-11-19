@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 
-from wagtail.api.v2.utils import get_full_url
+from wagtail.api.utils import get_full_url
 from wagtail.api.v3.schemas.base import (
     BaseCreateMetaSchema,
     BaseCreateSchema,

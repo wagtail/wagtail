@@ -98,9 +98,6 @@ msgstr "上に移動"
 msgid "No results"
 msgstr "結果なし"
 
-msgid "Page"
-msgstr "ページ"
-
 msgid "Page explorer"
 msgstr "ページ探索"
 
@@ -136,9 +133,6 @@ msgstr "保存中"
 
 msgid "Search"
 msgstr "検索"
-
-msgid "See all"
-msgstr "全部表示"
 
 msgid "Server Error"
 msgstr "サーバーエラー"

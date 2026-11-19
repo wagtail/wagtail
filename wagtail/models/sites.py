@@ -237,25 +237,35 @@ class Site(models.Model):
 
         if result is None:
             result = []
-
-            for site in Site.objects.select_related(
+            sites = Site.objects.select_related(
                 "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
+            ).order_by("-root_page__url_path", "-is_default_site", "hostname")
+
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                Page = swapper.load_model("wagtailcore", "Page")
+                translation_keys = {site.root_page.translation_key for site in sites}
+                root_pages_by_translation_key = {}
+                for translation_key, url_path, language_code in Page.objects.filter(
+                    translation_key__in=translation_keys
+                ).values_list("translation_key", "url_path", "locale__language_code"):
+                    root_pages_by_translation_key.setdefault(
+                        translation_key, []
+                    ).append((url_path, language_code))
+
+                for site in sites:
+                    for url_path, language_code in root_pages_by_translation_key.get(
+                        site.root_page.translation_key, ()
+                    ):
+                        result.append(
                             SiteRootPath(
                                 site.id,
-                                root_page.url_path,
+                                url_path,
                                 site.root_url,
-                                root_page.locale.language_code,
+                                language_code,
                             )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
+                        )
+            else:
+                for site in sites:
                     result.append(
                         SiteRootPath(
                             site.id,

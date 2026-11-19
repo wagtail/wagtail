@@ -41,6 +41,13 @@ class RedirectSchema(Schema):
     redirect_link: str
     automatically_created: bool
     created_at: datetime | None
+    location: str | None = Field(
+        alias="link",
+        description=(
+            "The URL to redirect to, from either the redirect page (and route "
+            "path) or the redirect link."
+        ),
+    )
 
 
 class RedirectInputSchema(Schema):
@@ -94,9 +101,14 @@ def list_redirects(
 
 @router.get(
     "/find/",
-    response=RedirectSchema,
+    # The 200 response is from the detail endpoint, after following the redirect
+    response={200: RedirectSchema, 302: None},
     url_name="find_redirect",
     summary="Find redirect",
+    description=(
+        "Redirects (302) to the detail endpoint of the matching redirect. HTTP "
+        "clients that follow redirects receive the redirect detail."
+    ),
     operation_id="redirects_find",
     # Public read, like the list view and the v2 API.
     auth=[BearerTokenAuth(), AllowAnonymous()],

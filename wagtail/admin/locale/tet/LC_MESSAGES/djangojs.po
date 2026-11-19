@@ -175,9 +175,6 @@ msgstr "Lae"
 msgid "No results"
 msgstr "La iha rezultadu"
 
-msgid "Page"
-msgstr "Pájina"
-
 msgid "Page explorer"
 msgstr "Explora pájina/"
 
@@ -226,9 +223,6 @@ msgstr "Buka"
 
 msgid "Search options…"
 msgstr "Buka opsaun sira..."
-
-msgid "See all"
-msgstr "Haree hotu"
 
 msgid "Server Error"
 msgstr "Servidor erru"

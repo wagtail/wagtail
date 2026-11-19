@@ -10,7 +10,6 @@ resulting DB HTML through `APIRichText.sanitize_db_html` (which enforces the
 field's features and reports removals).
 """
 
-import json
 import re
 from urllib.parse import quote, urlencode
 
@@ -26,8 +25,7 @@ from draftjs_exporter import (
     md_block,
     md_image,
     md_inline,
-    md_link_destination,
-    md_mark_safe,
+    md_link,
     render_children,
     scheme_resolver,
 )
@@ -80,11 +78,14 @@ class MarkdownConverter:
         ``expand_db_html``). Dangling references degrade to plain text in
         resolved mode (editor parity).
         """
-        contentstate_json = ContentstateConverter(self.features).from_database_format(
-            html
-        )
-        content_state = json.loads(contentstate_json)
-        markdown = _markdown_exporter(resolved).render(content_state)
+        handler = ContentstateConverter(self.features).html_to_contentstate_handler
+        handler.reset()
+        handler.feed(html)
+        handler.close()
+        content_state = handler.contentstate.as_dict()
+        if resolved:
+            strip_trailing_line_breaks(content_state)
+        markdown = markdown_exporter(resolved).render(content_state)
         # The contentstate conversion pads atomic blocks (images/embeds) at
         # the document edges with empty spacer paragraphs, which render as
         # stray blank lines. Normalise: no leading/trailing blank lines, one
@@ -162,14 +163,6 @@ def _keep_children_block(props):
     return DOM.create_element("p", {}, props["children"])
 
 
-def _keep_children_style(props):
-    return props["children"]
-
-
-def _keep_children_entity(props):
-    return props["children"]
-
-
 def _db_html_exporter():
     exporter_config = {
         "block_map": {
@@ -182,8 +175,8 @@ def _db_html_exporter():
             BLOCK_TYPES.CODE: "pre",
             BLOCK_TYPES.FALLBACK: _keep_children_block,
         },
-        "style_map": {INLINE_STYLES.FALLBACK: _keep_children_style},
-        "entity_decorators": {ENTITY_TYPES.FALLBACK: _keep_children_entity},
+        "style_map": {INLINE_STYLES.FALLBACK: render_children},
+        "entity_decorators": {ENTITY_TYPES.FALLBACK: render_children},
         "composite_decorators": [{"strategy": re.compile(r"\n"), "component": br}],
         "engine": DOM.STRING,
     }
@@ -200,59 +193,33 @@ def _db_html_exporter():
     return HTMLExporter(exporter_config)
 
 
-def _markdown_link(children, destination):
-    return md_inline(
-        [
-            md_mark_safe("["),
-            children,
-            md_mark_safe("]("),
-            md_link_destination(destination),
-            md_mark_safe(")"),
-        ]
-    )
-
-
 def _page_or_external_ref_link(props):
     id_ = props.get("id")
     if id_ is not None:
-        return _markdown_link(props["children"], wagtail_ref("page", id=id_))
-    return _markdown_link(props["children"], props.get("url") or "")
+        return md_link({**props, "url": wagtail_ref("page", id=id_)})
+    return md_link(props)
 
 
 def _resolved_link(props):
-    url = props.get("url")
-    if not url:
+    if not props.get("url"):
         # Dangling references degrade to plain text (editor parity).
         return md_inline([props["children"]])
-    return _markdown_link(props["children"], url)
+    return md_link(props)
 
 
 def _document_ref_link(props):
-    return _markdown_link(
-        props["children"], wagtail_ref("document", id=props.get("id"))
-    )
-
-
-def _resolved_document_link(props):
-    url = props.get("url")
-    if not url:
-        return md_inline([props["children"]])
-    return _markdown_link(props["children"], url)
+    return md_link({**props, "url": wagtail_ref("document", id=props.get("id"))})
 
 
 def _image_ref_image(props):
-    return md_block(
-        [
-            md_mark_safe("!["),
-            props.get("alt") or "",
-            md_mark_safe("]("),
-            md_link_destination(
-                wagtail_ref(
-                    "image", id=props.get("id"), format=props.get("format") or ""
-                )
+    return md_image(
+        {
+            **props,
+            "alt": props.get("alt") or "",
+            "src": wagtail_ref(
+                "image", id=props.get("id"), format=props.get("format") or ""
             ),
-            md_mark_safe(")"),
-        ]
+        }
     )
 
 
@@ -263,43 +230,50 @@ def _resolved_image(props):
 
 
 def _media_ref_embed(props):
-    label = props.get("title") or props.get("url") or ""
-    return md_block(
-        [
-            md_mark_safe("!["),
-            label,
-            md_mark_safe("]("),
-            md_link_destination(wagtail_ref("media", url=props.get("url") or "")),
-            md_mark_safe(")"),
-        ]
+    return md_image(
+        {
+            **props,
+            "alt": props.get("title") or props.get("url") or "",
+            "src": wagtail_ref("media", url=props.get("url") or ""),
+        }
     )
 
 
 def _resolved_media_embed(props):
     label = props.get("title") or props.get("url") or ""
-    return md_block(
-        [
-            md_mark_safe("["),
-            label,
-            md_mark_safe("]("),
-            md_link_destination(props.get("url") or ""),
-            md_mark_safe(")"),
-        ]
-    )
+    return md_block([md_link({**props, "children": label, "url": props.get("url")})])
 
 
-def _markdown_exporter(resolved):
+def strip_trailing_line_breaks(content_state):
+    """A line break at the end of a block (e.g. ``<p>text<br/></p>``) has no
+    Markdown equivalent: a hard break needs a following line."""
+    for block in content_state["blocks"]:
+        text = block["text"].rstrip("\n")
+        if text == block["text"]:
+            continue
+        block["text"] = text
+        for range_ in block["inlineStyleRanges"] + block["entityRanges"]:
+            range_["length"] = max(
+                0, min(range_["length"], len(text) - range_["offset"])
+            )
+
+
+def markdown_exporter(resolved):
     config = build_markdown_config({"italic": "*", "strikethrough": "~~"})
     if resolved:
         config["entity_decorators"].update(
             {
                 ENTITY_TYPES.LINK: _resolved_link,
-                ENTITY_TYPE_DOCUMENT: _resolved_document_link,
+                ENTITY_TYPE_DOCUMENT: _resolved_link,
                 ENTITY_TYPES.IMAGE: _resolved_image,
                 ENTITY_TYPE_MEDIA: _resolved_media_embed,
             }
         )
     else:
+        # db_markdown keeps line breaks as bare newlines, which the importer
+        # reads back as <br/>, so it round-trips without loss. The default
+        # md_line_break decorator would convert them to `\` + newline.
+        config["composite_decorators"] = []
         config["entity_decorators"].update(
             {
                 ENTITY_TYPES.LINK: _page_or_external_ref_link,

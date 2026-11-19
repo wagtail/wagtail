@@ -10,6 +10,7 @@ from ninja.errors import ValidationError as NinjaValidationError
 from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
+from wagtail.actions import WorkflowStateError
 from wagtail.api.rich_text import RichTextFormatError
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.utils.forms import FormValidationError
@@ -146,6 +147,14 @@ def register_exception_handlers(api: NinjaAPI):
             status=422,
             detail="Validation failed",
             errors=errors,
+        )
+
+    @api.exception_handler(WorkflowStateError)
+    def workflow_state_error_handler(request: HttpRequest, exc: WorkflowStateError):
+        return problem_response(
+            status=422,
+            detail="Validation failed",
+            errors=[{"type": "workflow_state_error", "loc": [], "msg": str(exc)}],
         )
 
     @api.exception_handler(PermissionDenied)

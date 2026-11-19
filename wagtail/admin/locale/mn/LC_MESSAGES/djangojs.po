@@ -54,9 +54,6 @@ msgstr "Дээшээ зөөх"
 msgid "No results"
 msgstr "Үр дүн олдсонгүй"
 
-msgid "Page"
-msgstr "Хуудас"
-
 msgid "Pages"
 msgstr "Хуудсууд"
 
@@ -74,9 +71,6 @@ msgstr "Хадгалах"
 
 msgid "Search"
 msgstr "Хайлт"
-
-msgid "See all"
-msgstr "Бүгдийг харах"
 
 msgid "Server Error"
 msgstr "Северийн алдаа"

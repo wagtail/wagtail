@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,7 +205,7 @@ msgstr ""
 msgid "Search term"
 msgstr ""
 
-#: forms/choosers.py:75 templatetags/wagtailadmin_tags.py:1369
+#: forms/choosers.py:75 templatetags/wagtailadmin_tags.py:1365
 #: views/generic/chooser.py:392 views/pages/search.py:58 viewsets/chooser.py:84
 msgid "Search"
 msgstr ""
@@ -215,7 +215,8 @@ msgstr ""
 msgid "All collections"
 msgstr ""
 
-#: forms/collections.py:94 views/chooser.py:420 views/pages/listing.py:145
+#: forms/collections.py:94
+msgctxt "choose parent collection"
 msgid "Parent"
 msgstr ""
 
@@ -588,9 +589,10 @@ msgstr ""
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:14
 #: templates/wagtailadmin/reports/aging_pages_results.html:9
 #: templates/wagtailadmin/reports/listing/_list_page_report.html:12
-#: views/chooser.py:189 views/chooser.py:417 views/generic/base.py:200
+#: templates/wagtailadmin/shared/content_checks/metadata.html:28
+#: views/chooser.py:190 views/chooser.py:418 views/generic/base.py:200
 #: views/generic/chooser.py:230 views/generic/chooser.py:237
-#: views/pages/listing.py:141
+#: views/pages/listing.py:142
 msgid "Title"
 msgstr ""
 
@@ -711,7 +713,7 @@ msgid "Bulk actions"
 msgstr ""
 
 #: templates/wagtailadmin/bulk_actions/listing_checkbox_cell.html:18
-#: views/chooser.py:211 views/chooser.py:439 views/generic/chooser.py:250
+#: views/chooser.py:212 views/chooser.py:443 views/generic/chooser.py:250
 msgid "Select"
 msgstr ""
 
@@ -988,7 +990,7 @@ msgstr ""
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:76
 #: templates/wagtailadmin/pages/listing/_page_header_buttons.html:3
 #: templates/wagtailadmin/widgets/chooser.html:20
-#: templatetags/wagtailadmin_tags.py:1375 views/generic/base.py:86
+#: templatetags/wagtailadmin_tags.py:1371 views/generic/base.py:86
 msgid "Actions"
 msgstr ""
 
@@ -1081,8 +1083,8 @@ msgstr ""
 #: templates/wagtailadmin/reports/workflow_results.html:15
 #: templates/wagtailadmin/reports/workflow_tasks_results.html:15
 #: templates/wagtailadmin/shared/workflow_history/listing_results.html:9
-#: ui/side_panels.py:64 ui/tables/__init__.py:392 views/chooser.py:204
-#: views/chooser.py:433 views/pages/listing.py:161
+#: ui/side_panels.py:64 ui/tables/__init__.py:392 views/chooser.py:205
+#: views/chooser.py:437 views/pages/listing.py:165
 #: views/reports/aging_pages.py:41 views/reports/base.py:45
 #: views/reports/workflows.py:156 views/reports/workflows.py:240
 msgid "Status"
@@ -1102,7 +1104,7 @@ msgstr ""
 
 #: templates/wagtailadmin/home/locked_pages.html:55
 #: templates/wagtailadmin/reports/listing/_list_unlock.html:42
-#: views/generic/mixins.py:723 views/pages/edit.py:442
+#: views/generic/mixins.py:728 views/pages/edit.py:442
 msgid "Unlock"
 msgstr ""
 
@@ -1219,7 +1221,7 @@ msgstr ""
 
 #: templates/wagtailadmin/home/workflow_objects_to_moderate.html:84
 #: templates/wagtailadmin/shared/side_panels/preview.html:94
-#: templatetags/wagtailadmin_tags.py:1377 ui/side_panels.py:367
+#: templatetags/wagtailadmin_tags.py:1373 ui/side_panels.py:367
 #: views/generic/history.py:133
 msgid "Preview"
 msgstr ""
@@ -2020,7 +2022,7 @@ msgid "Copy %(title)s"
 msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:5
-#: templatetags/wagtailadmin_tags.py:1384 views/generic/models.py:385
+#: templatetags/wagtailadmin_tags.py:1380 views/generic/models.py:385
 #: views/generic/models.py:941 wagtail_hooks.py:297
 msgid "Copy"
 msgstr ""
@@ -2261,8 +2263,8 @@ msgstr ""
 #: templates/wagtailadmin/reports/listing/_list_page_report.html:18
 #: templates/wagtailadmin/reports/listing/_list_page_types_usage.html:13
 #: templates/wagtailadmin/reports/site_history_results.html:12
-#: views/chooser.py:200 views/chooser.py:429 views/generic/usage.py:109
-#: views/pages/listing.py:154 views/reports/aging_pages.py:24
+#: views/chooser.py:201 views/chooser.py:433 views/generic/usage.py:109
+#: views/pages/listing.py:158 views/reports/aging_pages.py:24
 #: views/reports/aging_pages.py:44 views/reports/audit_logging.py:56
 #: views/reports/audit_logging.py:86 views/reports/base.py:46
 #: views/workflows.py:561 views/workflows.py:591
@@ -2278,8 +2280,8 @@ msgid "No pages match this report's criteria."
 msgstr ""
 
 #: templates/wagtailadmin/reports/listing/_list_page_report.html:15
-#: ui/tables/__init__.py:439 views/chooser.py:194 views/chooser.py:423
-#: views/pages/listing.py:148 views/reports/base.py:44
+#: ui/tables/__init__.py:439 views/chooser.py:195 views/chooser.py:427
+#: views/pages/listing.py:152 views/reports/base.py:44
 msgid "Updated"
 msgstr ""
 
@@ -2434,6 +2436,91 @@ msgstr ""
 msgid "Breadcrumb"
 msgstr ""
 
+#: templates/wagtailadmin/shared/content_checks/metadata.html:6
+msgid "Page metadata"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:11
+#: templates/wagtailadmin/shared/content_checks/metrics.html:21
+msgid "This data explained"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:14
+msgid "What is page metadata?"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:15
+msgid ""
+"Metadata lives in the HTML of the page, and includes the page title and "
+"description used by search engines."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:16
+msgid "How are the lengths calculated?"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:17
+msgid ""
+"The title length of around 580 pixels or 60 characters, and description "
+"length of around 160 characters, are approximations of how this metadata is "
+"displayed in search results, rather than hard limits."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:21
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">page metadata guide</a> "
+"for more information on how metadata is used."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:33
+msgid "Description"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metadata.html:40
+msgid "View more meta tags"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:6
+#: templates/wagtailadmin/shared/content_checks/metrics.html:24
+msgid "Words"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:10
+#: templates/wagtailadmin/shared/content_checks/metrics.html:26
+msgid "Reading time"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:14
+#: templates/wagtailadmin/shared/content_checks/metrics.html:28
+msgid "Readability"
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:25
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:27
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:29
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+
+#: templates/wagtailadmin/shared/content_checks/metrics.html:33
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+
 #: templates/wagtailadmin/shared/dialog/confirm_site_name.html:4
 #, python-format
 msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
@@ -2527,11 +2614,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: templates/wagtailadmin/shared/export_buttons.html:11 views/mixins.py:320
+#: templates/wagtailadmin/shared/export_buttons.html:11 views/mixins.py:323
 msgid "Download XLSX"
 msgstr ""
 
-#: templates/wagtailadmin/shared/export_buttons.html:15 views/mixins.py:328
+#: templates/wagtailadmin/shared/export_buttons.html:15 views/mixins.py:331
 msgid "Download CSV"
 msgstr ""
 
@@ -2668,67 +2755,17 @@ msgid "Side panel width"
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:14
-#: templates/wagtailadmin/userbar/base.html:54
-#: templates/wagtailadmin/userbar/item_content_checker.html:27
+#: templates/wagtailadmin/userbar/base.html:56
+#: templates/wagtailadmin/userbar/item_content_checker.html:31
 msgid "Show issue"
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:29
-#: templates/wagtailadmin/shared/side_panels/checks.html:49
 msgid "Content metrics"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:34
-#: templates/wagtailadmin/shared/side_panels/checks.html:54
-msgid "Words"
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:38
-#: templates/wagtailadmin/shared/side_panels/checks.html:56
-msgid "Reading time"
-msgstr ""
-
 #: templates/wagtailadmin/shared/side_panels/checks.html:42
-#: templates/wagtailadmin/shared/side_panels/checks.html:58
-msgid "Readability"
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:48
-msgid "This data explained"
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:50
-msgid "How we calculate our metrics"
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:55
-msgid ""
-"We extract the main content from the page preview, remove all formatting, "
-"and calculate the number of words."
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:57
-msgid ""
-"We calculate reading time from word count, using different reading speeds "
-"for different languages."
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:59
-msgid ""
-"We use a readability formula based on length of words and sentences. Long "
-"sentences and words result in a worse readability score."
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:63
-#, python-format
-msgid ""
-"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
-"a> for more information on how content metrics are calculated."
-msgstr ""
-
-#: templates/wagtailadmin/shared/side_panels/checks.html:75
-#: templates/wagtailadmin/userbar/item_content_checker.html:6
-#: templates/wagtailadmin/userbar/item_content_checker.html:12
+#: templates/wagtailadmin/userbar/item_content_checker.html:17
 msgid "Issues found"
 msgstr ""
 
@@ -3029,17 +3066,14 @@ msgstr ""
 msgid "Enable custom ordering"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/base.html:36
+#: templates/wagtailadmin/userbar/base.html:38
 msgid "View Wagtail quick actions"
 msgstr ""
 
 #: templates/wagtailadmin/userbar/item_content_checker.html:7
+#: templates/wagtailadmin/userbar/item_content_checker.html:10
 #: ui/side_panels.py:339
 msgid "Checks"
-msgstr ""
-
-#: templates/wagtailadmin/userbar/item_content_checker.html:10
-msgid "Warnings"
 msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:8
@@ -3061,7 +3095,7 @@ msgstr ""
 #: templates/wagtailadmin/workflows/confirm_delete.html:14
 #: templates/wagtailadmin/workflows/confirm_disable.html:12
 #: templates/wagtailadmin/workflows/confirm_disable_task.html:12
-#: views/pages/listing.py:112 views/workflows.py:83
+#: views/pages/listing.py:113 views/workflows.py:83
 #: widgets/boolean_radio_select.py:16
 msgid "No"
 msgstr ""
@@ -3325,109 +3359,109 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1330
+#: templatetags/wagtailadmin_tags.py:1326
 #, python-format
 msgid "Changes requested %(finished_at)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1333
+#: templatetags/wagtailadmin_tags.py:1329
 #, python-format
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1335
+#: templatetags/wagtailadmin_tags.py:1331
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr ""
 
 #. Translators: Shortcuts for admin common shortcuts that are available across the admin
-#: templatetags/wagtailadmin_tags.py:1367
+#: templatetags/wagtailadmin_tags.py:1363
 msgid "Application"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1368
+#: templatetags/wagtailadmin_tags.py:1364
 msgid "Show keyboard shortcuts"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1370
+#: templatetags/wagtailadmin_tags.py:1366
 msgid "Toggle sidebar"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1371
+#: templatetags/wagtailadmin_tags.py:1367
 msgid "Toggle minimap"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1372
+#: templatetags/wagtailadmin_tags.py:1368
 msgid "Close modal dialogs (like this one)"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1376
+#: templatetags/wagtailadmin_tags.py:1372
 msgid "Save changes"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1378
+#: templatetags/wagtailadmin_tags.py:1374
 msgid "Add or show comments"
 msgstr ""
 
 #. Translators: Shortcuts for common text editing features available in all fields (even if not a rich text field)
-#: templatetags/wagtailadmin_tags.py:1383
+#: templatetags/wagtailadmin_tags.py:1379
 msgid "Text editing"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1385
+#: templatetags/wagtailadmin_tags.py:1381
 msgid "Cut"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1386
+#: templatetags/wagtailadmin_tags.py:1382
 msgid "Paste"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1388
+#: templatetags/wagtailadmin_tags.py:1384
 msgid "Paste and match style"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1390
+#: templatetags/wagtailadmin_tags.py:1386
 msgid "Paste without formatting"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1393
+#: templatetags/wagtailadmin_tags.py:1389
 msgid "Undo"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1395
+#: templatetags/wagtailadmin_tags.py:1391
 msgid "Redo"
 msgstr ""
 
 #. Translators: Shortcuts for formatting & editing features available in rich text fields
-#: templatetags/wagtailadmin_tags.py:1400
+#: templatetags/wagtailadmin_tags.py:1396
 msgid "Text formatting"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1401
+#: templatetags/wagtailadmin_tags.py:1397
 msgid "Insert or edit a link"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1402 wagtail_hooks.py:680
+#: templatetags/wagtailadmin_tags.py:1398 wagtail_hooks.py:680
 msgid "Bold"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1403 wagtail_hooks.py:702
+#: templatetags/wagtailadmin_tags.py:1399 wagtail_hooks.py:702
 msgid "Italic"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1404
+#: templatetags/wagtailadmin_tags.py:1400
 msgid "Monospace (code)"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1405
+#: templatetags/wagtailadmin_tags.py:1401
 msgid "Strike-through"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1406 wagtail_hooks.py:772
+#: templatetags/wagtailadmin_tags.py:1402 wagtail_hooks.py:772
 msgid "Superscript"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:1407 wagtail_hooks.py:793
+#: templatetags/wagtailadmin_tags.py:1403 wagtail_hooks.py:793
 msgid "Subscript"
 msgstr ""
 
@@ -3598,6 +3632,11 @@ msgstr ""
 msgid "You have been successfully logged out."
 msgstr ""
 
+#: views/chooser.py:423 views/pages/listing.py:148
+msgctxt "parent page column header"
+msgid "Parent"
+msgstr ""
+
 #: views/collections.py:19 wagtail_hooks.py:183
 msgid "Collections"
 msgstr ""
@@ -3667,7 +3706,7 @@ msgstr ""
 msgid "Compare with current version"
 msgstr ""
 
-#: views/generic/history.py:173 views/generic/mixins.py:734
+#: views/generic/history.py:173 views/generic/mixins.py:739
 #: views/pages/edit.py:456
 msgid "Cancel scheduled publish"
 msgstr ""
@@ -3689,93 +3728,98 @@ msgstr ""
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr ""
 
-#: views/generic/mixins.py:457 views/generic/models.py:819
+#: views/generic/mixins.py:462 views/generic/models.py:819
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr ""
 
-#: views/generic/mixins.py:459 views/generic/models.py:514
+#: views/generic/mixins.py:464 views/generic/models.py:514
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr ""
 
-#: views/generic/mixins.py:465
+#: views/generic/mixins.py:470
 #, python-format
 msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
 msgstr ""
 
-#: views/generic/mixins.py:470
+#: views/generic/mixins.py:475
 #, python-format
 msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
 msgstr ""
 
-#: views/generic/mixins.py:474
+#: views/generic/mixins.py:479
 #, python-format
 msgid ""
 "%(model_name)s '%(object)s' is live and this version has been scheduled for "
 "publishing."
 msgstr ""
 
-#: views/generic/mixins.py:479
+#: views/generic/mixins.py:484
 #, python-format
 msgid "%(model_name)s '%(object)s' updated and published."
 msgstr ""
 
-#: views/generic/mixins.py:481
+#: views/generic/mixins.py:486
 #, python-format
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr ""
 
-#: views/generic/mixins.py:485
+#: views/generic/mixins.py:490
 #, python-format
 msgid "%(model_name)s '%(object)s' has been submitted for moderation."
 msgstr ""
 
-#: views/generic/mixins.py:490
+#: views/generic/mixins.py:495
 #, python-format
 msgid "%(model_name)s '%(object)s' created and submitted for moderation."
 msgstr ""
 
-#: views/generic/mixins.py:494
+#: views/generic/mixins.py:499
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
 msgstr ""
 
-#: views/generic/mixins.py:497
+#: views/generic/mixins.py:502
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr ""
 
-#: views/generic/mixins.py:847 views/pages/edit.py:546
+#: views/generic/mixins.py:852 views/pages/edit.py:546
 msgid "Saving will overwrite a newer version."
 msgstr ""
 
-#: views/generic/mixins.py:854
+#: views/generic/mixins.py:859
 #, python-format
 msgid "The %(model_name)s could not be saved as it is locked"
 msgstr ""
 
-#: views/generic/mixins.py:893
+#: views/generic/mixins.py:868 views/pages/edit.py:993
+msgid ""
+"The workflow action could not be performed as the workflow state has changed."
+msgstr ""
+
+#: views/generic/mixins.py:907
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
 "<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 
-#: views/generic/mixins.py:927
+#: views/generic/mixins.py:941
 #, python-format
 msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
 msgstr ""
 
-#: views/generic/mixins.py:931
+#: views/generic/mixins.py:945
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
 msgstr ""
 
-#: views/generic/mixins.py:936
+#: views/generic/mixins.py:950
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
@@ -3817,7 +3861,7 @@ msgid "New: %(model_name)s"
 msgstr ""
 
 #: views/generic/models.py:640 views/generic/models.py:1080
-#: views/pages/create.py:436 views/pages/edit.py:976
+#: views/pages/create.py:436 views/pages/edit.py:1001
 msgid "There are validation errors, click save to highlight them."
 msgstr ""
 
@@ -3914,7 +3958,7 @@ msgstr ""
 msgid "Search all pages…"
 msgstr ""
 
-#: views/page_privacy.py:64
+#: views/page_privacy.py:59
 #, python-format
 msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
 msgstr ""
@@ -4092,50 +4136,50 @@ msgstr ""
 msgid "Workflow on page '%(page_title)s' has been cancelled."
 msgstr ""
 
-#: views/pages/edit.py:731
+#: views/pages/edit.py:748
 #, python-format
 msgid ""
 "Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
 "been scheduled for publishing."
 msgstr ""
 
-#: views/pages/edit.py:742
+#: views/pages/edit.py:759
 #, python-format
 msgid ""
 "Page '%(page_title)s' is live and this version has been scheduled for "
 "publishing."
 msgstr ""
 
-#: views/pages/edit.py:747
+#: views/pages/edit.py:764
 #, python-format
 msgid "Page '%(page_title)s' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages/edit.py:759
+#: views/pages/edit.py:776
 #, python-format
 msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
 msgstr ""
 
-#: views/pages/edit.py:765
+#: views/pages/edit.py:782
 #, python-format
 msgid "Page '%(page_title)s' has been published."
 msgstr ""
 
-#: views/pages/edit.py:809
+#: views/pages/edit.py:826
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr ""
 
-#: views/pages/edit.py:851
+#: views/pages/edit.py:868
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr ""
 
-#: views/pages/edit.py:966 views/pages/edit.py:970
+#: views/pages/edit.py:983 views/pages/edit.py:987
 msgid "The page could not be saved as it is locked."
 msgstr ""
 
-#: views/pages/edit.py:981
+#: views/pages/edit.py:1006
 msgid "The page could not be saved due to validation errors."
 msgstr ""
 
@@ -4143,44 +4187,44 @@ msgstr ""
 msgid "Is commenting action"
 msgstr ""
 
-#: views/pages/listing.py:76
+#: views/pages/listing.py:77
 msgid "Date updated"
 msgstr ""
 
-#: views/pages/listing.py:80
+#: views/pages/listing.py:81
 msgid "Owner"
 msgstr ""
 
-#: views/pages/listing.py:91
+#: views/pages/listing.py:92
 msgid "Edited by"
 msgstr ""
 
-#: views/pages/listing.py:103 views/reports/page_types_usage.py:79
+#: views/pages/listing.py:104 views/reports/page_types_usage.py:79
 msgid "Site"
 msgstr ""
 
-#: views/pages/listing.py:108
+#: views/pages/listing.py:109
 msgid "Has child pages"
 msgstr ""
 
-#: views/pages/listing.py:109
+#: views/pages/listing.py:110
 msgid "Any"
 msgstr ""
 
-#: views/pages/listing.py:111 views/workflows.py:83
+#: views/pages/listing.py:112 views/workflows.py:83
 #: widgets/boolean_radio_select.py:15
 msgid "Yes"
 msgstr ""
 
-#: views/pages/listing.py:124
+#: views/pages/listing.py:125
 msgid "Page type"
 msgstr ""
 
-#: views/pages/listing.py:326
+#: views/pages/listing.py:330
 msgid "Exploring"
 msgstr ""
 
-#: views/pages/listing.py:327 wagtail_hooks.py:279
+#: views/pages/listing.py:331 wagtail_hooks.py:279
 msgid "Add child page"
 msgstr ""
 

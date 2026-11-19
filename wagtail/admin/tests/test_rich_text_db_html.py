@@ -203,12 +203,21 @@ class TestDbHTMLConverterSecurity(SimpleTestCase):
         cleaned, removals = self.clean(
             '<p><a linktype="page" id="3" class="evil" href="https://x.test/">a</a></p>'
         )
-        self.assertEqual(cleaned, '<p><a id="3" linktype="page">a</a></p>')
+        self.assertHTMLEqual(cleaned, '<p><a id="3" linktype="page">a</a></p>')
         self.assertEqual(removals, [])
 
     def test_malformed_html_does_not_raise(self):
         cleaned, removals = self.clean("<p>unclosed <b>bold")
         self.assertEqual(cleaned, "<p>unclosed <b>bold</b></p>")
+
+    def test_disallowed_tag_inside_link(self):
+        cleaned, removals = self.clean(
+            '<p><a linktype="page" id="2">Nothing to <!-- x --><img src="x" onerror="alert(document.domain)"> see here</a></p>'
+        )
+        self.assertHTMLEqual(
+            cleaned, '<p><a linktype="page" id="2">Nothing to  see here</a></p>'
+        )
+        self.assertEqual([r.tag for r in removals], ["img"])
 
 
 class TestDbHTMLConverterDefaults(SimpleTestCase):

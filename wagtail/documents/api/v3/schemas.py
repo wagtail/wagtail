@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from ninja import Schema
 
-from wagtail.api.v2.utils import get_full_url
+from wagtail.api.utils import get_full_url
 from wagtail.api.v3.schemas import create_generator, patch_generator, read_generator
 from wagtail.api.v3.schemas.base import BaseMetaSchema, BaseSchema
 from wagtail.documents import get_document_model

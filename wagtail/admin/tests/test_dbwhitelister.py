@@ -66,6 +66,18 @@ class TestDbWhitelister(WagtailTestUtils, TestCase):
         )
         self.assertHtmlEqual(expected, output_html)
 
+    def test_clean_disallowed_tag(self):
+        input_html = '<p>Nothing to <!-- x --><img src="x" onerror="alert(document.domain)"> see here</p>'
+        output_html = self.whitelister.clean(input_html)
+        expected = "<p>Nothing to  see here</p>"
+        self.assertHtmlEqual(expected, output_html)
+
+    def test_clean_disallowed_tag_inside_link(self):
+        input_html = '<p><a data-linktype="page" data-id="2" href="/">Nothing to <!-- x --><img src="x" onerror="alert(document.domain)"> see here</a></p>'
+        output_html = self.whitelister.clean(input_html)
+        expected = '<p><a linktype="page" id="2">Nothing to  see here</a></p>'
+        self.assertHtmlEqual(expected, output_html)
+
     def test_document_link_is_rewritten(self):
         input_html = (
             '<p>Look at our <a data-linktype="document" data-id="1" href="/documents/1/brochure.pdf">'

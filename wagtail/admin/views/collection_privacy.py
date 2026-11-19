@@ -10,8 +10,8 @@ from wagtail.permissions import policy_registry
 
 def set_privacy(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
-    if not policy_registry.get_by_type(Collection).user_has_permission(
-        request.user, "change"
+    if not policy_registry.get_by_type(Collection).user_has_permission_for_instance(
+        request.user, "change", collection
     ):
         raise PermissionDenied
 

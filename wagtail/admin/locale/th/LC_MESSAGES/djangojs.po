@@ -63,9 +63,6 @@ msgstr "เลื่อนขึ้น,ขยับขึ้น"
 msgid "No results"
 msgstr "ไม่พบ"
 
-msgid "Page"
-msgstr "หน้า"
-
 msgid "Pages"
 msgstr "หลายหน้า"
 
@@ -86,9 +83,6 @@ msgstr "ค้นหา"
 
 msgid "Search options…"
 msgstr "ค้นหาตัวเลือก..."
-
-msgid "See all"
-msgstr "เปิดทั้งหมด"
 
 msgid "Server Error"
 msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"

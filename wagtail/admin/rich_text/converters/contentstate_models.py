@@ -85,7 +85,7 @@ class ContentState:
         return {
             "blocks": [block.as_dict() for block in self.blocks],
             "entityMap": {
-                key: entity.as_dict() for (key, entity) in self.entity_map.items()
+                str(key): entity.as_dict() for (key, entity) in self.entity_map.items()
             },
         }
 

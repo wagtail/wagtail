@@ -103,11 +103,11 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
         label=_("Workflow"),
     )
 
-    # When a workflow is chosen in the 'id_workflow' selector, filter this list of tasks
+    # When a workflow is chosen in the field named 'workflow', filter this list of tasks
     # to just the ones whose workflows attribute includes the selected workflow.
     task = FilteredModelChoiceFilter(
         queryset=Task.objects.all(),
-        filter_field="id_workflow",
+        filter_field="workflow",
         filter_accessor="workflows",
     )
 
@@ -148,6 +148,7 @@ class WorkflowView(ReportView):
     index_url_name = "wagtailadmin_reports:workflow"
     index_results_url_name = "wagtailadmin_reports:workflow_results"
     any_permission_required = ["add", "change", "publish"]
+    export_requires_post = True
 
     export_headings = {
         "content_object.pk": _("Page/Snippet ID"),
@@ -232,6 +233,7 @@ class WorkflowTasksView(ReportView):
     index_url_name = "wagtailadmin_reports:workflow_tasks"
     index_results_url_name = "wagtailadmin_reports:workflow_tasks_results"
     any_permission_required = ["add", "change", "publish"]
+    export_requires_post = True
 
     export_headings = {
         "workflow_state.content_object.pk": _("Page/Snippet ID"),

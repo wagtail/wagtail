@@ -27,12 +27,12 @@ The `/pages/` endpoint returns a paginated list of pages using the compact base 
 }
 ```
 
-The list uses the same pagination envelope as every list endpoint, with `count` for the total number of results and `?limit` / `?offset` for paging — see [](api_v3) for details.
+The list uses the same pagination envelope as every list endpoint, with `count` for the total number of results and `?limit` / `?offset` for paging. See [](api_v3_pagination) for details.
 
 Which pages appear depends on the access tier:
 
 -   **Anonymous requests** see only publicly accessible pages: live, scoped to the request's site, and without any page view restrictions.
--   **Authenticated requests** see the pages the current user can explore in the admin, which includes draft-only pages.
+-   **Authenticated requests** see the pages the current user has change or publish permission for, which includes draft-only pages.
 
 ### Filters
 
@@ -41,7 +41,7 @@ The list endpoint supports filtering, ordering, and searching through query para
 -   **`type`**: restrict to one or more page types, given as their Django model labels (for example `tests.BlogPage`). Repeat the parameter to request several types. Selecting exactly one type allows field filtering and ordering on that type's own fields, while multiple types filter by content type. List responses always use the compact base shape regardless of type.
 -   **`ancestor_of`**: only pages that are ancestors of the given page.
 -   **`child_of`**: only direct children of the given page. Pass `child_of=root` to filter relative to the site root.
--   **`descendant_of`**: only descendants of the given page. Pass `descendant_of=root` to filter to the whole tree under the root. `child_of` and `descendant_of` cannot be combined.
+-   **`descendant_of`**: only descendants of the given page. Pass `descendant_of=root` to filter to the whole tree under the root. Cannot be combined with `child_of`.
 -   **`translation_of`**: only pages that are translations of the given page; the source page itself is excluded.
 -   **`locale`**: a language code, for example `en` or `fr`, to restrict to a single locale.
 -   **`site`**: restrict to a site, given by its hostname, port, site name, or ID.
@@ -63,8 +63,8 @@ curl "https://example.com/api/v3/pages/?type=tests.BlogPage&locale=fr&search=dra
 Beyond the structured filters above, you can filter on the page's own exposed database fields (any `api_fields` the project declares, such as `title` or `slug`) as exact-match query parameters, order by them, and run full-text search:
 
 -   **Field filters**: for example `?title=Example` returns pages whose `title` equals the value.
--   **`order`**: order by a field, with a leading `-` for descending order (for example `?order=-first_published_at`). Repeat the parameter to order by several fields, or pass `?order=random` for random ordering. Random ordering cannot be combined with a non-zero `?offset`.
--   **`search`**: full-text search over the page content, with `?search_operator=and` (all terms) or `?search_operator=or` (any term). This only works when page search is enabled.
+-   **`order`**: order by a field, with a leading `-` for descending order (for example `?order=-first_published_at`). Repeat the parameter to order by several fields, or pass `?order=random` for random ordering. Random ordering cannot be combined with a non-zero `?offset`. Without `order`, pages are listed in the page tree order (the order editors can arrange child pages in).
+-   **`search`**: full-text search over the page content, with `?search_operator=and` (all terms) or `?search_operator=or` (any term). This only works when [`WAGTAILAPI_SEARCH_ENABLED`](wagtailapi_settings) is set to `True`.
 
 ```sh
 # Blog pages ordered by title
@@ -73,7 +73,7 @@ curl "https://example.com/api/v3/pages/?type=tests.BlogPage&order=title"
 
 ## Finding a page
 
-The `/pages/find/` endpoint resolves a page by its public HTML path (or by ID) to the canonical detail URL. It accepts `id` and/or `html_path`, plus optional `site` and `version`. When a page matches, the endpoint responds with an HTTP redirect (302) to `GET /pages/{page_id}/`.
+The `/pages/find/` endpoint resolves a page by its public HTML path (or by ID) to the canonical detail URL. It accepts `id` and/or `html_path`, plus optional `site` and `version`. When a page matches, the endpoint responds with an HTTP redirect (302) to `GET /pages/{page_id}/`. The OpenAPI schema describes both the redirect and the page detail that a client receives after following it, which most HTTP clients do by default.
 
 ```sh
 curl "https://example.com/api/v3/pages/find/?html_path=/blog/example/"
@@ -90,9 +90,11 @@ Two query parameters control the response:
 -   **`version`**: `live` (the default) returns the currently live page. `draft` returns the latest revision for an authenticated request.
 -   **`rich_text_format`**: the output format for rich text fields, as described in [](api_v3_rich_text).
 
+(api_v3_pages_create)=
+
 ## Creating a page
 
-The `/pages/` endpoint creates a new page under a parent. It requires an authenticated request and the page `add` (create) permission for the relevant page type.
+The `/pages/` endpoint creates a new page under a parent. It requires an authenticated request and the page `add` (create) permission on the desired tree position.
 
 The request body is a discriminated union: `meta.type` selects the concrete page type, and the remaining fields are that type's writable fields. A minimal create request looks like:
 
@@ -129,7 +131,7 @@ A successful create returns `201` with the type-specific page detail. The creati
 
 ### Writable fields
 
-Beyond `title`, `slug`, and the `meta` envelope, you can submit any of the following, subject to the page type's declared `api_fields`:
+Beyond `title`, `slug`, and the `meta` envelope, you can submit any of the following, subject to the page type's declared [`api_fields`](api_v3_fields):
 
 -   Built-in writable page fields where present, for example `seo_title`, `search_description`, and `show_in_menus`;
 -   Custom model fields the project exposes as writable API fields (declared `writable`);
@@ -148,7 +150,7 @@ The `/pages/{page_id}/` endpoint updates an existing page. It requires an authen
 
 `PATCH` is a partial update:
 
--   **`meta.type`**: optional. When omitted, the page's actual type is used. You only need to specify it when the payload must bind against a particular type.
+-   **`meta.type`**: optional. When omitted, the page's actual type is used.
 -   Omitted fields and child relations are left unchanged.
 
 ```sh
@@ -201,15 +203,19 @@ Each entry includes the revision ID, object ID, creation time, authoring user ID
 -   `created_at_from` / `created_at_to`: restrict to revisions created within a time range.
 -   `user_id`: revisions authored by a given user.
 -   `approved_go_live_at_from` / `approved_go_live_at_to`: revisions with an approved go-live time in a range.
--   `object_str`: a substring match on the revision's object string.
+-   `object_str`: a substring match on the page's string representation when the revision was saved.
 
 ### Revision detail
 
 The `/pages/{page_id}/revisions/{revision_id}/` endpoint returns a single revision's metadata, its content and base content types, and a `content_object` reconstructed from the revision. Revision IDs are scoped to the page: a revision belonging to another page returns `404`.
 
+(api_v3_pages_actions)=
+
 ## Page actions
 
 Page actions are operations Wagtail applies to a page as a whole, each exposed as a `POST /pages/{page_id}/actions/<name>/` endpoint. Each action requires an authenticated request and the permission indicated below, and runs through the same Wagtail action layer as the admin UI, so permissions, revisions, audit logs, hooks, and signals are preserved.
+
+Moderation workflow operations (submit for moderation, approve, reject, resume, and cancel) follow the same pattern under `actions/workflow/`, and are covered in [](api_v3_workflows).
 
 ### Publish
 
@@ -275,7 +281,7 @@ Reverting creates a new draft revision based on the given one, without publishin
 
 ### Copy for translation
 
-`/pages/{page_id}/actions/copy_for_translation/` copies the page into another locale and requires i18n to be enabled and the translation submit permission. It accepts:
+`/pages/{page_id}/actions/copy_for_translation/` copies the page into another locale and requires [internationalization](internationalisation) to be enabled and the `submit_translation` permission. It accepts:
 
 -   `locale`: the target language code, for example `fr` (required).
 -   `copy_parents`: also copy the page's ancestor pages.

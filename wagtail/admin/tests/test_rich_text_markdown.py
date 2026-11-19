@@ -332,3 +332,53 @@ class TestDbHtmlToMarkdown(TestCase):
             'id="1"',
         ):
             self.assertIn(ref, db_html_again)
+
+
+class TestDbHtmlToMarkdownFormatting(SimpleTestCase):
+    features = [
+        "bold",
+        "italic",
+        "strikethrough",
+        "link",
+        "h2",
+        "ul",
+        "ol",
+        "blockquote",
+    ]
+
+    def convert(self, html, *, resolved=True):
+        return MarkdownConverter(self.features).from_database_format(
+            html, resolved=resolved
+        )
+
+    def round_trip(self, html):
+        converter = MarkdownConverter(self.features)
+        return converter.to_database_format(
+            converter.from_database_format(html, resolved=False)
+        )
+
+    def test_nested_styles(self):
+        self.assertEqual(
+            self.convert("<p><b>bold <i>both</i></b></p>"), "**bold** ***both***\n\n"
+        )
+
+    def test_trailing_line_break_dropped(self):
+        self.assertEqual(
+            self.convert("<p><b>a<br/></b><br/></p><p>b</p>"), "**a**\n\nb\n\n"
+        )
+
+    def test_db_markdown_keeps_line_breaks_round_trippable(self):
+        html = "<p>a<br/>b</p><h2>one<br/>two</h2>"
+        self.assertEqual(self.convert(html, resolved=False), "a\nb\n\n## one\ntwo\n\n")
+        self.assertEqual(self.round_trip("<p>a<br/>b</p>"), "<p>a<br/>b</p>")
+
+    def test_consecutive_blockquotes_form_one_quote(self):
+        html = (
+            "<blockquote>one</blockquote><blockquote>two</blockquote>"
+            "<p>after</p><blockquote>three</blockquote>"
+        )
+        # The round trip exercises Wagtail's own blockquote feature config on
+        # top of the built-in `md_blockquote` component shipped in
+        # draftjs_exporter 7.2.0.
+        self.assertEqual(self.convert(html), "> one\n>\n> two\n\nafter\n\n> three\n\n")
+        self.assertEqual(self.round_trip(html), html)

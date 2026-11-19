@@ -4,7 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:42+0100\n"
+"POT-Creation-Date: 2026-08-25 14:12+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025-2026\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -158,11 +158,38 @@ msgstr "الملف الشخصي للمستخدم"
 msgid "user profiles"
 msgstr "الملفات الشخصية للمستخدمين"
 
+msgid "Yes, revoke"
+msgstr "نعم، ألغي"
+
+msgid "No, don't revoke"
+msgstr "لا، لا تُلغِ"
+
+#, python-format
+msgid ""
+"The token \"%(name)s\" has been created, copy it now, it will never be shown "
+"again."
+msgstr ".تم إنشاء الرمز \"%(name)s\" إنسخة الآن ، فلن يظهر مرة أخرى"
+
+msgid "API token"
+msgstr "رمز API"
+
+msgid "Copy token"
+msgstr "نسخ الرمز"
+
+msgid "Back to API tokens"
+msgstr "العودة إلى رموز واجهة برمجة التطبيقات (API)"
+
 msgid "Copied to clipboard"
 msgstr "تم النسخ إلى الحافظة"
 
+msgid "Copying failed — please select and copy the token manually."
+msgstr "فشلت عملية النسخ — يرجى تحديد الرمز ونسخه يدوياً."
+
 msgid "Status: "
 msgstr "الحالة: "
+
+msgid "Revoked"
+msgstr "مُلغى"
 
 msgid "Active"
 msgstr "نشط"
@@ -375,6 +402,32 @@ msgstr "مستخدم"
 
 msgid "Created"
 msgstr "تاريخ الإنشاء"
+
+msgid "Last used"
+msgstr "آخر استخدام"
+
+msgid "Token"
+msgstr "رمز"
+
+msgid "Revoke"
+msgstr "إلغاء"
+
+msgid "API token created"
+msgstr "تم إنشاء رمز API"
+
+msgid "Never"
+msgstr "أبداً"
+
+msgid "Are you sure you want to revoke this API token?"
+msgstr ""
+"هل أنت متأكد من أنك تريد إلغاء صلاحية رمز واجهة برمجة التطبيقات (API) هذا؟"
+
+#, python-format
+msgid "API token '%(name)s' revoked."
+msgstr "تم إلغاء  '%(name)s'  رمز API."
+
+msgid "API tokens"
+msgstr "رموز API"
 
 msgid "Assign role to selected users"
 msgstr "تعيين دور للمستخدمين المحددين"

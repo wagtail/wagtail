@@ -23,9 +23,22 @@ from wagtail.actions.revert_to_page_revision import RevertToPageRevisionAction
 from wagtail.actions.revert_to_revision import RevertToRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.actions.workflow import (
+    ApproveTaskStateAction,
+    CancelWorkflowAction,
+    RejectTaskStateAction,
+    ResumeWorkflowAction,
+    SubmitWorkflowAction,
+    WorkflowAction,
+    WorkflowStateError,
+    can_edit_instance,
+    get_available_workflow_transitions,
+)
 
 __all__ = [
     "BaseAction",
+    "ApproveTaskStateAction",
+    "CancelWorkflowAction",
     "ConvertAliasPageAction",
     "CopyForTranslationAction",
     "CopyPageAction",
@@ -45,8 +58,15 @@ __all__ = [
     "PublishPageRevisionAction",
     "RevertToPageRevisionAction",
     "RevertToRevisionAction",
+    "RejectTaskStateAction",
+    "ResumeWorkflowAction",
+    "SubmitWorkflowAction",
     "UnpublishAction",
     "UnpublishPageAction",
+    "WorkflowAction",
+    "WorkflowStateError",
+    "can_edit_instance",
+    "get_available_workflow_transitions",
     "ActionRegistry",
     "action_registry",
 ]
@@ -56,6 +76,7 @@ def register_default_actions():
     from wagtail.models.draft_state import DraftStateMixin
     from wagtail.models.i18n import TranslatableMixin
     from wagtail.models.revisions import RevisionMixin
+    from wagtail.models.workflows import WorkflowMixin
 
     Page = swapper.load_model("wagtailcore", "Page")
 
@@ -69,6 +90,12 @@ def register_default_actions():
     action_registry.register(DraftStateMixin, UnpublishAction)
 
     action_registry.register(TranslatableMixin, CopyForTranslationAction)
+
+    action_registry.register(WorkflowMixin, SubmitWorkflowAction)
+    action_registry.register(WorkflowMixin, ResumeWorkflowAction)
+    action_registry.register(WorkflowMixin, ApproveTaskStateAction)
+    action_registry.register(WorkflowMixin, RejectTaskStateAction)
+    action_registry.register(WorkflowMixin, CancelWorkflowAction)
 
     action_registry.register(Page, CreatePageAction)
     action_registry.register(Page, EditPageAction)

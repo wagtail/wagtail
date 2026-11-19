@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
@@ -29,19 +29,20 @@ class WagtailDocsAppConfig(AppConfig):
 
         ReferenceIndex.register_model(Document)
 
-        from .api.v3.registry import register_content_types
+        if apps.is_installed("wagtail.api.v3"):
+            from .api.v3.registry import register_content_types
 
-        register_content_types()
+            register_content_types()
 
-        from wagtail.api.v3.api import api
+            from wagtail.api.v3.api import api
 
-        from .api.v3.router import router
+            from .api.v3.router import router
 
-        api.add_router("/documents/", router)
+            api.add_router("/documents/", router)
 
-        from wagtail.api.v3.signal_handlers import use_frontend_cache
+            from wagtail.api.v3.signal_handlers import use_frontend_cache
 
-        from .api.v3.signal_handlers import register_signal_handlers
+            from .api.v3.signal_handlers import register_signal_handlers
 
-        if use_frontend_cache():
-            register_signal_handlers()
+            if use_frontend_cache():
+                register_signal_handlers()

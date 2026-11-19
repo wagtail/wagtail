@@ -1005,7 +1005,7 @@ Moderation workflows can be used in two modes. The first is to require that all 
 WAGTAIL_FINISH_WORKFLOW_ACTION = "wagtail.workflows.publish_workflow_state"
 ```
 
-This sets the function to be called when a workflow completes successfully - by default, `wagtail.workflows.publish_workflow_state`,which publishes the page. The function must accept a `WorkflowState` object as its only positional argument.
+This sets the function to be called when a workflow completes successfully - by default, `wagtail.workflows.publish_workflow_state`, which publishes the page. The function must accept a `WorkflowState` object as its only positional argument.
 
 ### `WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH`
 

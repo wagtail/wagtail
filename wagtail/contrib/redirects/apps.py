@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from django.apps import AppConfig, apps
 from django.utils.translation import gettext_lazy as _
 
 
@@ -25,15 +25,16 @@ class WagtailRedirectsAppConfig(AppConfig):
         post_page_move.connect(autocreate_redirects_on_page_move)
         page_slug_changed.connect(autocreate_redirects_on_slug_change)
 
-        from wagtail.api.v3.api import api
+        if apps.is_installed("wagtail.api.v3"):
+            from wagtail.api.v3.api import api
 
-        from .api.v3 import router
+            from .api.v3 import router
 
-        api.add_router("/redirects/", router)
+            api.add_router("/redirects/", router)
 
-        from wagtail.api.v3.signal_handlers import use_frontend_cache
+            from wagtail.api.v3.signal_handlers import use_frontend_cache
 
-        from .api.v3.signal_handlers import register_signal_handlers
+            from .api.v3.signal_handlers import register_signal_handlers
 
-        if use_frontend_cache():
-            register_signal_handlers()
+            if use_frontend_cache():
+                register_signal_handlers()

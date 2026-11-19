@@ -67,18 +67,22 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             params["_w_filter_fragment"] = "true"
         return self.client.get(self.url, params, **kwargs)
 
+    def post(self, params=None, **kwargs):
+        params = params or {}
+        return self.client.post(self.url, query_params=params, **kwargs)
+
     def assertActiveFilter(self, soup, name, value):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL. When used in a results-only view, these are
         # teleported to the correct element in the skeleton.
         links_parent = soup.select_one(self.header_buttons_parent_selector)
         self.assertIsNotNone(links_parent)
-        links = links_parent.select(".w-dropdown a")
+        links = links_parent.select(".w-dropdown [data-w-action-url-value]")
         unfiltered_url = reverse(self.url_name)
         filtered_url = f"{unfiltered_url}?{name}={value}{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
-            [link.get("href") for link in links],
+            [link.get("data-w-action-url-value") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
@@ -133,9 +137,8 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='locked_by']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locked_by_select = drilldown.select_one("select[name='locked_by']")
         label = soup.select_one(f"label[for='{locked_by_select.get('id')}']")
         locked_by_options = locked_by_select.select("option")
         self.assertEqual(label.text.strip(), "Locked by")
@@ -186,9 +189,8 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(
-            f"{self.drilldown_selector} select[name='locked_by'] option"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locked_by_options = drilldown.select("select[name='locked_by'] option")
         # The options should only display users who have locked pages
         self.assertEqual(len(locked_by_options), 2)
         self.assertEqual(locked_by_options[0].text, "Anyone")
@@ -260,7 +262,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             self.page.latest_revision_created_at = "2013-01-01T12:00:00"
         self.page.save()
 
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -293,7 +295,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             self.page.latest_revision_created_at = "2013-01-01T12:00:00"
         self.page.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
 
         # Check response - the locked page info should be in it
         self.assertEqual(response.status_code, 200)
@@ -471,11 +473,10 @@ class TestFilteredLogEntriesView(PageFixturesMixin, BaseReportViewTestCase):
 
     def assert_filter_actions(self, response, expected):
         soup = self.get_soup(response.content)
+        drilldown = soup.select_one(self.drilldown_selector)
         actual = {
             choice.get("value")
-            for choice in soup.select(
-                f"{self.drilldown_selector} input[name='action'][type='checkbox']"
-            )
+            for choice in drilldown.select("input[name='action'][type='checkbox']")
         }
         self.assertSetEqual(actual, set(expected))
 
@@ -909,7 +910,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
             self.home.last_published_at = "2013-01-01T12:00:00"
         self.home.save()
 
-        response = self.get(params={"export": "csv"})
+        response = self.post(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
         data_lines = response.getvalue().decode().split("\n")
@@ -936,7 +937,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
             self.home.last_published_at = "2013-01-01T12:00:00"
         self.home.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
         self.assertEqual(response.status_code, 200)
 
         workbook_data = response.getvalue()
@@ -978,7 +979,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
         self.home.last_published_by = None
         self.home.save()
 
-        response = self.get(params={"export": "xlsx"})
+        response = self.post(params={"export": "xlsx"})
         self.assertEqual(response.status_code, 200)
 
         workbook_data = response.getvalue()
@@ -1096,9 +1097,8 @@ class TestFilteredAgingPagesView(PageFixturesMixin, BaseReportViewTestCase):
         self.assertActiveFilter(soup, "content_type", ct_pk)
 
         # Should render the filter inside the drilldown component
-        ct_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='content_type']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        ct_select = drilldown.select_one("select[name='content_type']")
         self.assertIsNotNone(ct_select)
         selected_option = ct_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)
@@ -1326,9 +1326,8 @@ class PageTypesReportFiltersTests(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown component
         soup = self.get_soup(response.content)
-        locale_select = soup.select_one(
-            f"{self.drilldown_selector} select[name='page_locale']"
-        )
+        drilldown = soup.select_one(self.drilldown_selector)
+        locale_select = drilldown.select_one("select[name='page_locale']")
         self.assertIsNotNone(locale_select)
         selected_option = locale_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)

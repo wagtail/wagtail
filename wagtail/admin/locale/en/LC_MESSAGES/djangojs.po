@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:122
+#: src/components/Sidebar/menu/SubMenuItem.tsx:125
 msgid "(%(number)s new items in this menu)"
 msgstr ""
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:121
+#: src/components/Sidebar/menu/SubMenuItem.tsx:124
 msgid "(1 new item in this menu)"
 msgstr ""
 
@@ -22,7 +22,7 @@ msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/contentMetrics.ts:181
+#: src/includes/contentMetrics.ts:190
 msgid "%(num)s min"
 msgid_plural "%(num)s mins"
 msgstr[0] ""
@@ -39,11 +39,11 @@ msgstr[1] ""
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:328
+#: src/controllers/AutosaveController.ts:326
 msgid "A network error occurred."
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:358
+#: src/controllers/AutosaveController.ts:356
 msgid "A server error occurred."
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:469
+#: src/controllers/AutosaveController.ts:467
 msgid "Autosave in progress…"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:473
+#: src/controllers/AutosaveController.ts:471
 msgid "Changes have been autosaved."
 msgstr ""
 
@@ -113,7 +113,7 @@ msgid "Comment"
 msgstr ""
 
 #. Translators: denotes the readability of a difficult text.
-#: src/includes/contentMetrics.ts:91
+#: src/includes/contentMetrics.ts:92
 msgid "Complex"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:62
+#: src/components/PageExplorer/PageExplorerItem.tsx:66
 msgid "Edit '%(title)s'"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgid "Expand all"
 msgstr ""
 
 #. Translators: denotes the readability of an average text.
-#: src/includes/contentMetrics.ts:86
+#: src/includes/contentMetrics.ts:87
 msgid "Fair"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Focus comment"
 msgstr ""
 
-#: src/includes/contentMetrics.ts:82
+#: src/includes/contentMetrics.ts:83
 msgid "Good"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:250
+#: src/components/Sidebar/modules/MainMenu.tsx:248
 msgid "Main menu"
 msgstr ""
 
@@ -239,16 +239,11 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
-#: src/components/PageExplorer/PageCount.tsx:27
-msgid "Page"
-msgstr ""
-
 #: src/components/PageExplorer/PageExplorerPanel.tsx:132
 msgid "Page explorer"
 msgstr ""
 
-#: src/components/PageExplorer/PageCount.tsx:28
-#: src/components/PageExplorer/PageExplorerHeader.tsx:84
+#: src/components/PageExplorer/PageExplorerHeader.tsx:86
 msgid "Pages"
 msgstr ""
 
@@ -314,8 +309,10 @@ msgid "Search options…"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:24
-msgid "See all"
-msgstr ""
+msgid "See all %(num)s page"
+msgid_plural "See all %(num)s pages"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
@@ -380,7 +377,7 @@ msgstr ""
 msgid "Unpin toolbar"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:75
+#: src/components/PageExplorer/PageExplorerItem.tsx:79
 msgid "View child pages of '%(title)s'"
 msgstr ""
 

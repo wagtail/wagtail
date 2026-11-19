@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,11 +197,11 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
-#: models.py:941
+#: models.py:945
 msgid "image"
 msgstr ""
 
-#: models.py:942
+#: models.py:946
 msgid "images"
 msgstr ""
 
@@ -671,7 +671,7 @@ msgstr ""
 msgid "Usage count: (high to low)"
 msgstr ""
 
-#: views/images.py:74 wagtail_hooks.py:52 wagtail_hooks.py:162
+#: views/images.py:74 wagtail_hooks.py:46 wagtail_hooks.py:156
 msgid "Images"
 msgstr ""
 
@@ -720,11 +720,11 @@ msgstr ""
 msgid "Add images"
 msgstr ""
 
-#: wagtail_hooks.py:79
+#: wagtail_hooks.py:73
 msgid "Image"
 msgstr ""
 
-#: wagtail_hooks.py:182
+#: wagtail_hooks.py:176
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

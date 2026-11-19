@@ -41,6 +41,7 @@ class SearchTermsReportView(ReportView):
         "query_string",
         "_hits",
     ]
+    export_requires_post = True
 
     def get_filterset_kwargs(self):
         kwargs = super().get_filterset_kwargs()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 14:12+0200\n"
+"POT-Creation-Date: 2026-10-21 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,18 +22,33 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr ""
 
-#: fields.py:18
+#: fields.py:27
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr ""
+
+#: fields.py:34
 #, python-format
 msgid "Maximum filesize: %(max_upload_size)s."
 msgstr ""
 
-#: fields.py:28
+#: fields.py:46
+#, python-format
+msgid ""
+"Not a supported document format. Supported formats: %(supported_formats)s."
+msgstr ""
+
+#: fields.py:50
+msgid "Not a supported document format."
+msgstr ""
+
+#: fields.py:54
 #, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
 
-#: fields.py:31
+#: fields.py:57
 #, python-format
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
 msgstr ""
@@ -391,7 +406,7 @@ msgstr ""
 msgid "Edit this document"
 msgstr ""
 
-#: views/documents.py:64 wagtail_hooks.py:61 wagtail_hooks.py:136
+#: views/documents.py:64 wagtail_hooks.py:55 wagtail_hooks.py:130
 msgid "Documents"
 msgstr ""
 
@@ -435,11 +450,11 @@ msgstr ""
 msgid "Add documents"
 msgstr ""
 
-#: wagtail_hooks.py:80
+#: wagtail_hooks.py:74
 msgid "Document"
 msgstr ""
 
-#: wagtail_hooks.py:157
+#: wagtail_hooks.py:151
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
