@@ -4,6 +4,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import DatabaseError, connection
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, TransactionTestCase, tag
@@ -1154,12 +1155,40 @@ class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             self.assertEqual(f.read(), old_content)
 
     def test_reupload_keeps_original_if_database_save_fails(self):
+        """
+        The replacement file is written to storage, then the database update fails.
+        The original file must still be there and still be what the document uses.
+        """
+        from django.core.files.storage import FileSystemStorage
+
         old_filename = self.document.file.name
-        with mock.patch.object(
-            models.Document, "save", side_effect=RuntimeError("db error")
-        ), self.assertRaises(RuntimeError):
+        with self.document.file.open() as f:
+            old_content = f.read()
+        document_table = models.Document._meta.db_table
+
+        def fail_document_update(execute, sql, params, many, context):
+            if sql.lstrip().upper().startswith("UPDATE") and document_table in sql:
+                raise DatabaseError("simulated database failure")
+            return execute(sql, params, many, context)
+
+        with (
+            mock.patch.object(
+                FileSystemStorage,
+                "_save",
+                autospec=True,
+                side_effect=FileSystemStorage._save,
+            ) as storage_save,
+            connection.execute_wrapper(fail_document_update),
+            self.assertRaises(DatabaseError),
+        ):
             self._post_replacement("another_name.txt")
-        self.assertTrue(self.document.file.storage.exists(old_filename))
+
+        # Guard against the test passing without ever reaching the storage write
+        storage_save.assert_called()
+        self.document.refresh_from_db()
+        self.assertEqual(self.document.file.name, old_filename)
+        with self.document.file.storage.open(old_filename) as f:
+            self.assertEqual(f.read(), old_content)
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
