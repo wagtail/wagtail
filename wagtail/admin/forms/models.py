@@ -216,9 +216,13 @@ class WagtailAdminModelForm(
                         updates.append((id_field_name, ""))
                 else:
                     updates.extend(form.get_field_updates_for_resave())
-                    if form.instance.pk and not self.data.get(id_field_name):
-                        # instance has a PK but the form data doesn't include it - it must have
-                        # been created during the save we just performed
+                    if form.instance.pk and self.data.get(id_field_name) != str(
+                        form.instance.pk
+                    ):
+                        # The form data either doesn't include the instance's PK (it must
+                        # have been created during the save we just performed), or includes
+                        # a different one (e.g. the form was pre-filled from the original
+                        # object when copying, and the child has since been duplicated)
                         updates.append((id_field_name, str(form.instance.pk)))
 
         return updates
