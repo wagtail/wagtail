@@ -35,7 +35,7 @@ Page = swapper.load_model("wagtailcore", "Page")
 def filter_form_options(
     model: type[Model],
     form_options: dict[str, Any],
-    writable_fields: list[str],
+    writable_fields: Iterable[str],
 ) -> dict[str, Any]:
     """Restrict ``form_options`` (from a ``Panel``/``InlinePanel``'s
     ``get_form_options()``) to writable APIFields: ``fields`` is narrowed to

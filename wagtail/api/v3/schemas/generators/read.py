@@ -269,7 +269,7 @@ class SchemaGenerator:
     def _get_foreign_key_meta_schema(self, model: type[Model]) -> type[Schema]:
         if model not in self._foreign_key_meta_schema_cache:
             self._foreign_key_meta_schema_cache[model] = self._narrowed_meta_schema(
-                BaseSchema.model_fields["meta"].annotation,
+                cast(type[Schema], BaseSchema.model_fields["meta"].annotation),
                 model,
                 name=f"{model._meta.object_name}ForeignKeyMetaSchema",
             )
@@ -381,7 +381,7 @@ class SchemaGenerator:
         if meta_field is not None:
             extra_fields["meta"] = (
                 self._narrowed_meta_schema(
-                    meta_field.annotation,
+                    cast(type[Schema], meta_field.annotation),
                     model,
                     name=f"{model._meta.object_name}MetaSchema",
                 ),

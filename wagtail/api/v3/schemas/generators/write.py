@@ -351,7 +351,7 @@ class InputSchemaGenerator:
         if meta_field is not None:
             meta_schema = namespace["__annotations__"]["meta"] = (
                 self._narrowed_meta_schema(
-                    meta_field.annotation,
+                    cast(type[Schema], meta_field.annotation),
                     model,
                     self.name_suffix,
                     extra_fields=extra_meta_fields,

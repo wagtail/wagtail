@@ -1,5 +1,5 @@
 from types import UnionType
-from typing import Literal
+from typing import Literal, get_args
 
 from django.db import models
 from django.test import SimpleTestCase
@@ -108,10 +108,12 @@ class TestSchemaMetaNamespacing(TestSchemaGenerator):
         simple_meta = simple_schema.model_fields["meta"].annotation
 
         self.assertEqual(
-            home_meta.model_fields["type"].annotation.__args__, ("demosite.HomePage",)
+            get_args(home_meta.model_fields["type"].annotation),
+            ("demosite.HomePage",),
         )
         self.assertEqual(
-            simple_meta.model_fields["type"].annotation.__args__, ("tests.SimplePage",)
+            get_args(simple_meta.model_fields["type"].annotation),
+            ("tests.SimplePage",),
         )
 
     def test_patch_meta_type_is_narrowed_per_model_and_optional(self):
@@ -128,11 +130,11 @@ class TestSchemaMetaNamespacing(TestSchemaGenerator):
         self.assertIs(simple_meta_none, type(None))
 
         self.assertEqual(
-            home_meta_schema.model_fields["type"].annotation.__args__,
+            get_args(home_meta_schema.model_fields["type"].annotation),
             (Literal["demosite.HomePage"], type(None)),
         )
         self.assertEqual(
-            simple_meta_schema.model_fields["type"].annotation.__args__,
+            get_args(simple_meta_schema.model_fields["type"].annotation),
             (Literal["tests.SimplePage"], type(None)),
         )
 
@@ -216,9 +218,9 @@ class TestPatchSchemaPreservesRequiredForeignKeyAlias(TestSchemaGenerator):
 
         create_children_annotation = create_schema.model_fields["children"].annotation
         patch_children_annotation = patch_schema.model_fields["children"].annotation
-        create_child_schema = create_children_annotation.__args__[0]
+        create_child_schema = get_args(create_children_annotation)[0]
         create_json_schema = create_child_schema.model_json_schema()
-        patch_child_schema = patch_children_annotation.__args__[0]
+        patch_child_schema = get_args(patch_children_annotation)[0]
         patch_json_schema = patch_child_schema.model_json_schema()
 
         self.assertEqual(
@@ -256,8 +258,8 @@ class TestRichTextFieldInputSchema(TestSchemaGenerator):
 
         schema = self.generate(self.make_model())
         annotation = schema.model_fields["body"].annotation
-        self.assertIn(str, annotation.__args__)
-        self.assertIn(RichTextInputSchema, annotation.__args__)
+        self.assertIn(str, get_args(annotation))
+        self.assertIn(RichTextInputSchema, get_args(annotation))
 
     def test_plain_string_validates(self):
         schema = self.generate(self.make_model())
