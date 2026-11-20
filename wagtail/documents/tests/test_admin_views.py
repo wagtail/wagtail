@@ -546,6 +546,30 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(usage_count_th.text.strip(), "Usage")
         self.assertIsNone(usage_count_th.select_one("a"))
 
+    def test_filter_by_usage_count_when_searching(self):
+        doc1 = models.Document.objects.create(title="Used twice document")
+        doc2 = models.Document.objects.create(title="Used once document")
+        doc3 = models.Document.objects.create(title="Unused document")
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc2)
+
+        cases = [
+            ({"usage_count_min": "1"}, [doc1, doc2]),
+            ({"usage_count_min": "2"}, [doc1]),
+            ({"usage_count_max": "0"}, [doc3]),
+        ]
+        for params, expected_docs in cases:
+            with self.subTest(params=params):
+                response = self.client.get(
+                    reverse("wagtaildocs:index"), {"q": "document", **params}
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertCountEqual(
+                    response.context["page_obj"].object_list,
+                    expected_docs,
+                )
+
 
 @tag("transaction")
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):

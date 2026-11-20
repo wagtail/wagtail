@@ -266,10 +266,16 @@ class PopularTagsFilter(RelatedFilterMixin, django_filters.MultipleChoiceFilter)
     pass
 
 
+class UsageCountFilter(RelatedFilterMixin, django_filters.RangeFilter):
+    # Filtering on the usage_count annotation is not supported by the search
+    # backend, due to https://github.com/wagtail/django-modelsearch/issues/51
+    pass
+
+
 class BaseMediaFilterSet(WagtailFilterSet):
     permission_policy = None
 
-    usage_count = django_filters.RangeFilter(
+    usage_count = UsageCountFilter(
         field_name="usage_count",
         label=_("Usage count"),
         widget=NumberRangeWidget(),
@@ -279,6 +285,8 @@ class BaseMediaFilterSet(WagtailFilterSet):
         self, data=None, queryset=None, *, request=None, prefix=None, is_searching=None
     ):
         super().__init__(data, queryset, request=request, prefix=prefix)
+        self.filters["usage_count"].use_subquery = is_searching
+
         collections_qs = self.permission_policy.collections_user_has_any_permission_for(
             request.user, ["add", "change"]
         )
