@@ -383,5 +383,33 @@
       "page": 8,
       "permission": ["change_page", "wagtailcore", "page"]
     }
+  },
+
+  {
+    "pk": 8,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 1"],
+      "page": 1,
+      "permission": ["choose_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 9,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 2"],
+      "page": 5,
+      "permission": ["choose_page", "wagtailcore", "page"]
+    }
+  },
+  {
+    "pk": 10,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 3"],
+      "page": 8,
+      "permission": ["choose_page", "wagtailcore", "page"]
+    }
   }
 ]
