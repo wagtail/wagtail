@@ -322,6 +322,12 @@ class IndexView(
 
     def get_reorder_url(self):
         if self.reorder_url_name and self.user_has_permission("change"):
+            # The uuid path converter rejects 999999, so reverse with a dummy UUID
+            # and swap it back for the placeholder that OrderableController expects.
+            if self.model and isinstance(self.model._meta.pk, models.UUIDField):
+                placeholder = "00000000-0000-0000-0000-000000000000"
+                url = reverse(self.reorder_url_name, args=(placeholder,))
+                return url.replace(placeholder, "999999")
             return reverse(self.reorder_url_name, args=(999999,))
 
     def get_add_url(self):
