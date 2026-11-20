@@ -200,6 +200,13 @@ WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = "exact"
 
 Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm'`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
+This setting also applies when a single URL is pasted into the rich text editor.
+With `'all'` or `'exact'`, canonical page URLs are resolved to page IDs, preserving
+an optional fragment. Query strings and extra routing information remain intact
+as ordinary URL links. With `'confirm'` or `''`, pasted URLs remain ordinary links,
+since paste does not open the confirmation dialog. Typing and undo remain
+available while a pasted URL is resolved; lookup failures leave the URL link usable.
+
 If the url is relative, Wagtail will not convert the link if there are more than one {class}`~wagtail.models.Site` instances. This is to avoid accidentally matching coincidentally named pages on different sites.
 
 (wagtail_date_time_formats)=

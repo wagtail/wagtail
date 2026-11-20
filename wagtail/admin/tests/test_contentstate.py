@@ -623,6 +623,38 @@ class TestHtmlToContentState(PageFixturesMixin, TestCase):
             },
         )
 
+    def test_page_link_anchor_roundtrip(self):
+        converter = ContentstateConverter(features=["link"])
+        html = '<p><a linktype="page" id="3" anchor="contact / café">Contact</a></p>'
+        state = json.loads(converter.from_database_format(html))
+        self.assertEqual(
+            state["entityMap"]["0"]["data"],
+            {
+                "id": 3,
+                "parentId": 2,
+                "url": "/events/#contact%20%2F%20caf%C3%A9",
+                "anchor": "contact / café",
+            },
+        )
+        restored = converter.to_database_format(json.dumps(state))
+        self.assertIn('anchor="contact / café"', restored)
+        self.assertEqual(
+            json.loads(converter.from_database_format(restored))["entityMap"],
+            state["entityMap"],
+        )
+
+    def test_broken_page_link_preserves_anchor(self):
+        converter = ContentstateConverter(features=["link"])
+        state = json.loads(
+            converter.from_database_format(
+                '<p><a linktype="page" id="9999" anchor="contact">Contact</a></p>'
+            )
+        )
+        self.assertEqual(
+            state["entityMap"]["0"]["data"],
+            {"id": 9999, "url": None, "parentId": None, "anchor": "contact"},
+        )
+
     def test_link_to_root_page(self):
         converter = ContentstateConverter(features=["link"])
         result = json.loads(

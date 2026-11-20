@@ -254,6 +254,7 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
       allow_email_link: true,
       allow_phone_link: true,
       allow_anchor_link: true,
+      allow_page_anchor: true,
       link_text: selectedText,
     };
 
@@ -261,6 +262,9 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
       const data = entity.getData();
 
       if (data.id) {
+        if (data.anchor) {
+          urlParams.link_anchor = data.anchor;
+        }
         if (data.parentId !== null) {
           url = `${chooserUrls.pageChooser}${data.parentId}/`;
         } else {
@@ -293,11 +297,18 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
 
   filterEntityData(data) {
     if (data.id) {
-      return {
+      const result = {
         url: data.url,
         id: data.id,
         parentId: data.parentId,
       };
+      if (data.anchor) {
+        result.anchor = data.anchor;
+        if (result.url) {
+          result.url += `#${encodeURIComponent(data.anchor)}`;
+        }
+      }
+      return result;
     }
 
     return {

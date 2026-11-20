@@ -29,6 +29,20 @@ Here, the `linktype` attribute identifies a rule that shall be used to rewrite t
 <p><a href="/contact-us/">Contact us</a> for more information.</p>
 ```
 
+Page links can also include an optional `anchor` attribute:
+
+```html
+<a linktype="page" id="3" anchor="contact-details">Contact details</a>
+```
+
+The page ID is resolved to its current URL and the encoded fragment is appended,
+producing a URL such as `/contact-us/#contact-details`. The link remains associated
+with the page when its URL changes. The anchor name is stored as supplied; Wagtail
+does not create or validate a matching heading ID.
+
+In the rich text link chooser, the **Anchor (optional)** field appears above the
+page browser. Enter the anchor before choosing a page, with or without a leading `#`.
+
 In the case of `RichTextBlock`, the block's value is a `RichText` object which performs this conversion automatically when rendered as a string, so the `|richtext` filter is not necessary.
 
 Likewise, an image inside rich text content might be stored as:

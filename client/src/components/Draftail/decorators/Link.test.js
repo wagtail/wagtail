@@ -1,6 +1,7 @@
 import {
   ContentState,
   EditorState,
+  Modifier,
   convertFromHTML,
   convertFromRaw,
   convertToRaw,
@@ -316,5 +317,136 @@ describe('onPasteLink', () => {
     expect(
       raw.blocks.map(({ entityRanges }) => entityRanges[0].length),
     ).toEqual(expectedLength);
+  });
+});
+
+describe('pasted page link resolution', () => {
+  let state;
+  let editor;
+  const entityType = {
+    chooserUrls: { resolveLink: '/admin/choose-page/resolve-link/' },
+  };
+  const settle = () =>
+    new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
+  const page = {
+    id: 42,
+    parentId: 2,
+    url: '/about/',
+    anchor: 'contact / café',
+  };
+  const currentLink = () => {
+    const content = state.getCurrentContent();
+    const key = content.getFirstBlock().getEntityAt(0);
+    return key ? content.getEntity(key).getData() : null;
+  };
+  const paste = (url) => onPasteLink(url, null, state, editor, entityType);
+  const deferLookup = () => {
+    let complete;
+    fetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          complete = (data = page) =>
+            resolve({ status: 200, json: async () => data });
+        }),
+    );
+    return (data) => complete(data);
+  };
+
+  beforeEach(() => {
+    fetch.mockReset();
+    state = EditorState.createWithContent(ContentState.createFromText('hello'));
+    state = EditorState.forceSelection(
+      state,
+      state.getSelection().merge({ focusOffset: 5 }),
+    );
+    editor = {
+      setEditorState: jest.fn((next) => {
+        state = next;
+      }),
+      getEditorState: () => state,
+    };
+  });
+
+  it('applies a URL immediately and resolves its page ID and fragment', async () => {
+    fetch.mockResponseSuccessJSON(JSON.stringify(page));
+    expect(paste('http://localhost/about/#contact%20%2F%20caf%C3%A9')).toBe(
+      'handled',
+    );
+    expect(currentLink().url).toBe(
+      'http://localhost/about/#contact%20%2F%20caf%C3%A9',
+    );
+    await settle();
+    expect(currentLink()).toEqual({
+      ...page,
+      url: '/about/#contact%20%2F%20caf%C3%A9',
+    });
+    expect(state.getCurrentContent().getPlainText()).toBe('hello');
+    expect(state.getUndoStack().size).toBe(1);
+    const undone = EditorState.undo(state).getCurrentContent();
+    expect(undone.getFirstBlock().getEntityAt(0)).toBeNull();
+  });
+
+  it('preserves typing and selection changes during resolution', async () => {
+    const complete = deferLookup();
+    paste('http://localhost/about/');
+    const cursor = state
+      .getSelection()
+      .merge({ anchorOffset: 5, focusOffset: 5 });
+    const content = Modifier.insertText(state.getCurrentContent(), cursor, '!');
+    state = EditorState.push(state, content, 'insert-characters');
+    state = EditorState.forceSelection(state, content.getSelectionAfter());
+    const selection = state.getSelection();
+    complete();
+    await settle();
+    expect(state.getCurrentContent().getPlainText()).toBe('hello!');
+    expect(state.getSelection()).toBe(selection);
+    expect(currentLink().id).toBe(42);
+  });
+
+  it('does not restore a link undone before resolution completes', async () => {
+    const complete = deferLookup();
+    paste('http://localhost/about/');
+    state = EditorState.undo(state);
+    const undone = state;
+    complete();
+    await settle();
+    expect(state).toBe(undone);
+    expect(currentLink()).toBeNull();
+  });
+
+  it('leaves an external URL unchanged', async () => {
+    fetch.mockResponseSuccessJSON(
+      JSON.stringify({ url: 'https://example.com/' }),
+    );
+    paste('https://example.com/');
+    const pasted = state;
+    await settle();
+    expect(state).toBe(pasted);
+    expect(currentLink()).toEqual({ url: 'https://example.com/' });
+  });
+
+  it('keeps the ordinary link when lookup fails', async () => {
+    fetch.mockResponseCrash();
+    paste('http://localhost/about/');
+    const pasted = state;
+    await settle();
+    expect(state).toBe(pasted);
+    expect(currentLink().url).toBe('http://localhost/about/');
+  });
+
+  it('handles fragment-only links without a lookup', () => {
+    expect(paste('#contact')).toBe('handled');
+    expect(currentLink()).toEqual({ url: '#contact' });
+    expect(state.getCurrentContent().getPlainText()).toBe('hello');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('resolves relative URLs', async () => {
+    fetch.mockResponseSuccessJSON(JSON.stringify(page));
+    expect(paste('/about/#contact')).toBe('handled');
+    await settle();
+    expect(currentLink().id).toBe(42);
   });
 });

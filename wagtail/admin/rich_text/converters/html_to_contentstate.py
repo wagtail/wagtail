@@ -1,5 +1,6 @@
 import re
 from html.parser import HTMLParser
+from urllib.parse import quote
 
 import swapper
 
@@ -238,16 +239,20 @@ class PageLinkElementHandler(LinkElementHandler):
         try:
             page = Page.objects.get(id=attrs["id"]).specific
         except Page.DoesNotExist:
-            # retain ID so that it's still identified as a page link (albeit a broken one)
-            return {"id": int(attrs["id"]), "url": None, "parentId": None}
-
-        parent_page = page.get_parent()
-
-        return {
-            "id": page.id,
-            "url": page.url,
-            "parentId": parent_page.id if parent_page else None,
-        }
+            # Retain the ID and anchor so broken links remain editable.
+            data = {"id": int(attrs["id"]), "url": None, "parentId": None}
+        else:
+            parent_page = page.get_parent()
+            data = {
+                "id": page.id,
+                "url": page.url,
+                "parentId": parent_page.id if parent_page else None,
+            }
+        if anchor := attrs.get("anchor"):
+            data["anchor"] = anchor
+            if data["url"]:
+                data["url"] += "#" + quote(anchor, safe="")
+        return data
 
 
 class AtomicBlockEntityElementHandler:

@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 import swapper
 from django.utils.functional import cached_property
 from django.utils.html import escape
@@ -168,18 +170,26 @@ class PageLinkHandler:
         data-linktype="page" attribute), return a dict of the attributes we should
         have on the resulting <a linktype="page"> element.
         """
-        return {"id": tag["data-id"]}
+        attrs = {"id": tag["data-id"]}
+        if tag.get("data-anchor"):
+            attrs["anchor"] = tag["data-anchor"]
+        return attrs
 
     @staticmethod
     def expand_db_attributes(attrs):
         try:
             page = Page.objects.get(id=attrs["id"])
+            anchor = attrs.get("anchor")
 
             attrs = 'data-linktype="page" data-id="%d" ' % page.id
             parent_page = page.get_parent()
             if parent_page:
                 attrs += 'data-parent-id="%d" ' % parent_page.id
 
-            return f'<a {attrs}href="{escape(page.localized.specific.url)}">'
+            url = page.localized.specific.url
+            if anchor:
+                attrs += 'data-anchor="%s" ' % escape(anchor)
+                url = f"{url}#{quote(anchor, safe='')}"
+            return f'<a {attrs}href="{escape(url)}">'
         except Page.DoesNotExist:
             return "<a>"
