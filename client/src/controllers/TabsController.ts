@@ -119,6 +119,20 @@ export class TabsController extends Controller {
       detail: { current: initialPanelId },
     });
 
+    // If a location hash targets a contentpath (e.g. a StreamField block)
+    // that has not finished rendering yet, retry once the rest of the
+    // page's initial render has completed.
+    if (
+      this.useLocationValue &&
+      window.location.hash &&
+      !this.locationPanelId
+    ) {
+      requestAnimationFrame(() => {
+        const panelId = this.locationPanelId;
+        if (panelId) this.activePanelIdValue = panelId;
+      });
+    }
+
     // Once ready, allow target changed callbacks to reset tabs
 
     const resetTabs = debounce(() => {
@@ -442,12 +456,17 @@ export class TabsController extends Controller {
    * Update the URL (location) hash based on the active panel id,
    * only if configured to be syncing location.
    * If state is available, add a new history item to the stack.
+   * If the location already targets the active panel, it is left unchanged.
    */
   syncLocation() {
     if (!this.useLocationValue) return null;
 
     const activePanelId = this.activePanelIdValue;
     const historyStateKey = this.historyStateKey;
+
+    // The location already targets the active panel (or content within it),
+    // e.g. a contentpath link, keep it as-is so the URL & history are unchanged.
+    if (this.locationPanelId === activePanelId) return null;
 
     if (
       !window.history.state ||
