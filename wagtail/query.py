@@ -1,4 +1,3 @@
-import posixpath
 import warnings
 from collections import defaultdict
 from collections.abc import Iterable
@@ -15,6 +14,19 @@ from treebeard.mp_tree import MP_NodeQuerySet
 from wagtail.models.i18n import Locale
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
+
+
+def _get_common_ancestor_path(paths, steplen):
+    # Paths sharing a prefix are contiguous in lexicographic order.
+    first_path = min(paths, default="")
+    last_path = max(paths, default="")
+    matched_length = 0
+    for end in range(steplen, min(len(first_path), len(last_path)) + 1, steplen):
+        start = end - steplen
+        if first_path[start:end] != last_path[start:end]:
+            break
+        matched_length = end
+    return first_path[:matched_length]
 
 
 class TreeQuerySet(MP_NodeQuerySet):
@@ -504,15 +516,7 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
                 .distinct()
             )
 
-        # This method works on anything, not just file system paths.
-        common_parent_path = posixpath.commonprefix(paths)
-
-        # That may have returned a path like (0001, 0002, 000), which is
-        # missing some chars off the end. Fix this by trimming the path to a
-        # multiple of `Page.steplen`
-        extra_chars = len(common_parent_path) % self.model.steplen
-        if extra_chars != 0:
-            common_parent_path = common_parent_path[:-extra_chars]
+        common_parent_path = _get_common_ancestor_path(paths, self.model.steplen)
 
         if common_parent_path == "":
             # This should only happen when there are multiple trees,
