@@ -824,20 +824,23 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
     def test_clear_removes_current_avatar(self):
         """
-        Tests that submitting a blank value for avatar doesn't remove it.
+        Tests that submitting a clear value for avatar removes it.
         """
         profile = UserProfile.get_for_user(self.user)
         profile.avatar = self.avatar
         profile.save()
+        old_avatar_storage = profile.avatar.storage
+        old_avatar_name = profile.avatar.name
 
         # Upload a new avatar
-        response = self.post_form({"avatar-clear": "on"})
+        response = self.post_form({"avatar-avatar-clear": "on"})
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse("wagtailadmin_account"))
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertTrue(profile.avatar)
+        self.assertFalse(profile.avatar)
+        self.assertFalse(old_avatar_storage.exists(old_avatar_name))
 
     def test_avatar_resize_large_image(self):
         """Ensure that large uploaded images are resized to a maximum of 400x400."""

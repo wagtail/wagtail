@@ -133,6 +133,8 @@ class AvatarPreferencesForm(forms.ModelForm):
 
     def clean_avatar(self):
         file = self.cleaned_data.get("avatar")
+        if file is False:
+            return False
         if not file:
             return self._original_avatar
 
