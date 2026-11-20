@@ -145,7 +145,7 @@ class ChooserModalOnloadHandlerFactory {
     this.reshowCreationFormStepName =
       opts?.reshowCreationFormStepName || 'reshow_creation_form';
     this.chosenLinkSelector =
-      opts?.chosenLinkSelector || 'a[data-chooser-modal-choice]';
+      opts?.chosenLinkSelector || '[data-chooser-modal-choice]';
     this.paginationLinkSelector =
       opts?.paginationLinkSelector || '.pagination a';
     this.searchFormSelector =
@@ -174,7 +174,12 @@ class ChooserModalOnloadHandlerFactory {
     }
 
     $(this.chosenLinkSelector, containerElement).on('click', (event) => {
-      modal.loadUrl(event.currentTarget.href);
+      // Choices may be rendered as buttons (with the URL in a data attribute)
+      // or as links (with the URL in the href attribute)
+      modal.loadUrl(
+        event.currentTarget.dataset.chooserModalChoiceUrl ||
+          event.currentTarget.href,
+      );
       return false;
     });
 

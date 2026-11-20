@@ -37,6 +37,24 @@ from wagtail.permissions import policy_registry
 from wagtail.search.index import class_is_indexed
 
 
+class ChosenTitleColumn(TitleColumn):
+    """
+    A title column for chooser results that renders each title as a ``<button>``
+    rather than a link, so that the URL of the 'chosen' view (which returns a
+    JSON response) is not exposed to native link behaviour such as middle-click
+    or "open in new tab".
+    """
+
+    cell_template_name = "wagtailadmin/chooser/tables/chosen_title_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        url = context["link_attrs"].pop("href", None)
+        if url:
+            context["link_attrs"]["data-chooser-modal-choice-url"] = url
+        return context
+
+
 class ModalPageFurnitureMixin(ContextMixin):
     """
     Add icon, page title and page subtitle to the template context
@@ -232,7 +250,7 @@ class BaseChooseView(
                 label_prefix="chooser-modal-select",
             )
         else:
-            return TitleColumn(
+            return ChosenTitleColumn(
                 "title",
                 label=_("Title"),
                 accessor=str,
