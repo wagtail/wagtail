@@ -1688,6 +1688,51 @@ describe('SwapController', () => {
 
       document.removeEventListener('w-swap:begin', beginEventHandler);
     });
+
+    describe('keeping the current page', () => {
+      beforeEach(() => {
+        document.querySelector('form').insertAdjacentHTML(
+          'beforeend',
+          /* html */ `
+          <div data-w-swap-keep-page>
+            <input type="radio" name="layout" value="grid" checked />
+            <input type="radio" name="layout" value="list" />
+          </div>`,
+        );
+        window.history.replaceState(null, '', '?layout=grid&p=2');
+        fetch.mockResponseSuccessText(getMockResults());
+      });
+
+      afterEach(() => {
+        window.history.replaceState(null, '', '?');
+      });
+
+      it('should keep the current page when changing a field that keeps the page', () => {
+        const listLayout = document.querySelector('[value="list"]');
+        listLayout.checked = true;
+        listLayout.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+        jest.runAllTimers(); // search is debounced
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          '/path/to/form/action/?q=&type=some-type&other=&layout=list&p=2',
+          expect.any(Object),
+        );
+      });
+
+      it('should go back to the first page when changing any other field', () => {
+        const input = document.getElementById('search');
+        input.value = 'alpha';
+        input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+        jest.runAllTimers(); // search is debounced
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          '/path/to/form/action/?q=alpha&type=some-type&other=&layout=grid',
+          expect.any(Object),
+        );
+      });
+    });
   });
 
   describe('performing a content update using HTML in JSON response', () => {

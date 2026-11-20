@@ -104,9 +104,26 @@ class SearchController {
   }
 
   attachSearchFilter(selector) {
-    $(selector, this.containerElement).on('change', () => {
-      this.searchFromForm();
+    $(selector, this.containerElement).on('change', (event) => {
+      // Some filters, such as the image chooser's layout switch, only change how
+      // the results are displayed, not which results are shown, so keep the page.
+      const keepPage = event.currentTarget.hasAttribute(
+        'data-chooser-modal-search-keep-page',
+      );
+      this.searchFromForm({ keepPage });
     });
+  }
+
+  /**
+   * Get the current page number from the pagination links, if there are any.
+   */
+  getCurrentPage() {
+    const href = $(
+      '.pagination [aria-current="page"]',
+      this.resultsContainer,
+    ).attr('href');
+    if (!href) return null;
+    return new URL(href, window.location.href).searchParams.get('p');
   }
 
   fetchResults(url, queryParams) {
@@ -133,8 +150,13 @@ class SearchController {
     this.fetchResults(this.searchUrl, queryParams);
   }
 
-  searchFromForm() {
-    this.search(this.form.serialize());
+  searchFromForm({ keepPage = false } = {}) {
+    let queryParams = this.form.serialize();
+    const page = keepPage && this.getCurrentPage();
+    if (page) {
+      queryParams += `&p=${encodeURIComponent(page)}`;
+    }
+    this.search(queryParams);
   }
 }
 
