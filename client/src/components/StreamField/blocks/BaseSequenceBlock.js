@@ -55,6 +55,7 @@ export class BaseSequenceChild extends EventTarget {
       blockDef,
       blockTypeIcon,
       blockTypeLabel,
+      collapsed,
     }).render();
 
     const dom = $(`
@@ -122,10 +123,6 @@ export class BaseSequenceChild extends EventTarget {
     );
 
     initCollapsiblePanel(this.element.querySelector('[data-panel-toggle]'));
-
-    if (collapsed) {
-      this.collapse();
-    }
 
     this.toggleElement.addEventListener('wagtail:panel-toggle', () => {
       const label = this.getTextLabel({ maxLength: 70 });
@@ -551,10 +548,10 @@ export class BaseSequenceBlock {
     this.moveBlock(index, index + 1);
   }
 
-  setState(values) {
+  setState(values, opts) {
     this.clear();
     values.forEach((val, i) => {
-      this.insert(val, i);
+      this.insert(val, i, opts);
     });
   }
 
