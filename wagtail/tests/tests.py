@@ -375,6 +375,42 @@ class TestSiteRootPathsCache(PageFixturesMixin, TestCase):
         # Check that the cache has been cleared
         self.assertIsNone(self.get_cached_site_root_paths())
 
+    def test_cache_clears_when_site_root_page_deleted(self):
+        """
+        This tests that the cache is cleared whenever a site root page is deleted.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        _ = homepage.url
+
+        self.assertIsNotNone(self.get_cached_site_root_paths())
+
+        homepage.delete()
+
+        self.assertIsNone(self.get_cached_site_root_paths())
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_cache_clears_when_site_root_translation_deleted(self):
+        """
+        Deleting a translation of a site root does not delete the Site, so the
+        Site post_delete handler never runs. The cache must still be cleared.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+        translated_homepage = homepage.copy_for_translation(
+            Locale.objects.create(language_code="fr"), alias=True
+        )
+
+        # Saving the translation clears the cache. Warm it again now that both
+        # locales exist, which is the state that goes stale on delete.
+        Site.get_site_root_paths()
+        cached = self.get_cached_site_root_paths()
+        self.assertEqual({path.language_code for path in cached}, {"en", "fr"})
+
+        translated_homepage.delete()
+
+        self.assertTrue(Site.objects.filter(root_page=homepage).exists())
+        self.assertIsNone(self.get_cached_site_root_paths())
+
     def test_cache_clears_when_site_deleted(self):
         """
         This tests that the cache is cleared whenever a site is deleted
