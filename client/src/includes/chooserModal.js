@@ -82,6 +82,7 @@ class SearchController {
 
     this.searchUrl = this.form.attr('action');
     this.request = null;
+    this.currentPage = '1';
 
     this.form.on('submit', () => {
       this.searchFromForm();
@@ -104,12 +105,16 @@ class SearchController {
   }
 
   attachSearchFilter(selector) {
-    $(selector, this.containerElement).on('change', () => {
-      this.searchFromForm();
+    $(selector, this.containerElement).on('change', (event) => {
+      this.searchFromForm(event.target.name === 'layout');
     });
   }
 
   fetchResults(url, queryParams) {
+    const page = new URL(url, window.location.href).searchParams.get('p');
+    if (page) {
+      this.currentPage = page;
+    }
     const requestOptions = {
       url: url,
       success: (resultsData) => {
@@ -133,8 +138,12 @@ class SearchController {
     this.fetchResults(this.searchUrl, queryParams);
   }
 
-  searchFromForm() {
-    this.search(this.form.serialize());
+  searchFromForm(preservePage = false) {
+    const queryParams = new URLSearchParams(this.form.serialize());
+    if (preservePage && this.currentPage !== '1') {
+      queryParams.set('p', this.currentPage);
+    }
+    this.search(queryParams.toString());
   }
 }
 
