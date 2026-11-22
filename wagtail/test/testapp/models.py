@@ -1939,6 +1939,38 @@ class CustomRenditionWithAuthor(AbstractRendition):
         unique_together = (("image", "filter_spec", "focal_point_key"),)
 
 
+class MTIImage(Image):
+    """
+    A custom image model using Django multi-table inheritance (MTI) by
+    subclassing Wagtail's concrete Image model rather than AbstractImage.
+    Used to reproduce issue #14745 where usage count filtering/ordering
+    returned incorrect results for MTI-based custom models.
+    """
+
+    extra_field = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = "MTI image"
+
+
+class VariousOnDeleteModelWithMTIImage(models.Model):
+    """
+    A model that references MTIImage, used in tests to verify usage counts
+    work correctly for MTI-based custom image models (issue #14745).
+    """
+
+    mti_image = models.ForeignKey(
+        MTIImage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+
+    class Meta:
+        verbose_name = "MTI image usage"
+
+
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
     fancy_description = RichTextField(blank=True)

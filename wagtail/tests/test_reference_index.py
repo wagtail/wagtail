@@ -28,7 +28,9 @@ from wagtail.test.testapp.models import (
     GenericSnippetPage,
     HeadCountRelatedModelUsingPK,
     ModelWithNullableParentalKey,
+    MTIImage,
     VariousOnDeleteModel,
+    VariousOnDeleteModelWithMTIImage,
 )
 from wagtail.test.utils import Page, PageFixturesMixin
 
@@ -966,4 +968,165 @@ class TestReferenceIndex(TestCase):
             refs.count(),
             0,
             "ReferenceIndex should be cleared of inbound references when target is deleted",
+        )
+
+
+class TestUsageCountSubqueryWithMTI(TestCase):
+    """
+    Regression tests for issue #14745:
+    usage_count_subquery() must use _get_base_content_type() so that it looks
+    up the same content type that _extract_references_from_object() stores in
+    to_content_type. Without this fix, ordering/filtering by usage count always
+    returns 0 for custom image/document models that use Django's multi-table
+    inheritance (i.e. subclassing the concrete Image or Document model directly
+    rather than the abstract base class).
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        ReferenceIndex.register_model(VariousOnDeleteModelWithMTIImage)
+        ReferenceIndex.register_model(VariousOnDeleteModel)
+
+    def setUp(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            # MTIImage inherits from the concrete Image model via MTI.
+            self.mti_image = MTIImage.objects.create(
+                title="MTI test image 1",
+                file=get_test_image_file(),
+            )
+            self.mti_image_2 = MTIImage.objects.create(
+                title="MTI test image 2",
+                file=get_test_image_file(),
+            )
+            self.unused_image = MTIImage.objects.create(
+                title="Unused MTI image",
+                file=get_test_image_file(),
+            )
+            # 1 reference to mti_image
+            self.ref1 = VariousOnDeleteModelWithMTIImage.objects.create(
+                mti_image=self.mti_image,
+            )
+            # 2 references to mti_image_2 from different objects
+            self.ref2a = VariousOnDeleteModelWithMTIImage.objects.create(
+                mti_image=self.mti_image_2,
+            )
+            self.ref2b = VariousOnDeleteModelWithMTIImage.objects.create(
+                mti_image=self.mti_image_2,
+            )
+
+    def test_usage_count_subquery_with_mti_model(self):
+        """
+        usage_count_subquery() must return the correct usage count for a model
+        that uses multi-table inheritance. Before the fix it always returned 0
+        because it queried with ContentType for the MTI subclass, while the
+        ReferenceIndex stored the reference under ContentType for the base
+        (parent) model.
+        """
+        qs = MTIImage.objects.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(MTIImage)
+        )
+        self.assertEqual(
+            qs.get(pk=self.mti_image.pk).usage_count,
+            1,
+            "usage_count_subquery() must return 1 for an MTI image referenced once",
+        )
+        self.assertEqual(
+            qs.get(pk=self.mti_image_2.pk).usage_count,
+            2,
+            "usage_count_subquery() must return 2 for an MTI image referenced twice",
+        )
+        self.assertEqual(
+            qs.get(pk=self.unused_image.pk).usage_count,
+            0,
+            "usage_count_subquery() must return 0 for an unreferenced MTI image",
+        )
+
+    def test_filter_by_usage_count(self):
+        """
+        Filtering by usage_count on an MTI model must correctly return objects
+        matching the usage count condition. Before the fix, filtering by
+        usage_count >= 1 returned empty because all items evaluated to 0.
+        """
+        qs = MTIImage.objects.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(MTIImage)
+        )
+
+        used_images = qs.filter(usage_count__gte=1)
+        self.assertCountEqual(
+            used_images,
+            [self.mti_image, self.mti_image_2],
+            "Filtering by usage_count >= 1 must return the referenced MTI images",
+        )
+
+        unused_images = qs.filter(usage_count=0)
+        self.assertCountEqual(
+            unused_images,
+            [self.unused_image],
+            "Filtering by usage_count == 0 must return only the unreferenced MTI image",
+        )
+
+        twice_used = qs.filter(usage_count=2)
+        self.assertCountEqual(
+            twice_used,
+            [self.mti_image_2],
+            "Filtering by usage_count == 2 must return the MTI image referenced twice",
+        )
+
+    def test_order_by_usage_count(self):
+        """
+        Ordering by usage_count on an MTI model must sort items by their usage count.
+        Before the fix, all items had usage_count == 0 so ordering had no effect.
+        """
+        qs = MTIImage.objects.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(MTIImage)
+        )
+
+        ascending = list(qs.order_by("usage_count", "pk"))
+        self.assertEqual(
+            ascending,
+            [self.unused_image, self.mti_image, self.mti_image_2],
+            "Ordering by usage_count ascending must place 0-use before 1-use before 2-use",
+        )
+
+        descending = list(qs.order_by("-usage_count", "pk"))
+        self.assertEqual(
+            descending,
+            [self.mti_image_2, self.mti_image, self.unused_image],
+            "Ordering by usage_count descending must place 2-use before 1-use before 0-use",
+        )
+
+    def test_get_base_content_type_for_mti_model(self):
+        """
+        _get_base_content_type() for an MTI subclass must return the content type
+        of the root concrete parent (Image), not the subclass itself.
+        """
+        from wagtail.images.models import Image
+
+        base_ct = ReferenceIndex._get_base_content_type(MTIImage)
+        image_ct = ContentType.objects.get_for_model(Image, for_concrete_model=False)
+        self.assertEqual(
+            base_ct,
+            image_ct,
+            "_get_base_content_type(MTIImage) must return ContentType for Image, "
+            "not ContentType for MTIImage",
+        )
+
+    def test_reference_stored_under_base_content_type(self):
+        """
+        Verifies that ReferenceIndex stores MTI image references under the
+        base (Image) content type, not the subclass (MTIImage) content type.
+        This is what causes usage_count_subquery to fail before the fix.
+        """
+        from wagtail.images.models import Image
+
+        base_ct = ContentType.objects.get_for_model(Image, for_concrete_model=False)
+        refs = ReferenceIndex.objects.filter(
+            to_content_type=base_ct,
+            to_object_id=str(self.mti_image.pk),
+        )
+        self.assertEqual(
+            refs.count(),
+            1,
+            "ReferenceIndex must store the reference to an MTI image under the "
+            "base Image content type, not the MTIImage content type",
         )

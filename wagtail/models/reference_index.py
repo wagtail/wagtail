@@ -704,7 +704,7 @@ class ReferenceIndex(models.Model):
         return Coalesce(
             Subquery(
                 ReferenceIndex.objects.filter(
-                    to_content_type=ContentType.objects.get_for_model(model),
+                    to_content_type=cls._get_base_content_type(model),
                     to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
                 )
                 .values("object_id", "to_object_id")
