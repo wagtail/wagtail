@@ -1,13 +1,16 @@
 import datetime
-from unittest import mock, skip
+import threading
+import time
+from unittest import mock, skip, skipIf
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.db import connection
 from django.db.utils import IntegrityError
-from django.test import TestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
@@ -21,6 +24,7 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
+from wagtail.signals import workflow_submitted
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     ModeratedModel,
@@ -576,3 +580,54 @@ class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
     # The ModeratedModel does not explicitly define a `GenericRelation` to
     # `WorkflowState`, but the `WorkflowState` should still be deleted when the
     # object is deleted (test_workflow_state_cascade_on_object_delete passes).
+
+
+@skipIf(
+    connection.vendor == "sqlite",
+    "SQLite serializes writes, so concurrent submissions cannot overlap",
+)
+class TestConcurrentWorkflowStart(TransactionTestCase):
+    fixtures = ["test.json"]
+
+    def test_concurrent_start_raises_validation_error(self):
+        user = get_user_model().objects.get(username="superuser")
+        page = Page.objects.get(url_path="/home/").add_child(
+            instance=SimplePage(title="Race", slug="race", content="hello")
+        )
+        page.save_revision()
+        workflow = Workflow.objects.create(name="test_workflow", active=True)
+        task = GroupApprovalTask.objects.create(name="test_task")
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+
+        # Keep the first submission's transaction open long enough for the
+        # second one to reach the active workflow check
+        def slow_receiver(**kwargs):
+            time.sleep(0.5)
+
+        workflow_submitted.connect(slow_receiver)
+        self.addCleanup(workflow_submitted.disconnect, slow_receiver)
+
+        barrier = threading.Barrier(2)
+        errors = []
+
+        def submit():
+            try:
+                barrier.wait()
+                workflow.start(SimplePage.objects.get(pk=page.pk), user)
+            except (ValidationError, IntegrityError) as e:
+                errors.append(e)
+            finally:
+                connection.close()
+
+        threads = [threading.Thread(target=submit) for _ in range(2)]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], ValidationError)
+        self.assertEqual(
+            WorkflowState.objects.active().filter(object_id=str(page.pk)).count(),
+            1,
+        )
