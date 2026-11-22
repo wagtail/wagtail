@@ -12,7 +12,7 @@ license-files = ["LICENSE"]
 authors = [
   { name = "Wagtail core team + contributors", email = "hello@wagtail.org" },
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.11.5"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Web Environment",

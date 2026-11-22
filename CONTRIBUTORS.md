@@ -1029,6 +1029,7 @@
 * Émile Nadeau
 * Jeonghun Mun
 * Dan Tompkins
+* Samuel Rojas
 
 ## Translators
 
