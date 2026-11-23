@@ -5,13 +5,6 @@
         <img width="343" src=".github/wagtail.svg" alt="Wagtail">
     </picture>
 </h1>
-<div align="center">
-
-📣 check out our upcoming [Wagtail Space 2026 conference](https://wagtail.org/wagtail-space-2026/) on 18-20 November 📣
-
-[![Wagtail Space 2026. With rocket visual to the left and a space background](https://media.wagtail.org/images/wagtail-space-2026-thin-banner.original.webp)](https://wagtail.org/wagtail-space-2026/)
-
-</div>
 <p align="center">
     <br>
     <a href="https://github.com/wagtail/wagtail/actions">
