@@ -29,6 +29,7 @@ from wagtail.test.snippets.models import (
     FileUploadSnippet,
     StandardSnippetWithCustomPrimaryKey,
     TranslatableSnippet,
+    UniquePerLocaleSnippet,
 )
 from wagtail.test.testapp.models import (
     Advert,
@@ -805,6 +806,37 @@ class TestLocaleSelectorOnEdit(PageFixturesMixin, BaseTestSnippetEditView):
         response = self.get()
         self.assertNotContains(response, self.LOCALE_SELECTOR_LABEL)
         self.assertNotContains(response, self.LOCALE_INDICATOR_HTML)
+
+
+class TestEditSnippetWithUniqueLocaleConstraints(BaseTestSnippetEditView):
+    def setUp(self):
+        super().setUp()
+        UniquePerLocaleSnippet.objects.create(text="Hello", slug="hello")
+        self.test_snippet = UniquePerLocaleSnippet.objects.create(
+            text="World", slug="world"
+        )
+
+    def test_duplicate_in_unique_together_with_locale(self):
+        response = self.post({"text": "Hello", "slug": "world"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Unique per locale snippet with this Text and Locale already exists.",
+        )
+        self.test_snippet.refresh_from_db()
+        self.assertEqual(self.test_snippet.text, "World")
+
+    def test_duplicate_in_unique_constraint_with_locale(self):
+        response = self.post({"text": "World", "slug": "hello"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Unique per locale snippet with this Slug and Locale already exists.",
+        )
+        self.test_snippet.refresh_from_db()
+        self.assertEqual(self.test_snippet.slug, "world")
 
 
 class TestEditRevisionSnippet(BaseTestSnippetEditView):

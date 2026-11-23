@@ -21,6 +21,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.test.snippets.models import (
     FileUploadSnippet,
+    UniquePerLocaleSnippet,
 )
 from wagtail.test.testapp.models import (
     Advert,
@@ -656,6 +657,53 @@ class TestLocaleSelectorOnCreate(PageFixturesMixin, WagtailTestUtils, TestCase):
         self.assertNotContains(
             response,
             f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestCreateSnippetWithUniqueLocaleConstraints(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        UniquePerLocaleSnippet.objects.create(text="Hello", slug="hello")
+        self.add_url = reverse(
+            "wagtailsnippets_snippetstests_uniqueperlocalesnippet:add"
+        )
+
+    def test_duplicate_in_unique_together_with_locale(self):
+        response = self.client.post(self.add_url, {"text": "Hello", "slug": "other"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Unique per locale snippet with this Text and Locale already exists.",
+        )
+        self.assertEqual(UniquePerLocaleSnippet.objects.count(), 1)
+
+    def test_duplicate_in_unique_constraint_with_locale(self):
+        response = self.client.post(self.add_url, {"text": "Other", "slug": "hello"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Unique per locale snippet with this Slug and Locale already exists.",
+        )
+        self.assertEqual(UniquePerLocaleSnippet.objects.count(), 1)
+
+    def test_same_values_in_another_locale(self):
+        response = self.client.post(
+            self.add_url + "?locale=fr", {"text": "Hello", "slug": "hello"}
+        )
+
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_snippetstests_uniqueperlocalesnippet:list")
+            + "?locale=fr",
+        )
+        self.assertTrue(
+            UniquePerLocaleSnippet.objects.filter(
+                text="Hello", slug="hello", locale=self.fr_locale
+            ).exists()
         )
 
 

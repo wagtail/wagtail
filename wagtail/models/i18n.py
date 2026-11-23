@@ -26,6 +26,12 @@ def pk(obj):
         return obj
 
 
+def _without_locale(exclude):
+    if exclude is None:
+        return None
+    return set(exclude) - {"locale"}
+
+
 class LocaleManager(models.Manager):
     def get_for_language(self, language_code):
         """
@@ -242,6 +248,19 @@ class TranslatableMixin(models.Model):
             )
 
         return errors
+
+    # The locale field is not editable, so model forms leave it out and exclude it
+    # from model validation. Django would then skip any unique_together or
+    # UniqueConstraint that includes the locale, and saving would fail with an
+    # IntegrityError instead of a validation error. The locale is set on the
+    # instance, not through the form, so keep it in these checks. If it is not
+    # set yet, Django skips them as before.
+
+    def validate_unique(self, exclude=None):
+        super().validate_unique(exclude=_without_locale(exclude))
+
+    def validate_constraints(self, exclude=None):
+        super().validate_constraints(exclude=_without_locale(exclude))
 
     @property
     def localized(self):
