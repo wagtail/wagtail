@@ -12,6 +12,8 @@ const getHtml = ({ objectIds = [1, 45, 23, 'uuid-1', 'uuid-2'] } = {}) => `
   <footer class="footer bulk-actions-choices hidden" data-bulk-action-footer="PAGE">
     <input data-bulk-action-select-all-checkbox type="checkbox" id="footer-select-all"/>
     <span data-bulk-action-num-objects class="num-objects"></span>
+    <button type="button" data-bulk-action-num-objects-in-listing class="w-hidden">Select all in listing</button>
+    <a href="/admin/bulk/wagtailcore/page/delete/" data-bulk-action-button>Delete</a>
   </footer>
 </main>
 `;
@@ -143,5 +145,65 @@ describe('bulk-actions', () => {
     expect(
       document.querySelector('footer').classList.contains('hidden'),
     ).toEqual(false);
+  });
+});
+
+describe('bulk-actions action buttons', () => {
+  const oldWindowLocation = window.location;
+  const listingURL = '/admin/pages/2/?has_child_pages=true&q=hello';
+
+  beforeAll(() => {
+    window.wagtailConfig = {
+      STRINGS: {
+        BULK_ACTIONS: {
+          PAGE: {
+            ALL_IN_LISTING: 'ALL_IN_LISTING',
+            ALL: 'ALL',
+            PLURAL: 'PLURAL',
+            SINGULAR: 'SINGULAR',
+          },
+        },
+      },
+    };
+  });
+
+  beforeEach(() => {
+    delete window.location;
+    window.location = { href: `http://localhost${listingURL}` };
+
+    document.body.innerHTML = getHtml();
+    const { addBulkActionListeners } = require('./bulk-actions');
+    addBulkActionListeners();
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  afterAll(() => {
+    window.location = oldWindowLocation;
+  });
+
+  it('should send the listing URL when acting on all items in the listing', () => {
+    document.getElementById('header-select-all').click();
+    document.querySelector('[data-bulk-action-num-objects-in-listing]').click();
+    document.querySelector('[data-bulk-action-button]').click();
+
+    const url = new URL(window.location.href);
+    expect(url.pathname).toEqual('/admin/bulk/wagtailcore/page/delete/');
+    expect(url.searchParams.getAll('id')).toEqual(['all']);
+    expect(url.searchParams.get('listing_url')).toEqual(listingURL);
+    expect(url.searchParams.get('next')).toEqual(listingURL);
+  });
+
+  it('should only send the selected ids when acting on selected items', () => {
+    document.querySelector("[data-object-id='45']").click();
+    document.querySelector('[data-bulk-action-button]').click();
+
+    const url = new URL(window.location.href);
+    expect(url.pathname).toEqual('/admin/bulk/wagtailcore/page/delete/');
+    expect(url.searchParams.getAll('id')).toEqual(['45']);
+    expect(url.searchParams.has('listing_url')).toBe(false);
+    expect(url.searchParams.get('next')).toEqual(listingURL);
   });
 });

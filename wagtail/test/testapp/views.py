@@ -1,4 +1,5 @@
 import calendar
+from functools import wraps
 
 from django import forms
 from django.http import HttpResponse
@@ -386,6 +387,7 @@ def get_view_by_name_override(self, name):
     # Mark the view with a custom header, so we can check that the correct
     # view is being used in tests. Override get_view_by_name() instead of
     # construct_view() to also support function-based views.
+    @wraps(view)
     def marked_view(*args, **kwargs):
         response = view(*args, **kwargs)
         response.headers["X-Wagtail-ViewSet"] = cls.__name__

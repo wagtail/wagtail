@@ -12,21 +12,6 @@ class ImageBulkAction(BulkAction):
     def permission_policy(self):
         return policy_registry.get_by_type(self.model)
 
-    def get_all_objects_in_listing_query(self, parent_id):
-        listing_objects = self.permission_policy.instances_user_has_permission_for(
-            self.request.user, "change"
-        )
-        if parent_id is not None:
-            listing_objects = listing_objects.filter(collection_id=parent_id)
-
-        listing_objects = listing_objects.values_list("pk", flat=True)
-
-        if "q" in self.request.GET:
-            query_string = self.request.GET.get("q", "")
-            listing_objects = listing_objects.search(query_string).results()
-
-        return listing_objects
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["items_with_no_access"] = [

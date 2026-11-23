@@ -348,3 +348,59 @@ class TestProtectedBulkDeleteView(WagtailTestUtils, TestCase):
 
         # Check that the snippet is still here
         self.assertTrue(Advert.objects.filter(pk=protected.pk).exists())
+
+
+class TestSnippetDeleteAllInListing(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.apple = FullFeaturedSnippet.objects.create(text="Apple", country_code="ID")
+        self.banana = FullFeaturedSnippet.objects.create(
+            text="Banana", country_code="UK"
+        )
+        # Not shown in the listing, see FullFeaturedSnippetViewSet.get_queryset()
+        self.hidden = FullFeaturedSnippet.objects.create(
+            text="[HIDDEN] Cherry", country_code="UK"
+        )
+        self.listing_url = reverse(
+            FullFeaturedSnippet.snippet_viewset.get_url_name("list")
+        )
+
+    def get_url(self, listing_query=None):
+        listing_url = self.listing_url
+        if listing_query:
+            listing_url += "?" + urlencode(listing_query)
+        return (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    FullFeaturedSnippet._meta.app_label,
+                    FullFeaturedSnippet._meta.model_name,
+                    "delete",
+                ),
+            )
+            + "?"
+            + urlencode({"id": "all", "listing_url": listing_url})
+        )
+
+    def get_listed_snippets(self, listing_query=None):
+        response = self.client.get(self.get_url(listing_query))
+        self.assertEqual(response.status_code, 200)
+        return {item["item"] for item in response.context["items"]}
+
+    def test_listing(self):
+        self.assertEqual(self.get_listed_snippets(), {self.apple, self.banana})
+
+    def test_search(self):
+        self.assertEqual(self.get_listed_snippets({"q": "apple"}), {self.apple})
+
+    def test_filter(self):
+        self.assertEqual(
+            self.get_listed_snippets({"country_code": "UK"}), {self.banana}
+        )
+
+    def test_delete_with_filter(self):
+        response = self.client.post(self.get_url({"country_code": "UK"}))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            set(FullFeaturedSnippet.objects.all()), {self.apple, self.hidden}
+        )

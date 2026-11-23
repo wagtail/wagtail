@@ -218,11 +218,33 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
                 "wagtail_bulk_action",
                 args=(User._meta.app_label, User._meta.model_name, "delete"),
             ),
-            {"q": "raz", "id": "all"},
+            {
+                "q": "raz",
+                "id": "all",
+                "listing_url": reverse("wagtailusers_users:index") + "?q=raz",
+            },
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Razputin")
         self.assertNotContains(response, "testuser")
+
+    def test_with_filter(self):
+        response = self.client.get(
+            self.base_url
+            + urlencode(
+                {
+                    "id": "all",
+                    "listing_url": reverse("wagtailusers_users:index")
+                    + "?is_superuser=true",
+                }
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            [item["item"] for item in response.context["items"]], [self.superuser]
+        )
+        # The logged-in superuser is listed but cannot delete themselves
+        self.assertEqual(response.context["items_with_no_access"], [self.current_user])
 
     @unittest.skipUnless(
         settings.AUTH_USER_MODEL == "customuser.CustomUser",
@@ -244,7 +266,11 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
             ),
             # The country field is defined in the model's search_fields,
             # which only works with an indexed model
-            {"q": "gru", "id": "all"},
+            {
+                "q": "gru",
+                "id": "all",
+                "listing_url": reverse("wagtailusers_users:index") + "?q=gru",
+            },
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Razputin")

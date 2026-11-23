@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
@@ -102,7 +103,8 @@ class TestBulkAddAllImagesToCollection(WagtailTestUtils, TestCase):
                     "add_to_collection",
                 ),
             )
-            + "?id=all"
+            + "?"
+            + urlencode({"id": "all", "listing_url": reverse("wagtailimages:index")})
         )
         self.post_data = {"collection": str(self.dest_collection.id)}
 
@@ -165,3 +167,27 @@ class TestBulkAddAllImagesToCollection(WagtailTestUtils, TestCase):
             self.assertEqual(
                 Image.objects.get(id=image.id).collection_id, self.dest_collection.id
             )
+
+    def test_add_all_in_filtered_listing_to_collection(self):
+        self.images[0].tags.add("cat")
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailimages", "image", "add_to_collection"),
+            )
+            + "?"
+            + urlencode(
+                {
+                    "id": "all",
+                    "listing_url": reverse("wagtailimages:index") + "?tag=cat",
+                }
+            )
+        )
+        response = self.client.post(url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+
+        # Only the image shown in the filtered listing is moved
+        self.assertEqual(
+            list(Image.objects.filter(collection=self.dest_collection)),
+            [self.images[0]],
+        )

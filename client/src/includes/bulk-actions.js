@@ -191,6 +191,8 @@ function onClickActionButton(e) {
     // when performing the action on all items in the current listing
     urlParams = new URLSearchParams(currentURL.searchParams);
     urlParams.append('id', 'all');
+    // The server builds the listing from this URL to find the items to act on
+    urlParams.append('listing_url', currentURL.pathname + currentURL.search);
     const parentElement = document.querySelector(BULK_ACTIONS_CHECKBOX_PARENT);
     if (parentElement) {
       const parentPageId = parentElement.dataset.bulkActionParentId;

@@ -352,14 +352,17 @@ class ExplorableIndexView(IndexView):
             **self.get_table_kwargs(),
         )
 
-    def get(self, request, parent_page_id=None):
-        if parent_page_id:
-            self.parent_page = get_object_or_404(
+    @cached_property
+    def parent_page(self):
+        if parent_page_id := self.kwargs.get("parent_page_id"):
+            parent_page = get_object_or_404(
                 Page.objects.all().prefetch_workflow_states(), id=parent_page_id
             )
         else:
-            self.parent_page = Page.get_first_root_node()
+            parent_page = Page.get_first_root_node()
+        return parent_page.specific
 
+    def get(self, request, parent_page_id=None):
         # This will always succeed because of the check performed by PermissionCheckedMixin.
         root_page = self.permission_policy.explorable_root_instance(request.user)
 
@@ -371,7 +374,6 @@ class ExplorableIndexView(IndexView):
         ):
             return redirect(self.index_url_name, root_page.pk)
 
-        self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
         self.permissions = self.parent_page.permissions_for_user(self.request.user)
 

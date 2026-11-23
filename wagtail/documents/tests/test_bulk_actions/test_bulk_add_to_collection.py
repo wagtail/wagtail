@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.documents import get_document_model
 from wagtail.models import Collection
@@ -101,7 +102,8 @@ class TestBulkAddAllDocumentsToCollection(WagtailTestUtils, TestCase):
                     "add_to_collection",
                 ),
             )
-            + "?id=all"
+            + "?"
+            + urlencode({"id": "all", "listing_url": reverse("wagtaildocs:index")})
         )
         self.post_data = {"collection": str(self.dest_collection.id)}
 
@@ -166,3 +168,24 @@ class TestBulkAddAllDocumentsToCollection(WagtailTestUtils, TestCase):
                 Document.objects.get(id=document.id).collection_id,
                 self.dest_collection.id,
             )
+
+    def test_add_all_in_filtered_listing_to_collection(self):
+        self.documents[0].tags.add("cat")
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtaildocs", "document", "add_to_collection"),
+            )
+            + "?"
+            + urlencode(
+                {"id": "all", "listing_url": reverse("wagtaildocs:index") + "?tag=cat"}
+            )
+        )
+        response = self.client.post(url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+
+        # Only the document shown in the filtered listing is moved
+        self.assertEqual(
+            list(Document.objects.filter(collection=self.dest_collection)),
+            [self.documents[0]],
+        )

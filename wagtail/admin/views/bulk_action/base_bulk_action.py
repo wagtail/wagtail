@@ -1,8 +1,13 @@
 from abc import ABC, abstractmethod
+from copy import copy
+from urllib.parse import unquote, urlsplit
 
 from django import forms
 from django.db import transaction
+from django.db.models import QuerySet
+from django.http import QueryDict
 from django.shortcuts import get_list_or_404, redirect
+from django.urls import Resolver404, get_script_prefix, resolve
 from django.utils.functional import classproperty
 from django.views.generic import FormView
 
@@ -92,8 +97,57 @@ class BulkAction(ABC, FormView):
             if hasattr(result, "status_code"):
                 return result
 
+    def get_listing_view(self):
+        """
+        Return the listing view that "select all in listing" was used on, set up
+        with the URL and query parameters given in ``listing_url``, or ``None``
+        if ``listing_url`` does not point to a listing view.
+        """
+        # Imported here to avoid a circular import, as wagtailadmin_tags imports
+        # the bulk action registry and the generic views import wagtailadmin_tags
+        from wagtail.admin.views.generic.base import BaseListingView
+
+        listing_url = urlsplit(self.request.GET.get("listing_url", ""))
+        path = unquote(listing_url.path)
+        script_prefix = get_script_prefix()
+        if path.startswith(script_prefix):
+            path = "/" + path.removeprefix(script_prefix)
+
+        try:
+            match = resolve(path)
+        except Resolver404:
+            return None
+
+        view_func = match.func
+        # Page views are routed to the view of the page type's viewset
+        if get_view := getattr(view_func, "get_view", None):
+            view_func = get_view(match.kwargs)
+
+        view_class = getattr(view_func, "view_class", None)
+        if not (view_class and issubclass(view_class, BaseListingView)):
+            return None
+
+        request = copy(self.request)
+        request.method = "GET"
+        request.GET = QueryDict(listing_url.query)
+        view = view_class(**view_func.view_initkwargs)
+        view.setup(request, *match.args, **match.kwargs)
+        return view
+
     def get_all_objects_in_listing_query(self, parent_id):
-        return self.model.objects.all().values_list("pk", flat=True)
+        listing_view = self.get_listing_view()
+        if listing_view is None:
+            return []
+
+        objects = listing_view.get_queryset()
+        model = getattr(objects, "model", None)
+        if not (isinstance(model, type) and issubclass(model, self.model)):
+            return []
+
+        if isinstance(objects, QuerySet):
+            return objects.values_list("pk", flat=True)
+        # Search results
+        return [obj.pk for obj in objects]
 
     def get_actionable_objects(self):
         objects = []

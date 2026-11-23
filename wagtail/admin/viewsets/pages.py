@@ -678,15 +678,20 @@ class PageViewSetRegistry(ObjectTypeRegistry):
                 "- is_base_page."
             )
 
-        def view_router(request, *args, **kwargs):
+        def get_view(kwargs):
             try:
                 viewset = get_viewset(kwargs)
-                view = viewset.get_view_by_name(view_name)
+                return viewset.get_view_by_name(view_name)
             except (ObjectDoesNotExist, KeyError) as e:
                 # Page, ContentType, or view name not found
                 raise Http404 from e
-            return view(request, *args, **kwargs)
 
+        def view_router(request, *args, **kwargs):
+            return get_view(kwargs)(request, *args, **kwargs)
+
+        # Allow finding the view that the URL kwargs route to without calling it,
+        # e.g. for bulk actions to reconstruct a listing
+        view_router.get_view = get_view
         return view_router
 
 

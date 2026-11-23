@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
-from django.utils.functional import classproperty
+from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables.pages import (
@@ -77,9 +77,11 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
 
     def get(self, request):
         self.content_types = []
-        self.ordering = None
+        return super().get(request)
 
-        if "ordering" in request.GET and request.GET["ordering"] in [
+    def get_ordering(self):
+        ordering = self.request.GET.get("ordering")
+        if ordering in [
             "title",
             "-title",
             "latest_revision_created_at",
@@ -87,25 +89,23 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
             "live",
             "-live",
         ]:
-            self.ordering = request.GET["ordering"]
+            return ordering
+        return None
 
-        if "content_type" in request.GET:
-            try:
-                app_label, model_name = request.GET["content_type"].split(".")
-            except ValueError as e:
-                raise Http404 from e
+    @cached_property
+    def selected_content_type(self):
+        if "content_type" not in self.request.GET:
+            return None
 
-            try:
-                self.selected_content_type = ContentType.objects.get_by_natural_key(
-                    app_label, model_name
-                )
-            except ContentType.DoesNotExist as e:
-                raise Http404 from e
+        try:
+            app_label, model_name = self.request.GET["content_type"].split(".")
+        except ValueError as e:
+            raise Http404 from e
 
-        else:
-            self.selected_content_type = None
-
-        return super().get(request)
+        try:
+            return ContentType.objects.get_by_natural_key(app_label, model_name)
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
     def get_queryset(self) -> QuerySet[Any]:
         self.all_pages = Page.objects.all()

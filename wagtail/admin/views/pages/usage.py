@@ -28,15 +28,16 @@ class ContentTypeUseView(IndexView):
             **self.get_table_kwargs(),
         )
 
-    def get(self, request, *, content_type_app_name, content_type_model_name):
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
         # A viewset may assign the "model" attribute to a superclass page model,
         # so look up the most specific model class again based on the app_label
         # and model_name in the URL kwargs.
         content_type = ContentType.objects.get_by_natural_key(
-            content_type_app_name, content_type_model_name
+            self.kwargs["content_type_app_name"],
+            self.kwargs["content_type_model_name"],
         )
         self.model = content_type.model_class()
-        return super().get(request)
 
     def get_page_subtitle(self):
         return self.model._meta.verbose_name
