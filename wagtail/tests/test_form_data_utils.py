@@ -187,3 +187,40 @@ class TestQueryDictFromHTML(SimpleTestCase):
     def test_invalid_index(self):
         with self.assertRaises(ValueError):
             querydict_from_html(self.html, form_index=5)
+
+    def test_streamfield_block_widget(self):
+        html = """
+        <form id="page-edit-form">
+            <input type="text" name="title" value="My Page">
+            <div id="body" data-block data-controller="w-block"
+                data-w-block-arguments-value='[[{"type": "text", "value": "hello", "id": "123"}, {"type": "struct", "value": {"name": "item", "count": 2}, "id": "456"}], null]'>
+            </div>
+        </form>
+        """
+        result = querydict_from_html(html, form_id="page-edit-form")
+        self.assertEqual(result["title"], "My Page")
+        self.assertEqual(result["body-count"], "2")
+        self.assertEqual(result["body-0-type"], "text")
+        self.assertEqual(result["body-0-id"], "123")
+        self.assertEqual(result["body-0-order"], "0")
+        self.assertEqual(result["body-0-deleted"], "")
+        self.assertEqual(result["body-0-value"], "hello")
+        self.assertEqual(result["body-1-type"], "struct")
+        self.assertEqual(result["body-1-id"], "456")
+        self.assertEqual(result["body-1-order"], "1")
+        self.assertEqual(result["body-1-deleted"], "")
+        self.assertEqual(result["body-1-value-name"], "item")
+        self.assertEqual(result["body-1-value-count"], "2")
+
+    def test_empty_streamfield_block_widget(self):
+        html = """
+        <form id="page-edit-form">
+            <input type="text" name="title" value="My Page">
+            <div id="body" data-block data-controller="w-block"
+                data-w-block-arguments-value='[[], null]'>
+            </div>
+        </form>
+        """
+        result = querydict_from_html(html, form_id="page-edit-form")
+        self.assertEqual(result["title"], "My Page")
+        self.assertEqual(result["body-count"], "0")

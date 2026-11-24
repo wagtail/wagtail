@@ -3,6 +3,11 @@ from unittest import mock
 from django.conf import settings
 
 from wagtail.test.routablepage.models import RoutablePageTest
+from wagtail.test.testapp.models import (
+    InlineStreamPage,
+    InlineStreamPageSection,
+    StreamPage,
+)
 from wagtail.test.utils import Page, WagtailPageTestCase
 
 
@@ -170,3 +175,51 @@ class TestCustomPageAssertions(WagtailPageTestCase):
     def test_is_previewable_for_broken_mode(self):
         with self.assertRaises(self.failureException):
             self.assertPageIsPreviewable(self.page, mode="broken")
+
+    def test_is_editable_with_streamfield(self):
+        stream_page = StreamPage(
+            title="Stream page",
+            slug="stream-page",
+            body=[("text", "hello world")],
+        )
+        self.parent.add_child(instance=stream_page)
+        self.assertPageIsEditable(stream_page)
+
+    def test_is_editable_with_empty_streamfield(self):
+        stream_page = StreamPage(
+            title="Empty stream page",
+            slug="empty-stream-page",
+            body=[],
+        )
+        self.parent.add_child(instance=stream_page)
+        self.assertPageIsEditable(stream_page)
+
+    def test_is_previewable_with_streamfield(self):
+        stream_page = StreamPage(
+            title="Stream preview page",
+            slug="stream-preview-page",
+            body=[("text", "hello world")],
+        )
+        self.parent.add_child(instance=stream_page)
+        self.assertPageIsPreviewable(stream_page)
+
+    def test_is_previewable_with_empty_streamfield(self):
+        stream_page = StreamPage(
+            title="Empty stream preview page",
+            slug="empty-stream-preview-page",
+            body=[],
+        )
+        self.parent.add_child(instance=stream_page)
+        self.assertPageIsPreviewable(stream_page)
+
+    def test_is_editable_with_inline_streamfield(self):
+        page = InlineStreamPage(
+            title="Inline stream page",
+            slug="inline-stream-page",
+        )
+        self.parent.add_child(instance=page)
+        InlineStreamPageSection.objects.create(
+            page=page,
+            body=[("text", "Section 1")],
+        )
+        self.assertPageIsEditable(page)

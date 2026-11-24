@@ -6,6 +6,8 @@ the ``wagtail.test.utils.form_data`` module provides a set of helper
 functions to assist with this.
 """
 
+import json
+
 import bs4
 from django.http import QueryDict
 
@@ -144,6 +146,60 @@ def rich_text(value, editor="default", features=None):
     return widget.format_value(value)
 
 
+def _block_state_to_form_data(val, prefix, data):
+    if isinstance(val, list):
+        data[f"{prefix}-count"] = str(len(val))
+        for i, item in enumerate(val):
+            data[f"{prefix}-{i}-deleted"] = ""
+            data[f"{prefix}-{i}-order"] = str(i)
+            if isinstance(item, dict):
+                if item.get("id") is not None:
+                    data[f"{prefix}-{i}-id"] = str(item["id"])
+                if "type" in item:
+                    data[f"{prefix}-{i}-type"] = str(item["type"])
+                    if "value" in item:
+                        _block_state_to_form_data(
+                            item["value"], f"{prefix}-{i}-value", data
+                        )
+                elif "value" in item:
+                    _block_state_to_form_data(
+                        item["value"], f"{prefix}-{i}-value", data
+                    )
+                else:
+                    _block_state_to_form_data(item, f"{prefix}-{i}-value", data)
+            else:
+                _block_state_to_form_data(item, f"{prefix}-{i}-value", data)
+    elif isinstance(val, dict):
+        if ("edit_url" in val or "editUrl" in val) and "id" in val:
+            data[prefix] = str(val["id"]) if val["id"] is not None else ""
+        elif "columns" in val and "rows" in val:
+            data[f"{prefix}-caption"] = str(val.get("caption") or "")
+            columns = val.get("columns", [])
+            data[f"{prefix}-column-count"] = str(len(columns))
+            for i, col in enumerate(columns):
+                data[f"{prefix}-column-{i}-deleted"] = ""
+                data[f"{prefix}-column-{i}-order"] = str(i)
+                data[f"{prefix}-column-{i}-type"] = str(col.get("type", ""))
+                data[f"{prefix}-column-{i}-heading"] = str(col.get("heading", ""))
+            rows = val.get("rows", [])
+            data[f"{prefix}-row-count"] = str(len(rows))
+            for r, row in enumerate(rows):
+                data[f"{prefix}-row-{r}-deleted"] = ""
+                data[f"{prefix}-row-{r}-order"] = str(r)
+                for c, cell_val in enumerate(row.get("values", [])):
+                    _block_state_to_form_data(cell_val, f"{prefix}-cell-{r}-{c}", data)
+        else:
+            for k, v in val.items():
+                _block_state_to_form_data(v, f"{prefix}-{k}", data)
+    elif isinstance(val, bool):
+        if val:
+            data[prefix] = "true"
+    elif val is None:
+        data[prefix] = ""
+    else:
+        data[prefix] = str(val)
+
+
 def _querydict_from_form(form: bs4.Tag, exclude_csrf: bool = True) -> QueryDict:
     data = QueryDict(mutable=True)
     for input in form.find_all("input"):
@@ -183,6 +239,18 @@ def _querydict_from_form(form: bs4.Tag, exclude_csrf: bool = True) -> QueryDict:
                     data[name] = first_option.attrs.get(
                         "value", first_option.get_text()
                     )
+
+    for block in form.find_all(attrs={"data-block": True}):
+        name = block.attrs.get("name") or block.attrs.get("id")
+        args_attr = block.attrs.get("data-w-block-arguments-value")
+        if name and args_attr:
+            try:
+                args = json.loads(args_attr)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                continue
+            if isinstance(args, (list, tuple)) and len(args) > 0:
+                _block_state_to_form_data(args[0], name, data)
+
     return data
 
 
