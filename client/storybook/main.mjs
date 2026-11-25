@@ -1,3 +1,10 @@
+import { mergeRsbuildConfig } from '@rsbuild/core';
+import { pluginReact } from '@rsbuild/plugin-react';
+import { pluginSass } from '@rsbuild/plugin-sass';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import tailwindcss from 'tailwindcss';
+
 const storybook = {
   stories: [
     '../../client/**/*.mdx',
@@ -5,52 +12,33 @@ const storybook = {
     '../../wagtail/**/*.@(mdx|stories.*)',
   ],
 
-  addons: ['@storybook/addon-docs', '@storybook/addon-webpack5-compiler-babel'],
-  framework: { name: '@storybook/react-webpack5', options: {} },
+  addons: ['@storybook/addon-docs'],
+  framework: { name: 'storybook-react-rsbuild', options: {} },
 
-  /**
-   * Redefine Babel config to allow TypeScript class fields `declare`.
-   * @see https://github.com/storybookjs/storybook/issues/12479.
-   * The resulting configuration is closer to Wagtail’s Rspack + TypeScript setup,
-   * preventing other potential issues with JS transpilation differences.
-   */
-  babel: async (options) => ({
-    ...options,
-    plugins: [],
-    presets: [
-      ['@babel/preset-typescript', { allowDeclareFields: true }],
-      ['@babel/preset-react', { runtime: 'automatic' }],
-    ],
-  }),
-
-  webpackFinal: (config) => {
-    const rules = [
-      {
-        test: /\.(scss|css)$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { url: false } },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: ['tailwindcss', 'autoprefixer', 'cssnano'],
-              },
-            },
-          },
-          'sass-loader',
-        ],
+  rsbuildFinal: (config) =>
+    mergeRsbuildConfig(config, {
+      plugins: [pluginReact(), pluginSass({ rewriteUrls: false })],
+      output: {
+        // CSS is already minified by cssnano.
+        minify: { css: false },
       },
-      { test: /\.(md|html)$/, type: 'asset/source' },
-    ];
+      tools: {
+        cssLoader: { url: false },
+        // Vendor prefixes are already added by autoprefixer.
+        lightningcssLoader: false,
+        postcss: {
+          postcssOptions: {
+            plugins: [tailwindcss, autoprefixer, cssnano],
+          },
+        },
+        rspack: (rspackConfig, { appendRules }) => {
+          appendRules({ test: /\.(md|html)$/, type: 'asset/source' });
 
-    config.module.rules = config.module.rules.concat(rules);
-
-    // Allow using path magic variables to reduce boilerplate in stories.
-    config.node = { __filename: true, __dirname: true };
-
-    return config;
-  },
+          // Allow using path magic variables to reduce boilerplate in stories.
+          rspackConfig.node = { __filename: true, __dirname: true };
+        },
+      },
+    }),
 
   typescript: {
     reactDocgen: 'react-docgen',
