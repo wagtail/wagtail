@@ -23,6 +23,7 @@ class MigrateStreamData(RunPython):
         operations_and_block_paths,
         revisions_from=None,
         chunk_size=1024,
+        reverse_code=RunPython.noop,
         **kwargs,
     ):
         """MigrateStreamData constructor
@@ -39,6 +40,10 @@ class MigrateStreamData(RunPython):
                 takes.
             chunk_size (:obj:`int`, optional): chunk size for queryset.iterator and bulk_update.
                 Defaults to 1024.
+            reverse_code (callable, optional): Function to run when the migration is
+                reversed, with the same signature as ``RunPython``'s ``reverse_code``.
+                Defaults to ``RunPython.noop``, which leaves the stream data unchanged.
+                Pass ``None`` to make the migration irreversible.
             **kwargs: atomic, elidable, hints for superclass RunPython can be given
 
         Example:
@@ -61,16 +66,19 @@ class MigrateStreamData(RunPython):
         self.revisions_from = revisions_from
         self.chunk_size = chunk_size
 
-        # TODO add reverse code when needed, will probably need another input (reversible?)
         # super class kwargs - atomic,elidable,hints
         super().__init__(
             code=self.migrate_stream_data_forward,
-            reverse_code=lambda *args: None,
+            reverse_code=reverse_code,
             **kwargs,
         )
 
     def deconstruct(self):
         _, args, kwargs = super().deconstruct()
+        # `code` is always migrate_stream_data_forward, so it is not a constructor argument.
+        kwargs.pop("code")
+        # RunPython omits reverse_code when it is None; keep it so the result stays irreversible.
+        kwargs["reverse_code"] = self.reverse_code
         kwargs["app_name"] = self.app_name
         kwargs["model_name"] = self.model_name
         kwargs["field_name"] = self.field_name

@@ -2,11 +2,15 @@ import datetime
 import json
 
 from django.db import connection
+from django.db.migrations import Migration, RunPython
+from django.db.migrations.exceptions import IrreversibleError
+from django.db.migrations.loader import MigrationLoader
 from django.db.models import F, JSONField, TextField
 from django.db.models.functions import Cast
 from django.test import TestCase
 from django.utils import timezone
 
+from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 from wagtail.blocks.migrations.operations import (
     RenameStreamChildrenOperation,
     StreamChildrenToListBlockOperation,
@@ -330,3 +334,75 @@ class TestRevisionHandling(BaseMigrationTest):
 
         # Should not throw a KeyError.
         self.apply_migration()
+
+
+class TestReverseCode(TestCase):
+    """
+    Reversing a MigrateStreamData operation.
+
+    See https://github.com/wagtail/wagtail/issues/14836.
+    """
+
+    def make_migration(self, **kwargs):
+        migration = Migration("test_migration", "streamfield_migration_tests")
+        migration.operations = [
+            MigrateStreamData(
+                app_name="streamfield_migration_tests",
+                model_name="SampleModel",
+                field_name="content",
+                operations_and_block_paths=[
+                    (
+                        RenameStreamChildrenOperation(
+                            old_name="char1", new_name="renamed1"
+                        ),
+                        "",
+                    )
+                ],
+                **kwargs,
+            )
+        ]
+        return migration
+
+    def apply_and_unapply(self, migration):
+        loader = MigrationLoader(connection=connection)
+        loader.build_graph()
+        project_state = loader.project_state()
+        new_state = migration.apply(
+            project_state, connection.schema_editor(atomic=migration.atomic)
+        )
+        migration.unapply(new_state, connection.schema_editor(atomic=migration.atomic))
+
+    def test_default_reverse_is_noop(self):
+        operation = self.make_migration().operations[0]
+        self.assertTrue(operation.reversible)
+        self.assertIs(operation.reverse_code, RunPython.noop)
+
+    def test_custom_reverse_code_is_called(self):
+        calls = []
+
+        def reverse(apps, schema_editor):
+            calls.append(True)
+
+        self.apply_and_unapply(self.make_migration(reverse_code=reverse))
+        self.assertEqual(calls, [True])
+
+    def test_reverse_code_none_is_irreversible(self):
+        migration = self.make_migration(reverse_code=None)
+        self.assertFalse(migration.operations[0].reversible)
+        with self.assertRaises(IrreversibleError):
+            self.apply_and_unapply(migration)
+
+    def test_deconstruct_round_trip(self):
+        def reverse(apps, schema_editor):
+            pass
+
+        operation = self.make_migration(reverse_code=reverse).operations[0]
+        name, args, kwargs = operation.deconstruct()
+        self.assertEqual(name, "MigrateStreamData")
+        rebuilt = MigrateStreamData(*args, **kwargs)
+        self.assertIs(rebuilt.reverse_code, reverse)
+        self.assertEqual(rebuilt.app_name, operation.app_name)
+        self.assertEqual(
+            rebuilt.operations_and_block_paths,
+            operation.operations_and_block_paths,
+        )

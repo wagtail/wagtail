@@ -21,6 +21,7 @@ def __init__(app_name,
              operations_and_block_paths,
              revisions_from=None,
              chunk_size=1024,
+             reverse_code=RunPython.noop,
              **kwargs)
 ```
 
@@ -35,6 +36,7 @@ MigrateStreamData constructor
 -   `revisions_from` _datetime, optional_ - Only revisions created from this date onwards will be updated. Passing `None` updates all revisions. Defaults to `None`. Note that live and latest revisions will be updated regardless of what value this takes.
 -   `chunk_size` _int, optional_ - chunk size for `queryset.iterator` and `bulk_update`.
     Defaults to 1024.
+-   `reverse_code` _callable, optional_ - Function to run when the migration is reversed, with the same signature as the `reverse_code` argument of `RunPython`. Defaults to `RunPython.noop`, which leaves the stream data unchanged when the migration is reversed. Pass `None` to make the migration irreversible, so that reversing it raises `IrreversibleError`.
 -   `**kwargs` - atomic, elidable, hints for superclass `RunPython` can be given
 
 **Example**:
