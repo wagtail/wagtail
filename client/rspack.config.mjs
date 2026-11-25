@@ -1,6 +1,5 @@
 import path from 'path';
-import CopyPlugin from 'copy-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { rspack } from '@rspack/core';
 
 /**
  * Generates a path to the output bundle to be loaded in the browser.
@@ -133,7 +132,7 @@ export default function exports(env, argv) {
       extensions: ['.ts', '.tsx', '.js'],
 
       // Some libraries import Node modules but don't use them in the browser.
-      // Tell Webpack to provide empty mocks for them so importing them works.
+      // Tell Rspack to provide empty mocks for them so importing them works.
       fallback: {
         fs: false,
         net: false,
@@ -145,10 +144,10 @@ export default function exports(env, argv) {
     },
 
     plugins: [
-      new MiniCssExtractPlugin({
+      new rspack.CssExtractRspackPlugin({
         filename: '[name].css',
       }),
-      new CopyPlugin({
+      new rspack.CopyRspackPlugin({
         patterns: [
           {
             from: 'wagtail/admin/static_src/',
@@ -193,7 +192,7 @@ export default function exports(env, argv) {
         {
           test: /\.(scss|css)$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            rspack.CssExtractRspackPlugin.loader,
             {
               loader: 'css-loader',
               options: {
@@ -226,9 +225,8 @@ export default function exports(env, argv) {
           const globalName = exposedDependencies[name];
           const url = import.meta.resolve(name);
           // import.meta.resolve returns a full URL with the file:// protocol.
-          // Webpack doesn't support it yet, so only take the pathname to match
-          // the behavior of require.resolve.
-          // https://github.com/webpack/schema-utils/issues/209
+          // Rule conditions match against file paths, so only take the pathname
+          // to match the behavior of require.resolve.
           const test = new URL(url).pathname;
 
           // Create expose-loader configs for each Wagtail dependency.
@@ -251,6 +249,10 @@ export default function exports(env, argv) {
     },
 
     optimization: {
+      // CSS is already minified by cssnano, so only minify JS.
+      minimizer: [
+        new rspack.SwcJsMinimizerRspackPlugin({ extractComments: true }),
+      ],
       splitChunks: {
         cacheGroups: {
           vendor: {
@@ -263,7 +265,7 @@ export default function exports(env, argv) {
       },
     },
 
-    // See https://webpack.js.org/configuration/devtool/.
+    // See https://rspack.rs/config/devtool.
     devtool: isProduction ? false : 'eval-cheap-module-source-map',
 
     // For development mode only.
@@ -273,7 +275,7 @@ export default function exports(env, argv) {
     },
 
     // Disable performance hints – currently there are much more valuable
-    // optimizations for us to do outside of Webpack
+    // optimizations for us to do outside of Rspack
     performance: {
       hints: false,
     },
@@ -283,11 +285,11 @@ export default function exports(env, argv) {
       chunks: false,
       // Add the hash of the compilation
       hash: false,
-      // `webpack --colors` equivalent
+      // Equivalent to webpack CLI's `--color`, which Rspack CLI does not support
       colors: true,
       // Add information about the reasons why modules are included
       reasons: false,
-      // Add webpack version information
+      // Add Rspack version information
       version: false,
     },
   };

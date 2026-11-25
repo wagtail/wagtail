@@ -240,7 +240,7 @@ Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGI
 
 ## Compiling static assets
 
-All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by Webpack. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
+All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by [Rspack](https://rspack.rs/). The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
 
 To compile the assets, run:
 

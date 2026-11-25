@@ -1,7 +1,7 @@
 /**
  * This entrypoint is not bundled with any polyfills to keep it as light as possible,
  * please stick to old JS APIs and avoid importing anything that might require a vendored module.
- * More background can be found in `webpack.config.js`.
+ * More background can be found in `rspack.config.mjs`.
  */
 
 import { Application } from '@hotwired/stimulus';
