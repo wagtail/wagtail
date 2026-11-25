@@ -1562,6 +1562,94 @@ class TestPageGetSpecific(PageFixturesMixin, TestCase):
         self.assertIs(type(result), Page)
         self.assertEqual(result.id, self.page.id)
 
+    def test_preserves_base_select_related_and_prefetch_related(self):
+        page = (
+            Page.objects.filter(pk=self.page.pk)
+            .select_related("locale")
+            .prefetch_related("subscribers")
+            .get()
+        )
+        with self.assertNumQueries(1):
+            result = page.specific
+        with self.assertNumQueries(0):
+            self.assertEqual(result.locale, page.locale)
+            self.assertEqual(
+                list(result.subscribers.all()), list(page.subscribers.all())
+            )
+
+        deferred_page = (
+            Page.objects.filter(pk=self.page.pk)
+            .select_related("locale")
+            .prefetch_related("subscribers")
+            .get()
+        )
+        with self.assertNumQueries(0):
+            deferred_result = deferred_page.get_specific(deferred=True)
+            self.assertEqual(deferred_result.locale, deferred_page.locale)
+            self.assertEqual(
+                list(deferred_result.subscribers.all()),
+                list(deferred_page.subscribers.all()),
+            )
+
+    def test_preserves_subclass_select_related_and_prefetch_related(self):
+        event_page = Page.objects.get(url_path="/home/events/christmas/")
+        page = (
+            Page.objects.filter(pk=event_page.pk)
+            .select_related("locale", "eventpage__feed_image")
+            .prefetch_related(
+                "subscribers",
+                "eventpage__carousel_items",
+                "eventpage__carousel_items__image",
+            )
+            .get()
+        )
+        with self.assertNumQueries(0):
+            result = page.specific
+            self.assertIsInstance(result, EventPage)
+            self.assertTrue(result.locale)
+            _ = list(result.subscribers.all())
+            _ = result.feed_image
+            _ = [item.image for item in result.carousel_items.all()]
+
+    def test_preserves_subclass_prefetch_related_without_select_related(self):
+        event_page = Page.objects.get(url_path="/home/events/christmas/")
+        page = (
+            Page.objects.filter(pk=event_page.pk)
+            .prefetch_related("eventpage__carousel_items")
+            .get()
+        )
+        with self.assertNumQueries(0):
+            result = page.specific
+            self.assertIsInstance(result, EventPage)
+            _ = list(result.carousel_items.all())
+
+    def test_preserves_select_related_when_subclass_has_deferred_fields(self):
+        event_page = Page.objects.get(url_path="/home/events/christmas/")
+        page = (
+            Page.objects.filter(pk=event_page.pk)
+            .select_related("eventpage__feed_image")
+            .only("title", "content_type", "eventpage__feed_image")
+            .get()
+        )
+        with self.assertNumQueries(1):
+            result = page.specific
+        with self.assertNumQueries(0):
+            self.assertIsInstance(result, EventPage)
+            _ = result.feed_image
+
+    def test_copy_attrs_exclude_relation_caches(self):
+        page = (
+            Page.objects.filter(pk=self.page.pk)
+            .select_related("locale")
+            .prefetch_related("subscribers")
+            .get()
+        )
+        result = page.get_specific(
+            copy_attrs_exclude=("_state", "_prefetched_objects_cache")
+        )
+        self.assertNotIn("locale", result._state.fields_cache)
+        self.assertFalse(hasattr(result, "_prefetched_objects_cache"))
+
 
 class TestCopyPage(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
