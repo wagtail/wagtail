@@ -5,10 +5,10 @@ resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
     "python_full_version >= '3.14' and sys_platform != 'win32'",
     "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12' and sys_platform == 'win32'",
     "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.12.*' and sys_platform != 'win32'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and sys_platform == 'win32'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12' and sys_platform != 'win32'",
 ]
 supported-markers = [
@@ -775,8 +775,8 @@ resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
     "python_full_version >= '3.14' and sys_platform != 'win32'",
     "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.12.*' and sys_platform != 'win32'",
 ]
 dependencies = [
@@ -889,15 +889,15 @@ wheels = [
 
 [[package]]
 name = "django-taggit"
-version = "6.1.0"
+version = "7.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django", version = "5.2.19", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "django", version = "6.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/34/a6/f1beaf8f552fe90c153cc039316ebab942c23dfbc88588dde081fefca816/django_taggit-6.1.0.tar.gz", hash = "sha256:c4d1199e6df34125dd36db5eb0efe545b254dec3980ce5dd80e6bab3e78757c3", size = 38151, upload-time = "2024-09-29T08:07:39.477Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e5/a9/40c57c5fb8fe20f9982f07d0fd85b5da9fd852324be79307f560362fea56/django_taggit-7.0.0.tar.gz", hash = "sha256:338b7af0f3417f079a2a4346da1677a1e0d4ca0aba1b04a4e12c9e3a85450a7a", size = 39112, upload-time = "2026-11-02T11:26:33.173Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6b/34/4185c345530b91d05cb82e05d07148f481a5eb5dc2ac44e092b3daa6f206/django_taggit-6.1.0-py3-none-any.whl", hash = "sha256:ab776264bbc76cb3d7e49e1bf9054962457831bd21c3a42db9138b41956e4cf0", size = 75749, upload-time = "2024-09-29T08:07:14.612Z" },
+    { url = "https://files.pythonhosted.org/packages/eb/5d/ba6dbb7dd576db6eee402bc74d1ff263812b19b06af48414dc8ca8d39c81/django_taggit-7.0.0-py3-none-any.whl", hash = "sha256:191dd89528f40a6109d1922f197885f25db3cd05b4280b6ec2a1e8e790c295b8", size = 66479, upload-time = "2026-11-02T11:26:31.849Z" },
 ]
 
 [[package]]
@@ -3216,7 +3216,7 @@ requires-dist = [
     { name = "django-pattern-library", marker = "extra == 'testing'", specifier = ">=0.7" },
     { name = "django-permissionedforms", specifier = ">=0.1,<1.0" },
     { name = "django-stubs", marker = "extra == 'testing'", specifier = "==6.1.0" },
-    { name = "django-taggit", specifier = ">=5.0,<7" },
+    { name = "django-taggit", specifier = ">=6.0,<8" },
     { name = "django-tasks", specifier = ">=0.9,<0.13" },
     { name = "django-treebeard", specifier = ">=4.8,<6.0" },
     { name = "djangorestframework", specifier = ">=3.18.0,<4.0" },
