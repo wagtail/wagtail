@@ -12,7 +12,7 @@ license-files = ["LICENSE"]
 authors = [
   { name = "Wagtail core team + contributors", email = "hello@wagtail.org" },
 ]
-requires-python = ">=3.11.5"
+requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Web Environment",
@@ -141,3 +141,8 @@ version = { attr = "wagtail.__version__" }
 [tool.ty.src]
 # Scoped to specific modules for gradual adoption.
 include = ["wagtail/api/v3", "wagtail/*/api/v3"]
+
+[tool.uv]
+# For maintainers to avoid vulnerable packages (e.g. soupsieve)
+# without enforcing requires-python downstream
+environments = ["python_full_version >= '3.11.5'"]
