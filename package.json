@@ -106,7 +106,6 @@
     "tailwindcss": "^3.4.14",
     "tailwindcss-vanilla-rtl": "^0.4.0",
     "ts-jest": "^29.4.5",
-    "ts-loader": "^9.5.4",
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.8.3",

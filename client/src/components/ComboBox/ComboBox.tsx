@@ -29,8 +29,6 @@ export interface ComboBoxItem {
   render?: (props: { option: ComboBoxItem }) => JSX.Element | string;
 }
 
-export { UseComboboxStateChange };
-
 export type ComboBoxStateChange = UseComboboxStateChange<ComboBoxItem>;
 
 export interface ComboBoxProps<ComboBoxOption> {

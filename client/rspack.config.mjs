@@ -182,8 +182,16 @@ export default function exports(env, argv) {
       rules: [
         {
           test: /\.(js|ts)x?$/,
-          loader: 'ts-loader',
+          loader: 'builtin:swc-loader',
           exclude: /node_modules/,
+          options: {
+            detectSyntax: 'auto',
+            // Match the target and jsx settings in tsconfig.json.
+            jsc: {
+              target: 'es2023',
+              transform: { react: { runtime: 'classic' } },
+            },
+          },
         },
         {
           test: /\.(svg)$/i,
