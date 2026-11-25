@@ -2695,6 +2695,10 @@ class TaggedRestaurant(ItemBase):
         to="tests.RestaurantPage", on_delete=models.CASCADE, related_name="tagged_items"
     )
 
+    class Meta:
+        verbose_name = "tagged restaurant"
+        verbose_name_plural = "tagged restaurants"
+
 
 class SimpleTask(Task):
     pass
@@ -2824,6 +2828,10 @@ class TaggedRestaurantDocument(ItemBase):
         related_name="tagged_items",
     )
 
+    class Meta:
+        verbose_name = "tagged restaurant document"
+        verbose_name_plural = "tagged restaurant documents"
+
 
 class CustomRestaurantDocument(AbstractDocument):
     tags = TaggableManager(
@@ -2845,6 +2853,10 @@ class TaggedRestaurantImage(ItemBase):
         on_delete=models.CASCADE,
         related_name="tagged_items",
     )
+
+    class Meta:
+        verbose_name = "tagged restaurant image"
+        verbose_name_plural = "tagged restaurant images"
 
 
 class CustomRestaurantImage(AbstractImage):

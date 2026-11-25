@@ -1812,6 +1812,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
+                "verbose_name": "tagged restaurant",
+                "verbose_name_plural": "tagged restaurants",
             },
         ),
         migrations.AddField(
@@ -3350,6 +3352,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
+                "verbose_name": "tagged restaurant document",
+                "verbose_name_plural": "tagged restaurant documents",
             },
         ),
         migrations.AddField(
@@ -3471,6 +3475,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
+                "verbose_name": "tagged restaurant image",
+                "verbose_name_plural": "tagged restaurant images",
             },
         ),
         migrations.AddField(
