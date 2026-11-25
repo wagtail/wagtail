@@ -4,6 +4,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "jsx": "react",
     "lib": ["ES2023", "ES2023.Intl", "DOM", "DOM.iterable"],
     "moduleResolution": "node",
