@@ -154,7 +154,7 @@ export default defineConfig(
       'client/src/plugins/scrollbarThin.js',
       'client/tests/**',
       'tailwind.config.js',
-      'webpack.config.js',
+      'client/rspack.config.mjs',
       '**/*.stories.js',
       '**/*.stories.tsx',
       '**/*.test.js',

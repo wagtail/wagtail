@@ -11,7 +11,7 @@ const storybook = {
   /**
    * Redefine Babel config to allow TypeScript class fields `declare`.
    * @see https://github.com/storybookjs/storybook/issues/12479.
-   * The resulting configuration is closer to Wagtail’s Webpack + TypeScript setup,
+   * The resulting configuration is closer to Wagtail’s Rspack + TypeScript setup,
    * preventing other potential issues with JS transpilation differences.
    */
   babel: async (options) => ({
