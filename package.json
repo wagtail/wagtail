@@ -53,10 +53,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
     "@eslint/js": "^9.39.2",
     "@rsbuild/core": "^2.3.4",
     "@rsbuild/plugin-react": "^2.1.1",
@@ -78,7 +74,6 @@
     "@wagtail/eslint-config-wagtail": "^0.6.0",
     "@wagtail/stylelint-config-wagtail": "^0.8.0",
     "autoprefixer": "^10.4.21",
-    "babel-loader": "^9.2.1",
     "concurrently": "^9.2.3",
     "css-loader": "^7.1.5",
     "cssnano": "^5.1.15",
