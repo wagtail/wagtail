@@ -282,6 +282,13 @@ export default function exports(env, argv) {
     watchOptions: {
       poll: 1000,
       aggregateTimeout: 300,
+      // Avoid rebuilding when our own output (or Python bytecode) is written to wagtail/.
+      ignored: [
+        '**/.git/**',
+        '**/node_modules/**',
+        '**/wagtail/**/static/**',
+        '**/__pycache__/**',
+      ],
     },
 
     // Disable performance hints – currently there are much more valuable
