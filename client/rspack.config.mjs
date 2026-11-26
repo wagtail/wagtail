@@ -1,5 +1,6 @@
 import path from 'path';
 import { rspack } from '@rspack/core';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 
 /**
  * Generates a path to the output bundle to be loaded in the browser.
@@ -144,6 +145,7 @@ export default function exports(env, argv) {
     },
 
     plugins: [
+      new TsCheckerRspackPlugin(),
       new rspack.CssExtractRspackPlugin({
         filename: '[name].css',
       }),
