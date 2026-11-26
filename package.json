@@ -102,6 +102,7 @@
     "stylelint": "^15.11.0",
     "tailwindcss": "^3.4.14",
     "tailwindcss-vanilla-rtl": "^0.4.0",
+    "ts-checker-rspack-plugin": "^1.8.0",
     "ts-jest": "^29.4.5",
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.10",
