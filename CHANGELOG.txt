@@ -60,6 +60,7 @@ Changelog
  * Fix: Improve performance of `instances_user_has_any_permission_for` and `explorable_instances` in `PagePermissionPolicy` (Ayush Kumar)
  * Fix: Make `ancestor_of`, `child_of`, `descendant_of` and `translation_of` filters in V3 API correctly handle reference pages outside of the result set criteria (Satyam Laheri)
  * Fix: Ensure signature check failure on redirect import raises `SuspiciousOperation` rather than `AttributeError` (Matt Westcott)
+ * Fix: Prevent the collapsed page editor minimap from being scrollable, fixing `scrollable-region-focusable` axe warnings (Nirav S)
  * Fix: Prevent syntax errors from crashing a dev server with a `RuntimeError` when using jinja2 (Sage Abdullah, Matt Westcott)
  * Fix: Add `Vary: X-Requested-With` to responses from pages with an `ajax_template` (Albina Starykova)
  * Fix: Protect workflow action buttons against multiple submissions that could cause a crash or an overwrite (Nick Moreton, Jakub Mastalerz, Sage Abdullah)
