@@ -473,6 +473,48 @@ Ensure you replace _username_, _mail@example.com_, and _password_ with a usernam
 
 For more information on how to set up your Django project on Fly.io, read [Django on Fly.io](https://fly.io/docs/django/).
 
+(sending_emails_from_your_site)=
+
+### Sending emails from your site
+
+Your site is configured to use the console email backend, which prints emails to the server logs instead of sending them. This is fine for your site's contact form if you are happy to read submissions with `flyctl logs`, but you will need a real email backend if you want emails to be delivered.
+
+Fly.io doesn't send emails for you, so you need an email provider. Any provider that offers SMTP will work. This example uses [Mailgun](https://www.mailgun.com/), but the same approach applies to other providers: sign up, verify your sending domain, and copy the SMTP credentials they give you.
+
+Store the credentials as Fly.io secrets, along with your other secrets:
+
+```sh
+flyctl secrets set MAILGUN_SMTP_USERNAME=your_mailgun_username MAILGUN_SMTP_PASSWORD=your_mailgun_password
+```
+
+Then configure the `default` mailer in your `mysite/settings/production.py` file:
+
+```python
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.mailgun.org",
+            "username": os.getenv("MAILGUN_SMTP_USERNAME"),
+            "password": os.getenv("MAILGUN_SMTP_PASSWORD"),
+            "use_tls": True,
+        },
+    },
+}
+```
+
+```{note}
+The port doesn't need to be set: it defaults to `587` when `use_tls` is `True`. For other providers, check their documentation for the host name and whether they need TLS or SSL.
+```
+
+Deploy your site again for the change to take effect, then submit your contact form to confirm the email arrives:
+
+```sh
+fly deploy --ha=false
+```
+
+For more information, see Django's documentation on [configuring email](https://docs.djangoproject.com/en/stable/topics/email/) and [migrating to mailers](https://docs.djangoproject.com/en/stable/howto/mailers-migration/).
+
 ## Add content to your live site
 
 All this while, you've been adding content to your site in the local environment. Now that your site is live on a server, you must add content to the live site. To add content to your live site, go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser and follow the steps in the following sub-sections of the tutorial:
