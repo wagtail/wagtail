@@ -62,7 +62,7 @@ PUBLISH_ACTION_META_FIELD = {"action": (Literal["publish"] | None, None)}
 
 class ParamTypeInjectingBodyModel(TypeInjectingBodyModel):
     type_param: ClassVar[str] = "type"
-    validate = True
+    enforce_meta_type = True
 
     @classmethod
     def get_meta_type(cls, request, api, path_params):

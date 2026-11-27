@@ -39,7 +39,7 @@ class TypeInjectingBodyModel(BodyModel):
     #: outright (422) rather than letting the body's type silently pick a
     #: different, but still validly registered, schema to validate/bind the
     #: request against.
-    validate: ClassVar[bool] = False
+    enforce_meta_type: ClassVar[bool] = False
 
     @classmethod
     def get_request_data(
@@ -49,7 +49,7 @@ class TypeInjectingBodyModel(BodyModel):
         path_params: DictStrAny,
     ) -> Optional[DictStrAny]:
         request_data = super().get_request_data(request, api, path_params) or {}
-        if cls.validate:
+        if cls.enforce_meta_type:
             meta_type = cls.get_meta_type(request, api, path_params)
             validate_type(request_data.setdefault("data", {}), meta_type)
             request_data["data"]["meta"] = {
