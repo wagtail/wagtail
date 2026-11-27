@@ -572,6 +572,15 @@ class AbstractWorkflow(ClusterableModel):
             status=WorkflowState.STATUS_IN_PROGRESS,
             requested_by=user,
         )
+        # Lock the object's row so that concurrent submissions run one at a
+        # time, and a later one fails the active workflow check in clean()
+        # instead of hitting the database constraint.
+        base_model = state.base_content_type.model_class()
+        list(
+            base_model._base_manager.select_for_update()
+            .filter(pk=obj.pk)
+            .values_list("pk", flat=True)
+        )
         state.save()
         state.update(user=user)
         workflow_submitted.send(sender=state.__class__, instance=state, user=user)

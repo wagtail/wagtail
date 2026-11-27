@@ -3,11 +3,11 @@ import json
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import models, transaction
 from django.forms import Media
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
@@ -581,7 +581,19 @@ class CreateEditViewOptionalFeaturesMixin:
             self.workflow_state.resume(self.request.user)
         else:
             # Otherwise start a new workflow
-            self.workflow.start(self.object, self.request.user)
+            try:
+                self.workflow.start(self.object, self.request.user)
+            except ValidationError:
+                # Another request started a workflow on this object first
+                messages.error(
+                    self.request,
+                    _("%(model_name)s '%(object)s' is already in moderation.")
+                    % {
+                        "model_name": capfirst(self.model._meta.verbose_name),
+                        "object": get_latest_str(self.object),
+                    },
+                )
+                return redirect(self.get_edit_url())
 
         return None
 

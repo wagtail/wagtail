@@ -1800,6 +1800,30 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertEqual(task_state.task.specific, self.task_1)
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
+    def test_submit_when_workflow_already_started(self):
+        start = Workflow.start
+
+        def start_after_another_request(workflow, obj, user):
+            # Another submission starts a workflow on the object after this
+            # request has passed the lock check, but before it starts its own
+            start(workflow, obj, self.submitter)
+            return start(workflow, obj, user)
+
+        with mock.patch.object(Workflow, "start", start_after_another_request):
+            response = self.post("submit", follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "is already in moderation.")
+        self.assertEqual(
+            WorkflowState.objects.active()
+            .filter(
+                base_content_type=self.object.get_base_content_type(),
+                object_id=str(self.object.pk),
+            )
+            .count(),
+            1,
+        )
+
     def test_submit_for_approval_changes_status_in_status_side_panel_meta(self):
         edit_url = self.get_url("edit")
 

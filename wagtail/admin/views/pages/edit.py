@@ -4,7 +4,7 @@ from urllib.parse import quote
 import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.db.models import Prefetch, Q
 from django.http import HttpResponse, JsonResponse
@@ -821,7 +821,16 @@ class EditView(
         else:
             # Otherwise start a new workflow
             workflow = self.page.get_workflow()
-            workflow.start(self.page, self.request.user)
+            try:
+                workflow.start(self.page, self.request.user)
+            except ValidationError:
+                # Another request started a workflow on this page first
+                messages.error(
+                    self.request,
+                    _("Page '%(page_title)s' is already in moderation.")
+                    % {"page_title": self.page.get_admin_display_title()},
+                )
+                return redirect("wagtailadmin_pages:edit", self.page.id)
 
         message = _("Page '%(page_title)s' has been submitted for moderation.") % {
             "page_title": self.page.get_admin_display_title()
