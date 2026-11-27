@@ -2148,14 +2148,31 @@ class AbstractPage(
         obj.pk = self.pk
         obj.content_type_id = self.content_type_id
 
-        # Override possibly-outdated tree parameter fields
-        obj.path = self.path
-        obj.depth = self.depth
-        obj.numchild = self.numchild
+        # Override possibly-outdated tree parameter fields.
+        # If this page already exists in the database, fetch the live treebeard
+        # fields (path, depth, numchild) from the database to ensure we do not
+        # overwrite them with stale values from an in-memory cached instance.
+        tree_data = None
+        if self.pk:
+            tree_data = (
+                Page.objects.filter(pk=self.pk)
+                .values("path", "depth", "numchild")
+                .first()
+            )
+
+        if tree_data:
+            obj.path = tree_data["path"]
+            obj.depth = tree_data["depth"]
+            obj.numchild = tree_data["numchild"]
+        else:
+            obj.path = self.path
+            obj.depth = self.depth
+            obj.numchild = self.numchild
 
         # Update url_path to reflect potential slug changes, but maintaining the page's
         # existing tree position
-        obj.set_url_path(self.get_parent())
+        parent = obj.get_parent() if tree_data else self.get_parent()
+        obj.set_url_path(parent)
 
         # Ensure other values that are meaningful for the page as a whole (rather than
         # to a specific revision) are preserved
