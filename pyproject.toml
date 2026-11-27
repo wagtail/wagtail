@@ -80,11 +80,11 @@ testing = [
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.16.5",
-  "ty==0.0.75",
-  "django-stubs==6.1.0",
+  "ruff==0.17.6",
+  "ty==0.0.112",
+  "django-stubs==6.1.2",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.175.0",
+  "semgrep==1.187.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
@@ -141,6 +141,9 @@ version = { attr = "wagtail.__version__" }
 [tool.ty.src]
 # Scoped to specific modules for gradual adoption.
 include = ["wagtail/api/v3", "wagtail/*/api/v3"]
+
+[tool.ty.rules]
+incompatible-mutable-override = "ignore"
 
 [tool.uv]
 # For maintainers to avoid vulnerable packages (e.g. soupsieve)
