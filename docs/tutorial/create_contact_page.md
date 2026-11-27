@@ -74,6 +74,10 @@ In the preceding code, your `FormField` model inherits from `AbstractFormField`.
 
 On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects a `form_fields` to be defined.
 
+```{note}
+In development, emails sent by your form are printed to the console rather than delivered. See [](sending_emails_from_your_site) when you are ready to send real emails.
+```
+
 After defining your `FormField` and `FormPage` models, you must create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The `form_page_landing.html`, on the other hand, is a standard Wagtail template. Your site displays the `form_page_landing.html` after a user makes a successful form submission.
 
 Now, create a `base/templates/base/form_page.html` file and add the following to it:
