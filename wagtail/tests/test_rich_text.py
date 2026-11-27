@@ -33,6 +33,20 @@ class TestPageLinktypeHandler(PageFixturesMixin, TestCase):
         result = PageLinkHandler.expand_db_attributes({"id": 0})
         self.assertEqual(result, "<a>")
 
+    def test_expand_db_attributes_with_anchor(self):
+        result = PageLinkHandler.expand_db_attributes(
+            {"id": 3, "anchor": 'contact / café"<>&'}
+        )
+        self.assertEqual(
+            result, '<a href="/events/#contact%20%2F%20caf%C3%A9%22%3C%3E%26">'
+        )
+
+    def test_expand_db_attributes_with_anchor_and_missing_page(self):
+        self.assertEqual(
+            PageLinkHandler.expand_db_attributes({"id": 0, "anchor": "contact"}),
+            "<a>",
+        )
+
     def test_expand_db_attributes_not_for_editor(self):
         result = PageLinkHandler.expand_db_attributes({"id": 1})
         self.assertEqual(result, '<a href="None">')

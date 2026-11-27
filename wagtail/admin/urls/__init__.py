@@ -57,6 +57,11 @@ urlpatterns = [
     # TODO: Move into wagtailadmin_pages namespace
     path("choose-page/", chooser.BrowseView.as_view(), name="wagtailadmin_choose_page"),
     path(
+        "choose-page/resolve-link/",
+        chooser.ResolvePageLinkView.as_view(),
+        name="wagtailadmin_resolve_page_link",
+    ),
+    path(
         "choose-page/<int:parent_page_id>/",
         chooser.BrowseView.as_view(),
         name="wagtailadmin_choose_page_child",

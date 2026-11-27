@@ -22,6 +22,8 @@ def link_entity(props):
     if id_ is not None:
         link_props["linktype"] = "page"
         link_props["id"] = id_
+        if props.get("anchor"):
+            link_props["anchor"] = props["anchor"]
     else:
         link_props["href"] = check_url(props.get("url"))
 

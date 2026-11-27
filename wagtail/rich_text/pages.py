@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 import swapper
 from django.db.models import Model
 from django.utils.html import escape
@@ -29,10 +31,16 @@ class PageLinkHandler(LinkHandler):
 
     @classmethod
     def expand_db_attributes_many(cls, attrs_list: list[dict]) -> list[str]:
-        return [
-            '<a href="%s">' % escape(page.localized.url) if page else "<a>"
-            for page in cls.get_many(attrs_list)
-        ]
+        result = []
+        for attrs, page in zip(attrs_list, cls.get_many(attrs_list)):
+            if page is None:
+                result.append("<a>")
+                continue
+            url = page.localized.url
+            if anchor := attrs.get("anchor"):
+                url = f"{url}#{quote(anchor, safe='')}"
+            result.append('<a href="%s">' % escape(url))
+        return result
 
     @classmethod
     def extract_references(self, attrs):
