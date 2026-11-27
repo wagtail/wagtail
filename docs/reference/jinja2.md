@@ -219,3 +219,23 @@ The ``{% include_block %}`` tag is designed to closely follow the syntax and beh
 of Jinja's ``{% include %}``, so it does not implement the Django version's feature of
 only passing specified variables into the context.
 ```
+
+### `{% wagtailcache %}`
+
+The `{% wagtailcache %}` tag functions similarly to Django template's `{% cache %}` tag, but will neither cache or serve cached content when previewing a page (or other model) in Wagtail.
+
+See [](wagtailcache) for more information.
+
+```{note}
+The ``{% wagtailcache %}`` tag does not support customizing the cache backend - using either ``template_fragments`` or ``default``.
+```
+
+### `{% wagtailpagecache %}`
+
+`{% wagtailpagecache %}` is an extension of `{% wagtailcache %}`, but is also aware of the current `page` and `site`, and includes those as part of the cache key.
+
+See [](wagtailpagecache) for more information.
+
+```{note}
+The ``{% wagtailpagecache %}`` tag does not support customizing the cache backend - using either ``template_fragments`` or ``default``.
+```
