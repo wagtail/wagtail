@@ -47,7 +47,7 @@ def get_restricted_collection_ids(request):
     """
     restricted_root_collection_ids = {
         # Django adds ``<foreign_key>_id`` attributes dynamically.
-        restriction.collection_id  # ty: ignore[unresolved-attribute]
+        restriction.collection_id
         for restriction in CollectionViewRestriction.objects.all()
         if not restriction.accept_request(request)
     }

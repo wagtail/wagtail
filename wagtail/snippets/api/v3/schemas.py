@@ -42,7 +42,7 @@ class BaseSnippetSchema(BaseSchema):
 
 
 class BaseSnippetCreateMetaSchema(BaseCreateMetaSchema):
-    type: str | None = None
+    pass
 
 
 class BaseSnippetCreateSchema(BaseCreateSchema):

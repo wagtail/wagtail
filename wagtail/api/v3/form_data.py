@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import Any, cast
+from typing import Any, Callable, cast
 
 import swapper
 from django import forms
@@ -86,7 +86,7 @@ def get_api_form_class(model: type[Model], field_names: Iterable[str] | None = N
     try:
         # Page and snippets .get_edit_handler() is monkey-patched to the class,
         # so it isn't visible statically.
-        edit_handler = cast(Panel, model.get_edit_handler())  # ty: ignore[unresolved-attribute]
+        edit_handler = cast(Callable[[], Panel], model.get_edit_handler)()  # ty: ignore[invalid-attribute-access]
     except AttributeError:
         edit_handler = get_edit_handler(model)
 
@@ -285,7 +285,7 @@ def use_api_block_widgets(form_class: type[BaseForm]) -> None:
     """Give every StreamField in ``form_class``, and in its formsets' forms
     (recursively), an ``APIBlockWidget``. Only for a form class generated for
     this request, since this modifies its fields in place."""
-    for field in form_class.base_fields.values():  # ty:ignore[unresolved-attribute]
+    for field in form_class.base_fields.values():  # ty:ignore[missing-attribute]
         if isinstance(field, BlockField):
             field.widget = APIBlockWidget()
     for formset_class in getattr(form_class, "formsets", {}).values():
@@ -381,7 +381,7 @@ def to_prep_block_value(block, value: Any, prefix: str, data: MultiValueDict) ->
 def _to_prep_field_block_value(
     block: FieldBlock, value: Any, prefix: str, data: MultiValueDict
 ) -> Any:
-    widget = cast(forms.Field, block.field).widget  # ty:ignore[unresolved-attribute]
+    widget = cast(forms.Field, block.field).widget  # ty:ignore[missing-attribute]
     if isinstance(block, RichTextBlock) and value is not None:
         try:
             value, warnings = APIRichText.convert_input(value, features=block.features)
@@ -496,7 +496,7 @@ def build_form_data(
     InlinePanel child), keyed by the relation name inside each child item.
     """
     data = MultiValueDict()
-    base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[unresolved-attribute]
+    base_fields: dict[str, Field] = form_class.base_fields  # ty:ignore[missing-attribute]
     for name, field in base_fields.items():
         if name in payload:
             _set_field_value(field, name, payload[name], data)

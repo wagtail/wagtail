@@ -35,11 +35,11 @@ class BaseSchema(Schema):
 
 
 class BaseCreateMetaSchema(Schema):
-    type: str
+    type: str | None = None
 
 
 class BaseCreateSchema(Schema):
-    meta: BaseCreateMetaSchema
+    meta: BaseCreateMetaSchema | None = None
 
 
 class BaseUpdateMetaSchema(Schema):

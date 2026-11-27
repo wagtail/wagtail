@@ -49,7 +49,7 @@ BASE_PAGE_READ_FIELDS_SET = set(BASE_PAGE_READ_FIELDS)
 
 
 class SimpleBasePageMetaSchema(BaseMetaSchema):
-    type: str | None = None
+    type: str
     detail_url: str | None = None
     html_url: str | None = None
 
@@ -121,6 +121,7 @@ class PageSchema(BasePageSchema):
 
 
 class PageCreateMetaSchema(BaseCreateMetaSchema):
+    type: str
     parent_id: int
     action: Literal["publish"] | None = None
 

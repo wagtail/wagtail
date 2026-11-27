@@ -77,7 +77,7 @@ class RedirectInputSchema(Schema):
 )
 def list_redirects(
     request: HttpRequest,
-    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[not-callable]
     **kwargs,
 ):
     pagination_info = cast(

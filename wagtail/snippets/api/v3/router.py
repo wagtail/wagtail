@@ -141,10 +141,10 @@ class SnippetRevisionDetailSchema(RevisionDetailSchema):
 def list_snippets(
     request: HttpRequest,
     type: SnippetTypeLiteral,
-    translation_filter: TranslationFilterSchema = Query(...),  # ty: ignore[call-non-callable]
-    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
-    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    translation_filter: TranslationFilterSchema = Query(...),  # ty: ignore[not-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[not-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[not-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -183,8 +183,8 @@ def get_snippet(
     request: HttpRequest,
     type: SnippetTypeLiteral,
     pk: str,
-    version: Literal["live", "draft"] = Query("live"),  # ty: ignore[call-non-callable]
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    version: Literal["live", "draft"] = Query("live"),  # ty: ignore[not-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     permission_policy = policy_registry.get_by_type(model)
@@ -212,7 +212,7 @@ def create_snippet(
     request: HttpRequest,
     type: SnippetTypeLiteral,
     data: SnippetCreateSchema = ParamTypeInjectingBody(...),
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     form = build_model_form(model, data, user=request.user)
@@ -240,7 +240,7 @@ def update_snippet(
     type: SnippetTypeLiteral,
     pk: str,
     data: SnippetUpdateSchema = ParamTypeInjectingBody(...),
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=unquote(pk))
@@ -295,7 +295,7 @@ def list_snippet_revisions(
     request: HttpRequest,
     type: literals_by_mixin[RevisionMixin],  # ty: ignore[invalid-type-form]
     pk: str,
-    filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+    filters: RevisionFilterSchema = Query(...),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=unquote(pk))
@@ -394,7 +394,7 @@ def revert_snippet(
     request: HttpRequest,
     type: literals_by_mixin[RevisionMixin],  # ty: ignore[invalid-type-form]
     pk: str,
-    data: SnippetRevertSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: SnippetRevertSchema = Body(...),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     instance = get_object_or_404(model, pk=unquote(pk))
@@ -420,7 +420,7 @@ def copy_for_translation(
     request: HttpRequest,
     type: literals_by_mixin[TranslatableMixin],  # ty: ignore[invalid-type-form]
     pk: str,
-    data: SnippetCopyForTranslationSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: SnippetCopyForTranslationSchema = Body(...),  # ty: ignore[not-callable]
 ):
     if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         raise Http404("Internationalization is not enabled.")
@@ -504,7 +504,7 @@ def approve_snippet_workflow(
     request: HttpRequest,
     type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
     pk: str,
-    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))
@@ -526,7 +526,7 @@ def reject_snippet_workflow(
     request: HttpRequest,
     type: literals_by_mixin[WorkflowMixin],  # ty: ignore[invalid-type-form]
     pk: str,
-    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(type)
     snippet = get_object_or_404(model, pk=unquote(pk))

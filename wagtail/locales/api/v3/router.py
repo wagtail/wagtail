@@ -1,3 +1,5 @@
+from typing import cast
+
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
@@ -125,7 +127,7 @@ def update_locale(request: HttpRequest, locale_id: int, data: LocaleInputSchema)
 )
 @require_any_permission(Locale, ("delete",))
 def delete_locale(request: HttpRequest, locale_id: int):
-    locale = get_object_or_404(Locale.all_objects, pk=locale_id)
+    locale = cast(Locale, get_object_or_404(Locale.all_objects, pk=locale_id))
     _check_can_delete(locale)
     action_class = action_registry.get_action_class(Locale, "delete")
     action_class(locale, user=request.user).execute()

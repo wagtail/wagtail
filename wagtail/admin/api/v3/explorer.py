@@ -71,7 +71,7 @@ def get_translations(page: Page, explorable_pages: PageQuerySet) -> PageQuerySet
 def explorer(
     request: HttpRequest,
     page_id: int,
-    pagination: ExplorerPagination.Input = Query(...),  # ty: ignore[call-non-callable]
+    pagination: ExplorerPagination.Input = Query(...),  # ty: ignore[not-callable]
 ):
     permission_policy = cast(PagePermissionPolicy, policy_registry.get_by_type(Page))
     explorable_pages = permission_policy.explorable_instances(request.user)

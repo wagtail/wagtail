@@ -37,7 +37,7 @@ class TestV3Base(SimpleTestCase):
         if user is None:
             if username is None:
                 # Provided by WagtailTestUtils on the concrete test class.
-                user = self.create_test_user()  # ty: ignore[unresolved-attribute]
+                user = self.create_test_user()  # ty: ignore[missing-attribute]
             else:
                 if user_model.USERNAME_FIELD == "email" and "@" not in username:
                     username = "%s@example.com" % username
@@ -122,14 +122,14 @@ class TestV3WorkflowBase(TestV3Base, WagtailTestUtils, TestCase):
             username="submitter",
             password="password",  # noqa: S106 - test fixture
         )
-        Group.objects.get(name="Editors").user_set.add(self.submitter)  # ty: ignore[unresolved-attribute]
+        Group.objects.get(name="Editors").user_set.add(self.submitter)  # ty: ignore[missing-attribute]
         self.moderator = self.create_user(
             username="moderator",
             password="password",  # noqa: S106 - test fixture
             first_name="Mod",
             last_name="Erator",
         )
-        Group.objects.get(name="Moderators").user_set.add(self.moderator)  # ty: ignore[unresolved-attribute]
+        Group.objects.get(name="Moderators").user_set.add(self.moderator)  # ty: ignore[missing-attribute]
         self.bare_approver = self.create_user(
             username="bare-approver",
             password="password",  # noqa: S106 - test fixture

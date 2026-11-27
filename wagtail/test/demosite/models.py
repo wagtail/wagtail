@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Iterable
 
 import swapper
 from django.core.exceptions import ValidationError
@@ -105,7 +106,7 @@ class AbstractCarouselItem(AbstractLinkFields):
     embed_url = models.URLField("Embed URL", blank=True)
     caption = models.CharField(max_length=255, blank=True)
 
-    api_fields = (
+    api_fields: Iterable[APIField | str] = (
         APIField("image", writable=True),
         APIField("embed_url", writable=True),
         APIField("caption", writable=True),

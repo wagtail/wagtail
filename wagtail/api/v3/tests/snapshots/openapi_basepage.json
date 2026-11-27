@@ -22389,15 +22389,8 @@
             "title": "Html Url"
           },
           "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Type"
+            "title": "Type",
+            "type": "string"
           },
           "warnings": {
             "anyOf": [
@@ -22421,6 +22414,7 @@
             "title": "Warnings"
           }
         },
+        "required": ["type"],
         "title": "SimpleBasePageMetaSchema",
         "type": "object"
       },

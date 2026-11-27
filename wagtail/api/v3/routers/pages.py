@@ -216,9 +216,9 @@ class PageFilterSchema(FilterSchema):
 )
 def list_pages(
     request: HttpRequest,
-    filters: PageFilterSchema = Query(...),  # ty: ignore[call-non-callable]
-    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
-    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
+    filters: PageFilterSchema = Query(...),  # ty: ignore[not-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[not-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[not-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -262,7 +262,7 @@ def find_page(
     id: Optional[PositiveInt] = None,
     html_path: Optional[str] = None,
     site: Optional[str] = None,
-    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
+    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[not-callable]
 ):
     page = None
 
@@ -304,8 +304,8 @@ def find_page(
 def get_page(
     request: HttpRequest,
     page_id: int,
-    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[call-non-callable]
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    version: Optional[Literal["live", "draft"]] = Query("live"),  # ty: ignore[not-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(get_pages_queryset(request), pk=page_id)
     if version == "draft" and request.user.is_authenticated:
@@ -324,8 +324,8 @@ def get_page(
 @require_any_permission(Page, ("add",))
 def create_page(
     request: HttpRequest,
-    data: PageCreateSchema = Body(...),  # ty: ignore[call-non-callable]
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    data: PageCreateSchema = Body(...),  # ty: ignore[not-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(data.meta.type)
     parent = get_object_or_404(Page, id=data.meta.parent_id).specific
@@ -355,7 +355,7 @@ def update_page(
     request: HttpRequest,
     page_id: int,
     data: PageUpdateSchema = PageTypeInjectingBody(...),
-    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[call-non-callable]
+    rich_text_format: RichTextOutputFormat | None = Query(None),  # ty: ignore[not-callable]
 ):
     model = resolve_model_string(data.meta.type)
     page = get_object_or_404(model, pk=page_id)
@@ -391,7 +391,7 @@ def _check_can_view_revisions(request: HttpRequest, page: Page) -> None:
 def list_page_revisions(
     request: HttpRequest,
     page_id: int,
-    filters: RevisionFilterSchema = Query(...),  # ty: ignore[call-non-callable]
+    filters: RevisionFilterSchema = Query(...),  # ty: ignore[not-callable]
     **kwargs,
 ):
     page = get_object_or_404(get_pages_queryset(request), pk=page_id).specific
@@ -486,7 +486,7 @@ class PageUnpublishSchema(Schema):
 def unpublish(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageUnpublishSchema = Body(PageUnpublishSchema()),  # ty: ignore[call-non-callable]
+    data: PageUnpublishSchema = Body(PageUnpublishSchema()),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     action_class = action_registry.get_action_class(Page, "unpublish")
@@ -553,7 +553,7 @@ class PageCopySchema(Schema):
 def copy(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageCopySchema = Body(PageCopySchema()),  # ty: ignore[call-non-callable]
+    data: PageCopySchema = Body(PageCopySchema()),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id)
     destination = data.get_destination()
@@ -600,7 +600,7 @@ class PageMoveSchema(Schema):
 def move(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageMoveSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: PageMoveSchema = Body(...),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id)
     target = get_object_or_404(Page, pk=data.destination_id)
@@ -650,7 +650,7 @@ class PageRevertSchema(Schema):
 def revert(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageRevertSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: PageRevertSchema = Body(...),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     revision = get_object_or_404(page.revisions, id=data.revision_id)
@@ -711,7 +711,7 @@ class PageCreateAliasSchema(Schema):
 def create_alias(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageCreateAliasSchema = Body(PageCreateAliasSchema()),  # ty: ignore[call-non-callable]
+    data: PageCreateAliasSchema = Body(PageCreateAliasSchema()),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     destination = data.get_destination()
@@ -748,7 +748,7 @@ class PageCopyForTranslationSchema(Schema):
 def copy_for_translation(
     request: HttpRequest,
     page_id: PositiveInt,
-    data: PageCopyForTranslationSchema = Body(...),  # ty: ignore[call-non-callable]
+    data: PageCopyForTranslationSchema = Body(...),  # ty: ignore[not-callable]
 ):
     if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         raise Http404("Internationalization is not enabled.")
@@ -797,7 +797,7 @@ def submit_workflow(request, page_id: PositiveInt):
 def approve_workflow(
     request,
     page_id: PositiveInt,
-    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)
@@ -817,7 +817,7 @@ def approve_workflow(
 def reject_workflow(
     request,
     page_id: PositiveInt,
-    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[call-non-callable]
+    data: WorkflowTaskActionSchema = Body(WorkflowTaskActionSchema()),  # ty: ignore[not-callable]
 ):
     page = get_object_or_404(Page, pk=page_id).specific
     check_can_view_workflow(page, request.user)

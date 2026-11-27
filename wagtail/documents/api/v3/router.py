@@ -55,8 +55,8 @@ def get_documents_queryset(request: HttpRequest):
 )
 def list_documents(
     request: HttpRequest,
-    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
-    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[not-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[not-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -102,8 +102,8 @@ def get_document(request: HttpRequest, document_id: int):
 @require_any_permission(Document, ("add",))
 def create_document(
     request: HttpRequest,
-    file: UploadedFile = File(...),  # ty: ignore[call-non-callable]
-    data: DocumentCreateSchema = Form(...),  # ty: ignore[call-non-callable, invalid-type-form]
+    file: UploadedFile = File(...),  # ty: ignore[not-callable]
+    data: DocumentCreateSchema = Form(...),  # ty: ignore[not-callable, invalid-type-form]
 ):
     form = build_document_form(Document, data, file, request.user)
     action_class = action_registry.get_action_class(Document, "create")
@@ -124,7 +124,7 @@ def create_document(
 def update_document(
     request: HttpRequest,
     document_id: int,
-    data: DocumentPatchSchema = Body(...),  # ty: ignore[call-non-callable, invalid-type-form]
+    data: DocumentPatchSchema = Body(...),  # ty: ignore[not-callable, invalid-type-form]
 ):
     document = get_object_or_404(Document, pk=document_id)
     form = build_document_update_form(document, data, request.user)

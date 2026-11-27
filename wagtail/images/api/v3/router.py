@@ -60,8 +60,8 @@ def get_images_queryset(request: HttpRequest):
 )
 def list_images(
     request: HttpRequest,
-    ordering: OrderingSchema = Query(...),  # ty: ignore[call-non-callable]
-    search: SearchSchema = Query(...),  # ty: ignore[call-non-callable]
+    ordering: OrderingSchema = Query(...),  # ty: ignore[not-callable]
+    search: SearchSchema = Query(...),  # ty: ignore[not-callable]
     **kwargs,
 ):
     pagination_info = cast(
@@ -105,8 +105,8 @@ def get_image(request: HttpRequest, image_id: int):
 @require_any_permission(Image, ("add",))
 def create_image(
     request: HttpRequest,
-    file: UploadedFile = File(...),  # ty: ignore[call-non-callable]
-    data: ImageCreateSchema = Form(...),  # ty: ignore[call-non-callable, invalid-type-form]
+    file: UploadedFile = File(...),  # ty: ignore[not-callable]
+    data: ImageCreateSchema = Form(...),  # ty: ignore[not-callable, invalid-type-form]
 ):
     form = build_image_form(Image, data, file, request.user)
     action_class = action_registry.get_action_class(Image, "create")
@@ -127,7 +127,7 @@ def create_image(
 def update_image(
     request: HttpRequest,
     image_id: int,
-    data: ImagePatchSchema = Body(...),  # ty: ignore[call-non-callable, invalid-type-form]
+    data: ImagePatchSchema = Body(...),  # ty: ignore[not-callable, invalid-type-form]
 ):
     image = get_object_or_404(Image, pk=image_id)
     form = build_image_update_form(image, data, request.user)

@@ -57,5 +57,5 @@ def build_image_update_form(
     form_data = build_form_data(form_class, payload, instance=instance)
     if "collection" not in payload and "collection" in form_class.base_fields:
         # Django adds ``<foreign_key>_id`` attributes dynamically.
-        form_data["collection"] = instance.collection_id  # ty: ignore[unresolved-attribute]
+        form_data["collection"] = instance.collection_id  # ty: ignore[missing-attribute]
     return form_class(data=form_data, instance=instance, user=user)
