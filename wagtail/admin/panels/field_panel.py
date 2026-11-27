@@ -89,6 +89,11 @@ class FieldPanel(Panel):
         try:
             field = self.db_field
 
+            if field.is_relation and field.one_to_one and not field.concrete:
+                # The reverse side of a OneToOneField (a OneToOneRel) has no
+                # choices and no value_from_object; use a dedicated comparison.
+                return compare.OneToOneRelComparison
+
             if field.choices:
                 return compare.ChoiceFieldComparison
 
