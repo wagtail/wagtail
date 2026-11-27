@@ -52,7 +52,13 @@ class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
     @classmethod
     def execute_action(cls, objects, user=None, **kwargs):
         num_parent_objects, num_child_objects = 0, 0
-        for page in objects:
+        object_ids = {page.pk for page in objects}
+        pages_to_delete = [
+            page
+            for page in objects
+            if not page.get_ancestors().filter(pk__in=object_ids).exists()
+        ]
+        for page in pages_to_delete:
             num_parent_objects += 1
             num_child_objects += page.get_descendant_count()
             page.delete(user=user)
