@@ -347,7 +347,7 @@ export class SwapController extends Controller<
    * values serialized. Do not account for anything in the main location/URL, simply replace the content within
    * the target element.
    */
-  submit() {
+  submit(event?: Event) {
     const form = this.formElement;
     let data: FormData | undefined = new FormData(form);
 
@@ -355,7 +355,19 @@ export class SwapController extends Controller<
     // serialize the form to a query string if it's a GET request
     if (form.getAttribute('method')?.toUpperCase() === 'GET') {
       // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
-      url += '?' + new URLSearchParams(data as any).toString();
+      const params = new URLSearchParams(data as any);
+      // Some fields, such as the images listing's layout switch, only change how
+      // the results are displayed, not which results are shown, so keep the page.
+      const page = new URLSearchParams(window.location.search).get('p');
+      const target = event?.target;
+      if (
+        page &&
+        target instanceof Element &&
+        target.closest('[data-w-swap-keep-page]')
+      ) {
+        params.set('p', page);
+      }
+      url += '?' + params.toString();
       data = undefined;
     }
 
