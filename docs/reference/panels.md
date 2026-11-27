@@ -379,7 +379,9 @@ Use the `classname` argument to the panel constructor to add CSS classes to the 
 The `title` class can be used to make the input stand out with a bigger font size and weight.
 
 (collapsible)=
-The `collapsed` class will load the editor page with the panel collapsed under its heading.
+The `collapsed` class sets the panel's default state to collapsed under its heading.
+
+Wagtail remembers expanded and collapsed panels in the browser's local storage, separately for each editor URL. Saved state takes precedence over the `collapsed` class and persists when saving a draft or reloading the page. It does not carry over to another browser or device. Panels containing validation errors are expanded regardless of their saved state.
 
 ```python
 content_panels = [

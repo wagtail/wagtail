@@ -125,12 +125,9 @@ export class ListBlock extends BaseSequenceBlock {
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.sequenceContainer = dom.find('[data-streamfield-list-container]');
     this.container = dom;
-    this.setState(initialState || []);
-    if (this.blockDef.meta.collapsed) {
-      this.children.forEach((block) => {
-        block.collapse();
-      });
-    }
+    this.setState(initialState || [], {
+      collapsed: this.blockDef.meta.collapsed,
+    });
 
     if (initialError) {
       this.setError(initialError);
@@ -145,11 +142,11 @@ export class ListBlock extends BaseSequenceBlock {
    * State for a ListBlock is a list of {id, value} objects, but
    * ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
    */
-  setState(blocks) {
+  setState(blocks, opts) {
     this.clear();
     blocks.forEach(({ value, id }, i) => {
       const validId = id === undefined ? uuidv4() : id;
-      this.insert(value, i, { id: id || validId });
+      this.insert(value, i, { ...opts, id: id || validId });
     });
   }
 

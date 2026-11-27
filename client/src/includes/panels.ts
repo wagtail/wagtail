@@ -1,5 +1,19 @@
 import { getElementByContentPath } from '../utils/contentPath';
 
+const PANEL_EXPANDED_STORAGE_KEY = 'wagtail:panel-expanded';
+type PanelStates = Record<string, Record<string, boolean>>;
+
+const getPanelStates = (): PanelStates => {
+  try {
+    return (
+      JSON.parse(localStorage.getItem(PANEL_EXPANDED_STORAGE_KEY) || '{}') ?? {}
+    );
+  } catch {
+    // Use the default state if browser storage is unavailable or invalid.
+    return {};
+  }
+};
+
 /**
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
@@ -43,8 +57,8 @@ export const toggleCollapsiblePanel = (
 };
 
 /**
- * Initializes event handlers for a collapsible panel,
- * and applies the correct initial state based on classes.
+ * Initializes event handlers and restores saved state,
+ * falling back to the panel's classes.
  */
 export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const panel = toggle.closest<HTMLElement>('[data-panel]');
@@ -65,8 +79,13 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
 
   const togglePanel = toggleCollapsiblePanel.bind(null, toggle);
 
-  // Collapse panels marked as `collapsed`, unless they contain invalid fields.
-  const hasCollapsed = panel.classList.contains('collapsed');
+  // Saved state overrides the default, but must not hide validation errors.
+  const savedExpanded =
+    getPanelStates()[window.location.pathname]?.[content.id];
+  const hasCollapsed =
+    typeof savedExpanded === 'boolean'
+      ? !savedExpanded
+      : panel.classList.contains('collapsed');
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
@@ -75,6 +94,26 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   if (isCollapsed) {
     togglePanel(false);
   }
+
+  // Listen after restoring state so initialization does not overwrite preferences.
+  toggle.addEventListener('wagtail:panel-toggle', () => {
+    const states = getPanelStates();
+    const { pathname } = window.location;
+    try {
+      localStorage.setItem(
+        PANEL_EXPANDED_STORAGE_KEY,
+        JSON.stringify({
+          ...states,
+          [pathname]: {
+            ...states[pathname],
+            [content.id]: toggle.getAttribute('aria-expanded') === 'true',
+          },
+        }),
+      );
+    } catch {
+      // Panels remain usable if browser storage is unavailable or full.
+    }
+  });
 
   toggle.addEventListener('click', togglePanel.bind(null, undefined));
 
@@ -96,7 +135,7 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
 }
 
 /**
- * Make panels collapsible, and collapse panels already marked as `collapsed`.
+ * Make panels collapsible, restoring saved state or the `collapsed` default.
  */
 export function initCollapsiblePanels(
   toggles = document.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]'),
