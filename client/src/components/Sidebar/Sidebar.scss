@@ -29,14 +29,6 @@ $sidebar-toggle-size: 35px;
     inset-inline-end: $sidebar-toggle-spacing;
     inset-inline-start: initial;
   }
-
-  .has-messages & {
-    top: $sidebar-toggle-spacing + 70px;
-
-    @include media-breakpoint-up(sm) {
-      top: $sidebar-toggle-spacing;
-    }
-  }
 }
 
 .sidebar,
@@ -105,9 +97,11 @@ $sidebar-toggle-size: 35px;
   &--mobile {
     @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;
     display: grid;
+    top: var(--w-messages-height, 0);
   }
 
   &--open {
     @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
+    top: 0;
   }
 }
