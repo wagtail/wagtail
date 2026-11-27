@@ -2,6 +2,8 @@ import json
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
+from django.utils.translation import gettext
 
 from wagtail.admin import widgets
 from wagtail.models import Locale
@@ -106,3 +108,48 @@ class TestChooserViewSetWithDottedStringFormClass(WagtailTestUtils, TestCase):
     def test_chooser_create_view_loads(self):
         response = self.client.get("/admin/advert_chooser/create/")
         self.assertEqual(response.status_code, 200)
+
+
+class TestChooserViewSetTranslations(TestCase):
+    def test_labels_translated_at_render_time(self):
+        from wagtail.test.testapp.views import advert_chooser_viewset
+
+        viewset = advert_chooser_viewset
+        widget = viewset.widget_class()
+        block = viewset.get_block_class()()
+
+        with translation.override("en"):
+            choose_en = gettext("Choose")
+            choose_another_en = gettext("Choose another")
+            edit_en = gettext("Edit")
+            search_en = gettext("Search")
+
+        with translation.override("fr"):
+            choose_fr = gettext("Choose")
+            choose_another_fr = gettext("Choose another")
+            edit_fr = gettext("Edit")
+            search_fr = gettext("Search")
+
+            # Ensure French strings are distinct from English
+            self.assertNotEqual(choose_en, choose_fr)
+            self.assertNotEqual(choose_another_en, choose_another_fr)
+            self.assertNotEqual(edit_en, edit_fr)
+            self.assertNotEqual(search_en, search_fr)
+
+            # Check view init kwargs for modal tabs
+            choose_view = viewset.choose_view
+            self.assertEqual(
+                str(choose_view.view_initkwargs["search_tab_label"]), search_fr
+            )
+
+            # Check standalone widget HTML
+            html = widget.render_html("test", None, attrs={"id": "test-id"})
+            self.assertIn(choose_fr, html)
+            self.assertIn(choose_another_fr, html)
+            self.assertIn(edit_fr, html)
+
+            # Check StreamField block widget HTML
+            block_html = block.widget.render_html("test", None, attrs={"id": "test-id"})
+            self.assertIn(choose_fr, block_html)
+            self.assertIn(choose_another_fr, block_html)
+            self.assertIn(edit_fr, block_html)

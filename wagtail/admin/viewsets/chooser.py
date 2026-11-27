@@ -3,7 +3,7 @@ import warnings
 from django.db.models import ForeignKey
 from django.urls import path
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.telepath import register as register_telepath_adapter
