@@ -1,5 +1,6 @@
 import functools
 import json
+import re
 
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -7,6 +8,7 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin import compare
+from wagtail.admin.telepath import JSContext
 from wagtail.admin.telepath import register as register_telepath_adapter
 
 from .base import Panel, get_form_for_model
@@ -133,14 +135,14 @@ class InlinePanel(Panel):
                         attrs={"value": index + 1}
                     )
 
-                self.children.append(
-                    self.child_edit_handler.get_bound_panel(
-                        instance=subform.instance,
-                        request=self.request,
-                        form=subform,
-                        prefix=("%s-%d" % (self.prefix, index)),
-                    )
+                child = self.child_edit_handler.get_bound_panel(
+                    instance=subform.instance,
+                    request=self.request,
+                    form=subform,
+                    prefix=("%s-%d" % (self.prefix, index)),
                 )
+                child.label_format_attrs = self.get_row_label_format_attrs(subform)
+                self.children.append(child)
 
             # if this formset is valid, it may have been re-ordered; respect that
             # in case the parent form errored and we need to re-render
@@ -160,6 +162,21 @@ class InlinePanel(Panel):
                 form=empty_form,
                 prefix=("%s-__prefix__" % self.prefix),
             )
+            self.empty_child.label_format_attrs = self.get_row_label_format_attrs(
+                empty_form
+            )
+
+        def get_row_label_format_attrs(self, subform):
+            if not self.panel.label_format:
+                return {}
+            return {
+                "data-controller": "w-panel-label",
+                "data-w-panel-label-format-value": str(self.panel.label_format),
+                "data-w-panel-label-widgets-id-value": (
+                    f"id_{self.formset.prefix}-LABEL_FORMAT_WIDGETS"
+                ),
+                "data-w-panel-label-field-prefix-value": subform.prefix,
+            }
 
         def get_comparison(self):
             field_comparisons = []
@@ -185,6 +202,22 @@ class InlinePanel(Panel):
 
         telepath_adapter_name = "wagtail.panels.InlinePanel"
 
+        @property
+        def attrs(self):
+            return self.panel.attrs
+
+        @cached_property
+        def label_format_widgets(self):
+            if not self.panel.label_format:
+                return {}
+            referenced = re.findall(r"\{(\w+)\}", str(self.panel.label_format))
+            empty_form = self.empty_child.form
+            return {
+                name: empty_form.fields[name].widget
+                for name in referenced
+                if name in empty_form.fields
+            }
+
         def js_opts(self):
             return {
                 "type": type(self.panel).__name__,
@@ -199,6 +232,13 @@ class InlinePanel(Panel):
             context = super().get_context_data(parent_context)
             context["options_json"] = json.dumps(self.js_opts())
             context["can_order"] = self.formset.can_order
+            if self.label_format_widgets:
+                context["label_format_widgets_data"] = JSContext().pack(
+                    self.label_format_widgets
+                )
+                context["label_format_widgets_id"] = (
+                    f"id_{self.formset.prefix}-LABEL_FORMAT_WIDGETS"
+                )
             return context
 
         def telepath_pack(self, context):
