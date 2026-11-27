@@ -89,6 +89,7 @@ def page_breadcrumbs(
     trailing_breadcrumb_title=None,
     classname=None,
     icon_name=None,
+    navigation_scope="explorer",
 ):
     user = context["request"].user
 
@@ -99,6 +100,7 @@ def page_breadcrumbs(
         url_root_name,
         include_self,
         querystring_value,
+        navigation_scope,
     )
 
     if trailing_breadcrumb_title:

@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch
 from django.urls.base import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from django.views.generic.base import View
@@ -26,6 +27,7 @@ from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Locale, Site
+from wagtail.permissions import policy_registry
 
 Page = swapper.load_model("wagtailcore", "Page")
 base_page_type_string = swapper.get_model_name("wagtailcore", "Page").lower()
@@ -90,6 +92,11 @@ def can_choose_page(
     elif not can_choose_root and page.is_root():
         return False
 
+    page_perms = page.permissions_for_user(user)
+
+    if not page_perms.can_choose():
+        return False
+
     if user_perm in ["move_to", "bulk_move_to"]:
         pages_to_move = target_pages
 
@@ -100,7 +107,7 @@ def can_choose_page(
             if user_perm == "move_to":
                 return page_to_move.permissions_for_user(user).can_move_to(page)
     if user_perm in {"add_subpage", "copy_to"}:
-        return page.permissions_for_user(user).can_add_subpage()
+        return page_perms.can_add_subpage()
 
     return True
 
@@ -182,6 +189,10 @@ class PageCheckboxSelectColumn(Column):
 
 
 class BrowseView(View):
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(Page)
+
     @property
     def columns(self):
         cols = [
@@ -251,18 +262,60 @@ class BrowseView(View):
         except (ValueError, LookupError) as e:
             raise Http404 from e
 
+        context = shared_context(
+            request,
+            {
+                "page_type_string": page_type_string,
+                "page_type_names": [
+                    desired_class.get_verbose_name()
+                    for desired_class in self.desired_classes
+                ],
+                "page_types_restricted": (page_type_string != base_page_type_string),
+                "is_multiple_choice": self.is_multiple_choice,
+            },
+        )
+
         # Find parent page
+        self.parent_page = None
         if parent_page_id:
-            self.parent_page = get_object_or_404(Page, id=parent_page_id)
-        elif self.desired_classes == (Page,):
-            # Just use the root page
-            self.parent_page = Page.get_first_root_node()
-        else:
-            # Find the highest common ancestor for the specific classes passed in
-            # In many cases, such as selecting an EventPage under an EventIndex,
-            # this will help the administrator find their page quicker.
-            all_desired_pages = Page.objects.all().type(*self.desired_classes)
-            self.parent_page = all_desired_pages.first_common_ancestor()
+            try:
+                self.parent_page = self.permission_policy.chooser_navigable_instances(
+                    request.user
+                ).get(
+                    id=parent_page_id,
+                )
+            except Page.DoesNotExist:
+                # The specified parent page does not exist or is not navigable. This can happen legitimately
+                # if the user is updating a chooser previously set by a user with choose permission
+                # elsewhere in the tree, causing it to reopen somewhere inaccessible - so in this situation
+                # we fall through to the standard logic for choosing an initial parent page.
+                pass
+
+        if not self.parent_page:
+            if self.desired_classes == (Page,):
+                # Use the navigable root page
+                self.parent_page = (
+                    self.permission_policy.chooser_navigable_root_instance(request.user)
+                )
+            else:
+                # Find the highest common ancestor for the specific classes passed in
+                # In many cases, such as selecting an EventPage under an EventIndex,
+                # this will help the administrator find their page quicker.
+                navigable_pages = self.permission_policy.chooser_navigable_instances(
+                    request.user
+                )
+                all_desired_pages = navigable_pages.type(*self.desired_classes)
+                self.parent_page = all_desired_pages.first_common_ancestor()
+
+        if not self.parent_page:
+            # user has no choose permission anywhere in the page tree
+            return render_modal_workflow(
+                request,
+                "wagtailadmin/chooser/browse_forbidden.html",
+                None,
+                context,
+                json_data={"step": "browse"},
+            )
 
         self.parent_page = self.parent_page.specific
 
@@ -276,7 +329,7 @@ class BrowseView(View):
 
         match_subclass = request.GET.get("match_subclass", True)
 
-        # Parent page can be chosen if it is a instance of desired_classes
+        # Annotate page instance with flags to indicate allowed interactions
         self.parent_page.can_choose = can_choose_page(
             self.parent_page,
             request.user,
@@ -324,9 +377,12 @@ class BrowseView(View):
                 selected_locale = self.parent_page.locale
                 new_params.pop("locale", None)
                 # and get the locales based on its available translations
+                navigable_pages = self.permission_policy.chooser_navigable_instances(
+                    request.user
+                )
                 locales_and_parent_pages = {
                     item["locale"]: item["pk"]
-                    for item in Page.objects.translation_of(self.parent_page).values(
+                    for item in navigable_pages.translation_of(self.parent_page).values(
                         "locale", "pk"
                     )
                 }
@@ -379,25 +435,17 @@ class BrowseView(View):
         )
 
         # Render
-        context = shared_context(
-            request,
+        context.update(
             {
+                "search_form": SearchForm(),
                 "parent_page": self.parent_page,
                 "parent_page_id": self.parent_page.pk,
                 "table": table,
                 "pagination_page": pages,
-                "search_form": SearchForm(),
-                "page_type_string": page_type_string,
-                "page_type_names": [
-                    desired_class.get_verbose_name()
-                    for desired_class in self.desired_classes
-                ],
-                "page_types_restricted": (page_type_string != base_page_type_string),
                 "show_locale_controls": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
-                "is_multiple_choice": self.is_multiple_choice,
-            },
+            }
         )
 
         return render_modal_workflow(
@@ -410,6 +458,10 @@ class BrowseView(View):
 
 
 class SearchView(View):
+    @cached_property
+    def permission_policy(self):
+        return policy_registry.get_by_type(Page)
+
     @property
     def columns(self):
         cols = [
@@ -456,7 +508,9 @@ class SearchView(View):
         except (ValueError, LookupError) as e:
             raise Http404 from e
 
-        pages = Page.objects.all()
+        pages = self.permission_policy.instances_user_has_permission_for(
+            request.user, "choose"
+        )
         if self.i18n_enabled:
             pages = pages.select_related("locale")
 

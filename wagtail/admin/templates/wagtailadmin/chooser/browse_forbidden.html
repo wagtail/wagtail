@@ -1,0 +1,18 @@
+{% load i18n wagtailadmin_tags %}
+{% if page_types_restricted %}
+    {% trans "Choose" as choose_str %}
+{% else %}
+    {% trans "Choose a page" as choose_str %}
+{% endif %}
+
+{% querystring as search_query_params %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters=search_query_params icon="doc-empty-inverse" search_disable_async=True %}
+
+<div class="nice-padding">
+    {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
+
+    <p class="help-block help-warning">
+        {% icon name='warning' %}
+        {% trans "You do not have permission to choose pages." %}
+    </p>
+</div>

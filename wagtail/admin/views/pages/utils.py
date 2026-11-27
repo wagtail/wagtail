@@ -20,17 +20,24 @@ def get_breadcrumbs_items_for_page(
     root_url_name="wagtailadmin_explore_root",
     include_self=True,
     querystring_value="",
+    navigation_scope="explorer",
 ):
     Page = swapper.load_model("wagtailcore", "Page")
-    # find the closest common ancestor of the pages that this user has direct explore permission
-    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = policy_registry.get_by_type(Page).explorable_root_instance(user)
-    if not cca:
+    # Select the appropriate root page for the breadcrumb - for the chooser, this is based on
+    # 'chooser navigable root' (= the closest common ancestor of pages with choose permission)
+    # rather than explorable root (= the closest common ancestor of pages with add/edit/publish/lock permission)
+    if navigation_scope == "chooser":
+        nav_root = policy_registry.get_by_type(Page).chooser_navigable_root_instance(
+            user
+        )
+    else:
+        nav_root = policy_registry.get_by_type(Page).explorable_root_instance(user)
+    if not nav_root:
         return []
 
     pages = (
         page.get_ancestors(inclusive=include_self)
-        .descendant_of(cca, inclusive=True)
+        .descendant_of(nav_root, inclusive=True)
         .specific(defer=True)
     )
 

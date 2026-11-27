@@ -26,9 +26,11 @@ class TestExplorablePages(PageFixturesMixin, WagtailTestUtils, TestCase):
     8  example.com /home/other-content/
     10 example.com /home-2/
     ========================================================
-    Group 1 has explore and choose permissions rooted at testserver's homepage.
-    Group 2 has explore and choose permissions rooted at example.com's page-1.
-    Group 3 has explore and choose permissions rooted at example.com's other-content.
+    Group 1 has add/change/publish permissions rooted at testserver's homepage,
+        and choose permission at the tree root.
+    Group 2 has change permission rooted at example.com's page-1,
+        and choose permission at example.com's content.
+    Group 3 has change and choose permissions rooted at example.com's other-content.
     User "jane" is in Group 1.
     User "bob" is in Group 2.
     User "sam" is in Groups 1 and 2.
@@ -92,3 +94,44 @@ class TestExplorablePages(PageFixturesMixin, WagtailTestUtils, TestCase):
         user = User.objects.get(email="mary@example.com")
 
         self.assertIsNone(PagePermissionPolicy().explorable_root_instance(user))
+
+
+class TestChooserNavigablePages(PageFixturesMixin, WagtailTestUtils, TestCase):
+    fixtures = ["test_explorable_pages.json"]
+
+    def test_admins_see_all_pages(self):
+        User = get_user_model()
+        user = User.objects.get(email="superman@example.com")
+
+        self.assertEqual(
+            PagePermissionPolicy().chooser_navigable_root_instance(user).id, 1
+        )
+
+    def test_nav_root_for_nonadmin_is_closest_common_ancestor(self):
+        User = get_user_model()
+        user = User.objects.get(email="bob@example.com")
+
+        self.assertEqual(
+            PagePermissionPolicy().chooser_navigable_root_instance(user).id, 5
+        )
+
+    def test_nonadmin_sees_pages_below_closest_common_ancestor(self):
+        User = get_user_model()
+        user = User.objects.get(email="josh@example.com")
+        # Josh has permissions for /example-home/content and /example-home/other-content,
+        # of which the closest common ancestor is /example-home.
+
+        self.assertEqual(
+            PagePermissionPolicy().chooser_navigable_root_instance(user).id, 4
+        )
+
+        for page in PagePermissionPolicy().instances_with_direct_choose_permission(
+            user
+        ):
+            self.assertIn(page.id, [5, 8])
+
+    def test_nonadmin_with_no_page_perms_cannot_navigate_chooser(self):
+        User = get_user_model()
+        user = User.objects.get(email="mary@example.com")
+
+        self.assertIsNone(PagePermissionPolicy().chooser_navigable_root_instance(user))

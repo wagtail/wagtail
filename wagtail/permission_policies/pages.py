@@ -226,6 +226,19 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
                 if perm.permission.codename in codenames
             ]
 
+    def instances_with_direct_choose_permission(self, user):
+        # Get all pages that the user has direct choose permission on
+        if user.is_superuser:
+            # superuser has implicit permission on the root node
+            return self.model.base_page_model.objects.filter(depth=1)
+        else:
+            codename = self._get_permission_codename("choose")
+            return [
+                perm.page
+                for perm in self.get_cached_permissions_for_user(user)
+                if perm.permission.codename == codename
+            ]
+
     def explorable_root_instance(self, user):
         # This method is used all around the admin,
         # so cache the result on the user for the duration of the request
@@ -241,22 +254,37 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         setattr(user, self._explorable_root_instance_cache_name, root_page)
         return root_page
 
-    def explorable_instances(self, user):
+    def chooser_navigable_root_instance(self, user):
+        pages = self.instances_with_direct_choose_permission(user)
+        try:
+            return self.model.base_page_model.objects.first_common_ancestor_of(
+                pages, include_self=True, strict=True
+            )
+        except self.model.base_page_model.DoesNotExist:
+            return None
+
+    def navigable_instances(self, user, actions):
+        """
+        Given a user, and a set of action names, return a queryset of the
+        minimal subtree that covers all instances the user can perform any of
+        those actions on, while allowing navigation between them.
+        """
         base_queryset = self._base_queryset_for_user(user)
         if base_queryset is not None:
             return base_queryset
 
-        explorable_pages = self.instances_user_has_any_permission_for(
-            user, {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
-        )
+        navigable_pages = self.instances_user_has_any_permission_for(user, actions)
 
         # For all pages with specific permissions, add their ancestors as
         # explorable. This will allow deeply nested pages to be accessed in the
         # explorer. For example, in the hierarchy A>B>C>D where the user has
         # 'change' access on D, they will be able to navigate to D without having
         # explicit access to A, B or C.
+        permission_codenames = self._get_permission_codenames(actions)
         page_permissions = [
-            perm.page for perm in self.get_cached_permissions_for_user(user)
+            perm.page
+            for perm in self.get_cached_permissions_for_user(user)
+            if perm.permission.codename in permission_codenames
         ]
         # This is the same lookup as `PageQuerySet.ancestor_of_q()`, but the
         # ancestor paths of every permission page are gathered into a single set
@@ -269,7 +297,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             for pos in range(steplen, len(page.path), steplen)
         }
         if ancestor_paths:
-            explorable_pages |= self.model._default_manager.filter(
+            navigable_pages |= self.model._default_manager.filter(
                 path__in=ancestor_paths
             )
 
@@ -277,5 +305,13 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
         fca_page = self.model.base_page_model.objects.first_common_ancestor_of(
             page_permissions
         )
-        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
-        return explorable_pages
+        navigable_pages = navigable_pages.filter(path__startswith=fca_page.path)
+        return navigable_pages
+
+    def explorable_instances(self, user):
+        return self.navigable_instances(
+            user, {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
+        )
+
+    def chooser_navigable_instances(self, user):
+        return self.navigable_instances(user, {"choose"})

@@ -831,6 +831,15 @@
       "permission": ["unlock_page", "wagtailcore", "page"]
     }
   },
+  {
+    "pk": 10,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Event editors"],
+      "page": 2,
+      "permission": ["choose_page", "wagtailcore", "page"]
+    }
+  },
 
   {
     "pk": 1,
