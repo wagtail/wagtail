@@ -174,6 +174,7 @@ describe('DraftailRichTextArea', () => {
   let boundWidget;
   let inputElement;
   let parentCapabilities;
+  let widgetDef;
 
   const TEST_RAW = {
     blocks: [
@@ -205,7 +206,7 @@ describe('DraftailRichTextArea', () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';
 
-    const widgetDef = new window.draftail.DraftailRichTextArea({
+    widgetDef = new window.draftail.DraftailRichTextArea({
       entityTypes: [
         {
           type: 'LINK',
@@ -295,6 +296,45 @@ describe('DraftailRichTextArea', () => {
 
   test('getValue() returns the current value', () => {
     expect(boundWidget.getValue()).toBe(TEST_VALUE);
+  });
+
+  test('getDuplicatedState() saves and returns serialized raw content state', () => {
+    const saveStateSpy = jest.spyOn(inputElement.draftailEditor, 'saveState');
+    const duplicatedState = boundWidget.getDuplicatedState();
+    expect(saveStateSpy).toHaveBeenCalled();
+    expect(duplicatedState).toBe(boundWidget.getValue());
+    expect(JSON.parse(duplicatedState).blocks[0].text).toBe('Test Bold Italic');
+  });
+
+  test('render handles null or undefined initialState safely', () => {
+    const placeholderNull = document.createElement('div');
+    document.body.appendChild(placeholderNull);
+    expect(() => {
+      widgetDef.render(placeholderNull, 'test-null', 'id-null', null);
+    }).not.toThrow();
+
+    const placeholderUndef = document.createElement('div');
+    document.body.appendChild(placeholderUndef);
+    expect(() => {
+      widgetDef.render(placeholderUndef, 'test-undef', 'id-undef', undefined);
+    }).not.toThrow();
+  });
+
+  test('render with duplicated state initializes a fresh editor without reusing old editor state', () => {
+    const duplicatedState = boundWidget.getDuplicatedState();
+    const placeholder = document.createElement('div');
+    document.body.appendChild(placeholder);
+
+    const dupWidget = widgetDef.render(
+      placeholder,
+      'dup-name',
+      'dup-id',
+      duplicatedState,
+    );
+    const dupInput = document.querySelector('#dup-id');
+    expect(dupInput.value).toBe(duplicatedState);
+    expect(dupWidget.getValue()).toBe(duplicatedState);
+    expect(dupInput.draftailEditor).not.toBe(inputElement.draftailEditor);
   });
 
   test('getState() returns the current state', () => {

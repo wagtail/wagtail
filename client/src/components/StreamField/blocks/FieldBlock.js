@@ -176,6 +176,13 @@ export class FieldBlock {
     return this.widget.getState();
   }
 
+  getDuplicatedState() {
+    if (this.widget && this.widget.getDuplicatedState) {
+      return this.widget.getDuplicatedState();
+    }
+    return this.getState();
+  }
+
   getValue() {
     return this.widget.getValue();
   }
