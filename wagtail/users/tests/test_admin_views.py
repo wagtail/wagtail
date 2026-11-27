@@ -2675,6 +2675,62 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             panel.find("table").find("tbody").attrs["data-w-formset-target"],
         )
 
+    def test_permission_formset_row_headers(self):
+        # https://github.com/wagtail/wagtail/issues/12288 - rows of the page
+        # permissions table should start with a row header identifying the page
+        # the permissions apply to, and the checkboxes' accessible names should
+        # clean up to name the target object rather than app | model | permission.
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        panel = soup.find(id="page-permissions-section")
+        row = panel.find("tr", id="inline_child_page_permissions-0")
+
+        row_header = row.find("th", attrs={"scope": "row"})
+        self.assertIsNotNone(row_header)
+        self.assertEqual(
+            "Root",
+            row_header.select_one("[data-chooser-title]").text.strip(),
+        )
+
+        template_row_header = (
+            panel.find("template").find("tr").find("th", attrs={"scope": "row"})
+        )
+        self.assertIsNotNone(template_row_header)
+
+        lock_checkbox = row.find(
+            "input",
+            attrs={"name": "page_permissions-0-permissions", "value": "lock_page"},
+        )
+        labels = soup.find_all("label", attrs={"for": lock_checkbox["id"]})
+        label_text = " ".join(label.text.strip() for label in labels)
+        self.assertEqual("Lock/unlock pages you've locked", label_text)
+        self.assertNotIn("|", label_text)
+
+        # Check collection member permissions table has row header
+        doc_panel = soup.find(id="document-permissions-section")
+        doc_row = doc_panel.find("tr", id="inline_child_document_permissions-0")
+        doc_row_header = doc_row.find("th", attrs={"scope": "row"})
+        self.assertIsNotNone(doc_row_header)
+        self.assertEqual(
+            "Evil plans",
+            doc_row_header.find("option", attrs={"selected": True}).text.strip(),
+        )
+
+        # Check object permissions table body rows have row header
+        object_panel = soup.find(id="object-permissions-section")
+        object_rows = object_panel.find("tbody").find_all("tr")
+        self.assertTrue(len(object_rows) > 0)
+        for obj_row in object_rows:
+            self.assertIsNotNone(obj_row.find("th", attrs={"scope": "row"}))
+
+        # Check other permissions table body rows have row header
+        other_panel = soup.find(id="other-permissions-section")
+        other_rows = other_panel.find("tbody").find_all("tr")
+        self.assertTrue(len(other_rows) > 0)
+        for other_row in other_rows:
+            self.assertIsNotNone(other_row.find("th", attrs={"scope": "row"}))
+
 
 class TestGroupHistoryView(WagtailTestUtils, TestCase):
     # More thorough tests are in test_model_viewset
