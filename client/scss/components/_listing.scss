@@ -238,7 +238,8 @@ ul.listing {
       margin: 0;
       vertical-align: middle;
 
-      a {
+      a,
+      button {
         color: inherit;
         text-decoration: none;
 
@@ -246,6 +247,14 @@ ul.listing {
         &:hover {
           color: theme('colors.text-link-default');
         }
+      }
+
+      button {
+        background: transparent;
+        border: 0;
+        font: inherit;
+        padding: 0;
+        text-align: start;
       }
     }
 
