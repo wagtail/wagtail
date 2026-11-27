@@ -239,4 +239,7 @@ class MultiRuleRewriter:
 
     def extract_references(self, html):
         for rewriter in self.rewriters:
-            yield from rewriter.extract_references(html)
+            # rewriters registered via register_frontend_rewriter need only be callable
+            extract_references = getattr(rewriter, "extract_references", None)
+            if extract_references is not None:
+                yield from extract_references(html)

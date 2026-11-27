@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from wagtail import hooks
 
 
@@ -37,6 +39,11 @@ class FeatureRegistry:
         # into front-end HTML. Each rewriter function takes a dict of attributes, and returns an
         # HTML fragment to replace it with
         self.embed_types = {}
+
+        # a series of rewriter classes, and their ordering, for rewriting custom tags in the
+        # database representation of richtext into the frontend representation. Used for adding an
+        # entirely new concept to rich text, outside of the default link and embed rewriters
+        self.frontend_rewriters = []
 
         # a dict of dicts, one for each converter backend (editorhtml, contentstate etc);
         # each dict is a mapping of feature names to 'rule' objects that define how to convert
@@ -103,6 +110,19 @@ class FeatureRegistry:
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return list(self.converter_rules_by_converter.get(converter_name, {}))
+
+    def register_frontend_rewriter(self, rewriter, order=0):
+        self.frontend_rewriters.append((rewriter, order))
+
+    def get_frontend_rewriters(self):
+        """
+        Return the registered (rewriter, order) pairs, sorted by order. A negative
+        order runs before Wagtail's own link and embed rewriters.
+        """
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+
+        return sorted(self.frontend_rewriters, key=itemgetter(1))
 
     @staticmethod
     def function_as_entity_handler(identifier, fn):
