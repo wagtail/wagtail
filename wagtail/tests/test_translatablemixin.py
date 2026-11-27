@@ -3,6 +3,7 @@ from unittest.mock import patch
 from django.conf import settings
 from django.core import checks
 from django.db import models
+from django.forms import modelform_factory
 from django.test import TestCase, override_settings
 
 from wagtail.models import Locale
@@ -13,6 +14,7 @@ from wagtail.test.i18n.models import (
     InheritedTestModel,
     TestModel,
 )
+from wagtail.test.snippets.models import UniquePerLocaleSnippet
 
 
 def make_test_instance(model=None, **kwargs):
@@ -267,4 +269,25 @@ class TestSystemChecks(TestCase):
         self.assertEqual(
             errors[0].hint,
             "Remove unique_together in favor of UniqueConstraint.",
+        )
+
+
+class TestUniqueChecksWithLocale(TestCase):
+    def test_model_form_validates_unique_checks_with_locale(self):
+        # The locale field is not editable, so the form leaves it out,
+        # but unique checks that include it should still run
+        UniquePerLocaleSnippet.objects.create(text="Hello", slug="hello")
+        form_class = modelform_factory(UniquePerLocaleSnippet, fields=["text", "slug"])
+        form = form_class(
+            {"text": "Hello", "slug": "hello"},
+            instance=UniquePerLocaleSnippet(locale=Locale.get_default()),
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertCountEqual(
+            form.non_field_errors(),
+            [
+                "Unique per locale snippet with this Text and Locale already exists.",
+                "Unique per locale snippet with this Slug and Locale already exists.",
+            ],
         )

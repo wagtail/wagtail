@@ -120,3 +120,22 @@ class StandardSnippetWithCustomPrimaryKey(models.Model):
 @register_snippet
 class TranslatableSnippet(TranslatableMixin, models.Model):
     text = models.CharField(max_length=255)
+
+
+@register_snippet
+class UniquePerLocaleSnippet(TranslatableMixin, models.Model):
+    # text is unique per locale through unique_together,
+    # slug through a UniqueConstraint
+    text = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+
+    class Meta(TranslatableMixin.Meta):
+        unique_together = TranslatableMixin.Meta.unique_together + [
+            ("text", "locale"),
+        ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["slug", "locale"],
+                name="unique_slug_locale_snippetstests_uniqueperlocalesnippet",
+            ),
+        ]
