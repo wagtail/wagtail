@@ -312,7 +312,7 @@ class TestAccountSection(
         self.assertBreadcrumbsItemsRendered(
             [{"url": "", "label": "Account"}], response.content
         )
-        heading = soup.select_one("main h2")
+        heading = soup.select_one("main h1")
         self.assertIsNotNone(heading)
         self.assertEqual(heading.text.strip(), "Account")
 
