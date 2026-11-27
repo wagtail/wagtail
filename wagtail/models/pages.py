@@ -2925,10 +2925,14 @@ class Comment(ClusterableModel):
         )
 
     def save(self, update_position=False, **kwargs):
-        # Don't save the position unless specifically instructed to, as the position will normally be retrieved from the revision
+        # Preserve positions for the live content unless explicitly updated.
+        # Unpublished pages store draft content in the database, so their comment
+        # positions must be saved with it before the next revision is serialized.
         update_fields = kwargs.pop("update_fields", None)
-        if not update_position and (
-            not update_fields or "position" not in update_fields
+        if (
+            not update_position
+            and (not update_fields or "position" not in update_fields)
+            and self.page.live
         ):
             if self.id:
                 # The instance is already saved; we can use `update_fields`
