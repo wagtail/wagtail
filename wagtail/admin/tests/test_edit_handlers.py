@@ -2162,6 +2162,19 @@ class TestMultipleChooserPanel(PageFixturesMixin, WagtailTestUtils, TestCase):
             response, r"\u0022chooserFieldName\u0022: \u0022image\u0022"
         )
 
+    def test_add_button_preserves_label_case(self):
+        panel = MultipleChooserPanel(
+            "gallery_images", chooser_field_name="image", label="NASA image"
+        ).bind_to_model(GalleryPage)
+        request = get_dummy_request()
+        request.user = self.user
+        form_class = panel.get_form_class()
+        bound_panel = panel.get_bound_panel(request=request, form=form_class())
+
+        html = self.get_soup(bound_panel.render_html())
+        button = html.select_one("#id_gallery_images-OPEN_MODAL")
+        self.assertEqual(button.get_text(strip=True), "Add NASA image")
+
 
 class TestMultipleChooserPanelGetComparison(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
