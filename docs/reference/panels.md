@@ -214,6 +214,7 @@ Wagtail images, documents, snippets, and pages all implement this interface, and
 Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
 
 `MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
+The add button preserves the capitalization of `label`.
 
 For example, given a child model that provides a gallery of images on `BlogPage`:
 
@@ -235,7 +236,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```python
         MultipleChooserPanel(
-            'gallery_images', label="Gallery images", chooser_field_name="image"
+            'gallery_images', label="gallery images", chooser_field_name="image"
         )
 ```
 
