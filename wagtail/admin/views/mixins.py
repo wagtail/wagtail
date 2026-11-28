@@ -209,17 +209,22 @@ class SpreadsheetExportMixin:
         else:
             return value
 
-    def generate_xlsx_row(self, worksheet, row_dict, date_format=None):
-        """Generate cells to append to the worksheet"""
+    def make_xlsx_cell(self, worksheet, value):
+        """Create a write-only cell that will never be interpreted as a formula"""
         from openpyxl.cell import WriteOnlyCell
 
+        cell = WriteOnlyCell(worksheet, value)
+        if cell.data_type == "f":
+            # override anything that openpyxl detects as a formula back to a string
+            cell.data_type = "s"
+        return cell
+
+    def generate_xlsx_row(self, worksheet, row_dict, date_format=None):
+        """Generate cells to append to the worksheet"""
         for field, value in row_dict.items():
-            cell = WriteOnlyCell(
+            cell = self.make_xlsx_cell(
                 worksheet, self.preprocess_field_value(field, value, self.FORMAT_XLSX)
             )
-            if cell.data_type == "f":
-                # override anything that openpyxl detects as a formula back to a string
-                cell.data_type = "s"
             if date_format and isinstance(value, datetime.datetime):
                 cell.number_format = date_format
             yield cell
@@ -260,7 +265,8 @@ class SpreadsheetExportMixin:
 
         worksheet = workbook.create_sheet(title="Sheet1")
         worksheet.append(
-            self.get_heading(queryset, field) for field in self.list_export
+            self.make_xlsx_cell(worksheet, self.get_heading(queryset, field))
+            for field in self.list_export
         )
 
         date_format = ExcelDateFormatter().get()
